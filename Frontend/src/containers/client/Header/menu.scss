@@ -1,0 +1,21 @@
+.menu {
+  display: flex;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #F1F7FE;
+  box-sizing: border-box;
+  box-shadow: 0px 3px 8px rgba(166, 205, 227, 0.4);
+  border-radius: 32px;
+
+  .item {
+    margin: auto;
+    padding: 1rem;
+  }
+
+  .help-button {
+    background: #5EAC38;
+    border-radius: 77px;
+    padding: 1rem;
+    margin: 0 auto;
+  }
+}

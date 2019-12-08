@@ -3,7 +3,7 @@ import {RouteComponentProps} from "react-router";
 import {Link} from "react-router-dom";
 import {TI18n} from '../../../i18n';
 
-interface IPropTypes extends RouteComponentProps<any>{
+interface IPropTypes extends RouteComponentProps<any> {
 
 }
 
