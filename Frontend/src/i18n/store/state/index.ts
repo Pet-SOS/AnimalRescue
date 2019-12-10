@@ -3,6 +3,13 @@ export enum ELocales {
     En = 'en'
 }
 
+export interface ILocales {
+    key: string;
+    value: string;
+}
+
+export const locales = Object.entries(ELocales).map(([key, value]): ILocales => ({key: key, value: value}));
+
 export interface II18nState {
     locale: string;
 }

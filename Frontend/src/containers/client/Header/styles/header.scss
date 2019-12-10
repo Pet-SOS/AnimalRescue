@@ -1,0 +1,57 @@
+.app-header {
+  height: 43rem;
+  -moz-background-size: 100% !important;
+  -webkit-background-size: 100% !important;
+  -o-background-size: 100% !important;
+  background-size: 100% !important;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .logo-main {
+      display: flex;
+
+      .logo {
+        margin: 0 1rem;
+      }
+
+      .logo-text {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.375rem;
+        line-height: 1.625rem;
+        display: flex;
+        align-items: center;
+        color: #0D2B4B;
+        margin-right: 7rem;
+        max-width: 17rem;
+      }
+    }
+
+    .logo-contacts {
+      display: inherit;
+
+      .phone {
+        .title {
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 1rem;
+          line-height: 1.188rem;
+          color: #868697
+        }
+
+        .number {
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 1.125rem;
+          line-height: 1.312rem;
+          color: #0D2B4B;
+        }
+      }
+    }
+  }
+}

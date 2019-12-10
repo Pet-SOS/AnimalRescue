@@ -1,0 +1,23 @@
+@import "../../../../styles/variables";
+
+.menu {
+  display: flex;
+  width: 100%;
+  background: $main-bg-color;
+  border: 0.062rem solid $menu-border-color;
+  box-sizing: border-box;
+  box-shadow: 0 0.188rem .5rem rgba(166, 205, 227, 0.4);
+  border-radius: 2rem;
+
+  .item {
+    margin: auto;
+    padding: 1rem;
+  }
+
+  .help-button {
+    background: #5EAC38;
+    border-radius: 4.81rem;
+    padding: 1rem;
+    margin: 0 auto;
+  }
+}

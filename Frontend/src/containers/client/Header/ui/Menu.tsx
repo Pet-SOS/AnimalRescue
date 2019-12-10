@@ -1,6 +1,6 @@
 import React from "react";
-import "./menu.scss"
-import {ReactComponent as HeartLogo} from './heart.svg';
+import "../styles/menu.scss"
+import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
 
 export const AppMenu: React.FC = () => {
     return (

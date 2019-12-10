@@ -1,12 +1,15 @@
-import {createStore, Middleware, StoreEnhancer, compose, applyMiddleware} from 'redux';
+import {createStore, Middleware, StoreEnhancer, Dispatch, compose, applyMiddleware} from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
-import {createReducers} from './reducers';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+import noop from 'lodash/noop';
 
+import {createReducers} from './reducers';
 import logger from './logger';
 import {appSaga} from './saga';
+
+let dispatch: Dispatch = noop as Dispatch;
 
 export const history = createBrowserHistory();
 
@@ -28,6 +31,8 @@ const enhancer: StoreEnhancer<any> = composeEnhancers(applyMiddleware(...middlew
 
 
 const store = createStore(createReducers(), {}, enhancer);
+
+dispatch = store.dispatch;
 
 sagaMiddleware.run(appSaga);
 

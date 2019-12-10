@@ -1,3 +1,6 @@
 export default {
-  admin: 'Админ'
+  admin: 'Админ',
+  hotLinePhones: 'Телефоны горячей линии',
+  headerTitle: 'Спасение животных в Харькове',
+
 }

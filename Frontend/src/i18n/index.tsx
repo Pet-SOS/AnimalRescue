@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import i18n from 'i18n-js';
-
 import {ICustomAppState} from "../store/state";
 import {ELocales} from "./store/state";
 import en from './translations/en';
@@ -25,10 +24,11 @@ const TI18nMain = (props: IPropTypes) => {
   return (<>{i18n.t(props.keyStr, params)}</>)
 };
 
-const mapStateToProps = (state: ICustomAppState) => ({
+const I18nMainMapStateToProps = (state: ICustomAppState) => ({
    currentLocale: state.i18n.locale
 });
 
-const TI18n = connect(mapStateToProps)(TI18nMain);
+const TI18n = connect(I18nMainMapStateToProps)(TI18nMain);
 
 export { TI18n };
+export * from './ui/ChangeLocale'
