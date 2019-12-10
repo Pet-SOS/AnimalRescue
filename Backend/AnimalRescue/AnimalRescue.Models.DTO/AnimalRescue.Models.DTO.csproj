@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AnimalRescue.Models.DTO\AnimalRescue.Models.DTO.csproj" />
-  </ItemGroup>
-
 </Project>
