@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import AppHeader from "./Component";
+import AppHeader from "./ui/Component";
 
 
 const stateToProps = () => ({});

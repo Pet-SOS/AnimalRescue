@@ -5,8 +5,11 @@ import {actionSetLocale} from "../actions";
 
 export function i18nReducer(state: II18nState = defaultI18nState, action: AnyAction) {
     switch (action.type) {
-        case getType(actionSetLocale()): {
-            return state
+        case getType(actionSetLocale): {
+            return {
+                ...state,
+                locale: action.payload.locale
+            }
         }
 
         default:
