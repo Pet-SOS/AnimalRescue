@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using AnimalRescue.DataAccess.Mongodb;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalRescue.Resolver
 {
     public static class ResolverExtension
     {
-        public static void AddLayerResolver(this IServiceCollection services)
+        public static void AddLayerResolver(this IServiceCollection services, IConfiguration configuration)
         {
-            
+            services.AddSConfigureMongoDb(configuration);
         }
     }
 }

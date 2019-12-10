@@ -21,7 +21,7 @@ namespace AnimalRescue.API.Controllers
         public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> Get()
         {
 
-            return new CollectionSegmentApiResponse<AnimalModel>>(){ Data };
+            return new CollectionSegmentApiResponse<AnimalModel>{ };
         }
     }
 }

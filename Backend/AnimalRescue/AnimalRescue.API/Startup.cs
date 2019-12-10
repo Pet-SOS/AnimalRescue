@@ -32,7 +32,7 @@ namespace AnimalRescue.API
             
             services.AddSConfigureSwagger();
 
-            services.AddLayerResolver();
+            services.AddLayerResolver(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
