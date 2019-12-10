@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnimalRescue.API.Core.Middlewares;
+using AnimalRescue.Resolver;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,8 +29,10 @@ namespace AnimalRescue.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services.AddSConfigureSwagger();
 
-            services.AddSConfigureSwagger(); 
+            services.AddLayerResolver();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

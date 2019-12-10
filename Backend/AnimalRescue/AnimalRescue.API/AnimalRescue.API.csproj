@@ -8,4 +8,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AnimalRescue.Models.DTO\AnimalRescue.Models.DTO.csproj" />
+    <ProjectReference Include="..\AnimalRescue.Resolver\AnimalRescue.Resolver.csproj" />
+  </ItemGroup>
+
 </Project>
