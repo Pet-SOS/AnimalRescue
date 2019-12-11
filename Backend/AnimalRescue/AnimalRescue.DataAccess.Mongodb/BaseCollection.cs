@@ -19,6 +19,11 @@ namespace AnimalRescue.DataAccess.Mongodb
         protected IMongoDatabase database;
         protected IMongoCollection<T> collection;
 
+        public BaseCollection(IMongoClient client, IMongoDbSettings settings)     
+            : this(client, settings, typeof(T).Name)
+        {
+        }
+
         public BaseCollection(IMongoClient client, IMongoDbSettings settings, string collectionName)
         {
             this.client = client;
