@@ -1,8 +1,8 @@
 ﻿namespace AnimalRescue.DataAccess.Mongodb.Models
 {
-    public class Image : BaseItem
+    public class Image : BaseNestedItem
     {
-        public byte[] Bady { get; set; }
+        public byte[] Body { get; set; }
         public string Title { get; set; }
     }
 }

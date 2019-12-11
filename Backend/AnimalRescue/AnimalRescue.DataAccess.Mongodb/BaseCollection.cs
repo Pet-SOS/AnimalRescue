@@ -6,6 +6,7 @@ using MongoDB.Driver;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -18,10 +19,11 @@ namespace AnimalRescue.DataAccess.Mongodb
         protected IMongoDatabase database;
         protected IMongoCollection<T> collection;
 
-        public BaseCollection(IMongoClient client, IMongoDbSettings settings)
+        public BaseCollection(IMongoClient client, IMongoDbSettings settings, string collectionName)
         {
             this.client = client;
             database = client.GetDatabase(settings.DatabaseName);
+            collection = database.GetCollection<T>(collectionName);
         }
 
         public async Task<IAsyncCursor<T>> GetAsync() => await collection.FindAsync(t => true);
