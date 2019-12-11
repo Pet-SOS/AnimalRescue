@@ -1,10 +1,10 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Collections;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+
 using MongoDB.Driver;
-using System;
+
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb

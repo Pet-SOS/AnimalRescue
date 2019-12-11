@@ -14,7 +14,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 {
     public static class MongoDbConfigureExtension
     {
-        public static void AddSConfigureMongoDb(this IServiceCollection services, IConfiguration configuration)
+        public static void AddConfigureMongoDb(this IServiceCollection services, IConfiguration configuration)
         {
             var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
 

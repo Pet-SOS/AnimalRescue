@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AnimalRescue.DataAccess.Mongodb.Configurations
+﻿namespace AnimalRescue.DataAccess.Mongodb.Configurations
 {
     public interface IMongoDbSettings
     {

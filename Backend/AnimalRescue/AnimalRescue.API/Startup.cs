@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AnimalRescue.API.Core.Middlewares;
 using AnimalRescue.Resolver;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 
 namespace AnimalRescue.API
 {
@@ -30,7 +22,7 @@ namespace AnimalRescue.API
         {
             services.AddControllers();
             
-            services.AddSConfigureSwagger();
+            services.AddConfigureSwagger();
 
             services.AddLayerResolver(Configuration);
         }
@@ -45,7 +37,7 @@ namespace AnimalRescue.API
 
             app.UseAuthorization();
 
-            app.UseSConfigureSwagger();
+            app.UseConfigureSwagger();
 
             app.UseEndpoints(endpoints =>
             {

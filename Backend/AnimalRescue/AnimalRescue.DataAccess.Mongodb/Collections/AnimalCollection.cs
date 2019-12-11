@@ -1,6 +1,7 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Collections;
 using AnimalRescue.DataAccess.Mongodb.Models;
+
 using MongoDB.Driver;
 
 namespace AnimalRescue.DataAccess.Mongodb.Collections

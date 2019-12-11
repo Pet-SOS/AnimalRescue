@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,7 +9,7 @@ namespace AnimalRescue.Resolver
     {
         public static void AddLayerResolver(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSConfigureMongoDb(configuration);
+            services.AddConfigureMongoDb(configuration);
         }
     }
 }

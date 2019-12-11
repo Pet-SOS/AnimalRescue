@@ -4,7 +4,7 @@ namespace AnimalRescue.Models.DTO.Models
 {
     public class AnimalModel : BaseModel
     {  
-        public long Number { get; set; }
+        public int Number { get; set; }
         public string Name { get; set; }
         public string KindOfAnimal { get; set; }
         public string Gender { get; set; }

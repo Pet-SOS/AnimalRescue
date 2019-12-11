@@ -1,22 +1,18 @@
 ﻿using AnimalRescue.Contracts.Responses;
+
 using Microsoft.AspNetCore.Mvc;
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ApiControllerBase : ControllerBase
-    {
-
+    {  
         protected ActionResult<CollectionSegmentApiResponse<T>> Collection<T>(
             IReadOnlyCollection<T> source, int totalCount, int pageNumber, int pageSize, int pageCount = 0) where T : class
         {
-            try
-            {
                 return new CollectionSegmentApiResponse<T>
                 {
                     Data = source,
@@ -26,13 +22,6 @@ namespace AnimalRescue.API.Controllers
                     PageCount = pageCount,
                     // Self = BuildSelf()
                 };
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
+        } 
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AnimalRescue.DataAccess.Mongodb.Configurations
+﻿namespace AnimalRescue.DataAccess.Mongodb.Configurations
 {
     public class MongoDbSettings : IMongoDbSettings
     {
