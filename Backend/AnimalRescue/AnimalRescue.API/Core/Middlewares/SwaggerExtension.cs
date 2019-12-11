@@ -10,7 +10,7 @@ namespace AnimalRescue.API.Core.Middlewares
 {
     public static class SwaggerExtension
     {
-        public static void AddSConfigureSwagger(this IServiceCollection services)
+        public static void AddConfigureSwagger(this IServiceCollection services)
         {
             // Register the Swagger generator, defining 1 or more Swagger documents  
             services.AddSwaggerGen(c =>
@@ -21,12 +21,12 @@ namespace AnimalRescue.API.Core.Middlewares
                     {
                         Title = "Animal Rescue API",
                         Version = "v1",
-                        Description = "Animal Rescue API was build by Global Logic team"
+                        Description = "Animal Rescue API was built by a Global Logic team"
                     });
             });
         }
 
-        public static void UseSConfigureSwagger(this IApplicationBuilder app)
+        public static void UseConfigureSwagger(this IApplicationBuilder app)
         {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
