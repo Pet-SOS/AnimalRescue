@@ -16,11 +16,11 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpGet("cms")]
-        public async Task<ActionResult<CmsModel>> CmsAsync()
+        public async Task<ActionResult<ConfigurationModel>> CmsAsync()
         {
             using (_logger.BeginScope("Get Cms info"))
             {
-                return Ok(new CmsModel()
+                return Ok(new ConfigurationModel()
                 {
                     Phones = new List<string> { "(095)42-41-478", "(068)42-41-478" },
                     SocialLinks = new Dictionary<string, string>() {

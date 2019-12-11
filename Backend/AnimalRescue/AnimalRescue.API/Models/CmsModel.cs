@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AnimalRescue.Models.DTO
+namespace AnimalRescue.API.Models
 {
     public class CmsModel
     {
