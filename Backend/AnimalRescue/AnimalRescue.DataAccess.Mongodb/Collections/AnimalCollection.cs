@@ -8,9 +8,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
 {
     public class AnimalCollection : BaseCollection<Animal>, IAnimalCollection
     {
-        public AnimalCollection(IMongoClient client, IMongoDbSettings settings) : base(client, settings)
+        public AnimalCollection(IMongoClient client, IMongoDbSettings settings) 
+            : base(client, settings, nameof(Animal))
         {
-            base.collection = database.GetCollection<Animal>(nameof(Animal));
         }
     }
 }
