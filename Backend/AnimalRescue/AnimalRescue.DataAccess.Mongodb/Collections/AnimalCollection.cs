@@ -5,9 +5,9 @@ using MongoDB.Driver;
 
 namespace AnimalRescue.DataAccess.Mongodb.Collections
 {
-    public class AnimalCollection : AnimalRescueMongoDBContext<Animal>, IAnimalCollection
+    public class AnimalCollection : BaseCollection<Animal>, IAnimalCollection
     {
-        public AnimalCollection(IMongoClient client, IMongoDatabaseSettings settings) : base(client, settings)
+        public AnimalCollection(IMongoClient client, IMongoDbSettings settings) : base(client, settings)
         {
             base.collection = database.GetCollection<Animal>(nameof(Animal));
         }

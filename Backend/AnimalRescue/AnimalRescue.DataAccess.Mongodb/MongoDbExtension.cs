@@ -14,10 +14,9 @@ namespace AnimalRescue.DataAccess.Mongodb
     {
         public static void AddSConfigureMongoDb(this IServiceCollection services, IConfiguration configuration)
         {
-            var commonSettings = configuration
-                .GetTypedSection<Configurations.MongoDatabaseSettings>(nameof(Configurations.MongoDatabaseSettings));
+            var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
 
-            services.AddSingleton<IMongoDatabaseSettings>(p => commonSettings);
+            services.AddSingleton<IMongoDbSettings>(p => commonSettings);
 
             services.AddSingleton<IMongoClient, MongoClient>(p => new MongoClient(commonSettings.ConnectionString));
             
