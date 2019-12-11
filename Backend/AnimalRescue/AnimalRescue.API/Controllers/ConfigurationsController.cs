@@ -1,5 +1,4 @@
 ﻿using AnimalRescue.Contracts;
-using AnimalRescue.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -18,13 +17,17 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpGet("cms")]
-        public async Task<ActionResult<CmsConfigurationModel>> CmsAsync()
+        public async Task<ActionResult<Models.CmsConfigurationModel>> CmsAsync()
         {
             using (_logger.BeginScope("Get Cms info"))
             {
                 var modelDto = await _configurationService.GetCmsConfiguration();
+                if (modelDto == null)
+                {
+                    return NotFound();
+                }
 
-                var modelApi = new CmsConfigurationModel()
+                var modelApi = new Models.CmsConfigurationModel()
                 {
                     Id = modelDto.Id,
                     Phones = modelDto.Phones,
