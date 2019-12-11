@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    public class ConfigurationRepository : Repository<Configuration>, IConfigurationRepository
+    public class ConfigurationRepository : Repository<Configuration<CmsConfigurationNested>>, IConfigurationRepository
     {
         public ConfigurationRepository(IMongoClient client, IMongoDbSettings settings)
             : base(client, settings)
@@ -27,8 +27,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             var cmsConfiguration = new CmsConfigurationModel()
             {
                 Id = configuration.Id,
-                Phones = configuration.Phones,
-                SocialLinks = configuration.SocialLinks
+                Phones = configuration.Data.Phones,
+                SocialLinks = configuration.Data.SocialLinks
             };
 
             return cmsConfiguration;

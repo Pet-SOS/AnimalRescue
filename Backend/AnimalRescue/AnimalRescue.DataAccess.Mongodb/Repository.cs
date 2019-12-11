@@ -1,6 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models;
-
+using AnimalRescue.Infrastructure;
 using MongoDB.Driver;
 
 namespace AnimalRescue.DataAccess.Mongodb
@@ -14,8 +14,10 @@ namespace AnimalRescue.DataAccess.Mongodb
         public Repository(IMongoClient client, IMongoDbSettings settings)
         {
             this.client = client;
+
             database = client.GetDatabase(settings.DatabaseName);
-            collection = database.GetCollection<T>(typeof(T).Name);
+
+            collection = database.GetCollection<T>(typeof(T).GetNameWithoutGenericArity());
         }
     }
 }
