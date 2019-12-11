@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ApiControllerBase : ControllerBase
     {
 

@@ -7,9 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AnimalRescue.API.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class HomeController : ControllerBase
+    public class HomeController : ApiControllerBase
     {
          private readonly ILogger<HomeController> _logger;
 

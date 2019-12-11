@@ -1,6 +1,8 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Collections;
 using AnimalRescue.DataAccess.Mongodb.Configurations;
-using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Collections;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Repositories;
 using AnimalRescue.Infrastructure.Configuration;
 
 using Microsoft.Extensions.Configuration;
@@ -10,7 +12,7 @@ using MongoDB.Driver;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public static class MongoDbExtension
+    public static class MongoDbConfigureExtension
     {
         public static void AddSConfigureMongoDb(this IServiceCollection services, IConfiguration configuration)
         {
@@ -21,6 +23,8 @@ namespace AnimalRescue.DataAccess.Mongodb
             services.AddSingleton<IMongoClient, MongoClient>(p => new MongoClient(commonSettings.ConnectionString));
             
             services.AddScoped<IAnimalCollection, AnimalCollection>();
+
+            services.AddScoped<IAnimalRepository, AnimalRepository>();
         }
     }
 }
