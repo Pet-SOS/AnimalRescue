@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.Models.DTO;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IConfigurationRepository:IBaseRepository<>
+    public interface IConfigurationRepository
     {
+        Task<CmsConfigurationModel> GetCmsConfigurationAsync();
     }
 }

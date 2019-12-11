@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.API", "AnimalRescue.API\AnimalRescue.API.csproj", "{308C37A8-80F0-4035-A81C-05F5952088D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.DomainServices", "AnimalRescue.DomainServices\AnimalRescue.DomainServices.csproj", "{81040513-77CB-4091-8C2B-E2A497F9A046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.BusinessLogic", "AnimalRescue.DomainServices\AnimalRescue.BusinessLogic.csproj", "{81040513-77CB-4091-8C2B-E2A497F9A046}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Infrastructure", "AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj", "{4D04C06B-59E4-4634-95ED-5FEA19529B86}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Resolver", "AnimalRescue.Resolver\AnimalRescue.Resolver.csproj", "{DBBA6319-4847-4D80-9512-E8A4D7AB2B21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRescue.DataAccess.Mongodb", "AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj", "{3A57E6AD-D7EA-46F7-8DA4-DEC5C2FEBEBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.DataAccess.Mongodb", "AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj", "{3A57E6AD-D7EA-46F7-8DA4-DEC5C2FEBEBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
