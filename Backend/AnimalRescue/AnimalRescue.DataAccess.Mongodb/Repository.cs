@@ -1,7 +1,8 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Infrastructure;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using System.Reflection;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
@@ -17,7 +18,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             database = client.GetDatabase(settings.DatabaseName);
 
-            collection = database.GetCollection<T>(typeof(T).GetNameWithoutGenericArity());
+            collection = database.GetCollection<T>(typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>().Discriminator);
         }
     }
 }

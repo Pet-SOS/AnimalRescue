@@ -2,6 +2,7 @@
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
+    [BsonDiscriminator("configurations")]
     public class Configuration<T> : BaseItem
     {
         [BsonElement("name")]
