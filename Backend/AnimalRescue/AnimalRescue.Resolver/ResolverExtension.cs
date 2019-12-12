@@ -1,19 +1,33 @@
 ﻿using AnimalRescue.BusinessLogic;
-using AnimalRescue.Contracts;
 using AnimalRescue.DataAccess.Mongodb;
+
+using AutoMapper;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using System.Collections.Generic;
 
 namespace AnimalRescue.Resolver
 {
     public static class ResolverExtension
     {
-        public static void AddLayerResolver(this IServiceCollection services, IConfiguration configuration)
+        public static void AddLayerResolver(
+            this IServiceCollection services, 
+            IConfiguration configuration, 
+            List<Profile> profiles)
         {
-            services.AddConfigureMongoDb(configuration);
+            if (profiles == null)
+            {
+                profiles = new List<Profile>();
+            }
 
-            services.AddScoped<IConfigurationService, ConfigurationService>();
+            services.AddConfigureMongoDb(configuration, profiles);
+            services.AddConfigureBusinessLogic(configuration);
+
+            var mappingConfig = new MapperConfiguration(mc => profiles.ForEach(x => mc.AddProfile(x)));
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

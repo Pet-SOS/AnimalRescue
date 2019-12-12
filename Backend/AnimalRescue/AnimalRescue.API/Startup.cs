@@ -1,11 +1,15 @@
 using AnimalRescue.API.Core;
 using AnimalRescue.API.Core.Middlewares;
 using AnimalRescue.Resolver;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using System.Collections.Generic;
 
 namespace AnimalRescue.API
 {
@@ -25,15 +29,7 @@ namespace AnimalRescue.API
             
             services.AddConfigureSwagger();
 
-            services.AddLayerResolver(Configuration);
-
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new ApiMappingProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddLayerResolver(Configuration, new List<Profile>{ new ApiMappingProfile() });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

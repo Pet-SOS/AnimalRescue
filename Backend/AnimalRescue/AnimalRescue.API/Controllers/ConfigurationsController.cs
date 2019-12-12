@@ -1,4 +1,4 @@
-﻿using AnimalRescue.Contracts;
+﻿using AnimalRescue.Contracts.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
