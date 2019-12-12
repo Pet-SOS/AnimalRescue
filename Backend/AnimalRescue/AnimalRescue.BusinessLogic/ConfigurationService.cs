@@ -14,7 +14,7 @@ namespace AnimalRescue.BusinessLogic
             _configurationRepository = configurationRepository;
         }
 
-        public async Task<CmsConfigurationModel> GetCmsConfiguration()
+        public async Task<CmsConfigurationModel> GetCmsConfigurationAsync()
         {
             return await _configurationRepository.GetCmsConfigurationAsync();
         }

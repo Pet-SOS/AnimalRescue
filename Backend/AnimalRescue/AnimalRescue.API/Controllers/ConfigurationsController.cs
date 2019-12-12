@@ -24,7 +24,7 @@ namespace AnimalRescue.API.Controllers
         {
             using (_logger.BeginScope("Get Cms configuration"))
             {
-                var modelDto = await _configurationService.GetCmsConfiguration();
+                var modelDto = await _configurationService.GetCmsConfigurationAsync();
                 if (modelDto == null)
                 {
                     _logger.LogError($"Cms configuration could not be found");

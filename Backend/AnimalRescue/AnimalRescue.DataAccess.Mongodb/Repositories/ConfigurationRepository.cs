@@ -16,7 +16,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
         public async Task<CmsConfigurationModel> GetCmsConfigurationAsync()
         {
-            var configurationCursor = await collection.FindAsync(x => x.Name == "Cms");
+            var configurationCursor = await collection.FindAsync(x => x.Name == Constants.CmsConfigurationName);
 
             var configuration = await configurationCursor.FirstOrDefaultAsync();
             if (configuration == null)
