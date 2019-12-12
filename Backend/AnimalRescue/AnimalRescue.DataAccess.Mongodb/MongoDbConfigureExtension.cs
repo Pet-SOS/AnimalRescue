@@ -25,6 +25,8 @@ namespace AnimalRescue.DataAccess.Mongodb
             services.AddScoped<IAnimalCollection, AnimalCollection>();
 
             services.AddScoped<IAnimalRepository, AnimalRepository>();
+            
+            services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
         }
     }
 }

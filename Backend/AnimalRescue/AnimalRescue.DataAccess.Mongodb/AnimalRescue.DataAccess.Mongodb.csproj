@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj" />
+    <ProjectReference Include="..\AnimalRescue.Models.DTO\AnimalRescue.Models.DTO.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace AnimalRescue.Models.DTO.Models
+﻿namespace AnimalRescue.Models.DTO
 {
     public abstract class BaseModel
     {

@@ -1,6 +1,7 @@
+using AnimalRescue.API.Core;
 using AnimalRescue.API.Core.Middlewares;
 using AnimalRescue.Resolver;
-
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,12 +26,19 @@ namespace AnimalRescue.API
             services.AddConfigureSwagger();
 
             services.AddLayerResolver(Configuration);
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ApiMappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
