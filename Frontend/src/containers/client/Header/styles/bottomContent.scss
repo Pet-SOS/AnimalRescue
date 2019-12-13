@@ -1,0 +1,29 @@
+.header-bottom {
+  padding: 2.94rem 0 0 0;
+  width: calc(30%);
+  .title {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 46px;
+    color: #0D2B4B;
+  }
+  .content{
+    .text {
+      font-size: 18px;
+      line-height: 24px;
+      color: #0D2B4B;
+    }
+    .btn-give{
+      background: #5EAC38;
+      box-shadow: 0px 3px 6px rgba(94, 172, 56, 0.5);
+      border-radius: 4.81rem;
+      max-height: 3.2rem;
+      width: 12.5rem;
+      text-align: center;
+      padding: 1rem 0;
+      span {
+        margin: 0 auto;
+      }
+    }
+  }
+}
