@@ -9,8 +9,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Configurations.MappingProfiles
     {
         public AnimalMappingProfile()
         {
-            CreateMap<Animal, AnimalModel>();
-            CreateMap<AnimalModel, Animal>()
+            CreateMap<Animal, AnimalDto>();
+            CreateMap<AnimalDto, Animal>()
                 .ForMember(x => x.ModifiedBy, options => options.Ignore())
                 .ForMember(x => x.DateOfAdopted, options => options.Ignore())
                 .ForMember(x => x.DateOfFound, options => options.Ignore());  

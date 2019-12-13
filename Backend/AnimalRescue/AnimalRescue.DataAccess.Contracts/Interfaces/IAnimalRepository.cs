@@ -7,11 +7,11 @@ namespace AnimalRescue.DataAccess.Contracts.Interfaces
 {
     public interface IAnimalRepository
     {
-        Task<List<AnimalModel>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10);
-        Task<AnimalModel> GetAnimalAsync(string id);
-        Task UpdateAnimalAsync(AnimalModel instanse);
+        Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10);
+        Task<AnimalDto> GetAnimalAsync(string id);
+        Task UpdateAnimalAsync(AnimalDto instanse);
         Task DeleteAnimalAsync(string id);
-        Task DeleteAnimalAsync(AnimalModel instanse);
-        Task<AnimalModel> CreateAnimalAsync(AnimalModel instanse);
+        Task DeleteAnimalAsync(AnimalDto instanse);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto instanse);
     }
 }

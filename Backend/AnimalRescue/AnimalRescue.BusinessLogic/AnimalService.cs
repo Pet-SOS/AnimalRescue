@@ -2,6 +2,7 @@
 using AnimalRescue.DataAccess.Contracts.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace AnimalRescue.BusinessLogic
             this.animalRepository = animalRepository;
         }
 
-        public async Task<AnimalModel> AddAnimalAsync(AnimalModel animal, List<byte[]> images = null)
+        public async Task<AnimalDto> AddAnimalAsync(AnimalDto animal, List<byte[]> images = null)
         {
             // Save images -> get ids -> add ids to animal image links
             var data = await animalRepository.CreateAnimalAsync(animal);
@@ -25,14 +26,14 @@ namespace AnimalRescue.BusinessLogic
             return data;
         }
 
-        public async Task<List<AnimalModel>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
         {
             var data = await animalRepository.GetAnimalsAsync(currentPage, pageSize);
 
             return data;
         }
 
-        public async Task<AnimalModel> GetAnimalAsync(string id)
+        public async Task<AnimalDto> GetAnimalAsync(string id)
         {
             var data = await animalRepository.GetAnimalAsync(id);
 
