@@ -1,7 +1,7 @@
 ﻿using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Contracts.Interfaces;
+using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +12,8 @@ namespace AnimalRescue.BusinessLogic
         private readonly IAnimalRepository animalRepository;
         public AnimalService(IAnimalRepository animalRepository)
         {
+            Require.Objects.NotNull(animalRepository, nameof(animalRepository));
+
             this.animalRepository = animalRepository;
         }
 

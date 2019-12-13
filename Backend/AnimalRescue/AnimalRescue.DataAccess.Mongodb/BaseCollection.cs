@@ -1,7 +1,7 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Collections;
 using AnimalRescue.DataAccess.Mongodb.Models;
-
+using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using MongoDB.Driver;
@@ -28,6 +28,11 @@ namespace AnimalRescue.DataAccess.Mongodb
 
         public BaseCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper, string collectionName)
         {
+            Require.Objects.NotNull(client, nameof(client));
+            Require.Objects.NotNull(settings, nameof(settings));
+            Require.Objects.NotNull(mapper, nameof(mapper));
+            Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
+
             this.client = client;
             database = client.GetDatabase(settings.DatabaseName);
             collection = database.GetCollection<T>(collectionName);
