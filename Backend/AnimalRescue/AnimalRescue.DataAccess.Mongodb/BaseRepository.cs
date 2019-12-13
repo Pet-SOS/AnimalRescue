@@ -3,8 +3,9 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 
 using MongoDB.Driver;
-
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
@@ -33,7 +34,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             return (await collection.GetAsync(id)).FirstOrDefault();
         }
 
-        public async virtual Task<List<T>> GetAsync(int pageNumber, int pageSize)
+        public async virtual Task<List<T>> GetAsync(int pageNumber, int pageSize, Expression<Func<T, object>> sortFrield)
         {
             return (await collection.GetAsync(pageNumber, pageSize)).ToList();
         }
