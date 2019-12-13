@@ -23,9 +23,9 @@ namespace AnimalRescue.BusinessLogic
             return data;
         }
 
-        public async Task<List<AnimalModel>> GetAnimalAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<List<AnimalModel>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
         {
-            var data = await animalRepository.GetAnimalAsync(currentPage, pageSize);
+            var data = await animalRepository.GetAnimalsAsync(currentPage, pageSize);
 
             return data;
         }

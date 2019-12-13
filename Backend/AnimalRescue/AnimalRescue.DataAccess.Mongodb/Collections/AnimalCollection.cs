@@ -42,7 +42,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
             await base.RemoveAsync(data);
         }
 
-        public async Task<List<AnimalModel>> GetAnimalAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<List<AnimalModel>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
         {
             var data = await GetAsync(currentPage, pageSize);
             var result = ConvertListTo<AnimalModel>(data);

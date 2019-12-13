@@ -23,7 +23,7 @@ namespace AnimalRescue.API.Controllers
         [HttpGet]
         public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetAsync()
         {
-            var data = await animalService.GetAnimalAsync();
+            var data = await animalService.GetAnimalsAsync();
 
             return new CollectionSegmentApiResponse<AnimalModel>{ 
                 Data = data,
