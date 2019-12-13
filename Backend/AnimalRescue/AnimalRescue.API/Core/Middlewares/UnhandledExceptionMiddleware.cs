@@ -1,8 +1,7 @@
 using AnimalRescue.API.Core.Configuration;
 using AnimalRescue.Contracts.Exceptions;
 using AnimalRescue.Contracts.Responses;
-
-using Hilti.Pegasus.Phoenix.Anchors.API.Infrastructure.Http;
+using AnimalRescue.Infrastructure.Http;
 
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;

@@ -10,7 +10,7 @@ namespace AnimalRescue.Contracts.Services
     {
         Task<List<AnimalDto>> GetAnimalsAsync(ApiQueryRequest queryRequest);
         Task<AnimalDto> GetAnimalAsync(string id);
-        Task<AnimalDto> CreateAnimalAsync(AnimalDto animal, List<byte[]> images = null);
-        Task<AnimalDto> CreateAnimalAsync(AnimalDto animal);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel, List<byte[]> images = null);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel);
     }
 }

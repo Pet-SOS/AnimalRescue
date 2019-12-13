@@ -50,7 +50,7 @@ namespace AnimalRescue.API.Controllers
 
             var result = _mapper.Map<List<AnimalDto>,List<AnimalModel>>(data);
 
-            return Collection(result, 100, 1, 10); ;
+            return Collection(result, 100, 1, 10);
         }
 
         [HttpPost]

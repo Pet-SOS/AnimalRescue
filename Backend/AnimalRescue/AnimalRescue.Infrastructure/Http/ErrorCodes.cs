@@ -1,4 +1,4 @@
-﻿namespace Hilti.Pegasus.Phoenix.Anchors.API.Infrastructure.Http
+﻿namespace AnimalRescue.Infrastructure.Http
 {
     public static class ErrorCodes
     {
