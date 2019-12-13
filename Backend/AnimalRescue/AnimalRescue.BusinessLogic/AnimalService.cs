@@ -34,10 +34,10 @@ namespace AnimalRescue.BusinessLogic
             return data;
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(ApiQueryRequest queryRequest)
+        public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
             var data = await animalRepository.GetAnimalsAsync(queryRequest.Page, queryRequest.Size);
-
+              
             return data;
         }
 

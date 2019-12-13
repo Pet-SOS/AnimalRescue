@@ -15,22 +15,24 @@ namespace AnimalRescue.API.Controllers
         private const string GetItemByIdMethodName = "Get";
 
         protected ActionResult<CollectionSegmentApiResponse<T>> Collection<T>(
-            IReadOnlyCollection<T> source, int totalCount, int pageNumber, int pageSize, int pageCount = 0) where T : class
+            IReadOnlyCollection<T> source, int totalCount, int pageNumber, int pageSize) where T : class
         {
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
             {
                 return BadRequest("Page criteria oversizes the total quantity of items in the list.");
             }
 
+            int pageCount = totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
+
             return new CollectionSegmentApiResponse<T>
-                {
-                    Data = source,
-                    TotalCount = totalCount,
-                    PageNumber = pageNumber,
-                    PageSize = pageSize,
-                    PageCount = pageCount,
-                    Self = BuildSelf()
-                };
+            {
+                Data = source,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                PageCount = pageCount,
+                Self = BuildSelf()
+            };
         }
 
         protected ActionResult<T> CreatedItem<T>(T item) where T : BaseModel

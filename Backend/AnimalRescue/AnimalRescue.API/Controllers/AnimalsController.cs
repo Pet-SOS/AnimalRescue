@@ -48,9 +48,9 @@ namespace AnimalRescue.API.Controllers
         {
             var data = await animalService.GetAnimalsAsync(queryRequest);
 
-            var result = _mapper.Map<List<AnimalDto>,List<AnimalModel>>(data);
+            var result = _mapper.Map<List<AnimalDto>,List<AnimalModel>>(data.collection);
 
-            return Collection(result, 100, 1, 10);
+            return Collection(result, data.fullCollectionCount, queryRequest.Page, queryRequest.Size);
         }
 
         [HttpPost]
