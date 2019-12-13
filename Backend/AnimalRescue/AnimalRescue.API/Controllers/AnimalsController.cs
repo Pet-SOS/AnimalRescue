@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.API.Models;
+using AnimalRescue.Contracts.Query;
 using AnimalRescue.Contracts.Responses;
 using AnimalRescue.Contracts.Services;
 using AnimalRescue.Models.DTO.Models;
@@ -43,9 +44,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetAsync()
+        public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
-            var data = await animalService.GetAnimalsAsync();
+            var data = await animalService.GetAnimalsAsync(queryRequest);
 
             var result = _mapper.Map<List<AnimalDto>,List<AnimalModel>>(data);
 

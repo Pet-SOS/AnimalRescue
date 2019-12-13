@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.Contracts.Query;
+using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Contracts.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
@@ -33,9 +34,9 @@ namespace AnimalRescue.BusinessLogic
             return data;
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<List<AnimalDto>> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
-            var data = await animalRepository.GetAnimalsAsync(currentPage, pageSize);
+            var data = await animalRepository.GetAnimalsAsync(queryRequest.Page, queryRequest.Size);
 
             return data;
         }
