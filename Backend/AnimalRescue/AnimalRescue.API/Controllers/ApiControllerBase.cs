@@ -12,7 +12,7 @@ namespace AnimalRescue.API.Controllers
     [Route("api/[controller]")]
     public class ApiControllerBase : ControllerBase
     {
-        private const string GetItemByIdMethodName = "GetItemByIdAsync";
+        private const string GetItemByIdMethodName = "Get";
 
         protected ActionResult<CollectionSegmentApiResponse<T>> Collection<T>(
             IReadOnlyCollection<T> source, int totalCount, int pageNumber, int pageSize, int pageCount = 0) where T : class

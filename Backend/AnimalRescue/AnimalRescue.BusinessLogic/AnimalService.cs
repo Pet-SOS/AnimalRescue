@@ -18,9 +18,16 @@ namespace AnimalRescue.BusinessLogic
             this.animalRepository = animalRepository;
         }
 
-        public async Task<AnimalDto> AddAnimalAsync(AnimalDto animal, List<byte[]> images = null)
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animal, List<byte[]> images = null)
         {
             // Save images -> get ids -> add ids to animal image links
+            var data = await animalRepository.CreateAnimalAsync(animal);
+
+            return data;
+        }
+
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animal)
+        {
             var data = await animalRepository.CreateAnimalAsync(animal);
 
             return data;

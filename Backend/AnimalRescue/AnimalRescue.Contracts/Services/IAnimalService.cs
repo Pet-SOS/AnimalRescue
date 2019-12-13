@@ -9,6 +9,7 @@ namespace AnimalRescue.Contracts.Services
     {
         Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10);
         Task<AnimalDto> GetAnimalAsync(string id);
-        Task<AnimalDto> AddAnimalAsync(AnimalDto animal, List<byte[]> images = null);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto animal, List<byte[]> images = null);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto animal);
     }
 }
