@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AnimalRescue.Models.DTO.Models
+namespace AnimalRescue.API.Models
 {
 	public class BlogModel : BaseModel
 	{

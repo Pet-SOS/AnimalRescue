@@ -1,4 +1,6 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.BusinessLogic.Services;
+using AnimalRescue.Contracts;
+using AnimalRescue.Contracts.Services;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,7 @@ namespace AnimalRescue.BusinessLogic
         {
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-        }
-    }
+			services.AddScoped<IBlogService, BlogService>();
+		}
+	}
 }

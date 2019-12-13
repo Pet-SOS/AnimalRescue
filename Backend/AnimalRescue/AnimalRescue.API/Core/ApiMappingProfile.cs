@@ -15,6 +15,9 @@ namespace AnimalRescue.API.Core
 
             CreateMap<AnimalModel, AnimalDto>();
             CreateMap<AnimalDto, AnimalModel>();
-        }
+
+			CreateMap<BlogModel, BlogDto>();
+			CreateMap<BlogDto, BlogModel>();
+		}
     }
 }

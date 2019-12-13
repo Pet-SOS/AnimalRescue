@@ -6,6 +6,6 @@ namespace AnimalRescue.Contracts
 {
 	public interface IBlogService
 	{
-		Task<IList<BlogModel>> GetAllBlogsAsync(int pageNumber, int pageSize);
+		Task<IList<BlogDto>> GetAllBlogsAsync(int pageNumber, int pageSize);
 	}
 }

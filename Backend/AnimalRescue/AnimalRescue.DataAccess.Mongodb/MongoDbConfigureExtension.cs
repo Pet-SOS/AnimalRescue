@@ -17,24 +17,25 @@ using System.Collections.Generic;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public static class MongoDbConfigureExtension
-    {
-        public static void AddConfigureMongoDb(
-            this IServiceCollection services, 
-            IConfiguration configuration,
-            List<Profile> profiles)
-        {
-            profiles.Add(new AnimalMappingProfile());
+	public static class MongoDbConfigureExtension
+	{
+		public static void AddConfigureMongoDb(
+			this IServiceCollection services,
+			IConfiguration configuration,
+			List<Profile> profiles)
+		{
+			profiles.Add(new AnimalMappingProfile());
 
-            var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
+			var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
 
-            services.AddSingleton<IMongoDbSettings>(p => commonSettings);
+			services.AddSingleton<IMongoDbSettings>(p => commonSettings);
 
-            services.AddSingleton<IMongoClient, MongoClient>(p => new MongoClient(commonSettings.ConnectionString));
-            
-            services.AddScoped<IAnimalRepository, AnimalCollection>();
-            
-            services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
-        }
-    }
+			services.AddSingleton<IMongoClient, MongoClient>(p => new MongoClient(commonSettings.ConnectionString));
+
+			services.AddScoped<IAnimalRepository, AnimalCollection>();
+
+			services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
+			services.AddScoped<IBlogRepository, BlogRepository>();
+		}
+	}
 }
