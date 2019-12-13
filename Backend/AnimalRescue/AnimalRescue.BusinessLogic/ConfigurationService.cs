@@ -1,6 +1,7 @@
-﻿using AnimalRescue.Contracts;
+﻿using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.Models.DTO;
+
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic

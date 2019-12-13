@@ -1,7 +1,8 @@
 ﻿using AnimalRescue.Models.DTO;
+
 using System.Threading.Tasks;
 
-namespace AnimalRescue.Contracts
+namespace AnimalRescue.Contracts.Services
 {
     public interface IConfigurationService
     {
