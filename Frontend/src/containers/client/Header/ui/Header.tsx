@@ -5,6 +5,7 @@ import {ChangeLocale, TI18n} from "../../../../i18n";
 import {SocialLinks} from "../../../../components/SocialLinks";
 import '../styles/header.scss'
 import {PageLayout} from "../../../../components/PageLayout";
+import {BottomContent} from "./BottomContent";
 
 interface IPropTypes {
 }
@@ -32,6 +33,7 @@ const AppHeader: React.FC<IPropTypes> = () => {
                     <ChangeLocale/>
                 </div>
                 <AppMenu/>
+                <BottomContent />
             </PageLayout>
         </div>
     )

@@ -1,6 +1,6 @@
 ﻿namespace AnimalRescue.Models.DTO
 {
-    public abstract class BaseModel
+    public class BaseDto
     {
         public string Id { get; set; }
     }

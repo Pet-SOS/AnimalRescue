@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.Models.DTO
 {
-    public class CmsConfigurationModel : BaseModel
+    public class CmsConfigurationDto : BaseDto
     {
         public List<string> Phones { get; set; }
 

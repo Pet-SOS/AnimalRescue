@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.Models.DTO.Models
 {
-    public class AnimalModel : BaseModel
+    public class AnimalDto : BaseDto
     {  
         public int Number { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,7 @@ namespace AnimalRescue.Models.DTO.Models
         public string Gender { get; set; }
         public string Description { get; set; }
         public int Age { get; set; }
-        public List<string> Images { get; set; }
+        public List<string> ImageLinks { get; set; }
         public List<string> Tags { get; set; }
     }
 }

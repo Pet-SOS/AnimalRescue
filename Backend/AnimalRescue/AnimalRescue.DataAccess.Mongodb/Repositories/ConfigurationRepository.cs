@@ -2,7 +2,9 @@
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Models.DTO;
+
 using MongoDB.Driver;
+
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
@@ -14,7 +16,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
         }
 
-        public async Task<CmsConfigurationModel> GetCmsConfigurationAsync()
+        public async Task<CmsConfigurationDto> GetCmsConfigurationAsync()
         {
             var configurationCursor = await collection.FindAsync(x => x.Name == Constants.CmsConfigurationName);
 
@@ -24,7 +26,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
                 return null;
             }
 
-            var cmsConfiguration = new CmsConfigurationModel()
+            var cmsConfiguration = new CmsConfigurationDto()
             {
                 Id = configuration.Id,
                 Phones = configuration.Data.Phones,

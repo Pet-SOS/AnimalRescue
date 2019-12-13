@@ -1,4 +1,7 @@
-﻿using AnimalRescue.Models.DTO;
+﻿using AnimalRescue.API.Models;
+using AnimalRescue.Models.DTO;
+using AnimalRescue.Models.DTO.Models;
+
 using AutoMapper;
 
 namespace AnimalRescue.API.Core
@@ -7,8 +10,11 @@ namespace AnimalRescue.API.Core
     {
         public ApiMappingProfile()
         {
-            CreateMap<Models.CmsConfigurationModel, CmsConfigurationModel>();
-            CreateMap<CmsConfigurationModel, Models.CmsConfigurationModel>();
+            CreateMap<CmsConfigurationModel, CmsConfigurationDto>();
+            CreateMap<CmsConfigurationDto, CmsConfigurationModel>();
+
+            CreateMap<AnimalModel, AnimalDto>();
+            CreateMap<AnimalDto, AnimalModel>();
         }
     }
 }

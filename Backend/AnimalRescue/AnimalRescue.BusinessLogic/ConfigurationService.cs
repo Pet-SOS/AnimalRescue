@@ -1,6 +1,7 @@
-﻿using AnimalRescue.Contracts;
+﻿using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.Models.DTO;
+
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic
@@ -14,7 +15,7 @@ namespace AnimalRescue.BusinessLogic
             _configurationRepository = configurationRepository;
         }
 
-        public async Task<CmsConfigurationModel> GetCmsConfigurationAsync()
+        public async Task<CmsConfigurationDto> GetCmsConfigurationAsync()
         {
             return await _configurationRepository.GetCmsConfigurationAsync();
         }
