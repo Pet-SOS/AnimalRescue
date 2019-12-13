@@ -7,8 +7,9 @@ namespace AnimalRescue.Contracts.Services
 {
     public interface IAnimalService
     {
-        Task<List<AnimalModel>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10);
-        Task<AnimalModel> GetAnimalAsync(string id);
-        Task<AnimalModel> AddAnimalAsync(AnimalModel animal, List<byte[]> images = null);
+        Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10);
+        Task<AnimalDto> GetAnimalAsync(string id);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto animal, List<byte[]> images = null);
+        Task<AnimalDto> CreateAnimalAsync(AnimalDto animal);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AnimalRescue.Models.DTO.Models
 {
-    public class PostModel : BaseModel
+    public class PostDto : BaseDto
     {
         public DateTime CreatedAt { get; set; }
         public string Title { get; set; }

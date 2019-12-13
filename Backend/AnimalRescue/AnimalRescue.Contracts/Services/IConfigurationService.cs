@@ -6,6 +6,6 @@ namespace AnimalRescue.Contracts.Services
 {
     public interface IConfigurationService
     {
-        Task<CmsConfigurationModel> GetCmsConfigurationAsync();
+        Task<CmsConfigurationDto> GetCmsConfigurationAsync();
     }
 }

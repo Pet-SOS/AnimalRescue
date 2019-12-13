@@ -17,16 +17,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
         IAnimalRepository
     {
         public AnimalCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper)
-            : base(client, settings, mapper, nameof(Animal))
+            : base(client, settings, mapper)
         {
         }
 
-        public async Task<AnimalModel> CreateAnimalAsync(AnimalModel instanse)
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto instanse)
         {
             var data = ConvertOneFrom(instanse);
             data.DateOfFound = DateTimeOffset.Now;
             var result = await base.CreateAsync(data);
-            instanse = ConvertOneTo<AnimalModel>(result);
+            instanse = ConvertOneTo<AnimalDto>(result);
 
             return instanse;
         }
@@ -36,30 +36,30 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
             await base.RemoveAsync(id);
         }
 
-        public async Task DeleteAnimalAsync(AnimalModel instanse)
+        public async Task DeleteAnimalAsync(AnimalDto instanse)
         {
             var data = ConvertOneFrom(instanse);
             await base.RemoveAsync(data);
         }
 
-        public async Task<List<AnimalModel>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
         {
             var data = await GetAsync(currentPage, pageSize);
-            var result = ConvertListTo<AnimalModel>(data);
+            var result = ConvertListTo<AnimalDto>(data);
 
             return result;
         }
 
-        public async Task<AnimalModel> GetAnimalAsync(string id)
+        public async Task<AnimalDto> GetAnimalAsync(string id)
         {
             var data = await base.GetAsync(id);
 
-            var result = ConvertOneTo<AnimalModel>(data);
+            var result = ConvertOneTo<AnimalDto>(data);
 
             return result;
         }
 
-        public async Task UpdateAnimalAsync(AnimalModel instanse)
+        public async Task UpdateAnimalAsync(AnimalDto instanse)
         {
             var newData = ConvertOneFrom(instanse);
             var oldData = await base.GetOneByIdAsync(newData.Id);
