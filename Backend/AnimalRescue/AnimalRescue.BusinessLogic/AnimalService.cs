@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.Contracts.Query;
+using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Contracts.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
@@ -18,24 +19,24 @@ namespace AnimalRescue.BusinessLogic
             this.animalRepository = animalRepository;
         }
 
-        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animal, List<byte[]> images = null)
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel, List<byte[]> images = null)
         {
             // Save images -> get ids -> add ids to animal image links
-            var data = await animalRepository.CreateAnimalAsync(animal);
+            var data = await animalRepository.CreateAnimalAsync(animalModel);
 
             return data;
         }
 
-        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animal)
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel)
         {
-            var data = await animalRepository.CreateAnimalAsync(animal);
+            var data = await animalRepository.CreateAnimalAsync(animalModel);
 
             return data;
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<List<AnimalDto>> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
-            var data = await animalRepository.GetAnimalsAsync(currentPage, pageSize);
+            var data = await animalRepository.GetAnimalsAsync(queryRequest.Page, queryRequest.Size);
 
             return data;
         }

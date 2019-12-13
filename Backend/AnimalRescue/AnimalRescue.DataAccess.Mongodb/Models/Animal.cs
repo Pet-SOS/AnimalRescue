@@ -13,7 +13,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("name")]     
         public string Name { get; set; }
 
-        [BsonElement("kind_of_animal")] 
+        [BsonElement("kindOfAnimal")] 
         public string KindOfAnimal { get; set; }
 
         [BsonElement("gender")] 
@@ -25,16 +25,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("age")] 
         public int Age { get; set; }
 
-        [BsonElement("modified_by")] 
+        [BsonElement("modifiedBy")] 
         public DateTimeOffset? ModifiedBy { get; set; }
 
-        [BsonElement("date_of_found")] 
+        [BsonElement("dateOfFound")] 
         public DateTimeOffset DateOfFound { get; set; }
 
-        [BsonElement("date_of_adopted")] 
+        [BsonElement("dateOfAdopted")] 
         public DateTimeOffset? DateOfAdopted { get; set; } 
 
-        [BsonElement("image_links")] 
+        [BsonElement("imageLinks")] 
         public List<string> ImageLinks { get; set; }
 
         [BsonElement("tags")] 
