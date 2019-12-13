@@ -2,14 +2,17 @@
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Collections;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
+
 using AutoMapper;
 
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
@@ -22,7 +25,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         protected IMongoCollection<T> collection;
         protected IMapper mapper;
         public BaseCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper)     
-            : this(client, settings, mapper, typeof(T).Name)
+            : this(client, settings, mapper, typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator)
         {
         }
 

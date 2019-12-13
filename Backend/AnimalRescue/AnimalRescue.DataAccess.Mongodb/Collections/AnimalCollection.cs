@@ -17,7 +17,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
         IAnimalRepository
     {
         public AnimalCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper)
-            : base(client, settings, mapper, nameof(Animal))
+            : base(client, settings, mapper)
         {
         }
 
