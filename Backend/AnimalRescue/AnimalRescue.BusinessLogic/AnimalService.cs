@@ -29,6 +29,7 @@ namespace AnimalRescue.BusinessLogic
 
         public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel)
         {
+            animalModel.Id = string.Empty;
             var data = await animalRepository.CreateAnimalAsync(animalModel);
 
             return data;
