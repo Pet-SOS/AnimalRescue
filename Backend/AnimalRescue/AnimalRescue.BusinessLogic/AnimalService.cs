@@ -29,16 +29,18 @@ namespace AnimalRescue.BusinessLogic
 
         public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel)
         {
+            animalModel.Id = string.Empty;
             var data = await animalRepository.CreateAnimalAsync(animalModel);
 
             return data;
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(ApiQueryRequest queryRequest)
+        public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
             var data = await animalRepository.GetAnimalsAsync(queryRequest.Page, queryRequest.Size);
-
-            return data;
+            var count = await animalRepository.GetAnimalCountAsync();  
+           
+            return (data, count);
         }
 
         public async Task<AnimalDto> GetAnimalAsync(string id)
@@ -46,6 +48,16 @@ namespace AnimalRescue.BusinessLogic
             var data = await animalRepository.GetAnimalAsync(id);
 
             return data;
+        }
+
+        public async Task UpdateAnimalAsync(AnimalDto animalModel)
+        {
+            await animalRepository.UpdateAnimalAsync(animalModel);
+        }
+
+        public async Task DeleteAnimalAsync(string id)
+        {
+            await animalRepository.DeleteAnimalAsync(id);
         }
     }
 }

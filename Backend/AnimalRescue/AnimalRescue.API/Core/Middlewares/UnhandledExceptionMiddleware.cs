@@ -1,5 +1,4 @@
 using AnimalRescue.API.Core.Configuration;
-using AnimalRescue.Contracts.Exceptions;
 using AnimalRescue.Contracts.Responses;
 using AnimalRescue.Infrastructure.Http;
 
@@ -30,24 +29,25 @@ namespace AnimalRescue.API.Core.Middlewares
             {
                 await next(context);
             }
-            catch (BadRequestException e)
-            {
-                await BuildExceptionResponse(context, BuildErrorResponse(context.Request, e, ErrorCodes.InvalidParameter), HttpStatusCode.BadRequest);
-            }
-            catch (NotFoundException e)
-            {
-                await BuildExceptionResponse(context, BuildErrorResponse(context.Request, e, ErrorCodes.NotFound), HttpStatusCode.NotFound);
-            }
             catch (Exception e)
             {
-                if (e.InnerException is UnauthorizedException)
-                {
-                    await BuildExceptionResponse(context, BuildErrorResponse(context.Request, e.InnerException, ErrorCodes.InvalidAuthorization), HttpStatusCode.Unauthorized);
-                }
-                else
-                {
-                    await BuildExceptionResponse(context, BuildErrorResponse(context.Request, e), HttpStatusCode.InternalServerError);
-                }
+                await BuildExceptionResponse(context, e);
+            }
+        }
+
+        private async Task BuildExceptionResponse(HttpContext context, Exception exception)
+        {
+            Exception currentException = exception.InnerException is IAppException
+               ? exception.InnerException
+               : exception;
+
+            if (currentException is IAppException e)
+            {
+                await BuildExceptionResponse(context, BuildErrorResponse(context.Request, currentException, e.ErrorCode), e.HttpStatusCode);
+            }
+            else
+            {
+                await BuildExceptionResponse(context, BuildErrorResponse(context.Request, currentException), HttpStatusCode.InternalServerError);
             }
         }
 
