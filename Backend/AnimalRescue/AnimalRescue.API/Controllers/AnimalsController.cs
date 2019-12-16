@@ -48,7 +48,7 @@ namespace AnimalRescue.API.Controllers
         {
             var data = await animalService.GetAnimalsAsync(queryRequest);
 
-            var result = _mapper.Map<List<AnimalDto>,List<AnimalModel>>(data.collection);
+            var result = _mapper.Map<List<AnimalDto>, List<AnimalModel>>(data.collection);
 
             return Collection(result, data.fullCollectionCount, queryRequest.Page, queryRequest.Size);
         }
@@ -71,10 +71,17 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task UpdateAsync([FromBody] AnimalModel animalModel)
         {
-
             var animalDto = _mapper.Map<AnimalDto>(animalModel);
             await animalService.UpdateAnimalAsync(animalDto);
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task DeleteAsync([FromRoute] string id)
+        {
+            await animalService.DeleteAnimalAsync(id);
+        }
     }
 }

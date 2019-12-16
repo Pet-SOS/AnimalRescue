@@ -53,5 +53,10 @@ namespace AnimalRescue.BusinessLogic
         {
             await animalRepository.UpdateAnimalAsync(animalModel);
         }
+
+        public async Task DeleteAnimalAsync(string id)
+        {
+            await animalRepository.DeleteAnimalAsync(id);
+        }
     }
 }
