@@ -1,0 +1,54 @@
+.app-footer {
+  padding: 1rem 5rem;
+  border-top: 0.0625rem solid #E6EAEF;
+
+  .content {
+    width: 100%;
+    border-bottom: 0.0625rem solid #E6EAEF;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .links {
+      width: 55%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .item-main {
+        font-weight: normal;
+        cursor: pointer;
+      }
+
+      .item {
+        font-weight: 300;
+        cursor: pointer;
+      }
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.69rem 0 0 0;
+    .info {
+      font-size: 0.812rem;
+      line-height: 1.25rem;
+
+      .use-site {
+        color: #3177a8;
+        cursor: pointer;
+      }
+    }
+
+    .locales {
+      font-size: 0.812rem;
+      line-height: 1.25rem;
+    }
+  }
+}

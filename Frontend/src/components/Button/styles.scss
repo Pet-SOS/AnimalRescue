@@ -1,0 +1,32 @@
+.button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:active, &:focus {
+    outline: none;
+  }
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &.green {
+    background: #5EAC38;
+    border-radius: 4.81rem;
+    width: 12.5rem;
+    height: inherit;
+    text-align: center;
+    padding: 1.2rem 0;
+  }
+
+  &.green-circle {
+    background: url("../../assets/header/vector.svg") no-repeat center;
+    background-color: #5EAC38;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
