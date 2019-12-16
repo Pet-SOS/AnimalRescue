@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.Contracts.Query;
+using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Contracts.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
@@ -18,26 +19,28 @@ namespace AnimalRescue.BusinessLogic
             this.animalRepository = animalRepository;
         }
 
-        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animal, List<byte[]> images = null)
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel, List<byte[]> images = null)
         {
             // Save images -> get ids -> add ids to animal image links
-            var data = await animalRepository.CreateAnimalAsync(animal);
+            var data = await animalRepository.CreateAnimalAsync(animalModel);
 
             return data;
         }
 
-        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animal)
+        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel)
         {
-            var data = await animalRepository.CreateAnimalAsync(animal);
+            animalModel.Id = string.Empty;
+            var data = await animalRepository.CreateAnimalAsync(animalModel);
 
             return data;
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage = 1, int pageSize = 10)
+        public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
-            var data = await animalRepository.GetAnimalsAsync(currentPage, pageSize);
-
-            return data;
+            var data = await animalRepository.GetAnimalsAsync(queryRequest.Page, queryRequest.Size);
+            var count = await animalRepository.GetAnimalCountAsync();  
+           
+            return (data, count);
         }
 
         public async Task<AnimalDto> GetAnimalAsync(string id)
@@ -45,6 +48,16 @@ namespace AnimalRescue.BusinessLogic
             var data = await animalRepository.GetAnimalAsync(id);
 
             return data;
+        }
+
+        public async Task UpdateAnimalAsync(AnimalDto animalModel)
+        {
+            await animalRepository.UpdateAnimalAsync(animalModel);
+        }
+
+        public async Task DeleteAnimalAsync(string id)
+        {
+            await animalRepository.DeleteAnimalAsync(id);
         }
     }
 }

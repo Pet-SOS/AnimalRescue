@@ -66,6 +66,10 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<IAsyncCursor<T>> GetAsync() => await collection.FindAsync(t => true);
         public async Task<IAsyncCursor<T>> GetAsync(string id) => await collection.FindAsync(t => t.Id == id);
         public async Task<T> GetOneByIdAsync(string id) => (await GetAsync(id)).FirstOrDefault();
+        public async Task<long> GetCountAsync() =>
+             await collection.Find(x => true)
+            .CountDocumentsAsync();
+
         public async Task<IAsyncCursor<T>> GetAsync(int currentPage, int pageSize) =>
              await collection.Find(x => true)
             .Skip((currentPage - 1) * pageSize)

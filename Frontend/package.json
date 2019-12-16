@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.149",
+    "classnames": "^2.2.6",
     "history": "^4.10.1",
     "i18n-js": "^3.5.0",
     "js-logger": "^1.6.0",
@@ -23,6 +24,7 @@
     "typescript": "3.7.2"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.9",
     "@types/history": "^4.7.3",
     "@types/i18n-js": "^3.0.1",
     "@types/jest": "24.0.23",
