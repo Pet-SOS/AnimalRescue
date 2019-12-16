@@ -13,6 +13,8 @@ namespace AnimalRescue.Contracts.Query
         [Range(1, MaxPageSize)]
         public int Size { get; set; }
 
+        public string Filter { get; set; } 
+
         public ApiQueryRequest()
         {
             Page = 1;
