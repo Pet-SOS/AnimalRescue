@@ -3,27 +3,29 @@ import {connect} from 'react-redux';
 import {ILocales, locales} from "../store/state";
 import {ICustomAppState} from "../../store/state";
 import {actionSetLocale} from "../store/actions";
+import {Select} from "../../components/Select";
 import '../styles/index.scss';
 
 interface ISelectLocale {
     setLocale: (locale: string) => void;
+    selected: string;
 }
 
 const ChangeLocaleMain = (props: ISelectLocale) => {
+    const {selected, setLocale} = props;
     return (
-        <div className="language">
-            <select onChange={(e: any) => props.setLocale(e.target.value)}>
-                {locales.map((locale: ILocales) => (
-                    <option key={locale.value} value={locale.value}>
-                        {`^${locale.value.toUpperCase()}`}
-                    </option>
-                ))}
-            </select>
-        </div>
+        <Select
+            data={locales.map((locale: ILocales) => ({label: locale.value.toUpperCase(), value: locale.value}))}
+            selected={selected}
+            onChange={(value: string) => setLocale(value)}
+            mainStyles={{color: '#1B78A8', fontSize: ''}}
+        />
     )
 };
 
-const selectLocaleMapStateToProps = (state: ICustomAppState) => ({});
+const selectLocaleMapStateToProps = (state: ICustomAppState) => ({
+    selected: state.i18n.locale
+});
 
 export const ChangeLocale = connect(selectLocaleMapStateToProps, {
     setLocale: actionSetLocale

@@ -1,9 +1,11 @@
-.app-header {
-  height: 50rem;
-  -moz-background-size: 100% !important;
-  -webkit-background-size: 100% !important;
-  -o-background-size: 100% !important;
-  background-size: 100% !important;
+header {
+  height: auto;
+  padding: 1rem 5rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #f1f2f6 !important;
 
   .header {
     display: flex;
@@ -31,28 +33,38 @@
       }
     }
 
-    .logo-contacts {
-      display: inherit;
+    .contacts {
+      padding: 1.5rem 0 0 0;
 
       .phone {
-        .title {
-          font-family: Rubik;
-          font-style: normal;
-          font-weight: 300;
-          font-size: 1rem;
-          line-height: 1.188rem;
-          color: #868697
-        }
+        display: flex;
+        flex-direction: column;
+        font-style: normal;
 
         .number {
-          font-family: Rubik;
-          font-style: normal;
           font-weight: normal;
-          font-size: 1.125rem;
+          font-size: 1.5rem;
           line-height: 1.312rem;
           color: #0D2B4B;
         }
+
+        .title {
+          padding: 0.3rem 0 0 0;
+          font-weight: 300;
+          line-height: 1rem;
+          color: #868697
+        }
       }
     }
+
+    .change-locale {
+      position: absolute;
+      top: .5rem;
+      right: 5rem;
+    }
   }
+}
+
+.dog-background {
+  background: url('../../../../assets/header/background/dog_1.png') no-repeat right;
 }
