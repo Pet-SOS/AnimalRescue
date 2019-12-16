@@ -25,9 +25,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("age")] 
         public int Age { get; set; }
 
-        [BsonElement("modifiedBy")] 
-        public DateTimeOffset? ModifiedBy { get; set; }
-
         [BsonElement("dateOfFound")] 
         public DateTimeOffset DateOfFound { get; set; }
 

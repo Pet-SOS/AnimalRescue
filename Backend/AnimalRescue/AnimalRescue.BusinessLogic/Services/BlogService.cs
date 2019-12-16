@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.Contracts;
+using AnimalRescue.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.Models.DTO.Models;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace AnimalRescue.BusinessLogic.Services
 			_blogRepository = blogRepository;
 		}
 
-		public async Task<IList<BlogDto>> GetAllBlogsAsync(int pageNumber, int pageSize)
+		public async Task<IList<BlogDto>> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest)
 		{
-			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(pageNumber, pageSize);
+			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(apiQueryRequest.Page, apiQueryRequest.Size);
 
 			var blogModels = new List<BlogDto>();
 

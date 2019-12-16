@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.API.Models;
 using AnimalRescue.Contracts;
+using AnimalRescue.Contracts.Query;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,9 +27,9 @@ namespace AnimalRescue.API.Controllers
 		[Route("")]
 		[HttpGet]
 		[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IList<BlogModel>))]
-		public async Task<IActionResult> GetAllBlogsAsync()
+		public async Task<IActionResult> GetAllBlogsAsync([FromQuery]ApiQueryRequest queryRequest)
 		{
-			var blBlogsModel = await _blogService.GetAllBlogsAsync(1, 10);
+			var blBlogsModel = await _blogService.GetAllBlogsAsync(queryRequest);
 
 			return Ok(_mapper.Map<IList<BL.Models.BlogDto>, IList<BlogModel>>(blBlogsModel));
 		}
