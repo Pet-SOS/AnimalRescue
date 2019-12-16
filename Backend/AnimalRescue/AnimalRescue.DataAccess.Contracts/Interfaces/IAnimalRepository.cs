@@ -7,8 +7,8 @@ namespace AnimalRescue.DataAccess.Contracts.Interfaces
 {
     public interface IAnimalRepository
     {
-        Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(int currentPage, int pageSize);
-        Task<long> GetAnimalCountAsync();
+        Task<List<AnimalDto>> GetAnimalsAsync(int currentPage, int pageSize);
+        Task<int> GetAnimalCountAsync();
         Task<AnimalDto> GetAnimalAsync(string id);
         Task UpdateAnimalAsync(AnimalDto instanse);
         Task DeleteAnimalAsync(string id);
