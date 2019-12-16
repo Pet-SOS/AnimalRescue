@@ -48,5 +48,10 @@ namespace AnimalRescue.BusinessLogic
 
             return data;
         }
+
+        public async Task UpdateAnimalAsync(AnimalDto animalModel)
+        {
+            await animalRepository.UpdateAnimalAsync(animalModel);
+        }
     }
 }

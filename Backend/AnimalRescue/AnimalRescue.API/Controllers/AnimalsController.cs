@@ -56,13 +56,25 @@ namespace AnimalRescue.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<AnimalModel>> CreateItem([FromBody] AnimalModel animal)
+        public async Task<ActionResult<AnimalModel>> CreateItem([FromBody] AnimalModel animalModel)
         {
-            var animalDto = _mapper.Map<AnimalDto>(animal);
+            var animalDto = _mapper.Map<AnimalDto>(animalModel);
             var data = await animalService.CreateAnimalAsync(animalDto);
-            animal = _mapper.Map<AnimalDto, AnimalModel>(data);
+            animalModel = _mapper.Map<AnimalDto, AnimalModel>(data);
 
-            return CreatedItem(animal);
-        }      
+            return CreatedItem(animalModel);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task UpdateAsync([FromBody] AnimalModel animalModel)
+        {
+
+            var animalDto = _mapper.Map<AnimalDto>(animalModel);
+            await animalService.UpdateAnimalAsync(animalDto);
+        }
+
     }
 }

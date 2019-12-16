@@ -12,5 +12,6 @@ namespace AnimalRescue.Contracts.Services
         Task<AnimalDto> GetAnimalAsync(string id);
         Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel, List<byte[]> images = null);
         Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel);
+        Task UpdateAnimalAsync(AnimalDto animalModel);
     }
 }
