@@ -17,5 +17,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 		{
 			return await GetAsync(pageNubmer, pageSize, b => b.Created);
 		}
+
+		public async Task<int> GetBlogsCountAsync()
+		{
+			return await GetCountAsync();
+		}
 	}
 }

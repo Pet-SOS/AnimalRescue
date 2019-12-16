@@ -16,8 +16,10 @@ namespace AnimalRescue.BusinessLogic.Services
 			_blogRepository = blogRepository;
 		}
 
-		public async Task<IList<BlogDto>> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest)
+		public async Task<(IList<BlogDto> blogDtos, int totalCount)> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest)
 		{
+			int totalCount = await _blogRepository.GetBlogsCountAsync();
+
 			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(apiQueryRequest.Page, apiQueryRequest.Size);
 
 			var blogModels = new List<BlogDto>();
@@ -36,7 +38,7 @@ namespace AnimalRescue.BusinessLogic.Services
 				blogModels.Add(blogModel);
 			}
 
-			return blogModels;
+			return (blogModels, totalCount);
 		}
 	}
 }

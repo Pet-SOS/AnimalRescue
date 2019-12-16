@@ -7,6 +7,6 @@ namespace AnimalRescue.Contracts
 {
 	public interface IBlogService
 	{
-		Task<IList<BlogDto>> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest);
+		Task<(IList<BlogDto> blogDtos, int totalCount)> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest);
 	}
 }

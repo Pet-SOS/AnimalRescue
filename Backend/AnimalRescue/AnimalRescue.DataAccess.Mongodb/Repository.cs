@@ -43,7 +43,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 			return await collection.Find(t => t.Id == id).FirstOrDefaultAsync();
 		}
 
-		public virtual async Task<List<T>> GetAsync(int pageNumber, int pageSize, Expression<Func<T, object>> sortFrield)
+		public virtual async Task<IList<T>> GetAsync(int pageNumber, int pageSize, Expression<Func<T, object>> sortFrield)
 		{
 			return await collection.Find(x => true)
 				.SortByDescending(sortFrield)
@@ -52,6 +52,15 @@ namespace AnimalRescue.DataAccess.Mongodb
 				.ToListAsync();
 		}
 
+		public async Task<int> GetCountAsync()
+		{
+			var count = (await collection
+					.Find(x => true)
+					.CountDocumentsAsync());
+
+			return (int)count;
+		}
+		
 		public async Task RemoveAsync(T instance)
 		{
 			await collection.DeleteOneAsync(t => t.Id == instance.Id);
