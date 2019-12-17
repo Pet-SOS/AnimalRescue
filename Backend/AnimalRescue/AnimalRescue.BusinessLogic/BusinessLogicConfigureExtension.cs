@@ -12,6 +12,7 @@ namespace AnimalRescue.BusinessLogic
         public static void AddConfigureBusinessLogic(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAnimalService, AnimalService>();
+            services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
 			services.AddScoped<IBlogService, BlogService>();
 		}
