@@ -1,5 +1,4 @@
 ﻿using AnimalRescue.DataAccess.Contracts.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Models.DTO.Models;
 
@@ -16,8 +15,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
     public class AnimalCollection : BaseCollection<Animal>,
         IAnimalRepository
     {
-        public AnimalCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper)
-            : base(client, settings, mapper)
+        public AnimalCollection(IMongoDatabase database, IMapper mapper)
+            : base(database, mapper)
         {
         }
 

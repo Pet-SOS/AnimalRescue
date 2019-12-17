@@ -15,6 +15,8 @@ namespace AnimalRescue.Contracts.Query
 
         public string Filter { get; set; } 
 
+        public string Sort { get; set; } 
+
         public ApiQueryRequest()
         {
             Page = 1;

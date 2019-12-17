@@ -12,13 +12,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Collections
     public interface IBaseCollection<T>  
         where T : BaseItem 
     {
-        List<T> Get();
-        T Get(string id);
-        T Create(T instance);
-        void Update(string id, T TIn);
-        void Remove(T TIn);
-        void Remove(string id);
-
         Task<IAsyncCursor<T>> GetAsync();
         Task<IAsyncCursor<T>> GetAsync(string id);
         Task<IAsyncCursor<T>> GetAsync(int currentPage, int pageSize);

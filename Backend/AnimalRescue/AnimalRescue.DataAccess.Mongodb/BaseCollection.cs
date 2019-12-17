@@ -20,24 +20,19 @@ namespace AnimalRescue.DataAccess.Mongodb
     public abstract class BaseCollection<T> : IBaseCollection<T>
         where T : BaseItem
     {
-        protected IMongoClient client;
-        protected IMongoDatabase database;
         protected IMongoCollection<T> collection;
         protected IMapper mapper;
-        public BaseCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper)     
-            : this(client, settings, mapper, typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator)
+        public BaseCollection(IMongoDatabase database, IMapper mapper)     
+            : this(database, mapper, typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator)
         {
         }
 
-        public BaseCollection(IMongoClient client, IMongoDbSettings settings, IMapper mapper, string collectionName)
+        public BaseCollection(IMongoDatabase database, IMapper mapper, string collectionName)
         {
-            Require.Objects.NotNull(client, nameof(client));
-            Require.Objects.NotNull(settings, nameof(settings));
+            Require.Objects.NotNull(database, nameof(database));
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
 
-            this.client = client;
-            database = client.GetDatabase(settings.DatabaseName);
             collection = database.GetCollection<T>(collectionName);
             this.mapper = mapper;
         }
@@ -96,18 +91,6 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<T> CreateAsync(T instance)
         {
             await collection.InsertOneAsync(instance);
-            return instance;
-        }
-
-        public List<T> Get() => collection.Find(t => true).ToList();
-        public T Get(string id) => collection.Find(t => t.Id == id).FirstOrDefault();
-        public void Update(string id, T instance) => collection.ReplaceOne(t => t.Id == id, instance);
-        public void Remove(T instance) => collection.DeleteOne(t => t.Id == instance.Id);
-        public void Remove(string id) => collection.DeleteOne(t => t.Id == id);
-
-        public T Create(T instance)
-        {
-            collection.InsertOne(instance);
             return instance;
         }
     }
