@@ -18,14 +18,14 @@ using System.Collections.Generic;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public static class MongoDbConfigureExtension
-    {
-        public static void AddConfigureMongoDb(
-            this IServiceCollection services, 
-            IConfiguration configuration,
-            List<Profile> profiles)
-        {
-            profiles.Add(new AnimalMappingProfile());
+	public static class MongoDbConfigureExtension
+	{
+		public static void AddConfigureMongoDb(
+			this IServiceCollection services,
+			IConfiguration configuration,
+			List<Profile> profiles)
+		{
+			profiles.Add(new AnimalMappingProfile());
 
             var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
             MongoClient client = new MongoClient(commonSettings.ConnectionString);
@@ -44,6 +44,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             services.AddScoped<IAnimalRepository, AnimalCollection>();
             
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
-        }
+			services.AddScoped<IBlogRepository, BlogRepository>();
+		}
     }
 }
