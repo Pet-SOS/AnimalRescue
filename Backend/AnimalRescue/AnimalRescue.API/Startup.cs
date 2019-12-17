@@ -30,6 +30,17 @@ namespace AnimalRescue.API
             RuntimeConfiguration runtimeConfiguration = Configuration.GetTypedSection<RuntimeConfiguration>("Runtime"); 
             services.AddSingleton<IRuntimeConfiguration>(p => runtimeConfiguration);
 
+            services.AddCors(options => 
+            {
+                options.AddDefaultPolicy(builder => 
+                {
+                    builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             services.AddControllers();
             
             services.AddConfigureSwagger();
