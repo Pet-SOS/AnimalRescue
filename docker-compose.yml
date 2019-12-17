@@ -1,0 +1,69 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: Backend/AnimalRescue
+      dockerfile: Dockerfile
+    image: ${DockerRegistryURL}/api:${ImageTag}
+    deploy:
+      replicas: 1
+    ports:
+      - "9090:80"
+    networks:
+      frontend:
+        aliases:
+          - api.animalrescue.synapse.com
+      backend:
+        aliases:
+          - api.animalrescue.synapse.com
+    environment:
+      - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@mongodb:27017
+      - MongoDbSettings__DatabaseName=${MongoDB_database}
+      - Logging__LogLevel__Default=Debug
+    depends_on:
+      - mongodb
+
+  portal:
+    build:
+      context: Frontend
+      dockerfile: Dockerfile
+    image: ${DockerRegistryURL}/portal:${ImageTag}
+    deploy:
+      replicas: 1
+    ports:
+      - "8080:80"
+    networks:
+      frontend:
+        aliases:
+          - animalrescue.synapse.com
+
+  mongodb:
+    image: mongo:4.2
+    command: mongod --auth
+    environment:
+      - MONGO_INITDB_DATABASE=${MongoDB_database}
+      - MONGO_INITDB_ROOT_USERNAME=${MongoDB_User}
+      - MONGO_INITDB_ROOT_PASSWORD=${MongoDB_Pass}
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - mongodbdata:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      backend:
+        aliases:
+          - mongdb.synapse.com
+
+volumes:
+  mongodbdata:
+    driver: local
+
+networks:
+  frontend:
+    external:
+      name: frontend
+  backend:
+    external:
+      name: backend
