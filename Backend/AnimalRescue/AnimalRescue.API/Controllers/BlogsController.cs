@@ -32,7 +32,7 @@ namespace AnimalRescue.API.Controllers
 		{
 			var blBlogsDto = await _blogService.GetAllBlogsAsync(queryRequest);
 
-			var data = _mapper.Map<IList<BL.Models.BlogDto>, IList<BlogModel>>(blBlogsDto.blogDtos);
+			var data = _mapper.Map<IList<BL.Models.BlogDto>, List<BlogModel>>(blBlogsDto.blogDtos);
 
 			return Collection(data, blBlogsDto.totalCount, queryRequest.Page, queryRequest.Size);
 		}

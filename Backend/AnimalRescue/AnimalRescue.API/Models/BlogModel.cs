@@ -9,7 +9,7 @@ namespace AnimalRescue.API.Models
 
 		public string Description { get; set; }
 
-		public DateTimeOffset Created { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
 		public IList<string> ImageIds { get; set; }
 	}

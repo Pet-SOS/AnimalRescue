@@ -15,7 +15,7 @@ namespace AnimalRescue.API.Controllers
         private const string GetItemByIdMethodName = "Get";
 
         protected ActionResult<CollectionSegmentApiResponse<T>> Collection<T>(
-			ICollection<T> source, int totalCount, int pageNumber, int pageSize) where T : class
+			IReadOnlyCollection<T> source, int totalCount, int pageNumber, int pageSize) where T : class
         {
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
             {

@@ -32,7 +32,7 @@ namespace AnimalRescue.BusinessLogic.Services
 					Description = blog.Description,
 					Body = blog.Body,
 					ImageIds = blog.ImagesIds,
-					Created = blog.Created
+					CreatedAt = blog.CreatedAt
 				};
 
 				blogModels.Add(blogModel);

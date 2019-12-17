@@ -11,11 +11,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-		[BsonElement("created")]
-		public DateTimeOffset Created { get; set; }
+		[BsonElement("createdAt")]
+		public DateTimeOffset CreatedAt { get; set; }
 
-		[BsonElement("lastModified")]
-		public DateTimeOffset? LastModified { get; set; }
+		[BsonElement("modifiedAt")]
+		public DateTimeOffset? ModifiedAt { get; set; }
 
 		[BsonElement("createdBy")]
 		public string CreatedBy { get; set; }

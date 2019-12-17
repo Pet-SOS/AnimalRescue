@@ -15,7 +15,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
 		public async Task<IList<Blog>> GetBlogsWithPagginationAsync(int pageNubmer, int pageSize)
 		{
-			return await GetAsync(pageNubmer, pageSize, b => b.Created);
+			return await GetAsync(pageNubmer, pageSize, b => b.CreatedAt);
 		}
 
 		public async Task<int> GetBlogsCountAsync()
