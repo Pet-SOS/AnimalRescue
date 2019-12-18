@@ -39,7 +39,9 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IMongoClient, MongoClient>(p => client)
                 .AddSingleton<IQueryFilterBuilder, QueryFilterBuilder>()
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
-                .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>();
+                .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
+                .AddSingleton<IQueryBuilder<Blog>, QueryBuilder<Blog>>()
+                ;
 
             services
                 .AddScoped<IMongoDatabase>(x => database)

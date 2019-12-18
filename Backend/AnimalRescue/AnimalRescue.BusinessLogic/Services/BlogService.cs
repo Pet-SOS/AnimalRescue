@@ -1,13 +1,15 @@
 ﻿using AnimalRescue.Contracts;
 using AnimalRescue.Contracts.Query;
+using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.Models.DTO.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-	internal class BlogService : IBlogService
+    internal class BlogService : IBlogService
 	{
 		private readonly IBlogRepository _blogRepository;
 
@@ -18,9 +20,11 @@ namespace AnimalRescue.BusinessLogic.Services
 
 		public async Task<(IList<BlogDto> blogDtos, int totalCount)> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest)
 		{
-			int totalCount = await _blogRepository.GetBlogsCountAsync();
+            var dbQuery = apiQueryRequest.ToDbQuery();
 
-			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(apiQueryRequest.Page, apiQueryRequest.Size);
+            int totalCount = await _blogRepository.GetBlogsCountAsync(dbQuery);
+
+			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(dbQuery);
 
 			var blogModels = new List<BlogDto>();
 
