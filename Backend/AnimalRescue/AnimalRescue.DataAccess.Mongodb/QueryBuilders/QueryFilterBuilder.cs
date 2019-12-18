@@ -1,4 +1,6 @@
-﻿namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
+﻿using System.Linq;
+
+namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
     public class QueryFilterBuilder : IQueryFilterBuilder
     {
@@ -6,7 +8,15 @@
 
         public string BuildStringFilterParams<T>(string rowFilterParams)
         {
-            return defaultFilter;
+            var filterArrey = rowFilterParams?
+                .Split(";")
+                .Select(data => new Term(data))
+                .Select(term => term.GetDbTerm());
+            var result = filterArrey != null  
+                ? "{" + string.Join(",", filterArrey) + "}"  
+                : defaultFilter;
+
+            return result;
         }
     }
 }
