@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public abstract class BaseCollection<T> : IBaseCollection<T>
+    public abstract class BaseCollection<T> : IDbCollection<T>
         where T : BaseItem
     {
         protected readonly IMongoCollection<T> collection;
@@ -51,6 +51,9 @@ namespace AnimalRescue.DataAccess.Mongodb
             this.mapper = mapper;
         }
 
+
+        #region Converting
+
         protected List<Tout> ConvertListTo<Tout>(IList<T> items)
         {
             return mapper.Map<IList<T>, List<Tout>>(items);
@@ -71,20 +74,9 @@ namespace AnimalRescue.DataAccess.Mongodb
         {
             return ConvertOneTo<Tout>(item.FirstOrDefault());
         }
+        #endregion
 
-        public async Task<IAsyncCursor<T>> GetAsync() => await collection.FindAsync(t => true);
-        public async Task<IAsyncCursor<T>> GetAsync(string id) => await collection.FindAsync(t => t.Id == id);
-        public async Task<T> GetOneByIdAsync(string id) => (await GetAsync(id)).FirstOrDefault();
-
-        public async Task<IAsyncCursor<T>> GetAsync(int currentPage, int pageSize) =>
-             await collection.Find(x => true)
-            .Skip((currentPage - 1) * pageSize)
-            .Limit(pageSize)
-            .ToCursorAsync();
-
-        public async Task UpdateAsync(string id, T instance) => await collection.ReplaceOneAsync(t => t.Id == id, instance);
         public async Task UpdateAsync(T instance) => await collection.ReplaceOneAsync(t => t.Id == instance.Id, instance);
-        public async Task RemoveAsync(T instance) => await collection.DeleteOneAsync(t => t.Id == instance.Id);
         public async Task RemoveAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
         public async Task<T> CreateAsync(T instance)
         {
@@ -111,6 +103,15 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .CountDocumentsAsync();
 
             return (int)count;
+        }
+
+        public async Task<T> GetAsync(string id)
+        {
+            var item = await collection
+                .Find(x=>x.Id == id)
+                .FirstOrDefaultAsync();
+
+            return item;
         }
     }
 }

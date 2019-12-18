@@ -10,7 +10,6 @@ namespace AnimalRescue.DataAccess.Contracts.Interfaces
     {
         Task<List<AnimalDto>> GetAnimalsAsync(DbQuery query);
         Task<int> GetAnimalCountAsync(DbQuery query);
-        Task<List<AnimalDto>> GetAnimalsAsync(int currentPage, int pageSize);
         Task<AnimalDto> GetAnimalAsync(string id);
         Task UpdateAnimalAsync(AnimalDto instanse);
         Task DeleteAnimalAsync(string id);

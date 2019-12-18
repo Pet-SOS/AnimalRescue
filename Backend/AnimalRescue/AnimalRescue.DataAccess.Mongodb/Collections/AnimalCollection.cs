@@ -42,16 +42,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
 
         public async Task DeleteAnimalAsync(AnimalDto instanse)
         {
-            var data = ConvertOneFrom(instanse);
-            await base.RemoveAsync(data);
-        }
-
-        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage, int pageSize)
-        {
-            var data = await GetAsync(currentPage, pageSize);
-            var result = ConvertListTo<AnimalDto>(data);
-
-            return result;
+            await base.RemoveAsync(instanse.Id);
         }
 
         public async Task<AnimalDto> GetAnimalAsync(string id)
@@ -66,7 +57,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
         public async Task UpdateAnimalAsync(AnimalDto instanse)
         {
             var newData = ConvertOneFrom(instanse);
-            var oldData = await base.GetOneByIdAsync(newData.Id);
+            var oldData = await base.GetAsync(newData.Id);
             newData.DateOfAdopted = oldData.DateOfAdopted;
             newData.DateOfFound = oldData.DateOfFound;
             await UpdateAsync(newData);
