@@ -28,6 +28,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 			List<Profile> profiles)
 		{
 			profiles.Add(new AnimalMappingProfile());
+			profiles.Add(new CmsConfigurationMappingProfile());
 
             var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
             MongoClient client = new MongoClient(commonSettings.ConnectionString);
@@ -41,6 +42,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
                 .AddSingleton<IQueryBuilder<Blog>, QueryBuilder<Blog>>()
+                .AddSingleton<IQueryBuilder<Configuration<CmsConfigurationNested>>, QueryBuilder<Configuration<CmsConfigurationNested>>>()
                 ;
 
             services
