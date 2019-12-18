@@ -1,18 +1,22 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Models.DTO;
-
+using AutoMapper;
 using MongoDB.Driver;
 
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    public class ConfigurationRepository : Repository<Configuration<CmsConfigurationNested>>, IConfigurationRepository
+    public class ConfigurationRepository : BaseCollection<Configuration<CmsConfigurationNested>>, IConfigurationRepository
     {
-        public ConfigurationRepository(IMongoClient client, IMongoDbSettings settings)
-            : base(client, settings)
+        public ConfigurationRepository(
+            IMongoDatabase database,
+            IQueryBuilder<Configuration<CmsConfigurationNested>> queryBuilder,
+            IMapper mapper)
+            : base(database, queryBuilder, mapper)
         {
         }
 
@@ -25,13 +29,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             {
                 return null;
             }
-
-            var cmsConfiguration = new CmsConfigurationDto()
-            {
-                Id = configuration.Id,
-                Phones = configuration.Data.Phones,
-                SocialLinks = configuration.Data.SocialLinks
-            };
+            
+            var cmsConfiguration = ConvertOneTo<CmsConfigurationDto>(configuration);
 
             return cmsConfiguration;
         }

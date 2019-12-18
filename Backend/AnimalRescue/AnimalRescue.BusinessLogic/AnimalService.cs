@@ -1,6 +1,7 @@
 ﻿using AnimalRescue.Contracts.Query;
 using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Contracts.Interfaces;
+using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
 
@@ -30,8 +31,9 @@ namespace AnimalRescue.BusinessLogic
 
         public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
-            var data = await animalRepository.GetAnimalsAsync(queryRequest.Page, queryRequest.Size);
-            var count = await animalRepository.GetAnimalCountAsync();  
+            var dbQuery = queryRequest.ToDbQuery();
+            var data = await animalRepository.GetAnimalsAsync(dbQuery);
+            var count = await animalRepository.GetAnimalCountAsync(dbQuery);  
            
             return (data, count);
         }

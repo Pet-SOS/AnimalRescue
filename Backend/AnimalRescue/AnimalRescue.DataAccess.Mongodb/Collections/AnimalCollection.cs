@@ -1,5 +1,7 @@
 ﻿using AnimalRescue.DataAccess.Contracts.Interfaces;
+using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Models.DTO.Models;
 
 using AutoMapper;
@@ -15,8 +17,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
     public class AnimalCollection : BaseCollection<Animal>,
         IAnimalRepository
     {
-        public AnimalCollection(IMongoDatabase database, IMapper mapper)
-            : base(database, mapper)
+        public AnimalCollection(
+            IMongoDatabase database, 
+            IQueryBuilder<Animal> queryBuilder, 
+            IMapper mapper)
+            : base(database, queryBuilder, mapper)
         {
         }
 
@@ -37,23 +42,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
 
         public async Task DeleteAnimalAsync(AnimalDto instanse)
         {
-            var data = ConvertOneFrom(instanse);
-            await base.RemoveAsync(data);
-        }
-
-        public async Task<List<AnimalDto>> GetAnimalsAsync(int currentPage, int pageSize)
-        {
-            var data = await GetAsync(currentPage, pageSize);
-            var result = ConvertListTo<AnimalDto>(data);
-
-            return result;
-        }
-
-        public async Task<int> GetAnimalCountAsync()
-        {
-            var count = await GetCountAsync();
-
-            return (int)count;
+            await base.RemoveAsync(instanse.Id);
         }
 
         public async Task<AnimalDto> GetAnimalAsync(string id)
@@ -68,10 +57,26 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
         public async Task UpdateAnimalAsync(AnimalDto instanse)
         {
             var newData = ConvertOneFrom(instanse);
-            var oldData = await base.GetOneByIdAsync(newData.Id);
+            var oldData = await base.GetAsync(newData.Id);
             newData.DateOfAdopted = oldData.DateOfAdopted;
             newData.DateOfFound = oldData.DateOfFound;
             await UpdateAsync(newData);
+        }
+
+        public async Task<List<AnimalDto>> GetAnimalsAsync(DbQuery query)
+        {
+            var data = await base.GetAsync(query);
+
+            var result = ConvertListTo<AnimalDto>(data);
+
+            return result;
+        }
+
+        public async Task<int> GetAnimalCountAsync(DbQuery query)
+        {  
+            var result = await base.GetCountAsync(query);
+
+            return result;
         }
     }
 }

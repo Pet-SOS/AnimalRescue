@@ -1,26 +1,35 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
+﻿using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
+
+using AutoMapper;
+
 using MongoDB.Driver;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-	internal class BlogRepository : Repository<Blog>, IBlogRepository
+    internal class BlogRepository : BaseCollection<Blog>, IBlogRepository
 	{
-		public BlogRepository(IMongoClient client, IMongoDbSettings settings) : base(client, settings)
+		public BlogRepository(
+            IMongoDatabase database,
+            IQueryBuilder<Blog> queryBuilder,
+            IMapper mapper)
+            : base(database, queryBuilder, mapper)
+        {
+        }
+
+        public async Task<IList<Blog>> GetBlogsWithPagginationAsync(DbQuery query)
 		{
+			return await GetAsync(query);
 		}
 
-		public async Task<IList<Blog>> GetBlogsWithPagginationAsync(int pageNubmer, int pageSize)
+		public async Task<int> GetBlogsCountAsync(DbQuery query)
 		{
-			return await GetAsync(pageNubmer, pageSize, b => b.CreatedAt);
-		}
-
-		public async Task<int> GetBlogsCountAsync()
-		{
-			return await GetCountAsync();
+			return await GetCountAsync(query);
 		}
 	}
 }
