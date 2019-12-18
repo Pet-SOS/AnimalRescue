@@ -1,5 +1,7 @@
 ﻿using AnimalRescue.DataAccess.Contracts.Interfaces;
+using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Models.DTO.Models;
 
 using AutoMapper;
@@ -15,8 +17,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
     public class AnimalCollection : BaseCollection<Animal>,
         IAnimalRepository
     {
-        public AnimalCollection(IMongoDatabase database, IMapper mapper)
-            : base(database, mapper)
+        public AnimalCollection(
+            IMongoDatabase database, 
+            IQueryBuilder<Animal> queryBuilder, 
+            IMapper mapper)
+            : base(database, queryBuilder, mapper)
         {
         }
 
@@ -72,6 +77,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
             newData.DateOfAdopted = oldData.DateOfAdopted;
             newData.DateOfFound = oldData.DateOfFound;
             await UpdateAsync(newData);
+        }
+
+        public async Task<List<AnimalDto>> GetAnimalsAsync(DbQuery query)
+        {
+            var data = await base.GetAsync(query);
+
+            var result = ConvertListTo<AnimalDto>(data);
+
+            return result;
         }
     }
 }
