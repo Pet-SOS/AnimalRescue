@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AnimalRescue.DataAccess.Mongodb.Exceptions
 {
-    class OperatorException : Exception, IAppException
+    internal class OperatorException : Exception, IAppException
     {
         public OperatorException(string message)
             : base(message)

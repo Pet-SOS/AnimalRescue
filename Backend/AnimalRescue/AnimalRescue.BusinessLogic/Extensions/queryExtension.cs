@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.DataAccess.Contracts.Query
 {
-    public static class queryExtension
+    public static class QueryExtension
     {
         public static DbQuery ToDbQuery(this ApiQueryRequest apiQueryRequest)
         {

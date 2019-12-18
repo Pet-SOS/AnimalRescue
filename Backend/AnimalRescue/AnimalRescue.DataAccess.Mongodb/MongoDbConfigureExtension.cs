@@ -42,8 +42,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
                 .AddSingleton<IQueryBuilder<Blog>, QueryBuilder<Blog>>()
-                .AddSingleton<IQueryBuilder<Configuration<CmsConfigurationNested>>, QueryBuilder<Configuration<CmsConfigurationNested>>>()
-                ;
+                .AddSingleton<IQueryBuilder<Configuration<CmsConfigurationNested>>, QueryBuilder<Configuration<CmsConfigurationNested>>>();
 
             services
                 .AddScoped<IMongoDatabase>(x => database)

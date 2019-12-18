@@ -91,7 +91,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .Sort(queryBuilder.SortAsString(query.Sort))
                 .Skip(query.Skip)
                 .Limit(query.Size)
-                .ToListAsync(); ;
+                .ToListAsync();
 
             return requestedCollection;
         }
