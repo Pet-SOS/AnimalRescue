@@ -54,13 +54,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
             return result;
         }
 
-        public async Task<int> GetAnimalCountAsync()
-        {
-            var count = await GetCountAsync();
-
-            return (int)count;
-        }
-
         public async Task<AnimalDto> GetAnimalAsync(string id)
         {
             var data = await base.GetAsync(id);
@@ -84,6 +77,13 @@ namespace AnimalRescue.DataAccess.Mongodb.Collections
             var data = await base.GetAsync(query);
 
             var result = ConvertListTo<AnimalDto>(data);
+
+            return result;
+        }
+
+        public async Task<int> GetAnimalCountAsync(DbQuery query)
+        {  
+            var result = await base.GetCountAsync(query);
 
             return result;
         }

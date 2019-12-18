@@ -31,8 +31,9 @@ namespace AnimalRescue.BusinessLogic
 
         public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
-            var data = await animalRepository.GetAnimalsAsync(queryRequest.ToDbQuery());
-            var count = await animalRepository.GetAnimalCountAsync();  
+            var dbQuery = queryRequest.ToDbQuery();
+            var data = await animalRepository.GetAnimalsAsync(dbQuery);
+            var count = await animalRepository.GetAnimalCountAsync(dbQuery);  
            
             return (data, count);
         }
