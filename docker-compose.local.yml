@@ -1,0 +1,63 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: Backend/AnimalRescue
+      dockerfile: Dockerfile
+    container_name: animalrescue.api
+    image: animalrescue.api
+    restart: unless-stopped
+    ports:
+      - "9090:80"
+    environment:
+      - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
+      - MongoDbSettings__DatabaseName=AnimalRescue
+      - Logging__LogLevel__Default=Debug
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - frontend
+      - backend
+
+  portal:
+    build:
+      context: Frontend
+      dockerfile: Dockerfile
+    container_name: animalrescue.portal
+    image: animalrescue.portal
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - frontend
+
+  mongodb:
+    container_name: "mongodb"
+    image: mongo:4.2
+    restart: unless-stopped
+    command: mongod --auth
+    environment:
+      - MONGO_INITDB_DATABASE=animal_rescue
+      - MONGO_INITDB_ROOT_USERNAME=mongodbuser
+      - MONGO_INITDB_ROOT_PASSWORD=mongodbpass
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - mongodbdata:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+
+volumes:
+  mongodbdata:
+    driver: local
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge 
