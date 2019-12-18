@@ -18,7 +18,7 @@ services:
         aliases:
           - api.animalrescue.synapse.com
     environment:
-      - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@mongodb:27017
+      - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
       - MongoDbSettings__DatabaseName=${MongoDB_database}
       - Logging__LogLevel__Default=Debug
     depends_on:
