@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    public class AnimalRepository : BaseCollection<Animal>,
+    internal class AnimalRepository : BaseCollection<Animal>,
         IAnimalRepository
     {
         public AnimalRepository(

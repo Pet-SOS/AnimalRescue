@@ -1,6 +1,6 @@
 ﻿namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    public class QueryBuilder<T> : IQueryBuilder<T>
+    internal class QueryBuilder<T> : IQueryBuilder<T>
     {
         private readonly IQuerySortBuilder querySortBuilder;
         private readonly IQueryFilterBuilder queryFilterBuilder;

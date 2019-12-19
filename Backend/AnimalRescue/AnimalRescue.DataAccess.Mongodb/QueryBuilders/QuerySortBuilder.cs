@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    public class QuerySortBuilder : IQuerySortBuilder
+    internal class QuerySortBuilder : IQuerySortBuilder
     {
         public const string Descending = "decs";
         public const string Ascending = "acs";

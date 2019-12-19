@@ -1,6 +1,6 @@
 ﻿namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    public interface IQueryFilterBuilder
+    internal interface IQueryFilterBuilder
     {
         string BuildStringFilterParams<T>(string rowFilterParams);
     }
