@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public class Bucket : IBucket
+    internal class Bucket : IBucket
     {
         protected IGridFSBucket gridFSBucket;
         public Bucket(IBucketSettings settings, IMongoDatabase database)

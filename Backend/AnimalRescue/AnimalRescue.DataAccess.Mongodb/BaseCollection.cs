@@ -1,6 +1,6 @@
-﻿using AnimalRescue.DataAccess.Contracts.Query;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Collections;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public abstract class BaseCollection<T> : IDbCollection<T>
+    internal abstract class BaseCollection<T> : IBaseCollection<T>
         where T : BaseItem
     {
         protected readonly IMongoCollection<T> collection;

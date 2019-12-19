@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.Contracts.Query;
+using AnimalRescue.DataAccess.Mongodb.Query;
 
 namespace AnimalRescue.DataAccess.Contracts.Query
 {

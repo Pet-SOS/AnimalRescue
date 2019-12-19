@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    public class FilterContractConstants
+    internal class FilterContractConstants
     {
         public const string All = "all";
         public const string Eq = "eq";

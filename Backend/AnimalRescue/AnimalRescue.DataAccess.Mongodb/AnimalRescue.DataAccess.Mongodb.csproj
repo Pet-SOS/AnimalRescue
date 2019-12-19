@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AnimalRescue.DataAccess.Contracts\AnimalRescue.DataAccess.Contracts.csproj" />
     <ProjectReference Include="..\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj" />
     <ProjectReference Include="..\AnimalRescue.Models.DTO\AnimalRescue.Models.DTO.csproj" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿namespace AnimalRescue.DataAccess.Mongodb.Configurations
 {
-    public interface IBucketSettings
+    internal interface IBucketSettings
     {
         string BucketName { get; set; }
     }

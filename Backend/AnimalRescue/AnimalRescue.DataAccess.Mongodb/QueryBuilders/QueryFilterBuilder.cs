@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    public class QueryFilterBuilder : IQueryFilterBuilder
+    internal class QueryFilterBuilder : IQueryFilterBuilder
     {
         private string defaultFilter = "{}";
 

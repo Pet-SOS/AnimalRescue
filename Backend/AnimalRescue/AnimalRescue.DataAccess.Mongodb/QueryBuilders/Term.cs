@@ -3,7 +3,7 @@ using AnimalRescue.Infrastructure.Validation;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    public class Term
+    internal class Term
     {
         public string FieldName { get; set; }
         public string CommandName { get; set; }

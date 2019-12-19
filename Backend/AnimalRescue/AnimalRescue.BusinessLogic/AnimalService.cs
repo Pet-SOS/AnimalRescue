@@ -1,7 +1,7 @@
 ﻿using AnimalRescue.Contracts.Query;
 using AnimalRescue.Contracts.Services;
-using AnimalRescue.DataAccess.Contracts.Interfaces;
 using AnimalRescue.DataAccess.Contracts.Query;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.Infrastructure.Validation;
 using AnimalRescue.Models.DTO.Models;
 

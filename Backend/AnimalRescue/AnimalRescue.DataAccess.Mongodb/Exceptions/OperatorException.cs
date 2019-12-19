@@ -1,8 +1,7 @@
 ﻿using AnimalRescue.Infrastructure.Http;
+
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace AnimalRescue.DataAccess.Mongodb.Exceptions
 {

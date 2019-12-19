@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    public class ConfigurationRepository : BaseCollection<Configuration<CmsConfigurationNested>>, IConfigurationRepository
+    internal class ConfigurationRepository : BaseCollection<Configuration<CmsConfigurationNested>>, IConfigurationRepository
     {
         public ConfigurationRepository(
             IMongoDatabase database,

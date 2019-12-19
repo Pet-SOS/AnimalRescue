@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace AnimalRescue.DataAccess.Mongodb.Configurations.MappingProfiles
 {
-    class AnimalMappingProfile : Profile
+    internal class AnimalMappingProfile : Profile
     {
         public AnimalMappingProfile()
         {
