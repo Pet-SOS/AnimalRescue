@@ -1,6 +1,4 @@
-﻿using AnimalRescue.DataAccess.Contracts.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Collections;
-using AnimalRescue.DataAccess.Mongodb.Configurations;
+﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Configurations.MappingProfiles;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
@@ -47,7 +45,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             services
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
-                .AddScoped<IAnimalRepository, AnimalCollection>()
+                .AddScoped<IAnimalRepository, AnimalRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IBlogRepository, BlogRepository>();
 		}

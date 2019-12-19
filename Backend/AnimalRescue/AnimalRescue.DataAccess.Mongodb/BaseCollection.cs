@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    public abstract class BaseCollection<T> : IDbCollection<T>
+    public abstract class BaseCollection<T> : IBaseCollection<T>
         where T : BaseItem
     {
         protected readonly IMongoCollection<T> collection;
