@@ -1,6 +1,6 @@
-﻿using AnimalRescue.DataAccess.Contracts.Query;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Models.DTO.Models;
 

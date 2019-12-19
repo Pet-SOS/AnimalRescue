@@ -1,4 +1,4 @@
-﻿using AnimalRescue.DataAccess.Contracts.Query;
+﻿using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Models.DTO.Models;
 
 using System.Collections.Generic;

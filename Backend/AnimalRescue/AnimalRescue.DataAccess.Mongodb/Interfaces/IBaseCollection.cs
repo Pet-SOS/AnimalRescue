@@ -1,12 +1,11 @@
-﻿using AnimalRescue.DataAccess.Contracts.Query;
-using AnimalRescue.DataAccess.Mongodb.Models;
-
+﻿using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Collections
+namespace AnimalRescue.DataAccess.Mongodb.Interfaces
 {
-    public interface IBaseCollection<T>
+    internal interface IBaseCollection<T>
         where T : BaseItem
     {
         Task<List<T>> GetAsync(DbQuery query);
@@ -15,6 +14,5 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Collections
         Task<T> CreateAsync(T instance);
         Task UpdateAsync(T instance);
         Task RemoveAsync(string id);
-
     }
 }
