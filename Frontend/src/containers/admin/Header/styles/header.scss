@@ -1,0 +1,70 @@
+header {
+  height: auto;
+  padding: 1rem 5rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #f1f2f6 !important;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+
+    .logo-main {
+      display: flex;
+
+      .logo {
+        margin: 0 1rem;
+      }
+
+      .logo-text {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 1.375rem;
+        line-height: 1.625rem;
+        display: flex;
+        align-items: center;
+        color: #0D2B4B;
+        margin-right: 7rem;
+        max-width: 17rem;
+      }
+    }
+
+    .contacts {
+      padding: 1.5rem 0 0 0;
+
+      .phone {
+        display: flex;
+        flex-direction: column;
+        font-style: normal;
+
+        .number {
+          font-weight: normal;
+          font-size: 1.5rem;
+          line-height: 1.312rem;
+          color: #0D2B4B;
+        }
+
+        .title {
+          padding: 0.3rem 0 0 0;
+          font-weight: 300;
+          line-height: 1rem;
+          color: #868697
+        }
+      }
+    }
+
+    .change-locale {
+      position: absolute;
+      top: .5rem;
+      right: 5rem;
+    }
+  }
+}
+
+.dog-background {
+  background: url('../../../../assets/header/background/dog_1.png') no-repeat right;
+}

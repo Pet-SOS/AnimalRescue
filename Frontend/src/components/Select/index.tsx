@@ -27,7 +27,7 @@ export const Select: React.FC<IPropTypes> = ({data, selected, onChange, mainStyl
 
     useEffect(() => {
         setSelected(selected || '');
-    });
+    }, [selected]);
 
     const getSelectedValue = () => {
         for (let i = 0; i < data.length; i++) {

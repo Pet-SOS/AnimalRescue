@@ -1,0 +1,31 @@
+@import "../../../../styles/variables";
+
+.header-menu {
+  display: flex;
+  width: 100%;
+  max-height: 3.65rem;
+  background: $main-bg-color;
+  border: 0.062rem solid $menu-border-color;
+  box-sizing: border-box;
+  box-shadow: 0 0.188rem .5rem rgba(166, 205, 227, 0.4);
+  border-radius: 2rem;
+  justify-content: space-between;
+
+  .item {
+    margin: auto;
+    padding: 1rem 0.1rem;
+    cursor: pointer;
+  }
+
+  .help-button {
+    background: #5EAC38;
+    border-radius: 4.81rem;
+    width: 12.5rem;
+    height: inherit;
+    text-align: center;
+    padding: 1.2rem 0;
+    span {
+      margin: 0 auto;
+    }
+  }
+}

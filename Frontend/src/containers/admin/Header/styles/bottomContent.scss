@@ -1,0 +1,37 @@
+.header-bottom {
+  padding: 2.94rem 0 0 0;
+  width: 26rem;
+  .title {
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 2.875rem;
+    color: #0D2B4B;
+  }
+  .content{
+    .text {
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+      color: #0D2B4B;
+    }
+    .btn-give{
+      box-shadow: 0 0.1875rem 0.375rem rgba(94, 172, 56, 0.5);
+      max-height: 3.2rem;
+      padding: 1rem;
+    }
+
+    .block-more {
+      padding: 4rem 0 4rem 0;
+      font-weight: normal;
+      font-size: 1.312rem;
+      line-height: 1.5rem;
+      font-style: normal;
+      display: flex;
+      flex-direction: row;
+
+      p {
+        margin-top: 6px;
+        margin-right: 16px;
+      }
+    }
+  }
+}
