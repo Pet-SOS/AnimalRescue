@@ -1,15 +1,17 @@
 import React from 'react';
 import {Route, Switch, RouteComponentProps} from 'react-router';
-import AdminHome from "./Home";
+import {AdminHome} from "./Home";
+import AppHeader from "./Header";
 
-interface IPropTypes extends RouteComponentProps{
+interface IPropTypes extends RouteComponentProps {
 
 }
 
-const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
+const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
 
     return (
         <div>
+            <AppHeader/>
             <Switch>
                 <Route path={props.match.path} component={AdminHome}/>
             </Switch>
@@ -17,4 +19,4 @@ const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
     )
 };
 
-export default Client
+export default Admin
