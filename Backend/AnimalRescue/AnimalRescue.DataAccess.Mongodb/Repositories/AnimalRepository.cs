@@ -1,4 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+﻿using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
@@ -45,6 +46,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
             var newData = instanse;
             var oldData = await this.baseCollection.GetAsync(instanse.Id);
+            Require.Objects.NotNull<NotFoundItemException>(oldData, () => $"Animal with id: {instanse.Id} not found");
+
             newData.DateOfAdopted = oldData.DateOfAdopted;
             newData.DateOfFound = oldData.DateOfFound;
             await this.baseCollection.UpdateAsync(newData);

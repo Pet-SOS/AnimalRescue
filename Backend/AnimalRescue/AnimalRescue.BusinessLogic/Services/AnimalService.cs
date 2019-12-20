@@ -31,9 +31,9 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             animalDto.Id = string.Empty;
 
-            var animalDbo = mapper.Map<AnimalDto, Animal>(animalDto);
-            animalDbo = await animalRepository.CreateAnimalAsync(animalDbo);
-            animalDto = mapper.Map<Animal, AnimalDto>(animalDbo);
+            var animal = mapper.Map<AnimalDto, Animal>(animalDto);
+            animal = await animalRepository.CreateAnimalAsync(animal);
+            animalDto = mapper.Map<Animal, AnimalDto>(animal);
 
             return animalDto;
         }
@@ -41,8 +41,8 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
-            var animalDbos = await animalRepository.GetAnimalsAsync(dbQuery);
-            var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animalDbos);
+            var animal = await animalRepository.GetAnimalsAsync(dbQuery);
+            var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animal);
             var count = await animalRepository.GetAnimalCountAsync(dbQuery);
 
             return (animalDtos, count);
@@ -50,17 +50,17 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<AnimalDto> GetAnimalAsync(string id)
         {
-            var animalDbo = await animalRepository.GetAnimalAsync(id);
-            var animalDto = mapper.Map<Animal, AnimalDto>(animalDbo);
+            var animal = await animalRepository.GetAnimalAsync(id);
+            var animalDto = mapper.Map<Animal, AnimalDto>(animal);
 
             return animalDto;
         }
 
         public async Task UpdateAnimalAsync(AnimalDto animalDto)
         {
-            var animalDbo = mapper.Map<AnimalDto, Animal>(animalDto);
+            var animal = mapper.Map<AnimalDto, Animal>(animalDto);
 
-            await animalRepository.UpdateAnimalAsync(animalDbo);
+            await animalRepository.UpdateAnimalAsync(animal);
         }
 
         public async Task DeleteAnimalAsync(string id)
