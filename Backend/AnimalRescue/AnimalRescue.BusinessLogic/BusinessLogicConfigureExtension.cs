@@ -3,6 +3,7 @@ using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts;
 using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Mongodb;
+
 using AutoMapper;
 
 using Microsoft.Extensions.Configuration;
@@ -17,8 +18,11 @@ namespace AnimalRescue.BusinessLogic
         public static void AddConfigureBusinessLogic(
             this IServiceCollection services, 
             IConfiguration configuration, 
-            List<Profile> profiles)
+            out List<Profile> profiles)
         {
+            //Require.Objects.NotNull(profiles, nameof(profiles));
+            profiles = new List<Profile>();
+
             services.AddConfigureMongoDb(configuration);
 
             profiles.AddRange(new Profile[] { 
