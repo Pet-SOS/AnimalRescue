@@ -22,8 +22,8 @@ namespace AnimalRescue.Resolver
                 profiles = new List<Profile>();
             }
 
-            services.AddConfigureMongoDb(configuration, profiles);
-            services.AddConfigureBusinessLogic(configuration);
+            services.AddConfigureMongoDb(configuration);
+            services.AddConfigureBusinessLogic(configuration, profiles);
 
             var mappingConfig = new MapperConfiguration(mc => profiles.ForEach(x => mc.AddProfile(x)));
             IMapper mapper = mappingConfig.CreateMapper();

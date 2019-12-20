@@ -1,38 +1,32 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
-using AnimalRescue.Models.DTO;
-using AutoMapper;
+using AnimalRescue.Infrastructure.Validation;
+
 using MongoDB.Driver;
 
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class ConfigurationRepository : BaseCollection<Configuration<CmsConfigurationNested>>, IConfigurationRepository
+    internal class ConfigurationRepository : IConfigurationRepository
     {
-        public ConfigurationRepository(
-            IMongoDatabase database,
-            IQueryBuilder<Configuration<CmsConfigurationNested>> queryBuilder,
-            IMapper mapper)
-            : base(database, queryBuilder, mapper)
+        private readonly IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection;
+
+        public ConfigurationRepository(IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection)
         {
+            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
+
+            this.baseCollection = baseCollection;
         }
 
-        public async Task<CmsConfigurationDto> GetCmsConfigurationAsync()
+        public async Task<Configuration<CmsConfigurationNested>> GetCmsConfigurationAsync()
         {
-            var configurationCursor = await collection.FindAsync(x => x.Name == Constants.CmsConfigurationName);
+            var configuration = await baseCollection.Collection
+                .Find(x => x.Name == Constants.CmsConfigurationName)
+                .FirstOrDefaultAsync();
 
-            var configuration = await configurationCursor.FirstOrDefaultAsync();
-            if (configuration == null)
-            {
-                return null;
-            }
-            
-            var cmsConfiguration = ConvertOneTo<CmsConfigurationDto>(configuration);
-
-            return cmsConfiguration;
+            return configuration;
         }
     }
 }

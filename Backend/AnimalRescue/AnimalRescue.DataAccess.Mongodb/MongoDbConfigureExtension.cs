@@ -1,5 +1,4 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
-using AnimalRescue.DataAccess.Mongodb.Configurations.MappingProfiles;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
@@ -7,14 +6,10 @@ using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.DataAccess.Mongodb.Repositories;
 using AnimalRescue.Infrastructure.Configuration;
 
-using AutoMapper;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using MongoDB.Driver;
-
-using System.Collections.Generic;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
@@ -22,12 +17,8 @@ namespace AnimalRescue.DataAccess.Mongodb
 	{
 		public static void AddConfigureMongoDb(
 			this IServiceCollection services,
-			IConfiguration configuration,
-			List<Profile> profiles)
+			IConfiguration configuration)
 		{
-			profiles.Add(new AnimalMappingProfile());
-			profiles.Add(new CmsConfigurationMappingProfile());
-
             var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
             MongoClient client = new MongoClient(commonSettings.ConnectionString);
             IMongoDatabase database = client.GetDatabase(commonSettings.DatabaseName);
@@ -45,6 +36,9 @@ namespace AnimalRescue.DataAccess.Mongodb
             services
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
+                .AddScoped<IBaseCollection<Animal>, BaseCollection<Animal>>()
+                .AddScoped<IBaseCollection<Blog>, BaseCollection<Blog>>()
+                .AddScoped<IBaseCollection<Configuration<CmsConfigurationNested>>, BaseCollection<Configuration<CmsConfigurationNested>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IBlogRepository, BlogRepository>();

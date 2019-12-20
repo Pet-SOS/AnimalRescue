@@ -1,12 +1,9 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+﻿using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
-using AnimalRescue.Models.DTO.Models;
-
-using AutoMapper;
-
-using MongoDB.Driver;
+using AnimalRescue.Infrastructure.Validation;
 
 using System;
 using System.Collections.Generic;
@@ -14,62 +11,58 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class AnimalRepository : BaseCollection<Animal>,
-        IAnimalRepository
+    internal class AnimalRepository : IAnimalRepository
     {
-        public AnimalRepository(
-            IMongoDatabase database,
-            IQueryBuilder<Animal> queryBuilder,
-            IMapper mapper)
-            : base(database, queryBuilder, mapper)
+        private readonly IBaseCollection<Animal> baseCollection;
+
+        public AnimalRepository(IBaseCollection<Animal> baseCollection)
         {
+            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
+
+            this.baseCollection = baseCollection;
         }
 
-        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto instanse)
+        public async Task<Animal> CreateAnimalAsync(Animal instanse)
         {
-            var data = ConvertOneFrom(instanse);
-            data.DateOfFound = DateTimeOffset.Now;
-            var result = await CreateAsync(data);
-            instanse = ConvertOneTo<AnimalDto>(result);
+            instanse.DateOfFound = DateTimeOffset.Now;
+            instanse = await this.baseCollection.CreateAsync(instanse);            
 
             return instanse;
         }
 
         public async Task DeleteAnimalAsync(string id)
         {
-            await RemoveAsync(id);
+            await this.baseCollection.RemoveAsync(id);
         }
 
-        public async Task<AnimalDto> GetAnimalAsync(string id)
+        public async Task<Animal> GetAnimalAsync(string id)
         {
-            var data = await GetAsync(id);
-
-            var result = ConvertOneTo<AnimalDto>(data);
+            var result = await this.baseCollection.GetAsync(id);
 
             return result;
         }
 
-        public async Task UpdateAnimalAsync(AnimalDto instanse)
+        public async Task UpdateAnimalAsync(Animal instanse)
         {
-            var newData = ConvertOneFrom(instanse);
-            var oldData = await GetAsync(newData.Id);
+            var newData = instanse;
+            var oldData = await this.baseCollection.GetAsync(instanse.Id);
+            Require.Objects.NotNull<NotFoundItemException>(oldData, () => $"Animal with id: {instanse.Id} not found");
+
             newData.DateOfAdopted = oldData.DateOfAdopted;
             newData.DateOfFound = oldData.DateOfFound;
-            await UpdateAsync(newData);
+            await this.baseCollection.UpdateAsync(newData);
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(DbQuery query)
+        public async Task<List<Animal>> GetAnimalsAsync(DbQuery query)
         {
-            var data = await GetAsync(query);
-
-            var result = ConvertListTo<AnimalDto>(data);
+            var result = await this.baseCollection.GetAsync(query);
 
             return result;
         }
 
         public async Task<int> GetAnimalCountAsync(DbQuery query)
         {
-            var result = await GetCountAsync(query);
+            var result = await this.baseCollection.GetCountAsync(query);
 
             return result;
         }

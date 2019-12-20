@@ -4,77 +4,35 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
-using AutoMapper;
-
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
-    internal abstract class BaseCollection<T> : IBaseCollection<T>
+    internal class BaseCollection<T> : IBaseCollection<T>
         where T : BaseItem
     {
+        public IMongoCollection<T> Collection => collection;
         protected readonly IMongoCollection<T> collection;
-        protected readonly IMapper mapper;
         protected readonly IQueryBuilder<T> queryBuilder;
 
         public BaseCollection(
             IMongoDatabase database, 
-            IQueryBuilder<T> queryBuilder, 
-            IMapper mapper)     
-            : this(
-                  database, 
-                  queryBuilder, 
-                  mapper, 
-                  typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator)
+            IQueryBuilder<T> queryBuilder)     
         {
-        }
-
-        public BaseCollection(
-            IMongoDatabase database, 
-            IQueryBuilder<T> queryBuilder, 
-            IMapper mapper, 
-            string collectionName)
-        {
-            Require.Objects.NotNull(database, nameof(database));
-            Require.Objects.NotNull(mapper, nameof(mapper));
-            Require.Objects.NotNull(queryBuilder, nameof(queryBuilder));
+            var collectionName = typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator;
+            
             Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
+            Require.Objects.NotNull(database, nameof(database));
+            Require.Objects.NotNull(queryBuilder, nameof(queryBuilder));
 
-            collection = database.GetCollection<T>(collectionName);
+            this.collection = database.GetCollection<T>(collectionName);
             this.queryBuilder = queryBuilder;
-            this.mapper = mapper;
         }
-
-
-        #region Converting
-
-        protected List<Tout> ConvertListTo<Tout>(IList<T> items)
-        {
-            return mapper.Map<IList<T>, List<Tout>>(items);
-        }
-        protected List<Tout> ConvertListTo<Tout>(IAsyncCursor<T> items)
-        {
-            return mapper.Map<List<T>, List<Tout>>(items.ToList());
-        }
-        protected T ConvertOneFrom<TIn>(TIn item)
-        {
-            return mapper.Map<TIn, T>(item);
-        }
-        protected Tout ConvertOneTo<Tout>(T item)
-        {
-            return mapper.Map<T, Tout>(item);
-        }
-        protected Tout ConvertOneTo<Tout>(IAsyncCursor<T> item)
-        {
-            return ConvertOneTo<Tout>(item.FirstOrDefault());
-        }
-        #endregion
 
         public async Task UpdateAsync(T instance) => await collection.ReplaceOneAsync(t => t.Id == instance.Id, instance);
         public async Task RemoveAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
