@@ -1,4 +1,4 @@
-﻿namespace AnimalRescue.Models.DTO
+﻿namespace AnimalRescue.BusinessLogic.Models
 {
     public class BaseDto
     {

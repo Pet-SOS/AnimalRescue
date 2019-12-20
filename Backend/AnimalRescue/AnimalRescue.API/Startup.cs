@@ -1,17 +1,12 @@
-using AnimalRescue.API.Core;
 using AnimalRescue.API.Core.Configuration;
 using AnimalRescue.API.Core.Middlewares;
+using AnimalRescue.BusinessLogic;
 using AnimalRescue.Infrastructure.Configuration;
-using AnimalRescue.Resolver;
-
-using AutoMapper;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using System.Collections.Generic;
 
 namespace AnimalRescue.API
 {
@@ -45,7 +40,10 @@ namespace AnimalRescue.API
             
             services.AddConfigureSwagger();
 
-            services.AddLayerResolver(Configuration, new List<Profile>{ new ApiMappingProfile() });
+            services.AddConfigureBusinessLogic(Configuration, out var profiles);
+
+            services.AddConfigureAutoMapper(profiles);
+
             services.AddTransient<UnhandledExceptionMiddleware>(); 
         }
 

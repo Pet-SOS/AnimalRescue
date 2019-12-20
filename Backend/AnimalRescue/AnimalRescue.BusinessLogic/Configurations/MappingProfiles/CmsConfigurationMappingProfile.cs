@@ -1,5 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Models.DTO;
+﻿using AnimalRescue.BusinessLogic.Models;
+using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
 

@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AnimalRescue.Contracts\AnimalRescue.Contracts.csproj" />
     <ProjectReference Include="..\AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj" />
-    <ProjectReference Include="..\AnimalRescue.Models.DTO\AnimalRescue.Models.DTO.csproj" />
   </ItemGroup>
 
 </Project>

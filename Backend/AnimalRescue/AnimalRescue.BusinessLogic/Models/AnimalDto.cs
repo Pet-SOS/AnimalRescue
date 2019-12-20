@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace AnimalRescue.Models.DTO.Models
+namespace AnimalRescue.BusinessLogic.Models
 {
     public class AnimalDto : BaseDto
-    {  
+    {
         public int Number { get; set; }
         public string Name { get; set; }
         public string KindOfAnimal { get; set; }

@@ -1,4 +1,4 @@
-﻿using AnimalRescue.Models.DTO;
+﻿using AnimalRescue.BusinessLogic.Models;
 
 using System.Threading.Tasks;
 

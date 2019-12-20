@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AnimalRescue.Models.DTO
+namespace AnimalRescue.BusinessLogic.Models
 {
     public class CmsConfigurationDto : BaseDto
     {

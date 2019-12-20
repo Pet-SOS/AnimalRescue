@@ -1,18 +1,21 @@
 ﻿using AnimalRescue.API.Models;
+using AnimalRescue.BusinessLogic.Models;
 using AnimalRescue.Contracts;
 using AnimalRescue.Contracts.Query;
 using AnimalRescue.Contracts.Responses;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using BL = AnimalRescue.Models.DTO;
 
 namespace AnimalRescue.API.Controllers
 {
-	public class BlogsController : ApiControllerBase
+    public class BlogsController : ApiControllerBase
 	{
 		private readonly IBlogService _blogService;
 		private readonly IMapper _mapper;
@@ -32,7 +35,7 @@ namespace AnimalRescue.API.Controllers
 		{
 			var blBlogsDto = await _blogService.GetAllBlogsAsync(queryRequest);
 
-			var data = _mapper.Map<IList<BL.Models.BlogDto>, List<BlogModel>>(blBlogsDto.blogDtos);
+			var data = _mapper.Map<IList<BlogDto>, List<BlogModel>>(blBlogsDto.blogDtos);
 
 			return Collection(data, blBlogsDto.totalCount, queryRequest.Page, queryRequest.Size);
 		}
