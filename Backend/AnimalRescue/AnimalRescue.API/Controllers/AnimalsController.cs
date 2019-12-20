@@ -1,8 +1,8 @@
 ﻿using AnimalRescue.API.Models;
+using AnimalRescue.BusinessLogic.Models;
 using AnimalRescue.Contracts.Query;
 using AnimalRescue.Contracts.Responses;
 using AnimalRescue.Contracts.Services;
-using AnimalRescue.Models.DTO.Models;
 
 using AutoMapper;
 

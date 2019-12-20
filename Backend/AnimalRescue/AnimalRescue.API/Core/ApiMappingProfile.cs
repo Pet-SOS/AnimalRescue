@@ -1,6 +1,5 @@
 ﻿using AnimalRescue.API.Models;
-using AnimalRescue.Models.DTO;
-using AnimalRescue.Models.DTO.Models;
+using AnimalRescue.BusinessLogic.Models;
 
 using AutoMapper;
 

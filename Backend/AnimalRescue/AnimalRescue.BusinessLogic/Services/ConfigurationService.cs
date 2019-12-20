@@ -1,7 +1,7 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.BusinessLogic.Models;
+using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Models.DTO;
 
 using AutoMapper;
 
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    public class ConfigurationService : IConfigurationService
+    internal class ConfigurationService : IConfigurationService
     {
         private readonly IConfigurationRepository _configurationRepository;
         private readonly IMapper mapper;

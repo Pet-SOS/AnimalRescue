@@ -1,5 +1,4 @@
-﻿using AnimalRescue.Models.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AnimalRescue.API.Models
 {

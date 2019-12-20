@@ -3,7 +3,7 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 
 namespace AnimalRescue.DataAccess.Contracts.Query
 {
-    public static class QueryExtension
+    internal static class QueryExtension
     {
         public static DbQuery ToDbQuery(this ApiQueryRequest apiQueryRequest)
         {

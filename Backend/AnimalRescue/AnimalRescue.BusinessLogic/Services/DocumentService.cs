@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    public class DocumentService : IDocumentService
+    internal class DocumentService : IDocumentService
     {
         private readonly IBucket bucket;
 

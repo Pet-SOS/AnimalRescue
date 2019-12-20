@@ -1,8 +1,8 @@
 using AnimalRescue.API.Core;
 using AnimalRescue.API.Core.Configuration;
 using AnimalRescue.API.Core.Middlewares;
+using AnimalRescue.BusinessLogic;
 using AnimalRescue.Infrastructure.Configuration;
-using AnimalRescue.Resolver;
 
 using AutoMapper;
 
@@ -45,7 +45,12 @@ namespace AnimalRescue.API
             
             services.AddConfigureSwagger();
 
-            services.AddLayerResolver(Configuration, new List<Profile>{ new ApiMappingProfile() });
+            List<Profile> profiles = new List<Profile> { new ApiMappingProfile() };
+            services.AddConfigureBusinessLogic(Configuration, profiles);
+            var mappingConfig = new MapperConfiguration(mc => profiles.ForEach(x => mc.AddProfile(x)));
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddTransient<UnhandledExceptionMiddleware>(); 
         }
 

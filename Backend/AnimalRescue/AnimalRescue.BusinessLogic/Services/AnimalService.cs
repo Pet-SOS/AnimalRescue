@@ -1,10 +1,10 @@
-﻿using AnimalRescue.Contracts.Query;
+﻿using AnimalRescue.BusinessLogic.Models;
+using AnimalRescue.Contracts.Query;
 using AnimalRescue.Contracts.Services;
 using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
-using AnimalRescue.Models.DTO.Models;
 
 using AutoMapper;
 
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    public class AnimalService : IAnimalService
+    internal class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository animalRepository;
         private readonly IMapper mapper;
@@ -41,8 +41,8 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
-            var animal = await animalRepository.GetAnimalsAsync(dbQuery);
-            var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animal);
+            var animals = await animalRepository.GetAnimalsAsync(dbQuery);
+            var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animals);
             var count = await animalRepository.GetAnimalCountAsync(dbQuery);
 
             return (animalDtos, count);

@@ -1,5 +1,5 @@
-﻿using AnimalRescue.Contracts.Query;
-using AnimalRescue.Models.DTO.Models;
+﻿using AnimalRescue.BusinessLogic.Models;
+using AnimalRescue.Contracts.Query;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
