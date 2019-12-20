@@ -2,9 +2,7 @@
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
-using AnimalRescue.Models.DTO.Models;
-
-using AutoMapper;
+using AnimalRescue.Infrastructure.Validation;
 
 using System;
 using System.Collections.Generic;
@@ -15,21 +13,18 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
     internal class AnimalRepository : IAnimalRepository
     {
         private readonly IBaseCollection<Animal> baseCollection;
-        private readonly IMapper mapper;
 
-        public AnimalRepository(IBaseCollection<Animal> baseCollection, IMapper mapper)
+        public AnimalRepository(IBaseCollection<Animal> baseCollection)
         {
+            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
+
             this.baseCollection = baseCollection;
-            this.mapper = mapper;
         }
 
-        public async Task<AnimalDto> CreateAnimalAsync(AnimalDto instanse)
+        public async Task<Animal> CreateAnimalAsync(Animal instanse)
         {
-            var data = mapper.Map<AnimalDto, Animal>(instanse);
-            data.DateOfFound = DateTimeOffset.Now;
-            var result = await this.baseCollection.CreateAsync(data);
-            
-            instanse = mapper.Map<Animal, AnimalDto>(result);
+            instanse.DateOfFound = DateTimeOffset.Now;
+            instanse = await this.baseCollection.CreateAsync(instanse);            
 
             return instanse;
         }
@@ -39,29 +34,25 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             await this.baseCollection.RemoveAsync(id);
         }
 
-        public async Task<AnimalDto> GetAnimalAsync(string id)
+        public async Task<Animal> GetAnimalAsync(string id)
         {
-            var data = await this.baseCollection.GetAsync(id);
-
-            var result = mapper.Map<Animal, AnimalDto>(data);
+            var result = await this.baseCollection.GetAsync(id);
 
             return result;
         }
 
-        public async Task UpdateAnimalAsync(AnimalDto instanse)
+        public async Task UpdateAnimalAsync(Animal instanse)
         {
-            var newData = mapper.Map<AnimalDto, Animal>(instanse);
-            var oldData = await this.baseCollection.GetAsync(newData.Id);
+            var newData = instanse;
+            var oldData = await this.baseCollection.GetAsync(instanse.Id);
             newData.DateOfAdopted = oldData.DateOfAdopted;
             newData.DateOfFound = oldData.DateOfFound;
             await this.baseCollection.UpdateAsync(newData);
         }
 
-        public async Task<List<AnimalDto>> GetAnimalsAsync(DbQuery query)
+        public async Task<List<Animal>> GetAnimalsAsync(DbQuery query)
         {
-            var data = await this.baseCollection.GetAsync(query);
-
-            var result = mapper.Map<List<Animal>, List<AnimalDto>>(data);
+            var result = await this.baseCollection.GetAsync(query);
 
             return result;
         }

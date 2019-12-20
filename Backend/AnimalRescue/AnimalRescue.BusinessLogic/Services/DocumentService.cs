@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace AnimalRescue.BusinessLogic
+namespace AnimalRescue.BusinessLogic.Services
 {
     public class DocumentService : IDocumentService
     {
@@ -34,7 +34,7 @@ namespace AnimalRescue.BusinessLogic
         public async Task<List<string>> UploadFilesAsync(List<IFormFile> files)
         {
             Require.Collections.NotEmpty(files, nameof(files));
-            
+
             var tasks = files.Select(UploadFileStreamAsync).ToArray();
             await Task.WhenAll(tasks);
             var ids = tasks.Select(x => x.Result).ToList();

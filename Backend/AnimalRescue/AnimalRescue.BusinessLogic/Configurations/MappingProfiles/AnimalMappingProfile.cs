@@ -3,7 +3,7 @@ using AnimalRescue.Models.DTO.Models;
 
 using AutoMapper;
 
-namespace AnimalRescue.DataAccess.Mongodb.Configurations.MappingProfiles
+namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 {
     internal class AnimalMappingProfile : Profile
     {
@@ -13,7 +13,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Configurations.MappingProfiles
             CreateMap<AnimalDto, Animal>()
                 .ForMember(x => x.ModifiedBy, options => options.Ignore())
                 .ForMember(x => x.DateOfAdopted, options => options.Ignore())
-                .ForMember(x => x.DateOfFound, options => options.Ignore());  
+                .ForMember(x => x.DateOfFound, options => options.Ignore());
         }
     }
 }

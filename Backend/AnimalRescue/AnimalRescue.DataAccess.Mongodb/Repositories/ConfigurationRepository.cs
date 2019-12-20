@@ -1,9 +1,7 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Models.DTO;
-
-using AutoMapper;
+using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Driver;
 
@@ -14,29 +12,21 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
     internal class ConfigurationRepository : IConfigurationRepository
     {
         private readonly IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection;
-        private readonly IMapper mapper;
 
-        public ConfigurationRepository(IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection,
-            IMapper mapper)
+        public ConfigurationRepository(IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection)
         {
+            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
+
             this.baseCollection = baseCollection;
-            this.mapper = mapper;
         }
 
-        public async Task<CmsConfigurationDto> GetCmsConfigurationAsync()
+        public async Task<Configuration<CmsConfigurationNested>> GetCmsConfigurationAsync()
         {
             var configuration = await baseCollection.Collection
                 .Find(x => x.Name == Constants.CmsConfigurationName)
                 .FirstOrDefaultAsync();
 
-            if (configuration == null)
-            {
-                return null;
-            }
-            
-            var cmsConfiguration = mapper.Map<Configuration<CmsConfigurationNested>, CmsConfigurationDto>(configuration);
-
-            return cmsConfiguration;
+            return configuration;
         }
     }
 }
