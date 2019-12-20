@@ -1,36 +1,40 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Models.DTO;
+
 using AutoMapper;
+
 using MongoDB.Driver;
 
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class ConfigurationRepository : BaseCollection<Configuration<CmsConfigurationNested>>, IConfigurationRepository
+    internal class ConfigurationRepository : IConfigurationRepository
     {
-        public ConfigurationRepository(
-            IMongoDatabase database,
-            IQueryBuilder<Configuration<CmsConfigurationNested>> queryBuilder,
+        private readonly IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection;
+        private readonly IMapper mapper;
+
+        public ConfigurationRepository(IBaseCollection<Configuration<CmsConfigurationNested>> baseCollection,
             IMapper mapper)
-            : base(database, queryBuilder, mapper)
         {
+            this.baseCollection = baseCollection;
+            this.mapper = mapper;
         }
 
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync()
         {
-            var configurationCursor = await collection.FindAsync(x => x.Name == Constants.CmsConfigurationName);
+            var configuration = await baseCollection.Collection
+                .Find(x => x.Name == Constants.CmsConfigurationName)
+                .FirstOrDefaultAsync();
 
-            var configuration = await configurationCursor.FirstOrDefaultAsync();
             if (configuration == null)
             {
                 return null;
             }
             
-            var cmsConfiguration = ConvertOneTo<CmsConfigurationDto>(configuration);
+            var cmsConfiguration = mapper.Map<Configuration<CmsConfigurationNested>, CmsConfigurationDto>(configuration);
 
             return cmsConfiguration;
         }

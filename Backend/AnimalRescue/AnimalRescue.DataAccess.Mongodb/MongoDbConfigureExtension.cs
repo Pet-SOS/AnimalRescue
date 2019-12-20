@@ -45,6 +45,9 @@ namespace AnimalRescue.DataAccess.Mongodb
             services
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
+                .AddScoped<IBaseCollection<Animal>, BaseCollection<Animal>>()
+                .AddScoped<IBaseCollection<Blog>, BaseCollection<Blog>>()
+                .AddScoped<IBaseCollection<Configuration<CmsConfigurationNested>>, BaseCollection<Configuration<CmsConfigurationNested>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IBlogRepository, BlogRepository>();
