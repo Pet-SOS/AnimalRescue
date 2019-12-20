@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AnimalRescue.Infrastructure.Http
+namespace AnimalRescue.Infrastructure.Interfaces.Exceptions
 {
     public interface IAppException
     {

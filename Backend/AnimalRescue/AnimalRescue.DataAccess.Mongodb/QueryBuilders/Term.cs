@@ -1,4 +1,4 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Exceptions;
+﻿using AnimalRescue.Infrastructure.Exceptions;
 using AnimalRescue.Infrastructure.Validation;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
@@ -19,7 +19,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             CommandName = arr[1];
             Content = arr[2];
 
-            Require.Booleans.IsTrue<OperatorException>(
+            Require.Booleans.IsTrue<BadRequestException>(
                 FilterContractConstants.Rulses.ContainsKey(CommandName), 
                 ()=> $"Specified operator '{CommandName}' for filtering data is not exist");
         }

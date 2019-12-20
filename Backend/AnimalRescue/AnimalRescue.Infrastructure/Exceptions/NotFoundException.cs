@@ -1,14 +1,13 @@
 ﻿using AnimalRescue.Infrastructure.Http;
+using AnimalRescue.Infrastructure.Interfaces.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
-namespace AnimalRescue.DataAccess.Mongodb.Exceptions
+namespace AnimalRescue.Infrastructure.Exceptions
 {
-    internal class NotFoundItemException : Exception, IAppException
+    public class NotFoundException : Exception, IAppException
     {
-        public NotFoundItemException(string message)
+        public NotFoundException(string message)
             : base(message)
         {
         }

@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
+using AnimalRescue.BusinessLogic.Interfaces;
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts;
 using AnimalRescue.Contracts.Services;
@@ -20,7 +21,6 @@ namespace AnimalRescue.BusinessLogic
             IConfiguration configuration, 
             out List<Profile> profiles)
         {
-            //Require.Objects.NotNull(profiles, nameof(profiles));
             profiles = new List<Profile>();
 
             services.AddConfigureMongoDb(configuration);

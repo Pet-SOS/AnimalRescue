@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AnimalRescue.Contracts.Query
+namespace AnimalRescue.Infrastructure.Query
 {
     public class ApiQueryRequest
     {
@@ -13,9 +13,9 @@ namespace AnimalRescue.Contracts.Query
         [Range(1, MaxPageSize)]
         public int Size { get; set; }
 
-        public string Filter { get; set; } 
+        public string Filter { get; set; }
 
-        public string Sort { get; set; } 
+        public string Sort { get; set; }
 
         public ApiQueryRequest()
         {

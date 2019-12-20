@@ -1,9 +1,9 @@
 ﻿using AnimalRescue.Infrastructure.Http;
-
+using AnimalRescue.Infrastructure.Interfaces.Exceptions;
 using System;
 using System.Net;
 
-namespace AnimalRescue.Contracts.Exceptions
+namespace AnimalRescue.Infrastructure.Exceptions
 {
     public class BadRequestException : Exception, IAppException
     {

@@ -1,17 +1,17 @@
 ﻿using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Contracts.Query;
+using AnimalRescue.Infrastructure.Interfaces.CRUD;
+using AnimalRescue.Infrastructure.Query;
 
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace AnimalRescue.Contracts.Services
+namespace AnimalRescue.BusinessLogic.Interfaces
 {
-    public interface IAnimalService
+    public interface IAnimalService : 
+        IBaseQuery<(List<AnimalDto> collection, int totalCount), ApiQueryRequest>,
+        IBaseQuery<AnimalDto, string>, 
+        IBaseCreate<AnimalDto>,    
+        IBaseUpdate<AnimalDto>,
+        IBaseDelete<string> 
     {
-        Task<(List<AnimalDto> collection, int fullCollectionCount)> GetAnimalsAsync(ApiQueryRequest queryRequest);
-        Task<AnimalDto> GetAnimalAsync(string id);
-        Task<AnimalDto> CreateAnimalAsync(AnimalDto animalModel);
-        Task UpdateAnimalAsync(AnimalDto animalModel);
-        Task DeleteAnimalAsync(string id);
     }
 }

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.API", "AnimalR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Infrastructure", "AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj", "{4D04C06B-59E4-4634-95ED-5FEA19529B86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts", "AnimalRescue.Contracts\AnimalRescue.Contracts.csproj", "{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.DataAccess.Mongodb", "AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj", "{3A57E6AD-D7EA-46F7-8DA4-DEC5C2FEBEBB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.BusinessLogic", "AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj", "{836087A2-2468-4F4D-BC0A-99C06554E485}"
@@ -47,18 +45,6 @@ Global
 		{4D04C06B-59E4-4634-95ED-5FEA19529B86}.Release|x64.Build.0 = Release|Any CPU
 		{4D04C06B-59E4-4634-95ED-5FEA19529B86}.Release|x86.ActiveCfg = Release|Any CPU
 		{4D04C06B-59E4-4634-95ED-5FEA19529B86}.Release|x86.Build.0 = Release|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Debug|x64.Build.0 = Debug|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Debug|x86.Build.0 = Debug|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Release|x64.ActiveCfg = Release|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Release|x64.Build.0 = Release|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Release|x86.ActiveCfg = Release|Any CPU
-		{4BBBCCDE-43E9-4385-BD78-CD4343D7D171}.Release|x86.Build.0 = Release|Any CPU
 		{3A57E6AD-D7EA-46F7-8DA4-DEC5C2FEBEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A57E6AD-D7EA-46F7-8DA4-DEC5C2FEBEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A57E6AD-D7EA-46F7-8DA4-DEC5C2FEBEBB}.Debug|x64.ActiveCfg = Debug|Any CPU

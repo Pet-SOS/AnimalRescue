@@ -1,10 +1,12 @@
-﻿using AnimalRescue.BusinessLogic.Models;
+﻿using AnimalRescue.BusinessLogic.Extensions;
+using AnimalRescue.BusinessLogic.Models;
 using AnimalRescue.Contracts;
-using AnimalRescue.Contracts.Query;
-using AnimalRescue.DataAccess.Contracts.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.Infrastructure.Query;
+
 using AutoMapper;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,7 +23,7 @@ namespace AnimalRescue.BusinessLogic.Services
             this.mapper = mapper;
         }
 
-		public async Task<(IList<BlogDto> blogDtos, int totalCount)> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest)
+		public async Task<(List<BlogDto> collection, int totalCount)> GetAsync(ApiQueryRequest apiQueryRequest)
 		{
             var dbQuery = apiQueryRequest.ToDbQuery();
 

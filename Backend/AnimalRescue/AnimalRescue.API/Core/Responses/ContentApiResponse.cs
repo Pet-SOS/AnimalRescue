@@ -1,4 +1,4 @@
-﻿namespace AnimalRescue.Contracts.Responses
+﻿namespace AnimalRescue.API.Core.Responses
 {
     public class ContentApiResponse<T> : ApiResponse
     {

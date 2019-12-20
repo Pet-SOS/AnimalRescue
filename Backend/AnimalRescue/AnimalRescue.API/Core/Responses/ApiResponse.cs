@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace AnimalRescue.Contracts.Responses
+namespace AnimalRescue.API.Core.Responses
 {
     public class ApiResponse
     {

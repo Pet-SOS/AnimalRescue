@@ -1,9 +1,9 @@
-﻿using AnimalRescue.Contracts.Query;
-using AnimalRescue.DataAccess.Mongodb.Query;
+﻿using AnimalRescue.DataAccess.Mongodb.Query;
+using AnimalRescue.Infrastructure.Query;
 
-namespace AnimalRescue.DataAccess.Contracts.Query
+namespace AnimalRescue.BusinessLogic.Extensions
 {
-    internal static class QueryExtension
+    internal static class QueryExtensions
     {
         public static DbQuery ToDbQuery(this ApiQueryRequest apiQueryRequest)
         {

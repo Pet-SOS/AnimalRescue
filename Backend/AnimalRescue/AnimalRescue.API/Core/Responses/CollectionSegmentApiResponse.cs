@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AnimalRescue.Contracts.Responses
+namespace AnimalRescue.API.Core.Responses
 {
     public class CollectionSegmentApiResponse<T> : ContentApiResponse<IEnumerable<T>>
     {

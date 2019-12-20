@@ -1,5 +1,5 @@
-﻿using AnimalRescue.API.Models;
-using AnimalRescue.Contracts.Responses;
+﻿using AnimalRescue.API.Core.Responses;
+using AnimalRescue.API.Models;
 
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
