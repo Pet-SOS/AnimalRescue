@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {RouteComponentProps} from "react-router";
-import {TI18n} from '../../../../i18n';
-import {HelpBlock} from "../../../../components/HelpBlock";
 import '../styles/home.scss';
 import {fetchAnimals, IAnimal} from "../../../../api/animals";
 import {AnimalCard} from "../../../../components/AnimalCard";
@@ -18,7 +16,7 @@ export const AdminHome: React.FC<IPropTypes> = (props: IPropTypes) => {
     }
 
     useEffect(() => {
-        fetchAnimals(getAnimals)
+        fetchAnimals()
     }, [])
 
     const renderAnimal = (animal: IAnimal) => {
@@ -35,17 +33,6 @@ export const AdminHome: React.FC<IPropTypes> = (props: IPropTypes) => {
         <div className="home-page">
             <div><h2>CONTENT</h2></div>
             {renderAnimals(animals)}
-            <HelpBlock
-                backgroundColor="#eef1f3"
-                themeColor="#5EAC38"
-                image={require('../../../../assets/helpBlock/help_block_1.png')}
-                content={
-                    <TI18n
-                        keyStr="homePageHelpBlockContent"
-                        default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта"
-                    />
-                }
-            />
         </div>
     )
 };

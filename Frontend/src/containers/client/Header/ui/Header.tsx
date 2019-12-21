@@ -11,7 +11,7 @@ interface IPropTypes {
 
 const AppHeader: React.FC<IPropTypes> = () => {
     return (
-        <header className="dog-background">
+        <header className="dog-background content-padding">
             <div className="header">
                 <div className="logo-main">
                     <div className="logo"><Logo/></div>
