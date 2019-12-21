@@ -1,5 +1,4 @@
-﻿using AnimalRescue.Contracts.Services;
-
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

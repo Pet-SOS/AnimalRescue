@@ -1,8 +1,6 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
-using AnimalRescue.BusinessLogic.Interfaces;
 using AnimalRescue.BusinessLogic.Services;
-using AnimalRescue.Contracts;
-using AnimalRescue.Contracts.Services;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb;
 
 using AutoMapper;

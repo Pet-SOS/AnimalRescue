@@ -1,4 +1,4 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 

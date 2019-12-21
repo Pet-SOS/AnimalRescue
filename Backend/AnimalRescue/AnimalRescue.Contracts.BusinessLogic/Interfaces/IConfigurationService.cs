@@ -1,8 +1,8 @@
-﻿using AnimalRescue.BusinessLogic.Models;
+﻿using AnimalRescue.Contracts.BusinessLogic.Models;
 
 using System.Threading.Tasks;
 
-namespace AnimalRescue.Contracts.Services
+namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IConfigurationService
     {

@@ -1,6 +1,6 @@
-﻿using AnimalRescue.BusinessLogic.Interfaces.CRUD;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
 
-namespace AnimalRescue.Contracts.Services
+namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IDocumentService :
         IBlOneItemQueryAsyncy<byte[]>,
