@@ -1,16 +1,25 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
 using System.Collections.Generic;
+
+using baseItem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseItem;
+using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models
 {
-	public class BlogModel : BaseModel
-	{
-		public string Body { get; set; }
+    public class BlogModel : BaseModel
+    {
+        [JsonProperty(PropertyName = common.Body)]
+        public string Body { get; set; }
 
-		public string Description { get; set; }
+        [JsonProperty(PropertyName = common.Description)]
+        public string Description { get; set; }
 
-		public DateTimeOffset CreatedAt { get; set; }
+        [JsonProperty(PropertyName = baseItem.CreatedAt)]
+        public DateTimeOffset CreatedAt { get; set; }
 
-		public IList<string> ImageIds { get; set; }
-	}
+        [JsonProperty(PropertyName = common.ImageIds)]
+        public IList<string> ImageIds { get; set; }
+    }
 }
