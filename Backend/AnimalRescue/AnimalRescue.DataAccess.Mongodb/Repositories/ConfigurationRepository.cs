@@ -1,4 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+﻿using AnimalRescue.Contracts.Common.Constants;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
@@ -23,7 +24,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         public async Task<Configuration<CmsConfigurationNested>> GetCmsConfigurationAsync()
         {
             var configuration = await baseCollection.Collection
-                .Find(x => x.Name == Constants.CmsConfigurationName)
+                .Find(x => x.Name == ConfigurationConstants.CmsConfigurationName)
                 .FirstOrDefaultAsync();
 
             return configuration;
