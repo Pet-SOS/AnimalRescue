@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
@@ -7,28 +10,28 @@ namespace AnimalRescue.API.Models
 {
     public class AnimalModel : BaseModel
     {
-        [JsonProperty(PropertyName = animal.Number)]
+        [JsonPropertyName(animal.Number)]
         public int Number { get; set; }
 
-        [JsonProperty(PropertyName = common.Name)]
+        [JsonPropertyName(common.Name)]
         public string Name { get; set; }
 
-        [JsonProperty(PropertyName = animal.KindOfAnimal)]
+        [JsonPropertyName(animal.KindOfAnimal)]
         public string KindOfAnimal { get; set; }
 
-        [JsonProperty(PropertyName = animal.Gender)]
+        [JsonPropertyName(animal.Gender)]
         public string Gender { get; set; }
 
-        [JsonProperty(PropertyName = common.Description)]
+        [JsonPropertyName(common.Description)]
         public string Description { get; set; }
 
-        [JsonProperty(PropertyName = animal.Age)]
+        [JsonPropertyName(animal.Age)]
         public int Age { get; set; }
 
-        [JsonProperty(PropertyName = common.ImageIds)]
+        [JsonPropertyName(common.ImageIds)]
         public List<string> ImageLinks { get; set; }
 
-        [JsonProperty(PropertyName = common.Tags)]
+        [JsonPropertyName(common.Tags)]
         public List<string> Tags { get; set; }
     }
 }
