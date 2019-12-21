@@ -1,6 +1,6 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Models;
+﻿using AnimalRescue.Contracts.Common.Interfaces.CRUD;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
-using AnimalRescue.Infrastructure.Interfaces.CRUD;
 
 using System.Collections.Generic;
 

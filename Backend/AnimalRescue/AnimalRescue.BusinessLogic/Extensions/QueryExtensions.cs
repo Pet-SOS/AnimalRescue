@@ -1,5 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Query;
-using AnimalRescue.Infrastructure.Query;
+﻿using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Query;
 
 namespace AnimalRescue.BusinessLogic.Extensions
 {

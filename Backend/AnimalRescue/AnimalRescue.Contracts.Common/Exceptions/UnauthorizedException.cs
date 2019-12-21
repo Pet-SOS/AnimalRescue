@@ -1,9 +1,9 @@
-﻿using AnimalRescue.Infrastructure.Http;
-using AnimalRescue.Infrastructure.Interfaces.Exceptions;
+﻿using AnimalRescue.Contracts.Common.Http;
+using AnimalRescue.Contracts.Common.Interfaces.Exceptions;
 using System;
 using System.Net;
 
-namespace AnimalRescue.Infrastructure.Exceptions
+namespace AnimalRescue.Contracts.Common.Exceptions
 {
     public class UnauthorizedException : Exception, IAppException
     {

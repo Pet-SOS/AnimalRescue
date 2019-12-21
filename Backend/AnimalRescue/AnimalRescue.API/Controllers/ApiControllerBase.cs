@@ -2,8 +2,10 @@
 using AnimalRescue.API.Models;
 using AnimalRescue.BusinessLogic.Interfaces.CRUD;
 using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Infrastructure.Query;
+using AnimalRescue.Contracts.Common.Query;
+
 using AutoMapper;
+
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 

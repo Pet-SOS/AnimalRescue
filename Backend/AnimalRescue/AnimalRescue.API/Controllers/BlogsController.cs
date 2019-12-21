@@ -2,7 +2,7 @@
 using AnimalRescue.API.Models;
 using AnimalRescue.BusinessLogic.Models;
 using AnimalRescue.Contracts;
-using AnimalRescue.Infrastructure.Query;
+using AnimalRescue.Contracts.Common.Query;
 
 using AutoMapper;
 

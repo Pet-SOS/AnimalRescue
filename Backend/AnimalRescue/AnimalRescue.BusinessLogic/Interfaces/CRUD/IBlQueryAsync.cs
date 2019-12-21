@@ -1,6 +1,6 @@
 ﻿using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Infrastructure.Interfaces.CRUD;
-using AnimalRescue.Infrastructure.Query;
+using AnimalRescue.Contracts.Common.Interfaces.CRUD;
+using AnimalRescue.Contracts.Common.Query;
 
 namespace AnimalRescue.BusinessLogic.Interfaces.CRUD
 {

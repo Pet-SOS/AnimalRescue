@@ -1,8 +1,8 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+﻿using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
-using AnimalRescue.Infrastructure.Exceptions;
 using AnimalRescue.Infrastructure.Validation;
 
 using System;

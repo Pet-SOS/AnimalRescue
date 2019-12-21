@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AnimalRescue.Infrastructure.Query
+namespace AnimalRescue.Contracts.Common.Query
 {
     public class ApiQueryRequest
     {

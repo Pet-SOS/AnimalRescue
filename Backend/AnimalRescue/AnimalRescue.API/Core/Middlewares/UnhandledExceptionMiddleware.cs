@@ -1,7 +1,7 @@
 using AnimalRescue.API.Core.Configuration;
 using AnimalRescue.API.Core.Responses;
-using AnimalRescue.Infrastructure.Http;
-using AnimalRescue.Infrastructure.Interfaces.Exceptions;
+using AnimalRescue.Contracts.Common.Http;
+using AnimalRescue.Contracts.Common.Interfaces.Exceptions;
 
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;

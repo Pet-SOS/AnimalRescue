@@ -1,4 +1,4 @@
-﻿using AnimalRescue.Infrastructure.Interfaces.CRUD;
+﻿using AnimalRescue.Contracts.Common.Interfaces.CRUD;
 
 namespace AnimalRescue.BusinessLogic.Interfaces.CRUD
 {

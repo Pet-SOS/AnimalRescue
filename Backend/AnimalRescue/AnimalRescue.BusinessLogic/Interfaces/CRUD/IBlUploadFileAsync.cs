@@ -1,5 +1,4 @@
-﻿using AnimalRescue.Infrastructure.Interfaces.CRUD;
-
+﻿using AnimalRescue.Contracts.Common.Interfaces.CRUD;
 using Microsoft.AspNetCore.Http;
 
 using System.Collections.Generic;

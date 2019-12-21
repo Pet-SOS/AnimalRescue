@@ -1,4 +1,4 @@
-﻿namespace AnimalRescue.Infrastructure.Http
+﻿namespace AnimalRescue.Contracts.Common.Http
 {
     public static class ErrorCodes
     {

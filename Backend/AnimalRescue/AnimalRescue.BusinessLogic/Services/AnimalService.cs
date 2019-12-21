@@ -1,9 +1,9 @@
 ﻿using AnimalRescue.BusinessLogic.Extensions;
 using AnimalRescue.BusinessLogic.Interfaces;
 using AnimalRescue.BusinessLogic.Models;
+using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Infrastructure.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AnimalRescue.Infrastructure.Interfaces.CRUD
+namespace AnimalRescue.Contracts.Common.Interfaces.CRUD
 {
     public interface IBaseQuerAsyncy<TOut, TQuery>
     {

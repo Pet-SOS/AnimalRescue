@@ -1,4 +1,4 @@
-﻿using AnimalRescue.Infrastructure.Exceptions;
+﻿using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.Infrastructure.Validation;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
