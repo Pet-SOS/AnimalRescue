@@ -1,10 +1,14 @@
 ﻿using AnimalRescue.API.Core.Responses;
 using AnimalRescue.API.Models;
-
+using AnimalRescue.BusinessLogic.Interfaces.CRUD;
+using AnimalRescue.BusinessLogic.Models;
+using AnimalRescue.Infrastructure.Query;
+using AutoMapper;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
@@ -14,8 +18,24 @@ namespace AnimalRescue.API.Controllers
     {
         private const string GetItemByIdMethodName = "Get";
 
+        protected async Task<ActionResult<CollectionSegmentApiResponse<TResponse>>> GetCollectionAsync<TCollectin, TResponse>(
+            IBlCollectinQueryAsyncy<TCollectin> service, 
+            ApiQueryRequest queryRequest, 
+            IMapper mapper) 
+            where TResponse : class
+        {
+            BlCollectonResponse<TCollectin> serviceResponse = await service.GetAsync(queryRequest);
+            List<TResponse> result = mapper.Map<List<TCollectin>,List<TResponse>>(serviceResponse.Collection);
+
+            return Collection(result, serviceResponse.TotalCount, queryRequest.Page, queryRequest.Size);
+        }
+
         protected ActionResult<CollectionSegmentApiResponse<T>> Collection<T>(
-			IReadOnlyCollection<T> source, int totalCount, int pageNumber, int pageSize) where T : class
+			IReadOnlyCollection<T> source, 
+            int totalCount, 
+            int pageNumber, 
+            int pageSize) 
+            where T : class
         {
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
             {
@@ -35,6 +55,17 @@ namespace AnimalRescue.API.Controllers
             };
         }
 
+        protected async Task<ActionResult<TModel>> CreatedItemAsync<TDto, TModel>(
+            IBlCreateAsync<TDto> service, 
+            TModel value, 
+            IMapper mapper) where TModel : BaseModel
+        {
+            TDto itemDto = mapper.Map<TModel, TDto>(value);
+            itemDto = await service.CreateAsync(itemDto);
+            var itemModel = mapper.Map<TDto, TModel>(itemDto);
+
+            return CreatedItem(itemModel);
+        }
         protected ActionResult<T> CreatedItem<T>(T item) where T : BaseModel
         {
             return CreatedAtAction(
@@ -43,6 +74,26 @@ namespace AnimalRescue.API.Controllers
                 BuildContentApiResponse(item));
         }
 
+        protected async Task UpdateDataAsync<TDto, TModel>(
+            IBlUpdateAsync<TDto> service,
+            TModel value, 
+            IMapper mapper)
+        {
+            var dto = mapper.Map<TModel, TDto>(value);
+
+            await service.UpdateAsync(dto);
+        }
+        protected async Task<ActionResult<TModel>> GetItemAsync<TDto, TModel>(
+            IBlOneItemQueryAsyncy<TDto> service, 
+            string id, 
+            IMapper mapper)
+        {
+            var data = await service.GetAsync(id);
+
+            var result = mapper.Map<TModel>(data);
+
+            return Item(result); 
+        }
         protected ActionResult<T> Item<T>(T source)
         {
             if (source == null)

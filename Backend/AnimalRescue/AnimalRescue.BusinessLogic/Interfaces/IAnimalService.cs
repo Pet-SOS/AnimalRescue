@@ -1,17 +1,14 @@
-﻿using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Infrastructure.Interfaces.CRUD;
-using AnimalRescue.Infrastructure.Query;
-
-using System.Collections.Generic;
+﻿using AnimalRescue.BusinessLogic.Interfaces.CRUD;
+using AnimalRescue.BusinessLogic.Models;
 
 namespace AnimalRescue.BusinessLogic.Interfaces
 {
-    public interface IAnimalService : 
-        IBaseQuery<(List<AnimalDto> collection, int totalCount), ApiQueryRequest>,
-        IBaseQuery<AnimalDto, string>, 
-        IBaseCreate<AnimalDto>,    
-        IBaseUpdate<AnimalDto>,
-        IBaseDelete<string> 
+    public interface IAnimalService :
+        IBlCollectinQueryAsyncy<AnimalDto>,
+        IBlOneItemQueryAsyncy<AnimalDto>,
+        IBlCreateAsync<AnimalDto>,    
+        IBlUpdateAsync<AnimalDto>,
+        IBlDeleteAsync 
     {
     }
 }

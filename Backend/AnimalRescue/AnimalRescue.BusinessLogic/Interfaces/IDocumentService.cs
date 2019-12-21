@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using AnimalRescue.BusinessLogic.Interfaces.CRUD;
 
 namespace AnimalRescue.Contracts.Services
 {
-    public interface IDocumentService
+    public interface IDocumentService :
+        IBlOneItemQueryAsyncy<byte[]>,
+        IBlUploadFileAsync
     {
-        Task<List<string>> UploadFilesAsync(List<IFormFile> files);
-        Task<byte[]> GetFileBytesAsync(string fileId);
     }
 }

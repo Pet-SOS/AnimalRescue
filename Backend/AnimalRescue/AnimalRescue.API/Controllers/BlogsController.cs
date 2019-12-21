@@ -33,11 +33,7 @@ namespace AnimalRescue.API.Controllers
 		[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IList<BlogModel>))]
 		public async Task<ActionResult<CollectionSegmentApiResponse<BlogModel>>> GetAllBlogsAsync([FromQuery]ApiQueryRequest queryRequest)
 		{
-			var blBlogsDto = await _blogService.GetAsync(queryRequest);
-
-			var data = _mapper.Map<List<BlogDto>, List<BlogModel>>(blBlogsDto.collection);
-
-			return Collection(data, blBlogsDto.totalCount, queryRequest.Page, queryRequest.Size);
-		}
-	}
+            return await GetCollectionAsync<BlogDto, BlogModel>(_blogService, queryRequest, _mapper);
+        }
+    }
 }

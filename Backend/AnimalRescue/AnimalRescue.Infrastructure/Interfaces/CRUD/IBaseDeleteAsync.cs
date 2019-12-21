@@ -2,8 +2,8 @@
 
 namespace AnimalRescue.Infrastructure.Interfaces.CRUD
 {
-    public interface IBaseCreate<TIn>
+    public interface IBaseDeleteAsync<TId>
     {
-        Task<TIn> CreateAsync(TIn instanse);
+        Task DeleteAsync(TId id);
     }
 }

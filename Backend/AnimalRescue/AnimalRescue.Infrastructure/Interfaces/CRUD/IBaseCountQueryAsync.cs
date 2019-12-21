@@ -2,8 +2,8 @@
 
 namespace AnimalRescue.Infrastructure.Interfaces.CRUD
 {
-    public interface IBaseUpdate<TIn>
+    public interface IBaseCountQueryAsync<TQuery>
     {
-        Task UpdateAsync(TIn instanse);
+        Task<int> GetCountAsync(TQuery query);
     }
 }

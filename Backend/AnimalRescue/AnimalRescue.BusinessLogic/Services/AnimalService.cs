@@ -38,14 +38,18 @@ namespace AnimalRescue.BusinessLogic.Services
             return animalDto;
         }
 
-        public async Task<(List<AnimalDto> collection, int totalCount)> GetAsync(ApiQueryRequest queryRequest)
+        public async Task<BlCollectonResponse<AnimalDto>> GetAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
             var animals = await animalRepository.GetAsync(dbQuery);
             var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animals);
             var count = await animalRepository.GetCountAsync(dbQuery);
 
-            return (animalDtos, count);
+            return new BlCollectonResponse<AnimalDto>
+            {
+                Collection = animalDtos,
+                TotalCount = count
+            };
         }
 
         public async Task<AnimalDto> GetAsync(string id)

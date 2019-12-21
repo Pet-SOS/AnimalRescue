@@ -23,7 +23,7 @@ namespace AnimalRescue.BusinessLogic.Services
             this.bucket = bucket;
         }
 
-        public async Task<byte[]> GetFileBytesAsync(string fileId)
+        public async Task<byte[]> GetAsync(string fileId)
         {
             Require.Strings.NotNullOrWhiteSpace(fileId, nameof(fileId));
             var result = await bucket.GetFileBytesAsync(fileId);
@@ -31,7 +31,7 @@ namespace AnimalRescue.BusinessLogic.Services
             return result;
         }
 
-        public async Task<List<string>> UploadFilesAsync(List<IFormFile> files)
+        public async Task<List<string>> UploadFileAsync(List<IFormFile> files)
         {
             Require.Collections.NotEmpty(files, nameof(files));
 

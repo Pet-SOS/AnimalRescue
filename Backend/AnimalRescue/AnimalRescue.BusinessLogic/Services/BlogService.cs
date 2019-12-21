@@ -23,17 +23,21 @@ namespace AnimalRescue.BusinessLogic.Services
             this.mapper = mapper;
         }
 
-		public async Task<(List<BlogDto> collection, int totalCount)> GetAsync(ApiQueryRequest apiQueryRequest)
+		public async Task<BlCollectonResponse<BlogDto>> GetAsync(ApiQueryRequest apiQueryRequest)
 		{
             var dbQuery = apiQueryRequest.ToDbQuery();
 
-            int totalCount = await _blogRepository.GetBlogsCountAsync(dbQuery);
+            int totalCount = await _blogRepository.GetCountAsync(dbQuery);
 
-			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(dbQuery);
+			var blogs = await _blogRepository.GetAsync(dbQuery);
 
             var blogModels = mapper.Map<IList<Blog>, List<BlogDto>>(blogs);
 
-            return (blogModels, totalCount);
-		}
-	}
+            return new BlCollectonResponse<BlogDto>
+            {
+                Collection = blogModels,
+                TotalCount = totalCount
+            };
+        }
+    }
 }

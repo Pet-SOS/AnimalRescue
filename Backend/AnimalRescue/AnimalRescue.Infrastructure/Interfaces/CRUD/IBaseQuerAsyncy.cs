@@ -2,8 +2,8 @@
 
 namespace AnimalRescue.Infrastructure.Interfaces.CRUD
 {
-    public interface IBaseDelete<TId>
+    public interface IBaseQuerAsyncy<TOut, TQuery>
     {
-        Task DeleteAsync(TId id);
+        Task<TOut> GetAsync(TQuery query);
     }
 }

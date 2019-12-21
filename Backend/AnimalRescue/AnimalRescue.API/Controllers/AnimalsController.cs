@@ -9,7 +9,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -33,11 +32,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([FromRoute] string id)
         {
-            var data = await animalService.GetAsync(id);
-
-            var result = _mapper.Map<AnimalModel>(data);
-
-            return Item(result);
+            return await GetItemAsync<AnimalDto, AnimalModel>(animalService, id, _mapper);
         }
 
         [HttpGet]
@@ -46,11 +41,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
-            var data = await animalService.GetAsync(queryRequest);
-
-            var result = _mapper.Map<List<AnimalDto>, List<AnimalModel>>(data.collection);
-
-            return Collection(result, data.totalCount, queryRequest.Page, queryRequest.Size);
+            return await GetCollectionAsync<AnimalDto, AnimalModel>(animalService, queryRequest, _mapper);
         }
 
         [HttpPost]
@@ -58,11 +49,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<AnimalModel>> CreateItem([FromBody] AnimalModel animalModel)
         {
-            var animalDto = _mapper.Map<AnimalDto>(animalModel);
-            var data = await animalService.CreateAsync(animalDto);
-            animalModel = _mapper.Map<AnimalDto, AnimalModel>(data);
-
-            return CreatedItem(animalModel);
+            return await CreatedItemAsync(animalService, animalModel, _mapper);
         }
 
         [HttpPut]
@@ -71,8 +58,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task UpdateAsync([FromBody] AnimalModel animalModel)
         {
-            var animalDto = _mapper.Map<AnimalDto>(animalModel);
-            await animalService.UpdateAsync(animalDto);
+            await UpdateDataAsync(animalService, animalModel, _mapper);
         }
 
         [HttpDelete("{id}")]

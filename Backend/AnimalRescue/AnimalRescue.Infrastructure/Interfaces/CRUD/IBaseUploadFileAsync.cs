@@ -2,8 +2,8 @@
 
 namespace AnimalRescue.Infrastructure.Interfaces.CRUD
 {
-    public interface IBaseQuery<TOut, TQuery>
+    public interface IBaseUploadFileAsync<TOut, TIn>
     {
-        Task<TOut> GetAsync(TQuery query);
+        Task<TOut> UploadFileAsync(TIn value);
     }
 }

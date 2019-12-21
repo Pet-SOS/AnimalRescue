@@ -21,7 +21,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)] 
         public async Task<ActionResult<List<string>>> UploadDocumentsAsync([FromForm]List<IFormFile> files)
         {
-           var ids =  await documentService.UploadFilesAsync(files);
+           var ids =  await documentService.UploadFileAsync(files);
 
             return Item(ids);
         }
@@ -32,7 +32,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetBytesAsync([FromRoute] string id)
         {
-            var fileBytes = await documentService.GetFileBytesAsync(id);
+            var fileBytes = await documentService.GetAsync(id);
 
             if (fileBytes == null)
             {
