@@ -59,7 +59,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                     var attr = x.GetCustomAttribute<CouplingPropertyNameAttribute>();
                     return attr == null
                         ? false
-                        : attr.Name
+                        : attr.AliasName
                             .Equals(dataArray[0], StringComparison.OrdinalIgnoreCase);
                 });
 
