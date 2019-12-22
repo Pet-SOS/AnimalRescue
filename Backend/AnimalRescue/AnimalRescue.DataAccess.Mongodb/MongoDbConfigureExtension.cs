@@ -27,6 +27,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IMongoDbSettings>(p => commonSettings)
                 .AddSingleton<IBucketSettings>(p => commonSettings)
                 .AddSingleton<IMongoClient, MongoClient>(p => client)
+                .AddSingleton<IAliasStore, AliasStore>()
                 .AddSingleton<IQueryFilterBuilder, QueryFilterBuilder>()
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()

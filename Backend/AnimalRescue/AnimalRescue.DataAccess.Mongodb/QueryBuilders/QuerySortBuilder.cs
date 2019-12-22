@@ -1,8 +1,5 @@
 ﻿using AnimalRescue.Contracts.Common.Exceptions;
-using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.Infrastructure.Validation;
-
-using MongoDB.Bson.Serialization.Attributes;
 
 using System;
 using System.Linq;
@@ -17,12 +14,19 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public const string Descending = "decs";
         public const string Ascending = "acs";
         private const string DefaultSort = "{}";
+        private readonly IAliasStore aliasStore;
 
+        public QuerySortBuilder(IAliasStore aliasStore)
+        {
+            Require.Objects.NotNull<BadRequestException>(aliasStore, nameof(aliasStore));
+
+            this.aliasStore = aliasStore;
+        }
         public string BuildStringSortParams<T>(string rowSortParams)
         {
             var dataArray = rowSortParams
                 ?.Split(TermSeparator)
-                .Where(x=>!string.IsNullOrWhiteSpace(x))
+                .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToArray();
 
             if (dataArray == null)
@@ -30,20 +34,17 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 return DefaultSort;
             }
 
-            PropertyInfo[] properties = typeof(T).GetProperties();
-
             var sortArrey = dataArray
-                .Select(row => GetRealPropNameOrThrowException<T>(properties, row, OrderSeparator))
+                .Select(row => GetOrderTermOrThrowException<T>(row, OrderSeparator))
                 .Select(x => x.Replace(Descending, "-1").Replace(Ascending, "1"));
 
             var result = $"{{{string.Join(",", sortArrey)}}}";
-                   
+
             return result;
         }
 
-        private static string GetRealPropNameOrThrowException<T>(
-            PropertyInfo[] properties, 
-            string rowValue, 
+        private string GetOrderTermOrThrowException<T>(
+            string rowValue,
             string firstSeparator)
         {
             string[] dataArray = rowValue?.Split(firstSeparator);
@@ -53,25 +54,16 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             Require.Booleans.IsTrue<BadRequestException>(dataArray.Count() == 2, message);
             Require.Strings.NotNullOrWhiteSpace<BadRequestException>(dataArray[0], message);
             Require.Strings.NotNullOrWhiteSpace<BadRequestException>(dataArray[1], message);
-            
-            PropertyInfo property = properties
-                .FirstOrDefault(x => {
-                    var attr = x.GetCustomAttribute<CouplingPropertyNameAttribute>();
-                    return attr == null
-                        ? false
-                        : attr.AliasName
-                            .Equals(dataArray[0], StringComparison.OrdinalIgnoreCase);
-                });
 
-            var realDbPropertyName = property?.GetCustomAttribute<BsonElementAttribute>()?.ElementName;
+            Alias alias = aliasStore.GetAlias<T>(dataArray[0]);
 
-            Require.Strings.NotNullOrWhiteSpace<BadRequestException>(realDbPropertyName, message);
+            Require.Objects.NotNull<BadRequestException>(alias, message);
 
             Require.Booleans.IsTrue<BadRequestException>(
                 dataArray[1].Equals(Ascending, StringComparison.OrdinalIgnoreCase)
                 || dataArray[1].Equals(Descending, StringComparison.OrdinalIgnoreCase), message);
 
-            return rowValue.Replace(dataArray[0], realDbPropertyName);
+            return rowValue.Replace(dataArray[0], alias.DataBasePropertyName);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
-using AnimalRescue.DataAccess.Mongodb.Models;
 
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -11,11 +10,11 @@ using System.Reflection;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal static class AliasDictionary
+    internal class AliasStore  : IAliasStore
     {
-        private static ConcurrentDictionary<Type, List<Alias>> aliasDictionary;
+        private ConcurrentDictionary<Type, List<Alias>> aliasDictionary;
 
-        static AliasDictionary()
+        public AliasStore()
         {
             int initialCapacity = 101;
             int numProcs = Environment.ProcessorCount;
@@ -24,30 +23,31 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             aliasDictionary = new ConcurrentDictionary<Type, List<Alias>>(concurrencyLevel, initialCapacity);
         }
 
-        public static Alias GetAlias<T>(string propName)
-            where T : BaseItem
+        public Alias GetAlias<T>(string aliasePropertyName)
         {
             Type type = typeof(T);
-            if (aliasDictionary.TryGetValue(type, out var al)
-                && al.FirstOrDefault(alias => alias.IsEqualNames(propName)) is Alias alias)
+            if (aliasDictionary.TryGetValue(type, out var currentAlias))
             {
-                return alias;
+                return currentAlias
+                    .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
             }
 
-            var properties = typeof(T)
+            currentAlias = typeof(T)
                 .GetProperties()
                 .Select(ConvertToAlias)
                 .Where(x => x != null)
                 .ToList();
 
-            aliasDictionary.TryAdd(type, properties);
+            aliasDictionary.TryAdd(type, currentAlias);
 
-            return properties.FirstOrDefault(alias=> alias.IsEqualNames(propName));
+            return currentAlias
+                .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
         }
 
-        private static bool IsEqualNames(this Alias alias, string propName)
+        private static bool IsEqualNames(Alias alias, string aliasePropertyName)
         {
-            return alias.AliasePropertyName.Equals(propName, StringComparison.OrdinalIgnoreCase);
+            return alias.AliasePropertyName
+                .Equals(aliasePropertyName, StringComparison.OrdinalIgnoreCase);
         }
 
         private static Alias ConvertToAlias(PropertyInfo propertyInfo)
