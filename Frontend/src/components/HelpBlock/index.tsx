@@ -26,7 +26,7 @@ export const HelpBlock: React.FC<IPropTypes> = ({content, themeColor, background
     };
 
     return (
-        <div style={{background: `url(${image}) no-repeat right`, backgroundColor: backgroundColor}}>
+        <div style={{background: `url(${image}) no-repeat right`, backgroundColor: backgroundColor}} className="content-padding">
             <div className="help-block">
                 <div className="content">
                     <div className="title" style={{color: themeColor}}>
