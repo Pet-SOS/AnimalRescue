@@ -36,10 +36,10 @@ namespace AnimalRescue.API.Models
 
         [JsonPropertyName(common.ImageIds)]
         [JsonProperty(common.ImageIds)]
-        public List<string> ImageLinks { get; set; }
+        public List<string> ImageLinks { get; set; } = new List<string>();
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
-        public List<string> Tags { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
     }
 }

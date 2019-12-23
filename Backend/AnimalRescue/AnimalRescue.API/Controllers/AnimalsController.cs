@@ -78,9 +78,16 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromBody] AnimalModel animalModel)
+        public async Task UpdateAsync([FromForm] AnimalUpdateModel animalUpdateModel)
         {
-            await UpdateDataAsync(animalService, animalModel, _mapper);
+            var imageIds = await documentService.UploadFileAsync(animalUpdateModel.Images);
+
+            if (imageIds?.Count > 0)
+            {
+                animalUpdateModel.ImageLinks.AddRange(imageIds);
+            } 
+
+            await UpdateDataAsync(animalService, animalUpdateModel, _mapper);
         }
 
         [HttpDelete("{id}")]
