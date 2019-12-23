@@ -26,6 +26,7 @@
             public const string Description = "description";
             public const string ImageIds = "imageIds";
             public const string Tags = "tags";
+            public const string Images = "images";
         }
 
         public static class BaseItem
