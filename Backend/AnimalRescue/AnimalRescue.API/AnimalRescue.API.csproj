@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj" />
-    <ProjectReference Include="..\AnimalRescue.Contracts\AnimalRescue.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

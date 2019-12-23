@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AnimalRescue.Contracts.Common\AnimalRescue.Contracts.Common.csproj" />
     <ProjectReference Include="..\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,14 +1,14 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Models;
+﻿using AnimalRescue.Contracts.Common.Interfaces.CRUD;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
+
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IBlogRepository
-	{
-		Task<IList<Blog>> GetBlogsWithPagginationAsync(DbQuery query);
-
-		Task<int> GetBlogsCountAsync(DbQuery query);
-	}
+    public interface IBlogRepository :
+        IBaseQuerAsyncy<List<Blog>, DbQuery>, 
+        IBaseCountQueryAsync<DbQuery>
+    {
+    }
 }

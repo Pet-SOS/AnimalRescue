@@ -1,6 +1,5 @@
 ﻿using AnimalRescue.API.Models;
-using AnimalRescue.BusinessLogic.Models;
-
+using AnimalRescue.Contracts.BusinessLogic.Models;
 using AutoMapper;
 
 namespace AnimalRescue.API.Core

@@ -1,10 +1,12 @@
-﻿using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Contracts;
-using AnimalRescue.Contracts.Query;
-using AnimalRescue.DataAccess.Contracts.Query;
+﻿using AnimalRescue.BusinessLogic.Extensions;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+
 using AutoMapper;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,17 +23,21 @@ namespace AnimalRescue.BusinessLogic.Services
             this.mapper = mapper;
         }
 
-		public async Task<(IList<BlogDto> blogDtos, int totalCount)> GetAllBlogsAsync(ApiQueryRequest apiQueryRequest)
+		public async Task<BlCollectonResponse<BlogDto>> GetAsync(ApiQueryRequest apiQueryRequest)
 		{
             var dbQuery = apiQueryRequest.ToDbQuery();
 
-            int totalCount = await _blogRepository.GetBlogsCountAsync(dbQuery);
+            int totalCount = await _blogRepository.GetCountAsync(dbQuery);
 
-			var blogs = await _blogRepository.GetBlogsWithPagginationAsync(dbQuery);
+			var blogs = await _blogRepository.GetAsync(dbQuery);
 
             var blogModels = mapper.Map<IList<Blog>, List<BlogDto>>(blogs);
 
-            return (blogModels, totalCount);
-		}
-	}
+            return new BlCollectonResponse<BlogDto>
+            {
+                Collection = blogModels,
+                TotalCount = totalCount
+            };
+        }
+    }
 }

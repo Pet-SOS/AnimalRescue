@@ -1,5 +1,5 @@
-﻿using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 

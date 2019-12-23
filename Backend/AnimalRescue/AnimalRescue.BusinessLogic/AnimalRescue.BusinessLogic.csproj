@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AnimalRescue.Contracts\AnimalRescue.Contracts.csproj" />
+    <ProjectReference Include="..\AnimalRescue.Contracts.BusinessLogic\AnimalRescue.Contracts.BusinessLogic.csproj" />
     <ProjectReference Include="..\AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj" />
+    <ProjectReference Include="..\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -20,12 +20,12 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             this.baseCollection = baseCollection;
         }
 
-        public async Task<IList<Blog>> GetBlogsWithPagginationAsync(DbQuery query)
+        public async Task<List<Blog>> GetAsync(DbQuery query)
 		{
 			return await baseCollection.GetAsync(query);
 		}
 
-		public async Task<int> GetBlogsCountAsync(DbQuery query)
+		public async Task<int> GetCountAsync(DbQuery query)
 		{
 			return await baseCollection.GetCountAsync(query);
 		}

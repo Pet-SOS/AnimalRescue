@@ -1,7 +1,10 @@
-﻿using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers

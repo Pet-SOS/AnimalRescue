@@ -1,4 +1,4 @@
-﻿using AnimalRescue.BusinessLogic.Models;
+﻿using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;

@@ -1,15 +1,14 @@
-﻿using AnimalRescue.API.Models;
-using AnimalRescue.BusinessLogic.Models;
-using AnimalRescue.Contracts.Query;
-using AnimalRescue.Contracts.Responses;
-using AnimalRescue.Contracts.Services;
+﻿using AnimalRescue.API.Core.Responses;
+using AnimalRescue.API.Models;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.Common.Query;
 
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -33,11 +32,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([FromRoute] string id)
         {
-            var data = await animalService.GetAnimalAsync(id);
-
-            var result = _mapper.Map<AnimalModel>(data);
-
-            return Item(result);
+            return await GetItemAsync<AnimalDto, AnimalModel>(animalService, id, _mapper);
         }
 
         [HttpGet]
@@ -46,11 +41,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
-            var data = await animalService.GetAnimalsAsync(queryRequest);
-
-            var result = _mapper.Map<List<AnimalDto>, List<AnimalModel>>(data.collection);
-
-            return Collection(result, data.fullCollectionCount, queryRequest.Page, queryRequest.Size);
+            return await GetCollectionAsync<AnimalDto, AnimalModel>(animalService, queryRequest, _mapper);
         }
 
         [HttpPost]
@@ -58,11 +49,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<AnimalModel>> CreateItem([FromBody] AnimalModel animalModel)
         {
-            var animalDto = _mapper.Map<AnimalDto>(animalModel);
-            var data = await animalService.CreateAnimalAsync(animalDto);
-            animalModel = _mapper.Map<AnimalDto, AnimalModel>(data);
-
-            return CreatedItem(animalModel);
+            return await CreatedItemAsync(animalService, animalModel, _mapper);
         }
 
         [HttpPut]
@@ -71,8 +58,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task UpdateAsync([FromBody] AnimalModel animalModel)
         {
-            var animalDto = _mapper.Map<AnimalDto>(animalModel);
-            await animalService.UpdateAnimalAsync(animalDto);
+            await UpdateDataAsync(animalService, animalModel, _mapper);
         }
 
         [HttpDelete("{id}")]
@@ -81,7 +67,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task DeleteAsync([FromRoute] string id)
         {
-            await animalService.DeleteAnimalAsync(id);
+            await animalService.DeleteAsync(id);
         }
     }
 }
