@@ -9,7 +9,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models
 {
-    public class AnimalCreateModel : BaseModel
+    public class AnimalCreateModel
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]

@@ -59,7 +59,7 @@ namespace AnimalRescue.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<AnimalModel>> CreateItem([FromForm] AnimalCreateModel animalCreateModel)
+        public async Task<ActionResult<AnimalModel>> CreateItemAsync([FromForm] AnimalCreateModel animalCreateModel)
         {
             var imageIds = await documentService.UploadFileAsync(animalCreateModel.Images);
             
