@@ -30,6 +30,29 @@
             min-height: 14.06rem;
             border: 1px solid black;
           }
+
+          .text {
+            height: 2.875rem;
+            overflow: hidden;
+
+            .name {
+              font-style: normal;
+              font-weight: bold;
+              font-size: 1.125rem;
+              line-height: 1.25rem;
+            }
+
+            .description {
+              font-style: normal;
+              font-weight: normal;
+              font-size: 16px;
+              line-height: 22px;
+              align-items: center;
+
+              color: #62738D;
+
+            }
+          }
         }
       }
     }
@@ -39,12 +62,11 @@
     position: absolute;
     top: 31%;
     padding: .4rem .3rem .2rem .3rem;
-    border: 2px solid #ECBB3B;
     background: #F1F7FE;
     width: 1.5rem;
-    box-shadow: 0px 8px 24px rgba(62, 91, 157, 0.5);
+    box-shadow: 0 8px 24px rgba(62, 91, 157, 0.5);
     text-align: center;
-    border-radius: 48px;
+    border-radius: 3rem;
 
     &.left {
       left: 3rem;
