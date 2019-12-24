@@ -12,10 +12,11 @@ export const SliderItem: React.FC<ISliderItem> = ({image, title, description, id
     return (
         <div className="item" style={{minWidth: width, maxWidth: width}}>
             <div className="content">
-            {image && <img className="image" alt="slider-item" src={image}/>}
-            <p>{title}</p>
-            <p>{description}</p>
-            <p>{id}</p>
+                {image && <img className="image" alt="slider-item" src={image}/>}
+                <div className="text">
+                    <div className="name">{title}</div>
+                    <div className="description">{description}</div>
+                </div>
             </div>
         </div>
     )

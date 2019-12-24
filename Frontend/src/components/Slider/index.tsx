@@ -42,10 +42,10 @@ export class Slider extends React.Component<IPropTypes, IStateTypes> {
     componentDidMount(): void {
         window.addEventListener('resize', () => {
             const clientWidth = this.getClientWith;
-            if (clientWidth < 868 && clientWidth > 375) {
+            if (clientWidth < 1014 && clientWidth > 675) {
                 return this.setState({numberItems: 2, currentSection: this.initCurrentSection(2)})
             }
-            if (this.getClientWith < 375) {
+            if (this.getClientWith < 675) {
                 return this.setState({numberItems: 1, currentSection: this.initCurrentSection(1)})
             }
             return this.setState({numberItems: this.props.numberItems, currentSection: this.initCurrentSection(this.props.numberItems)})
