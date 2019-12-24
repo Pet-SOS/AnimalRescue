@@ -6,7 +6,7 @@
   z-index: 1;
 
   .items-block {
-    overflow-x: scroll;
+    overflow: hidden;
     position: relative;
 
     .wrapper {
@@ -23,12 +23,17 @@
           left: 50%;
           margin-right: -50%;
           transform: translate(-50%, 0);
+          height: inherit;
+          width: inherit;
 
           .image {
+            margin: 1rem;
             border-radius: 1.5rem;
             min-width: 18.75rem;
             min-height: 14.06rem;
             border: 1px solid black;
+            height: 0;
+            width: 0;
           }
 
           .text {

@@ -25,6 +25,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                 title: item.name,
                 description: item.description,
                 id: item.id,
+                imageLinks: item.imageIds
             }))
         }
         return []

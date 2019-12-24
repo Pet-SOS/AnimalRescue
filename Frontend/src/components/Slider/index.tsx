@@ -26,7 +26,7 @@ export class Slider extends React.Component<IPropTypes, IStateTypes> {
             currentSection: this.initCurrentSection(this.props.numberItems),
             marginLeft: 0,
             itemsBlockClientWidth: 0,
-            numberItems: this.props.numberItems
+            numberItems: this.props.numberItems,
         }
     }
 
@@ -48,7 +48,10 @@ export class Slider extends React.Component<IPropTypes, IStateTypes> {
             if (this.getClientWith < 675) {
                 return this.setState({numberItems: 1, currentSection: this.initCurrentSection(1)})
             }
-            return this.setState({numberItems: this.props.numberItems, currentSection: this.initCurrentSection(this.props.numberItems)})
+            return this.setState({
+                numberItems: this.props.numberItems,
+                currentSection: this.initCurrentSection(this.props.numberItems)
+            })
         })
     }
 
@@ -88,6 +91,7 @@ export class Slider extends React.Component<IPropTypes, IStateTypes> {
         const {currentSection} = this.state;
         if (items && items.length) {
             return items.map((item, index: number) => {
+                console.error(item);
                 if (currentSection.indexOf(index) > -1) {
                     return (
                         <SliderItem

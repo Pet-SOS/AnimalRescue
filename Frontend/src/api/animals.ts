@@ -1,6 +1,5 @@
 import API from './index'
 
-
 export interface IAnimal {
     number: number
     name: string
@@ -8,7 +7,7 @@ export interface IAnimal {
     gender: string
     description: string
     age: number
-    imageLinks: string[]
+    imageIds: string[]
     tags: string[]
     id: string
     readonly: boolean
@@ -23,7 +22,7 @@ export interface IAnimalsResponse {
     totalCount: number;
 }
 
-export async function fetchAnimals (): Promise<IAnimalsResponse[]> {
+export async function fetchAnimals(): Promise<IAnimalsResponse[]> {
     const res = await API.get('animals');
     return res.data
 }
