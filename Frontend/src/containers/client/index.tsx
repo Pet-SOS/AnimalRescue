@@ -16,7 +16,7 @@ const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Switch>
                 <Route path={props.match.path} component={HomePage}/>
             </Switch>
-            <AppFooter/>
+            {/*<AppFooter/>*/}
         </>
     )
 };
