@@ -6,7 +6,7 @@
   z-index: 1;
 
   .items-block {
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 
     .wrapper {
@@ -37,7 +37,7 @@
           }
 
           .text {
-            height: 2.875rem;
+            //height: 2.875rem;
             overflow: hidden;
 
             .name {

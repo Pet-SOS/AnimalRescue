@@ -91,7 +91,6 @@ export class Slider extends React.Component<IPropTypes, IStateTypes> {
         const {currentSection} = this.state;
         if (items && items.length) {
             return items.map((item, index: number) => {
-                console.error(item);
                 if (currentSection.indexOf(index) > -1) {
                     return (
                         <SliderItem

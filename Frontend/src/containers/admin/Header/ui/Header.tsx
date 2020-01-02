@@ -11,7 +11,7 @@ interface IPropTypes {
 
 const AdminHeader: React.FC<IPropTypes> = () => {
     return (
-        <header className="dog-background">
+        <header>
             <div className="header">
                 <div className="logo-main">
                     <div className="logo"><Logo/></div>
@@ -29,8 +29,6 @@ const AdminHeader: React.FC<IPropTypes> = () => {
                     <ChangeLocale/>
                 </div>
             </div>
-            <AppMenu/>
-            <BottomContent/>
         </header>
     )
 };

@@ -1,38 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import {RouteComponentProps} from "react-router";
+import React from 'react';
 import '../styles/home.scss';
-import {fetchAnimals, IAnimal} from "../../../../api/animals";
+import {IAnimal, IAnimalsResponse} from "../../../../api/animals";
 import {AnimalCard} from "../../../../components/AnimalCard";
 
-interface IPropTypes extends RouteComponentProps<any> {
-
+interface AdminHomeProps {
+    animalsList: IAnimalsResponse
+    fetchAnimalsRequest: () => void;
 }
 
-export const AdminHome: React.FC<IPropTypes> = (props: IPropTypes) => {
-    const [animals, setAnimals] = useState([])
+export class AdminHomePage extends React.Component<AdminHomeProps> {
 
-    const getAnimals = (result: never) => {
-        setAnimals(result)
+    componentDidMount(): void {
+        this.props.fetchAnimalsRequest()
     }
 
-    useEffect(() => {
-        fetchAnimals()
-    }, [])
-
-    const renderAnimal = (animal: IAnimal) => {
-        return (<div key={animal.id} className={'animalCard'}>
-            {AnimalCard(animal)}
+    renderAnimal = (animal: IAnimal) => {
+        return (<div key={animal.id} className={'animal-card'}>
+            {<AnimalCard animal={animal}/>}
         </div>)
     }
 
-    const renderAnimals = (animals: IAnimal[]) => {
-        return animals.map((animal: IAnimal) => renderAnimal(animal))
+    renderAnimals = (animals: IAnimal[]) => {
+        return animals.map((animal: IAnimal) => this.renderAnimal(animal))
     }
 
-    return (
-        <div className="home-page">
-            <div><h2>CONTENT</h2></div>
-            {renderAnimals(animals)}
-        </div>
-    )
+    render() {
+        return (
+            <div className="home-page">
+                {this.renderAnimals(this.props.animalsList.data)}
+            </div>
+        )
+    }
 };

@@ -1,6 +1,15 @@
 
 .home-page {
   min-height: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  .animal-card {
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 25%;
+    border: solid purple 2px;
+  }
 }
 
 

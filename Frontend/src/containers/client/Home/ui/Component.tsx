@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
 import {HelpBlock} from "../../../../components/HelpBlock";
@@ -33,7 +33,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
 
     render() {
         return (
-            <div className="home-page">
+            <div className="home-page-client">
                 <HelpBlock
                     backgroundColor="#eef1f3"
                     themeColor="#5EAC38"
