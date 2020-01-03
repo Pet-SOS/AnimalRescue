@@ -1,12 +1,16 @@
 import React from "react";
 import {IAnimal, updateAnimal} from "../../api/animals";
 import {BASE_URL} from "../../api";
+import './index.scss'
+
 
 interface IAnimalCardProps {
     animal: IAnimal
 }
 
 export class AnimalCard extends React.Component<IAnimalCardProps> {
+
+    public state: IAnimal
 
     constructor(props: IAnimalCardProps) {
         super(props);
@@ -24,7 +28,7 @@ export class AnimalCard extends React.Component<IAnimalCardProps> {
         }
     }
 
-    private fileUpload: any
+    private fileUpload: HTMLInputElement | null = null
 
 
     changeValue = (e: any, key: any) => {
@@ -32,15 +36,19 @@ export class AnimalCard extends React.Component<IAnimalCardProps> {
     };
 
     addImage = (e: any) => {
-        this.setState({images: e.target.files[0]})
+        this.setState({images: [...this.state.images, ...e.target.files]})
     }
 
     renderImgs = (imageIds: string[]) => imageIds.map(imageId => <img key={imageId} style={{width: 100, height: 100}}
                                                                       src={`${BASE_URL}/documents/${imageId}`}/>)
 
     submit = () => {
-        console.error(this.state)
         updateAnimal({animal: this.state as IAnimal})
+    }
+
+    renderFileNames() {
+        return this.state.images.map((image: File, i: number) => <div key={image.name + i}>File
+            #{i + 1} {image.name}</div>)
     }
 
     render() {
@@ -58,8 +66,15 @@ export class AnimalCard extends React.Component<IAnimalCardProps> {
                 <div>tags <input defaultValue={tags}/></div>
                 <div>id {id}</div>
                 {this.renderImgs(imageIds)}
-                <div>images <input type={'file'} ref={(ref) => this.fileUpload = ref} multiple={true}
-                                   onChange={(e) => this.addImage(e)}/></div>
+
+                <div>images
+                    {!!this.state.images.length && this.renderFileNames()}
+                    <div className={'add-button'}>
+                        <input type={'file'} id={id} onChange={(e) => this.addImage(e)}
+                               className={"add-button hidden"}/>
+                        <label htmlFor={id} className={'add-button button'}>Add file</label>
+                    </div>
+                </div>
                 <div>description</div>
                 <textarea defaultValue={description} onChange={(e) => this.changeValue(e, 'description')}/>
                 <div>
