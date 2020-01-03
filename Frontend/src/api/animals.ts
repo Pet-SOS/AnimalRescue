@@ -3,7 +3,13 @@ import API from './index'
 const crateFormData = (data: Object) => {
     const formData = new FormData()
     for (let [key, value] of Object.entries(data)) {
-        formData.append(key, value);
+        if (key === 'images') {
+            for (let i = 0; i < value.length; i++) {
+                formData.append(key, value[i])
+            }
+        } else {
+            formData.append(key, value)
+        }
     }
     return formData
 }
@@ -19,6 +25,7 @@ export interface IAnimal {
     tags: string[]
     id: string
     readonly?: boolean
+    images: []
 }
 
 export interface IAnimalsResponse {
