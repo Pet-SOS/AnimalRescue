@@ -6,9 +6,11 @@
   .selected-wr {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     .selected {
       height: 1rem;
+      line-height: 1rem;
     }
 
     .arrow {
