@@ -5,6 +5,7 @@ import {HelpBlock} from "../../../../components/HelpBlock";
 import {Slider} from "../../../../components/Slider";
 import {IAnimalsResponse} from "../../../../api/animals";
 import '../styles/home.scss';
+import { BottomContent } from '../../Header/ui/BottomContent';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
@@ -33,6 +34,8 @@ export class HomePageMain extends React.Component<IPropTypes> {
 
     render() {
         return (
+            <>
+            {BottomContent(this.props.animalsList)}
             <div className="home-page-client">
                 <HelpBlock
                     backgroundColor="#eef1f3"
@@ -51,6 +54,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                     speedMs={3}
                 />
             </div>
+            </>
         )
     }
 }

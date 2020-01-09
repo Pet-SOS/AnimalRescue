@@ -1,14 +1,14 @@
+@import '../../node_modules/reset-css/reset';
 @import "font-face";
 @import "media";
-
+@import './variables'; 
 html body {
   margin: 0;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, Rubik, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family:'Nunito', 'Roboto',  sans-serif;
+  color: $text-color;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  
 }
 
 #root .app {
@@ -18,4 +18,15 @@ html body {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+.content {
+  max-width: 85.375rem;
+  width: 100%;
+  padding: 0 8.5625rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.container {
+
+
 }

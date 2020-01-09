@@ -18,7 +18,7 @@ const ChangeLocaleMain = (props: ISelectLocale) => {
             data={locales.map((locale: ILocales) => ({label: locale.value.toUpperCase(), value: locale.value}))}
             selected={selected}
             onChange={(value: string) => setLocale(value)}
-            mainStyles={{color: '#1B78A8', fontSize: ''}}
+            mainStyles={{color: '#0D2B4B', fontSize: '1rem'}}
         />
     )
 };
