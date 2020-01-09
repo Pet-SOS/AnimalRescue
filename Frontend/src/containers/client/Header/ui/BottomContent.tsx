@@ -31,7 +31,7 @@ export const BottomContent: React.FC<any> = (props:any) => {
                 </div>
                 <PhotoSlide
                     className='right-block'
-                    sliders={props.data.slice(0, 3)}
+                    sliders={props.data.slice(3, 6)}
                 />
             </div>
         </div>
