@@ -2,7 +2,7 @@ export default {
     admin: 'Админ',
     language: 'Язык',
 
-    hotLinePhones: 'Круглосуточно',
+    hotLinePhones: 'Круглосуточно 24/7',
 
     headerTitle: 'Спасение животных в Харькове',
     headerMenuItem1: 'В приюте',

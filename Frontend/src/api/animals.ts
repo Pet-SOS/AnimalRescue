@@ -1,6 +1,12 @@
 import API from './index'
-// @ts-ignore
-import json2formdata from 'json2formdata';
+
+const crateFormData = (data: Object) => {
+    const formData = new FormData()
+    for (let [key, value] of Object.entries(data)) {
+        formData.append(key, value);
+    }
+    return formData
+}
 
 export interface IAnimal {
     number: number
@@ -30,5 +36,5 @@ export async function fetchAnimals(): Promise<IAnimalsResponse[]> {
 }
 
 export async function updateAnimal(params: { animal: IAnimal }): Promise<void> {
-    await API.put('animals', json2formdata(params.animal));
+    await API.put('animals', crateFormData(params.animal));
 }

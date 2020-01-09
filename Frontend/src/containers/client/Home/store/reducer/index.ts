@@ -2,12 +2,18 @@ import {AnyAction} from "redux";
 import {DEFAULT_HOME_PAGE_STATE, IHomePageState} from "../state";
 import {getType} from "typesafe-actions";
 import {genericRequestReducer} from "../../../../../api";
-import {actionHomeFetchAnimalsRequest, actionHomeFetchAnimalsSuccess, actionHomeFetchAnimalsFailure} from "../actions";
+import {
+    actionHomeFetchAnimalsRequest,
+    actionHomeFetchAnimalsSuccess,
+    actionHomeFetchAnimalsFailure,
+    actionSetSlideIndexSuccess
+} from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
     actionHomeFetchAnimalsRequest,
     actionHomeFetchAnimalsSuccess,
-    actionHomeFetchAnimalsFailure
+    actionHomeFetchAnimalsFailure,
+    actionSetSlideIndexSuccess
 );
 
 export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
@@ -28,6 +34,12 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
             return {
                 ...state,
                 animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
+            };
+        case getType(actionSetSlideIndexSuccess):
+            return {
+                ...state,
+                animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action),
+                slideIndex: action.payload.data
             };
 
         default:

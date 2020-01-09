@@ -7,7 +7,8 @@ export const BottomContent: React.FC = () => {
     return (
         <div className="header-bottom">
             <div className="title"><TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/></div>
-            <div className="content">
+       
+            <div className="">
                 <p className="text">
                     <TI18n
                         keyStr="headerBottomContent"
