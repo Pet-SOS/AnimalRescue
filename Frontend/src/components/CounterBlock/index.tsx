@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import { CounterNumber } from './number';
 
 interface IPropTypes {
   backgroundColor: string;
@@ -14,9 +15,7 @@ export const CounterBlock: React.FC<IPropTypes> = ({ backgroundColor, count, tit
     <div className="counter-holder" style={{backgroundColor}}>
       <div className="counter">
         {`${!!count ? count : 0}`.split('').map((number, index) => (
-          <div className="count-inner" key={index}>
-            <span>{number}</span>
-          </div>
+          <CounterNumber number={number} key={index}/>
         ))}
       </div>
       <div className="title">{title}</div>
