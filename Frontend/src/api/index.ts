@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+export const BASE_URL = `https://animalrescueapi.azurewebsites.net/api/`
+
 export default axios.create({
-    baseURL: `https://animalrescueapi.azurewebsites.net/api/`
+    baseURL: BASE_URL
 });
 
 export * from './requestState/defaultRequestState';

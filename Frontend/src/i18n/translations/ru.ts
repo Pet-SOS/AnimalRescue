@@ -2,7 +2,7 @@ export default {
     admin: 'Админ',
     language: 'Язык',
 
-    hotLinePhones: 'Круглосуточно',
+    hotLinePhones: 'Круглосуточно 24/7',
 
     headerTitle: 'Спасение животных в Харькове',
     headerMenuItem1: 'В приюте',
@@ -20,6 +20,9 @@ export default {
     helpBlockTitle: 'Помощь животным',
     homePageHelpBlockContent: 'Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта.',
     helpBlockCheck: 'Посмотреть, куда уйдут мои деньги',
+
+    counterBlockTitle: 'Спасенных нами животных',
+    counterBlockSubText: 'по данным на',
 
     footerRightBtn: 'Помочь',
     footerColumn1Item1: 'О приюте',

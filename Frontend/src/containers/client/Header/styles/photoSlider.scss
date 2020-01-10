@@ -1,0 +1,62 @@
+@import'../../../../styles/variables.scss';
+ .box-img{
+    position: relative;
+    max-width: 33.5rem;
+    max-height: 25.5rem;
+    &::before {
+        position: absolute;
+        content: '';
+        display: block;
+        background-size: cover;
+        background: transparent url('../../../../img/frame.png') top right no-repeat;
+        width: 33.5rem;
+        height: 25.5rem;
+        left: -0.8125rem;
+        top: -0.8125rem;
+        z-index: 3;
+    }
+    &:after{
+        position: absolute;
+        content: '';
+        display: block;
+        background-size: cover;
+        background: transparent url('../../../../img/frame.png') top right no-repeat;
+        transform: rotate(-5deg);
+        width: 33.5rem;
+        height: 25.5rem;
+        left: -0.8125rem;
+        top: -0.8125rem;
+        z-index: 2;
+    }
+    .image{
+        position: relative;
+        z-index: 4;
+        max-width: 32.0625rem;
+        max-height:24.3125rem;
+        display: inline-block;
+        height: 23.4375rem;
+        width: 31.25rem;
+        margin-bottom: 2.3125rem;
+        border-radius: 1.5rem;
+    }
+ }
+
+.btn-slider{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    div{
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+        background: $bg-lite;
+        &.active-indicator, &:hover, &:active{
+            background: $bg-orange;
+            cursor: pointer;
+        }
+        &:nth-child(2){
+            margin: 0 1rem;
+        }
+    }
+}
