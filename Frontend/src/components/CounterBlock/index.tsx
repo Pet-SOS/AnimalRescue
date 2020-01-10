@@ -19,7 +19,7 @@ export const CounterBlock: React.FC<IPropTypes> = ({ backgroundColor, count, tit
         ))}
       </div>
       <div className="title">{title}</div>
-      {!!text ? <span className="text"> {text}</span> : null}
+      {!!text && <span className="text"> {text}</span>}
       <div className="image-holder">
         {images.slice(0, 8).map((img, index) => (
           <img src={img} key={index} alt='pet'/>
