@@ -58,7 +58,7 @@ namespace AnimalRescue.API.Controllers
         }
 
         protected async Task<ActionResult<TModel>> CreatedItemAsync<TDto, TModel>(
-            IBlCreateAsync<TDto> service, 
+            IBlCreateAsync<TDto, TDto> service,
             TModel value, 
             IMapper mapper) where TModel : BaseModel
         {
