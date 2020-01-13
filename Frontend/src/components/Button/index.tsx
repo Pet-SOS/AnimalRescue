@@ -3,8 +3,8 @@ import './styles.scss';
 import cn from 'classnames';
 
 export enum ButtonTypes {
-    Green = 'green',
-    GreenCircle = 'green-circle',
+    Green = 'blue',
+    GreenCircle = 'blue-circle',
 }
 
 interface IPropTypes {

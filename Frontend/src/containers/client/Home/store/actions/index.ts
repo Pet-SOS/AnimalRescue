@@ -13,3 +13,8 @@ export const actionHomeFetchAnimalsFailure = createAction(
     'HOME_FETCH_ANIMALS_FAILURE',
     (resolve) => (error: Error) => resolve({error})
 );
+
+export const actionSetSlideIndexSuccess = createAction(
+    'HOME_FETCH_ANIMALS_SET_SLIDE_SUCCESS',
+    (resolve) => (data: number) => resolve({data})
+)
