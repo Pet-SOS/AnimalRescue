@@ -25,11 +25,13 @@ namespace AnimalRescue.BusinessLogic
 
             profiles.AddRange(new Profile[] { 
                 new AnimalMappingProfile(),
+                new StoryMappingProfile(),
                 new BlogMappingProfile(),
                 new CmsConfigurationMappingProfile()
             });
 
             services.AddScoped<IAnimalService, AnimalService>();
+            services.AddScoped<IStoryService, StoryService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
 			services.AddScoped<IBlogService, BlogService>();
