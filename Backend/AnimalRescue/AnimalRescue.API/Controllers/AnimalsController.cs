@@ -82,12 +82,15 @@ namespace AnimalRescue.API.Controllers
         {
             var imageIds = await documentService.UploadFileAsync(animalUpdateModel.Images);
 
+            AnimalModel animalModel = _mapper.Map<AnimalUpdateModel, AnimalModel>(animalUpdateModel);
+            animalModel.ImageLinks = (await animalService.GetAsync(animalModel.Id)).ImageLinks;
+
             if (imageIds?.Count > 0)
             {
-                animalUpdateModel.ImageLinks.AddRange(imageIds);
+                animalModel.ImageLinks.AddRange(imageIds);
             } 
 
-            await UpdateDataAsync(animalService, animalUpdateModel, _mapper);
+            await UpdateDataAsync(animalService, animalModel, _mapper);
         }
 
         [HttpDelete("{id}")]
