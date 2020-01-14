@@ -4,7 +4,7 @@ using AnimalRescue.API.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.Common.Query;
-
+using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
@@ -39,11 +39,7 @@ namespace AnimalRescue.API.Controllers
 		[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(BlogInfoModel))]
 		public async Task<ActionResult<BlogInfoModel>> GetBlogByIdAsync(string blogId)
 		{
-			if (string.IsNullOrWhiteSpace(blogId))
-			{
-				_logger.LogError("blogId argument is not provided");
-				throw new ArgumentException(nameof(blogId));
-			}
+			Require.Strings.NotNullOrWhiteSpace(blogId, nameof(blogId));
 
 			var blogDto = await _blogService.GetAsync(blogId);
 
@@ -56,19 +52,15 @@ namespace AnimalRescue.API.Controllers
 		[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IList<BlogInfoModel>))]
 		public async Task<ActionResult<CollectionSegmentApiResponse<BlogInfoModel>>> GetAllBlogsAsync([FromQuery]ApiQueryRequest queryRequest)
 		{
-            return await GetCollectionAsync<BlogDto, BlogInfoModel>(_blogService, queryRequest, _mapper);
-        }
+			return await GetCollectionAsync<BlogDto, BlogInfoModel>(_blogService, queryRequest, _mapper);
+		}
 
 		[Route("")]
 		[HttpPost]
 		[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(BlogInfoModel))]
 		public async Task<ActionResult<BlogInfoModel>> CreateBlogAsync([FromForm] BlogCreateModel blogCreateModel)
 		{
-			if (blogCreateModel == null)
-			{
-				_logger.LogError("blogCreateModel is not provided");
-				throw new ArgumentException(nameof(blogCreateModel));
-			}
+			Require.Objects.NotNull(blogCreateModel, nameof(blogCreateModel));
 
 			var imagesIds = await _documentService.UploadFileAsync(blogCreateModel.Images);
 
@@ -85,11 +77,7 @@ namespace AnimalRescue.API.Controllers
 		[HttpDelete]
 		public async Task DeleteBlogAsync(string blogId)
 		{
-			if (string.IsNullOrWhiteSpace(blogId))
-			{
-				_logger.LogError("blogId argument is not provided");
-				throw new ArgumentException(nameof(blogId));
-			}
+			Require.Strings.NotNullOrWhiteSpace(blogId, nameof(blogId));
 
 			await _blogService.DeleteAsync(blogId);
 		}
@@ -98,11 +86,7 @@ namespace AnimalRescue.API.Controllers
 		[HttpPut]
 		public async Task UpdateBlogAsync([FromForm] BlogUpdateModel blogUpdateModel)
 		{
-			if (blogUpdateModel == null)
-			{
-				_logger.LogError("blogUpdateModel argument is not provided");
-				throw new ArgumentException(nameof(blogUpdateModel));
-			}
+			Require.Objects.NotNull(blogUpdateModel, nameof(blogUpdateModel));
 
 			var imagesIds = await _documentService.UploadFileAsync(blogUpdateModel.Images);
 

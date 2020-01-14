@@ -1,7 +1,7 @@
 ﻿using AnimalRescue.API.Models;
 using AnimalRescue.API.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models;
-
+using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AutoMapper;
 
 using System.Collections.Generic;
@@ -25,9 +25,6 @@ namespace AnimalRescue.API.Core
             CreateMap<AnimalUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
-            CreateMap<BlogModel, BlogDto>();
-            CreateMap<BlogDto, BlogModel>();
-			
 			CreateMap<BlogInfoModel, BlogDto>();
 			CreateMap<BlogDto, BlogInfoModel>();
 
@@ -45,7 +42,4 @@ namespace AnimalRescue.API.Core
                 .ToList() ?? new List<string>();
         }
     }
-			
-		}
-	}
 }
