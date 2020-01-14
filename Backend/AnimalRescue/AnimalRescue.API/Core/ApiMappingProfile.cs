@@ -1,6 +1,10 @@
 ﻿using AnimalRescue.API.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models;
+
 using AutoMapper;
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AnimalRescue.API.Core
 {
@@ -14,7 +18,8 @@ namespace AnimalRescue.API.Core
             CreateMap<AnimalModel, AnimalDto>();
             CreateMap<AnimalDto, AnimalModel>();
 
-            CreateMap<AnimalCreateModel, AnimalModel>();
+            CreateMap<AnimalCreateModel, AnimalModel>()
+                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
             CreateMap<StoryModel, StoryDto>();
             CreateMap<StoryDto, StoryModel>();

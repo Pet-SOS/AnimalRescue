@@ -41,6 +41,6 @@ namespace AnimalRescue.API.Models
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
-        public List<string> Tags { get; set; } = new List<string>();
+        public string Tags { get; set; }
     }
 }
