@@ -24,6 +24,10 @@ namespace AnimalRescue.API.Core
             CreateMap<AnimalUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
+            CreateMap<StoryModel, StoryDto>();
+            CreateMap<StoryDto, StoryModel>();
+            CreateMap<StoryCreateModel, StoryModel>();
+
             CreateMap<BlogModel, BlogDto>();
             CreateMap<BlogDto, BlogModel>();
         }
