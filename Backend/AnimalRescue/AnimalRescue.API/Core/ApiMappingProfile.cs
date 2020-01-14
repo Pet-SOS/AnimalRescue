@@ -21,12 +21,19 @@ namespace AnimalRescue.API.Core
             CreateMap<AnimalCreateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
-            CreateMap<StoryModel, StoryDto>();
-            CreateMap<StoryDto, StoryModel>();
-            CreateMap<StoryCreateModel, StoryModel>();
+            CreateMap<AnimalUpdateModel, AnimalModel>()
+                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
             CreateMap<BlogModel, BlogDto>();
-			CreateMap<BlogDto, BlogModel>();
-		}
+            CreateMap<BlogDto, BlogModel>();
+        }
+
+        private static List<string> StringSeparatedSemicolomnToList(string value)
+        {
+            return value?
+                .Split(",")
+                .Select(x => x.Trim())
+                .ToList() ?? new List<string>();
+        }
     }
 }
