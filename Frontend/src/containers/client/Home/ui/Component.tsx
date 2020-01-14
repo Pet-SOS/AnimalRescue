@@ -15,6 +15,7 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
+import { AlreadyHelpBlock } from '../../../../components/AlreadyHelpedBlock';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
@@ -42,6 +43,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
     }
 
     render() {
+      console.log(this.getAnimalsList);
         return (
             <>
             {BottomContent(this.props.animalsList)}
@@ -68,6 +70,9 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
                   text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> 13.12.19</React.Fragment>}
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
+                <AlreadyHelpBlock 
+                data={this.getAnimalsList}
+                title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
             </div>
             </>
         )

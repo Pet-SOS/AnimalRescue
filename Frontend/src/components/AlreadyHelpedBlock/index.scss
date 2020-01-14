@@ -1,0 +1,41 @@
+.helped-holder {
+  padding: 5rem 8.5rem;
+}
+.title {
+  color: #0D2B4B;
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 900;
+  margin: 0 0 1rem;
+}
+
+.slide-item {
+  border-radius: 1.5rem;
+  height: 25rem;
+  display: flex;
+  overflow: hidden;
+  & > div {
+    width: 50%;
+  }
+  .img-holder {
+    background-size: cover;
+  }
+  .info-holder {
+    padding: 3rem 1.125rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .info-title {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: 900;
+    color: #0D2B4B;
+  }
+  a {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    color: #E2A811;
+    font-weight: bold;
+  }
+}

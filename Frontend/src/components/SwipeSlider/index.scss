@@ -1,0 +1,54 @@
+.custom-slider-wrapper {
+  position: relative;
+  padding: 0 0 2.25rem;
+}
+.custom-slider-inner {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+.swiper-button-next, .swiper-button-prev {
+  width: 3rem;
+  height: 3rem;
+  color: #E2A811;
+  box-shadow: 0px 8px 24px rgba(62, 91, 157, 0.5);
+  border-radius: 50%;
+  background: url('./../../img/slider-arrow.png') center center no-repeat #ffffff;
+  right: -1.5rem;
+}
+
+ .swiper-button-prev {
+   transform: rotate(180deg);
+   left: -1.5rem;
+ }
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  display: none;
+}
+
+.swiper-container { 
+  background: #F9F6F7;
+  position: static;
+}
+
+.swiper-container-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-custom, .swiper-pagination-fraction {
+  bottom: 0;
+}
+
+.swiper-pagination-bullet {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 1rem;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ECBB3B;
+}
+
+.swiper-button-disabled {
+  opacity: 0;
+  visibility: hidden;
+}

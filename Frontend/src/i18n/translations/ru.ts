@@ -24,6 +24,8 @@ export default {
     counterBlockTitle: 'Спасенных нами животных',
     counterBlockSubText: 'по данным на',
 
+    alreadyHelpedBlockTitle: 'Кому мы помогли',
+
     footerRightBtn: 'Помочь',
     footerColumn1Item1: 'О приюте',
     footerColumn2Item1: 'Животные',
