@@ -1,7 +1,7 @@
 import React from 'react';
-import './index.scss';
 import { HelpedBlockItem } from './item';
 import { SwiperSlider } from '../SwipeSlider';
+import './index.scss';
 
 interface IPropTypes {
   data: any[];
@@ -13,7 +13,9 @@ export const HelpedBlock: React.FC<IPropTypes> = ({ data, title }) => {
   return (
     <div className="helped-holder">
       <div className="title">{title}</div>
-      {!!data && !!data.length && <SwiperSlider data={getSlideElements()}/>}
+      {!!data && !!data.length && <div className="slider-holder">
+        <SwiperSlider slides={getSlideElements()} />
+      </div>}
     </div>
   )
 };

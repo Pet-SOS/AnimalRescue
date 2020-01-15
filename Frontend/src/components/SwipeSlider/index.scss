@@ -1,5 +1,12 @@
+@import './../../styles/variables.scss';
 .custom-slider-wrapper {
   position: relative;
+}
+.pagination-active {
+  padding-bottom: 2.25rem;
+  .swiper-button-next, .swiper-button-prev {
+    margin-top: -2.25rem;
+  }
 }
 .custom-slider-inner {
   border-radius: 1.5rem;
@@ -13,6 +20,12 @@
   border-radius: 50%;
   background: #ffffff;
   right: -1.5rem;
+  top: 50%;
+  margin-top: -1.5rem;
+  transition: $defaultHoverTransition;
+  &:hover {
+    background: #3E5B9D;
+  }
 }
 
  .swiper-button-prev {
@@ -36,14 +49,16 @@
   margin: 0 0 0 0.375rem;
 }
 
-.swiper-container { 
-  background: #F9F6F7;
+.swiper-container {
   position: static;
 }
 
 .swiper-pagination {
   font-size: 0;
   line-height: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .swiper-container-horizontal > .swiper-pagination-bullets,
@@ -69,4 +84,9 @@
 .swiper-button-disabled {
   opacity: 0;
   visibility: hidden;
+}
+@media (max-width: $max-device-width) {
+  .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
+      margin-top: -2.75rem;
+    }  
 }
