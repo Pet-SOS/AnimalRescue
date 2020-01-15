@@ -7,6 +7,7 @@ import {IAnimalsResponse} from "../../../../api/animals";
 import '../styles/home.scss';
 import { BottomContent } from '../../Header/ui/BottomContent';
 import { CounterBlock } from '../../../../components/CounterBlock';
+import { HelpedBlock } from '../../../../components/HelpedBlock';
 import counterImage1 from '../../../../img/counter-images/counter_1.png';
 import counterImage2 from '../../../../img/counter-images/counter_2.png';
 import counterImage3 from '../../../../img/counter-images/counter_3.png';
@@ -15,7 +16,6 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { AlreadyHelpBlock } from '../../../../components/AlreadyHelpedBlock';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
@@ -43,7 +43,6 @@ export class HomePageMain extends React.Component<IPropTypes> {
     }
 
     render() {
-      console.log(this.getAnimalsList);
         return (
             <>
             {BottomContent(this.props.animalsList)}
@@ -70,9 +69,9 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
                   text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> 13.12.19</React.Fragment>}
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
-                <AlreadyHelpBlock 
-                data={this.getAnimalsList}
-                title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
+                <HelpedBlock 
+                  data={this.getAnimalsList}
+                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
             </div>
             </>
         )

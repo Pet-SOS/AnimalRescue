@@ -25,6 +25,7 @@ export default {
     counterBlockSubText: 'по данным на',
 
     alreadyHelpedBlockTitle: 'Кому мы помогли',
+    readStory: 'Читать историю',
 
     footerRightBtn: 'Помочь',
     footerColumn1Item1: 'О приюте',

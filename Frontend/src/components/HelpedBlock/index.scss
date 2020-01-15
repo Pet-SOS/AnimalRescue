@@ -19,23 +19,38 @@
   }
   .img-holder {
     background-size: cover;
+    background-position: center;
   }
   .info-holder {
     padding: 3rem 1.125rem;
     display: flex;
+  }
+  .info-content {
+    position: relative;
+    padding-bottom: 1.875rem;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
   .info-title {
     font-size: 1.5rem;
     line-height: 1.5rem;
     font-weight: 900;
     color: #0D2B4B;
+    margin: 0 0 1.5rem;
+  }
+  .info-text {
+    flex-grow: 1;
+    overflow: hidden;
   }
   a {
     font-size: 1.25rem;
     line-height: 1.5rem;
     color: #E2A811;
     font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
