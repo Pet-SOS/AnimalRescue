@@ -20,6 +20,9 @@ namespace AnimalRescue.BusinessLogic.Services
 
 		public BlogService(IBlogRepository blogRepository, IMapper mapper)
 		{
+			Require.Objects.NotNull(blogRepository, nameof(blogRepository));
+			Require.Objects.NotNull(mapper, nameof(mapper));
+
 			_blogRepository = blogRepository;
 			_mapper = mapper;
 		}

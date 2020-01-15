@@ -41,9 +41,7 @@ namespace AnimalRescue.API.Controllers
 		{
 			Require.Strings.NotNullOrWhiteSpace(blogId, nameof(blogId));
 
-			var blogDto = await _blogService.GetAsync(blogId);
-
-			return _mapper.Map<BlogDto, BlogInfoModel>(blogDto);
+			return await GetItemAsync<BlogDto, BlogInfoModel>(_blogService, blogId, _mapper);
 		}
 
 
