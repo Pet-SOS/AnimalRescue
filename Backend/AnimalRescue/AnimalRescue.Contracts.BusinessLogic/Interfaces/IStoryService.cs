@@ -6,7 +6,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
     public interface IStoryService :
         IBlCollectinQueryAsyncy<StoryDto>,
         IBlOneItemQueryAsyncy<StoryDto>,
-        IBlCreateAsync<StoryDto>,
+        IBlCreateAsync<StoryDto, StoryDto>,
         IBlUpdateAsync<StoryDto>,
         IBlDeleteAsync
     {

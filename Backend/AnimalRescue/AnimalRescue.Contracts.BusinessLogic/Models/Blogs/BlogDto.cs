@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AnimalRescue.Contracts.BusinessLogic.Models
+namespace AnimalRescue.Contracts.BusinessLogic.Models.Blogs
 {
     public class BlogDto : BaseDto
     {
