@@ -6,7 +6,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
     public interface IAnimalService :
         IBlCollectinQueryAsyncy<AnimalDto>,
         IBlOneItemQueryAsyncy<AnimalDto>,
-        IBlCreateAsync<AnimalDto>,
+        IBlCreateAsync<AnimalDto, AnimalDto>,
         IBlUpdateAsync<AnimalDto>,
         IBlDeleteAsync
     {
