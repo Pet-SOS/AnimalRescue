@@ -42,6 +42,11 @@ export default {
     popupBlockSecondText:'Также нам нужны:',
     popupBlockThirdText:'люди, у которых есть потребность и возможность передерживать у себя животное (от малыша до взрослой особи) до момента усыновления;',
     popupBlockThirdTextTwo:'специалисты с нестандартными и интересными вариантами фото и видеосъемки наших животных для сайта.',
+    counterBlockTitle: 'Спасенных нами животных',
+    counterBlockSubText: 'по данным на',
+
+    alreadyHelpedBlockTitle: 'Кому мы помогли',
+    readStory: 'Читать историю',
 
     footerRightBtn: 'Помочь',
     footerColumn1Item1: 'О приюте',
