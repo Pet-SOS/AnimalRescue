@@ -1,8 +1,8 @@
 import React from 'react';
-import './index.scss';
 import { BASE_URL } from '../../api';
 import { TI18n } from '../../i18n';
 import noPhotoImage from './../../img/nophoto.jpg';
+import './index.scss';
 
 interface IPropTypes {
   slideData: any
@@ -16,11 +16,9 @@ export const HelpedBlockItem: React.FC<IPropTypes> = ({ slideData }) => {
       <div className="info-holder">
         <div className="info-content">
           <div className="info-title">{slideData.title}</div>
-          <div className="info-text">
-            <p>{slideData.description}</p>
-          </div>
-          <a><TI18n keyStr="readStory" default="Читать историю" /></a>
+          <div className="info-text">{slideData.description}</div>
         </div>
+        <a><TI18n keyStr="readStory" default="Читать историю" /></a>
       </div>
     </div>
   )
