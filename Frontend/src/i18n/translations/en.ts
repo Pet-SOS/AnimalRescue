@@ -17,10 +17,6 @@ export default {
     headerBottomBtn: 'Give',
     headerBottomMore: 'I want to help otherwise',
 
-    helpBlockTitle: 'Help animals',
-    homePageHelpBlockContent: 'The shelter takes care of hundreds of animals daily. The best way to help us and our ponytails is to donate any amount for food, treatment and maintenance of the shelter.',
-    helpBlockCheck: 'See where my money will go',
-
     footerRightBtn: 'To help',
     footerColumn1Item1: 'About the shelter',
     footerColumn2Item1: 'Animals',

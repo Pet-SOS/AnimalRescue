@@ -1,3 +1,8 @@
+@import './../../../../styles/variables.scss';
 .home-page-client {
   min-height: 10rem;
+  .animal-list-wrapper {
+    background: $bg-lite-box;
+    padding: 3.75rem 0;
+  }
 }

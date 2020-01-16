@@ -14,11 +14,13 @@ const crateFormData = (data: Object) => {
     return formData
 }
 
+export enum Gender {MALE = 'male', FEMALE = 'female'}
+
 export interface IAnimal {
     number: number
     name: string
     kindOfAnimal: string
-    gender: string
+    gender: string | Gender
     description: string
     age: number
     imageIds: string[]

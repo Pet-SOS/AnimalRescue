@@ -1,20 +1,21 @@
 import React from 'react';
 import { HelpedBlockItem } from './item';
-import { SwiperSlider } from '../SwipeSlider';
+import { Slider } from '../Slider';
 import './index.scss';
+import { IAnimal } from '../../api/animals';
 
 interface IPropTypes {
-  data: any[];
+  data: IAnimal[];
   title: string | React.ReactNode;
 }
 
 export const HelpedBlock: React.FC<IPropTypes> = ({ data, title }) => {
-  const getSlideElements = (): React.ReactNode[] => [...data.map(slideData => <HelpedBlockItem slideData={slideData} />)];
+  const getSlideElements = (): React.ReactNode[] => [...data.map(slideData => <HelpedBlockItem animal={slideData} />)];
   return (
     <div className="helped-holder">
-      <div className="title">{title}</div>
+      <h2 className="title">{title}</h2>
       {!!data && !!data.length && <div className="slider-holder">
-        <SwiperSlider slides={getSlideElements()} />
+        <Slider slides={getSlideElements()} />
       </div>}
     </div>
   )

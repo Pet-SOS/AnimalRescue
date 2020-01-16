@@ -1,6 +1,5 @@
 @import '../../node_modules/reset-css/reset';
 @import "font-face";
-@import "media";
 @import './variables';
 * {
   box-sizing: border-box;
@@ -31,3 +30,12 @@ html body {
 a {
   transition: $defaultHoverTransition;
 }
+.title {
+    color: $text-color;
+    font-size: 3rem;
+    line-height: 2rem;
+    font-weight: 900;
+    margin: 0 0 1rem;
+  }
+
+@import "media";

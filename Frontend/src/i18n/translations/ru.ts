@@ -17,15 +17,17 @@ export default {
     headerBottomBtn: 'Подарить',
     headerBottomMore: 'Хочу помочь иначе',
 
-    helpBlockTitle: 'Помощь животным',
-    homePageHelpBlockContent: 'Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта.',
-    helpBlockCheck: 'Посмотреть, куда уйдут мои деньги',
-
     counterBlockTitle: 'Спасенных нами животных',
     counterBlockSubText: 'по данным на',
 
     alreadyHelpedBlockTitle: 'Кому мы помогли',
     readStory: 'Читать историю',
+
+    female: 'Девочка',
+    male: 'Мальчик',
+    unknownGender: 'Пол неизвестен',
+
+    month: 'месяц',
 
     footerRightBtn: 'Помочь',
     footerColumn1Item1: 'О приюте',
