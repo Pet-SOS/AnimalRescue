@@ -72,7 +72,7 @@
     }
   }
 }
-@media (max-width: $min-device-width) {
+@media (max-width: $small-device-width) {
   .helped-holder {
     padding: 3.75rem 1rem;
     .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
