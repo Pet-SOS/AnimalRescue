@@ -1,0 +1,118 @@
+@import './../../styles/variables.scss';
+
+.counter-holder {
+  padding: 5.6rem 5rem 0;
+  text-align: center;
+  .counter {
+    display: inline-block;
+    margin: 0 0 1.2rem;
+    font-size: 0;
+    line-height: 0;
+  }
+  .title {
+    color: #0D2B4B;
+    font-size: 3rem;
+    line-height: 2rem;
+    font-weight: 900;
+    margin: 0 0 1rem;
+  }
+  .text {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    color: #ffffff;
+  }
+}
+.image-holder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0 -5rem;
+  img {
+    max-width: 12%;
+    width: 100%;
+  }
+}
+.count-inner {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.25rem 1rem;
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 -0.5rem 0.75rem #E2A811;
+    background-color: #E9E6E7;
+    border-radius: 1.5rem;
+    top: 0.375rem;
+    left: 0
+  }
+  & > span {
+    font-weight: 900;
+    font-size: 4rem;
+    line-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F9F6F7;
+    border-radius: 1.5rem;
+    min-height: 5.625rem;
+    min-width: 5.625rem;
+    z-index: 2;
+    position: relative;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    color: #409275;
+  }
+}
+
+@media (max-width: $max-device-width) {
+  .counter-holder {    
+    padding: 6.25rem 3rem 0;
+  }
+  .image-holder {
+    margin: 0 -3rem;
+    img {
+      max-width: 20%;
+      &:first-child {
+        display: none;
+      }
+      &:nth-last-child(-n + 2) {
+        display: none;
+      }
+    }
+  }
+}
+@media (max-width: $medium-device-width) {
+  .counter-holder {
+    padding: 3.75rem 0.5rem 0;
+    .title {
+      font-size: 1.75rem;
+      line-height: 1.75rem;
+    }
+  }
+  .image-holder {    
+    margin: 0 -0.5rem;
+    img {
+      max-width: 33%;
+      &:nth-child(-n + 2) {
+        display: none;
+      }
+      &:nth-last-child(-n + 3) {
+        display: none;
+      }
+    }
+  }
+  .count-inner {    
+    margin: 0 0.15rem 1rem;
+    & > span,
+    &:after {
+      font-size: 3rem;
+      line-height: 3rem;
+      min-height: 3.44rem;
+      min-width: 3.44rem;
+      border-radius: 0.5rem;
+    }
+  }
+}

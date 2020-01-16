@@ -20,6 +20,7 @@
 
         public static class Common
         {
+            public const string Title = "title";
             public const string Body = "body";
             public const string Name = "name";
             public const string Data = "data";

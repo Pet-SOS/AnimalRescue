@@ -1,14 +1,16 @@
 @import '../../node_modules/reset-css/reset';
 @import "font-face";
 @import "media";
-@import './variables'; 
+@import './variables';
+* {
+  box-sizing: border-box;
+}
 html body {
   margin: 0;
   font-family:'Nunito', 'Roboto',  sans-serif;
   color: $text-color;
   font-size: 1.125rem;
   line-height: 1.625rem;
-  
 }
 
 #root .app {
@@ -26,7 +28,6 @@ html body {
   margin: 0 auto;
   box-sizing: border-box;
 }
-.container {
-
-
+a {
+  transition: $defaultHoverTransition;
 }

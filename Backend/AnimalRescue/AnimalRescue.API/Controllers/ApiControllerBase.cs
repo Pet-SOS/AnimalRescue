@@ -57,14 +57,14 @@ namespace AnimalRescue.API.Controllers
             };
         }
 
-        protected async Task<ActionResult<TModel>> CreatedItemAsync<TDto, TModel>(
-            IBlCreateAsync<TDto> service, 
+        protected async Task<ActionResult<TModel>> CreatedItemAsync<TDtoIn, TModel>(
+            IBlCreateAsync<TDtoIn, TDtoIn> service,
             TModel value, 
             IMapper mapper) where TModel : BaseModel
         {
-            TDto itemDto = mapper.Map<TModel, TDto>(value);
+            TDtoIn itemDto = mapper.Map<TModel, TDtoIn>(value);
             itemDto = await service.CreateAsync(itemDto);
-            var itemModel = mapper.Map<TDto, TModel>(itemDto);
+            var itemModel = mapper.Map<TDtoIn, TModel>(itemDto);
 
             return CreatedItem(itemModel);
         }

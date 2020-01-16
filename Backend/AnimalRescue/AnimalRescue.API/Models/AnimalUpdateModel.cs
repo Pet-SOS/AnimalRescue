@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-
+﻿
 using Newtonsoft.Json;
 
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
+using baseitem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseItem;
 
 namespace AnimalRescue.API.Models
 {
-    public class AnimalUpdateModel : AnimalModel
+    public class AnimalUpdateModel : AnimalCreateModel
     {
-        [JsonPropertyName(common.Images)]
-        [JsonProperty(common.Images)]
-        public List<IFormFile> Images { get; set; } = new List<IFormFile>();  
+        [JsonPropertyName(baseitem.Id)]
+        [JsonProperty(baseitem.Id)]
+        public string Id { get; set; }     
     }
 }
