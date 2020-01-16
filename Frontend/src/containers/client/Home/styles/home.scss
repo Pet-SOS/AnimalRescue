@@ -1,3 +1,9 @@
 .home-page-client {
   min-height: 10rem;
 }
+@media all and (max-width: 996px) {
+  .header-bottom .content{
+    flex-direction: column!important;
+    align-self: flex-end;
+  }
+}

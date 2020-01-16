@@ -17,7 +17,7 @@ export const BottomContent: React.FC = () => {
                 </p>
                 <Button onClick={() => {
                 }} styleType={ButtonTypes.Green} className="btn-give">
-                    <TI18n keyStr="headerBottomBtn" default="Подарить"/>
+                    <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
                 </Button>
                 <div className="block-more">
                     <p><TI18n keyStr="headerBottomMore" default="Хочу помочь иначе"/></p>

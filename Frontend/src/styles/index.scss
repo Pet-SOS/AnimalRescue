@@ -1,6 +1,6 @@
 @import '../../node_modules/reset-css/reset';
 @import "font-face";
-@import "media";
+@import "./media";
 @import './variables'; 
 html body {
   margin: 0;
@@ -8,7 +8,6 @@ html body {
   color: $text-color;
   font-size: 1.125rem;
   line-height: 1.625rem;
-  
 }
 
 #root .app {
@@ -25,8 +24,12 @@ html body {
   padding: 0 8.5625rem;
   margin: 0 auto;
   box-sizing: border-box;
+  max-width: 100%;
 }
-.container {
-
-
+.title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.5rem;
+  line-height: 1.5rem;
+  font-weight: 900;
 }
