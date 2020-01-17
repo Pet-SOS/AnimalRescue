@@ -1,8 +1,23 @@
 @import './variables.scss';
 
+@media all and (max-width: 1243px) {
+  .content {
+    padding: 0 5.5rem!important;
+  }
+}
+@media all and (max-width: 856px) {
+  header .content{
+    padding: 0 1rem!important;
+  }
+}
 @media (max-width: $medium-device-width) {
   .title {
       font-size: 1.75rem;
       line-height: 1.75rem;
     }
+}
+@media all and (max-width: 665px) {
+  .header-bottom .content{
+    padding: 0 1rem!important;
+  }
 }

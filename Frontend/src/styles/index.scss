@@ -26,6 +26,7 @@ html body {
   padding: 0 8.5625rem;
   margin: 0 auto;
   box-sizing: border-box;
+  max-width: 100%;
 }
 a {
   transition: $defaultHoverTransition;

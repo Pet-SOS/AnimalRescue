@@ -14,7 +14,7 @@ export const actionHomeFetchAnimalsFailure = createAction(
     (resolve) => (error: Error) => resolve({error})
 );
 
-export const actionSetSlideIndexSuccess = createAction(
-    'HOME_FETCH_ANIMALS_SET_SLIDE_SUCCESS',
-    (resolve) => (data: number) => resolve({data})
+export const actionIsActivePopup = createAction(
+    'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
+    (resolve) => (data: boolean) => resolve({data})
 )

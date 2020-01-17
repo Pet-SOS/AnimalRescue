@@ -6,3 +6,9 @@
     padding: 3.75rem 0;
   }
 }
+@media all and (max-width: 996px) {
+  .header-bottom .content{
+    flex-direction: column!important;
+    align-self: flex-end;
+  }
+}
