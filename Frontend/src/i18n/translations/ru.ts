@@ -31,10 +31,6 @@ export default {
     headerBottomBtn: 'Пожертвовать',
     headerBottomMore: 'Хочу помочь иначе',
 
-    helpBlockTitle: 'Помощь животным',
-    homePageHelpBlockContent: 'Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта.',
-    helpBlockCheck: 'Посмотреть, куда уйдут мои деньги',
-
     popupInfoBlockTitle:'Помощь животным',
     popupInfoCard: '5169 3305 1022 8304',
     popupInfoCardName: 'Волкова Галина',
@@ -42,11 +38,18 @@ export default {
     popupBlockSecondText:'Также нам нужны:',
     popupBlockThirdText:'люди, у которых есть потребность и возможность передерживать у себя животное (от малыша до взрослой особи) до момента усыновления;',
     popupBlockThirdTextTwo:'специалисты с нестандартными и интересными вариантами фото и видеосъемки наших животных для сайта.',
+
     counterBlockTitle: 'Спасенных нами животных',
     counterBlockSubText: 'по данным на',
 
     alreadyHelpedBlockTitle: 'Кому мы помогли',
     readStory: 'Читать историю',
+
+    female: 'Девочка',
+    male: 'Мальчик',
+    unknownGender: 'Пол неизвестен',
+
+    month: 'месяц',
 
     footerRightBtn: 'Помочь',
     footerColumn1Item1: 'О приюте',

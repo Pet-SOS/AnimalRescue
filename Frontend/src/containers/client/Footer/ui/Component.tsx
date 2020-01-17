@@ -37,7 +37,7 @@ export const AppFooter: React.FC = () => {
                     </div>
                 </div>
                 <div className="right">
-                    <Button content="Помочь" onClick={() => {}} styleType={ButtonTypes.Green}>
+                    <Button content="Помочь" onClick={() => {}} styleType={ButtonTypes.Blue}>
                         <TI18n keyStr="footerRightBtn" default="Помочь"/>
                     </Button>
                     <SocialLinks />

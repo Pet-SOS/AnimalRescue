@@ -1,6 +1,5 @@
 @import '../../node_modules/reset-css/reset';
 @import "font-face";
-@import "media";
 @import './variables';
 * {
   box-sizing: border-box;
@@ -29,13 +28,15 @@ html body {
   box-sizing: border-box;
   max-width: 100%;
 }
-.title {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 2.5rem;
-  line-height: 1.5rem;
-  font-weight: 900;
-}
 a {
   transition: $defaultHoverTransition;
 }
+.title {
+    color: $text-color;
+    font-size: 3rem;
+    line-height: 2rem;
+    font-weight: 900;
+    margin: 0 0 1rem;
+  }
+
+@import "media";

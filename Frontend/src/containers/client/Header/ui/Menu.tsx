@@ -35,7 +35,7 @@ export const AppMenu: React.FC = () => {
             <div className="item"><TI18n keyStr="headerMenuItem4" default="Блог"/></div>
             <div className="item"><TI18n keyStr="headerMenuItem5" default="Контакты"/></div>
             <div className="item"><HeartLogo/></div>
-            <Button onClick={() => {}} styleType={ButtonTypes.Green}>
+            <Button onClick={() => {}} styleType={ButtonTypes.Blue}>
                 <TI18n keyStr="headerMenuItem6" default="Помощь"/>
             </Button>
         </div>

@@ -1,11 +1,5 @@
-@media all and (max-width: 768px) and (min-width: 520px) {
-}
+@import './variables.scss';
 
-@media all and (max-width: 1118px) and (min-width: 768px) {
-}
-
-@media all and (max-width: 1368px) and (min-width: 1118px) {
-}
 @media all and (max-width: 1243px) {
   .content {
     padding: 0 5.5rem!important;
@@ -16,11 +10,14 @@
     padding: 0 1rem!important;
   }
 }
+@media (max-width: $medium-device-width) {
+  .title {
+      font-size: 1.75rem;
+      line-height: 1.75rem;
+    }
+}
 @media all and (max-width: 665px) {
   .header-bottom .content{
     padding: 0 1rem!important;
   }
 }
-@media all and (max-width: 1768px) and (min-width: 1368px) {
-}
-

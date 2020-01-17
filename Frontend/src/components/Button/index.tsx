@@ -3,13 +3,14 @@ import './styles.scss';
 import cn from 'classnames';
 
 export enum ButtonTypes {
-    Green = 'blue',
-    GreenCircle = 'blue-circle',
+  Blue = 'blue',
+  BlueCircle = 'blue-circle',
+  Like = 'like'
 }
 
 interface IPropTypes {
     content?: string;
-    onClick: () => void;
+    onClick?: () => void;
     className?: string;
     styleType?: ButtonTypes;
     children?: React.ReactNode,
@@ -22,6 +23,7 @@ export const Button: React.FC<IPropTypes> = (
         <button
             className={cn(className,{button: true, [styleType || '']: [!!styleType]})}
             onClick={onClick}
+            type='button'
         >
             {content || children || null}
         </button>
