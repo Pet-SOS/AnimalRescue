@@ -1,0 +1,105 @@
+@import '../../../../styles/variables.scss';
+
+.our-goal-container {
+    padding: 5rem 0 5rem;
+    width: 100%;
+    background: $main-bg-color;
+    .our-goal-holder {
+        width: 68.375rem;
+        height: 18.875rem;
+        margin: 0 auto;
+        padding: 0 8.5rem;
+    }
+    .title {
+        position: relative;
+        display: inline-block;
+        font-size: 3rem;
+        line-height: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .column-container {              
+        flex-direction: row;
+        display: flex;
+        margin: 0; 
+        padding: 0;   
+        justify-content: space-between; 
+        margin-bottom: 1.5rem;   
+    }
+    .left-block{
+        width:50%;
+        line-height: 1.625rem;
+        margin-right: 1.5rem;
+    }
+    .right-block{
+        width: 50%;
+    }
+} 
+
+@media all and (max-width: $medium-device-width) {
+    .our-goal-container{
+        .our-goal-holder {
+            width: 42rem;
+            height: 17.25rem;
+            padding: 0 1.5rem 0 4.5rem;
+        }
+        .column-container {              
+            flex-direction: column;   
+            display: flex;   
+            margin-bottom: 1rem; 
+        }
+        .left-block{
+            width:100%;
+            line-height: 1.625rem;
+            margin-right: 0rem;
+            margin-bottom: 1.5rem;
+        }
+        .right-block{
+            width: 100%;
+        }
+    }
+}
+
+@media all and (max-width: 545px) {
+    .our-goal-container{
+        .title {
+            line-height: 3rem;
+        }
+    }
+}
+
+@media all and (max-width: 665px) {
+    .our-goal-container{
+        .content {
+            padding: 0 1rem !important;
+        }
+    } 
+}
+
+@media all and (max-width: $min-device-width) {
+    .our-goal-container {
+        padding: 3rem 0 3rem;
+        .our-goal-holder {
+            width: 21.4375rem;
+            height: 29.5rem;
+            padding: 0 1rem;
+        }
+        .title {
+            font-size: 1.75rem;
+            line-height: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .column-container {              
+            flex-direction: column;   
+            display: flex; 
+        }
+        .left-block{
+            width:100%;
+            line-height: 1.5rem;
+            margin-right: 0rem;
+            margin-bottom: 1rem;
+        }
+        .right-block{
+            width: 100%;
+        }
+    }
+}
