@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {ReactComponent as Logo} from '../../../../assets/header/logo.svg';
-import {ReactComponent as Phone} from '../../../../assets/header/iphone.svg';
 import {AppMenu} from './Menu';
 import {ChangeLocale, TI18n} from "../../../../i18n";
 import {SocialLinks} from "../../../../components/SocialLinks";
 import {store} from '../../../../store/index';
 
 import { PopupInfo } from './PopupInfo';
+import { PhoneLink } from '../../../../components/PhoneLink';
 import '../styles/header.scss'
 import { MobileMenu } from './MobileMenu';
 import counterImage5 from '../../../../img/counter-images/counter_5.png';
@@ -31,34 +31,28 @@ const AppHeader: React.FC<IPropTypes> = () => {
         <header>
             <div className="content">
                 <div className="header">
-                <div className="box-menu-logo">
-                    <div className='box-mobile' onClick={(e)=> {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        setIsActiveMenu(!isActiveMenu)}}>
-                        <div  className={`${isActiveMenu? 'active-menu': ''} menu-btn`}>
-                            <div className='band'></div>
-                        </div>
-                        {isActiveMenu? <MobileMenu/> : ''} 
-                    </div>
-                    <div className="logo-main">
-                        <div className="logo"><Logo/></div>
-                        <div className="logo-text">
-                            <TI18n keyStr="headerTitle" default="Спасение животных в Харькове"/>
-                        </div>
-                    </div>
-                </div>
-                    <div className="contacts">
-                        <div className="icon-phone"><Phone/></div>
-                        <div className="phone">
-                            <a className="number" href='tel:+38 095 497 81 95'>+38 095 497 81 95</a>
-                            <span className="title"><TI18n keyStr="hotLinePhones" default="Телефоны горячей линии"/></span>
-                        </div>
-                    </div>
-                    <div className="box-social-locale">
-                        <SocialLinks/>
-                        <div className="change-locale"><ChangeLocale/></div>
-                    </div>
+                  <div className="box-menu-logo">
+                      <div className='box-mobile' onClick={(e)=> {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          setIsActiveMenu(!isActiveMenu)}}>
+                          <div  className={`${isActiveMenu? 'active-menu': ''} menu-btn`}>
+                              <div className='band'></div>
+                          </div>
+                          {isActiveMenu? <MobileMenu/> : ''} 
+                      </div>
+                      <div className="logo-main">
+                          <div className="logo"><Logo/></div>
+                          <div className="logo-text">
+                              <TI18n keyStr="headerTitle" default="Спасение животных в Харькове"/>
+                          </div>
+                      </div>
+                  </div>
+                  <PhoneLink/>
+                  <div className="box-social-locale">
+                      <SocialLinks/>
+                      <div className="change-locale"><ChangeLocale/></div>
+                  </div>
                 </div>
                 <AppMenu/>
             </div>
