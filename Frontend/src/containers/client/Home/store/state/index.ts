@@ -4,6 +4,7 @@ import {IAnimalsResponse} from "../../../../../api/animals";
 export interface IHomePageState {
     animalsList: IAnimalsResponse;
     animalsListRequestState: IRequestState;
+    isActivePopup: boolean;
 }
 
 export const DEFAULT_ANIMALS = {
@@ -17,5 +18,6 @@ export const DEFAULT_ANIMALS = {
 
 export const DEFAULT_HOME_PAGE_STATE = {
     animalsList: {...DEFAULT_ANIMALS},
-    animalsListRequestState: {...DEFAULT_REQUEST_STATE}
+    animalsListRequestState: {...DEFAULT_REQUEST_STATE},
+    isActivePopup:  false
 };

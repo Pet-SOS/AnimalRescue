@@ -10,16 +10,53 @@
   box-shadow: 0 0.375rem 0.75rem rgba(233, 230, 231, 0.8);
   border-radius: 2rem;
   justify-content: space-between;
-
   .item {
+    position: relative;
     margin: auto;
     padding: 1rem 0.1rem;
     cursor: pointer;
     font-weight: bold;
     color: $text-lite-color;
+    .dropdown{
+      display: none;
+      position: absolute;
+      width: auto;
+      top: 3.625rem;
+      left: 0;
+      background: $main-bg-color;
+      padding: 1.75rem 2.1875rem 2.125rem 1.5rem;
+      border-radius: 0 0 1.5rem 1.5rem;
+      box-shadow: 0px 6px 12px rgba(233, 230, 231, 0.8);
+      box-sizing: border-box;
+      z-index: 7;
+      li {
+        &:last-child a{
+          padding-bottom: 0;
+        }
+        a{
+          font-size: 1.125rem;
+          line-height: 1.5625rem;
+          text-decoration: none;
+          color: $text-lite-color;
+          font-weight: normal;
+          font-style: normal;
+          display: flex;
+          flex-wrap: nowrap;
+          white-space: nowrap;
+          padding-bottom: 1rem;
+        }
+        &:hover a, &:active a,&:focus a {
+          color:$text-color-active;
+          outline: none;
+        }
+      }
+    }
     &:hover, &:active,&:focus {
       color:$text-color-active;
       outline: none;
+      .dropdown{
+        display: block!important;
+      }
     }
   }
 

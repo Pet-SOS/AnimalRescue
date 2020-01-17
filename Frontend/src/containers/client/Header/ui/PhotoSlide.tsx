@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState} from 'react';
 import {BASE_URL} from "../../../../api/index";
 import noPhoto from '../../../../img/nophoto.jpg';
 import '../styles/photoSlider.scss';
-import { useDispatch } from 'react-redux';
-import {actionSetSlideIndexSuccess} from '../../Home/store/actions/index';
+
+
 interface IPropTypes {
     number: number;
     name: string;
@@ -15,24 +15,18 @@ interface IPropTypes {
     tags: any[]
     id: string;
 }
-export const PhotoSlide: React.FC<any> = (props:any) => {
-    // store.getState();
-    const [slideIndex, setIndexSlide] = useState(0);
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        setIndexSlide(slideIndex);
-    });
-    const addIndexForSlide = useCallback( () => dispatch(actionSetSlideIndexSuccess(slideIndex)), [dispatch]);
+export const PhotoSlide: React.FC<any> = (props:any) => {
+    const [slideIndex, setIndexSlide] = useState(0);
+    const imageUrl = props.sliders[0] ? `${BASE_URL}/documents/${props.sliders[slideIndex].imageIds[0]}` : noPhoto;
+ 
     function activateLasers(i:number , e: any) {
         setIndexSlide(i);
     }
      return(
         <div className="slide">
             <div className='box-img'>
-                {props.sliders[0] ?
-                <img className="image" alt="slider-item" src={`${BASE_URL}/documents/${props.sliders[slideIndex].imageIds[0]}`}/> :
-                <img className="image" alt="slider-item" src={noPhoto}/>}
+                <div className="image" style={{backgroundImage: `url(${imageUrl})`}}></div>
             </div>
             <div className="btn-slider">
                 {props.sliders.map((item: IPropTypes, index: number) => {
