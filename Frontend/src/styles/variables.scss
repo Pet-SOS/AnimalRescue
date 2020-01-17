@@ -1,20 +1,26 @@
+
 $main-bg-color: white;
 $error-color: #f44336;
 $menu-border-color: #F1F7FE;
 $bg-lite-box: #F9F6F7;
 $bg-orange: #ECBB3B;
 $bg-lite:#E6EAEF;
+$bg-lite-gray:#F9F6F7;
+$bg-lite-lite: #E9E6E7;
+$bg-da: #DADADA;
 
 $text-color:#0D2B4B;
 $text-color-active:#E2A811;
-$text-lite-color:#62738D;
+$text-lite-color:#62738D; 
 
 $btn-blue: #3E5B9D;
 $btn-hover: #409275;
 $btn-press: #317E63;
 
 $min-device-width: 375px;
+$small-device-width: 568px;
 $medium-device-width: 768px;
+$normal-device-width: 1024px;
 $max-device-width: 1366px;
 
 $defaultHoverTransition: all .2s ease-in-out;

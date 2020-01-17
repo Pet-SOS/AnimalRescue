@@ -1,10 +1,9 @@
 import React from 'react';
 import {ReactComponent as Logo} from '../../../../assets/header/logo.svg';
-import {AppMenu} from './Menu';
 import {ChangeLocale, TI18n} from "../../../../i18n";
 import {SocialLinks} from "../../../../components/SocialLinks";
 import '../styles/header.scss'
-import {BottomContent} from "./BottomContent";
+
 
 interface IPropTypes {
 }

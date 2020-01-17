@@ -6,14 +6,14 @@ import {
     actionHomeFetchAnimalsRequest,
     actionHomeFetchAnimalsSuccess,
     actionHomeFetchAnimalsFailure,
-    actionSetSlideIndexSuccess
+    actionIsActivePopup
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
     actionHomeFetchAnimalsRequest,
     actionHomeFetchAnimalsSuccess,
     actionHomeFetchAnimalsFailure,
-    actionSetSlideIndexSuccess
+    actionIsActivePopup
 );
 
 export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
@@ -35,11 +35,10 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
                 ...state,
                 animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
             };
-        case getType(actionSetSlideIndexSuccess):
+        case getType(actionIsActivePopup):
             return {
                 ...state,
-                animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action),
-                slideIndex: action.payload.data
+                isActivePopup: action.payload.data
             };
 
         default:

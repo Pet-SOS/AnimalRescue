@@ -1,12 +1,12 @@
 import React from 'react';
 import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
-import {HelpBlock} from "../../../../components/HelpBlock";
-import {Slider} from "../../../../components/Slider";
-import {IAnimalsResponse} from "../../../../api/animals";
+import { IAnimalsResponse, IAnimal } from "../../../../api/animals";
+import { AnimalsList } from '../../../../components/AnimalsList';
+import { store } from './../../../../store/index';
 import '../styles/home.scss';
 import { BottomContent } from '../../Header/ui/BottomContent';
-import {OurGoalBlock} from '../../Home/ui/OurGoal';
+import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from '../../../../components/CounterBlock';
 import { HelpedBlock } from '../../../../components/HelpedBlock';
 import counterImage1 from '../../../../img/counter-images/counter_1.png';
@@ -43,12 +43,16 @@ export class HomePageMain extends React.Component<IPropTypes> {
         return []
     }
 
+    private getAnimalsStoreData(): IAnimal[] {
+      return store.getState().homePage.animalsList.data;
+    }
+
     render() {
         return (
             <>
             {BottomContent(this.props.animalsList)}
             <div className="home-page-client">
-            <   OurGoalBlock 
+                <OurGoalBlock 
                     title={<TI18n keyStr="ourGoalBlockTitle" default="Наша цель" />}
                     text1={
                         <TI18n 
@@ -61,24 +65,11 @@ export class HomePageMain extends React.Component<IPropTypes> {
                             keyStr="ourGoalBlockText2" 
                             default="Если вы увидели, что кто-то из животных нуждается в помощи, немедленно звоните на нашу горячую линию и сообщите нам о проблеме. К сожалению, беда может случиться в любое время, поэтому телефоны службы спасения работают в круглосуточном режиме – не бойтесь нам звонить и в 2 часа ночи, и в 5 часов утра." 
                         /> 
-                    }   
-                    linkText={<TI18n keyStr="ourGoalBlockLinkText" default="Подробнее о службе" />}
-                />
-                <HelpBlock
-                    backgroundColor="#eef1f3"
-                    themeColor="#5EAC38"
-                    image={require('../../../../assets/helpBlock/help_block_1.png')}
-                    content={
-                        <TI18n
-                            keyStr="homePageHelpBlockContent"
-                            default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта"
-                        />
                     }
-                />
-                <Slider
-                    className="content-padding"
-                    items={this.getAnimalsList}
-                    speedMs={3}
+                    link={{
+                        title: <TI18n keyStr="ourGoalBlockLinkText" default="Подробнее о службе" />,
+                        href: '/'
+                      }}
                 />
                 <CounterBlock
                   backgroundColor='#ECBB3B'
@@ -87,8 +78,26 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> 13.12.19</React.Fragment>}
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
                 <HelpedBlock 
-                  data={this.getAnimalsList}
+                data={this.getAnimalsStoreData()}
                   title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
+                <div className="animal-list-wrapper">
+                  <AnimalsList
+                    data={this.getAnimalsStoreData()}
+                    title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
+                    link={{
+                      title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
+                      href: '/'
+                    }}
+                  />
+                  <AnimalsList
+                    data={this.getAnimalsStoreData()}
+                    title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
+                    link={{
+                      title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
+                      href: '/'
+                    }}
+                  />
+                </div>
             </div>
             </>
         )

@@ -2,10 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router} from 'react-router';
 import {Provider} from 'react-redux';
-import './styles/index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {store, history} from "./store";
+import './styles/index.scss';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faEnvelope, faKey);
 
 ReactDOM.render(
     <Provider store={store}>

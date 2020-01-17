@@ -1,6 +1,6 @@
 import React from 'react';
-import './index.scss';
 import { CounterNumber } from './number';
+import './index.scss';
 
 interface IPropTypes {
   backgroundColor: string;
@@ -18,7 +18,7 @@ export const CounterBlock: React.FC<IPropTypes> = ({ backgroundColor, count, tit
           <CounterNumber number={number} key={index}/>
         ))}
       </div>
-      <div className="title">{title}</div>
+      <h2 className="title">{title}</h2>
       {!!text && <span className="text"> {text}</span>}
       <div className="image-holder">
         {images.slice(0, 8).map((img, index) => (

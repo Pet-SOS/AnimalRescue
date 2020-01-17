@@ -1,15 +1,16 @@
 import React from 'react';
-import {Button, ButtonTypes} from "../../../../components/Button";
+import { IBlockLinkPropTypes, BlockLink } from '../../../../components/BlockLink';
+
 import '../styles/OurGoal.scss';
 
 interface IPropTypes {
     title: string | React.ReactNode;
     text1?: string | React.ReactNode;
     text2?: string | React.ReactNode;
-    linkText: string | React.ReactNode;
+    link?: IBlockLinkPropTypes
   }
 
-  export const OurGoalBlock: React.FC<IPropTypes> = ({ title, linkText, text1, text2}) => {
+  export const OurGoalBlock: React.FC<IPropTypes> = ({ title, link, text1, text2}) => {
     return (
       <div className="our-goal-container">
           <div className="content">
@@ -18,11 +19,12 @@ interface IPropTypes {
                 <div className="left-block text">{text1}</div> 
                 <div className="right-block text">{text2}</div>  
             </div>    
-            <div className="block-more">
+            {/* <div className="block-more">
                 <p>{linkText}</p>   
-                <Button styleType={ButtonTypes.GreenCircle} onClick={() => {
+                <Button styleType={ButtonTypes.BlueCircle} onClick={() => {
                 }}/>
-            </div>
+            </div> */}
+            {!!link && !!link.href && <BlockLink {...link}/>}
           </div>
       </div>
     )

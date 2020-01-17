@@ -6,7 +6,7 @@
   color: inherit;
   background-color: transparent;
   cursor: pointer;
-
+  transition: $defaultHoverTransition;
   &:active, &:focus {
     outline: none;
   }
@@ -47,5 +47,20 @@
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;
+    &:hover, &:focus {
+      background-color: $text-color-active;
+    }
+  }
+  &.like {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url('../../img/icons/icon-heart.png') center center no-repeat #ffffff;
+    box-shadow: 0px 3px 4px rgba(25, 58, 75, 0.2);
+    border-radius: 50%;
+    opacity: 0.7;
+    &:hover {
+      background-image: url('../../img/icons/icon-heart-active.png');
+      opacity: 1;
+    }
   }
 }
