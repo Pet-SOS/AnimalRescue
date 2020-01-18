@@ -6,9 +6,9 @@ using System.Text.Json.Serialization;
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
-namespace AnimalRescue.API.Models
+namespace AnimalRescue.API.Models.Animals
 {
-    public class AnimalModel : BaseModel
+    public class AnimalModel : BaseAndTimeModel
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]
@@ -36,7 +36,7 @@ namespace AnimalRescue.API.Models
 
         [JsonPropertyName(common.ImageIds)]
         [JsonProperty(common.ImageIds)]
-        public List<string> ImageLinks { get; set; } = new List<string>();
+        public List<string> ImageIds { get; set; } = new List<string>();
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]

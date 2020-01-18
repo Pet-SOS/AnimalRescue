@@ -1,7 +1,24 @@
-﻿namespace AnimalRescue.Contracts.Common.Constants
+﻿using System.Collections.Generic;
+
+namespace AnimalRescue.Contracts.Common.Constants
 {
     public static class PropertyConstants
     {
+        public static IEnumerable<string> ArticleTypes(){
+            yield return EntityType.Article;
+            yield return EntityType.Blog;
+            yield return EntityType.Story;
+        }
+
+        public static class EntityType
+        {
+            public const string Cms = "cms";
+            public const string Animal = "animal";
+            public const string Article = "article";
+            public const string Blog = "blog";
+            public const string Story = "story";
+        }
+
         public static class Cms
         {
             public const string Phones = "phones";
@@ -28,6 +45,8 @@
             public const string ImageIds = "imageIds";
             public const string Tags = "tags";
             public const string Images = "images";
+            public const string IsRescued = "isRescued";
+            public const string Type = "type";
         }
 
         public static class BaseItem

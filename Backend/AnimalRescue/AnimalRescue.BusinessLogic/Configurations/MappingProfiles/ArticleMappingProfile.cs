@@ -2,17 +2,18 @@
 using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
+
 using static AnimalRescue.Contracts.Common.Constants.PropertyConstants;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 {
-    internal class StoryMappingProfile : Profile
+    internal class ArticleMappingProfile : Profile
     {
-        public StoryMappingProfile()
+        public ArticleMappingProfile()
         {
-            CreateMap<Article, StoryDto>();
-            CreateMap<StoryDto, Article>()
-                .ForMember(x => x.Type, o => o.MapFrom(b => EntityType.Story))
+            CreateMap<Article, ArticleDto>();
+            CreateMap<ArticleDto, Article>()
+                .ForMember(x => x.Type, o => o.MapFrom(b => EntityType.Article))
                 .ForMember(x => x.ModifiedBy, options => options.Ignore());
         }
     }

@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
-namespace AnimalRescue.API.Models
+namespace AnimalRescue.API.Models.Animals
 {
     public class AnimalCreateModel
     {
