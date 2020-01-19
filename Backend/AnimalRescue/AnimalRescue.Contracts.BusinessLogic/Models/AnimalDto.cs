@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AnimalRescue.Contracts.BusinessLogic.Models
+﻿namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
     public class AnimalDto : BaseCommonDto
     {

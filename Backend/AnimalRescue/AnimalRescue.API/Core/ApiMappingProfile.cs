@@ -1,11 +1,14 @@
-﻿using AnimalRescue.API.Models;
-using AnimalRescue.API.Models.Animals;
+﻿using AnimalRescue.API.Models.Animals;
 using AnimalRescue.API.Models.Blogs;
 using AnimalRescue.API.Models.Blogs.Articles;
 using AnimalRescue.API.Models.Blogs.Blogs;
 using AnimalRescue.API.Models.Blogs.Stories;
+using AnimalRescue.API.Models.Configurations.Contacts;
+using AnimalRescue.API.Models.Configurations.Donations;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 
 using AutoMapper;
 
@@ -18,6 +21,11 @@ namespace AnimalRescue.API.Core
 	{
 		public ApiMappingProfile()
         {
+            CreateMap<BankCardModel, BankCardDto>();
+            CreateMap<BankCardDto,BankCardModel>();
+            CreateMap<DonationConfigurationModel, DonationConfigurationDto>();
+            CreateMap<DonationConfigurationDto, DonationConfigurationModel>();
+
             CreateMap<CmsConfigurationModel, CmsConfigurationDto>();
             CreateMap<CmsConfigurationDto, CmsConfigurationModel>();
 

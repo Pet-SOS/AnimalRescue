@@ -21,9 +21,22 @@ namespace AnimalRescue.Contracts.Common.Constants
 
         public static class Cms
         {
+            public const string Donation = "donation";
+            public const string Contacts = "contacts";
             public const string Phones = "phones";
             public const string SocialLinks = "socialLinks";
+            public const string CardNumber = "cardNumber";
+            public const string BankCard = "bankCard";
+            public const string EDRPOU = "edrpou";
+            public const string BankName = "bankName";
         }
+        public static class Person
+        {
+            public const string FirstName = "firstName";
+            public const string LastName = "lastName";
+            public const string Phone = "phone";
+            public const string Email = "email";
+       }
 
         public static class Animal
         {

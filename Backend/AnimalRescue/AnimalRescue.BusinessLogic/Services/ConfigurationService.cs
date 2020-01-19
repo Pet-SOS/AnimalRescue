@@ -1,7 +1,9 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
-using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
+using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 
 using AutoMapper;
 
@@ -20,10 +22,29 @@ namespace AnimalRescue.BusinessLogic.Services
             this.mapper = mapper;
         }
 
-        public async Task<CmsConfigurationDto> GetCmsConfigurationAsync()
+        public async Task CreateAsync(CmsConfigurationDto value) => 
+            await CreateConfigurationAsync<CmsConfigurationDto, Contacts>(value);
+
+        public async Task CreateAsync(DonationConfigurationDto value) => 
+            await CreateConfigurationAsync<DonationConfigurationDto, Donation>(value);
+
+        public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
+            await GetDonationConfigurationAsync<CmsConfigurationDto, Contacts>();
+
+        public async Task<DonationConfigurationDto> GetDonationConfigurationAsync() => 
+            await GetDonationConfigurationAsync<DonationConfigurationDto, Donation>();
+       
+        private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)
         {
-            var configurationDbo = await _configurationRepository.GetCmsConfigurationAsync();
-            var configurationDto = mapper.Map<Configuration<CmsConfigurationNested>, CmsConfigurationDto>(configurationDbo);
+            var configuration = mapper.Map<TFrom, Configuration<TConfiguration>>(value);
+
+            await _configurationRepository.CreateAsync(configuration);
+        }
+
+        private async Task<TOut> GetDonationConfigurationAsync<TOut, TConfig>()
+        {
+            var configurationDbo = await _configurationRepository.GetConfigurationAsync<TConfig>();
+            var configurationDto = mapper.Map<Configuration<TConfig>, TOut>(configurationDbo);
 
             return configurationDto;
         }

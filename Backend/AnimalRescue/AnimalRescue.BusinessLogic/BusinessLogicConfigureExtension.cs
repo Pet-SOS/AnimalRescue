@@ -28,7 +28,8 @@ namespace AnimalRescue.BusinessLogic
                 new StoryMappingProfile(),
                 new BlogMappingProfile(),
                 new ArticleMappingProfile(),
-                new CmsConfigurationMappingProfile()
+                new CmsConfigurationMappingProfile(),
+                new DonationConfigurationMappingProfile()
             });
 
             services.AddScoped<IAnimalService, AnimalService>();

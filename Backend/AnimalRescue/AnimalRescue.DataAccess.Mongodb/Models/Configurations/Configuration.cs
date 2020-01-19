@@ -1,8 +1,10 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+
 using MongoDB.Bson.Serialization.Attributes;
+
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
-namespace AnimalRescue.DataAccess.Mongodb.Models
+namespace AnimalRescue.DataAccess.Mongodb.Models.Configurations
 {
     [BsonDiscriminator("configurations")]
     public class Configuration<T> : BaseItem

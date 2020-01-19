@@ -5,4 +5,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD
     public interface IBlCreateAsync<TOut, TIn> : IBaseCreateAsync<TOut, TIn>
     {
     }
+    public interface IBlCreateAsync<TIn> : IBaseVoidCreateAsync<TIn>
+    {
+    }
 }
