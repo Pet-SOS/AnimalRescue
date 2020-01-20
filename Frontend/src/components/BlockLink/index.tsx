@@ -10,7 +10,7 @@ export interface IBlockLinkPropTypes {
 
 export const BlockLink: React.FC<IBlockLinkPropTypes> = ({ title, href, isButtonHidden }) => {
   return (    
-    <a href={href}>
+    <a href={href} className="default-block-link">
       <span>{title}</span>
       {!isButtonHidden && <Button styleType={ButtonTypes.BlueCircle} />}
     </a>

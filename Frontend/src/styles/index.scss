@@ -4,21 +4,31 @@
 * {
   box-sizing: border-box;
 }
-html body {
-  margin: 0;
-  font-family:'Nunito', 'Roboto',  sans-serif;
-  color: $text-color;
-  font-size: 1.125rem;
-  line-height: 1.625rem;
+html {  
+  height: 100%;
+  body {
+    margin: 0;
+    font-family:'Nunito', 'Roboto',  sans-serif;
+    color: $text-color;
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+    height: 100%;
+  }
 }
 
-#root .app {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+#root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+header, footer {
+  flex: 0 0 auto;
+}
+.main {
+  flex: 1 0 auto;
 }
 .content {
   max-width: 85.375rem;
@@ -30,6 +40,7 @@ html body {
 }
 a {
   transition: $defaultHoverTransition;
+  text-decoration: none;
 }
 .title {
     color: $text-color;
