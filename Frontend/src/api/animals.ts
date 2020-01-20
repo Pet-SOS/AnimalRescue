@@ -15,19 +15,20 @@ const crateFormData = (data: Object) => {
 }
 
 export enum Gender {MALE = 'male', FEMALE = 'female'}
+export enum AnimalKind {CAT = 'cat', DOG = 'dog'}
 
 export interface IAnimal {
-    number: number
-    name: string
-    kindOfAnimal: string
-    gender: string | Gender
-    description: string
-    age: number
-    imageIds: string[]
-    tags: string[]
-    id: string
-    readonly?: boolean
-    images: []
+  number: number
+  name: string
+  kindOfAnimal: AnimalKind | string
+  gender: Gender | string
+  description: string
+  age: number
+  imageIds: string[]
+  tags: string[]
+  id: string
+  readonly?: boolean
+  images: []
 }
 
 export interface IAnimalsResponse {
@@ -51,6 +52,16 @@ export async function fetchAnimals(): Promise<IAnimalsResponse[]> {
 
 export async function updateAnimal(params: { animal: IAnimal }): Promise<void> {
     await API.put('animals', crateFormData(params.animal));
+}
+
+export async function fetchDogs(): Promise<IAnimalsResponse[]> {
+  const res = await API.get(`animals?Filter=kindOfAnimal~all~('${AnimalKind.DOG}')`);
+  return res.data
+}
+
+export async function fetchCats(): Promise<IAnimalsResponse[]> {
+  const res = await API.get(`animals?Filter=kindOfAnimal~all~('${AnimalKind.CAT}')`);
+  return res.data
 }
 
 export async function fetchSavedAnimalsCount(): Promise<ISavedAnimalsCountResponse> {

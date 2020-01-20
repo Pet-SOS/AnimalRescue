@@ -33,3 +33,20 @@
     color: $text-lite-color;
   }
 }
+@media (max-width: $normal-device-width) {
+  .animal-list-holder {
+    padding: 3rem 3rem;
+    .slider-holder {
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: $medium-device-width) {
+  .animal-list-holder {
+    padding: 2rem 1rem;
+    .slider-holder {
+      max-width: 100%;
+    }
+  }
+}
