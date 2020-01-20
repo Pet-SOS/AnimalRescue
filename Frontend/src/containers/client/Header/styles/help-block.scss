@@ -1,6 +1,6 @@
 @import '../../../../styles/variables.scss';
 .header-bottom {
-  background-color: $bg-lite-box;
+  // background-color: $bg-lite-box;
   width:100%;
   padding: 3rem 0 5rem 0;
   .content {
@@ -32,10 +32,8 @@
     }
   }
   .title {
-    font-weight: 900;
     font-size: 3rem;
     line-height: 3rem;
-    color: #0D2B4B;
     margin-bottom: 1.5rem;
   }
     .block-more {
@@ -47,8 +45,10 @@
       align-items: center;
       flex-direction: row;
       height: 2.5rem;
-     
       cursor: pointer;
+      a{
+        text-decoration: none;
+      }
       p {
         color:$text-color-active;
         margin-right: 1rem;
