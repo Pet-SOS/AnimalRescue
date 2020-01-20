@@ -48,6 +48,7 @@ export default {
   counterBlockText: 'according to',
 
   alreadyHelpedBlockTitle: 'Whom we helped',
+  readStory: 'Read story',
 
   female: 'Girl',
   male: 'Boy',
