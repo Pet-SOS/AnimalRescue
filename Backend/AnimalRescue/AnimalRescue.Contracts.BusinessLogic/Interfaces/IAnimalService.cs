@@ -8,7 +8,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlOneItemQueryAsyncy<AnimalDto>,
         IBlCreateAsync<AnimalDto, AnimalDto>,
         IBlUpdateAsync<AnimalDto>,
-        IBlDeleteAsync
+        IBlDeleteAsync,
+        IBlCountQueryAsync
     {
     }
 }

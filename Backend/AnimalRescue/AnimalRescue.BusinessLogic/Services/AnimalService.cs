@@ -71,5 +71,12 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             await animalRepository.DeleteAsync(id);
         }
+
+        public async Task<int> GetCountAsync(ApiQueryRequest query)
+        {
+            var dbQuery = query.ToDbQuery();
+
+            return await animalRepository.GetCountAsync(dbQuery);
+        }
     }
 }

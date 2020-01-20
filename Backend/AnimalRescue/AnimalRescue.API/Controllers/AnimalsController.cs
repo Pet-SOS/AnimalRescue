@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.API.Core.Responses;
-using AnimalRescue.API.Models;
+using AnimalRescue.API.Models.Animals;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
@@ -56,6 +56,15 @@ namespace AnimalRescue.API.Controllers
             return await GetCollectionAsync<AnimalDto, AnimalModel>(animalService, queryRequest, _mapper);
         }
 
+        [HttpGet("Counter")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<int>> GetCountAsync()
+        {
+            return  Item(await animalService.GetCountAsync(new ApiQueryRequest()));
+        }
+
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -67,7 +76,7 @@ namespace AnimalRescue.API.Controllers
 
             if(imageIds?.Count > 0)
             {
-                animalModel.ImageLinks = imageIds;
+                animalModel.ImageIds = imageIds;
             }
 
 
@@ -83,11 +92,11 @@ namespace AnimalRescue.API.Controllers
             var imageIds = await documentService.UploadFileAsync(animalUpdateModel.Images);
 
             AnimalModel animalModel = _mapper.Map<AnimalUpdateModel, AnimalModel>(animalUpdateModel);
-            animalModel.ImageLinks = (await animalService.GetAsync(animalModel.Id)).ImageLinks;
+            animalModel.ImageIds = (await animalService.GetAsync(animalModel.Id)).ImageIds;
 
             if (imageIds?.Count > 0)
             {
-                animalModel.ImageLinks.AddRange(imageIds);
+                animalModel.ImageIds.AddRange(imageIds);
             } 
 
             await UpdateDataAsync(animalService, animalModel, _mapper);
