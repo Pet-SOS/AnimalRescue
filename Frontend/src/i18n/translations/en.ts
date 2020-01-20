@@ -17,6 +17,14 @@ export default {
   headerMenuItem1Dropdown2: 'Rules for working with us',
   headerMenuItem1Dropdown3: 'Financial statements',
 
+  ourGoalBlockTitle: 'Our goal',
+  ourGoalBlockText1: 'We are the Kharkov animal rescue service, and our goal is to help animals in distress. We save kittens, puppies, adult cats and dogs who have to go through the difficult periods of their cat or dog life. We provide assistance to animals, regardless of the day of the week or time of day.',
+  ourGoalBlockText2: 'If you see that one of the animals needs help, immediately call our hotline and let us know about the problem. Unfortunately, trouble can happen at any time, so the rescue service phones work around the clock - do not be afraid to call us at 2 a.m. or 5 a.m.',
+  ourGoalBlockLinkText: 'Service Details',
+
+  helpBlockTitle: 'Help animals',
+  homePageHelpBlockContent: 'The shelter takes care of hundreds of animals daily. The best way to help us and our ponytails is to donate any amount for food, treatment and maintenance of the shelter.',
+  helpBlockCheck: 'See where my money will go',
   headerMenuItem2Dropdown1: 'Anyone',
   headerMenuItem2Dropdown2: 'Doggy',
   headerMenuItem2Dropdown3: 'Kitty',
