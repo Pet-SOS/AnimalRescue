@@ -17,4 +17,8 @@ export const actionHomeFetchAnimalsFailure = createAction(
 export const actionIsActivePopup = createAction(
     'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
     (resolve) => (data: boolean) => resolve({data})
-)
+);
+export const actionHomeFetchSickAnimalsRequest = createAction(
+    'HOME_FETCH_ANIMALS_REQUEST',
+    (resolve) => () => resolve({})
+);

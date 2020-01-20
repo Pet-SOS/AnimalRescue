@@ -27,7 +27,8 @@ interface IPropTypes extends RouteComponentProps<any> {
 export class HomePageMain extends React.Component<IPropTypes> {
 
     componentDidMount(): void {
-        this.props.fetchAnimalsRequest()
+        this.props.fetchAnimalsRequest();
+        this.props.fetchSickAnimals();
     }
 
     get getAnimalsList() {
@@ -51,22 +52,21 @@ export class HomePageMain extends React.Component<IPropTypes> {
     render() {
         return (
             <>
-            {HelpBlock(
-                this.props.animalsList,
-                {backgroundColor:'#F9F6F7',
-                 title: <TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>,
-                 color: '#0D2B4B',
-                 text:{
+            <HelpBlock
+              animalsList = {this.props.animalsList}
+              backgroundColor='#F9F6F7'
+                 title= {<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>}
+                 color='#0D2B4B'
+                 text={{
                     color:'#0D2B4B',
                     content:  <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта."/>
-                    },
-                btn:{
+                    }}
+                btn={{
                     style: 'blue',
                     content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
-                },
-                story: false
-                },
-                 )}
+                }}
+                story={false}
+              />
             <div className="home-page-client">
                 <OurGoalBlock 
                     title={<TI18n keyStr="ourGoalBlockTitle" default="Наша цель" />}
@@ -113,20 +113,21 @@ export class HomePageMain extends React.Component<IPropTypes> {
                       href: '/'
                     }}
                   />
-                  {HelpBlock(this.props.animalsList,
-                    {backgroundColor:'#333572',
-                    title: <TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>,
-                    color: '#409275',
-                    text:{
+                  <HelpBlock
+                  animalsList = {this.props.animalsList}
+                  backgroundColor='#333572'
+                    title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
+                    color='#409275'
+                    text={{
                         color:'#ffffff',
                         content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн."/>
-                    },
-                    btn:{
+                    }}
+                    btn={{
                         style: 'yellow',
                         content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
-                    },
-                    story: true
-                })}
+                    }}
+                    story={true}
+                />
                 </div>
             </div>
             </>

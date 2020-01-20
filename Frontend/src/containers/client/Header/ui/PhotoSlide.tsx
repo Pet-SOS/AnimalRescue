@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {BASE_URL} from "../../../../api/index";
 import noPhoto from '../../../../img/nophoto.jpg';
 import '../styles/photoSlider.scss';
@@ -16,20 +16,20 @@ interface IPropTypes {
     id: string;
 }
 
-export const PhotoSlide: React.FC<any> = (props:any) => {
-    const [slideIndex, setIndexSlide] = useState(0);
-    const imageUrl = props.sliders[0] ? `${BASE_URL}documents/${props.sliders[slideIndex].imageIds[1]}` : noPhoto;
+export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex}) => {
+ 
+    const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}` : noPhoto;
  
     function activateLasers(i:number , e: any) {
-        setIndexSlide(i);
+           updatePostInfo(i);
     }
      return(
         <div className="slide">
             <div className='box-img'>
-                <div className="image" style={{backgroundImage: `url(${imageUrl})`}}></div>
+                <div  className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
             </div>
             <div className="btn-slider">
-                {props.sliders.map((item: IPropTypes, index: number) => {
+                {sliders.map((item: IPropTypes, index: number) => {
                     return (
                     <div className={index === slideIndex ? 'active-indicator' : ''}  key={index} onClick={(e) => activateLasers(index, e)}></div>
                     )
