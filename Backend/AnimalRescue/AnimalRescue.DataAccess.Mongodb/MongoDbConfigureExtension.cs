@@ -2,6 +2,8 @@
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
+using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.DataAccess.Mongodb.Repositories;
 using AnimalRescue.Infrastructure.Configuration;
@@ -31,21 +33,18 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryFilterBuilder, QueryFilterBuilder>()
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
-                .AddSingleton<IQueryBuilder<Blog>, QueryBuilder<Blog>>()
-                .AddSingleton<IQueryBuilder<Story>, QueryBuilder<Story>>()
-                .AddSingleton<IQueryBuilder<Configuration<CmsConfigurationNested>>, QueryBuilder<Configuration<CmsConfigurationNested>>>();
+                .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
+                .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>();
 
             services
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
                 .AddScoped<IBaseCollection<Animal>, BaseCollection<Animal>>()
-                .AddScoped<IBaseCollection<Blog>, BaseCollection<Blog>>()
-                .AddScoped<IBaseCollection<Story>, BaseCollection<Story>>()
-                .AddScoped<IBaseCollection<Configuration<CmsConfigurationNested>>, BaseCollection<Configuration<CmsConfigurationNested>>>()
+                .AddScoped<IBaseCollection<Article>, BaseCollection<Article>>()
+                .AddScoped<IBaseCollection<Configuration<Contacts>>, BaseCollection<Configuration<Contacts>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
-                .AddScoped<IStoryRepository, StoryRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
-                .AddScoped<IBlogRepository, BlogRepository>();
+                .AddScoped<IArticleRepository, ArticleRepository>();
 		}
     }
 }

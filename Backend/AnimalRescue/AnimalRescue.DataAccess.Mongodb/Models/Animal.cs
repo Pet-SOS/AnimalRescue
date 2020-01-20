@@ -39,15 +39,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.DateOfFound)]
         [BsonElement("dateOfFound")] 
-        public DateTimeOffset DateOfFound { get; set; }
+        public DateTime DateOfFound { get; set; }
 
         [CouplingPropertyName(animal.DateOfAdopted)]
         [BsonElement("dateOfAdopted")] 
-        public DateTimeOffset? DateOfAdopted { get; set; } 
+        public DateTime? DateOfAdopted { get; set; } 
 
         [CouplingPropertyName(common.ImageIds)]
         [BsonElement("imageLinks")] 
-        public List<string> ImageLinks { get; set; }
+        public List<string> ImageIds { get; set; }
 
         [CouplingPropertyName(common.Tags)]
         [BsonElement("tags")] 

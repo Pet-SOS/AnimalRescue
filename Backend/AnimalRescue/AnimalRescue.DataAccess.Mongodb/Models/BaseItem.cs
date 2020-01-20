@@ -18,11 +18,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(baseItem.CreatedAt)]
 		[BsonElement("createdAt")]
-		public DateTimeOffset CreatedAt { get; set; }
+		public DateTime CreatedAt { get; set; }
 
         [CouplingPropertyName(baseItem.ModifiedAt)]
 		[BsonElement("modifiedAt")]
-		public DateTimeOffset? ModifiedAt { get; set; }
+		public DateTime? ModifiedAt { get; set; }
 
         [CouplingPropertyName(baseItem.CreatedBy)]
 		[BsonElement("createdBy")]

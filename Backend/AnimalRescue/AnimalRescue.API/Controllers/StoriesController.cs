@@ -1,7 +1,7 @@
 ﻿using AnimalRescue.API.Core.Responses;
-using AnimalRescue.API.Models;
+using AnimalRescue.API.Models.Blogs.Stories;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
@@ -16,14 +16,14 @@ namespace AnimalRescue.API.Controllers
 {
     public class StoriesController : ApiControllerBase
     {
-        private readonly ILogger<AnimalsController> _logger;
+        private readonly ILogger<StoriesController> _logger;
         private readonly IStoryService _storyService;
         private readonly IDocumentService _documentService;
         public readonly IMapper _mapper;
 
         public StoriesController(
-            ILogger<AnimalsController> logger, 
-            IMapper mapper, 
+            ILogger<StoriesController> logger,
+            IMapper mapper,
             IStoryService storyService,
             IDocumentService documentService)
         {
@@ -42,52 +42,37 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<StoryModel>> GetItemByIdAsync([FromRoute] string id)
+        public async Task<ActionResult<StoryInfoModel>> GetItemByIdAsync([FromRoute] string id)
         {
-            return await GetItemAsync<StoryDto, StoryModel>(_storyService, id, _mapper);
+            Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
+
+            return await GetItemAsync<StoryDto, StoryInfoModel>(_storyService, id, _mapper);
         }
 
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CollectionSegmentApiResponse<StoryModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
+        public async Task<ActionResult<CollectionSegmentApiResponse<StoryInfoModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
-            return await GetCollectionAsync<StoryDto, StoryModel>(_storyService, queryRequest, _mapper);
+            return await GetCollectionAsync<StoryDto, StoryInfoModel>(_storyService, queryRequest, _mapper);
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<StoryModel>> CreateItemAsync([FromForm] StoryCreateModel storyCreateModel)
+        public async Task<ActionResult<StoryInfoModel>> CreateItemAsync([FromForm] StoryCreateModel storyCreateModel)
         {
-            var imageIds = await _documentService.UploadFileAsync(storyCreateModel.Images);
-
-            StoryModel animalModel = _mapper.Map<StoryCreateModel, StoryModel>(storyCreateModel);
-
-            if(imageIds?.Count > 0)
-            {
-                animalModel.ImageLinks = imageIds;
-            }
-
-
-            return await CreatedItemAsync(_storyService, animalModel, _mapper);
+            return await CreatedItemAsync<StoryDto,StoryCreateModel,StoryInfoModel>(_storyService, _documentService, storyCreateModel, storyCreateModel.Images, _mapper);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromForm] StoryUpdateModel storyUpdateModel)
+        public async Task UpdateAsync([FromRoute] string id, [FromForm] StoryUpdateModel storyUpdateModel)
         {
-            var imageIds = await _documentService.UploadFileAsync(storyUpdateModel.Images);
-
-            if (imageIds?.Count > 0)
-            {
-                storyUpdateModel.ImageLinks.AddRange(imageIds);
-            }
-
-            await UpdateDataAsync(_storyService, storyUpdateModel, _mapper);
+            await UpdateDataAsync(_storyService, _documentService, id, storyUpdateModel, storyUpdateModel.Images, _mapper);
         }
 
         [HttpDelete("{id}")]
@@ -97,7 +82,6 @@ namespace AnimalRescue.API.Controllers
         public async Task DeleteAsync([FromRoute] string id)
         {
             await _storyService.DeleteAsync(id);
-        }
-
+        } 
     }
 }
