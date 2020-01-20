@@ -24,8 +24,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
         public async Task<Animal> CreateAsync(Animal instanse)
         {
-            instanse.CreatedAt = DateTimeOffset.Now;
-            instanse.DateOfFound = DateTimeOffset.Now;
+            instanse.CreatedAt = DateTime.Now;
+            instanse.DateOfFound = DateTime.Now;
             instanse = await this.baseCollection.CreateAsync(instanse);            
 
             return instanse;

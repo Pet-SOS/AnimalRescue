@@ -4,9 +4,9 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
     public class BaseAndTimeDto : BaseDto
     {
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public DateTimeOffset? ModifiedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
 
         public string CreatedBy { get; set; }
 

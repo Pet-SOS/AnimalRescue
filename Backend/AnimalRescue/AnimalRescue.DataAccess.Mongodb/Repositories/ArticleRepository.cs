@@ -31,7 +31,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 				PropertyConstants.ArticleTypes().Any(x => x.Equals(blog.Type)),
 				nameof(blog.Type));
 
-			blog.CreatedAt = DateTimeOffset.Now;
+			blog.CreatedAt = DateTime.Now;
 
 			return await _baseCollection.CreateAsync(blog);
 		}
@@ -75,7 +75,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 			oldArticle.ImageIds.AddRange(article.ImageIds);
 			oldArticle.Tags = article.Tags;
 			oldArticle.IsRescued = article.IsRescued;
-			oldArticle.ModifiedAt = DateTimeOffset.Now;
+			oldArticle.ModifiedAt = DateTime.Now;
 
 			await _baseCollection.UpdateAsync(oldArticle);
 		}

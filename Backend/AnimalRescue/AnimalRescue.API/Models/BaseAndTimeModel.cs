@@ -11,6 +11,6 @@ namespace AnimalRescue.API.Models
     {
         [JsonPropertyName(baseItem.CreatedAt)]
         [JsonProperty(baseItem.CreatedAt)]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

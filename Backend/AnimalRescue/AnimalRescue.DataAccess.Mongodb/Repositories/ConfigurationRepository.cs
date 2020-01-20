@@ -52,7 +52,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             string configName = TryGetConfigName<T>();
             instance.Name = configName;
             instance.Id = AsObjectId(Guid.NewGuid()).ToString();
-            instance.CreatedAt = DateTimeOffset.Now;
+            instance.CreatedAt = DateTime.Now;
             await baseCollection.CreateAsync(instance.ToBsonDocument());
         }
 
