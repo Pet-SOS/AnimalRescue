@@ -18,16 +18,19 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
+import { selectSavedAnimalsCount, selectAnimalsList } from '../store/selectors';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
+    fetchSavedAnimalsCount: () => void;
     animalsList: IAnimalsResponse
 }
 
 export class HomePageMain extends React.Component<IPropTypes> {
 
     componentDidMount(): void {
-        this.props.fetchAnimalsRequest()
+        this.props.fetchAnimalsRequest();
+        this.props.fetchSavedAnimalsCount();
     }
 
     get getAnimalsList() {
@@ -45,7 +48,17 @@ export class HomePageMain extends React.Component<IPropTypes> {
     }
 
     private getAnimalsStoreData(): IAnimal[] {
-      return store.getState().homePage.animalsList.data;
+      return selectAnimalsList(store.getState()).data;
+    }
+
+    private getSavedAnimalsCount(): number {
+      return selectSavedAnimalsCount(store.getState()).data;
+    }
+
+    private getCounterDateString(): string {
+      const currentDate: Date = new Date();
+      const yearString: string = `${currentDate.getFullYear()}`;
+      return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;
     }
 
     render() {
@@ -89,9 +102,9 @@ export class HomePageMain extends React.Component<IPropTypes> {
                 />
                 <CounterBlock
                   backgroundColor='#ECBB3B'
-                  count='102563'
+                  count={this.getSavedAnimalsCount()}
                   title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
-                  text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> 13.12.19</React.Fragment>}
+                  text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {this.getCounterDateString()}</React.Fragment>}
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
                 <HelpedBlock 
                 data={this.getAnimalsStoreData()}

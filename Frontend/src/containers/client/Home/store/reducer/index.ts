@@ -6,7 +6,10 @@ import {
     actionHomeFetchAnimalsRequest,
     actionHomeFetchAnimalsSuccess,
     actionHomeFetchAnimalsFailure,
-    actionIsActivePopup
+    actionIsActivePopup,
+    actionHomeFetchSavedAnimalsCount,
+    actionHomeFetchSavedAnimalsCountSuccess,
+    actionHomeFetchSavedAnimalsCountFailure
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
@@ -16,7 +19,13 @@ const fetchAnimalsRequestStateReducer = genericRequestReducer(
     actionIsActivePopup
 );
 
-export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
+const fetchSavedAnimalsCountStateReducer = genericRequestReducer(
+  actionHomeFetchSavedAnimalsCount,
+  actionHomeFetchSavedAnimalsCountSuccess,
+  actionHomeFetchSavedAnimalsCountFailure
+)
+
+export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
     switch (action.type) {
 
         case getType(actionHomeFetchAnimalsRequest):
@@ -35,6 +44,23 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
                 ...state,
                 animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
             };
+        case getType(actionHomeFetchSavedAnimalsCount):
+            return {
+              ...state,
+              savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
+            };
+        case getType(actionHomeFetchSavedAnimalsCountSuccess):
+          return {
+            ...state,
+            savedAnimalsCount: action.payload,
+            savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
+        }
+      case getType(actionHomeFetchSavedAnimalsCountFailure):
+        return {
+          ...state,
+          savedAnimalsCount: action.payload,
+          savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
+        }
         case getType(actionIsActivePopup):
             return {
                 ...state,
