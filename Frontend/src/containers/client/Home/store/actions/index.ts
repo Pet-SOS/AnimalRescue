@@ -13,6 +13,30 @@ export const actionHomeFetchAnimalsFailure = createAction(
     'HOME_FETCH_ANIMALS_FAILURE',
     (resolve) => (error: Error) => resolve({error})
 );
+export const actionHomeFetchDogsRequest = createAction(
+  'HOME_FETCH_DOGS_REQUEST',
+  (resolve) => () => resolve({})
+);
+export const actionHomeFetchDogsSuccess = createAction(
+  'HOME_FETCH_DOGS_SUCCESS',
+  (resolve) => (data: IAnimalsResponse) => resolve(data)
+);
+export const actionHomeFetchDogsFailure = createAction(
+  'HOME_FETCH_DOGS_FAILURE',
+  (resolve) => (error: Error) => resolve({ error })
+);
+export const actionHomeFetchCatsRequest = createAction(
+  'HOME_FETCH_CATS_REQUEST',
+  (resolve) => () => resolve({})
+);
+export const actionHomeFetchCatsSuccess = createAction(
+  'HOME_FETCH_CATS_SUCCESS',
+  (resolve) => (data: IAnimalsResponse) => resolve(data)
+);
+export const actionHomeFetchCatsFailure = createAction(
+  'HOME_FETCH_CATS_FAILURE',
+  (resolve) => (error: Error) => resolve({ error })
+);
 
 export const actionIsActivePopup = createAction(
     'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
