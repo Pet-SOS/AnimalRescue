@@ -2,6 +2,7 @@
 using AnimalRescue.API.Models.Blogs;
 using AnimalRescue.API.Models.Blogs.Articles;
 using AnimalRescue.API.Models.Blogs.Blogs;
+using AnimalRescue.API.Models.Blogs.BlogTags;
 using AnimalRescue.API.Models.Blogs.Stories;
 using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
@@ -9,9 +10,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
-
 using AutoMapper;
-
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,6 +38,11 @@ namespace AnimalRescue.API.Core
 
             CreateMap<AnimalUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
+
+            CreateMap<BlogTagModel, BlogTagDto>();
+            CreateMap<BlogTagDto, BlogTagModel>();
+            CreateMap<BlogTagCreateModel, BlogTagModel>();
+            CreateMap<BlogTagUpdateModel, BlogTagModel>();
 
             BlogConfigs(); 
         }

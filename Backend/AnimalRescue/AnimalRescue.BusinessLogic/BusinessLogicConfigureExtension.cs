@@ -29,16 +29,18 @@ namespace AnimalRescue.BusinessLogic
                 new BlogMappingProfile(),
                 new ArticleMappingProfile(),
                 new CmsConfigurationMappingProfile(),
-                new DonationConfigurationMappingProfile()
+                new DonationConfigurationMappingProfile(),
+                new BlogTagMappingProfile()
             });
 
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-			services
+            services
                 .AddScoped<IBlogService, BlogService>()
                 .AddScoped<IStoryService, StoryService>()
-                .AddScoped<IArticleService, ArticleService>();
-		}
+                .AddScoped<IArticleService, ArticleService>()
+                .AddScoped<IBlogTagService, BlogTagService>();
+        }
 	}
 }
