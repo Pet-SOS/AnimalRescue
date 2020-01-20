@@ -38,7 +38,12 @@ export default {
   headerBottomContent: 'The shelter takes care of hundreds of animals daily. The best way to help us and our tails is to donate any amount for food, treatment and maintenance of the shelter.',
   headerBottomBtn: 'To donate',
   headerBottomMore: 'I want to help otherwise',
+  btnHelp: 'See where my money will go',
 
+  canHelpBlockTitle:'Who can you help',
+  canHelpBlockContent:'Masha is a modest and kind dog. Very patient and unobtrusive. Masha was hit by a car, survived stress. At first she was scared, then calmed down and began to trust people. To recover from an accident, you need to collect 3,500 UAH',
+
+  
   counterBlockTitle: 'Animals saved by us',
   counterBlockText: 'according to',
 

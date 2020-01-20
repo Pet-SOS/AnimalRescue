@@ -16,7 +16,7 @@ export const AnimalListItem: React.FC<IPropTypes> = ({ animal }) => {
       <div className="like-holder">
         <Button styleType={ButtonTypes.Like} />
       </div>
-      <div className="img-holder" style={{ backgroundImage: `url(${animal.imageIds[0] ? `${BASE_URL}documents/${animal.imageIds[0]}` : `${noPhotoImage}`})` }}></div>
+      <div className="img-holder" style={{ backgroundImage: `url(${animal.imageIds[1] ? `${BASE_URL}documents/${animal.imageIds[1]}` : `${noPhotoImage}`})` }}></div>
       <div className="animal-name">{animal.name}</div>
       <div className="description">        
         <TI18n keyStr={

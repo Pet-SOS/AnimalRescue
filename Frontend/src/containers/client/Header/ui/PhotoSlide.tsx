@@ -18,7 +18,7 @@ interface IPropTypes {
 
 export const PhotoSlide: React.FC<any> = (props:any) => {
     const [slideIndex, setIndexSlide] = useState(0);
-    const imageUrl = props.sliders[0] ? `${BASE_URL}/documents/${props.sliders[slideIndex].imageIds[0]}` : noPhoto;
+    const imageUrl = props.sliders[0] ? `${BASE_URL}documents/${props.sliders[slideIndex].imageIds[1]}` : noPhoto;
  
     function activateLasers(i:number , e: any) {
         setIndexSlide(i);

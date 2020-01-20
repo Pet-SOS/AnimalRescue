@@ -5,7 +5,8 @@ import { IAnimalsResponse, IAnimal } from "../../../../api/animals";
 import { AnimalsList } from '../../../../components/AnimalsList';
 import { store } from './../../../../store/index';
 import '../styles/home.scss';
-import { BottomContent } from '../../Header/ui/BottomContent';
+import { HelpBlock } from '../../Header/ui/HelpBlock';
+// import { BottomContent } from '../../Header/ui/BottomContent';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from '../../../../components/CounterBlock';
 import { HelpedBlock } from '../../../../components/HelpedBlock';
@@ -50,7 +51,22 @@ export class HomePageMain extends React.Component<IPropTypes> {
     render() {
         return (
             <>
-            {BottomContent(this.props.animalsList)}
+            {HelpBlock(
+                this.props.animalsList,
+                {backgroundColor:'#F9F6F7',
+                 title: <TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>,
+                 color: '#0D2B4B',
+                 text:{
+                    color:'#0D2B4B',
+                    content:  <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта."/>
+                    },
+                btn:{
+                    style: 'blue',
+                    content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
+                },
+                story: false
+                },
+                 )}
             <div className="home-page-client">
                 <OurGoalBlock 
                     title={<TI18n keyStr="ourGoalBlockTitle" default="Наша цель" />}
@@ -97,6 +113,20 @@ export class HomePageMain extends React.Component<IPropTypes> {
                       href: '/'
                     }}
                   />
+                  {HelpBlock(this.props.animalsList,
+                    {backgroundColor:'#333572',
+                    title: <TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>,
+                    color: '#409275',
+                    text:{
+                        color:'#ffffff',
+                        content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн."/>
+                    },
+                    btn:{
+                        style: 'yellow',
+                        content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
+                    },
+                    story: true
+                })}
                 </div>
             </div>
             </>
