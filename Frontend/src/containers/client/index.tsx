@@ -8,17 +8,16 @@ interface IPropTypes extends RouteComponentProps {
 
 }
 
-const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
-
+export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
     return (
-        <>
-            <AppHeader/>
-            <Switch>
-                <Route path={props.match.path} component={HomePage}/>
-            </Switch>
-            {/*<AppFooter/>*/}
-        </>
+      <>
+        <AppHeader/>
+        <div className="main">
+          <Switch>
+            <Route path={props.match.path} component={HomePage} />
+          </Switch>
+        </div>
+        <AppFooter/>
+      </>
     )
 };
-
-export default Client
