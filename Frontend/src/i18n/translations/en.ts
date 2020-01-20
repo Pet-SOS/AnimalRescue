@@ -79,5 +79,6 @@ export default {
   footerStuff: 'Stuff',
   footerVolunteering: 'Volunteering',
   footerOrganization: 'Public organization «Animal rescue Kharkiv»',
-  footerRights: 'All rights reserved'
+  footerRights: 'All rights reserved',
+  footerRightBtn:'To help'
 }

@@ -78,5 +78,6 @@ export default {
   footerStuff: 'Вещами',
   footerVolunteering: 'Волонтерство',
   footerOrganization: 'Общественная организация «Спасение животных Харьков»',
-  footerRights: 'Все права защищены'
+  footerRights: 'Все права защищены',
+  footerRightBtn:'Помочь'
 }
