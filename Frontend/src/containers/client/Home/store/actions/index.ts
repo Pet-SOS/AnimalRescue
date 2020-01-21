@@ -55,6 +55,18 @@ export const actionHomeFetchCatsFailure = createAction(
 export const actionIsActivePopup = createAction(
     'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
     (resolve) => (data: boolean) => resolve({data})
+);
+export const actionHomeFetchSickAnimals = createAction(
+    'HOME_FETCH_SICK_ANIMALS',
+    (resolve) => () => resolve({})
+);
+export const actionHomeFetchSickAnimalsSuccess = createAction(
+    'HOME_FETCH_SICK_ANIMALS_SUCCESS',
+    (resolve) => (data:any) => resolve({data})
+);
+export const actionHomeFetchSickAnimalFailUrl = createAction(
+    'HOME_FETCH_ANIMALS_FAILURL',
+    (resolve) => (error: Error) => resolve({error})
 )
 
 export const actionHomeFetchSavedAnimalsCount = createAction(

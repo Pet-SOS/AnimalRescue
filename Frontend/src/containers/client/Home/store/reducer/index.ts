@@ -3,25 +3,35 @@ import {DEFAULT_HOME_PAGE_STATE, IHomePageState} from "../state";
 import {getType} from "typesafe-actions";
 import {genericRequestReducer} from "../../../../../api";
 import {
-  actionHomeFetchAnimalsRequest,
-  actionHomeFetchAnimalsSuccess,
-  actionHomeFetchAnimalsFailure,
-  actionIsActivePopup,
-  actionHomeFetchDogsRequest,
-  actionHomeFetchDogsSuccess,
-  actionHomeFetchDogsFailure,
-  actionHomeFetchCatsRequest,
-  actionHomeFetchCatsSuccess,
-  actionHomeFetchCatsFailure,
-  actionHomeFetchSavedAnimalsCount,
-  actionHomeFetchSavedAnimalsCountSuccess,
-  actionHomeFetchSavedAnimalsCountFailure
+    actionHomeFetchAnimalsRequest,
+    actionHomeFetchAnimalsSuccess,
+    actionHomeFetchAnimalsFailure,
+    actionIsActivePopup,
+    actionHomeFetchSickAnimals,
+    actionHomeFetchSickAnimalsSuccess,
+    actionHomeFetchSickAnimalFailUrl,
+    actionHomeFetchDogsRequest,
+    actionHomeFetchDogsSuccess,
+    actionHomeFetchDogsFailure,
+    actionHomeFetchCatsRequest,
+    actionHomeFetchCatsSuccess,
+    actionHomeFetchCatsFailure,
+    actionHomeFetchSavedAnimalsCount,
+    actionHomeFetchSavedAnimalsCountSuccess,
+    actionHomeFetchSavedAnimalsCountFailure
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
-  actionHomeFetchAnimalsRequest,
-  actionHomeFetchAnimalsSuccess,
-  actionHomeFetchAnimalsFailure,
+    actionHomeFetchAnimalsRequest,
+    actionHomeFetchAnimalsSuccess,
+    actionHomeFetchAnimalsFailure,
+    actionIsActivePopup,
+);
+
+const fetchSickAnimalsRequestStateReducer = genericRequestReducer(
+    actionHomeFetchSickAnimalsSuccess,
+    actionHomeFetchSickAnimals,
+    actionHomeFetchSickAnimalFailUrl
 );
 
 const fetchDogsRequestStateReducer = genericRequestReducer(
@@ -114,6 +124,22 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
           ...state,
           isActivePopup: action.payload.data
       };
+      case getType(actionHomeFetchSickAnimals):
+        return {
+            ...state,
+            sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action)
+        };
+    case getType(actionHomeFetchSickAnimalsSuccess):
+        return {
+            ...state,
+            sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
+            sickAnimalsList: action.payload.data
+        };
+    case getType(actionHomeFetchSickAnimalFailUrl):
+        return {
+            ...state,
+            sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
+        };
     default:
         return state;
   }

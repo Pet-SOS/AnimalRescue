@@ -22,29 +22,29 @@ export enum AnimalsRequestSortOrder { ACS = 'acs', DECS = 'decs' }
 export interface IAnimal {
   number: number
   name: string
-  kindOfAnimal: AnimalKind | string
-  gender: Gender | string
+  kindOfAnimal: string | AnimalKind
+  gender: string | Gender
   description: string
   age: number
   imageIds: string[]
   tags: string[]
-  id: string
+  id?: string 
   readonly?: boolean
   images: []
 }
 
 export interface IAnimalsResponse {
-    data: IAnimal[]
-    pageCount: number;
-    pageNumber: number;
-    pageSize: number;
-    self: string;
-    totalCount: number;
+  data: IAnimal[]
+  pageCount: number;
+  pageNumber: number;
+  pageSize: number;
+  self: string;
+  totalCount: number;
 }
 
 export interface ISavedAnimalsCountResponse {
   data: number;
-  self: string | null;
+  self: string;
 }
 
 export interface IAnimalsRequestFilterParams {
@@ -69,10 +69,10 @@ const prepareRequestParams = (requestParams?: IAnimalRequestParams) => {
   const params: any = {
     ...requestParams
   };
-  if (!!requestParams?.filter) {
+  if (!!requestParams?.filter && !!requestParams?.filter?.fieldName && !!requestParams?.filter?.opeartor) {
     params.filter = `${requestParams?.filter?.fieldName}~${requestParams?.filter?.opeartor}~('${requestParams?.filter?.value}')`
   }
-  if (!!requestParams?.sort) {
+  if (!!requestParams?.sort && !!requestParams?.sort?.fieldName && !!requestParams?.sort?.order) {
     params.sort = `${requestParams?.sort?.fieldName}:${requestParams?.sort?.order};`
   }
   return params;

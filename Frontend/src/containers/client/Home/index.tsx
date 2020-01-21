@@ -1,17 +1,29 @@
 import {connect} from "react-redux";
 import {HomePageMain} from "./ui/Component";
-import {actionHomeFetchAnimalsRequest, actionHomeFetchDogsRequest, actionHomeFetchCatsRequest, actionHomeFetchSavedAnimalsCount} from "./store/actions";
 import {ICustomAppState} from "../../../store/state";
-import {selectAnimalsList, selectDogsList, selectSavedAnimalsCount, selectCatsList} from "./store/selectors";
+import {
+  selectAnimalsList,
+  selectDogsList,
+  selectSavedAnimalsCount,
+  selectCatsList,
+  selectSickAnimals} from "./store/selectors";
 import { IAnimalRequestParams, AnimalKind } from "../../../api/animals";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
+import {
+    actionHomeFetchSickAnimals,
+    actionHomeFetchAnimalsRequest,
+    actionHomeFetchDogsRequest,
+    actionHomeFetchCatsRequest,
+    actionHomeFetchSavedAnimalsCount,
+} from "./store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
   catsList: selectCatsList(state),
   dogsList: selectDogsList(state),
-  savedAnimalsCount: selectSavedAnimalsCount(state)
+  sickAnimalsList: selectSickAnimals(state),
+  savedAnimalsCount: selectSavedAnimalsCount(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
@@ -28,7 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       }
     }
   },
-  fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount())
+  fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount()),
+  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals())
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);
