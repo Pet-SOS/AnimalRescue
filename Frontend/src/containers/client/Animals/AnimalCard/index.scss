@@ -1,0 +1,24 @@
+@import '../../../../styles/variables.scss';
+.animal-card {
+  .like-holder {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  .img-holder {
+    height: 16.375rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1.5rem;
+    margin: 0 0 1rem;
+  }
+  .animal-name {
+    line-height: 1.25rem;
+    font-weight: bold;
+    margin: 0 0 0.25rem;
+  }
+  .description {
+    line-height: 1.375rem;
+    color: $text-lite-color;
+  }
+}
