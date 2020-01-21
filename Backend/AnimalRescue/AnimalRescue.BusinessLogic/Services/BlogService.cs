@@ -6,6 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
+
 using AutoMapper;
 
 using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace AnimalRescue.BusinessLogic.Services
 {
 	internal class BlogService : IBlogService
 	{
-		private readonly IBlogRepository _blogRepository;
+		private readonly IArticleRepository _blogRepository;
 		private readonly IMapper _mapper;
 
-		public BlogService(IBlogRepository blogRepository, IMapper mapper)
+		public BlogService(IArticleRepository blogRepository, IMapper mapper)
 		{
 			Require.Objects.NotNull(blogRepository, nameof(blogRepository));
 			Require.Objects.NotNull(mapper, nameof(mapper));
@@ -27,14 +28,14 @@ namespace AnimalRescue.BusinessLogic.Services
 			_mapper = mapper;
 		}
 
-		public async Task<BlogDto> CreateAsync(BlogCreateDto blogCreateDto)
+		public async Task<BlogDto> CreateAsync(BlogDto blogCreateDto)
 		{
 			Require.Objects.NotNull(blogCreateDto, nameof(blogCreateDto));
 
-			var blog = _mapper.Map<BlogCreateDto, Blog>(blogCreateDto);
+			var blog = _mapper.Map<BlogDto, Article>(blogCreateDto);
 			blog = await _blogRepository.CreateAsync(blog);
 
-			return _mapper.Map<Blog, BlogDto>(blog);
+			return _mapper.Map<Article, BlogDto>(blog);
 		}
 
 		public async Task DeleteAsync(string id)
@@ -52,7 +53,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
 			var blogs = await _blogRepository.GetAsync(dbQuery);
 
-			var blogModels = _mapper.Map<IList<Blog>, List<BlogDto>>(blogs);
+			var blogModels = _mapper.Map<IList<Article>, List<BlogDto>>(blogs);
 
 			return new BlCollectonResponse<BlogDto>
 			{
@@ -68,12 +69,12 @@ namespace AnimalRescue.BusinessLogic.Services
 			var blog = await _blogRepository.GetAsync(id);
 			Require.Objects.NotNull(blog, nameof(blog));
 
-			return _mapper.Map<Blog, BlogDto>(blog);
+			return _mapper.Map<Article, BlogDto>(blog);
 		}
 
 		public async Task UpdateAsync(BlogDto blogDto)
 		{
-			var blog = _mapper.Map<BlogDto, Blog>(blogDto);
+			var blog = _mapper.Map<BlogDto, Article>(blogDto);
 
 			await _blogRepository.UpdateAsync(blog);
 		}

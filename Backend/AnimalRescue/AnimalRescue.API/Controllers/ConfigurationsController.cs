@@ -1,4 +1,8 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+﻿using AnimalRescue.API.Models.Configurations.Contacts;
+using AnimalRescue.API.Models.Configurations.Donations;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 
 using AutoMapper;
 
@@ -22,21 +26,38 @@ namespace AnimalRescue.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("cms")]
-        public async Task<ActionResult<Models.CmsConfigurationModel>> CmsAsync()
+        [HttpPost("donation")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task CreateDonationAsync([FromBody] DonationConfigurationModel configuration)
         {
-            using (_logger.BeginScope("Get Cms configuration"))
-            {
-                var modelDto = await _configurationService.GetCmsConfigurationAsync();
-                if (modelDto == null)
-                {
-                    _logger.LogError($"Cms configuration could not be found");
+            var data = _mapper.Map<DonationConfigurationModel, DonationConfigurationDto>(configuration);
+            await _configurationService.CreateAsync(data);
+        }
 
-                    return NotFound();
-                }
+        [HttpGet("donation")]
+        public async Task<ActionResult<DonationConfigurationModel>> GetDonationAsync()
+        {
+            var modelDto = await _configurationService.GetDonationConfigurationAsync();
 
-                return Ok(_mapper.Map<Models.CmsConfigurationModel>(modelDto));
-            }
+            return Item(_mapper.Map<DonationConfigurationModel>(modelDto));
+        }
+
+        [HttpPost("cms")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task CreateCmsAsync([FromBody] CmsConfigurationModel cmsConfiguration)
+        {
+            var data = _mapper.Map<CmsConfigurationModel, CmsConfigurationDto>(cmsConfiguration);
+            await _configurationService.CreateAsync(data);
+        }
+
+        [HttpGet("cms")]
+        public async Task<ActionResult<CmsConfigurationModel>> GetCmsAsync()
+        {
+            var modelDto = await _configurationService.GetCmsConfigurationAsync();
+
+            return Item(_mapper.Map<CmsConfigurationModel>(modelDto));
         }
     }
 }

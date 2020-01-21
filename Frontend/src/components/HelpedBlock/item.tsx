@@ -12,7 +12,7 @@ interface IPropTypes {
 
 export const HelpedBlockItem: React.FC<IPropTypes> = ({ animal }) => {
   return (
-    <div className="slide-item">
+    <React.Fragment>
       <div className="img-holder" style={{ backgroundImage: `url(${animal.imageIds[0] ? `${BASE_URL}documents/${animal.imageIds[0]}` : `${noPhotoImage}`})`}}>
       </div>
       <div className="info-holder">
@@ -26,6 +26,6 @@ export const HelpedBlockItem: React.FC<IPropTypes> = ({ animal }) => {
           isButtonHidden={true}
         />
       </div>
-    </div>
+    </React.Fragment>
   )
 }

@@ -8,9 +8,9 @@ export default {
   headerMenuItem1: 'In the shelter',
   headerMenuItem2: 'Our animals',
   headerMenuItem3: 'How can I help',
-  headerMenuItem4: 'The blog',
-  headerMenuItem5: 'Contacts',
-  headerMenuItem6: 'Help',
+  blog: 'The blog',
+  contacts: 'Contacts',
+  help: 'Help',
   headerMenuItem7: 'Liked',
 
   headerMenuItem1Dropdown1:'About the rescue service',
@@ -38,13 +38,22 @@ export default {
   headerBottomContent: 'The shelter takes care of hundreds of animals daily. The best way to help us and our tails is to donate any amount for food, treatment and maintenance of the shelter.',
   headerBottomBtn: 'To donate',
   headerBottomMore: 'I want to help otherwise',
+  btnHelp: 'See where my money will go',
+
+  canHelpBlockTitle:'Who can you help',
+  canHelpBlockContent:'Masha is a modest and kind dog. Very patient and unobtrusive. Masha was hit by a car, survived stress. At first she was scared, then calmed down and began to trust people. To recover from an accident, you need to collect 3,500 UAH',
+
+  
+  counterBlockTitle: 'Animals saved by us',
+  counterBlockText: 'according to',
+
+  alreadyHelpedBlockTitle: 'Whom we helped',
+  readStory: 'Read story',
 
   female: 'Girl',
   male: 'Boy',
   unknownGender: 'Unknown gender',
 
-
-  month: 'month',
   popupInfoBlockTitle: 'Help animals',
   popupInfoCard: '5169 3305 1022 8304',
   popupInfoCardName: 'Volkova Galina',
@@ -53,13 +62,24 @@ export default {
   popupBlockThirdText: 'people who have the need and ability to overexpose the animal (from the baby to the adult) until adoption;',
   popupBlockThirdTextTwo: 'specialists with non-standard and interesting options for photo and video filming of our animals for the site.',
 
-  footerRightBtn: 'To help',
-  footerColumn1Item1: 'About the shelter',
-  footerColumn2Item1: 'Animals',
-  footerColumn3Item1: 'How to help',
-  footerColumn4Item1: 'The blog',
-  footerColumn5Item1: 'Contacts',
+  month: 'month',
+  dogsListTitle: 'Our dogs',
+  catsListTitle: 'Our cats',
+  wantToChooseFriend: 'Want to choose friend',
 
-  footerBottomRightsReserved: '© 2010 - 2018 • All rights reserved',
-  termsOfUseOfSite: ' • Terms of use of the site',
+  footerAbout: 'About service',
+  footerAboutRescue: 'About rescue service',
+  footerRules: 'Work rules',
+  financeReadout: 'Finance readout',
+  animals: 'Animals',
+  footerDogs: 'Dogs',
+  footerCats: 'Cats',
+  footerLosts: 'Lost',
+  footerHowToHelp: 'How to help',
+  footerWithFinance: 'Finance',
+  footerStuff: 'Stuff',
+  footerVolunteering: 'Volunteering',
+  footerOrganization: 'Public organization «Animal rescue Kharkiv»',
+  footerRights: 'All rights reserved',
+  footerRightBtn:'To help'
 }

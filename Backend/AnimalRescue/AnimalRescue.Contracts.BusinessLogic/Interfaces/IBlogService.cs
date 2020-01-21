@@ -6,7 +6,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 	public interface IBlogService :
 		IBlCollectinQueryAsyncy<BlogDto>,
 		IBlOneItemQueryAsyncy<BlogDto>,
-		IBlCreateAsync<BlogDto, BlogCreateDto>,
+		IBlCreateAsync<BlogDto, BlogDto>,
 		IBlUpdateAsync<BlogDto>,
 		IBlDeleteAsync
 	{

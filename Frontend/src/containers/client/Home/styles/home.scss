@@ -6,6 +6,11 @@
     padding: 3.75rem 0;
   }
 }
+@media (max-width: $normal-device-width) {
+  .home-page-client .animal-list-wrapper {
+    padding: 2rem 0;
+  }
+}
 @media all and (max-width: 996px) {
   .header-bottom .content{
     flex-direction: column!important;

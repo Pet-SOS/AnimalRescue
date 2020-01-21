@@ -7,7 +7,6 @@ interface AdminHomeProps {
     animalsList: IAnimalsResponse
     fetchAnimalsRequest: () => void;
 }
-
 export class AdminHomePage extends React.Component<AdminHomeProps> {
 
     componentDidMount(): void {

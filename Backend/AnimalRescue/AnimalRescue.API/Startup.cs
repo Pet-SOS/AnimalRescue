@@ -52,7 +52,11 @@ namespace AnimalRescue.API
         {
             app.UseMiddleware<UnhandledExceptionMiddleware>(); 
             app.UseHttpsRedirection();
-
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin()
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+            );
             app.UseRouting();
 
             app.UseAuthorization();
