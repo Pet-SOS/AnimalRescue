@@ -6,7 +6,6 @@ import { AnimalsList } from '../../../../components/AnimalsList';
 import { store } from './../../../../store/index';
 import '../styles/home.scss';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
-// import { BottomContent } from '../../Header/ui/BottomContent';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from '../../../../components/CounterBlock';
 import { HelpedBlock } from '../../../../components/HelpedBlock';
@@ -18,19 +17,29 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { selectAnimalsList, selectDogsList, selectCatsList, selectSavedAnimalsCount } from '../store/selectors';
+import { 
+  selectAnimalsList,
+  selectDogsList,
+  selectCatsList,
+  selectSavedAnimalsCount,
+  selectSickAnimals ,
+} from '../store/selectors';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
     fetchDogsRequest: () => void;
     fetchCatsRequest: () => void;
     fetchSavedAnimalsCount: () => void;
+    fetchSickAnimals: () => void;
     animalsList: IAnimalsResponse
 }
 
 export class HomePageMain extends React.Component<IPropTypes> {
-
+    componentWillMount(){
+      this.props.fetchSickAnimals();
+    }
     componentDidMount(): void {
+        this.props.fetchAnimalsRequest();
       this.props.fetchAnimalsRequest();
       this.props.fetchDogsRequest();
       this.props.fetchCatsRequest();
@@ -53,6 +62,10 @@ export class HomePageMain extends React.Component<IPropTypes> {
 
     private getAnimalsStoreData(): IAnimal[] {
       return selectAnimalsList(store.getState()).data;
+    }
+
+    getSickAnimalsList():IAnimal[] {
+      return selectSickAnimals(store.getState());
     }
 
     private getSavedAnimalsCount(): number {
@@ -79,29 +92,24 @@ export class HomePageMain extends React.Component<IPropTypes> {
       }
     }
 
-  private getCatsList(): IAnimal[] {
-    return selectCatsList(store.getState()).data;
-  }
-
     render() {
         return (
             <>
-            {HelpBlock(
-                this.props.animalsList,
-                {backgroundColor:'#F9F6F7',
-                 title: <TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>,
-                 color: '#0D2B4B',
-                 text:{
-                    color:'#0D2B4B',
-                    content:  <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта."/>
-                    },
-                btn:{
-                    style: 'blue',
-                    content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
-                },
-                story: false
-                },
-                 )}
+              <HelpBlock
+                animalsList = {this.props.animalsList}
+                backgroundColor='#F9F6F7'
+                  title= {<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>}
+                  color='#0D2B4B'
+                  text={{
+                      color:'#0D2B4B',
+                      content:  <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта."/>
+                      }}
+                  btn={{
+                      style: 'blue',
+                      content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
+                  }}
+                  story={false}
+                />
             <div className="home-page-client">
                 <OurGoalBlock 
                     title={<TI18n keyStr="ourGoalBlockTitle" default="Наша цель" />}
@@ -127,10 +135,12 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   count={this.getSavedAnimalsCount()}
                   title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
                   text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {this.getCounterDateString()}</React.Fragment>}
-                  images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
+                  images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
+                />
                 <HelpedBlock 
-                data={this.getAnimalsStoreData()}
-                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
+                  data={this.getAnimalsStoreData()}
+                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
+                />
                 <div className="animal-list-wrapper">
                   {this.getAnimalsListByKind(AnimalKind.DOG).length > 0 && <AnimalsList
                     data={this.getAnimalsListByKind(AnimalKind.DOG)}
@@ -148,20 +158,21 @@ export class HomePageMain extends React.Component<IPropTypes> {
                       href: '/'
                     }}
                   />}
-                  {HelpBlock(this.props.animalsList,
-                    {backgroundColor:'#333572',
-                    title: <TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>,
-                    color: '#409275',
-                    text:{
+                  <HelpBlock
+                  animalsList = {this.getSickAnimalsList()}
+                  backgroundColor='#333572'
+                    title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
+                    color='#409275'
+                    text={{
                         color:'#ffffff',
                         content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн."/>
-                    },
-                    btn:{
+                    }}
+                    btn={{
                         style: 'yellow',
                         content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
-                    },
-                    story: true
-                })}
+                    }}
+                    story={true}
+                />
                 </div>
             </div>
             </>

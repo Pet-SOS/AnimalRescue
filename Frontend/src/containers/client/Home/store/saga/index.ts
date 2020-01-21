@@ -1,7 +1,7 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import {getType} from 'typesafe-actions';
+import {fetchSickAnimals} from "../../../../../api/help";
 import {fetchAnimals, fetchDogs, fetchCats, fetchSavedAnimalsCount} from "../../../../../api/animals";
-
 import {
   actionHomeFetchAnimalsRequest,
   actionHomeFetchAnimalsSuccess,
@@ -12,16 +12,29 @@ import {
   actionHomeFetchCatsRequest,
   actionHomeFetchCatsSuccess,
   actionHomeFetchCatsFailure,
-  actionHomeFetchSavedAnimalsCount, actionHomeFetchSavedAnimalsCountSuccess, actionHomeFetchSavedAnimalsCountFailure
+  actionHomeFetchSavedAnimalsCount,
+  actionHomeFetchSavedAnimalsCountSuccess,
+  actionHomeFetchSavedAnimalsCountFailure,
+  actionHomeFetchSickAnimals,
+  actionHomeFetchSickAnimalsSuccess,
+  actionHomeFetchSickAnimalFailUrl
 } from "../actions";
 
 function* fetchHomePageAnimalsList() {
     try {
         const response = yield call(fetchAnimals);
-        console.log(response)
         yield put(actionHomeFetchAnimalsSuccess(response))
     } catch (e) {
         yield put(actionHomeFetchAnimalsFailure(e))
+    }
+}
+
+function* fetchHomePageSickAnimalsList() {
+    try {
+        const response = yield call(fetchSickAnimals);
+        yield put(actionHomeFetchSickAnimalsSuccess(response))
+    } catch (e) {
+        yield put(actionHomeFetchSickAnimalFailUrl(e))
     }
 }
 
@@ -56,5 +69,6 @@ export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchAnimalsRequest), fetchHomePageAnimalsList);
   yield takeEvery(getType(actionHomeFetchDogsRequest), fetchHomePageDogsList);
   yield takeEvery(getType(actionHomeFetchCatsRequest), fetchHomePageCatsList);
-  yield takeEvery(getType(actionHomeFetchSavedAnimalsCount), fetchSavedAnumalsCount)
+  yield takeEvery(getType(actionHomeFetchSavedAnimalsCount), fetchSavedAnumalsCount);
+  yield takeEvery(getType(actionHomeFetchSickAnimals), fetchHomePageSickAnimalsList);
 }

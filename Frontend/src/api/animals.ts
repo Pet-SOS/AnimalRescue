@@ -18,17 +18,17 @@ export enum Gender {MALE = 'male', FEMALE = 'female'}
 export enum AnimalKind {CAT = 'cat', DOG = 'dog'}
 
 export interface IAnimal {
-  number: number
-  name: string
-  kindOfAnimal: AnimalKind | string
-  gender: Gender | string
-  description: string
-  age: number
-  imageIds: string[]
-  tags: string[]
-  id: string
-  readonly?: boolean
-  images: []
+    number: number
+    name: string
+    kindOfAnimal: string
+    gender: string | Gender
+    description: string
+    age: number
+    imageIds: string[]
+    tags: string[]
+    id?: string 
+    readonly?: boolean
+    images: []
 }
 
 export interface IAnimalsResponse {

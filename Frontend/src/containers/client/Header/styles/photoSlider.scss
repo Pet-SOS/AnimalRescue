@@ -44,6 +44,11 @@
         top: 0;
         z-index: 2;
     }
+    &.story{
+        &::before, &::after {
+            box-shadow: none;
+        }
+    }
     .image{
         position: relative;
         z-index: 4;

@@ -22,7 +22,10 @@
     }
   }
   .right-block{
-    width: 50%
+    width: 50%;
+    .slide{
+      text-align: center;
+    }
   }
   .order-center{
     display: none;
@@ -48,6 +51,7 @@
       cursor: pointer;
       a{
         text-decoration: none;
+        color: $bg-orange;
       }
       p {
         color:$text-color-active;
