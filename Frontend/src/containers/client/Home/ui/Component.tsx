@@ -9,6 +9,7 @@ import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from '../../../../components/CounterBlock';
 import { HelpedBlock } from '../../../../components/HelpedBlock';
+import { BlogBlock } from '../../Home/ui/Blog';
 import counterImage1 from '../../../../img/counter-images/counter_1.png';
 import counterImage2 from '../../../../img/counter-images/counter_2.png';
 import counterImage3 from '../../../../img/counter-images/counter_3.png';
@@ -138,6 +139,14 @@ export class HomePageMain extends React.Component<IPropTypes> {
                         content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
                     }}
                     story={true}
+                />
+                <BlogBlock
+                    title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
+                    data={this.props.mostRecentThreeBlogs.data}
+                    link={{
+                        title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
+                        href: '/'
+                      }}
                 />
                 </div>
             </div>

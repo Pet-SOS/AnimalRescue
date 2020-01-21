@@ -1,9 +1,9 @@
 import API from './index'
 
-export enum Type {Blog = 'blog', Article = 'article', News='news', Success = 'story'}
+export enum BlogType {ARTICLE = 'article', STORY = 'story'}
 
 export interface IBlog {
-    type: string | Type
+    type: string | BlogType
     title: string
     body: string
     imageIds: string[]

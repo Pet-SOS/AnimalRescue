@@ -67,6 +67,9 @@ export default {
   catsListTitle: 'Our cats',
   wantToChooseFriend: 'Want to choose friend',
 
+  blogBlockTitle: 'Blog',
+  blogBlockLinkText: 'Go to all articles',
+
   footerAbout: 'About service',
   footerAboutRescue: 'About rescue service',
   footerRules: 'Work rules',

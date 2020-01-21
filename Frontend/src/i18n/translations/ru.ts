@@ -65,6 +65,9 @@ export default {
 
   wantToChooseFriend: 'Хочу выбрать друга',
 
+  blogBlockTitle: 'Блог',
+  blogBlockLinkText: 'Перейти ко всем статьям',
+
   footerAbout: 'О службе',
   footerAboutRescue: 'О службе спасения',
   footerRules: 'Правила работы',
