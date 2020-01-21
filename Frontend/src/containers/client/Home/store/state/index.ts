@@ -34,6 +34,6 @@ export const DEFAULT_HOME_PAGE_STATE = {
     catsListRequestState: { ...DEFAULT_REQUEST_STATE },
     dogsList: {...DEFAULT_ANIMALS},
     dogsListRequestState: { ...DEFAULT_REQUEST_STATE },
-    savedAnimalsCount: {data: null, self: null},
+    savedAnimalsCount: {data: 0, self: ''},
     savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE},
 };
