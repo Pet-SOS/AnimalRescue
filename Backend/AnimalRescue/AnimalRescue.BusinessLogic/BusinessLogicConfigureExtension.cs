@@ -1,8 +1,9 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
 using AnimalRescue.BusinessLogic.Services;
+using AnimalRescue.Contracts.BusinessLogic.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb;
-
+using AnimalRescue.Infrastructure.Configuration;
 using AutoMapper;
 
 using Microsoft.Extensions.Configuration;
@@ -30,11 +31,15 @@ namespace AnimalRescue.BusinessLogic
                 new CmsConfigurationMappingProfile()
             });
 
+            var imageSizesSettins = configuration.GetTypedSection<ImageSizesSettings>("ImageSizes");
+            services.AddSingleton<IImageSizesSettings>(p => imageSizesSettins);
+            services.AddSingleton<IImageResize, ImageResize>();
+
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IStoryService, StoryService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
 			services.AddScoped<IBlogService, BlogService>();
-		}
-	}
+        }
+    }
 }
