@@ -12,7 +12,7 @@ interface IPropTypes {
 
 export const AnimalListItem: React.FC<IPropTypes> = ({ animal }) => {
   return (
-    <div className="animal-item">
+    <React.Fragment>
       <div className="like-holder">
         <Button styleType={ButtonTypes.Like} />
       </div>
@@ -24,6 +24,6 @@ export const AnimalListItem: React.FC<IPropTypes> = ({ animal }) => {
           animal.gender.toLowerCase() : 'unknownGender'} default="Пол неизвестен" />, {
           (!!animal.age || animal.age === 0) && <React.Fragment>{animal.age} <TI18n keyStr='month' default="месяцев" /></React.Fragment>}
       </div>
-    </div>
+    </React.Fragment>
   )
 };

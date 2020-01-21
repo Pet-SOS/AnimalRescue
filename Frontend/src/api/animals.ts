@@ -15,7 +15,9 @@ const crateFormData = (data: Object) => {
 }
 
 export enum Gender {MALE = 'male', FEMALE = 'female'}
-export enum AnimalKind {CAT = 'cat', DOG = 'dog'}
+export enum AnimalKind { CAT = 'cat', DOG = 'dog' }
+export enum AnimalsRequestFilterOperators { ALL = 'all', QE = 'eq' }
+export enum AnimalsRequestSortOrder { ACS = 'acs', DECS = 'decs' }
 
 export interface IAnimal {
   number: number
@@ -41,27 +43,48 @@ export interface IAnimalsResponse {
 }
 
 export interface ISavedAnimalsCountResponse {
-  data: number | null;
+  data: number;
   self: string | null;
 }
 
-export async function fetchAnimals(): Promise<IAnimalsResponse[]> {
-    const res = await API.get('animals');
-    return res.data
+export interface IAnimalsRequestFilterParams {
+  fieldName: string;
+  opeartor: AnimalsRequestFilterOperators;
+  value: string | number;
+}
+
+export interface IAnimalsRequestSortParams {
+  fieldName: string;
+  order: AnimalsRequestSortOrder;
+}
+
+export interface IAnimalRequestParams {
+  page?: number;
+  size?: number;
+  filter?: IAnimalsRequestFilterParams;
+  sort?: IAnimalsRequestSortParams;
+}
+
+const prepareRequestParams = (requestParams?: IAnimalRequestParams) => {
+  const params: any = {
+    ...requestParams
+  };
+  if (!!requestParams?.filter) {
+    params.filter = `${requestParams?.filter?.fieldName}~${requestParams?.filter?.opeartor}~('${requestParams?.filter?.value}')`
+  }
+  if (!!requestParams?.sort) {
+    params.sort = `${requestParams?.sort?.fieldName}:${requestParams?.sort?.order};`
+  }
+  return params;
+}
+
+export async function fetchAnimals(requestParams?: IAnimalRequestParams): Promise<IAnimalsResponse[]> {
+  const res = await API.get('animals', { params: prepareRequestParams(requestParams) });
+  return res.data
 }
 
 export async function updateAnimal(params: { animal: IAnimal }): Promise<void> {
     await API.put('animals', crateFormData(params.animal));
-}
-
-export async function fetchDogs(): Promise<IAnimalsResponse[]> {
-  const res = await API.get(`animals?Filter=kindOfAnimal~all~('${AnimalKind.DOG}')`);
-  return res.data
-}
-
-export async function fetchCats(): Promise<IAnimalsResponse[]> {
-  const res = await API.get(`animals?Filter=kindOfAnimal~all~('${AnimalKind.CAT}')`);
-  return res.data
 }
 
 export async function fetchSavedAnimalsCount(): Promise<ISavedAnimalsCountResponse> {

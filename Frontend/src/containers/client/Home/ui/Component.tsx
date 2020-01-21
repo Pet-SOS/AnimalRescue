@@ -1,7 +1,7 @@
 import React from 'react';
 import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
-import { IAnimalsResponse, IAnimal, AnimalKind } from "../../../../api/animals";
+import { IAnimalsResponse, AnimalKind, IAnimalRequestParams, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsList } from '../../../../components/AnimalsList';
 import { store } from './../../../../store/index';
 import '../styles/home.scss';
@@ -18,22 +18,22 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { selectAnimalsList, selectDogsList, selectCatsList, selectSavedAnimalsCount } from '../store/selectors';
 
 interface IPropTypes extends RouteComponentProps<any> {
-    fetchAnimalsRequest: () => void;
-    fetchDogsRequest: () => void;
-    fetchCatsRequest: () => void;
-    fetchSavedAnimalsCount: () => void;
-    animalsList: IAnimalsResponse
+  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IAnimalRequestParams) => void;
+  fetchSavedAnimalsCount: () => void;
+  animalsList: IAnimalsResponse;
+  catsList: IAnimalsResponse;
+  dogsList: IAnimalsResponse;
+  savedAnimalsCount: ISavedAnimalsCountResponse;
 }
 
 export class HomePageMain extends React.Component<IPropTypes> {
 
     componentDidMount(): void {
       this.props.fetchAnimalsRequest();
-      this.props.fetchDogsRequest();
-      this.props.fetchCatsRequest();
+      this.props.fetchAnimalsRequest(AnimalKind.DOG);
+      this.props.fetchAnimalsRequest(AnimalKind.CAT);
       this.props.fetchSavedAnimalsCount();
     }
 
@@ -51,37 +51,11 @@ export class HomePageMain extends React.Component<IPropTypes> {
         return []
     }
 
-    private getAnimalsStoreData(): IAnimal[] {
-      return selectAnimalsList(store.getState()).data;
-    }
-
-    private getSavedAnimalsCount(): number {
-      return selectSavedAnimalsCount(store.getState()).data;
-    }
-
     private getCounterDateString(): string {
       const currentDate: Date = new Date();
       const yearString: string = `${currentDate.getFullYear()}`;
       return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;
     }
-
-    private getAnimalsListByKind(kind: AnimalKind): IAnimal[] {
-      switch (kind) {
-        case AnimalKind.DOG: {
-          return selectDogsList(store.getState()).data;
-        }
-        case AnimalKind.CAT: {
-          return selectCatsList(store.getState()).data;
-        }
-        default: {
-          return []
-        }
-      }
-    }
-
-  private getCatsList(): IAnimal[] {
-    return selectCatsList(store.getState()).data;
-  }
 
     render() {
         return (
@@ -124,24 +98,24 @@ export class HomePageMain extends React.Component<IPropTypes> {
                 />
                 <CounterBlock
                   backgroundColor='#ECBB3B'
-                  count={this.getSavedAnimalsCount()}
+                  count={this.props.savedAnimalsCount.data}
                   title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
                   text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {this.getCounterDateString()}</React.Fragment>}
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
                 <HelpedBlock 
-                data={this.getAnimalsStoreData()}
+                data={this.props.animalsList.data}
                   title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
                 <div className="animal-list-wrapper">
-                  {this.getAnimalsListByKind(AnimalKind.DOG).length > 0 && <AnimalsList
-                    data={this.getAnimalsListByKind(AnimalKind.DOG)}
+                  {this.props.dogsList.data.length > 0 && <AnimalsList
+                    data={this.props.dogsList.data}
                     title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
                     link={{
                       title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
                       href: '/'
                     }}
                   />}
-                  {this.getAnimalsListByKind(AnimalKind.CAT).length > 0 && <AnimalsList
-                    data={this.getAnimalsListByKind(AnimalKind.CAT)}
+                  {this.props.catsList.data.length > 0 && <AnimalsList
+                    data={this.props.catsList.data}
                     title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
                     link={{
                       title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,

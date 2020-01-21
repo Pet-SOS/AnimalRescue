@@ -1,9 +1,9 @@
 import {createAction} from 'typesafe-actions';
-import {IAnimalsResponse, ISavedAnimalsCountResponse} from "../../../../../api/animals";
+import {IAnimalsResponse, ISavedAnimalsCountResponse, IAnimalRequestParams, AnimalsRequestFilterOperators, AnimalKind} from "../../../../../api/animals";
 
 export const actionHomeFetchAnimalsRequest = createAction(
     'HOME_FETCH_ANIMALS_REQUEST',
-    (resolve) => () => resolve({})
+    (resolve) => (requestParams?: IAnimalRequestParams) => resolve(requestParams)
 );
 export const actionHomeFetchAnimalsSuccess = createAction(
     'HOME_FETCH_ANIMALS_SUCCESS',
@@ -11,11 +11,18 @@ export const actionHomeFetchAnimalsSuccess = createAction(
 );
 export const actionHomeFetchAnimalsFailure = createAction(
     'HOME_FETCH_ANIMALS_FAILURE',
-    (resolve) => (error: Error) => resolve({error})
+    (resolve) => (error: Error) => resolve({ error })
 );
 export const actionHomeFetchDogsRequest = createAction(
   'HOME_FETCH_DOGS_REQUEST',
-  (resolve) => () => resolve({})
+  (resolve) => (requestParams?: IAnimalRequestParams) => resolve({
+    ...requestParams,
+    filter: {
+      fieldName: 'kindOfAnimal',
+      opeartor: AnimalsRequestFilterOperators.ALL,
+      value: AnimalKind.DOG
+    }
+  })
 );
 export const actionHomeFetchDogsSuccess = createAction(
   'HOME_FETCH_DOGS_SUCCESS',
@@ -27,7 +34,14 @@ export const actionHomeFetchDogsFailure = createAction(
 );
 export const actionHomeFetchCatsRequest = createAction(
   'HOME_FETCH_CATS_REQUEST',
-  (resolve) => () => resolve({})
+  (resolve) => (requestParams?: IAnimalRequestParams) => resolve({
+    ...requestParams,
+    filter: {
+      fieldName: 'kindOfAnimal',
+      opeartor: AnimalsRequestFilterOperators.ALL,
+      value: AnimalKind.CAT
+    }
+  })
 );
 export const actionHomeFetchCatsSuccess = createAction(
   'HOME_FETCH_CATS_SUCCESS',
