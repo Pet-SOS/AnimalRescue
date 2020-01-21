@@ -1,0 +1,37 @@
+import API from './index';
+import { AllTag } from './help';
+import { IRequestParams, RequestFilterOperators, prepareRequestParams } from './requestOptions';
+
+export enum BlogTypes {BLOG = 'blog', ARTICLE = 'article'}
+
+export interface IBlogItem {
+  type: BlogTypes;
+  title: string;
+  body: string;
+  imageIds: string[];
+  tags: AllTag[];
+  createdAt?: string;
+  id?: string;
+}
+
+export interface IBlogListResponse {
+  data: IBlogItem[];
+  totalCount: number;
+  pageNumber: number;
+  pageCount: number;
+  pageSize: number;
+  self: string;
+}
+
+export const DEFAULT_SAVED_BLOG_REQUEST_PARAMS: IRequestParams = {
+  filter: {
+    fieldName: 'tags',
+    opeartor: RequestFilterOperators.ALL,
+    value: AllTag.SAVED
+  }
+}
+
+export async function fetchBlogList(requestParams?: IRequestParams): Promise<IBlogListResponse[]> {
+  const res = await API.get('blogs', { params: prepareRequestParams(requestParams) });
+  return res.data
+}

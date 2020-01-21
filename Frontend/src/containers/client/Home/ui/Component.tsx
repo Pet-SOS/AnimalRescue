@@ -1,10 +1,8 @@
 import React from 'react';
 import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
-import { IAnimalsResponse, AnimalKind, IAnimalRequestParams, ISavedAnimalsCountResponse, IAnimal } from "../../../../api/animals";
+import { IAnimalsResponse, AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsList } from '../../../../components/AnimalsList';
-import { store } from './../../../../store/index';
-import '../styles/home.scss';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from '../../../../components/CounterBlock';
@@ -17,13 +15,17 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { selectSickAnimals } from '../store/selectors';
+import '../styles/home.scss';
+import { IBlogListResponse, DEFAULT_SAVED_BLOG_REQUEST_PARAMS } from '../../../../api/blog';
+import { IRequestParams } from '../../../../api/requestOptions';
 
 interface IPropTypes extends RouteComponentProps<any> {
-  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IAnimalRequestParams) => void;
+  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
   fetchSickAnimals: () => void;
+  fetchBlogList: (pageParams?: IRequestParams) => void;
   animalsList: IAnimalsResponse;
+  blogList: IBlogListResponse;
   catsList: IAnimalsResponse;
   dogsList: IAnimalsResponse;
   sickAnimalsList: IAnimalsResponse;
@@ -39,6 +41,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
       this.props.fetchAnimalsRequest(AnimalKind.DOG);
       this.props.fetchAnimalsRequest(AnimalKind.CAT);
       this.props.fetchSavedAnimalsCount();
+      this.getSavedBlogList();
     }
 
     get getAnimalsList() {
@@ -53,6 +56,9 @@ export class HomePageMain extends React.Component<IPropTypes> {
             }))
         }
         return []
+    }
+    private getSavedBlogList(): void {
+      this.props.fetchBlogList(DEFAULT_SAVED_BLOG_REQUEST_PARAMS);
     }
     private getCounterDateString(): string {
       const currentDate: Date = new Date();
@@ -105,7 +111,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
                 />
                 <HelpedBlock
-                  data={this.props.animalsList.data}
+                  data={this.props.blogList.data}
                   title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
                 <div className="animal-list-wrapper">
                   {this.props.dogsList.data.length > 0 && <AnimalsList
@@ -124,6 +130,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                       href: '/'
                     }}
                   />}
+                </div>
                   <HelpBlock
                   animalsList={this.props.sickAnimalsList}
                   backgroundColor='#333572'
@@ -139,7 +146,6 @@ export class HomePageMain extends React.Component<IPropTypes> {
                     }}
                     story={true}
                 />
-                </div>
             </div>
             </>
         )
