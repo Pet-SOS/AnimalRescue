@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {HomePageMain} from "./ui/Component";
-import {actionHomeFetchAnimalsRequest, actionHomeFetchSickAnimalsRequest} from "./store/actions";
+import {actionHomeFetchAnimalsRequest, actionHomeFetchSickAnimals} from "./store/actions";
 import {ICustomAppState} from "../../../store/state";
 import {selectAnimalsList} from "./store/selectors";
 
@@ -10,5 +10,5 @@ const mapStateToProps = (state: ICustomAppState) => ({
 
 export const HomePage = connect(mapStateToProps, {
     fetchAnimalsRequest: actionHomeFetchAnimalsRequest,
-    fetchSickAnimals:  actionHomeFetchSickAnimalsRequest,
+    fetchSickAnimals:  actionHomeFetchSickAnimals,
 })(HomePageMain);

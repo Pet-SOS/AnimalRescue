@@ -25,7 +25,7 @@ export interface IAnimal {
     age: number
     imageIds: string[]
     tags: string[]
-    id: string
+    id?: string 
     readonly?: boolean
     images: []
 }

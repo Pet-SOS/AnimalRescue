@@ -16,7 +16,7 @@ interface IPropTypes {
     id: string;
 }
 
-export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex}) => {
+export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex, story}) => {
  
     const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}` : noPhoto;
  
@@ -25,7 +25,7 @@ export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex})
     }
      return(
         <div className="slide">
-            <div className='box-img'>
+            <div className={story ? 'box-img story' : 'box-img'}>
                 <div  className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
             </div>
             <div className="btn-slider">

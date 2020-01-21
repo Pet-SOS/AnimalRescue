@@ -6,15 +6,26 @@ import {
     actionHomeFetchAnimalsRequest,
     actionHomeFetchAnimalsSuccess,
     actionHomeFetchAnimalsFailure,
-    actionIsActivePopup
+    actionIsActivePopup,
+    actionHomeFetchSickAnimals,
+    actionHomeFetchSickAnimalsSuccess,
+    actionHomeFetchSickAnimalFailUrl
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
     actionHomeFetchAnimalsRequest,
     actionHomeFetchAnimalsSuccess,
     actionHomeFetchAnimalsFailure,
-    actionIsActivePopup
+    actionIsActivePopup,
+
 );
+
+const fetchSickAnimalsRequestStateReducer = genericRequestReducer(
+    actionHomeFetchSickAnimalsSuccess,
+    actionHomeFetchSickAnimals,
+    actionHomeFetchSickAnimalFailUrl
+);
+
 
 export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
     switch (action.type) {
@@ -40,7 +51,22 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
                 ...state,
                 isActivePopup: action.payload.data
             };
-
+        case getType(actionHomeFetchSickAnimals):
+            return {
+                ...state,
+                sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action)
+            };
+        case getType(actionHomeFetchSickAnimalsSuccess):
+            return {
+                ...state,
+                sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
+                sickAnimalsList: action.payload.data
+            };
+        case getType(actionHomeFetchSickAnimalFailUrl):
+            return {
+                ...state,
+                sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
+            };
         default:
             return state;
     }

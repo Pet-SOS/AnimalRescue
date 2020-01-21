@@ -22,7 +22,10 @@
     }
   }
   .right-block{
-    width: 50%
+    width: 50%;
+    .slide{
+      text-align: center;
+    }
   }
   .order-center{
     display: none;

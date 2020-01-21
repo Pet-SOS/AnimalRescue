@@ -7,7 +7,6 @@ import { actionIsActivePopup } from "../../Home/store/actions";
 import {store} from '../../../../store/index';
 
 export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, color, text, btn, story}) => {
-   
     const [indexPost, setIndexPost] = useState(0);
 
     const updatePostInfo =(i: number) => {
@@ -28,7 +27,7 @@ export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, c
                     <div className="box-text">
                     {story?
                         <p className="text" style={{color: text.color}}>
-                            { animalsList.data[indexPost] ?  animalsList.data[indexPost].description +  animalsList.data[indexPost].name : ''}
+                            { animalsList.data[indexPost] ?  animalsList.data[indexPost].description: 'need some description for this animal'}
                         </p>: 
                         <p className="text" style={{color: text.color}}>
                             {text.content}
@@ -55,6 +54,7 @@ export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, c
                         sliders={animalsList.data.slice(0, 3)}
                         updatePostInfo ={updatePostInfo}
                         slideIndex = {indexPost}
+                        story={story}
                     />
                 </div>
             </div>

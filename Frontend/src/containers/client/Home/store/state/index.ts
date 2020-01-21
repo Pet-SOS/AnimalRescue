@@ -5,6 +5,8 @@ export interface IHomePageState {
     animalsList: IAnimalsResponse;
     animalsListRequestState: IRequestState;
     isActivePopup: boolean;
+    sickAnimalsListState:  IRequestState; 
+    sickAnimalsList: IAnimalsResponse;
 }
 
 export const DEFAULT_ANIMALS = {
@@ -19,5 +21,7 @@ export const DEFAULT_ANIMALS = {
 export const DEFAULT_HOME_PAGE_STATE = {
     animalsList: {...DEFAULT_ANIMALS},
     animalsListRequestState: {...DEFAULT_REQUEST_STATE},
-    isActivePopup:  false
+    isActivePopup:  false,
+    sickAnimalsList: {...DEFAULT_ANIMALS}, 
+    sickAnimalsListState:{...DEFAULT_REQUEST_STATE}
 };

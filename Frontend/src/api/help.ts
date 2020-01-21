@@ -1,7 +1,7 @@
 import API from './index';
 import {IAnimal} from './animals';
 
-
+export enum AllTag {TREATMENT = 'treatment',}
 export interface ISickAnimalsResponse {
     data: IAnimal[]
     pageCount: number;
@@ -10,8 +10,10 @@ export interface ISickAnimalsResponse {
     self: string;
     totalCount: number;
 }
-
+const params = {
+    Filter: `tags~all~('${AllTag.TREATMENT}')`
+}
 export async function fetchSickAnimals(): Promise< ISickAnimalsResponse[]> {
-    const res = await API.get('stories');
+    const res = await API.get(`animals`, {params});
     return res.data
 }

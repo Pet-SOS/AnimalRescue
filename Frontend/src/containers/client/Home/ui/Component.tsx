@@ -6,7 +6,6 @@ import { AnimalsList } from '../../../../components/AnimalsList';
 import { store } from './../../../../store/index';
 import '../styles/home.scss';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
-// import { BottomContent } from '../../Header/ui/BottomContent';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from '../../../../components/CounterBlock';
 import { HelpedBlock } from '../../../../components/HelpedBlock';
@@ -18,17 +17,20 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
+import { selectSickAnimals } from '../store/selectors';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
+    fetchSickAnimals: () => void;
     animalsList: IAnimalsResponse
 }
 
 export class HomePageMain extends React.Component<IPropTypes> {
-
+    componentWillMount(){
+      this.props.fetchSickAnimals();
+    }
     componentDidMount(): void {
         this.props.fetchAnimalsRequest();
-        this.props.fetchSickAnimals();
     }
 
     get getAnimalsList() {
@@ -47,6 +49,12 @@ export class HomePageMain extends React.Component<IPropTypes> {
 
     private getAnimalsStoreData(): IAnimal[] {
       return store.getState().homePage.animalsList.data;
+    }
+
+
+
+    getSickAnimalsList():IAnimal[] {
+      return selectSickAnimals(store.getState());
     }
 
     render() {
@@ -114,7 +122,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                     }}
                   />
                   <HelpBlock
-                  animalsList = {this.props.animalsList}
+                  animalsList = {this.getSickAnimalsList()}
                   backgroundColor='#333572'
                     title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
                     color='#409275'
