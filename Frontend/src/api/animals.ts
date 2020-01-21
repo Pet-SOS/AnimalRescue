@@ -1,4 +1,5 @@
 import API from './index'
+import { IRequestParams, prepareRequestParams } from './requestOptions'
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -16,8 +17,6 @@ const crateFormData = (data: Object) => {
 
 export enum Gender {MALE = 'male', FEMALE = 'female'}
 export enum AnimalKind { CAT = 'cat', DOG = 'dog' }
-export enum AnimalsRequestFilterOperators { ALL = 'all', QE = 'eq' }
-export enum AnimalsRequestSortOrder { ACS = 'acs', DECS = 'decs' }
 
 export interface IAnimal {
   number: number
@@ -47,38 +46,7 @@ export interface ISavedAnimalsCountResponse {
   self: string;
 }
 
-export interface IAnimalsRequestFilterParams {
-  fieldName: string;
-  opeartor: AnimalsRequestFilterOperators;
-  value: string | number;
-}
-
-export interface IAnimalsRequestSortParams {
-  fieldName: string;
-  order: AnimalsRequestSortOrder;
-}
-
-export interface IAnimalRequestParams {
-  page?: number;
-  size?: number;
-  filter?: IAnimalsRequestFilterParams;
-  sort?: IAnimalsRequestSortParams;
-}
-
-const prepareRequestParams = (requestParams?: IAnimalRequestParams) => {
-  const params: any = {
-    ...requestParams
-  };
-  if (!!requestParams?.filter && !!requestParams?.filter?.fieldName && !!requestParams?.filter?.opeartor) {
-    params.filter = `${requestParams?.filter?.fieldName}~${requestParams?.filter?.opeartor}~('${requestParams?.filter?.value}')`
-  }
-  if (!!requestParams?.sort && !!requestParams?.sort?.fieldName && !!requestParams?.sort?.order) {
-    params.sort = `${requestParams?.sort?.fieldName}:${requestParams?.sort?.order};`
-  }
-  return params;
-}
-
-export async function fetchAnimals(requestParams?: IAnimalRequestParams): Promise<IAnimalsResponse[]> {
+export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
   const res = await API.get('animals', { params: prepareRequestParams(requestParams) });
   return res.data
 }

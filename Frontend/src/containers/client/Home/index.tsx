@@ -6,8 +6,10 @@ import {
   selectDogsList,
   selectSavedAnimalsCount,
   selectCatsList,
-  selectSickAnimals} from "./store/selectors";
-import { IAnimalRequestParams, AnimalKind } from "../../../api/animals";
+  selectSickAnimals,
+  selectBlogList,
+  selectBlogListSaved} from "./store/selectors";
+import { AnimalKind } from "../../../api/animals";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
 import {
@@ -16,10 +18,16 @@ import {
     actionHomeFetchDogsRequest,
     actionHomeFetchCatsRequest,
     actionHomeFetchSavedAnimalsCount,
+    actionHomeFetchBlogListRequest,
+    actionHomeFetchBlogListSavedRequest,
 } from "./store/actions";
+import { IRequestParams } from "../../../api/requestOptions";
+import { AllTag } from "../../../api/help";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
+  blogList: selectBlogList(state),
+  blogListSaved: selectBlogListSaved(state),
   catsList: selectCatsList(state),
   dogsList: selectDogsList(state),
   sickAnimalsList: selectSickAnimals(state),
@@ -27,7 +35,7 @@ const mapStateToProps = (state: ICustomAppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
-  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IAnimalRequestParams) => {
+  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => {
     switch (kind) {
       case AnimalKind.CAT: {
         return dispatch(actionHomeFetchCatsRequest(pageParams));
@@ -41,7 +49,17 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     }
   },
   fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount()),
-  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals())
+  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals()),
+  fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
+    switch (tag) {
+      case AllTag.SAVED: {
+        return dispatch(actionHomeFetchBlogListSavedRequest(pageParams));
+      }
+      default: {
+        return dispatch(actionHomeFetchBlogListRequest(pageParams));
+      }
+    }
+  },
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);
