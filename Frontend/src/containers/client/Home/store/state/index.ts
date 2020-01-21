@@ -7,6 +7,8 @@ export interface IHomePageState {
     animalsListRequestState: IRequestState;
     blogList: IBlogListResponse;
     blogListRequestState: IRequestState;
+    blogListSaved: IBlogListResponse;
+    blogListSavedRequestState: IRequestState;
     isActivePopup: boolean;
     sickAnimalsListState:  IRequestState; 
     sickAnimalsList: IAnimalsResponse;
@@ -41,6 +43,8 @@ export const DEFAULT_HOME_PAGE_STATE = {
     animalsListRequestState: {...DEFAULT_REQUEST_STATE},
     blogList: {...DEFAULT_BLOGS},
     blogListRequestState: { ...DEFAULT_REQUEST_STATE},
+    blogListSaved: {...DEFAULT_BLOGS},
+    blogListSavedRequestState: { ...DEFAULT_REQUEST_STATE},
     isActivePopup:  false,
     sickAnimalsList: {...DEFAULT_ANIMALS}, 
     sickAnimalsListState:{...DEFAULT_REQUEST_STATE},

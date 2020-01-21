@@ -16,16 +16,18 @@ import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import '../styles/home.scss';
-import { IBlogListResponse, DEFAULT_SAVED_BLOG_REQUEST_PARAMS } from '../../../../api/blog';
+import { IBlogListResponse } from '../../../../api/blog';
 import { IRequestParams } from '../../../../api/requestOptions';
+import { AllTag } from '../../../../api/help';
 
 interface IPropTypes extends RouteComponentProps<any> {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
   fetchSickAnimals: () => void;
-  fetchBlogList: (pageParams?: IRequestParams) => void;
+  fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
   animalsList: IAnimalsResponse;
   blogList: IBlogListResponse;
+  blogListSaved: IBlogListResponse;
   catsList: IAnimalsResponse;
   dogsList: IAnimalsResponse;
   sickAnimalsList: IAnimalsResponse;
@@ -40,8 +42,8 @@ export class HomePageMain extends React.Component<IPropTypes> {
       this.props.fetchAnimalsRequest();
       this.props.fetchAnimalsRequest(AnimalKind.DOG);
       this.props.fetchAnimalsRequest(AnimalKind.CAT);
+      this.props.fetchBlogList(AllTag.SAVED);
       this.props.fetchSavedAnimalsCount();
-      this.getSavedBlogList();
     }
 
     get getAnimalsList() {
@@ -56,9 +58,6 @@ export class HomePageMain extends React.Component<IPropTypes> {
             }))
         }
         return []
-    }
-    private getSavedBlogList(): void {
-      this.props.fetchBlogList(DEFAULT_SAVED_BLOG_REQUEST_PARAMS);
     }
     private getCounterDateString(): string {
       const currentDate: Date = new Date();
@@ -111,7 +110,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
                 />
                 <HelpedBlock
-                  data={this.props.blogList.data}
+                  data={this.props.blogListSaved.data}
                   title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
                 <div className="animal-list-wrapper">
                   {this.props.dogsList.data.length > 0 && <AnimalsList
