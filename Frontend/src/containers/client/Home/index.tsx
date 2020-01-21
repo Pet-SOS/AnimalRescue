@@ -1,14 +1,31 @@
 import {connect} from "react-redux";
 import {HomePageMain} from "./ui/Component";
-import {actionHomeFetchAnimalsRequest, actionHomeFetchSickAnimals} from "./store/actions";
 import {ICustomAppState} from "../../../store/state";
-import {selectAnimalsList} from "./store/selectors";
+import {
+    actionHomeFetchSickAnimals,
+    actionHomeFetchAnimalsRequest,
+    actionHomeFetchDogsRequest,
+    actionHomeFetchCatsRequest,
+    actionHomeFetchSavedAnimalsCount,
+} from "./store/actions";
+import {
+    selectAnimalsList,
+    selectDogsList,
+    selectSavedAnimalsCount,
+    selectCatsList,
+} from "./store/selectors";
 
 const mapStateToProps = (state: ICustomAppState) => ({
-    animalsList: selectAnimalsList(state),
+  animalsList: selectAnimalsList(state),
+  catsList: selectCatsList(state),
+  dogsList: selectDogsList(state),
+  savedAnimalsCount: selectSavedAnimalsCount(state)
 });
 
 export const HomePage = connect(mapStateToProps, {
-    fetchAnimalsRequest: actionHomeFetchAnimalsRequest,
-    fetchSickAnimals:  actionHomeFetchSickAnimals,
+  fetchAnimalsRequest: actionHomeFetchAnimalsRequest,
+  fetchSickAnimals:  actionHomeFetchSickAnimals,
+  fetchDogsRequest: actionHomeFetchDogsRequest,
+  fetchCatsRequest: actionHomeFetchCatsRequest,
+  fetchSavedAnimalsCount: actionHomeFetchSavedAnimalsCount
 })(HomePageMain);

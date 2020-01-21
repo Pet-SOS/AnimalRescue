@@ -1,7 +1,7 @@
 import React from 'react';
 import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
-import { IAnimalsResponse, IAnimal } from "../../../../api/animals";
+import { IAnimalsResponse, IAnimal, AnimalKind } from "../../../../api/animals";
 import { AnimalsList } from '../../../../components/AnimalsList';
 import { store } from './../../../../store/index';
 import '../styles/home.scss';
@@ -17,10 +17,19 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { selectSickAnimals } from '../store/selectors';
+import { 
+  selectAnimalsList,
+  selectDogsList,
+  selectCatsList,
+  selectSavedAnimalsCount,
+  selectSickAnimals ,
+} from '../store/selectors';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
+    fetchDogsRequest: () => void;
+    fetchCatsRequest: () => void;
+    fetchSavedAnimalsCount: () => void;
     fetchSickAnimals: () => void;
     animalsList: IAnimalsResponse
 }
@@ -31,6 +40,10 @@ export class HomePageMain extends React.Component<IPropTypes> {
     }
     componentDidMount(): void {
         this.props.fetchAnimalsRequest();
+      this.props.fetchAnimalsRequest();
+      this.props.fetchDogsRequest();
+      this.props.fetchCatsRequest();
+      this.props.fetchSavedAnimalsCount();
     }
 
     get getAnimalsList() {
@@ -48,33 +61,55 @@ export class HomePageMain extends React.Component<IPropTypes> {
     }
 
     private getAnimalsStoreData(): IAnimal[] {
-      return store.getState().homePage.animalsList.data;
+      return selectAnimalsList(store.getState()).data;
     }
-
-
 
     getSickAnimalsList():IAnimal[] {
       return selectSickAnimals(store.getState());
     }
 
+    private getSavedAnimalsCount(): number {
+      return selectSavedAnimalsCount(store.getState()).data;
+    }
+
+    private getCounterDateString(): string {
+      const currentDate: Date = new Date();
+      const yearString: string = `${currentDate.getFullYear()}`;
+      return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;
+    }
+
+    private getAnimalsListByKind(kind: AnimalKind): IAnimal[] {
+      switch (kind) {
+        case AnimalKind.DOG: {
+          return selectDogsList(store.getState()).data;
+        }
+        case AnimalKind.CAT: {
+          return selectCatsList(store.getState()).data;
+        }
+        default: {
+          return []
+        }
+      }
+    }
+
     render() {
         return (
             <>
-            <HelpBlock
-              animalsList = {this.props.animalsList}
-              backgroundColor='#F9F6F7'
-                 title= {<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>}
-                 color='#0D2B4B'
-                 text={{
-                    color:'#0D2B4B',
-                    content:  <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта."/>
-                    }}
-                btn={{
-                    style: 'blue',
-                    content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
-                }}
-                story={false}
-              />
+              <HelpBlock
+                animalsList = {this.props.animalsList}
+                backgroundColor='#F9F6F7'
+                  title= {<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде"/>}
+                  color='#0D2B4B'
+                  text={{
+                      color:'#0D2B4B',
+                      content:  <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта."/>
+                      }}
+                  btn={{
+                      style: 'blue',
+                      content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать"/>
+                  }}
+                  story={false}
+                />
             <div className="home-page-client">
                 <OurGoalBlock 
                     title={<TI18n keyStr="ourGoalBlockTitle" default="Наша цель" />}
@@ -97,30 +132,32 @@ export class HomePageMain extends React.Component<IPropTypes> {
                 />
                 <CounterBlock
                   backgroundColor='#ECBB3B'
-                  count='102563'
+                  count={this.getSavedAnimalsCount()}
                   title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
-                  text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> 13.12.19</React.Fragment>}
-                  images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}/>
+                  text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {this.getCounterDateString()}</React.Fragment>}
+                  images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
+                />
                 <HelpedBlock 
-                data={this.getAnimalsStoreData()}
-                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
+                  data={this.getAnimalsStoreData()}
+                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
+                />
                 <div className="animal-list-wrapper">
-                  <AnimalsList
-                    data={this.getAnimalsStoreData()}
+                  {this.getAnimalsListByKind(AnimalKind.DOG).length > 0 && <AnimalsList
+                    data={this.getAnimalsListByKind(AnimalKind.DOG)}
                     title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
                     link={{
                       title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
                       href: '/'
                     }}
-                  />
-                  <AnimalsList
-                    data={this.getAnimalsStoreData()}
+                  />}
+                  {this.getAnimalsListByKind(AnimalKind.CAT).length > 0 && <AnimalsList
+                    data={this.getAnimalsListByKind(AnimalKind.CAT)}
                     title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
                     link={{
                       title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
                       href: '/'
                     }}
-                  />
+                  />}
                   <HelpBlock
                   animalsList = {this.getSickAnimalsList()}
                   backgroundColor='#333572'
