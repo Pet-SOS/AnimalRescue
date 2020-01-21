@@ -17,8 +17,12 @@ import {
   actionHomeFetchSavedAnimalsCountFailure,
   actionHomeFetchSickAnimals,
   actionHomeFetchSickAnimalsSuccess,
-  actionHomeFetchSickAnimalFailUrl
+  actionHomeFetchSickAnimalFailUrl,
+  actionFetchInfoCard,
+  actionFetchInfoCardSuccess,
+  actionFetchInfoCardlFailUrl
 } from "../actions";
+import { fetchInfoCard } from '../../../../../api/infoCard';
 
 function* fetchHomePageAnimalsList(action: { type: string, payload?: IAnimalRequestParams }) {
     try {
@@ -64,10 +68,20 @@ function* getSavedAnimalsCount() {
   }
 }
 
+function* fetchHomePageInfoCard(){
+  try {
+    const response = yield call(fetchInfoCard);
+    yield put(actionFetchInfoCardSuccess(response))
+  } catch (e) {
+    yield put(actionFetchInfoCardlFailUrl(e))
+  }
+}
+
 export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchAnimalsRequest), fetchHomePageAnimalsList);
   yield takeEvery(getType(actionHomeFetchDogsRequest), fetchHomePageDogsList);
   yield takeEvery(getType(actionHomeFetchCatsRequest), fetchHomePageCatsList);
   yield takeEvery(getType(actionHomeFetchSavedAnimalsCount), getSavedAnimalsCount)
   yield takeEvery(getType(actionHomeFetchSickAnimals), fetchHomePageSickAnimalsList);
+  yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
 }

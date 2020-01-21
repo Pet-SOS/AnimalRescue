@@ -3,7 +3,6 @@ import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
 import { IAnimalsResponse, AnimalKind, IAnimalRequestParams, ISavedAnimalsCountResponse, IAnimal } from "../../../../api/animals";
 import { AnimalsList } from '../../../../components/AnimalsList';
-import { store } from './../../../../store/index';
 import '../styles/home.scss';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
@@ -17,13 +16,7 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { 
-  selectAnimalsList,
-  selectDogsList,
-  selectCatsList,
-  selectSavedAnimalsCount,
-  selectSickAnimals ,
-} from '../store/selectors';
+import { IInfoCard } from '../../../../api/infoCard';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 
 
@@ -31,11 +24,13 @@ interface IPropTypes extends RouteComponentProps<any> {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IAnimalRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
   fetchSickAnimals: () => void;
+  fetchInfoCard: ()=> void;
   animalsList: IAnimalsResponse;
   catsList: IAnimalsResponse;
   dogsList: IAnimalsResponse;
   sickAnimalsList: IAnimalsResponse;
   savedAnimalsCount: ISavedAnimalsCountResponse;
+  infoCard: IInfoCard;
 }
 
 export class HomePageMain extends React.Component<IPropTypes> {
@@ -47,6 +42,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
       this.props.fetchAnimalsRequest(AnimalKind.DOG);
       this.props.fetchAnimalsRequest(AnimalKind.CAT);
       this.props.fetchSavedAnimalsCount();
+      this.props.fetchInfoCard();
     }
 
     get getAnimalsList() {
@@ -112,12 +108,12 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {this.getCounterDateString()}</React.Fragment>}
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
                 />
-                <HelpedBlock 
-                  data={this.getAnimalsStoreData()}
+                <HelpedBlock
+                  data={this.props.animalsList.data}
                   title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
                 />
                 <HelpBlock
-                animalsList = {this.getSickAnimalsList()}
+                animalsList={this.props.sickAnimalsList}
                 backgroundColor='#333572'
                   title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
                   color='#409275'
@@ -132,7 +128,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   story={true}
               />
               <YouTubeBox
-                  link='https://www.youtube.com/embed/JE0yDo7Qkec'
+              link='https://www.youtube.com/embed/JE0yDo7Qkec'
               />
                 <div className="animal-list-wrapper">
                   {this.props.dogsList.data.length > 0 && <AnimalsList
@@ -151,21 +147,6 @@ export class HomePageMain extends React.Component<IPropTypes> {
                       href: '/'
                     }}
                   />}
-                  <HelpBlock
-                  animalsList={this.props.sickAnimalsList}
-                  backgroundColor='#333572'
-                    title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
-                    color='#409275'
-                    text={{
-                        color:'#ffffff',
-                        content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн."/>
-                    }}
-                    btn={{
-                        style: 'yellow',
-                        content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
-                    }}
-                    story={true}
-                />
                 </div>
             </div>
             </>

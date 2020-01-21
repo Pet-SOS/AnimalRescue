@@ -18,7 +18,10 @@ import {
     actionHomeFetchCatsFailure,
     actionHomeFetchSavedAnimalsCount,
     actionHomeFetchSavedAnimalsCountSuccess,
-    actionHomeFetchSavedAnimalsCountFailure
+    actionHomeFetchSavedAnimalsCountFailure,
+    actionFetchInfoCard,
+    actionFetchInfoCardSuccess,
+    actionFetchInfoCardlFailUrl
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
@@ -52,6 +55,11 @@ const fetchSavedAnimalsCountStateReducer = genericRequestReducer(
   actionHomeFetchSavedAnimalsCountFailure
 )
 
+const fetchSaveInfoCardStateReducer = genericRequestReducer(
+  actionFetchInfoCard,
+  actionFetchInfoCardSuccess,
+  actionFetchInfoCardlFailUrl
+)
 export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
   switch (action.type) {
     case getType(actionHomeFetchAnimalsRequest):
@@ -124,7 +132,7 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
           ...state,
           isActivePopup: action.payload.data
       };
-      case getType(actionHomeFetchSickAnimals):
+    case getType(actionHomeFetchSickAnimals):
         return {
             ...state,
             sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action)
@@ -140,6 +148,23 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
             ...state,
             sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
         };
+        //*card//
+      case getType(actionFetchInfoCard):
+          return {
+              ...state,
+              infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action)
+          };
+      case getType(actionFetchInfoCardSuccess):
+          return {
+              ...state,
+              infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
+              infoCard: action.payload.data
+          };
+      case getType(actionFetchInfoCardlFailUrl):
+          return {
+              ...state,
+              infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
+          };
     default:
         return state;
   }

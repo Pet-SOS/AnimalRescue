@@ -6,7 +6,8 @@ import {
   selectDogsList,
   selectSavedAnimalsCount,
   selectCatsList,
-  selectSickAnimals} from "./store/selectors";
+  selectSickAnimals,
+  selectSavedInfoCard} from "./store/selectors";
 import { IAnimalRequestParams, AnimalKind } from "../../../api/animals";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
@@ -16,6 +17,7 @@ import {
     actionHomeFetchDogsRequest,
     actionHomeFetchCatsRequest,
     actionHomeFetchSavedAnimalsCount,
+    actionFetchInfoCard,
 } from "./store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
@@ -24,6 +26,7 @@ const mapStateToProps = (state: ICustomAppState) => ({
   dogsList: selectDogsList(state),
   sickAnimalsList: selectSickAnimals(state),
   savedAnimalsCount: selectSavedAnimalsCount(state),
+  infoCard: selectSavedInfoCard(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
@@ -41,7 +44,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     }
   },
   fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount()),
-  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals())
+  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals()),
+  fetchInfoCard: () => dispatch(actionFetchInfoCard()),
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

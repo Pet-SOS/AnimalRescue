@@ -1,18 +1,18 @@
 import API from './index';
-
+export interface IBankCard{
+    cardNumber: string;
+    edrpou: string;
+    bankName: string;
+    firstName: string;
+    lastName: string;
+}
 export interface IInfoCard{
  data: {
-    bankCard: {
-      cardNumber: string;
-      edrpou: string;
-      bankName: string;
-      firstName: string;
-      lastName: string;
-    };
+    bankCard: IBankCard;
     title: string;
     body: string;
   };
-  self: string;
+  self?: string;
 }
 
 export async function fetchInfoCard(): Promise< IInfoCard> {
