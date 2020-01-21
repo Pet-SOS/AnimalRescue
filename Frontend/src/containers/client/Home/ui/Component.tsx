@@ -24,6 +24,7 @@ import {
   selectSavedAnimalsCount,
   selectSickAnimals ,
 } from '../store/selectors';
+import { YouTubeBox } from '../../../../components/YoutubeBox';
 
 interface IPropTypes extends RouteComponentProps<any> {
     fetchAnimalsRequest: () => void;
@@ -141,6 +142,24 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   data={this.getAnimalsStoreData()}
                   title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
                 />
+                <HelpBlock
+                animalsList = {this.getSickAnimalsList()}
+                backgroundColor='#333572'
+                  title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
+                  color='#409275'
+                  text={{
+                      color:'#ffffff',
+                      content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн."/>
+                  }}
+                  btn={{
+                      style: 'yellow',
+                      content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
+                  }}
+                  story={true}
+              />
+              <YouTubeBox
+                  link='https://www.youtube.com/embed/JE0yDo7Qkec'
+              />
                 <div className="animal-list-wrapper">
                   {this.getAnimalsListByKind(AnimalKind.DOG).length > 0 && <AnimalsList
                     data={this.getAnimalsListByKind(AnimalKind.DOG)}
@@ -158,21 +177,6 @@ export class HomePageMain extends React.Component<IPropTypes> {
                       href: '/'
                     }}
                   />}
-                  <HelpBlock
-                  animalsList = {this.getSickAnimalsList()}
-                  backgroundColor='#333572'
-                    title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь"/>}
-                    color='#409275'
-                    text={{
-                        color:'#ffffff',
-                        content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн."/>
-                    }}
-                    btn={{
-                        style: 'yellow',
-                        content: <TI18n keyStr="footerRightBtn" default="Помочь"/>
-                    }}
-                    story={true}
-                />
                 </div>
             </div>
             </>
