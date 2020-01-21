@@ -22,7 +22,7 @@ export const Slider: React.FC<IPropTypes> = ({ slides, isPaginationHidden, isNav
     const sliderParams: any = {
       rebuildOnUpdate: true,
       shouldSwiperUpdate: true,
-      slidesPerView: !!slidesPerView ? Math.round(Math.abs(slidesPerView)) : 1,
+      slidesPerView: !!slidesPerView ? Math.abs(slidesPerView) : 1,
       loop: isLoop,
       effect: slideEffect,
     }

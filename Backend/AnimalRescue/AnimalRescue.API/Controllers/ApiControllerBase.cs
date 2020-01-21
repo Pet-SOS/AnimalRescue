@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.API.Core.Responses;
 using AnimalRescue.API.Models;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
@@ -7,6 +8,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AutoMapper;
 
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
@@ -21,22 +23,22 @@ namespace AnimalRescue.API.Controllers
         private const string GetItemByIdMethodName = "Get";
 
         protected async Task<ActionResult<CollectionSegmentApiResponse<TResponse>>> GetCollectionAsync<TCollectin, TResponse>(
-            IBlCollectinQueryAsyncy<TCollectin> service, 
-            ApiQueryRequest queryRequest, 
-            IMapper mapper) 
+            IBlCollectinQueryAsyncy<TCollectin> service,
+            ApiQueryRequest queryRequest,
+            IMapper mapper)
             where TResponse : class
         {
             BlCollectonResponse<TCollectin> serviceResponse = await service.GetAsync(queryRequest);
-            List<TResponse> result = mapper.Map<List<TCollectin>,List<TResponse>>(serviceResponse.Collection);
+            List<TResponse> result = mapper.Map<List<TCollectin>, List<TResponse>>(serviceResponse.Collection);
 
             return Collection(result, serviceResponse.TotalCount, queryRequest.Page, queryRequest.Size);
         }
 
         protected ActionResult<CollectionSegmentApiResponse<T>> Collection<T>(
-			IReadOnlyCollection<T> source, 
-            int totalCount, 
-            int pageNumber, 
-            int pageSize) 
+            IReadOnlyCollection<T> source,
+            int totalCount,
+            int pageNumber,
+            int pageSize)
             where T : class
         {
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
@@ -59,12 +61,28 @@ namespace AnimalRescue.API.Controllers
 
         protected async Task<ActionResult<TModel>> CreatedItemAsync<TDtoIn, TModel>(
             IBlCreateAsync<TDtoIn, TDtoIn> service,
-            TModel value, 
+            TModel value,
             IMapper mapper) where TModel : BaseModel
         {
             TDtoIn itemDto = mapper.Map<TModel, TDtoIn>(value);
             itemDto = await service.CreateAsync(itemDto);
             var itemModel = mapper.Map<TDtoIn, TModel>(itemDto);
+
+            return CreatedItem(itemModel);
+        }
+        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDto, TInModel, TOutModel>(
+            IBlCreateAsync<TDto, TDto> service,            
+            IDocumentService documentService,  
+            TInModel value,       
+            List<IFormFile> files,
+            IMapper mapper) 
+            where TOutModel : BaseModel
+            where TDto : BaseCommonDto
+        {
+            TDto itemDto = mapper.Map<TInModel, TDto>(value);
+            itemDto.ImageIds = await documentService.UploadFileAsync(files);
+            itemDto = await service.CreateAsync(itemDto);
+            var itemModel = mapper.Map<TDto, TOutModel>(itemDto);
 
             return CreatedItem(itemModel);
         }
@@ -78,23 +96,38 @@ namespace AnimalRescue.API.Controllers
 
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
-            TModel value, 
+            TModel value,
             IMapper mapper)
         {
             var dto = mapper.Map<TModel, TDto>(value);
 
             await service.UpdateAsync(dto);
         }
+        protected async Task UpdateDataAsync<TDto, TModel>(
+            IBlUpdateAsync<TDto> service,
+            IDocumentService documentService,
+            string id,
+            TModel value,
+            List<IFormFile> files,
+            IMapper mapper)
+            where TDto : BaseCommonDto
+        {
+            var dto = mapper.Map<TModel, TDto>(value);
+            dto.Id = id;
+            dto.ImageIds = await documentService.UploadFileAsync(files);
+
+            await service.UpdateAsync(dto);
+        }
         protected async Task<ActionResult<TModel>> GetItemAsync<TDto, TModel>(
-            IBlOneItemQueryAsyncy<TDto> service, 
-            string id, 
+            IBlOneItemQueryAsyncy<TDto> service,
+            string id,
             IMapper mapper)
         {
             var data = await service.GetAsync(id);
 
             var result = mapper.Map<TModel>(data);
 
-            return Item(result); 
+            return Item(result);
         }
         protected ActionResult<T> Item<T>(T source)
         {

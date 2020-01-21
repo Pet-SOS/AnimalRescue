@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 export enum ButtonTypes {
   Blue = 'blue',
+  Yellow ='yellow',
   BlueCircle = 'blue-circle',
   Like = 'like'
 }

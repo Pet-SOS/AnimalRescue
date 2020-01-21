@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.Common.Exceptions;
+﻿using AnimalRescue.Contracts.Common.Constants;
+using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.Infrastructure.Validation;
 
 using System;
@@ -13,7 +14,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public const string TermSeparator = ";";
         public const string Descending = "decs";
         public const string Ascending = "acs";
-        private const string DefaultSort = "{}";
+        private const string DefaultSort = "{"+ PropertyConstants.BaseItem.CreatedAt+":-1}";
         private readonly IAliasStore aliasStore;
 
         public QuerySortBuilder(IAliasStore aliasStore)

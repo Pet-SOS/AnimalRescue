@@ -28,7 +28,9 @@ namespace AnimalRescue.BusinessLogic
                 new AnimalMappingProfile(),
                 new StoryMappingProfile(),
                 new BlogMappingProfile(),
-                new CmsConfigurationMappingProfile()
+                new ArticleMappingProfile(),
+                new CmsConfigurationMappingProfile(),
+                new DonationConfigurationMappingProfile()
             });
 
             var imageSizesSettins = configuration.GetTypedSection<ImageSizesSettings>("ImageSizes");
@@ -36,10 +38,12 @@ namespace AnimalRescue.BusinessLogic
             services.AddSingleton<IImageResize, ImageResize>();
 
             services.AddScoped<IAnimalService, AnimalService>();
-            services.AddScoped<IStoryService, StoryService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-			services.AddScoped<IBlogService, BlogService>();
+			services
+                .AddScoped<IBlogService, BlogService>()
+                .AddScoped<IStoryService, StoryService>()
+                .AddScoped<IArticleService, ArticleService>();
         }
     }
 }

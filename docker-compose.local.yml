@@ -1,15 +1,15 @@
 version: '3.4'
 
 services:
-  api:
+  backend:
     build:
       context: Backend/AnimalRescue
       dockerfile: Dockerfile
-    container_name: animalrescue.api
+    container_name: animalrescue.backend
     image: animalrescue.api
     restart: unless-stopped
     ports:
-      - "9090:80"
+      - "8080:80"
     environment:
       - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
       - MongoDbSettings__DatabaseName=AnimalRescue
@@ -30,7 +30,7 @@ services:
     image: animalrescue.portal
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "9090:80"
     networks:
       - frontend
 

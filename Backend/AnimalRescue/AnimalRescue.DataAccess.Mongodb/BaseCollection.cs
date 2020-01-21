@@ -4,6 +4,7 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
@@ -17,19 +18,25 @@ namespace AnimalRescue.DataAccess.Mongodb
         where T : BaseItem
     {
         public IMongoCollection<T> Collection => collection;
+        public IMongoCollection<BsonDocument> NativeCollection => 
+            nativeCollection ?? (nativeCollection = database.GetCollection<BsonDocument>(collectionName));
+        protected readonly IMongoDatabase database;
         protected readonly IMongoCollection<T> collection;
+        protected IMongoCollection<BsonDocument> nativeCollection;
         protected readonly IQueryBuilder<T> queryBuilder;
+        protected readonly string collectionName;
 
         public BaseCollection(
             IMongoDatabase database, 
             IQueryBuilder<T> queryBuilder)     
         {
-            var collectionName = typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator;
+            collectionName = typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator;
             
             Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
             Require.Objects.NotNull(database, nameof(database));
             Require.Objects.NotNull(queryBuilder, nameof(queryBuilder));
 
+            this.database = database;
             this.collection = database.GetCollection<T>(collectionName);
             this.queryBuilder = queryBuilder;
         }
@@ -41,6 +48,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             await collection.InsertOneAsync(instance);
             return instance;
         }
+        public async Task CreateAsync(BsonDocument instance) => await NativeCollection.InsertOneAsync(instance);
 
         public async Task<List<T>> GetAsync(DbQuery query)
         {

@@ -32,11 +32,11 @@ export const AppMenu: React.FC = () => {
                     <li><a href="help-volunteering"><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством"/></a></li>
                 </ul>
             </div>
-            <div className="item"><TI18n keyStr="headerMenuItem4" default="Блог"/></div>
-            <div className="item"><TI18n keyStr="headerMenuItem5" default="Контакты"/></div>
+            <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
+        <div className="item"><TI18n keyStr="contacts" default="Контакты"/></div>
             <div className="item"><HeartLogo/></div>
             <Button onClick={() => {}} styleType={ButtonTypes.Blue}>
-                <TI18n keyStr="headerMenuItem6" default="Помощь"/>
+                <TI18n keyStr="help" default="Помочь"/>
             </Button>
         </div>
     )
