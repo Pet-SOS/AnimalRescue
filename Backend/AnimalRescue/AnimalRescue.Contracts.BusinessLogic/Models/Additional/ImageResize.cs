@@ -12,16 +12,17 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         private IConfiguration _configuration;
         private ImageSizesSettings _imageSizesSettings;
 
-        public Dictionary<ImageResizeType, (int Width, int Height)> Sizes { get; } = new Dictionary<ImageResizeType, (int Width, int Height)> {
-            {ImageResizeType.ThumbnailLarge, (1920, 1080) },
-            {ImageResizeType.ThumbnailMedium, (640, 480) },
-            {ImageResizeType.ThumbnailSmall, (320, 240) }
-        };
+        public Dictionary<ImageResizeType, (int Width, int Height)> Sizes { get; } 
 
         ImageResize(IConfiguration configuration)
         {
             _configuration = configuration;
             _imageSizesSettings = _configuration.GetTypedSection<ImageSizesSettings>(nameof(ImageSizesSettings));
+
+            Sizes = new Dictionary<ImageResizeType, (int Width, int Height)>();
+            Sizes.Add(ImageResizeType.ThumbnailLarge, (_imageSizesSettings.Large.Width, _imageSizesSettings.Large.Height));
+            Sizes.Add(ImageResizeType.ThumbnailMedium, (_imageSizesSettings.Medium.Width, _imageSizesSettings.Medium.Height));
+            Sizes.Add(ImageResizeType.ThumbnailSmall, (_imageSizesSettings.Small.Width, _imageSizesSettings.Small.Height));
         }
     }
 }
