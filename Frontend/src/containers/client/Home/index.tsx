@@ -67,7 +67,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       }
     }
   },
-  fetchInfoContacts:() =>dispatch(actionFetchInfoContacts())
+ fetchInfoContacts:() =>dispatch(actionFetchInfoContacts())
+
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

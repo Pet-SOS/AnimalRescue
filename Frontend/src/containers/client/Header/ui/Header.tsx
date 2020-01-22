@@ -14,6 +14,8 @@ import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage9 from '../../../../img/counter-images/counter_9.png';
 import counterImage10 from '../../../../img/counter-images/counter_10.png';
 import { IBankCard } from '../../../../api/infoCard';
+import { actionFetchInfoContacts } from '../../Home/store/actions';
+import { ISocialLinks } from '../../../../api/contacts';
 interface IPropTypes {
 }
 
@@ -22,7 +24,7 @@ const AppHeader: React.FC<IPropTypes> = () => {
     const infoCard: IBankCard = store.getState().homePage.infoCard.data.bankCard;
     store.subscribe(() =>{
         isActivePopup = store.getState().homePage.isActivePopup;
-        setIsActivePopup(store.getState().homePage.isActivePopup);
+
     })
     
     let [isActiveMenu, setIsActiveMenu] = useState(false);
