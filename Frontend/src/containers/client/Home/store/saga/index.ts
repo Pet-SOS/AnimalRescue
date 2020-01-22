@@ -19,6 +19,9 @@ import {
   actionHomeFetchSickAnimals,
   actionHomeFetchSickAnimalsSuccess,
   actionHomeFetchSickAnimalFailUrl,
+  actionFetchInfoCard,
+  actionFetchInfoCardSuccess,
+  actionFetchInfoCardlFailUrl,
   actionHomeFetchBlogListSuccess,
   actionHomeFetchBlogListFailure,
   actionHomeFetchBlogListRequest,
@@ -26,6 +29,7 @@ import {
   actionHomeFetchBlogListSavedSuccess,
   actionHomeFetchBlogListSavedFailure
 } from "../actions";
+import { fetchInfoCard } from '../../../../../api/infoCard';
 import { IRequestParams } from '../../../../../api/requestOptions';
 
 function* fetchHomePageAnimalsList(action: { type: string, payload?: IRequestParams }) {
@@ -72,6 +76,15 @@ function* getSavedAnimalsCount() {
   }
 }
 
+function* fetchHomePageInfoCard(){
+  try {
+    const response = yield call(fetchInfoCard);
+    yield put(actionFetchInfoCardSuccess(response))
+  } catch (e) {
+    yield put(actionFetchInfoCardlFailUrl(e))
+  }
+}
+
 function* getBlogList(action: { type: string, payload?: IRequestParams }) {
   try {
     const response = yield call(fetchBlogList, action.payload);
@@ -96,6 +109,7 @@ export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchCatsRequest), fetchHomePageCatsList);
   yield takeEvery(getType(actionHomeFetchSavedAnimalsCount), getSavedAnimalsCount)
   yield takeEvery(getType(actionHomeFetchSickAnimals), fetchHomePageSickAnimalsList);
+  yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
   yield takeEvery(getType(actionHomeFetchBlogListRequest), getBlogList);
   yield takeEvery(getType(actionHomeFetchBlogListSavedRequest), getBlogListSaved);
 }

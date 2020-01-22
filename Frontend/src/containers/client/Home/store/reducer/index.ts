@@ -19,6 +19,9 @@ import {
     actionHomeFetchSavedAnimalsCount,
     actionHomeFetchSavedAnimalsCountSuccess,
     actionHomeFetchSavedAnimalsCountFailure,
+    actionFetchInfoCard,
+    actionFetchInfoCardSuccess,
+    actionFetchInfoCardlFailUrl,
     actionHomeFetchBlogListRequest,
     actionHomeFetchBlogListFailure,
     actionHomeFetchBlogListSuccess,
@@ -56,6 +59,12 @@ const fetchSavedAnimalsCountStateReducer = genericRequestReducer(
   actionHomeFetchSavedAnimalsCount,
   actionHomeFetchSavedAnimalsCountSuccess,
   actionHomeFetchSavedAnimalsCountFailure
+)
+
+const fetchSaveInfoCardStateReducer = genericRequestReducer(
+  actionFetchInfoCard,
+  actionFetchInfoCardSuccess,
+  actionFetchInfoCardlFailUrl
 )
 
 const fetchBlogListStateReducer = genericRequestReducer(
@@ -142,7 +151,7 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
           ...state,
           isActivePopup: action.payload.data
       };
-      case getType(actionHomeFetchSickAnimals):
+    case getType(actionHomeFetchSickAnimals):
         return {
             ...state,
             sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action)
@@ -157,6 +166,22 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         return {
             ...state,
             sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
+        };
+    case getType(actionFetchInfoCard):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action)
+        };
+    case getType(actionFetchInfoCardSuccess):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
+            infoCard: action.payload.data
+        };
+    case getType(actionFetchInfoCardlFailUrl):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
         };
     case getType(actionHomeFetchBlogListRequest): {
       return {

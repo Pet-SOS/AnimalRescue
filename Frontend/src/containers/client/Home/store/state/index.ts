@@ -1,5 +1,6 @@
 import {IRequestState, DEFAULT_REQUEST_STATE} from "../../../../../api";
 import { IAnimalsResponse, ISavedAnimalsCountResponse} from "../../../../../api/animals";
+import { IInfoCard } from "../../../../../api/infoCard";
 import { IBlogListResponse } from './../../../../../api/blog';
 
 export interface IHomePageState {
@@ -17,7 +18,9 @@ export interface IHomePageState {
     dogsList: IAnimalsResponse;
     dogsListRequestState: IRequestState;
     savedAnimalsCount: ISavedAnimalsCountResponse;
-    savedAnimalsCountRequestState: IRequestState
+    savedAnimalsCountRequestState: IRequestState;
+    infoCardState: IRequestState;
+    infoCard: IInfoCard;
 }
 
 export const DEFAULT_ANIMALS = {
@@ -29,6 +32,19 @@ export const DEFAULT_ANIMALS = {
     totalCount: 0
 };
 
+export const DEFAULT_INFO_CARD = {
+    data: {
+       bankCard: {
+         cardNumber: '',
+         edrpou: '',
+         bankName: '',
+         firstName: '',
+         lastName: '',
+       },
+       title: '',
+       body: '',
+     }
+}
 export const DEFAULT_BLOGS: IBlogListResponse = {
   data: [],
   pageCount: 0,
@@ -54,4 +70,6 @@ export const DEFAULT_HOME_PAGE_STATE = {
     dogsListRequestState: { ...DEFAULT_REQUEST_STATE },
     savedAnimalsCount: {data: 0, self: ''},
     savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE},
+    infoCardState: { ...DEFAULT_REQUEST_STATE},
+    infoCard:{...DEFAULT_INFO_CARD},
 };
