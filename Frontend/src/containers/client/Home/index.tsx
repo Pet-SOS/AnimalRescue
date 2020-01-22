@@ -7,6 +7,7 @@ import {
   selectSavedAnimalsCount,
   selectCatsList,
   selectSickAnimals,
+  selectSavedInfoCard,
   selectBlogList,
   selectBlogListSaved} from "./store/selectors";
 import { AnimalKind } from "../../../api/animals";
@@ -18,6 +19,7 @@ import {
     actionHomeFetchDogsRequest,
     actionHomeFetchCatsRequest,
     actionHomeFetchSavedAnimalsCount,
+    actionFetchInfoCard,
     actionHomeFetchBlogListRequest,
     actionHomeFetchBlogListSavedRequest,
 } from "./store/actions";
@@ -32,6 +34,7 @@ const mapStateToProps = (state: ICustomAppState) => ({
   dogsList: selectDogsList(state),
   sickAnimalsList: selectSickAnimals(state),
   savedAnimalsCount: selectSavedAnimalsCount(state),
+  infoCard: selectSavedInfoCard(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
@@ -50,6 +53,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   },
   fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount()),
   fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals()),
+  fetchInfoCard: () => dispatch(actionFetchInfoCard()),
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
     switch (tag) {
       case AllTag.SAVED: {

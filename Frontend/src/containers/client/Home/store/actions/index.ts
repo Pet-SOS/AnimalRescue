@@ -84,7 +84,18 @@ export const actionHomeFetchSavedAnimalsCountFailure = createAction(
   'HOME_FETCH_SAVED_ANIMALS_COUNT_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
 );
-
+export const actionFetchInfoCard = createAction(
+    'HOME_FETCH_INFO_CARD',
+    (resolve) => () => resolve({})
+);
+export const actionFetchInfoCardSuccess = createAction(
+    'HOME_FETCH_INFO_CARD_SUCCESS',
+    (resolve) => (data:any) => resolve({data})
+);
+export const actionFetchInfoCardlFailUrl = createAction(
+    'HOME_FETCH_INFO_CARD_FAILURL',
+    (resolve) => (error: Error) => resolve({error})
+)
 export const actionHomeFetchBlogListRequest = createAction(
   'HOME_FETCH_BlOG_LIST_REQUEST',
   (resolve) => (requestParams?: IRequestParams) => resolve(requestParams)
