@@ -36,11 +36,11 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
+            services.AddScoped<ITagService, TagService>();
             services
                 .AddScoped<IBlogService, BlogService>()
                 .AddScoped<IStoryService, StoryService>()
-                .AddScoped<IArticleService, ArticleService>()
-                .AddScoped<ITagService, TagService>();
+                .AddScoped<IArticleService, ArticleService>();
         }
 	}
 }
