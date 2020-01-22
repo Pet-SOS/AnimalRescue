@@ -9,7 +9,8 @@ import {
   selectSickAnimals,
   selectSavedInfoCard,
   selectBlogList,
-  selectBlogListSaved} from "./store/selectors";
+  selectBlogListSaved,
+  selectInfoContacts} from "./store/selectors";
 import { AnimalKind } from "../../../api/animals";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
@@ -22,6 +23,7 @@ import {
     actionFetchInfoCard,
     actionHomeFetchBlogListRequest,
     actionHomeFetchBlogListSavedRequest,
+    actionFetchInfoContacts,
 } from "./store/actions";
 import { IRequestParams } from "../../../api/requestOptions";
 import { AllTag } from "../../../api/help";
@@ -35,6 +37,7 @@ const mapStateToProps = (state: ICustomAppState) => ({
   sickAnimalsList: selectSickAnimals(state),
   savedAnimalsCount: selectSavedAnimalsCount(state),
   infoCard: selectSavedInfoCard(state),
+  infoContacts: selectInfoContacts(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
@@ -64,6 +67,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       }
     }
   },
+  fetchInfoContacts:() =>dispatch(actionFetchInfoContacts())
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

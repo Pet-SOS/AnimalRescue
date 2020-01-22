@@ -3,6 +3,7 @@ import {IAnimalsResponse, ISavedAnimalsCountResponse, AnimalKind} from "../../..
 import { IRequestParams, RequestFilterOperators } from '../../../../../api/requestOptions';
 import { IBlogListResponse } from './../../../../../api/blog';
 import { AllTag } from '../../../../../api/help';
+import { IInfoContacts } from '../../../../../api/contacts';
 
 export const actionHomeFetchAnimalsRequest = createAction(
     'HOME_FETCH_ANIMALS_REQUEST',
@@ -128,3 +129,15 @@ export const actionHomeFetchBlogListSavedFailure = createAction(
   'HOME_FETCH_BLOG_LIST_SAVED_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
 );
+export const actionFetchInfoContacts = createAction(
+    'HOME_FETCH_INFO_CONTACTS',
+    (resolve) => () => resolve({})
+);
+export const actionFetchInfoContactsSuccess = createAction(
+    'HOME_FETCH_INFO_CONTACTS_SUCCESS',
+    (resolve) => (data: IInfoContacts) => resolve(data)
+);
+export const actionFetchInfoContactsFailUrl = createAction(
+    'HOME_FETCH_INFO_CONTACTS_FAILURL',
+    (resolve) => (error: Error) => resolve({error})
+)

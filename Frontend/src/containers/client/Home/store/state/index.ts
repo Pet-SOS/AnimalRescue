@@ -2,6 +2,7 @@ import {IRequestState, DEFAULT_REQUEST_STATE} from "../../../../../api";
 import { IAnimalsResponse, ISavedAnimalsCountResponse} from "../../../../../api/animals";
 import { IInfoCard } from "../../../../../api/infoCard";
 import { IBlogListResponse } from './../../../../../api/blog';
+import { IInfoContacts } from "../../../../../api/contacts";
 
 export interface IHomePageState {
     animalsList: IAnimalsResponse;
@@ -21,6 +22,8 @@ export interface IHomePageState {
     savedAnimalsCountRequestState: IRequestState;
     infoCardState: IRequestState;
     infoCard: IInfoCard;
+    infoContacts: IInfoContacts;
+    infoContactsState: IRequestState;
 }
 
 export const DEFAULT_ANIMALS = {
@@ -54,6 +57,17 @@ export const DEFAULT_BLOGS: IBlogListResponse = {
   totalCount: 0
 };
 
+export const DEFAULT_CONTACTS: IInfoContacts ={
+  data: {
+    socialLinks: {
+      instagram: '',
+      facebook: '',
+      youtube: '',
+    },
+    phones: [],
+  }
+}
+
 export const DEFAULT_HOME_PAGE_STATE = {
     animalsList: {...DEFAULT_ANIMALS},
     animalsListRequestState: {...DEFAULT_REQUEST_STATE},
@@ -72,4 +86,6 @@ export const DEFAULT_HOME_PAGE_STATE = {
     savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE},
     infoCardState: { ...DEFAULT_REQUEST_STATE},
     infoCard:{...DEFAULT_INFO_CARD},
+    infoContacts:{...DEFAULT_CONTACTS},
+    infoContactsState: { ...DEFAULT_REQUEST_STATE},
 };

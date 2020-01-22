@@ -21,6 +21,7 @@ import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
 import { IRequestParams } from '../../../../api/requestOptions';
 import { AllTag } from '../../../../api/help';
+import { IInfoContacts } from '../../../../api/contacts';
 
 interface IPropTypes extends RouteComponentProps<any> {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
@@ -28,6 +29,7 @@ interface IPropTypes extends RouteComponentProps<any> {
   fetchSickAnimals: () => void;
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
+  fetchInfoContacts:() => void;
   animalsList: IAnimalsResponse;
   blogList: IBlogListResponse;
   blogListSaved: IBlogListResponse;
@@ -36,11 +38,13 @@ interface IPropTypes extends RouteComponentProps<any> {
   sickAnimalsList: IAnimalsResponse;
   savedAnimalsCount: ISavedAnimalsCountResponse;
   infoCard: IInfoCard;
+  infoContacts: IInfoContacts;
 }
 
 export class HomePageMain extends React.Component<IPropTypes> {
     componentWillMount(){
       this.props.fetchSickAnimals();
+      this.props.fetchInfoContacts();
     }
     componentDidMount(): void {
       this.props.fetchAnimalsRequest();
@@ -116,7 +120,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
                 />
                 <HelpedBlock
                   data={this.props.blogListSaved.data}
-                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
+                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
                 />
                 <HelpBlock
                 animalsList={this.props.sickAnimalsList}

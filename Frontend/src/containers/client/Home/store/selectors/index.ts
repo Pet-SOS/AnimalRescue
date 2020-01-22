@@ -9,3 +9,4 @@ export const selectSavedAnimalsCount = (state: ICustomAppState) => state[HOME_PA
 export const selectSavedInfoCard = (state: ICustomAppState) => state[HOME_PAGE_KEY].infoCard;
 export const selectBlogList = (state: ICustomAppState) => state[HOME_PAGE_KEY].blogList;
 export const selectBlogListSaved = (state: ICustomAppState) => state[HOME_PAGE_KEY].blogListSaved;
+export const selectInfoContacts = (state: ICustomAppState) => state[HOME_PAGE_KEY].infoContacts;
