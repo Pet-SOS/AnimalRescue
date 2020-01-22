@@ -23,14 +23,6 @@ export interface IBlogListResponse {
   self: string;
 }
 
-export const DEFAULT_SAVED_BLOG_REQUEST_PARAMS: IRequestParams = {
-  filter: {
-    fieldName: 'tags',
-    opeartor: RequestFilterOperators.ALL,
-    value: AllTag.SAVED
-  }
-}
-
 export async function fetchBlogList(requestParams?: IRequestParams): Promise<IBlogListResponse[]> {
   const res = await API.get('blogs', { params: prepareRequestParams(requestParams) });
   return res.data

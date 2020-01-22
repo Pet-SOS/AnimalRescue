@@ -24,7 +24,10 @@ import {
   actionFetchInfoCardlFailUrl,
   actionHomeFetchBlogListSuccess,
   actionHomeFetchBlogListFailure,
-  actionHomeFetchBlogListRequest
+  actionHomeFetchBlogListRequest,
+  actionHomeFetchBlogListSavedRequest,
+  actionHomeFetchBlogListSavedSuccess,
+  actionHomeFetchBlogListSavedFailure
 } from "../actions";
 import { fetchInfoCard } from '../../../../../api/infoCard';
 import { IRequestParams } from '../../../../../api/requestOptions';
@@ -91,6 +94,15 @@ function* getBlogList(action: { type: string, payload?: IRequestParams }) {
   }
 }
 
+function* getBlogListSaved(action: { type: string, payload?: IRequestParams }) {
+  try {
+    const response = yield call(fetchBlogList, action.payload);
+    yield put(actionHomeFetchBlogListSavedSuccess(response))
+  } catch (e) {
+    yield put(actionHomeFetchBlogListSavedFailure(e))
+  }
+}
+
 export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchAnimalsRequest), fetchHomePageAnimalsList);
   yield takeEvery(getType(actionHomeFetchDogsRequest), fetchHomePageDogsList);
@@ -99,4 +111,5 @@ export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchSickAnimals), fetchHomePageSickAnimalsList);
   yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
   yield takeEvery(getType(actionHomeFetchBlogListRequest), getBlogList);
+  yield takeEvery(getType(actionHomeFetchBlogListSavedRequest), getBlogListSaved);
 }

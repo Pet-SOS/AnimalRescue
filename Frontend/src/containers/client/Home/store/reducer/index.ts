@@ -24,7 +24,10 @@ import {
     actionFetchInfoCardlFailUrl,
     actionHomeFetchBlogListRequest,
     actionHomeFetchBlogListFailure,
-    actionHomeFetchBlogListSuccess
+    actionHomeFetchBlogListSuccess,
+    actionHomeFetchBlogListSavedRequest,
+    actionHomeFetchBlogListSavedSuccess,
+    actionHomeFetchBlogListSavedFailure
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
@@ -68,6 +71,12 @@ const fetchBlogListStateReducer = genericRequestReducer(
   actionHomeFetchBlogListRequest,
   actionHomeFetchBlogListSuccess,
   actionHomeFetchBlogListFailure
+)
+
+const fetchBlogListSavedStateReducer = genericRequestReducer(
+  actionHomeFetchBlogListSavedRequest,
+  actionHomeFetchBlogListSavedSuccess,
+  actionHomeFetchBlogListSavedFailure
 )
 
 export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
@@ -190,6 +199,23 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
       return {
         ...state,
         blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action)
+      };
+    case getType(actionHomeFetchBlogListSavedRequest): {
+      return {
+        ...state,
+        blogListSavedState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
+      }
+    }
+    case getType(actionHomeFetchBlogListSavedSuccess):
+      return {
+        ...state,
+        blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action),
+        blogListSaved: action.payload
+      };
+    case getType(actionHomeFetchBlogListSavedFailure):
+      return {
+        ...state,
+        blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
       };
     default:
         return state;
