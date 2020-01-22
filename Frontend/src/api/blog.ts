@@ -1,6 +1,5 @@
 import API from './index';
-import { AllTag } from './help';
-import { IRequestParams, RequestFilterOperators, prepareRequestParams } from './requestOptions';
+import { IRequestParams, prepareRequestParams, AllTag } from './requestOptions';
 
 export enum BlogTypes {BLOG = 'blog', ARTICLE = 'article'}
 
