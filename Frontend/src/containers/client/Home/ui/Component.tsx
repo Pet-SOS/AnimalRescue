@@ -138,7 +138,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         <YouTubeBox
           link='https://www.youtube.com/embed/JE0yDo7Qkec'
         />
-        <div className="animal-list-wrapper">
+        <div className="animals-slider-wrapper">
           {dogsList.data.length > 0 && <AnimalsSlider
             data={dogsList.data}
             title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
