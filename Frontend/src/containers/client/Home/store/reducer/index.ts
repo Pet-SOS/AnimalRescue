@@ -79,7 +79,7 @@ const fetchBlogListSavedStateReducer = genericRequestReducer(
   actionHomeFetchBlogListSavedFailure
 )
 
-export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
+export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction): IHomePageState => {
   switch (action.type) {
     case getType(actionHomeFetchAnimalsRequest):
       return {
@@ -186,7 +186,7 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
     case getType(actionHomeFetchBlogListRequest): {
       return {
         ...state,
-        blogListState: fetchBlogListStateReducer(state.blogListRequestState, action)
+        blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action)
       }
     }
     case getType(actionHomeFetchBlogListSuccess):
@@ -203,7 +203,7 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
     case getType(actionHomeFetchBlogListSavedRequest): {
       return {
         ...state,
-        blogListSavedState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
+        blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
       }
     }
     case getType(actionHomeFetchBlogListSavedSuccess):

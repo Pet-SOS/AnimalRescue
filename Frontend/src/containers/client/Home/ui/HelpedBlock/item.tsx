@@ -1,10 +1,10 @@
 import React from 'react';
-import { BASE_URL } from '../../api';
-import { TI18n } from '../../i18n';
-import noPhotoImage from './../../img/nophoto.jpg';
-import { BlockLink } from '../BlockLink';
+import { BASE_URL } from '../../../../../api';
+import { TI18n } from '../../../../../i18n';
+import noPhotoImage from './../../../../../img/nophoto.jpg';
+import { BlockLink } from '../../../../../components/BlockLink';
 import './index.scss';
-import { IBlogItem } from '../../api/blog';
+import { IBlogItem } from '../../../../../api/blog';
 
 interface IPropTypes {
   story: IBlogItem;
