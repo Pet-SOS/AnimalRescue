@@ -33,8 +33,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<List<string>> UploadFileAsync(List<IFormFile> files)
         {
-            if (files == null 
-                || files != null && files.Count == 0)
+            if (files == null || files.Count == 0)
             {
                 return new List<string>();
             }

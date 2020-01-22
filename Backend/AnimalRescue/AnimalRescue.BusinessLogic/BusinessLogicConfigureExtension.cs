@@ -29,10 +29,12 @@ namespace AnimalRescue.BusinessLogic
                 new BlogMappingProfile(),
                 new ArticleMappingProfile(),
                 new CmsConfigurationMappingProfile(),
-                new DonationConfigurationMappingProfile()
+                new DonationConfigurationMappingProfile(),
+                new FinancialReportMappingProfile()
             });
 
             services.AddScoped<IAnimalService, AnimalService>();
+            services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
 			services
