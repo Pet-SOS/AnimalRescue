@@ -10,47 +10,47 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class BlogTagRepository : IBlogTagRepository
+    internal class TagRepository : ITagRepository
     {
-        private readonly IBaseCollection<BlogTag> _baseCollection;
+        private readonly IBaseCollection<Tags> _baseCollection;
 
-        public BlogTagRepository(IBaseCollection<BlogTag> baseCollection)
+        public TagRepository(IBaseCollection<Tags> baseCollection)
         {
             Require.Objects.NotNull(baseCollection, nameof(baseCollection));
 
             _baseCollection = baseCollection;
         }
 
-        public async Task<List<BlogTag>> GetAsync(DbQuery query)
+        public async Task<List<Tags>> GetAsync(DbQuery query)
         {
             return await _baseCollection.GetAsync(query);
         }
 
-        public async Task<BlogTag> GetAsync(string id)
+        public async Task<Tags> GetAsync(string id)
         {
             return await _baseCollection.GetAsync(id);
         }
 
-        public async Task<BlogTag> CreateAsync(BlogTag blogTag)
+        public async Task<Tags> CreateAsync(Tags tags)
         {
-            Require.Objects.NotNull(blogTag, nameof(blogTag));
+            Require.Objects.NotNull(tags, nameof(tags));
 
-            blogTag.CreatedAt = DateTime.UtcNow;
+            tags.CreatedAt = DateTime.UtcNow;
 
-            return await _baseCollection.CreateAsync(blogTag);
+            return await _baseCollection.CreateAsync(tags);
         }
 
-        public async Task UpdateAsync(BlogTag blogTag)
+        public async Task UpdateAsync(Tags tags)
         {
-            Require.Objects.NotNull(blogTag, nameof(blogTag));
+            Require.Objects.NotNull(tags, nameof(tags));
 
-            var oldTag = await _baseCollection.GetAsync(blogTag.Id);
+            var oldTag = await _baseCollection.GetAsync(tags.Id);
 
             Require.Objects.NotNull<NotFoundException>(oldTag,
-                () => $"{blogTag.Title} with id: {blogTag.Id} not found");
+                () => $"{tags.Title} with id: {tags.Id} not found");
 
-            oldTag.Title = blogTag.Title;
-            oldTag.Type = blogTag.Type;
+            oldTag.Title = tags.Title;
+            oldTag.Type = tags.Type;
 
             await _baseCollection.UpdateAsync(oldTag);
 

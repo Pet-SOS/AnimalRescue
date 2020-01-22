@@ -1,10 +1,10 @@
-﻿using AnimalRescue.Contracts.Common.Constants;
+﻿using System.Text.Json.Serialization;
+using AnimalRescue.Contracts.Common.Constants;
 using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
-namespace AnimalRescue.API.Models.Blogs.BlogTags
+namespace AnimalRescue.API.Models.Tags
 {
-    public class BlogTagModel : BaseAndTimeModel
+    public class TagModel : BaseAndTimeModel
     {
         [JsonPropertyName(PropertyConstants.Common.Type)]
         [JsonProperty(PropertyConstants.Common.Type)]

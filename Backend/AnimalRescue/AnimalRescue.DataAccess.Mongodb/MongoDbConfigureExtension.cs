@@ -34,7 +34,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
                 .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
-                .AddSingleton<IQueryBuilder<BlogTag>, QueryBuilder<BlogTag>>()
+                .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>();
 
             services
@@ -42,12 +42,12 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IBucket, Bucket>()
                 .AddScoped<IBaseCollection<Animal>, BaseCollection<Animal>>()
                 .AddScoped<IBaseCollection<Article>, BaseCollection<Article>>()
-                .AddScoped<IBaseCollection<BlogTag>, BaseCollection<BlogTag>>()
+                .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
                 .AddScoped<IBaseCollection<Configuration<Contacts>>, BaseCollection<Configuration<Contacts>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IArticleRepository, ArticleRepository>()
-                .AddScoped<IBlogTagRepository, BlogTagRepository>();
+                .AddScoped<ITagRepository, TagRepository>();
         }
     }
 }

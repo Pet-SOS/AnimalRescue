@@ -2,9 +2,9 @@
 using AnimalRescue.Contracts.Common.Constants;
 using Newtonsoft.Json;
 
-namespace AnimalRescue.API.Models.Blogs.BlogTags
+namespace AnimalRescue.API.Models.Tags
 {
-    public class BlogTagCreateModel
+    public class TagCreateModel
     {
         [JsonPropertyName(PropertyConstants.Common.Type)]
         [JsonProperty(PropertyConstants.Common.Type)]

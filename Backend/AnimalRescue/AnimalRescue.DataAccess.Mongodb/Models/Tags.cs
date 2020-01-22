@@ -6,8 +6,8 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
-    [BsonDiscriminator("blogTags")]
-    public class BlogTag : BaseItem
+    [BsonDiscriminator("tags")]
+    public class Tags : BaseItem
     {
         [CouplingPropertyName(common.Type)]
         [BsonElement("type")]

@@ -30,7 +30,7 @@ namespace AnimalRescue.BusinessLogic
                 new ArticleMappingProfile(),
                 new CmsConfigurationMappingProfile(),
                 new DonationConfigurationMappingProfile(),
-                new BlogTagMappingProfile()
+                new TagMappingProfile()
             });
 
             services.AddScoped<IAnimalService, AnimalService>();
@@ -40,7 +40,7 @@ namespace AnimalRescue.BusinessLogic
                 .AddScoped<IBlogService, BlogService>()
                 .AddScoped<IStoryService, StoryService>()
                 .AddScoped<IArticleService, ArticleService>()
-                .AddScoped<IBlogTagService, BlogTagService>();
+                .AddScoped<ITagService, TagService>();
         }
 	}
 }
