@@ -1,30 +1,34 @@
+import { Dispatch } from "react";
+import { AnyAction } from "redux";
 import {connect} from "react-redux";
 import {HomePageMain} from "./ui/Component";
 import {ICustomAppState} from "../../../store/state";
+import { AnimalKind } from "../../../api/animals";
+import { IRequestParams, AllTag } from "../../../api/requestOptions";
 import {
-  selectAnimalsList,
-  selectDogsList,
-  selectSavedAnimalsCount,
-  selectCatsList,
-  selectSickAnimals,
   selectSavedInfoCard,
   selectBlogList,
-  selectBlogListSaved} from "./store/selectors";
-import { AnimalKind } from "../../../api/animals";
-import { Dispatch } from "react";
-import { AnyAction } from "redux";
+  selectBlogListSaved
+} from "./store/selectors";
 import {
-    actionHomeFetchSickAnimals,
-    actionHomeFetchAnimalsRequest,
-    actionHomeFetchDogsRequest,
-    actionHomeFetchCatsRequest,
-    actionHomeFetchSavedAnimalsCount,
     actionFetchInfoCard,
     actionHomeFetchBlogListRequest,
     actionHomeFetchBlogListSavedRequest,
 } from "./store/actions";
-import { IRequestParams } from "../../../api/requestOptions";
-import { AllTag } from "../../../api/help";
+import {
+  selectAnimalsList,
+  selectCatsList,
+  selectDogsList,
+  selectSickAnimals,
+  selectSavedAnimalsCount
+} from "../Animals/store/selectors";
+import {
+  actionFetchCatsRequest,
+  actionFetchDogsRequest,
+  actionFetchAnimalsRequest,
+  actionFetchSavedAnimalsCount,
+  actionFetchSickAnimals
+} from "../Animals/store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
@@ -41,18 +45,18 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => {
     switch (kind) {
       case AnimalKind.CAT: {
-        return dispatch(actionHomeFetchCatsRequest(pageParams));
+        return dispatch(actionFetchCatsRequest(pageParams));
       }
       case AnimalKind.DOG: {
-        return dispatch(actionHomeFetchDogsRequest(pageParams));
+        return dispatch(actionFetchDogsRequest(pageParams));
       }
       default: {
-        return dispatch(actionHomeFetchAnimalsRequest(pageParams))
+        return dispatch(actionFetchAnimalsRequest(pageParams))
       }
     }
   },
-  fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount()),
-  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals()),
+  fetchSavedAnimalsCount: () => dispatch(actionFetchSavedAnimalsCount()),
+  fetchSickAnimals: () => dispatch(actionFetchSickAnimals()),
   fetchInfoCard: () => dispatch(actionFetchInfoCard()),
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
     switch (tag) {

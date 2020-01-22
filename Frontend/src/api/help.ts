@@ -1,7 +1,7 @@
 import API from './index';
 import {IAnimal} from './animals';
+import { AllTag } from './requestOptions';
 
-export enum AllTag {TREATMENT = 'treatment', SAVED = 'saved'}
 export interface ISickAnimalsResponse {
     data: IAnimal[]
     pageCount: number;

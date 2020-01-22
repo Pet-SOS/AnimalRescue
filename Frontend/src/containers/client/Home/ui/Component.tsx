@@ -18,8 +18,7 @@ import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import { IInfoCard } from '../../../../api/infoCard';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
-import { IRequestParams } from '../../../../api/requestOptions';
-import { AllTag } from '../../../../api/help';
+import { IRequestParams, AllTag } from '../../../../api/requestOptions';
 import '../styles/home.scss';
 
 interface IPropTypes {
