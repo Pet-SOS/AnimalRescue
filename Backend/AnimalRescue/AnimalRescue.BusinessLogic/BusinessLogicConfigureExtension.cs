@@ -33,8 +33,6 @@ namespace AnimalRescue.BusinessLogic
                 new DonationConfigurationMappingProfile()
             });
 
-            var imageSizesSettings = configuration.GetTypedSection<ImageSizesSettings>("ImageSizes");
-            services.AddSingleton<IImageSizesSettings>(p => imageSizesSettings);
             services.AddSingleton<IImageResize, ImageResize>();
 
             services.AddScoped<IAnimalService, AnimalService>();
