@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {TI18n} from '../../../../i18n';
 import { IAnimalsResponse, AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
-import '../styles/home.scss';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
 import { CounterBlock } from './CounterBlock';
@@ -18,6 +17,7 @@ import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import { IInfoCard } from '../../../../api/infoCard';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
+import { IInfoContacts } from '../../../../api/contacts';
 import { IRequestParams, AllTag } from '../../../../api/requestOptions';
 import '../styles/home.scss';
 
@@ -27,6 +27,7 @@ interface IPropTypes {
   fetchSickAnimals: () => void;
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
+  fetchInfoContacts:() => void;
   animalsList: IAnimalsResponse;
   blogList: IBlogListResponse;
   blogListSaved: IBlogListResponse;
@@ -35,6 +36,7 @@ interface IPropTypes {
   sickAnimalsList: IAnimalsResponse;
   savedAnimalsCount: ISavedAnimalsCountResponse;
   infoCard: IInfoCard;
+  infoContacts: IInfoContacts;
 }
 
 export const HomePageMain: React.FC<IPropTypes> = ({
@@ -43,6 +45,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchSickAnimals,
   fetchInfoCard,
   fetchBlogList,
+  fetchInfoContacts,
   animalsList,
   blogList,
   blogListSaved,
@@ -51,8 +54,10 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   sickAnimalsList,
   savedAnimalsCount,
   infoCard,
+  infoContacts
 }) => {
   useEffect(() => {
+    fetchInfoContacts();
     fetchSickAnimals();
     fetchAnimalsRequest();
     fetchAnimalsRequest(AnimalKind.DOG);
@@ -60,6 +65,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchBlogList(AllTag.SAVED);
     fetchSavedAnimalsCount();
     fetchInfoCard();
+
   }, [])
   const getCounterDateString = (): string => {
     const currentDate: Date = new Date();

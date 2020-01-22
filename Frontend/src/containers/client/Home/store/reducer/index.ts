@@ -12,7 +12,10 @@ import {
     actionHomeFetchBlogListSuccess,
     actionHomeFetchBlogListSavedRequest,
     actionHomeFetchBlogListSavedSuccess,
-    actionHomeFetchBlogListSavedFailure
+    actionHomeFetchBlogListSavedFailure,
+    actionFetchInfoContacts,
+    actionFetchInfoContactsSuccess,
+    actionFetchInfoContactsFailUrl,
 } from "../actions";
 
 const fetchSaveInfoCardStateReducer = genericRequestReducer(
@@ -31,6 +34,12 @@ const fetchBlogListSavedStateReducer = genericRequestReducer(
   actionHomeFetchBlogListSavedRequest,
   actionHomeFetchBlogListSavedSuccess,
   actionHomeFetchBlogListSavedFailure
+)
+
+const fetchInfoContactsStateReducer = genericRequestReducer(
+  actionFetchInfoContacts,
+  actionFetchInfoContactsSuccess,
+  actionFetchInfoContactsFailUrl
 )
 
 export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction): IHomePageState => {
@@ -56,8 +65,24 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
           ...state,
           isActivePopup: action.payload.data
       };
-    
-      case getType(actionHomeFetchBlogListRequest): {
+
+    case getType(actionFetchInfoCard):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action)
+        };
+    case getType(actionFetchInfoCardSuccess):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
+            infoCard: action.payload.data
+        };
+    case getType(actionFetchInfoCardlFailUrl):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
+        };
+    case getType(actionHomeFetchBlogListRequest): {
       return {
         ...state,
         blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action)
@@ -91,6 +116,23 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         ...state,
         blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
       };
+      case getType(actionFetchInfoContacts): {
+        return {
+          ...state,
+          infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
+        }
+      }
+      case getType(actionFetchInfoContactsSuccess):
+        return {
+          ...state,
+          infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action),
+          infoContacts: action.payload
+        };
+      case getType(actionFetchInfoContactsFailUrl):
+        return {
+          ...state,
+          infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
+        };
     default:
         return state;
   }

@@ -10,10 +10,14 @@ import {
   actionHomeFetchBlogListRequest,
   actionHomeFetchBlogListSavedRequest,
   actionHomeFetchBlogListSavedSuccess,
-  actionHomeFetchBlogListSavedFailure
+  actionHomeFetchBlogListSavedFailure,
+  actionFetchInfoContacts,
+  actionFetchInfoContactsSuccess,
+  actionFetchInfoContactsFailUrl
 } from "../actions";
 import { fetchInfoCard } from "../../../../../api/infoCard";
 import { IRequestParams } from '../../../../../api/requestOptions';
+import { fetchInfoContacts } from '../../../../../api/contacts';
 
 function* fetchHomePageInfoCard(){
   try {
@@ -41,9 +45,18 @@ function* getBlogListSaved(action: { type: string, payload?: IRequestParams }) {
     yield put(actionHomeFetchBlogListSavedFailure(e))
   }
 }
+function* fetchHomePageInfoContacts(){
+  try {
+    const response = yield call(fetchInfoContacts);
+    yield put(actionFetchInfoContactsSuccess(response))
+  } catch (e) {
+    yield put(actionFetchInfoContactsFailUrl(e))
+  }
+}
 
 export function* watchHomePage() {
   yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
   yield takeEvery(getType(actionHomeFetchBlogListRequest), getBlogList);
   yield takeEvery(getType(actionHomeFetchBlogListSavedRequest), getBlogListSaved);
+  yield takeEvery(getType(actionFetchInfoContacts), fetchHomePageInfoContacts);
 }
