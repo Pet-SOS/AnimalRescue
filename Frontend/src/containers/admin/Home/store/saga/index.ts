@@ -11,7 +11,6 @@ import {
 function* fetchHomePageAnimalsList() {
     try {
         const response = yield call(fetchAnimals);
-        console.log(response)
         yield put(actionAdminHomeFetchAnimalsSuccess(response))
     } catch (e) {
         yield put(actionAdminHomeFetchAnimalsFailure(e))

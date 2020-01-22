@@ -1,6 +1,6 @@
 import React from "react";
-import {IAnimal, updateAnimal} from "../../api/animals";
-import {BASE_URL} from "../../api";
+import {IAnimal, updateAnimal} from "../../../../api/animals";
+import {BASE_URL} from "../../../../api";
 import './index.scss'
 
 
@@ -8,7 +8,7 @@ interface IAnimalCardProps {
     animal: IAnimal
 }
 
-export class AnimalCard extends React.Component<IAnimalCardProps> {
+export class AnimalEditCard extends React.Component<IAnimalCardProps> {
 
     public state: IAnimal
 
@@ -40,7 +40,7 @@ export class AnimalCard extends React.Component<IAnimalCardProps> {
     }
 
     renderImgs = (imageIds: string[]) => imageIds.map(imageId => <img key={imageId} style={{width: 100, height: 100}}
-                                                                      src={`${BASE_URL}/documents/${imageId}`}/>)
+                                                                      src={`${BASE_URL}documents/${imageId}`}/>)
 
     submit = () => {
         updateAnimal({animal: this.state as IAnimal})

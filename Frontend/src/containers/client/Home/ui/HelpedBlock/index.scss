@@ -1,0 +1,102 @@
+@import './../../../../../styles/variables.scss';
+.helped-holder {
+  padding: 5rem 8.5rem;
+  .slider-holder {
+    .custom-slider-inner {
+      border-radius: 1.5rem;
+    }
+    .swiper-container, .slide-item {
+      background: $bg-lite-box;
+    }
+  }
+  .swiper-slide {
+    border-radius: 1.5rem;
+    height: 25rem;
+    display: flex;
+    overflow: hidden;
+    & > div {
+      width: 50%;
+    }
+    .img-holder {
+      background-size: cover;
+      background-position: center;
+    }
+    .info-holder {
+      padding: 3rem 1.5rem 3rem 1.125rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .info-content {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      margin: 0 0 1.5rem;
+    }
+    .info-title {
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+      font-weight: 900;
+      color: $text-color;
+      margin: 0 0 1.5rem;
+    }
+    .info-text {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+  }
+}
+
+@media (max-width: $normal-device-width) {
+  .helped-holder {
+    padding: 5rem 3rem;
+  }
+}
+
+@media (max-width: $medium-device-width) {
+  .helped-holder {
+    padding: 5rem 1.5rem;
+    .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
+      top: 25rem;
+      margin-top: -1.5rem;
+    }
+    .slider-holder {
+      max-width: 33.375rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .swiper-slide {
+      height: auto;
+      flex-direction: column;
+      & > div {
+        width: 100%;
+      }
+      .img-holder {
+        height: 25rem;
+      }
+      .info-holder {
+        flex: 1 1 auto;
+        max-height: 25rem;
+      }
+    }
+  }
+}
+@media (max-width: $small-device-width) {
+  .helped-holder {
+    padding: 3.75rem 1rem;
+    .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
+      top: 16.5rem;
+    }
+    .swiper-slide {
+      .img-holder {
+        height: 16.5rem;
+      }
+      .info-holder {
+        max-height: 19.125rem;
+      }
+    }
+  }
+}

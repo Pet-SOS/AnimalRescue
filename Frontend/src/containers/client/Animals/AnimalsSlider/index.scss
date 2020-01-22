@@ -1,0 +1,31 @@
+@import '../../../../styles/variables.scss';
+.animal-list-holder {
+  padding: 1.25rem 8.5rem;
+  background: $bg-lite-box;
+  .slider-holder {
+    margin: 0 0 2rem;
+  }
+  .swiper-button-next, .swiper-button-prev {
+    top: 8.1875rem;
+  }
+}
+@media (max-width: $normal-device-width) {
+  .animal-list-holder {
+    padding: 3rem 3rem;
+    .slider-holder {
+      max-width: 100%;
+    }
+    .custom-slider-inner, .swiper-container {
+      overflow: visible;
+    }
+  }
+}
+
+@media (max-width: $medium-device-width) {
+  .animal-list-holder {
+    padding: 2rem 1rem;
+    .slider-holder {
+      max-width: 100%;
+    }
+  }
+}
