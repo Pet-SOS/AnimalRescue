@@ -21,7 +21,10 @@ import {
     actionHomeFetchSavedAnimalsCountFailure,
     actionFetchInfoCard,
     actionFetchInfoCardSuccess,
-    actionFetchInfoCardlFailUrl
+    actionFetchInfoCardlFailUrl,
+    actionHomeFetchBlogListRequest,
+    actionHomeFetchBlogListFailure,
+    actionHomeFetchBlogListSuccess
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
@@ -60,6 +63,13 @@ const fetchSaveInfoCardStateReducer = genericRequestReducer(
   actionFetchInfoCardSuccess,
   actionFetchInfoCardlFailUrl
 )
+
+const fetchBlogListStateReducer = genericRequestReducer(
+  actionHomeFetchBlogListRequest,
+  actionHomeFetchBlogListSuccess,
+  actionHomeFetchBlogListFailure
+)
+
 export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
   switch (action.type) {
     case getType(actionHomeFetchAnimalsRequest):
@@ -148,23 +158,39 @@ export const homePageReducer = (state:IHomePageState = DEFAULT_HOME_PAGE_STATE, 
             ...state,
             sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
         };
-        //*card//
-      case getType(actionFetchInfoCard):
-          return {
-              ...state,
-              infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action)
-          };
-      case getType(actionFetchInfoCardSuccess):
-          return {
-              ...state,
-              infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
-              infoCard: action.payload.data
-          };
-      case getType(actionFetchInfoCardlFailUrl):
-          return {
-              ...state,
-              infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
-          };
+    case getType(actionFetchInfoCard):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action)
+        };
+    case getType(actionFetchInfoCardSuccess):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
+            infoCard: action.payload.data
+        };
+    case getType(actionFetchInfoCardlFailUrl):
+        return {
+            ...state,
+            infoCardState: fetchSaveInfoCardStateReducer(state.sickAnimalsListState, action),
+        };
+    case getType(actionHomeFetchBlogListRequest): {
+      return {
+        ...state,
+        blogListState: fetchBlogListStateReducer(state.blogListRequestState, action)
+      }
+    }
+    case getType(actionHomeFetchBlogListSuccess):
+      return {
+        ...state,
+        blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action),
+        blogList: action.payload
+      };
+    case getType(actionHomeFetchBlogListFailure):
+      return {
+        ...state,
+        blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action)
+      };
     default:
         return state;
   }

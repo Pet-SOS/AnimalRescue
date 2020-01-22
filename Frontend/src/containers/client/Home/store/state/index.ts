@@ -1,10 +1,13 @@
 import {IRequestState, DEFAULT_REQUEST_STATE} from "../../../../../api";
 import { IAnimalsResponse, ISavedAnimalsCountResponse} from "../../../../../api/animals";
 import { IInfoCard } from "../../../../../api/infoCard";
+import { IBlogListResponse } from './../../../../../api/blog';
 
 export interface IHomePageState {
     animalsList: IAnimalsResponse;
     animalsListRequestState: IRequestState;
+    blogList: IBlogListResponse;
+    blogListRequestState: IRequestState;
     isActivePopup: boolean;
     sickAnimalsListState:  IRequestState; 
     sickAnimalsList: IAnimalsResponse;
@@ -40,9 +43,20 @@ export const DEFAULT_INFO_CARD = {
        body: '',
      }
 }
+export const DEFAULT_BLOGS: IBlogListResponse = {
+  data: [],
+  pageCount: 0,
+  pageNumber: 0,
+  pageSize: 0,
+  self: '',
+  totalCount: 0
+};
+
 export const DEFAULT_HOME_PAGE_STATE = {
     animalsList: {...DEFAULT_ANIMALS},
     animalsListRequestState: {...DEFAULT_REQUEST_STATE},
+    blogList: {...DEFAULT_BLOGS},
+    blogListRequestState: { ...DEFAULT_REQUEST_STATE},
     isActivePopup:  false,
     sickAnimalsList: {...DEFAULT_ANIMALS}, 
     sickAnimalsListState:{...DEFAULT_REQUEST_STATE},

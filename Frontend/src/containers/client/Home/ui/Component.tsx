@@ -1,7 +1,7 @@
 import React from 'react';
 import {RouteComponentProps} from "react-router";
 import {TI18n} from '../../../../i18n';
-import { IAnimalsResponse, AnimalKind, IAnimalRequestParams, ISavedAnimalsCountResponse, IAnimal } from "../../../../api/animals";
+import { IAnimalsResponse, AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsList } from '../../../../components/AnimalsList';
 import '../styles/home.scss';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
@@ -18,14 +18,17 @@ import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import { IInfoCard } from '../../../../api/infoCard';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
-
+import { IBlogListResponse, DEFAULT_SAVED_BLOG_REQUEST_PARAMS } from '../../../../api/blog';
+import { IRequestParams } from '../../../../api/requestOptions';
 
 interface IPropTypes extends RouteComponentProps<any> {
-  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IAnimalRequestParams) => void;
+  fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
   fetchSickAnimals: () => void;
   fetchInfoCard: ()=> void;
+  fetchBlogList: (pageParams?: IRequestParams) => void;
   animalsList: IAnimalsResponse;
+  blogList: IBlogListResponse;
   catsList: IAnimalsResponse;
   dogsList: IAnimalsResponse;
   sickAnimalsList: IAnimalsResponse;
@@ -43,6 +46,7 @@ export class HomePageMain extends React.Component<IPropTypes> {
       this.props.fetchAnimalsRequest(AnimalKind.CAT);
       this.props.fetchSavedAnimalsCount();
       this.props.fetchInfoCard();
+      this.getSavedBlogList();
     }
 
     get getAnimalsList() {
@@ -57,6 +61,9 @@ export class HomePageMain extends React.Component<IPropTypes> {
             }))
         }
         return []
+    }
+    private getSavedBlogList(): void {
+      this.props.fetchBlogList(DEFAULT_SAVED_BLOG_REQUEST_PARAMS);
     }
     private getCounterDateString(): string {
       const currentDate: Date = new Date();
@@ -109,8 +116,8 @@ export class HomePageMain extends React.Component<IPropTypes> {
                   images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
                 />
                 <HelpedBlock
-                  data={this.props.animalsList.data}
-                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
+                  data={this.props.blogList.data}
+                  title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}/>
                 />
                 <HelpBlock
                 animalsList={this.props.sickAnimalsList}

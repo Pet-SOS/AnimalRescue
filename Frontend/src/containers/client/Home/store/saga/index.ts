@@ -1,6 +1,7 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import {getType} from 'typesafe-actions';
-import {fetchAnimals, fetchSavedAnimalsCount, IAnimalRequestParams} from "../../../../../api/animals";
+import {fetchAnimals, fetchSavedAnimalsCount} from "../../../../../api/animals";
+import { fetchBlogList } from "../../../../../api/blog";
 import {fetchSickAnimals} from "../../../../../api/help";
 import {
   actionHomeFetchAnimalsRequest,
@@ -20,11 +21,15 @@ import {
   actionHomeFetchSickAnimalFailUrl,
   actionFetchInfoCard,
   actionFetchInfoCardSuccess,
-  actionFetchInfoCardlFailUrl
+  actionFetchInfoCardlFailUrl,
+  actionHomeFetchBlogListSuccess,
+  actionHomeFetchBlogListFailure,
+  actionHomeFetchBlogListRequest
 } from "../actions";
 import { fetchInfoCard } from '../../../../../api/infoCard';
+import { IRequestParams } from '../../../../../api/requestOptions';
 
-function* fetchHomePageAnimalsList(action: { type: string, payload?: IAnimalRequestParams }) {
+function* fetchHomePageAnimalsList(action: { type: string, payload?: IRequestParams }) {
     try {
       const response = yield call(fetchAnimals, action.payload);
       yield put(actionHomeFetchAnimalsSuccess(response))
@@ -33,7 +38,7 @@ function* fetchHomePageAnimalsList(action: { type: string, payload?: IAnimalRequ
     }
 }
 
-function* fetchHomePageDogsList(action: { type: string, payload?: IAnimalRequestParams }) {
+function* fetchHomePageDogsList(action: { type: string, payload?: IRequestParams }) {
   try {
     const response = yield call(fetchAnimals, action.payload);
     yield put(actionHomeFetchDogsSuccess(response))
@@ -50,7 +55,7 @@ function* fetchHomePageSickAnimalsList() {
     }
 }
 
-function* fetchHomePageCatsList(action: { type: string, payload?: IAnimalRequestParams }) {
+function* fetchHomePageCatsList(action: { type: string, payload?: IRequestParams }) {
   try {
     const response = yield call(fetchAnimals, action.payload);
     yield put(actionHomeFetchCatsSuccess(response))
@@ -77,6 +82,15 @@ function* fetchHomePageInfoCard(){
   }
 }
 
+function* getBlogList(action: { type: string, payload?: IRequestParams }) {
+  try {
+    const response = yield call(fetchBlogList, action.payload);
+    yield put(actionHomeFetchBlogListSuccess(response))
+  } catch (e) {
+    yield put(actionHomeFetchBlogListFailure(e))
+  }
+}
+
 export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchAnimalsRequest), fetchHomePageAnimalsList);
   yield takeEvery(getType(actionHomeFetchDogsRequest), fetchHomePageDogsList);
@@ -84,4 +98,5 @@ export function* watchHomePage() {
   yield takeEvery(getType(actionHomeFetchSavedAnimalsCount), getSavedAnimalsCount)
   yield takeEvery(getType(actionHomeFetchSickAnimals), fetchHomePageSickAnimalsList);
   yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
+  yield takeEvery(getType(actionHomeFetchBlogListRequest), getBlogList);
 }
