@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AnimalRescue.API.Models.FinancialReports
 {
-    public class FinancialReportCreateModel
+    public class FinancialReportCreateUpdateModel
     {
         [JsonPropertyName(PropertyConstants.Common.Title)]
         [JsonProperty(PropertyConstants.Common.Title)]

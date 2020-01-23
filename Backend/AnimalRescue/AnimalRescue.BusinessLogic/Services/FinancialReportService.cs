@@ -1,8 +1,13 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+﻿using AnimalRescue.BusinessLogic.Extensions;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+
 using AutoMapper;
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -27,6 +32,20 @@ namespace AnimalRescue.BusinessLogic.Services
             var financialReportDto = _mapper.Map<FinancialReport, FinancialReportDto>(financialReport);
 
             return financialReportDto;
+        }
+
+        public async Task<BlCollectonResponse<FinancialReportDto>> GetAsync(ApiQueryRequest queryRequest)
+        {
+            var dbQuery = queryRequest.ToDbQuery();
+            var animals = await _financialReportRepository.GetAsync(dbQuery);
+            var result = _mapper.Map<List<FinancialReport>, List<FinancialReportDto>>(animals);
+            var count = await _financialReportRepository.GetCountAsync(dbQuery);
+
+            return new BlCollectonResponse<FinancialReportDto>
+            {
+                Collection = result,
+                TotalCount = count
+            };
         }
 
         public async Task<FinancialReportDto> CreateAsync(FinancialReportDto financialReportDto)

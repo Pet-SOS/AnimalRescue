@@ -14,7 +14,7 @@ export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, text
                     ></div>
                     <div className="title">{title}</div>
                     <div className='pets'>
-                    {boxImages.map((item: string, index: number)=> <img src={item} className={`bg-image${index} pet`} key={index} alt={`bg-image${index}`} />)}
+                    {boxImages.map((item: string, index: number)=> <img src={item} className={`bg-image${index} pet`} key={index} alt='pets'/>)}
                     </div>
                 </div>
                 <div className="second-block">

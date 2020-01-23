@@ -1,13 +1,13 @@
 @import './../../../../styles/variables.scss';
 .home-page-client {
   min-height: 10rem;
-  .animal-list-wrapper {
+  .animals-slider-wrapper {
     background: $bg-lite-box;
     padding: 3.75rem 0;
   }
 }
 @media (max-width: $normal-device-width) {
-  .home-page-client .animal-list-wrapper {
+  .home-page-client .animals-slider-wrapper {
     padding: 2rem 0;
   }
 }

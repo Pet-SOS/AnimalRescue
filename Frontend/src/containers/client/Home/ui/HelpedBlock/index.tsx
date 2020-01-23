@@ -1,8 +1,8 @@
 import React from 'react';
 import { HelpedBlockItem } from './item';
-import { Slider } from '../Slider';
+import { Slider } from '../../../../../components/Slider';
 import './index.scss';
-import { IBlogItem } from '../../api/blog';
+import { IBlogItem } from '../../../../../api/blog';
 
 interface IPropTypes {
   data: IBlogItem[];

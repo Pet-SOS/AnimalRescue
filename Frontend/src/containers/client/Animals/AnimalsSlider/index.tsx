@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Slider } from '../Slider';
-import { AnimalListItem } from './item';
-import { IBlockLinkPropTypes, BlockLink } from '../BlockLink';
+import { Slider } from '../../../../components/Slider';
+import { AnimalCard } from '../AnimalCard';
+import { IBlockLinkPropTypes, BlockLink } from '../../../../components/BlockLink';
 import './index.scss';
 
 interface IPropTypes {
@@ -10,7 +10,7 @@ interface IPropTypes {
   link?: IBlockLinkPropTypes
 }
 
-export const AnimalsList: React.FC<IPropTypes> = ({ data, title, link }) => {
+export const AnimalsSlider: React.FC<IPropTypes> = ({ data, title, link }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const listener = () => {
@@ -22,7 +22,7 @@ export const AnimalsList: React.FC<IPropTypes> = ({ data, title, link }) => {
     };
   }, []);
   
-  const getSlideElements = (): React.ReactNode[] => [...data.map(animal => <AnimalListItem animal={animal}/>)];
+  const getSlideElements = (): React.ReactNode[] => [...data.map(animal => <AnimalCard animal={animal}/>)];
   return (
     <div className="animal-list-holder">
       <h2 className="title">{title}</h2>

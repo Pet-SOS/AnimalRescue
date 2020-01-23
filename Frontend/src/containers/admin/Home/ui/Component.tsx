@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/home.scss';
 import {IAnimal, IAnimalsResponse} from "../../../../api/animals";
-import {AnimalCard} from "../../../../components/AnimalCard";
+import {AnimalEditCard} from "../../../client/Animals/AnimalEditCard";
 
 interface AdminHomeProps {
     animalsList: IAnimalsResponse
@@ -15,7 +15,7 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
 
     renderAnimal = (animal: IAnimal) => {
         return (<div key={animal.id} className={'animal-card'}>
-            {<AnimalCard animal={animal}/>}
+          {<AnimalEditCard animal={animal}/>}
         </div>)
     }
 

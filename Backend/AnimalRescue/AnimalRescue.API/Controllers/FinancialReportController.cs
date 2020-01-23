@@ -1,10 +1,16 @@
-﻿using AnimalRescue.API.Models.FinancialReports;
+﻿using AnimalRescue.API.Core.Responses;
+using AnimalRescue.API.Models.FinancialReports;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.Infrastructure.Validation;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,63 +43,58 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<FinancialReportModel>> GetItemByIdAsync([FromRoute] string financialReportId)
+        public async Task<ActionResult<FinancialReportModel>> GetItemByIdAsync([FromRoute] string id)
         {
-            return await GetItemAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, financialReportId, _mapper);
+            return await GetItemAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, id, _mapper);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<CollectionSegmentApiResponse<FinancialReportModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
+        {
+            return await GetCollectionAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, queryRequest, _mapper);
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<FinancialReportModel>> CreateItemAsync([FromForm] FinancialReportCreateModel financialReportCreateModel)
+        public async Task<ActionResult<FinancialReportModel>> CreateItemAsync([FromForm] FinancialReportCreateUpdateModel financialReportCreateModel)
         {
+            Require.Objects.NotNull(financialReportCreateModel.File, nameof(financialReportCreateModel.File));
+
             var fileIds = await _documentService.UploadFileAsync(
                 new List<IFormFile>()
                 {
                     financialReportCreateModel.File
                 });
 
-            var financialReportModel = _mapper.Map<FinancialReportCreateModel, FinancialReportModel>(financialReportCreateModel);
-
-            if (fileIds?.Count > 0)
-            {
-                if (fileIds.Count != 1)
-                {
-                    // TODO throw an exception
-                }
-
-                financialReportModel.FileId = fileIds.Single();
-            }
+            var financialReportModel = _mapper.Map<FinancialReportCreateUpdateModel, FinancialReportModel>(financialReportCreateModel);
+            financialReportModel.FileId = fileIds.First();
 
             return await CreatedItemAsync(_financialReportService, financialReportModel, _mapper);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromForm] FinancialReportUpdateModel financialReportUpdateModel)
+        public async Task UpdateAsync([FromRoute] string id, [FromForm] FinancialReportCreateUpdateModel financialReportUpdateModel)
         {
+            Require.Objects.NotNull(financialReportUpdateModel.File, nameof(financialReportUpdateModel.File));
+
             var fileIds = await _documentService.UploadFileAsync(
                 new List<IFormFile>()
                 {
                     financialReportUpdateModel.File
                 });
 
-            var financialReportModel = _mapper.Map<FinancialReportUpdateModel, FinancialReportModel>(financialReportUpdateModel);
-            financialReportModel.FileId = (await _financialReportService.GetAsync(financialReportModel.Id)).FileId;
+            var financialReportModel = _mapper.Map<FinancialReportCreateUpdateModel, FinancialReportModel>(financialReportUpdateModel);
+            financialReportModel.Id = id;
+            financialReportModel.FileId = fileIds.First();
 
-            if (fileIds?.Count > 0)
-            {
-                if (fileIds.Count != 1)
-                {
-                    // TODO throw an exception
-                }
-
-                financialReportModel.FileId = fileIds.Single();
-            }
-
-            await UpdateDataAsync(_financialReportService, financialReportModel, _mapper);
+            await UpdateDataAsync(_financialReportService, id, financialReportModel, _mapper);
         }
 
         [HttpDelete("{id}")]

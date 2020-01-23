@@ -9,11 +9,10 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
-
 using AutoMapper;
-
 using System.Collections.Generic;
 using System.Linq;
+using AnimalRescue.API.Models.Tags;
 using AnimalRescue.API.Models.FinancialReports;
 
 namespace AnimalRescue.API.Core
@@ -35,16 +34,17 @@ namespace AnimalRescue.API.Core
 
             CreateMap<FinancialReportModel, FinancialReportDto>();
             CreateMap<FinancialReportDto, FinancialReportModel>();
-            CreateMap<FinancialReportCreateModel, FinancialReportModel>();
-            CreateMap<FinancialReportUpdateModel, FinancialReportModel>();
+            CreateMap<FinancialReportCreateUpdateModel, FinancialReportModel>();
 
-            CreateMap<AnimalCreateModel, AnimalModel>()
+            CreateMap<AnimalCreateUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
-            CreateMap<AnimalCreateModel, AnimalDto>()
+            CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
-            CreateMap<AnimalUpdateModel, AnimalModel>()
-                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
+            CreateMap<TagModel, TagDto>();
+            CreateMap<TagDto, TagModel>();
+            CreateMap<TagCreateUpdateModel, TagModel>();
+            CreateMap<TagCreateUpdateModel, TagDto>();
 
             BlogConfigs(); 
         }

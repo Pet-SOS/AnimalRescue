@@ -1,10 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using AnimalRescue.Contracts.Common.Exceptions;
+﻿using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
@@ -44,6 +47,20 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         public async Task DeleteAsync(string financialReportId)
         {
             await _baseCollection.RemoveAsync(financialReportId);
+        }
+
+        public async Task<int> GetCountAsync(DbQuery query)
+        {
+            var result = await _baseCollection.GetCountAsync(query);
+
+            return result;
+        }
+
+        public async Task<List<FinancialReport>> GetAsync(DbQuery query)
+        {
+            var result = await _baseCollection.GetAsync(query);
+
+            return result;
         }
     }
 }
