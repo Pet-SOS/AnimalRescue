@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace AnimalRescue.API.Models.Tags
 {
-    public class TagCreateModel
+    public class TagCreateUpdateModel
     {
         [JsonPropertyName(PropertyConstants.Common.Type)]
         [JsonProperty(PropertyConstants.Common.Type)]

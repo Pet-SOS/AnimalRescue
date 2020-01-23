@@ -1,13 +1,16 @@
 ﻿using AnimalRescue.API.Core.Responses;
+using AnimalRescue.API.Models.Tags;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
 using System.Threading.Tasks;
-using AnimalRescue.API.Models.Tags;
 
 namespace AnimalRescue.API.Controllers
 {
@@ -54,20 +57,18 @@ namespace AnimalRescue.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<TagModel>> CreateItemAsync([FromForm] TagCreateModel tagCreateModel)
+        public async Task<ActionResult<TagModel>> CreateItemAsync([FromForm] TagCreateUpdateModel tagCreateModel)
         {
-            var tagModel = _mapper.Map<TagCreateModel, TagModel>(tagCreateModel);
-            return await CreatedItemAsync(_tagService, tagModel, _mapper);
+            return await CreatedItemAsync<TagDto,TagCreateUpdateModel,TagModel>(_tagService, tagCreateModel, _mapper);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromForm] TagUpdateModel tagUpdateModel)
+        public async Task UpdateAsync([FromRoute] string id, [FromForm] TagCreateUpdateModel tagUpdateModel)
         {
-            var tagModel = _mapper.Map<TagUpdateModel, TagModel>(tagUpdateModel);
-            await UpdateDataAsync(_tagService, tagModel, _mapper);
+            await UpdateDataAsync(_tagService, id, tagUpdateModel, _mapper);
         }
 
         [HttpDelete("{id}")]
