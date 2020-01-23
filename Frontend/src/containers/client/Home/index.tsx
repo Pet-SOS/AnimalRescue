@@ -1,28 +1,35 @@
+
 import {connect} from "react-redux";
 import {HomePageMain} from "./ui/Component";
 import {ICustomAppState} from "../../../store/state";
-import {
-  selectAnimalsList,
-  selectDogsList,
-  selectSavedAnimalsCount,
-  selectCatsList,
-  selectSickAnimals,
-  selectBlogList,
-  selectBlogListSaved} from "./store/selectors";
+import { IRequestParams, AllTag } from "../../../api/requestOptions";
 import { AnimalKind } from "../../../api/animals";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
 import {
-    actionHomeFetchSickAnimals,
-    actionHomeFetchAnimalsRequest,
-    actionHomeFetchDogsRequest,
-    actionHomeFetchCatsRequest,
-    actionHomeFetchSavedAnimalsCount,
-    actionHomeFetchBlogListRequest,
-    actionHomeFetchBlogListSavedRequest,
+  actionFetchInfoCard,
+  actionFetchInfoContacts,
 } from "./store/actions";
-import { IRequestParams } from "../../../api/requestOptions";
-import { AllTag } from "../../../api/help";
+import {
+  selectSavedInfoCard,
+  selectInfoContacts
+} from "./store/selectors";
+import {
+  selectAnimalsList,
+  selectCatsList,
+  selectDogsList,
+  selectSickAnimals,
+  selectSavedAnimalsCount
+} from "../Animals/store/selectors";
+import {
+  actionFetchCatsRequest,
+  actionFetchDogsRequest,
+  actionFetchAnimalsRequest,
+  actionFetchSavedAnimalsCount,
+  actionFetchSickAnimals
+} from "../Animals/store/actions";
+import { selectBlogList, selectBlogListSaved } from "../Blog/store/selectors";
+import { actionFetchBlogListSavedRequest, actionFetchBlogListRequest } from "../Blog/store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
@@ -32,34 +39,38 @@ const mapStateToProps = (state: ICustomAppState) => ({
   dogsList: selectDogsList(state),
   sickAnimalsList: selectSickAnimals(state),
   savedAnimalsCount: selectSavedAnimalsCount(state),
+  infoCard: selectSavedInfoCard(state),
+  infoContacts: selectInfoContacts(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => {
     switch (kind) {
       case AnimalKind.CAT: {
-        return dispatch(actionHomeFetchCatsRequest(pageParams));
+        return dispatch(actionFetchCatsRequest(pageParams));
       }
       case AnimalKind.DOG: {
-        return dispatch(actionHomeFetchDogsRequest(pageParams));
+        return dispatch(actionFetchDogsRequest(pageParams));
       }
       default: {
-        return dispatch(actionHomeFetchAnimalsRequest(pageParams))
+        return dispatch(actionFetchAnimalsRequest(pageParams))
       }
     }
   },
-  fetchSavedAnimalsCount: () => dispatch(actionHomeFetchSavedAnimalsCount()),
-  fetchSickAnimals: () => dispatch(actionHomeFetchSickAnimals()),
+  fetchSavedAnimalsCount: () => dispatch(actionFetchSavedAnimalsCount()),
+  fetchSickAnimals: () => dispatch(actionFetchSickAnimals()),
+  fetchInfoCard: () => dispatch(actionFetchInfoCard()),
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
     switch (tag) {
       case AllTag.SAVED: {
-        return dispatch(actionHomeFetchBlogListSavedRequest(pageParams));
+        return dispatch(actionFetchBlogListSavedRequest(pageParams));
       }
       default: {
-        return dispatch(actionHomeFetchBlogListRequest(pageParams));
+        return dispatch(actionFetchBlogListRequest(pageParams));
       }
     }
   },
+  fetchInfoContacts:() => dispatch(actionFetchInfoContacts()),
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

@@ -1,101 +1,36 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import {getType} from 'typesafe-actions';
-import {fetchAnimals, fetchSavedAnimalsCount} from "../../../../../api/animals";
-import { fetchBlogList } from "../../../../../api/blog";
-import {fetchSickAnimals} from "../../../../../api/help";
 import {
-  actionHomeFetchAnimalsRequest,
-  actionHomeFetchAnimalsSuccess,
-  actionHomeFetchAnimalsFailure,
-  actionHomeFetchDogsRequest,
-  actionHomeFetchDogsSuccess,
-  actionHomeFetchDogsFailure,
-  actionHomeFetchCatsRequest,
-  actionHomeFetchCatsSuccess,
-  actionHomeFetchCatsFailure,
-  actionHomeFetchSavedAnimalsCount,
-  actionHomeFetchSavedAnimalsCountSuccess,
-  actionHomeFetchSavedAnimalsCountFailure,
-  actionHomeFetchSickAnimals,
-  actionHomeFetchSickAnimalsSuccess,
-  actionHomeFetchSickAnimalFailUrl,
-  actionHomeFetchBlogListSuccess,
-  actionHomeFetchBlogListFailure,
-  actionHomeFetchBlogListRequest,
-  actionHomeFetchBlogListSavedRequest,
-  actionHomeFetchBlogListSavedSuccess,
-  actionHomeFetchBlogListSavedFailure
+  actionFetchInfoCard,
+  actionFetchInfoCardSuccess,
+  actionFetchInfoCardlFailUrl,
+  actionFetchInfoContacts,
+  actionFetchInfoContactsSuccess,
+  actionFetchInfoContactsFailUrl
 } from "../actions";
-import { IRequestParams } from '../../../../../api/requestOptions';
+import { fetchInfoCard } from "../../../../../api/infoCard";
+import { fetchInfoContacts } from '../../../../../api/contacts';
 
-function* fetchHomePageAnimalsList(action: { type: string, payload?: IRequestParams }) {
-    try {
-      const response = yield call(fetchAnimals, action.payload);
-      yield put(actionHomeFetchAnimalsSuccess(response))
-    } catch (e) {
-      yield put(actionHomeFetchAnimalsFailure(e))
-    }
-}
-
-function* fetchHomePageDogsList(action: { type: string, payload?: IRequestParams }) {
+function* fetchHomePageInfoCard(){
   try {
-    const response = yield call(fetchAnimals, action.payload);
-    yield put(actionHomeFetchDogsSuccess(response))
+    const response = yield call(fetchInfoCard);
+    yield put(actionFetchInfoCardSuccess(response))
   } catch (e) {
-    yield put(actionHomeFetchDogsFailure(e))
-  }
-}
-function* fetchHomePageSickAnimalsList() {
-    try {
-        const response = yield call(fetchSickAnimals);
-        yield put(actionHomeFetchSickAnimalsSuccess(response))
-    } catch (e) {
-        yield put(actionHomeFetchSickAnimalFailUrl(e))
-    }
-}
-
-function* fetchHomePageCatsList(action: { type: string, payload?: IRequestParams }) {
-  try {
-    const response = yield call(fetchAnimals, action.payload);
-    yield put(actionHomeFetchCatsSuccess(response))
-  } catch (e) {
-    yield put(actionHomeFetchCatsFailure(e))
+    yield put(actionFetchInfoCardlFailUrl(e))
   }
 }
 
-function* getSavedAnimalsCount() {
+function* fetchHomePageInfoContacts(){
   try {
-    const response = yield call(fetchSavedAnimalsCount);
-    yield put(actionHomeFetchSavedAnimalsCountSuccess(response))
+    const response = yield call(fetchInfoContacts);
+    yield put(actionFetchInfoContactsSuccess(response))
   } catch (e) {
-    yield put(actionHomeFetchSavedAnimalsCountFailure(e))
-  }
-}
-
-function* getBlogList(action: { type: string, payload?: IRequestParams }) {
-  try {
-    const response = yield call(fetchBlogList, action.payload);
-    yield put(actionHomeFetchBlogListSuccess(response))
-  } catch (e) {
-    yield put(actionHomeFetchBlogListFailure(e))
-  }
-}
-
-function* getBlogListSaved(action: { type: string, payload?: IRequestParams }) {
-  try {
-    const response = yield call(fetchBlogList, action.payload);
-    yield put(actionHomeFetchBlogListSavedSuccess(response))
-  } catch (e) {
-    yield put(actionHomeFetchBlogListSavedFailure(e))
+    yield put(actionFetchInfoContactsFailUrl(e))
   }
 }
 
 export function* watchHomePage() {
-  yield takeEvery(getType(actionHomeFetchAnimalsRequest), fetchHomePageAnimalsList);
-  yield takeEvery(getType(actionHomeFetchDogsRequest), fetchHomePageDogsList);
-  yield takeEvery(getType(actionHomeFetchCatsRequest), fetchHomePageCatsList);
-  yield takeEvery(getType(actionHomeFetchSavedAnimalsCount), getSavedAnimalsCount)
-  yield takeEvery(getType(actionHomeFetchSickAnimals), fetchHomePageSickAnimalsList);
-  yield takeEvery(getType(actionHomeFetchBlogListRequest), getBlogList);
-  yield takeEvery(getType(actionHomeFetchBlogListSavedRequest), getBlogListSaved);
+  yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
+  yield takeEvery(getType(actionFetchInfoContacts), fetchHomePageInfoContacts);
+  yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
 }

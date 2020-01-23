@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {ReactComponent as Logo} from '../../../../assets/header/logo.svg';
 import {AppMenu} from './Menu';
 import {ChangeLocale, TI18n} from "../../../../i18n";
 import {SocialLinks} from "../../../../components/SocialLinks";
 import {store} from '../../../../store/index';
-
 import { PopupInfo } from './PopupInfo';
 import { PhoneLink } from '../../../../components/PhoneLink';
-import '../styles/header.scss'
 import { MobileMenu } from './MobileMenu';
 import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage9 from '../../../../img/counter-images/counter_9.png';
 import counterImage10 from '../../../../img/counter-images/counter_10.png';
+import { IBankCard } from '../../../../api/infoCard';
+import '../styles/header.scss'
+import { ICustomAppState } from '../../../../store/state';
 
 interface IPropTypes {
 }
 
 const AppHeader: React.FC<IPropTypes> = () => {
-    let [isActivePopup, setIsActivePopup] = useState(0);
-    store.subscribe(() =>{
-        isActivePopup = store.getState().homePage.isActivePopup;
-        setIsActivePopup(store.getState().homePage.isActivePopup); 
-    })
-    
-    let [isActiveMenu, setIsActiveMenu] = useState(false);
 
+  const isActivePopup: boolean = useSelector((store: ICustomAppState) => (store.homePage.isActivePopup));
+  const infoCard: IBankCard = store.getState().homePage.infoCard.data.bankCard;   
+  const [isActiveMenu, setIsActiveMenu] = useState(false);
 
     return (
         <header>
@@ -59,8 +57,8 @@ const AppHeader: React.FC<IPropTypes> = () => {
         {isActivePopup ? <PopupInfo
             boxImages={[counterImage5,counterImage9,counterImage6,counterImage10]}
             title={<TI18n keyStr="popupInfoBlockTitle" default="Помощь животным" />}
-            card={<TI18n keyStr="popupInfoCard" default="5169 3305 1022 8304" />}
-            cardName={<TI18n keyStr="popupInfoCardName" default="Волкова Галина" />}
+            card={infoCard.cardNumber}
+            cardName={`${infoCard.firstName} ${infoCard.lastName}`}
             textFirst={<TI18n 
                 keyStr="popupBlockFirstText" 
                 default="Если Вы хотите помочь нам и нашим подопечным, переведите любую сумму на карту Приватбанка:" />}

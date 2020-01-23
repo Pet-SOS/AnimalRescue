@@ -19,7 +19,7 @@ namespace AnimalRescue.API.Controllers
         private readonly ILogger<AnimalsController> _logger;
         private readonly IAnimalService animalService;
         private readonly IDocumentService documentService;
-        public readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public AnimalsController(
             ILogger<AnimalsController> logger, 
@@ -68,11 +68,11 @@ namespace AnimalRescue.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<AnimalModel>> CreateItemAsync([FromForm] AnimalCreateModel animalCreateModel)
+        public async Task<ActionResult<AnimalModel>> CreateItemAsync([FromForm] AnimalCreateUpdateModel animalCreateModel)
         {
             var imageIds = await documentService.UploadFileAsync(animalCreateModel.Images);
             
-            AnimalModel animalModel = _mapper.Map<AnimalCreateModel, AnimalModel>(animalCreateModel);
+            AnimalModel animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalCreateModel);
 
             if(imageIds?.Count > 0)
             {
@@ -83,15 +83,16 @@ namespace AnimalRescue.API.Controllers
             return await CreatedItemAsync(animalService, animalModel, _mapper);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromForm] AnimalUpdateModel animalUpdateModel)
+        public async Task UpdateAsync([FromRoute] string id, [FromForm] AnimalCreateUpdateModel animalUpdateModel)
         {
             var imageIds = await documentService.UploadFileAsync(animalUpdateModel.Images);
 
-            AnimalModel animalModel = _mapper.Map<AnimalUpdateModel, AnimalModel>(animalUpdateModel);
+            AnimalModel animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalUpdateModel);
+            animalModel.Id = id;
             animalModel.ImageIds = (await animalService.GetAsync(animalModel.Id)).ImageIds;
 
             if (imageIds?.Count > 0)
@@ -99,7 +100,7 @@ namespace AnimalRescue.API.Controllers
                 animalModel.ImageIds.AddRange(imageIds);
             } 
 
-            await UpdateDataAsync(animalService, animalModel, _mapper);
+            await UpdateDataAsync(animalService, id, animalModel, _mapper);
         }
 
         [HttpDelete("{id}")]
