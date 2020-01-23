@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
