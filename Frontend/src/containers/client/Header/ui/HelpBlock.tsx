@@ -22,6 +22,7 @@ export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, c
                             sliders={animalsList.data.slice(0, 3)}
                             updatePostInfo ={updatePostInfo}
                             slideIndex = {indexPost}
+                            story={story}
                         />
                     </div>
                     <div className="box-text">
