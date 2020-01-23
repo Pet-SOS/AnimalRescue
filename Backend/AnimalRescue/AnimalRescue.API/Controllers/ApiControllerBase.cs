@@ -70,12 +70,24 @@ namespace AnimalRescue.API.Controllers
 
             return CreatedItem(itemModel);
         }
+        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDtoIn, TInModel, TOutModel>(
+            IBlCreateAsync<TDtoIn, TDtoIn> service,
+            TInModel value,
+            IMapper mapper) where TOutModel : BaseModel
+        {
+            TDtoIn itemDto = mapper.Map<TInModel, TDtoIn>(value);
+            itemDto = await service.CreateAsync(itemDto);
+            var itemModel = mapper.Map<TDtoIn, TOutModel>(itemDto);
+
+            return CreatedItem(itemModel);
+        }
+
         protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDto, TInModel, TOutModel>(
-            IBlCreateAsync<TDto, TDto> service,            
-            IDocumentService documentService,  
-            TInModel value,       
+            IBlCreateAsync<TDto, TDto> service,
+            IDocumentService documentService,
+            TInModel value,
             List<IFormFile> files,
-            IMapper mapper) 
+            IMapper mapper)
             where TOutModel : BaseModel
             where TDto : BaseCommonDto
         {
@@ -96,10 +108,13 @@ namespace AnimalRescue.API.Controllers
 
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
+            string id,
             TModel value,
             IMapper mapper)
+            where TDto : BaseDto
         {
             var dto = mapper.Map<TModel, TDto>(value);
+            dto.Id = id;
 
             await service.UpdateAsync(dto);
         }
