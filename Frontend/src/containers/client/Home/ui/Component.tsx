@@ -148,13 +148,13 @@ export class HomePageMain extends React.Component<IPropTypes> {
                 />
                 <BlogBlock
                     title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
-                    data={this.props.mostRecentThreeBlogs.data}
+                    data={this.props.blogListSaved.data}
                     link={{
                         title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
                         href: '/'
                       }}
+                    showLink={true}
                 />
-                </div>
             </div>
             </>
         )

@@ -1,0 +1,98 @@
+@import '../../../../styles/variables.scss';
+
+.blog-block-container {
+    padding: 5rem 0 5rem;
+    width: 100%;
+    background: $main-bg-color;
+    .content {
+        .blog-list-holder{
+            flex-direction: row;
+            display: flex;
+            justify-content: space-between; 
+            margin-bottom: 1.5rem;  
+            width: 100%;
+        }
+        .title {
+            position: relative;
+            display: inline-block;
+            font-size: 3rem;
+            line-height: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .column-container {  
+            width: 100%;
+            height: 2rem;            
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 1.5rem;  
+            flex-wrap: nowrap; 
+        }
+        .left-block{
+            width:40%;
+            line-height: 1.625rem;
+            text-align: left;
+        }
+        .right-block{
+            display: flex;
+            justify-content: flex-end;
+            width: 60%;
+        } 
+        .bottom-redirect{
+            display: none;
+        }
+    }
+}
+@media all and (max-width: $medium-device-width) {
+    .blog-block-container {
+        .content {
+            padding: 0 1rem;
+            .blog-list-holder{
+                li{
+                    min-width: 48%;
+                    &:last-child{
+                        display: none!important;
+                    }
+                }
+            }
+        }
+    }
+}
+@media all and (max-width: 540px) {
+    .blog-block-container{
+        padding: 3rem 0 3rem;
+        .content {
+            padding: 0 1rem;
+            .title {
+                font-size: 1.75rem;
+                line-height: 1.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .column-container { 
+                .left-block{
+                    width: 100%;
+                    line-height: 1.625rem;
+                    margin-right: 0rem;
+                    margin-bottom: 0rem;
+                }
+                .right-block{
+                    width: 100%;
+                    display: none;
+                }
+            }
+            .bottom-redirect{
+                display: inline;
+            }
+            .blog-list-holder{
+                flex-wrap: wrap;
+                justify-content: center;
+                li{
+                    &:last-child{
+                        display: none!important;
+                    }                    
+                    width: 100%;
+                    max-width: 21.75rem;
+                }
+            }
+        }
+    } 
+}

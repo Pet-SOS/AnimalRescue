@@ -2,7 +2,7 @@ import API from './index';
 import { AllTag } from './help';
 import { IRequestParams, RequestFilterOperators, prepareRequestParams } from './requestOptions';
 
-export enum BlogTypes {BLOG = 'blog', ARTICLE = 'article'}
+export enum BlogTypes {BLOG = 'blog', ARTICLE = 'article', STORY = 'story'}
 
 export interface IBlogItem {
   type: BlogTypes;
