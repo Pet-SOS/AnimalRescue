@@ -3,37 +3,19 @@ import {DEFAULT_HOME_PAGE_STATE, IHomePageState} from "../state";
 import {getType} from "typesafe-actions";
 import {genericRequestReducer} from "../../../../../api";
 import {
-    actionIsActivePopup,
-    actionFetchInfoCard,
-    actionFetchInfoCardSuccess,
-    actionFetchInfoCardlFailUrl,
-    actionHomeFetchBlogListRequest,
-    actionHomeFetchBlogListFailure,
-    actionHomeFetchBlogListSuccess,
-    actionHomeFetchBlogListSavedRequest,
-    actionHomeFetchBlogListSavedSuccess,
-    actionHomeFetchBlogListSavedFailure,
-    actionFetchInfoContacts,
-    actionFetchInfoContactsSuccess,
-    actionFetchInfoContactsFailUrl,
+  actionIsActivePopup,
+  actionFetchInfoCard,
+  actionFetchInfoCardSuccess,
+  actionFetchInfoCardlFailUrl,
+  actionFetchInfoContacts,
+  actionFetchInfoContactsSuccess,
+  actionFetchInfoContactsFailUrl,
 } from "../actions";
 
 const fetchSaveInfoCardStateReducer = genericRequestReducer(
   actionFetchInfoCard,
   actionFetchInfoCardSuccess,
   actionFetchInfoCardlFailUrl
-)
-
-const fetchBlogListStateReducer = genericRequestReducer(
-  actionHomeFetchBlogListRequest,
-  actionHomeFetchBlogListSuccess,
-  actionHomeFetchBlogListFailure
-)
-
-const fetchBlogListSavedStateReducer = genericRequestReducer(
-  actionHomeFetchBlogListSavedRequest,
-  actionHomeFetchBlogListSavedSuccess,
-  actionHomeFetchBlogListSavedFailure
 )
 
 const fetchInfoContactsStateReducer = genericRequestReducer(
@@ -62,77 +44,42 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
       };
     case getType(actionIsActivePopup):
       return {
-          ...state,
-          isActivePopup: action.payload.data
+        ...state,
+        isActivePopup: action.payload.data
       };
-
     case getType(actionFetchInfoCard):
-        return {
-            ...state,
-            infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action)
-        };
+      return {
+        ...state,
+        infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action)
+      };
     case getType(actionFetchInfoCardSuccess):
-        return {
-            ...state,
-            infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
-            infoCard: action.payload.data
-        };
+      return {
+        ...state,
+        infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
+        infoCard: action.payload.data
+      };
     case getType(actionFetchInfoCardlFailUrl):
-        return {
-            ...state,
-            infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
-        };
-    case getType(actionHomeFetchBlogListRequest): {
       return {
         ...state,
-        blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action)
+        infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
+      };
+    case getType(actionFetchInfoContacts): {
+      return {
+        ...state,
+        infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
       }
     }
-    case getType(actionHomeFetchBlogListSuccess):
+    case getType(actionFetchInfoContactsSuccess):
       return {
         ...state,
-        blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action),
-        blogList: action.payload
+        infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action),
+        infoContacts: action.payload
       };
-    case getType(actionHomeFetchBlogListFailure):
+    case getType(actionFetchInfoContactsFailUrl):
       return {
         ...state,
-        blogListRequestState: fetchBlogListStateReducer(state.blogListRequestState, action)
+        infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
       };
-    case getType(actionHomeFetchBlogListSavedRequest): {
-      return {
-        ...state,
-        blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
-      }
-    }
-    case getType(actionHomeFetchBlogListSavedSuccess):
-      return {
-        ...state,
-        blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action),
-        blogListSaved: action.payload
-      };
-    case getType(actionHomeFetchBlogListSavedFailure):
-      return {
-        ...state,
-        blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
-      };
-      case getType(actionFetchInfoContacts): {
-        return {
-          ...state,
-          infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
-        }
-      }
-      case getType(actionFetchInfoContactsSuccess):
-        return {
-          ...state,
-          infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action),
-          infoContacts: action.payload
-        };
-      case getType(actionFetchInfoContactsFailUrl):
-        return {
-          ...state,
-          infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
-        };
     default:
         return state;
   }

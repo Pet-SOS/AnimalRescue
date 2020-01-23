@@ -3,22 +3,17 @@ import {connect} from "react-redux";
 import {HomePageMain} from "./ui/Component";
 import {ICustomAppState} from "../../../store/state";
 import { IRequestParams, AllTag } from "../../../api/requestOptions";
-import {
-  selectSavedInfoCard,
-  selectBlogList,
-  selectBlogListSaved,
-  selectInfoContacts
-} from "./store/selectors";
 import { AnimalKind } from "../../../api/animals";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
-
 import {
-    actionFetchInfoCard,
-    actionHomeFetchBlogListRequest,
-    actionHomeFetchBlogListSavedRequest,
-    actionFetchInfoContacts,
+  actionFetchInfoCard,
+  actionFetchInfoContacts,
 } from "./store/actions";
+import {
+  selectSavedInfoCard,
+  selectInfoContacts
+} from "./store/selectors";
 import {
   selectAnimalsList,
   selectCatsList,
@@ -33,6 +28,8 @@ import {
   actionFetchSavedAnimalsCount,
   actionFetchSickAnimals
 } from "../Animals/store/actions";
+import { selectBlogList, selectBlogListSaved } from "../Blog/store/selectors";
+import { actionFetchBlogListSavedRequest, actionFetchBlogListRequest } from "../Blog/store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
@@ -66,15 +63,14 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
     switch (tag) {
       case AllTag.SAVED: {
-        return dispatch(actionHomeFetchBlogListSavedRequest(pageParams));
+        return dispatch(actionFetchBlogListSavedRequest(pageParams));
       }
       default: {
-        return dispatch(actionHomeFetchBlogListRequest(pageParams));
+        return dispatch(actionFetchBlogListRequest(pageParams));
       }
     }
   },
- fetchInfoContacts:() =>dispatch(actionFetchInfoContacts())
-
+  fetchInfoContacts:() => dispatch(actionFetchInfoContacts()),
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);
