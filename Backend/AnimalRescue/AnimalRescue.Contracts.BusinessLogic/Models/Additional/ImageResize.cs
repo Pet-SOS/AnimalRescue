@@ -1,28 +1,41 @@
-﻿using AnimalRescue.Infrastructure.Configuration;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AnimalRescue.Contracts.BusinessLogic.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Infrastructure.Configuration;
+using Microsoft.Extensions.Configuration;
 
-namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
+namespace AnimalRescue.Contracts.BusinessLogic.Models.Additional
 {
     public enum ImageResizeType { ThumbnailLarge, ThumbnailMedium, ThumbnailSmall };
 
     public class ImageResize : IImageResize
     {
-        private IConfiguration _configuration;
-        private ImageSizesSettings _imageSizesSettings;
+        private readonly IConfiguration _configuration;
 
-        public Dictionary<ImageResizeType, (int Width, int Height)> Sizes { get; } 
+        public Dictionary<ImageResizeType, (int Width, int Height)> Sizes { get; private set; }
 
-        ImageResize(IConfiguration configuration)
+        public ImageResize(IConfiguration configuration)
         {
             _configuration = configuration;
-            _imageSizesSettings = _configuration.GetTypedSection<ImageSizesSettings>(nameof(ImageSizesSettings));
+            InitializeImageSizes();
+        }
 
-            Sizes = new Dictionary<ImageResizeType, (int Width, int Height)>();
-            Sizes.Add(ImageResizeType.ThumbnailLarge, (_imageSizesSettings.Large.Width, _imageSizesSettings.Large.Height));
-            Sizes.Add(ImageResizeType.ThumbnailMedium, (_imageSizesSettings.Medium.Width, _imageSizesSettings.Medium.Height));
-            Sizes.Add(ImageResizeType.ThumbnailSmall, (_imageSizesSettings.Small.Width, _imageSizesSettings.Small.Height));
+        private void InitializeImageSizes()
+        {
+            var imageSizesSettings = _configuration.GetTypedSection<ImageSizesSettings>(nameof(ImageSizesSettings));
+
+            Sizes = new Dictionary<ImageResizeType, (int Width, int Height)>
+            {
+                {
+                    ImageResizeType.ThumbnailLarge, (imageSizesSettings.Large.Width, imageSizesSettings.Large.Height)
+                },
+                {
+                    ImageResizeType.ThumbnailMedium, (imageSizesSettings.Medium.Width, imageSizesSettings.Medium.Height)
+                },
+                {
+                    ImageResizeType.ThumbnailSmall, (imageSizesSettings.Small.Width, imageSizesSettings.Small.Height)
+                }
+            };
         }
     }
 }

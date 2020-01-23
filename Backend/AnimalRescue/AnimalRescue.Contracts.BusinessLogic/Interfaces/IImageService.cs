@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
