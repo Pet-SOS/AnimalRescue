@@ -13,6 +13,7 @@ using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using AnimalRescue.API.Models.Tags;
+using AnimalRescue.API.Models.FinancialReports;
 
 namespace AnimalRescue.API.Core
 {
@@ -30,6 +31,10 @@ namespace AnimalRescue.API.Core
 
             CreateMap<AnimalModel, AnimalDto>();
             CreateMap<AnimalDto, AnimalModel>();
+
+            CreateMap<FinancialReportModel, FinancialReportDto>();
+            CreateMap<FinancialReportDto, FinancialReportModel>();
+            CreateMap<FinancialReportCreateUpdateModel, FinancialReportModel>();
 
             CreateMap<AnimalCreateUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));

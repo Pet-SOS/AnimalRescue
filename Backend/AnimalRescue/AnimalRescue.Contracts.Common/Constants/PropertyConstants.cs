@@ -70,5 +70,11 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string CreatedBy = "createdBy";
             public const string ModifiedBy = "modifiedBy";
         }
+
+        public static class FinancialReport
+        {
+            public const string File = "file";
+            public const string FileId = "fileId";
+        }
     }
 }
