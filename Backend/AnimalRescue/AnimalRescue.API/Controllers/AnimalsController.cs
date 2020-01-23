@@ -19,7 +19,7 @@ namespace AnimalRescue.API.Controllers
         private readonly ILogger<AnimalsController> _logger;
         private readonly IAnimalService animalService;
         private readonly IDocumentService documentService;
-        public readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public AnimalsController(
             ILogger<AnimalsController> logger, 

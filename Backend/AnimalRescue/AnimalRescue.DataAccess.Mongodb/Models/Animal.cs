@@ -33,8 +33,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("description")] 
         public string Description { get; set; }
 
-         [CouplingPropertyName(animal.Age)]
-       [BsonElement("age")] 
+        [CouplingPropertyName(animal.Age)]
+        [BsonElement("age")] 
         public int Age { get; set; }
 
         [CouplingPropertyName(animal.DateOfFound)]

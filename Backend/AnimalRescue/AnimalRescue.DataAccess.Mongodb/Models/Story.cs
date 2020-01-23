@@ -1,8 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
 
 using MongoDB.Bson.Serialization.Attributes;
-
-using System;
 using System.Collections.Generic;
 
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
