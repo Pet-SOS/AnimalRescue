@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using System.Collections.Generic;
+using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 
 namespace AnimalRescue.BusinessLogic
 {
