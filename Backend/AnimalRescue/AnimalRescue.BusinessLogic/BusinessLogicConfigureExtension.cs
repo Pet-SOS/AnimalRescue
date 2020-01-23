@@ -2,7 +2,6 @@
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb;
-
 using AutoMapper;
 
 using Microsoft.Extensions.Configuration;
@@ -15,15 +14,15 @@ namespace AnimalRescue.BusinessLogic
     public static class BusinessLogicConfigureExtension
     {
         public static void AddConfigureBusinessLogic(
-            this IServiceCollection services, 
-            IConfiguration configuration, 
+            this IServiceCollection services,
+            IConfiguration configuration,
             out List<Profile> profiles)
         {
             profiles = new List<Profile>();
 
             services.AddConfigureMongoDb(configuration);
 
-            profiles.AddRange(new Profile[] { 
+            profiles.AddRange(new Profile[] {
                 new AnimalMappingProfile(),
                 new StoryMappingProfile(),
                 new BlogMappingProfile(),
@@ -32,6 +31,8 @@ namespace AnimalRescue.BusinessLogic
                 new DonationConfigurationMappingProfile(),
                 new TagMappingProfile()
             });
+
+            services.AddSingleton<IImageResize, ImageResize>();
 
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IDocumentService, DocumentService>();
@@ -42,5 +43,5 @@ namespace AnimalRescue.BusinessLogic
                 .AddScoped<IStoryService, StoryService>()
                 .AddScoped<IArticleService, ArticleService>();
         }
-	}
+    }
 }
