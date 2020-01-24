@@ -24,12 +24,14 @@ export const AnimalsSlider: React.FC<IPropTypes> = ({ data, title, link }) => {
   
   const getSlideElements = (): React.ReactNode[] => [...data.map(animal => <AnimalCard animal={animal}/>)];
   return (
-    <div className="animal-list-holder">
-      <h2 className="title">{title}</h2>
-      {!!data && !!data.length && <div className="slider-holder">
-        <Slider slides={getSlideElements()} slidesPerView={windowWidth > 1023 ? 3 : windowWidth > 600 ? 2.33 : 1.2} spaceBetween={windowWidth > 767 ? 24 : 16} isPaginationHidden={true} isNavigationHidden={windowWidth < 1024}/>
-      </div>}
-      {!!link && !!link.href && <BlockLink {...link}/>}
+    <div className="animal-slider-holder">
+      <div className="content">
+        <h2 className="title">{title}</h2>
+        {!!data && !!data.length && <div className="slider-holder">
+          <Slider slides={getSlideElements()} slidesPerView={windowWidth > 1023 ? 3 : windowWidth > 600 ? 2.33 : 1.2} spaceBetween={windowWidth > 767 ? -16 : -24} isPaginationHidden={true} isNavigationHidden={windowWidth < 1024} />
+        </div>}
+        {!!link && !!link.href && <BlockLink {...link} />}
+      </div>
     </div>
   )
 };
