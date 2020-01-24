@@ -4,10 +4,11 @@ import {watchHomePage} from "../../containers/client/Home/store/saga";
 import {watchAdminHomePage} from "../../containers/admin/Home/store/saga";
 import { watchAnimals } from '../../containers/client/Animals/store/saga';
 import { watchBlogs } from '../../containers/client/Blog/store/saga';
+import { watchArticles } from '../../containers/client/Articles/store/saga';
 
 export function* appSaga() {
     try {
-        yield all([watchAdminHomePage(), watchHomePage(), watchAnimals(), watchBlogs()]);
+        yield all([watchAdminHomePage(), watchHomePage(), watchAnimals(), watchBlogs(), watchArticles()]);
     } catch (e) {
         logger.error(e);
     }

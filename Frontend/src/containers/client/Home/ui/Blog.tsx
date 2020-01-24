@@ -25,7 +25,7 @@ interface IPropTypes {
               { 
                 data.map((blog)=> <BlogItem key={blog.title}
                   image={blog.imageIds[0]}
-                  text={blog.tags[0]}
+                  text={blog.type}
                   title={blog.title}
                   id={blog.id ? blog.id : ''}
                 />)

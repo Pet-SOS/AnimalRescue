@@ -20,6 +20,7 @@ import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
 import { IInfoContacts } from '../../../../api/contacts';
 import { IRequestParams, AllTag } from '../../../../api/requestOptions';
+import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
 
 interface IPropTypes {
@@ -29,6 +30,7 @@ interface IPropTypes {
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
   fetchInfoContacts:() => void;
+  // fetchArticleList:() => void;
   animalsList: IAnimalsResponse;
   blogList: IBlogListResponse;
   blogListSaved: IBlogListResponse;
@@ -38,6 +40,7 @@ interface IPropTypes {
   savedAnimalsCount: ISavedAnimalsCountResponse;
   infoCard: IInfoCard;
   infoContacts: IInfoContacts;
+  // articleList: IArticleListResponse;
 }
 
 export const HomePageMain: React.FC<IPropTypes> = ({
@@ -46,10 +49,12 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchSickAnimals,
   fetchInfoCard,
   fetchBlogList,
+  // fetchArticleList,
   fetchInfoContacts,
   animalsList,
   blogList,
   blogListSaved,
+  // articleList,
   catsList,
   dogsList,
   sickAnimalsList,
@@ -66,6 +71,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchBlogList(AllTag.SAVED);
     fetchSavedAnimalsCount();
     fetchInfoCard();
+    // fetchArticleList();
 
   }, [])
   const getCounterDateString = (): string => {
@@ -169,6 +175,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
             data={blogListSaved.data}
+            // data={articleList.data}
             link={{
                 title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
                 href: '/'

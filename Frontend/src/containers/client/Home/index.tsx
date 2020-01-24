@@ -30,6 +30,8 @@ import {
 } from "../Animals/store/actions";
 import { selectBlogList, selectBlogListSaved } from "../Blog/store/selectors";
 import { actionFetchBlogListSavedRequest, actionFetchBlogListRequest } from "../Blog/store/actions";
+// import { selectArticleList } from "../Articles/store/selectors";
+// import { actionFetchArticleListRequest } from "../Articles/store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
@@ -41,6 +43,7 @@ const mapStateToProps = (state: ICustomAppState) => ({
   savedAnimalsCount: selectSavedAnimalsCount(state),
   infoCard: selectSavedInfoCard(state),
   infoContacts: selectInfoContacts(state),
+  // articleList: selectArticleList(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
@@ -70,7 +73,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       }
     }
   },
-  fetchInfoContacts:() => dispatch(actionFetchInfoContacts()),
+  fetchInfoContacts:() => dispatch(actionFetchInfoContacts()),  
+  // fetchArticlesList:() => dispatch(actionFetchArticleListRequest()),
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);
