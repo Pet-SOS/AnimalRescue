@@ -136,7 +136,16 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           story={true}
         />
         <YouTubeBox
-          link='https://www.youtube.com/embed/JE0yDo7Qkec'
+          title={<TI18n keyStr="titleYouTubeBox" default="Видео-истории" />}
+          backgroundColor='#ffffff'
+          subTitle={<TI18n keyStr="subTitleYouTubeBox" default="Истории о спасенных животных" />}
+          links={[
+            {src: 'https://www.youtube.com/embed/JE0yDo7Qkec',
+              title:'История спасенного зенненхунда'
+             }, {
+               src:'https://www.youtube.com/embed/PP5O2ZcfLnI',
+               title:'Три мастифа были найдены в поле под Харьковом'
+             }]}
         />
         <div className="animals-slider-wrapper">
           {dogsList.data.length > 0 && <AnimalsSlider
