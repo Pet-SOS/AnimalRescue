@@ -11,13 +11,25 @@ interface IPropTypes {
   slidesPerView?: number;
   slideEffect?: SlideEffects;
   isAutoplay?: boolean;
+  isSwipeDisable?: boolean;
   autoPlayDelayMs?: number;
   spaceBetween?: number;
 }
 
 export enum SlideEffects { FADE = 'fade', CUBE = 'cube', COVERFLOW = 'coverflow', FLIP = 'flip'}
 
-export const Slider: React.FC<IPropTypes> = ({ slides, isPaginationHidden, isNavigationHidden, slidesPerView, isLoop, slideEffect, isAutoplay, autoPlayDelayMs, spaceBetween }) => {
+export const Slider: React.FC<IPropTypes> = ({
+  slides,
+  isPaginationHidden,
+  isNavigationHidden,
+  slidesPerView,
+  isLoop,
+  slideEffect,
+  isAutoplay,
+  autoPlayDelayMs,
+  spaceBetween,
+  isSwipeDisable
+}) => {
   const getSliderParams = () => {
     const sliderParams: any = {
       rebuildOnUpdate: true,
@@ -25,6 +37,7 @@ export const Slider: React.FC<IPropTypes> = ({ slides, isPaginationHidden, isNav
       slidesPerView: !!slidesPerView ? Math.abs(slidesPerView) : 1,
       loop: isLoop,
       effect: slideEffect,
+      noSwiping: !!isSwipeDisable
     }
     if (!!spaceBetween) {
       sliderParams.spaceBetween = spaceBetween;

@@ -8,7 +8,7 @@ import '../styles/footer.scss';
 export const AppFooter: React.FC = () => {
 
     return (
-        <footer>
+        <footer className="footer">
           <div className="content">
             <div className="footer-top">
               <div className="column">
