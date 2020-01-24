@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-	internal class BlogService : IBlogService
+	internal class BlogService : IBlFullCrud<BlogDto, BlogDto>
 	{
 		private readonly IArticleRepository _blogRepository;
 		private readonly IMapper _mapper;
@@ -70,6 +70,13 @@ namespace AnimalRescue.BusinessLogic.Services
 			Require.Objects.NotNull(blog, nameof(blog));
 
 			return _mapper.Map<Article, BlogDto>(blog);
+		}
+
+		public async Task<int> GetCountAsync(ApiQueryRequest query)
+		{
+			var dbQuery = query.ToDbQuery();
+
+			return await _blogRepository.GetCountAsync(dbQuery);
 		}
 
 		public async Task UpdateAsync(BlogDto blogDto)

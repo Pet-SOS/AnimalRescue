@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
@@ -34,18 +35,14 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
             var configName = TryGetConfigName<T>();
 
-            var filter = Builders<BsonDocument>
-                .Filter
-                .Eq(common.Name, configName);
+            var filter = common.Name.EQ(configName);
 
             var data = await baseCollection.NativeCollection
                 .Find(filter)
                 .Sort(Builders<BsonDocument>.Sort.Descending(baseItem.CreatedAt))
                 .FirstOrDefaultAsync();
 
-            return data == null
-                ? null
-                : BsonSerializer.Deserialize<Configuration<T>>(data);
+            return data.Deserialize<Configuration<T>>();
         }
         public async Task CreateAsync<T>(Configuration<T> instance) 
         {

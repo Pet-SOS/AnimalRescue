@@ -1,12 +1,22 @@
 ﻿using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
+
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+
+using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
+using condition = AnimalRescue.DataAccess.Mongodb.Exceptions.FilterDefinitionExceptions;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
@@ -40,6 +50,17 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             return await _baseCollection.CreateAsync(tags);
         }
 
+        public async Task<IEnumerable<Tags>> CreateAsync(IEnumerable<Tags> tags)
+        {
+            if (tags?.Count() == 0)
+            {
+                return tags;
+            }
+
+            tags =  tags.Select(x=> { x.CreatedAt = DateTime.UtcNow; return x; });
+            return await _baseCollection.CreateAsync(tags);
+        }
+
         public async Task UpdateAsync(Tags tags)
         {
             Require.Objects.NotNull(tags, nameof(tags));
@@ -66,6 +87,20 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         public async Task<int> GetCountAsync(DbQuery query)
         {
             return await _baseCollection.GetCountAsync(query);
+        }
+
+        public async Task<List<Tags>> WhereAsync(List<Tags> tags)
+        {
+            List<BsonDocument> items = new List<BsonDocument>();
+            FilterDefinition<BsonDocument> filter = condition.OR( 
+                tags 
+                .Select(x => condition.AND(common.Type.EQ(x.Type), common.Title.EQ(x.Title)))
+                .ToArray());
+
+            IAsyncCursor<BsonDocument> cursor = await _baseCollection.NativeCollection.FindAsync(filter);
+            List<Tags> result = cursor.ToList().Select(x => x.Deserialize<Tags>()).ToList();
+
+            return result;
         }
     }
 }

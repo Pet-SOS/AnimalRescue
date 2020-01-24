@@ -18,6 +18,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces
         Task<int> GetCountAsync(DbQuery query);
         Task<T> GetAsync(string id);
         Task<T> CreateAsync(T instance);
+        Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances);
         Task CreateAsync(BsonDocument instance);
         Task UpdateAsync(T instance);
         Task RemoveAsync(string id);

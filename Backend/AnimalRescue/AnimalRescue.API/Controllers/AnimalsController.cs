@@ -8,7 +8,6 @@ using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 using System.Threading.Tasks;
 
@@ -16,23 +15,19 @@ namespace AnimalRescue.API.Controllers
 {
     public class AnimalsController : ApiControllerBase
     {
-        private readonly ILogger<AnimalsController> _logger;
-        private readonly IAnimalService animalService;
+        private readonly IBlFullCrud<AnimalDto, AnimalDto> animalService;
         private readonly IDocumentService documentService;
         private readonly IMapper _mapper;
 
         public AnimalsController(
-            ILogger<AnimalsController> logger, 
-            IMapper mapper, 
-            IAnimalService animalService,
+            IMapper mapper,
+            IBlFullCrud<AnimalDto, AnimalDto> animalService,
             IDocumentService documentService)
         {
-            Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(animalService, nameof(animalService));
             Require.Objects.NotNull(documentService, nameof(documentService));
 
-            _logger = logger;
             _mapper = mapper;
             this.animalService = animalService;
             this.documentService = documentService;
@@ -62,7 +57,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<int>> GetCountAsync()
         {
-            return  Item(await animalService.GetCountAsync(new ApiQueryRequest()));
+            return Item(await animalService.GetCountAsync(new ApiQueryRequest()));
         }
 
         [HttpPost]
@@ -71,10 +66,10 @@ namespace AnimalRescue.API.Controllers
         public async Task<ActionResult<AnimalModel>> CreateItemAsync([FromForm] AnimalCreateUpdateModel animalCreateModel)
         {
             var imageIds = await documentService.UploadFileAsync(animalCreateModel.Images);
-            
+
             AnimalModel animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalCreateModel);
 
-            if(imageIds?.Count > 0)
+            if (imageIds?.Count > 0)
             {
                 animalModel.ImageIds = imageIds;
             }
@@ -98,7 +93,7 @@ namespace AnimalRescue.API.Controllers
             if (imageIds?.Count > 0)
             {
                 animalModel.ImageIds.AddRange(imageIds);
-            } 
+            }
 
             await UpdateDataAsync(animalService, id, animalModel, _mapper);
         }

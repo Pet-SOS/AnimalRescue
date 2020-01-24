@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class AnimalService : IAnimalService
+    internal class AnimalService : IBlFullCrud<AnimalDto, AnimalDto>
     {
         private readonly IAnimalRepository animalRepository;
         private readonly IMapper mapper;

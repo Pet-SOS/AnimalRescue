@@ -48,6 +48,11 @@ namespace AnimalRescue.DataAccess.Mongodb
             await collection.InsertOneAsync(instance);
             return instance;
         }
+        public async Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances)
+        {
+            await collection.InsertManyAsync(instances);
+            return instances;
+        }
         public async Task CreateAsync(BsonDocument instance) => await NativeCollection.InsertOneAsync(instance);
 
         public async Task<List<T>> GetAsync(DbQuery query)
