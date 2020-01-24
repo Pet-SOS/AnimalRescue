@@ -1,9 +1,10 @@
 @import '../../../../styles/variables.scss';
 .animal-card {
-  .like-holder {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
+  margin: 0.875rem 1.25rem 0;
+  &:hover {
+    .img-holder {
+      box-shadow: 0px 8px 24px rgba(62, 91, 157, 0.5);
+    }
   }
   .img-holder {
     height: 16.375rem;
@@ -11,6 +12,9 @@
     background-position: center;
     border-radius: 1.5rem;
     margin: 0 0 1rem;
+    transition: $defaultHoverTransition;
+    text-align: right;
+    padding: 0.75rem;
   }
   .animal-name {
     line-height: 1.25rem;
