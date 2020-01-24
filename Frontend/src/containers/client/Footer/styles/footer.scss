@@ -1,9 +1,7 @@
 @import './../../../../styles/variables.scss';
-footer {
+.footer {
   background: $bg-lite-box;
-  .content {
-    padding-top: 1.75rem;
-  }
+  padding: 1.75rem 0;
 }
 .footer-top {
   display: flex;
@@ -44,7 +42,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.6875rem 0 1.6875rem 0.625rem;
+  padding: 1.6875rem 0 0 0.625rem;
   border-top: 1px solid #DBDADB;
   .rights {
     color: $text-lite-color;
@@ -95,14 +93,39 @@ footer {
   }
 }
 @media (max-width: $medium-device-width) {
-  footer .content {
-    padding: 1.75rem 1.5rem;
-  }
   .footer-top .column:first-child {
     flex-wrap: wrap;
     & > ul, .custom-list {
       width: 50%;
       margin: 0 0 1.625rem;
+    }
+  }
+}
+
+@media (max-width: 562px) {
+  .footer-top .column:last-child {
+    flex-direction: column;
+    align-items: flex-start;
+    .phone-block {
+      margin: 0 0 1.4375rem 0;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .footer-top .column {
+    &:first-child {
+      flex-wrap: wrap;
+      text-align: center;
+      & > ul, .custom-list {
+        width: 100%;
+      }
+      .social-links {
+        justify-content: center;
+      }
+    }
+    &:last-child {
+      align-items: center;
     }
   }
 }

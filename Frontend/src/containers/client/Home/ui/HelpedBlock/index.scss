@@ -1,6 +1,6 @@
 @import './../../../../../styles/variables.scss';
 .helped-holder {
-  padding: 5rem 8.5rem;
+  padding: 5rem 0;
   .slider-holder {
     .custom-slider-inner {
       border-radius: 1.5rem;
@@ -50,15 +50,8 @@
   }
 }
 
-@media (max-width: $normal-device-width) {
-  .helped-holder {
-    padding: 5rem 3rem;
-  }
-}
-
 @media (max-width: $medium-device-width) {
   .helped-holder {
-    padding: 5rem 1.5rem;
     .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
       top: 25rem;
       margin-top: -1.5rem;
@@ -86,7 +79,7 @@
 }
 @media (max-width: $small-device-width) {
   .helped-holder {
-    padding: 3.75rem 1rem;
+    padding: 3.75rem 0;
     .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
       top: 16.5rem;
     }

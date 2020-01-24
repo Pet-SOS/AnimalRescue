@@ -123,11 +123,11 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {getCounterDateString()}</React.Fragment>}
           images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
         />
-        <HelpedBlock
+        {!!blogListSaved && !!blogListSaved.data && blogListSaved.data.length && <HelpedBlock
           data={blogListSaved.data}
-          title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />} />
-        />
-                <HelpBlock
+          title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
+        />}
+        <HelpBlock
           animalsList={sickAnimalsList}
           backgroundColor='#333572'
           title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
