@@ -46,6 +46,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             Require.Objects.NotNull(tags, nameof(tags));
 
             tags.CreatedAt = DateTime.UtcNow;
+            tags.Id = string.Empty;
 
             return await _baseCollection.CreateAsync(tags);
         }

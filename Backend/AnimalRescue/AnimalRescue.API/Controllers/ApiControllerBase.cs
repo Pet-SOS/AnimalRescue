@@ -11,6 +11,7 @@ using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -108,7 +109,8 @@ namespace AnimalRescue.API.Controllers
 
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
-            string id,
+            //string id,
+            Guid id,
             TModel value,
             IMapper mapper)
             where TDto : BaseDto
@@ -121,7 +123,8 @@ namespace AnimalRescue.API.Controllers
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
             IDocumentService documentService,
-            string id,
+            //string id,
+            Guid id,
             TModel value,
             List<IFormFile> files,
             IMapper mapper)
@@ -135,9 +138,19 @@ namespace AnimalRescue.API.Controllers
         }
         protected async Task<ActionResult<TModel>> GetItemAsync<TDto, TModel>(
             IBlOneItemQueryAsyncy<TDto> service,
-            string id,
+            Guid id,
             IMapper mapper)
         {
+            if (service is null)
+            {
+                throw new ArgumentNullException(nameof(service));
+            }
+
+            if (mapper is null)
+            {
+                throw new ArgumentNullException(nameof(mapper));
+            }
+
             var data = await service.GetAsync(id);
 
             var result = mapper.Map<TModel>(data);

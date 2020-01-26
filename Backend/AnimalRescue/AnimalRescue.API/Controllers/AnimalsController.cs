@@ -8,7 +8,9 @@ using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+using System;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -37,7 +39,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([FromRoute] string id)
+        public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
             return await GetItemAsync<AnimalDto, AnimalModel>(animalService, id, _mapper);
         }
@@ -82,7 +84,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromRoute] string id, [FromForm] AnimalCreateUpdateModel animalUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] AnimalCreateUpdateModel animalUpdateModel)
         {
             var imageIds = await documentService.UploadFileAsync(animalUpdateModel.Images);
 
@@ -102,7 +104,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task DeleteAsync([FromRoute] string id)
+        public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
             await animalService.DeleteAsync(id);
         }

@@ -1,7 +1,9 @@
-﻿namespace AnimalRescue.API.Models
+﻿using System;
+
+namespace AnimalRescue.API.Models
 {
     public class BaseModel
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Utilities;
@@ -9,6 +10,7 @@ using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,9 +56,9 @@ namespace AnimalRescue.BusinessLogic.Services
             };
         }
 
-        public async Task<TagDto> GetAsync(string id)
+        public async Task<TagDto> GetAsync(Guid id)
         {
-            var tag = await _tagRepository.GetAsync(id);
+            var tag = await _tagRepository.GetAsync(id.AsObjectIdString());
             var tagDto = mapper.Map<Tags, TagDto>(tag);
 
             return tagDto;
@@ -87,9 +89,9 @@ namespace AnimalRescue.BusinessLogic.Services
             await _tagRepository.UpdateAsync(tag);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(Guid id)
         {
-            await _tagRepository.DeleteAsync(id);
+            await _tagRepository.DeleteAsync(id.AsObjectIdString());
         }
 
         public async Task<List<TagDto>> WhereAsync(List<TagDto> value)

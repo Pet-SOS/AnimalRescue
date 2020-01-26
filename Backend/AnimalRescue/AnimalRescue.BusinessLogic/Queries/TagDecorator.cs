@@ -4,6 +4,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -36,8 +37,8 @@ namespace AnimalRescue.BusinessLogic.Queries
             await fullCrudService.UpdateAsync(item);
         }
 
-        public async Task DeleteAsync(string id) => await fullCrudService.DeleteAsync(id);
-        public async Task<TOut> GetAsync(string query) => await fullCrudService.GetAsync(query);
+        public async Task DeleteAsync(Guid id) => await fullCrudService.DeleteAsync(id);
+        public async Task<TOut> GetAsync(Guid query) => await fullCrudService.GetAsync(query);
         public async Task<BlCollectonResponse<TOut>> GetAsync(ApiQueryRequest query) => await fullCrudService.GetAsync(query);
         public async Task<int> GetCountAsync(ApiQueryRequest query) => await fullCrudService.GetCountAsync(query);
 

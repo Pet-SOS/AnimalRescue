@@ -1,4 +1,4 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Models;
+﻿using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Query;
 
 using MongoDB.Bson;

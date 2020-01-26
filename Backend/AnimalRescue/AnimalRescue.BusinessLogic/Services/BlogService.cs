@@ -3,12 +3,14 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -38,11 +40,9 @@ namespace AnimalRescue.BusinessLogic.Services
 			return _mapper.Map<Article, BlogDto>(blog);
 		}
 
-		public async Task DeleteAsync(string id)
+		public async Task DeleteAsync(Guid id)
 		{
-			Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
-
-			await _blogRepository.DeleteAsync(id);
+			await _blogRepository.DeleteAsync(id.AsObjectIdString());
 		}
 
 		public async Task<BlCollectonResponse<BlogDto>> GetAsync(ApiQueryRequest apiQueryRequest)
@@ -62,11 +62,9 @@ namespace AnimalRescue.BusinessLogic.Services
 			};
 		}
 
-		public async Task<BlogDto> GetAsync(string id)
+		public async Task<BlogDto> GetAsync(Guid id)
 		{
-			Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
-		
-			var blog = await _blogRepository.GetAsync(id);
+			var blog = await _blogRepository.GetAsync(id.AsObjectIdString());
 			Require.Objects.NotNull(blog, nameof(blog));
 
 			return _mapper.Map<Article, BlogDto>(blog);

@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;

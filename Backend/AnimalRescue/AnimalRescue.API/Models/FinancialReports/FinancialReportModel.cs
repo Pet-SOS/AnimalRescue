@@ -1,5 +1,8 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
+
 using Newtonsoft.Json;
+
+using System;
 using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.FinancialReports
@@ -16,6 +19,6 @@ namespace AnimalRescue.API.Models.FinancialReports
 
         [JsonPropertyName(PropertyConstants.FinancialReport.FileId)]
         [JsonProperty(PropertyConstants.FinancialReport.FileId)]
-        public string FileId { get; set; }
+        public Guid FileId { get; set; }
     }
 }

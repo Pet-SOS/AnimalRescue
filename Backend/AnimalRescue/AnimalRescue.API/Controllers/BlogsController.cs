@@ -8,7 +8,9 @@ using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+using System;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -36,9 +38,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<BlogInfoModel>> GetItemByIdAsync(string id)
+        public async Task<ActionResult<BlogInfoModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
+            //Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
 
             return await GetItemAsync<BlogDto, BlogInfoModel>(_blogService, id, _mapper);
         }
@@ -67,9 +69,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task DeleteBlogAsync(string id)
+        public async Task DeleteBlogAsync([BindRequired, FromRoute] Guid id)
         {
-            Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
+            //Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
 
             await _blogService.DeleteAsync(id);
         }
@@ -78,7 +80,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateBlogAsync([FromRoute] string id, [FromForm] BlogCreateModel blogUpdateModel)
+        public async Task UpdateBlogAsync([BindRequired, FromRoute] Guid id, [FromForm] BlogCreateModel blogUpdateModel)
         {
             Require.Objects.NotNull(blogUpdateModel, nameof(blogUpdateModel));
 

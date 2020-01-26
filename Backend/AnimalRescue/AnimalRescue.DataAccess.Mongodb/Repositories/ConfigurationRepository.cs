@@ -48,7 +48,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
             string configName = TryGetConfigName<T>();
             instance.Name = configName;
-            instance.Id = AsObjectId(Guid.NewGuid()).ToString();
+            instance.Id = Guid.NewGuid().AsObjectIdString();
             instance.CreatedAt = DateTime.Now;
             await baseCollection.CreateAsync(instance.ToBsonDocument());
         }
@@ -60,12 +60,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
             Require.Strings.NotNullOrWhiteSpace(configName, nameof(configName));
             return configName;
-        }
-        ObjectId AsObjectId(Guid gid)
-        {
-            var bytes = gid.ToByteArray().Take(12).ToArray();
-            var oid = new ObjectId(bytes);
-            return oid;
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 
 using Microsoft.AspNetCore.Http;
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,24 +25,23 @@ namespace AnimalRescue.BusinessLogic.Services
             this.bucket = bucket;
         }
 
-        public async Task<byte[]> GetAsync(string fileId)
+        public async Task<byte[]> GetAsync(Guid fileId)
         {
-            Require.Strings.NotNullOrWhiteSpace(fileId, nameof(fileId));
-            var result = await bucket.GetFileBytesAsync(fileId);
+            var result = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
 
             return result;
         }
 
-        public async Task<List<string>> UploadFileAsync(List<IFormFile> files)
+        public async Task<List<Guid>> UploadFileAsync(List<IFormFile> files)
         {
             if (files == null || files.Count == 0)
             {
-                return new List<string>();
+                return new List<Guid>();
             }
 
             var tasks = files.Select(UploadFileStreamAsync).ToArray();
             await Task.WhenAll(tasks);
-            var ids = tasks.Select(x => x.Result).ToList();
+            var ids = tasks.Select(x => x.Result.AsGuid()).ToList();
 
             return ids;
         }

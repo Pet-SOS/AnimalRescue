@@ -2,6 +2,7 @@
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
@@ -9,6 +10,7 @@ using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,7 +32,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<AnimalDto> CreateAsync(AnimalDto animalDto)
         {
-            animalDto.Id = string.Empty;
+            animalDto.Id = Guid.Empty;
 
             var animal = mapper.Map<AnimalDto, Animal>(animalDto);
             animal = await animalRepository.CreateAsync(animal);
@@ -64,9 +66,9 @@ namespace AnimalRescue.BusinessLogic.Services
             return animalDtos;
         }
 
-        public async Task<AnimalDto> GetAsync(string id)
+        public async Task<AnimalDto> GetAsync(Guid id)
         {
-            var animal = await animalRepository.GetAsync(id);
+            var animal = await animalRepository.GetAsync(id.AsObjectIdString());
             var animalDto = mapper.Map<Animal, AnimalDto>(animal);
 
             return animalDto;
@@ -79,9 +81,9 @@ namespace AnimalRescue.BusinessLogic.Services
             await animalRepository.UpdateAsync(animal);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(Guid id)
         {
-            await animalRepository.DeleteAsync(id);
+            await animalRepository.DeleteAsync(id.AsObjectIdString());
         }
 
         public async Task<int> GetCountAsync(ApiQueryRequest query)
