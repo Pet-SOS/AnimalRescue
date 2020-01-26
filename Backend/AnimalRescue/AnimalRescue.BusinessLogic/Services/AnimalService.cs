@@ -4,6 +4,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
@@ -41,15 +42,26 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<BlCollectonResponse<AnimalDto>> GetAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
-            var animals = await animalRepository.GetAsync(dbQuery);
-            var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animals);
             var count = await animalRepository.GetCountAsync(dbQuery);
+            List<AnimalDto> animalDtos = await GetCollectionAsync(count, dbQuery);
 
             return new BlCollectonResponse<AnimalDto>
             {
                 Collection = animalDtos,
                 TotalCount = count
             };
+        }
+
+        private async Task<List<AnimalDto>> GetCollectionAsync(int count, DbQuery dbQuery)
+        {
+            if(count == 0)
+            {
+                return new List<AnimalDto>();
+            }
+
+            var animals = await animalRepository.GetAsync(dbQuery);
+            var animalDtos = mapper.Map<List<Animal>, List<AnimalDto>>(animals);
+            return animalDtos;
         }
 
         public async Task<AnimalDto> GetAsync(string id)

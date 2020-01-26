@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
-    [BsonDiscriminator("financialReports")]
+    [BsonDiscriminator("financial_reports")]
     public class FinancialReport : BaseItem
     {
         [CouplingPropertyName(PropertyConstants.Common.Title)]
