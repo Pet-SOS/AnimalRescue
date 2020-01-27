@@ -3,6 +3,7 @@ import { IBlockLinkPropTypes, BlockLink } from '../../../../components/BlockLink
 import { BlogItem } from '../../../../components/BlogBlock/item';
 import { IBlogItem } from '../../../../api/blog';
 import '../styles/Blog.scss';
+import { TI18n } from '../../../../i18n';
 
 interface IPropTypes {
     title: string | React.ReactNode;
@@ -26,7 +27,7 @@ interface IPropTypes {
               { 
                 data.map((blog)=> <BlogItem key={blog.title}
                   image={blog.imageIds[0]}
-                  text={blog.type}
+                  text={<TI18n keyStr="blogBlockItemType" default="Блог" />}
                   title={blog.title}
                   id={blog.id ? blog.id : ''}
                 />)
