@@ -151,8 +151,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             {src: 'https://www.youtube.com/embed/JE0yDo7Qkec',
               title:'История спасенного зенненхунда'
              }, {
-               src:'https://www.youtube.com/embed/PP5O2ZcfLnI',
-               title:'Три мастифа были найдены в поле под Харьковом'
+               src:'https://www.youtube.com/embed/I4IuqbcgpBs',
+               title:'Мне кажется, животным не хватает любви'
              }]}
         />
         <div className="animals-slider-wrapper">
@@ -175,7 +175,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         </div>
         <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
-            data={articleList.data.slice(2,5)}
+            data={articleList.data.slice(1,4)}
             link={{
                 title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
                 href: '/'

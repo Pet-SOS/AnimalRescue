@@ -18,10 +18,9 @@
     background: $btn-blue;
     color: $main-bg-color;
     border-radius: 4.81rem;
-    width: 11.25rem;
     height: inherit;
     text-align: center;
-    padding: 1rem 0;
+    padding: 1rem 3.25rem;
     letter-spacing: 0.1em;
     &:focus, &:hover{
       background: $btn-hover!important;
