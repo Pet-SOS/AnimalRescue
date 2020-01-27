@@ -1,11 +1,9 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
-using baseItem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseItem;
+﻿using System;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
     public class BaseDto
     {
-        [CouplingPropertyDto(baseItem.Id)]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

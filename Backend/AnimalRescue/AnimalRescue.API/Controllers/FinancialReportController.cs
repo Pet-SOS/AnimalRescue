@@ -9,8 +9,10 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +45,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<FinancialReportModel>> GetItemByIdAsync([FromRoute] string id)
+        public async Task<ActionResult<FinancialReportModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
             return await GetItemAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, id, _mapper);
         }
@@ -80,7 +82,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromRoute] string id, [FromForm] FinancialReportCreateUpdateModel financialReportUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] FinancialReportCreateUpdateModel financialReportUpdateModel)
         {
             Require.Objects.NotNull(financialReportUpdateModel.File, nameof(financialReportUpdateModel.File));
 
@@ -101,9 +103,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task DeleteAsync([FromRoute] string financialReportId)
+        public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
-            await _financialReportService.DeleteAsync(financialReportId);
+            await _financialReportService.DeleteAsync(id);
         }
     }
 }

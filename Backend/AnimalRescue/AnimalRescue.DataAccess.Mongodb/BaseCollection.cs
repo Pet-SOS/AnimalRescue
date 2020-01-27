@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
@@ -47,6 +47,11 @@ namespace AnimalRescue.DataAccess.Mongodb
         {
             await collection.InsertOneAsync(instance);
             return instance;
+        }
+        public async Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances)
+        {
+            await collection.InsertManyAsync(instances);
+            return instances;
         }
         public async Task CreateAsync(BsonDocument instance) => await NativeCollection.InsertOneAsync(instance);
 

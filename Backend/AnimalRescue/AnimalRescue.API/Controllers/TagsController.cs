@@ -8,8 +8,10 @@ using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
+using System;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -40,7 +42,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<TagModel>> GetItemByIdAsync([FromRoute] string id)
+        public async Task<ActionResult<TagModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
             return await GetItemAsync<TagDto, TagModel>(_tagService, id, _mapper);
         }
@@ -66,7 +68,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromRoute] string id, [FromForm] TagCreateUpdateModel tagUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] TagCreateUpdateModel tagUpdateModel)
         {
             await UpdateDataAsync(_tagService, id, tagUpdateModel, _mapper);
         }
@@ -75,7 +77,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task DeleteAsync([FromRoute] string id)
+        public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
             await _tagService.DeleteAsync(id);
         }

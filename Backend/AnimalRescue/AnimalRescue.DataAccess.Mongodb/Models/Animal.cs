@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -11,7 +12,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
     [BsonDiscriminator("animals")]
-    public class Animal : BaseItem
+    public class Animal : BaseAndTimeItem
     {
         [CouplingPropertyName(animal.Number)]
         [BsonElement("number")] 

@@ -6,7 +6,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
     public class AnimalDto : BaseCommonDto
     {
-        [CouplingPropertyDto(animal.Number)]
         public int Number { get; set; }
 
         [CouplingPropertyDto(common.Name)]
@@ -18,10 +17,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(animal.Gender)]
         public string Gender { get; set; }
 
-        [CouplingPropertyDto(common.Description)]
         public string Description { get; set; }
 
-        [CouplingPropertyDto(animal.Age)]
         public int Age { get; set; }
     }
 }
