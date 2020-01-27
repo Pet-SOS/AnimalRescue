@@ -151,8 +151,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             {src: 'https://www.youtube.com/embed/JE0yDo7Qkec',
               title:'История спасенного зенненхунда'
              }, {
-               src:'https://www.youtube.com/embed/PP5O2ZcfLnI',
-               title:'Три мастифа были найдены в поле под Харьковом'
+               src:'https://www.youtube.com/embed/I4IuqbcgpBs',
+               title:'Мне кажется, животным не хватает любви'
              }]}
         />
         <div className="animals-slider-wrapper">

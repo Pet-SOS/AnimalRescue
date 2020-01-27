@@ -74,6 +74,11 @@
     }
 
 }
+@media all and (max-width: 1118px) {
+  .header-bottom {
+    padding: 3rem 0 5rem 0;
+  }
+}
 @media all and (max-width: 996px) {
   .header-bottom {
     padding: 2rem 0 5rem;
