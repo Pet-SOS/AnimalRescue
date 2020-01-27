@@ -2,11 +2,13 @@
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,9 +28,9 @@ namespace AnimalRescue.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<FinancialReportDto> GetAsync(string financialReportId)
+        public async Task<FinancialReportDto> GetAsync(Guid id)
         {
-            var financialReport = await _financialReportRepository.GetAsync(financialReportId);
+            var financialReport = await _financialReportRepository.GetAsync(id.AsObjectIdString());
             var financialReportDto = _mapper.Map<FinancialReport, FinancialReportDto>(financialReport);
 
             return financialReportDto;
@@ -64,9 +66,9 @@ namespace AnimalRescue.BusinessLogic.Services
             await _financialReportRepository.UpdateAsync(financialReport);
         }
 
-        public async Task DeleteAsync(string financialReportId)
+        public async Task DeleteAsync(Guid id)
         {
-            await _financialReportRepository.DeleteAsync(financialReportId);
+            await _financialReportRepository.DeleteAsync(id.AsObjectIdString());
         }
     }
 }

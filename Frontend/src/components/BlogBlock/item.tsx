@@ -7,7 +7,7 @@ export interface IPropTypes {
     image: string;
     title: string;
     id: string;
-    text: string; 
+    text: string | React.ReactNode; 
 }
 
 export const BlogItem: React.FC<IPropTypes> = ({ image, title, id, text }) => {

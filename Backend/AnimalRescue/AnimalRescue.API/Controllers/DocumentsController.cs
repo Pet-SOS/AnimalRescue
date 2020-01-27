@@ -1,7 +1,10 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,7 +21,7 @@ namespace AnimalRescue.API.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)] 
-        public async Task<ActionResult<List<string>>> UploadDocumentsAsync([FromForm]List<IFormFile> files)
+        public async Task<ActionResult<List<Guid>>> UploadDocumentsAsync([FromForm]List<IFormFile> files)
         {
            var ids =  await documentService.UploadFileAsync(files);
 
@@ -29,7 +32,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetBytesAsync([FromRoute] string id)
+        public async Task<IActionResult> GetBytesAsync([BindRequired, FromRoute] Guid id)
         {
             var fileBytes = await documentService.GetAsync(id);
 

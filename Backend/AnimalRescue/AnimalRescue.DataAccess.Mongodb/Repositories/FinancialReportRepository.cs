@@ -29,6 +29,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
         public async Task<FinancialReport> CreateAsync(FinancialReport financialReport)
         {
+            financialReport.Id = string.Empty;
             financialReport.CreatedAt = DateTime.Now;
             financialReport = await _baseCollection.CreateAsync(financialReport);
 

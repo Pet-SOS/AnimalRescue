@@ -32,6 +32,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 				nameof(blog.Type));
 
 			blog.CreatedAt = DateTime.Now;
+			blog.Id = string.Empty;
 
 			return await _baseCollection.CreateAsync(blog);
 		}

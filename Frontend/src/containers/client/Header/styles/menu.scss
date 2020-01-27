@@ -10,13 +10,18 @@
   box-shadow: 0 0.375rem 0.75rem rgba(233, 230, 231, 0.8);
   border-radius: 2rem;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0 0 0 1.5rem;
   .item {
     position: relative;
     margin: auto;
-    padding: 1rem 0.1rem;
+    padding: 1rem 1.3rem;
     cursor: pointer;
     font-weight: bold;
     color: $text-lite-color;
+    &.heart{
+      padding: 1rem 1rem 1rem 0.2rem
+    }
     .dropdown{
       display: none;
       position: absolute;

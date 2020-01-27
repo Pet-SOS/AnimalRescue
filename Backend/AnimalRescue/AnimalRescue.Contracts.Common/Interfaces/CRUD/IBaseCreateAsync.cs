@@ -14,4 +14,8 @@ namespace AnimalRescue.Contracts.Common.Interfaces.CRUD
     {
         Task CreateAsync(TIn value);
     }
+    public interface IBaseVoidCreateIfNotExistAsync<TIn>
+    {
+        Task CreateIfNotExistAsync(TIn value);
+    }
 }

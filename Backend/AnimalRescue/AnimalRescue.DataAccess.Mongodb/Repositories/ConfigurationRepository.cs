@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
@@ -34,24 +35,20 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
             var configName = TryGetConfigName<T>();
 
-            var filter = Builders<BsonDocument>
-                .Filter
-                .Eq(common.Name, configName);
+            var filter = common.Name.EQ(configName);
 
             var data = await baseCollection.NativeCollection
                 .Find(filter)
                 .Sort(Builders<BsonDocument>.Sort.Descending(baseItem.CreatedAt))
                 .FirstOrDefaultAsync();
 
-            return data == null
-                ? null
-                : BsonSerializer.Deserialize<Configuration<T>>(data);
+            return data.Deserialize<Configuration<T>>();
         }
         public async Task CreateAsync<T>(Configuration<T> instance) 
         {
             string configName = TryGetConfigName<T>();
             instance.Name = configName;
-            instance.Id = AsObjectId(Guid.NewGuid()).ToString();
+            instance.Id = Guid.NewGuid().AsObjectIdString();
             instance.CreatedAt = DateTime.Now;
             await baseCollection.CreateAsync(instance.ToBsonDocument());
         }
@@ -63,12 +60,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
             Require.Strings.NotNullOrWhiteSpace(configName, nameof(configName));
             return configName;
-        }
-        ObjectId AsObjectId(Guid gid)
-        {
-            var bytes = gid.ToByteArray().Take(12).ToArray();
-            var oid = new ObjectId(bytes);
-            return oid;
         }
     }
 }

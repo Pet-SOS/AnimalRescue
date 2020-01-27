@@ -72,6 +72,7 @@ export default {
 
   blogBlockTitle: 'Blog',
   blogBlockLinkText: 'Go to all articles',
+  blogBlockItemType: 'Useful articles',
 
   rulesPageTitle: 'Service Rules',
   rulesMainText: 'We never know when animals may need urgent help, but we know that we must always be ready to provide it. The rescue team responds to calls in situations where animals need protection.',

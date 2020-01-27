@@ -4,12 +4,14 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,7 +33,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<StoryDto> CreateAsync(StoryDto storyDto)
         {
-            storyDto.Id = string.Empty;
+            storyDto.Id = Guid.Empty;
 
             var story = _mapper.Map<StoryDto, Article>(storyDto);
             story = await _storyRepository.CreateAsync(story);
@@ -55,9 +57,9 @@ namespace AnimalRescue.BusinessLogic.Services
             };
         }
 
-        public async Task<StoryDto> GetAsync(string id)
+        public async Task<StoryDto> GetAsync(Guid id)
         {
-            var story = await _storyRepository.GetAsync(id);
+            var story = await _storyRepository.GetAsync(id.AsObjectIdString());
             var storyDto = _mapper.Map<Article, StoryDto>(story);
 
             return storyDto;
@@ -70,9 +72,9 @@ namespace AnimalRescue.BusinessLogic.Services
             await _storyRepository.UpdateAsync(story);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(Guid id)
         {
-            await _storyRepository.DeleteAsync(id);
+            await _storyRepository.DeleteAsync(id.AsObjectIdString());
         }
     }
 }

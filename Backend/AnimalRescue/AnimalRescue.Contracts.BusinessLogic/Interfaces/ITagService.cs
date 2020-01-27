@@ -1,6 +1,8 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 
+using System.Collections.Generic;
+
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface ITagService :
@@ -8,7 +10,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlOneItemQueryAsyncy<TagDto>,
         IBlCreateAsync<TagDto, TagDto>,
         IBlUpdateAsync<TagDto>,
-        IBlDeleteAsync
+        IBlDeleteAsync,
+        IBlCreateIfNotExistAsync<IEnumerable<TagDto>>
     {
     }
 }

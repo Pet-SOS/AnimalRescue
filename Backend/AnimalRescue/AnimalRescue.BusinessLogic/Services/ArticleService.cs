@@ -4,12 +4,14 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,7 +33,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<ArticleDto> CreateAsync(ArticleDto articleDto)
         {
-            articleDto.Id = string.Empty;
+            articleDto.Id = Guid.Empty;
 
             var article = mapper.Map<ArticleDto, Article>(articleDto);
             article = await _articleRepository.CreateAsync(article);
@@ -56,9 +58,9 @@ namespace AnimalRescue.BusinessLogic.Services
             };
         }
 
-        public async Task<ArticleDto> GetAsync(string id)
+        public async Task<ArticleDto> GetAsync(Guid id)
         {
-            var article = await _articleRepository.GetAsync(id);
+            var article = await _articleRepository.GetAsync(id.AsObjectIdString());
             var articleDto = mapper.Map<Article, ArticleDto>(article);
 
             return articleDto;
@@ -71,9 +73,9 @@ namespace AnimalRescue.BusinessLogic.Services
             await _articleRepository.UpdateAsync(article);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(Guid id)
         {
-            await _articleRepository.DeleteAsync(id);
+            await _articleRepository.DeleteAsync(id.AsObjectIdString());
         }
     }
 }
