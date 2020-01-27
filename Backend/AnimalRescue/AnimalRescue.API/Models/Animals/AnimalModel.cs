@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -36,7 +37,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(common.ImageIds)]
         [JsonProperty(common.ImageIds)]
-        public List<string> ImageIds { get; set; } = new List<string>();
+        public List<Guid> ImageIds { get; set; } = new List<Guid>();
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]

@@ -1,7 +1,9 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
-using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
+using System;
 using System.Collections.Generic;
+
+using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Blogs
 {
@@ -14,6 +16,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.Blogs
 		public string Description { get; set; }
 
 		[CouplingPropertyDto(common.ImageIds)]
-		public IList<string> ImagesIds { get; set; }
+		public List<Guid> ImageIds { get; set; }
 	}
 }

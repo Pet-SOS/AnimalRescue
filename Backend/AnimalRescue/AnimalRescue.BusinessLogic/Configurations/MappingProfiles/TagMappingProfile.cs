@@ -1,5 +1,7 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Models;
+
 using AutoMapper;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
@@ -8,8 +10,10 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
     {
         public TagMappingProfile()
         {
-            CreateMap<Tags, TagDto>();
-            CreateMap<TagDto, Tags>();
+            CreateMap<Tags, TagDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()));
+            CreateMap<TagDto, Tags>()
+                .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()));
         }
     }
 }

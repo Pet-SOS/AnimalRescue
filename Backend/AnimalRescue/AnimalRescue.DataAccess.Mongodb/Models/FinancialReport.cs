@@ -1,11 +1,13 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
+
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
-    [BsonDiscriminator("financialReports")]
-    public class FinancialReport : BaseItem
+    [BsonDiscriminator("financial_reports")]
+    public class FinancialReport : BaseAndTimeItem
     {
         [CouplingPropertyName(PropertyConstants.Common.Title)]
         [BsonElement("title")]

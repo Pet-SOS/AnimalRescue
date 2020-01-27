@@ -1,13 +1,14 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
-using MongoDB.Bson.Serialization.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 
+using MongoDB.Bson.Serialization.Attributes;
 
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
     [BsonDiscriminator("tags")]
-    public class Tags : BaseItem
+    public class Tags : BaseAndTimeItem
     {
         [CouplingPropertyName(common.Type)]
         [BsonElement("type")]

@@ -1,14 +1,18 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
+using AnimalRescue.BusinessLogic.Queries;
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
+using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.DataAccess.Mongodb;
+
 using AutoMapper;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using System.Collections.Generic;
-using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 
 namespace AnimalRescue.BusinessLogic
 {
@@ -36,13 +40,15 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddSingleton<IImageResize, ImageResize>();
 
-            services.AddScoped<IAnimalService, AnimalService>();
+            services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
+                .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
+            services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
+               .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
+
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddScoped<ITagService, TagService>();
-            services
-                .AddScoped<IBlogService, BlogService>()
+            services.AddScoped<ITagService, TagService>()
                 .AddScoped<IStoryService, StoryService>()
                 .AddScoped<IArticleService, ArticleService>();
         }

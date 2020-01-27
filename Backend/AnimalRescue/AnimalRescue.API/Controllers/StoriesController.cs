@@ -8,8 +8,10 @@ using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
+using System;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -42,9 +44,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<StoryInfoModel>> GetItemByIdAsync([FromRoute] string id)
+        public async Task<ActionResult<StoryInfoModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
+            //Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
 
             return await GetItemAsync<StoryDto, StoryInfoModel>(_storyService, id, _mapper);
         }
@@ -70,7 +72,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([FromRoute] string id, [FromForm] StoryUpdateModel storyUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] StoryUpdateModel storyUpdateModel)
         {
             await UpdateDataAsync(_storyService, _documentService, id, storyUpdateModel, storyUpdateModel.Images, _mapper);
         }
@@ -79,7 +81,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task DeleteAsync([FromRoute] string id)
+        public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
             await _storyService.DeleteAsync(id);
         } 

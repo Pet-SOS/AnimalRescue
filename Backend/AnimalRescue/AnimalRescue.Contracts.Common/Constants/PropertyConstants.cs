@@ -57,6 +57,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Description = "description";
             public const string ImageIds = "imageIds";
             public const string Tags = "tags";
+            public const string CommonTag = "commonTag";
             public const string Images = "images";
             public const string IsRescued = "isRescued";
             public const string Type = "type";
