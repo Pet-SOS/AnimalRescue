@@ -1,7 +1,7 @@
 import {AnyAction} from "redux";
-import {DEFAULT_HOME_PAGE_STATE, IHomePageState} from "../state";
+import {DEFAULT_HOME_PAGE_STATE, IHomePageState, DEFAULT_CONTACTS} from "../state";
 import {getType} from "typesafe-actions";
-import {genericRequestReducer} from "../../../../../api";
+import {genericRequestReducer, DEFAULT_REQUEST_STATE} from "../../../../../api";
 import {
   actionIsActivePopup,
   actionFetchInfoCard,
@@ -10,6 +10,7 @@ import {
   actionFetchInfoContacts,
   actionFetchInfoContactsSuccess,
   actionFetchInfoContactsFailUrl,
+  actionClearInfoContacts,
 } from "../actions";
 
 const fetchSaveInfoCardStateReducer = genericRequestReducer(
@@ -80,6 +81,13 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         ...state,
         infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
       };
+    case getType(actionClearInfoContacts): {
+      return {
+        ...state,
+        infoContacts: { ...DEFAULT_CONTACTS },
+        infoContactsState: { ...DEFAULT_REQUEST_STATE },
+      }
+    }
     default:
         return state;
   }

@@ -25,6 +25,9 @@ export const actionFetchDogsRequest = createAction(
     }
   })
 );
+export const actionClearAnimalsList = createAction(
+  'CLEAR_ANIMALS'
+);
 export const actionFetchDogsSuccess = createAction(
   'FETCH_DOGS_SUCCESS',
   (resolve) => (data: IAnimalsResponse) => resolve(data)
@@ -32,6 +35,9 @@ export const actionFetchDogsSuccess = createAction(
 export const actionFetchDogsFailure = createAction(
   'FETCH_DOGS_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
+);
+export const actionClearDogs = createAction(
+  'CLEAR_DOGS'
 );
 export const actionFetchCatsRequest = createAction(
   'FETCH_CATS_REQUEST',
@@ -52,6 +58,9 @@ export const actionFetchCatsFailure = createAction(
   'FETCH_CATS_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
 );
+export const actionClearCats = createAction(
+  'CLEAR_CATS'
+);
 export const actionFetchSickAnimals = createAction(
   'FETCH_SICK_ANIMALS',
   (resolve) => () => resolve({})
@@ -64,6 +73,9 @@ export const actionFetchSickAnimalFailUrl = createAction(
   'FETCH_ANIMALS_FAILURL',
   (resolve) => (error: Error) => resolve({ error })
 )
+export const actionClearSickAnimals = createAction(
+  'CLEAR_SICK_ANIMALS'
+);
 export const actionFetchSavedAnimalsCount = createAction(
   'FETCH_SAVED_ANIMALS_COUNT',
   (resolve) => () => resolve()
@@ -76,3 +88,9 @@ export const actionFetchSavedAnimalsCountFailure = createAction(
   'FETCH_SAVED_ANIMALS_COUNT_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
 );
+export const actionClearSavedAnimalsCount = createAction(
+  'CLEAR_SAVED_ANIMALS_COUNT'
+);
+export const actionClearEntireAnimalsState = createAction(
+  'CLEAR_ALL_ANIMALS_STATE'
+)

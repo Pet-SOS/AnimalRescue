@@ -5,9 +5,10 @@ import {ICustomAppState} from "../store/state";
 import {ELocales} from "./store/state";
 import en from './translations/en';
 import ru from './translations/ru';
+import ua from './translations/ua';
 
-i18n.defaultLocale = ELocales.En;
-i18n.translations = { en, ru };
+i18n.defaultLocale = ELocales.Ua;
+i18n.translations = { en, ru, ua };
 
 interface IPropTypes {
   keyStr: string;
