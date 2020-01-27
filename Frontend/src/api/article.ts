@@ -1,9 +1,8 @@
 import API from './index';
 import { IRequestParams, prepareRequestParams, AllTag } from './requestOptions';
+import { BlogTypes } from './blog';
 
-export enum BlogTypes {BLOG = 'blog', ARTICLE = 'article', STORY = 'story'}
-
-export interface IBlogItem {
+export interface IArticleItem {
   type: BlogTypes;
   title: string;
   body: string;
@@ -13,8 +12,8 @@ export interface IBlogItem {
   id?: string;
 }
 
-export interface IBlogListResponse {
-  data: IBlogItem[];
+export interface IArticleListResponse {
+  data: IArticleItem[];
   totalCount: number;
   pageNumber: number;
   pageCount: number;
@@ -22,7 +21,7 @@ export interface IBlogListResponse {
   self: string;
 }
 
-export async function fetchBlogList(requestParams?: IRequestParams): Promise<IBlogListResponse[]> {
-  const res = await API.get('blogs', { params: prepareRequestParams(requestParams) });
+export async function fetchArticleList(requestParams?: IRequestParams): Promise<IArticleListResponse[]> {
+  const res = await API.get(`articles`, { params: prepareRequestParams(requestParams) });
   return res.data
 }

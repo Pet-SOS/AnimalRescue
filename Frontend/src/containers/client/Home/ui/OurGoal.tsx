@@ -19,11 +19,6 @@ interface IPropTypes {
                 <div className="left-block text">{text1}</div> 
                 <div className="right-block text">{text2}</div>  
             </div>    
-            {/* <div className="block-more">
-                <p>{linkText}</p>   
-                <Button styleType={ButtonTypes.BlueCircle} onClick={() => {
-                }}/>
-            </div> */}
             {!!link && !!link.href && <BlockLink {...link}/>}
           </div>
       </div>

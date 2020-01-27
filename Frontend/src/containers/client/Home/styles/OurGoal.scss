@@ -4,12 +4,6 @@
     padding: 5rem 0 5rem;
     width: 100%;
     background: $main-bg-color;
-    .our-goal-holder {
-        width: 68.375rem;
-        height: 18.875rem;
-        margin: 0 auto;
-        padding: 0 8.5rem;
-    }
     .title {
         position: relative;
         display: inline-block;
@@ -37,11 +31,6 @@
 
 @media all and (max-width: $medium-device-width) {
     .our-goal-container{
-        .our-goal-holder {
-            width: 42rem;
-            height: 17.25rem;
-            padding: 0 1.5rem 0 4.5rem;
-        }
         .column-container {              
             flex-direction: column;   
             display: flex;   
@@ -78,11 +67,6 @@
 @media all and (max-width: $min-device-width) {
     .our-goal-container {
         padding: 3rem 0 3rem;
-        .our-goal-holder {
-            width: 21.4375rem;
-            height: 29.5rem;
-            padding: 0 1rem;
-        }
         .title {
             font-size: 1.75rem;
             line-height: 1.75rem;
