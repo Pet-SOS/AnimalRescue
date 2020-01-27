@@ -16,18 +16,18 @@ namespace AnimalRescue.BusinessLogic.Services
 {
     internal class DocumentService : IDocumentService
     {
-        private readonly IBucket bucket;
+        private readonly IBucket _bucket;
 
         public DocumentService(IBucket bucket)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
 
-            this.bucket = bucket;
+            _bucket = bucket;
         }
 
         public async Task<byte[]> GetAsync(Guid fileId)
         {
-            var result = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
+            var result = await _bucket.GetFileBytesAsync(fileId.AsObjectIdString());
 
             return result;
         }
@@ -50,7 +50,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             using (Stream fileStream = file.OpenReadStream())
             {
-                return await bucket.UploadFileStreamAsync(fileStream, file.FileName);
+                return await _bucket.UploadFileStreamAsync(fileStream, file.FileName);
             }
         }
     }

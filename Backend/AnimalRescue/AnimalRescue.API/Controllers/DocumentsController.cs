@@ -7,15 +7,19 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AnimalRescue.Infrastructure.Validation;
 
 namespace AnimalRescue.API.Controllers
 {
     public class DocumentsController : ApiControllerBase
     {
-        private readonly IDocumentService documentService;
+        private readonly IDocumentService _documentService;
+
         public DocumentsController(IDocumentService documentService)
         {
-            this.documentService = documentService;
+            Require.Objects.NotNull(documentService, nameof(documentService));
+
+            _documentService = documentService;
         }
 
         [HttpPost]
@@ -23,7 +27,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)] 
         public async Task<ActionResult<List<Guid>>> UploadDocumentsAsync([FromForm]List<IFormFile> files)
         {
-           var ids =  await documentService.UploadFileAsync(files);
+           var ids =  await _documentService.UploadFileAsync(files);
 
             return Item(ids);
         }
@@ -34,7 +38,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetBytesAsync([BindRequired, FromRoute] Guid id)
         {
-            var fileBytes = await documentService.GetAsync(id);
+            var fileBytes = await _documentService.GetAsync(id);
 
             if (fileBytes == null)
             {

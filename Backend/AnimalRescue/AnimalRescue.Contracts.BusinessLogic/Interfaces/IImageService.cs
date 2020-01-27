@@ -1,10 +1,12 @@
-﻿using System.Drawing;
-using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IImageService
     {
-        Bitmap GetResizedImage(Bitmap sourceBitmap, ImageResizeType imageResizeType);
+        Task<Dictionary<string, Guid>> SaveImage(IFormFile sourceImage);
     }
 }

@@ -1,69 +1,66 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Infrastructure.Validation;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class ImageService : IImageService
     {
-        private readonly ImageResize _imageResize;
+        private readonly IImageSizeConfiguration _imageSizeConfiguration;
 
-        public ImageService(ImageResize imageResize)
+        private readonly IBucket _bucket;
+
+        public ImageService(IImageSizeConfiguration imageSizeConfiguration, IBucket bucket)
         {
-            _imageResize = imageResize;
+            Require.Objects.NotNull(imageSizeConfiguration, nameof(imageSizeConfiguration));
+            Require.Collections.NotEmpty(imageSizeConfiguration.Sizes, nameof(imageSizeConfiguration.Sizes));
+
+            Require.Objects.NotNull(bucket, nameof(bucket));
+
+            _imageSizeConfiguration = imageSizeConfiguration;
+            _bucket = bucket;
         }
 
-        public Bitmap GetResizedImage(Bitmap sourceBitmap, ImageResizeType imageResizeType)
+        public async Task<Dictionary<string, Guid>> SaveImage(IFormFile sourceImage)
         {
-            Bitmap resBitmap;
-            var newSize = _imageResize.Sizes[imageResizeType];
-            int width;
-            int height;
-
-            if (sourceBitmap.Width > sourceBitmap.Height)
+            if (sourceImage == null || sourceImage.Length == 0)
             {
-                double ratioX = sourceBitmap.Width / newSize.Width;
-                width = newSize.Width;
-                height = (int)Math.Round(sourceBitmap.Height / ratioX);
+                // TODO exception logging
+                return new Dictionary<string, Guid>();
             }
-            else
-            {
-                double ratioY = sourceBitmap.Height / newSize.Height;
-                width = (int)Math.Round(sourceBitmap.Width / ratioY);
-                height = newSize.Height;
-            }
-            resBitmap = ResizeImage(sourceBitmap, width, height);
 
-            return resBitmap;
+            using (var memoryStream = new MemoryStream())
+            {
+                await sourceImage.CopyToAsync(memoryStream);
+                var image = Image.FromStream(memoryStream);
+
+                var uploadImageTasks = _imageSizeConfiguration.Sizes
+                    .Select(async imageSize =>
+                    {
+                        var resizedImage = new Bitmap(image, imageSize.Width, imageSize.Height);
+                        using (var imageStream = new MemoryStream())
+                        {
+                            resizedImage.Save(imageStream, ImageFormat.Bmp);
+                            // TODO have to be refactored when an ObjectId type be replaced by Guid
+                            var addedImageId = (await _bucket.UploadFileStreamAsync(imageStream, sourceImage.FileName)).AsGuid();
+
+                            return new KeyValuePair<string, Guid>(imageSize.Size, addedImageId);
+                        }
+                    })
+                    .ToList();
+
+                await Task.WhenAll(uploadImageTasks);
+                return uploadImageTasks.Select(x => x.Result).ToDictionary(k => k.Key, v => v.Value);
+            }
         }
-
-        private static Bitmap ResizeImage(Bitmap bitmap, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            destImage.SetResolution(bitmap.HorizontalResolution, bitmap.VerticalResolution);
-
-            using (var graphics = Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(bitmap, destRect, 0, 0, bitmap.Width, bitmap.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
-        }
-
     }
 }

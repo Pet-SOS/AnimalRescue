@@ -38,7 +38,7 @@ namespace AnimalRescue.BusinessLogic
                 new TagMappingProfile()
             });
 
-            services.AddSingleton<IImageResize, ImageResize>();
+            services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
