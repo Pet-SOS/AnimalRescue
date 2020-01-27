@@ -30,7 +30,7 @@ interface IPropTypes {
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
   fetchInfoContacts:() => void;
-  // fetchArticleList:() => void;
+  fetchArticlesList:() => void;
   animalsList: IAnimalsResponse;
   blogList: IBlogListResponse;
   blogListSaved: IBlogListResponse;
@@ -40,7 +40,7 @@ interface IPropTypes {
   savedAnimalsCount: ISavedAnimalsCountResponse;
   infoCard: IInfoCard;
   infoContacts: IInfoContacts;
-  // articleList: IArticleListResponse;
+  articleList: IArticleListResponse;
 }
 
 export const HomePageMain: React.FC<IPropTypes> = ({
@@ -49,12 +49,12 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchSickAnimals,
   fetchInfoCard,
   fetchBlogList,
-  // fetchArticleList,
+  fetchArticlesList,
   fetchInfoContacts,
   animalsList,
   blogList,
   blogListSaved,
-  // articleList,
+  articleList,
   catsList,
   dogsList,
   sickAnimalsList,
@@ -71,10 +71,11 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchBlogList(AllTag.SAVED);
     fetchSavedAnimalsCount();
     fetchInfoCard();
-    // fetchArticleList();
+    fetchArticlesList();
 
   }, [])
   const getCounterDateString = (): string => {
+
     const currentDate: Date = new Date();
     const yearString: string = `${currentDate.getFullYear()}`;
     return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;
@@ -174,8 +175,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         </div>
         <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
-            data={blogListSaved.data}
-            // data={articleList.data}
+            data={articleList.data.slice(2,5)}
             link={{
                 title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
                 href: '/'

@@ -67,6 +67,9 @@ export default {
 
   blogBlockTitle: 'Блог',
   blogBlockLinkText: 'Перейти ко всем статьям',
+  titleYouTubeBox:'Видео-истории',
+  subTitleYouTubeBox: 'Истории о спасенных животных',
+  youtubeTitleLink:'Смотреть все истории на нашем канале',
 
   footerAbout: 'О службе',
   footerAboutRescue: 'О службе спасения',

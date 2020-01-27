@@ -66,6 +66,9 @@ export default {
   dogsListTitle: 'Our dogs',
   catsListTitle: 'Our cats',
   wantToChooseFriend: 'Want to choose friend',
+  titleYouTubeBox:'Video Stories',
+  subTitleYouTubeBox:' Stories of Saved Animals',
+  youtubeTitleLink:'View all stories on our channel',
 
   blogBlockTitle: 'Blog',
   blogBlockLinkText: 'Go to all articles',
