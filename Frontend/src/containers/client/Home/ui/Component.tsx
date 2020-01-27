@@ -175,7 +175,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         </div>
         <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
-            data={articleList.data.slice(1,4)}
+            data={articleList.data.slice(0,3)}
             link={{
                 title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
                 href: '/'

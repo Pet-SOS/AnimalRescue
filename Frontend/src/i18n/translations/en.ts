@@ -72,6 +72,7 @@ export default {
 
   blogBlockTitle: 'Blog',
   blogBlockLinkText: 'Go to all articles',
+  blogBlockItemType: 'Useful articles',
 
   footerAbout: 'About service',
   footerAboutRescue: 'About rescue service',

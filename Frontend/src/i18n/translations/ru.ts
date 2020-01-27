@@ -67,6 +67,8 @@ export default {
 
   blogBlockTitle: 'Блог',
   blogBlockLinkText: 'Перейти ко всем статьям',
+  blogBlockItemType: 'Полезные статьи',
+
   titleYouTubeBox:'Видео-истории',
   subTitleYouTubeBox: 'Истории о спасенных животных',
   youtubeTitleLink:'Смотреть все истории на нашем канале',
