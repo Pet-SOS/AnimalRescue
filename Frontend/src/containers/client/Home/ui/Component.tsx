@@ -31,6 +31,8 @@ interface IPropTypes {
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
   fetchInfoContacts:() => void;
   fetchArticlesList:() => void;
+  clearAnimalsState: () => void;
+  clearInfoContacts: () => void;
   animalsList: IAnimalsResponse;
   blogList: IBlogListResponse;
   blogListSaved: IBlogListResponse;
@@ -59,6 +61,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   dogsList,
   sickAnimalsList,
   savedAnimalsCount,
+  clearAnimalsState,
+  clearInfoContacts,
   infoCard,
   infoContacts
 }) => {
@@ -72,10 +76,12 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchSavedAnimalsCount();
     fetchInfoCard();
     fetchArticlesList();
-
+    return () => {
+      clearAnimalsState();
+      clearInfoContacts();
+    }
   }, [])
   const getCounterDateString = (): string => {
-
     const currentDate: Date = new Date();
     const yearString: string = `${currentDate.getFullYear()}`;
     return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;

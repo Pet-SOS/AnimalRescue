@@ -43,11 +43,65 @@ a {
   text-decoration: none;
 }
 .title {
-    color: $text-color;
-    font-size: 3rem;
-    line-height: 3rem;
-    font-weight: 900;
+  color: $text-color;
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 900;
+  margin: 0 0 1rem;
+}
+
+.numbered-list {
+  counter-reset: item;
+  margin: 0 0 3.25rem;
+  li {
+    padding: 0.7rem 0 0 4rem;
+    position: relative;
     margin: 0 0 1rem;
+    min-height: 3rem;
+    &::before {
+      font-weight: 900;
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+      content: counter(item);
+      counter-increment: item;
+      width: 3rem;
+      height: 3rem;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      border: 1px solid $bg-lite-box;
+      box-shadow: 0px 4px 6px $bg-lite-lite;
+      border-radius: 50%;
+      left: 0;
+      top: 0;
+    }
   }
+}
+.rules-list {
+  li {
+    padding: 0 0 0 2rem;
+    position: relative;
+    margin: 0 0 1rem;
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.375rem;
+      width: 1.1rem;
+      height: 0.84rem;
+      background-size: contain;
+    }
+  }
+  &.correct li:before {
+    background: url('./../img/icons/yes.png') no-repeat;
+  }
+  &.incorrect li:before {
+    width: 0.875rem;
+    height: 0.875rem;
+    background: url('./../img/icons/no.png') no-repeat;
+  }
+}
 
 @import "media";

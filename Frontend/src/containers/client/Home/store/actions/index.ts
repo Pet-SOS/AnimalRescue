@@ -29,3 +29,6 @@ export const actionFetchInfoContactsFailUrl = createAction(
     'HOME_FETCH_INFO_CONTACTS_FAILURL',
     (resolve) => (error: Error) => resolve({error})
 )
+export const actionClearInfoContacts = createAction(
+  'CLEAR_INFO_CONTACTS'
+)

@@ -1,0 +1,126 @@
+@import './../../../styles/variables.scss';
+
+.rules-page-holder {
+  background: $bg-lite-box;
+  padding: 3.75rem 0 0;
+  p {
+    margin: 0 0 2rem;
+    &.description {
+      font-size: 1.5rem;
+      line-height: 2.125rem;
+    }
+  }
+  .title {
+    margin: 0 0 1.5rem;
+  }
+  h3.title {
+    font-size: 2.25rem;
+    line-height: 2.25rem;
+  }
+  a.number {
+    font-weight: bold;
+    color: $text-color;
+    cursor: default;
+  }
+  .banner {
+    height: 23.75rem;
+    background: $bg-orange;
+    border-radius: 1.5rem;
+    position: relative;
+    margin: 0 0 2.5625rem;
+    padding: 0 0 22.4375rem;
+    &:after {
+      content: '';
+      position: absolute;
+      max-width: 26rem;
+      width: 38%;
+      height: 100%;
+      max-height: 22.4375rem;
+      background: url('./../../../img/rules-page.png') center bottom / contain no-repeat;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .rules-content {
+    max-width: 54.375rem;
+    margin: 0 auto;
+  }
+  .block-holder {
+    margin: 0 0 5rem;
+  }
+  .warning {
+    background: $bg-warning;
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    font-size: 1.5rem;
+    line-height: 2.125rem;
+    strong {
+      display: block;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0 0 1rem;
+    }
+    p:last-child {
+      margin: 0;
+    }
+  }
+  .row-holder {
+    display: flex;
+    justify-content: space-between;
+    & > ul {
+      flex-basis: 50%;
+      margin: 0 2rem 0 0;
+      &:last-child {
+        margin: 0 0 0 2rem;
+      }
+    }
+  }
+  .list-item-title {
+    font-weight: 900;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    display: block;
+    margin: 0 0 1.5rem;
+  }
+}
+@media (max-width: $medium-device-width) {
+  .rules-page-holder .row-holder > ul {
+    margin: 0 1rem 0 0;
+    &:last-child {
+      margin: 0 0 0 1rem;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .rules-page-holder .banner {
+    height: 18rem;
+    padding: 0 0 15rem;
+    &:after {
+      max-height: 15rem;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .rules-page-holder {
+    .banner {
+      height: 12rem;
+      padding: 0 0 10rem;
+      &:after {
+        max-height: 10rem;
+      }
+    }
+    .row-holder {
+      display: block;
+      & > ul, & > ul:last-child {
+        flex-basis: 100%;
+        margin: 0 0 1.5rem;
+      }
+    }
+  }
+}
+@media (max-width: $small-device-width) {
+  .rules-page-holder .list-item-title ~ p{
+    margin-left: -4rem;
+  }
+}
