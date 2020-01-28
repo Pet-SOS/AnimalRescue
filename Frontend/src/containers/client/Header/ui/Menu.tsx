@@ -11,7 +11,7 @@ export const AppMenu: React.FC = () => {
             <div className="item">
                 <TI18n keyStr="headerMenuItem1" default="О службе"/>
                 <ul className="dropdown">
-                    <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
+                    <li><Link to="/about"><TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" /></Link></li>
                     <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
                     <li><a href="financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></a></li>
                 </ul>

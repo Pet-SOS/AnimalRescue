@@ -4,6 +4,7 @@ import AppHeader from './Header';
 import {AppFooter} from './Footer';
 import {HomePage} from './Home';
 import { RulesPage } from './Rules';
+import { AboutPage } from './About';
 
 interface IPropTypes extends RouteComponentProps {
 
@@ -15,6 +16,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
         <AppHeader/>
         <div className="main">
           <Switch>
+            <Route path='/about' component={AboutPage} exact/>
             <Route path='/rules' component={RulesPage} exact/>
             <Route path={props.match.path} component={HomePage} exact/>
           </Switch>
