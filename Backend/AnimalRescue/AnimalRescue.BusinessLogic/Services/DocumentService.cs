@@ -1,6 +1,7 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 
 using Microsoft.AspNetCore.Http;
@@ -25,7 +26,7 @@ namespace AnimalRescue.BusinessLogic.Services
             this.bucket = bucket;
         }
 
-        public async Task<byte[]> GetAsync(Guid fileId)
+        public async Task<BucketItem> GetAsync(Guid fileId)
         {
             var result = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
 
@@ -50,7 +51,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             using (Stream fileStream = file.OpenReadStream())
             {
-                return await bucket.UploadFileStreamAsync(fileStream, file.FileName);
+                return await bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
             }
         }
     }
