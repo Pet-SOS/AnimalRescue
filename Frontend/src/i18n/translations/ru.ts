@@ -87,5 +87,9 @@ export default {
   footerVolunteering: 'Волонтерство',
   footerOrganization: 'Общественная организация «Спасение животных Харьков»',
   footerRights: 'Все права защищены',
-  footerRightBtn:'Помочь'
+  footerRightBtn:'Помочь',
+
+  /*     FinancialReportsPage      */
+  financialReportsPageTitle:'Финансовые отчеты',
+  financialReportsPageText:'Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены',
 }

@@ -35,7 +35,7 @@ export const YouTubeBox: React.FC<IPropTypes> = ({links, backgroundColor, title,
                         links.map((link,i) => 
                     <li key={i}>
                         <div className="video">
-                            <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'} ></iframe>
+                            <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'}  title={`video${i}`} ></iframe>
                             <button id="play" className="play-btn">
   
 	                        </button>

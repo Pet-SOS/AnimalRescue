@@ -88,5 +88,8 @@ export default {
   footerVolunteering: 'Volunteering',
   footerOrganization: 'Public organization «Animal rescue Kharkiv»',
   footerRights: 'All rights reserved',
-  footerRightBtn:'To help'
+  footerRightBtn:'To help',
+   /*     FinancialReportsPage      */
+   financialReportsPageTitle:'Financial reports',
+   financialReportsPageText:'Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed',
 }

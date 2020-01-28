@@ -1,0 +1,51 @@
+@import '../../../../styles/variables.scss';
+.financial-report-block{
+    padding: 3rem 0 5rem 0;
+    background: $bg-lite-gray;
+    @media all and (max-width:435px){
+        padding: 1rem 0 2rem 0; 
+    }
+    .text-report{
+        margin-bottom: 2.3125rem;
+    }
+    .box-reports{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .report{
+        background: $bg-orange;
+        border-radius: 1.5rem;
+        color:$main-bg-color;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        padding: 2rem 1.5rem;
+        margin-bottom: 1.5rem;
+        width:32%;
+        height: 12.4375rem;
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+        align-self: flex-start;
+        @media all and (max-width:616px){
+            width: 48%!important;
+        }
+        @media all and (max-width:435px){
+            height:8rem;
+            font-size: 1.1rem;
+        }
+        @media all and (max-width:367px){
+            padding: 1rem;
+        }
+        .title-report{
+            max-width: 10rem;
+        }
+        .date-report{
+            display: flex;
+            justify-content: flex-end;
+            font-weight: 900;
+        }
+    }
+
+}
