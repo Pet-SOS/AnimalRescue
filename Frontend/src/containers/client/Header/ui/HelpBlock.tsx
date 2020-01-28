@@ -8,7 +8,6 @@ import {store} from '../../../../store/index';
 
 export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, color, text, btn, story}) => {
     const [indexPost, setIndexPost] = useState(0);
-
     const updatePostInfo =(i: number) => {
         setIndexPost(i);
     }
