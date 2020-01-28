@@ -6,8 +6,6 @@ import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
 import { SocialLinks } from "../../../../components/SocialLinks";
 import { Link } from "react-router-dom";
 
-
-
 export const MobileMenu: React.FC = () => {
     let initialState = {
         drop1: false,
@@ -51,7 +49,7 @@ export const MobileMenu: React.FC = () => {
                        <span><TI18n keyStr="headerMenuItem1" default="О службе"/></span>
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
                             <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
-                            <li><a href="rules-for-working"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами"/></a></li>
+                            <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
                             <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
                         </ul>
                     </div>

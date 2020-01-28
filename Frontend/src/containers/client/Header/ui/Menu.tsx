@@ -1,11 +1,11 @@
 import React from "react";
 import {TI18n} from "../../../../i18n";
 import {Button, ButtonTypes} from "../../../../components/Button";
-import "../styles/menu.scss"
 import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
 import {Link} from'react-router-dom';
 import { store } from "../../../../store";
 import { actionIsActivePopup } from "../../Home/store/actions";
+import "../styles/menu.scss"
 
 export const AppMenu: React.FC = () => {
     return (
@@ -14,7 +14,7 @@ export const AppMenu: React.FC = () => {
                 <TI18n keyStr="headerMenuItem1" default="О службе"/>
                 <ul className="dropdown">
                     <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
-                    <li><a href="rules-for-working"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами"/></a></li>
+                    <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
                     <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
                 </ul>
             </div>

@@ -1,6 +1,7 @@
 export enum ELocales {
-    Ru = 'ru',
-    En = 'en'
+  Ua = 'ua',
+  Ru = 'ru',
+  En = 'en'
 }
 
 export interface ILocales {
@@ -15,5 +16,5 @@ export interface II18nState {
 }
 
 export const defaultI18nState = {
-    locale: ELocales.Ru
+    locale: ELocales.Ua
 };

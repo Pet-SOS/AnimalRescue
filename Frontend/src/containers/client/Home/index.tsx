@@ -9,6 +9,7 @@ import { AnyAction } from "redux";
 import {
   actionFetchInfoCard,
   actionFetchInfoContacts,
+  actionClearInfoContacts,
 } from "./store/actions";
 import {
   selectSavedInfoCard,
@@ -26,7 +27,8 @@ import {
   actionFetchDogsRequest,
   actionFetchAnimalsRequest,
   actionFetchSavedAnimalsCount,
-  actionFetchSickAnimals
+  actionFetchSickAnimals,
+  actionClearEntireAnimalsState
 } from "../Animals/store/actions";
 import { selectBlogList, selectBlogListSaved } from "../Blog/store/selectors";
 import { actionFetchBlogListSavedRequest, actionFetchBlogListRequest } from "../Blog/store/actions";
@@ -75,6 +77,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   },
   fetchInfoContacts:() => dispatch(actionFetchInfoContacts()),  
   fetchArticlesList:() => dispatch(actionFetchArticleListRequest()),
+  clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
+  clearInfoContacts: () => dispatch(actionClearInfoContacts())
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { DEFAULT_ANIMALS_STATE, IAnimalsState } from "../state";
 import { getType } from "typesafe-actions";
-import { genericRequestReducer } from "../../../../../api";
+import { genericRequestReducer, DEFAULT_REQUEST_STATE } from "../../../../../api";
 import {
   actionFetchAnimalsRequest,
   actionFetchAnimalsSuccess,
@@ -18,7 +18,14 @@ import {
   actionFetchSavedAnimalsCount,
   actionFetchSavedAnimalsCountSuccess,
   actionFetchSavedAnimalsCountFailure,
+  actionClearAnimalsList,
+  actionClearDogs,
+  actionClearCats,
+  actionClearSavedAnimalsCount,
+  actionClearSickAnimals,
+  actionClearEntireAnimalsState
 } from "../actions";
+import { DEFAULT_ANIMALS } from './../state';
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
   actionFetchAnimalsRequest,
@@ -68,6 +75,13 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         ...state,
         animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
       };
+    case getType(actionClearAnimalsList): {
+      return {
+        ...state,
+        animalsList: {...DEFAULT_ANIMALS},
+        animalsListRequestState: { ...DEFAULT_REQUEST_STATE }
+      }
+    }
     case getType(actionFetchDogsRequest):
       return {
         ...state,
@@ -84,6 +98,13 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         ...state,
         dogsListRequestState: fetchDogsRequestStateReducer(state.dogsListRequestState, action)
       };
+    case getType(actionClearDogs): {
+      return {
+        ...state,
+        dogsList: { ...DEFAULT_ANIMALS },
+        dogsListRequestState: { ...DEFAULT_REQUEST_STATE }
+      }
+    }
     case getType(actionFetchCatsRequest):
       return {
         ...state,
@@ -100,6 +121,13 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         ...state,
         catsListRequestState: fetchCatsRequestStateReducer(state.catsListRequestState, action)
       };
+    case getType(actionClearCats): {
+      return {
+        ...state,
+        catsList: { ...DEFAULT_ANIMALS },
+        catsListRequestState: { ...DEFAULT_REQUEST_STATE }
+      }
+    }
     case getType(actionFetchSavedAnimalsCount):
       return {
         ...state,
@@ -117,6 +145,13 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         savedAnimalsCount: action.payload,
         savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
       }
+    case getType(actionClearSavedAnimalsCount): {
+      return {
+        ...state,
+        savedAnimalsCount: { data: 0, self: '' },
+        savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE }
+      }
+    }
     case getType(actionFetchSickAnimals):
       return {
         ...state,
@@ -133,6 +168,16 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         ...state,
         sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
       };
+    case getType(actionClearSickAnimals): {
+      return {
+        ...state,
+        sickAnimalsList: { ...DEFAULT_ANIMALS },
+        sickAnimalsListState: { ...DEFAULT_REQUEST_STATE }
+      }
+    }
+    case getType(actionClearEntireAnimalsState): {
+      return {...DEFAULT_ANIMALS_STATE}
+    }
     default:
       return state;
   }

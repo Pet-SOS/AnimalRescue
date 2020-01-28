@@ -1,4 +1,4 @@
-export enum RequestFilterOperators { ALL = 'all', QE = 'eq' }
+export enum RequestFilterOperators { ALL = 'all', EQ = 'eq' }
 export enum RequestSortOrder { ACS = 'acs', DECS = 'decs' }
 export enum AllTag { TREATMENT = 'treatment', SAVED = 'saved' }
 
