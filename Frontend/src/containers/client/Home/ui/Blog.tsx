@@ -13,7 +13,6 @@ interface IPropTypes {
   }
 
   export const BlogBlock: React.FC<IPropTypes> = ({ title, link, data}) => {
-    console.log('====+', { title, link, data});
     return (
       <div className="blog-block-container">
           <div className="content">

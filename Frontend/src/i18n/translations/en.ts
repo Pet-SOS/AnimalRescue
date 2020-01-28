@@ -78,7 +78,7 @@ export default {
   aboutMainText: 'We want each of you to believe that there is nothing impossible! Anyone can change the course of history. Impact on social processes as well. This requires simple little steps. We strive to save the hopeless, to save those who have no one to care for.',
   aboutOurGoalTitle: 'Our goal',
   aboutOurGoalText: 'We are the Kharkov animal rescue service, and our goal is to help animals in distress. We save kittens, puppies, adult cats and dogs, birds, bats, wild animals wounded, stuck in a pipe or well, entangled and lost. We provide assistance to animals, regardless of the day of the week or time of day.',
-  aboutServiceHistoryTitle: 'Service History',
+  aboutServiceHistoryTitle: 'Service history',
   aboutServiceHistoryText1: 'If you decide to get a dog or cat, go to an animal shelter - maybe that is where your most devoted friend is waiting for you. Do not rush to look for a four-legged companion in elite nurseries or in bird markets. Perhaps on our site you will find someone you love and who you want to take care of.',
   aboutServiceHistoryText2: 'Volunteers of the Poryatunku Tvarin jointly with the caring people of the city save the kids, and a shelter for homeless animals is engaged in the search for families.',
   aboutServiceHistoryText3: 'There are many reasons why people give up their pets, including:',
@@ -138,5 +138,8 @@ export default {
   footerVolunteering: 'Volunteering',
   footerOrganization: 'Public organization «Animal rescue Kharkiv»',
   footerRights: 'All rights reserved',
-  footerRightBtn:'To help'
+  footerRightBtn:'To help',
+   /*     FinancialReportsPage      */
+   financialReportsPageTitle:'Financial reports',
+   financialReportsPageText:'Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed',
 }
