@@ -1,0 +1,52 @@
+@import './../../styles/variables.scss';
+.expanded-item {
+  overflow: hidden;
+  padding: 0.1875rem 0 0 3rem;
+  margin: 0 0 0.625rem;
+  position: relative;
+  min-height: 2.5rem;
+  .expand-button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: #ffffff;
+    box-shadow: 0px 4px 6px $bg-lite-lite;
+    border-radius: 50%;    
+    border: 1px solid $bg-lite-box;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    text-align: center;
+    &:after {
+      content: "";
+      display: inline-block;
+      width: .5rem;
+      height: .5rem;
+      border-top: .125rem solid $text-lite-color;
+      border-right: .125rem solid $text-lite-color;
+      transform: rotate(45deg) skew(7deg,7deg);
+      margin: 0 0.1875rem 0.125rem 0;
+      transition: $defaultHoverTransition;
+    }
+  }
+  cursor: pointer;
+  .expanded-item-title {
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+    color: $text-color-active;
+    font-weight: bold;
+    margin: 0 0 1rem;
+    display: block;
+  }
+  .expanded-item-body {
+    overflow: hidden;
+    transition: $defaultHoverTransition;
+    max-height: 0;
+  }
+  &.expanded .expand-button:after {
+    transform: rotate(135deg) skew(7deg,7deg);
+    margin: 0 0.04rem 0.125rem 0;
+  }
+}

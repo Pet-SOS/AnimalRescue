@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import { TI18n } from '../../../i18n';
 import './index.scss';
-import { IAnimalsResponse } from '../../../api/animals';
 import { HelpBlock } from '../Header/ui/HelpBlock';
 import { useSelector, shallowEqual } from 'react-redux';
 import { store } from '../../../store';
 import { selectInfoContacts } from '../Home/store/selectors';
+import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
+import { IAnimalsListState } from '../Animals/store/state';
 
 interface IPropTypes {
-  fetchSickAnimals: () => void;
   clearAnimalsState: () => void;
-  sickAnimalsList: IAnimalsResponse;
+  sickAnimalsList: IAnimalsListState;
 }
 
 export const ServiceWorkRules: React.FC<IPropTypes> = ({
-  fetchSickAnimals,
   clearAnimalsState,
-  sickAnimalsList
+  sickAnimalsList,
 }) => {
+
   useEffect(() => {
-    fetchSickAnimals();
+    sickAnimalsCheckAndLoadDefault();
     return () => {
       clearAnimalsState();
     }
@@ -220,13 +220,6 @@ export const ServiceWorkRules: React.FC<IPropTypes> = ({
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
         <HelpBlock
           animalsList={sickAnimalsList}
           backgroundColor='#333572'

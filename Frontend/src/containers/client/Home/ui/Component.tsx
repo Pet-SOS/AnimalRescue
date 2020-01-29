@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {TI18n} from '../../../../i18n';
-import { IAnimalsResponse, AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
+import { AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { OurGoalBlock } from '../../Home/ui/OurGoal';
@@ -15,13 +15,12 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
-import { IInfoCard } from '../../../../api/infoCard';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
-import { IInfoContacts } from '../../../../api/contacts';
 import { IRequestParams, AllTag } from '../../../../api/requestOptions';
 import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
+import { IAnimalsListState } from '../../Animals/store/state';
 
 interface IPropTypes {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
@@ -29,19 +28,15 @@ interface IPropTypes {
   fetchSickAnimals: () => void;
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
-  fetchInfoContacts:() => void;
   fetchArticlesList:() => void;
   clearAnimalsState: () => void;
-  clearInfoContacts: () => void;
-  animalsList: IAnimalsResponse;
-  blogList: IBlogListResponse;
+  clearInfoCard: () => void;
+  animalsList: IAnimalsListState;
   blogListSaved: IBlogListResponse;
-  catsList: IAnimalsResponse;
-  dogsList: IAnimalsResponse;
-  sickAnimalsList: IAnimalsResponse;
+  catsList: IAnimalsListState;
+  dogsList: IAnimalsListState;
+  sickAnimalsList: IAnimalsListState;
   savedAnimalsCount: ISavedAnimalsCountResponse;
-  infoCard: IInfoCard;
-  infoContacts: IInfoContacts;
   articleList: IArticleListResponse;
 }
 
@@ -52,9 +47,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchInfoCard,
   fetchBlogList,
   fetchArticlesList,
-  fetchInfoContacts,
   animalsList,
-  blogList,
   blogListSaved,
   articleList,
   catsList,
@@ -62,12 +55,9 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   sickAnimalsList,
   savedAnimalsCount,
   clearAnimalsState,
-  clearInfoContacts,
-  infoCard,
-  infoContacts
+  clearInfoCard,
 }) => {
   useEffect(() => {
-    fetchInfoContacts();
     fetchSickAnimals();
     fetchAnimalsRequest();
     fetchAnimalsRequest(AnimalKind.DOG);
@@ -78,7 +68,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchArticlesList();
     return () => {
       clearAnimalsState();
-      clearInfoContacts();
+      clearInfoCard();
     }
   }, [])
   const getCounterDateString = (): string => {

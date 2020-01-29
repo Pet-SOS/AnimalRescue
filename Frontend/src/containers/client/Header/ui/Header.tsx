@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {ReactComponent as Logo} from '../../../../assets/header/logo.svg';
 import {AppMenu} from './Menu';
@@ -16,16 +16,19 @@ import { IBankCard } from '../../../../api/infoCard';
 import '../styles/header.scss'
 import { ICustomAppState } from '../../../../store/state';
 import { Link } from 'react-router-dom';
+import { infoContactsCheckAndLoad } from '../../Home/store/selectors';
 
 interface IPropTypes {
 }
 
-const AppHeader: React.FC<IPropTypes> = () => {
+export const AppHeader: React.FC<IPropTypes> = () => {
 
   const isActivePopup: boolean = useSelector((store: ICustomAppState) => (store.homePage.isActivePopup));
   const infoCard: IBankCard = store.getState().homePage.infoCard.data.bankCard;   
   const [isActiveMenu, setIsActiveMenu] = useState(false);
-
+  useEffect(() => {
+    infoContactsCheckAndLoad();
+  }, [])
     return (
         <header>
             <div className="content">
@@ -76,6 +79,4 @@ const AppHeader: React.FC<IPropTypes> = () => {
         </header>
     )
 };
-
-export default AppHeader;
 

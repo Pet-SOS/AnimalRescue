@@ -6,7 +6,7 @@ export interface IBankCard{
     firstName: string;
     lastName: string;
 }
-export interface IInfoCard{
+export interface IInfoCardResponse {
  data: {
     bankCard: IBankCard;
     title: string;
@@ -15,7 +15,7 @@ export interface IInfoCard{
   self?: string;
 }
 
-export async function fetchInfoCard(): Promise< IInfoCard> {
+export async function fetchInfoCard(): Promise<IInfoCardResponse> {
     const res = await API.get(`Configurations/donation`);
     return res.data
 }
