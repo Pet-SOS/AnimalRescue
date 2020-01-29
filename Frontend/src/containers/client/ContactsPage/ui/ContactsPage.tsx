@@ -1,8 +1,5 @@
 import React from 'react';
 import { store } from '../../../../store';
-import { IInfoContacts } from '../../../../api/contacts';
-import { IInfoCard } from '../../../../api/infoCard';
-import { IAnimalsResponse } from '../../../../api/animals';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { TI18n } from '../../../../i18n';
 import {ReactComponent as Facebook} from '../../../../assets/helpBlock/facebook.svg';
@@ -10,10 +7,11 @@ import {ReactComponent as Instagram} from '../../../../assets//helpBlock/twitter
 import {ReactComponent as Youtube} from '../../../../assets//helpBlock/youtube.svg';
 import  defaultText  from '../../../../i18n/translations/ru';
 import '../styles/contactsPage.scss';
-
+import { IInfoCard, IInfoContacts } from '../../Home/store/state';
+import { IAnimalsListState } from '../../Animals/store/state';
 
 interface IPropTypes {
-    sickAnimalsList: IAnimalsResponse,
+  sickAnimalsList: IAnimalsListState,
     infoCard: IInfoCard,
     infoContacts: IInfoContacts,
     fetchSickAnimals:() => void;

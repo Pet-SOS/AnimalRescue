@@ -30,16 +30,15 @@ export const AppMenu: React.FC = () => {
                     <li><a href="pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
                 </ul>
             </div>
-            <div className="item">
-                <Link to={HOW_TO_HELP_PAGE_LINK}><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></Link>
-                <ul className="dropdown">
-                    <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.FINANCE}`}><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></Link></li>
-                    <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.STUFF}`}><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></Link></li>
-                    <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.VOLUNTEERING}`}><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></Link></li>
-                </ul>
-            </div>
+            <Link className="item" to={HOW_TO_HELP_PAGE_LINK}><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" />
+              <ul className="dropdown">
+                <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.FINANCE}`}><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></Link></li>
+                <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.STUFF}`}><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></Link></li>
+                <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.VOLUNTEERING}`}><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></Link></li>
+              </ul>
+            </Link>
             <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-        <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
+            <Link className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link>
             <div className="item heart"><HeartLogo/></div>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
             }}  styleType={ButtonTypes.Blue}>
