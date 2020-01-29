@@ -36,6 +36,8 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string LastName = "lastName";
             public const string Phone = "phone";
             public const string Email = "email";
+            public const string Emails = "emails";
+            public const string Addresses = "addresses";
        }
 
         public static class Animal

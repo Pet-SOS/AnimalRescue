@@ -2,6 +2,8 @@ import React from 'react';
 import {BASE_URL} from "../../../../api/index";
 import noPhoto from '../../../../img/nophoto.jpg';
 import '../styles/photoSlider.scss';
+import { actionIsActivePopup } from '../../Home/store/actions';
+import {store} from '../../../../store';
 
 
 interface IPropTypes {
@@ -25,7 +27,8 @@ export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex, 
     }
      return(
         <div className="slide">
-            <div className={story ? 'box-img story' : 'box-img'}>
+            <div className={story ? 'box-img story' : 'box-img'}
+            onClick={() => {store.dispatch(actionIsActivePopup(true))}} >
                 <div  className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
             </div>
             <div className="btn-slider">

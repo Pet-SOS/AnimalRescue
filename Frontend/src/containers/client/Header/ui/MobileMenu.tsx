@@ -50,7 +50,7 @@ export const MobileMenu: React.FC = () => {
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
                             <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
                             <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
-                            <li><a href="financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></a></li>
+                            <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
                         </ul>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ export const MobileMenu: React.FC = () => {
                     </div>
                 </div>
                 <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-                <div className="item"><TI18n keyStr="contacts" default="Контакты"/></div>
+                <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
                 <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/><HeartLogo className='heart-logo'/></div>
                 <Button onClick={() => {}} styleType={ButtonTypes.Blue} className="btn-give">
                     <TI18n keyStr="help" default="Помочь"/>

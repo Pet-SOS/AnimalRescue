@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {TI18n} from "../../../../i18n";
 import {Button, ButtonTypes} from "../../../../components/Button";
-import "../styles/menu.scss"
 import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
+import {Link} from'react-router-dom';
+import { store } from "../../../../store";
+import { actionIsActivePopup } from "../../Home/store/actions";
+import "../styles/menu.scss"
 
 export const AppMenu: React.FC = () => {
     return (
@@ -11,9 +13,9 @@ export const AppMenu: React.FC = () => {
             <div className="item">
                 <TI18n keyStr="headerMenuItem1" default="О службе"/>
                 <ul className="dropdown">
-                    <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
+                    <li><Link to="/about"><TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" /></Link></li>
                     <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
-                    <li><a href="financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></a></li>
+                    <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
                 </ul>
             </div>
             <div className="item">
@@ -34,9 +36,10 @@ export const AppMenu: React.FC = () => {
                 </ul>
             </div>
             <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-        <div className="item"><TI18n keyStr="contacts" default="Контакты"/></div>
+        <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
             <div className="item heart"><HeartLogo/></div>
-            <Button onClick={() => {}} styleType={ButtonTypes.Blue}>
+            <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
+            }}  styleType={ButtonTypes.Blue}>
                 <TI18n keyStr="help" default="Помочь"/>
             </Button>
         </div>

@@ -15,6 +15,7 @@ import counterImage10 from '../../../../img/counter-images/counter_10.png';
 import { IBankCard } from '../../../../api/infoCard';
 import '../styles/header.scss'
 import { ICustomAppState } from '../../../../store/state';
+import { Link } from 'react-router-dom';
 
 interface IPropTypes {
 }
@@ -40,14 +41,14 @@ const AppHeader: React.FC<IPropTypes> = () => {
                           {isActiveMenu? <MobileMenu/> : ''} 
                       </div>
                       <div className="logo-main">
-                          <div className="logo"><Logo/></div>
+                          <div className="logo"><Link to="/"><Logo/></Link></div>
                           <div className="logo-text">
                               <TI18n keyStr="headerTitle" default="Спасение животных в Харькове"/>
                           </div>
                       </div>
                   </div>
                   <PhoneLink/>
-                  <div className="box-social-locale">
+                  <div className="box-social-locale-header">
                       <SocialLinks/>
                       <div className="change-locale"><ChangeLocale/></div>
                   </div>
