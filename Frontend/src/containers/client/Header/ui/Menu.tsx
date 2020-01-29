@@ -6,6 +6,9 @@ import {Link} from'react-router-dom';
 import { store } from "../../../../store";
 import { actionIsActivePopup } from "../../Home/store/actions";
 import "../styles/menu.scss"
+import { RULES_PAGE_LINK } from "../../Rules";
+import { HOW_TO_HELP_PAGE_LINK } from "../../HowToHelp";
+import { HOW_TO_HELP_QUERY_NAME, HelpTypes } from "../../HowToHelp/Component";
 
 export const AppMenu: React.FC = () => {
     return (
@@ -14,7 +17,7 @@ export const AppMenu: React.FC = () => {
                 <TI18n keyStr="headerMenuItem1" default="О службе"/>
                 <ul className="dropdown">
                     <li><Link to="/about"><TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" /></Link></li>
-                    <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
+                    <li><Link to={RULES_PAGE_LINK}><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
                     <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
                 </ul>
             </div>
@@ -28,11 +31,11 @@ export const AppMenu: React.FC = () => {
                 </ul>
             </div>
             <div className="item">
-                <TI18n keyStr="headerMenuItem3" default="Как я могу помочь?"/>
+                <Link to={HOW_TO_HELP_PAGE_LINK}><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></Link>
                 <ul className="dropdown">
-                    <li><a href="help-financially"><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово"/></a></li>
-                    <li><a href="help-things"><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами"/></a></li>
-                    <li><a href="help-volunteering"><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством"/></a></li>
+                    <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.FINANCE}`}><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></Link></li>
+                    <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.STUFF}`}><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></Link></li>
+                    <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.VOLUNTEERING}`}><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></Link></li>
                 </ul>
             </div>
             <div className="item"><TI18n keyStr="blog" default="Блог"/></div>

@@ -1,0 +1,39 @@
+@import './../../../styles/variables.scss';
+.help-page-holder{
+  background: $bg-lite-box;
+  padding: 3.75rem 0 0;
+  p {
+    margin: 0 0 2rem;
+  }
+  a {
+    color: $text-color-active;
+  }
+  .bank-card-info {
+    background: $bg-warning;
+    p {
+      margin: 0;
+    }
+  }
+  .title {
+    margin: 0 0 1.5rem;
+  }
+  h3.title {
+    font-size: 2.25rem;
+    line-height: 2.25rem;
+  }
+  h4.title {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin: 0 0 1.3125rem;
+  }
+  .banner {
+    background: url('./../../../img/help-page.png') center center / cover no-repeat $bg-orange;
+  }
+  .help-page-content {
+    max-width: 54.375rem;
+    margin: 0 auto;
+  }
+  .vacations-list p {
+    margin: 0 0 1rem;
+  }
+}

@@ -5,10 +5,6 @@
   padding: 3.75rem 0 0;
   p {
     margin: 0 0 2rem;
-    &.description {
-      font-size: 1.5rem;
-      line-height: 2.125rem;
-    }
   }
   .title {
     margin: 0 0 1.5rem;
@@ -23,11 +19,7 @@
     cursor: default;
   }
   .banner {
-    height: 23.75rem;
     background: $bg-orange;
-    border-radius: 1.5rem;
-    position: relative;
-    margin: 0 0 2.5625rem;
     padding: 0 0 22.4375rem;
     &:after {
       content: '';
@@ -45,9 +37,6 @@
   .rules-content {
     max-width: 54.375rem;
     margin: 0 auto;
-  }
-  .block-holder {
-    margin: 0 0 5rem;
   }
   .warning {
     background: $bg-warning;
@@ -94,7 +83,6 @@
 }
 @media (max-width: 700px) {
   .rules-page-holder .banner {
-    height: 18rem;
     padding: 0 0 15rem;
     &:after {
       max-height: 15rem;
@@ -104,7 +92,6 @@
 @media (max-width: 600px) {
   .rules-page-holder {
     .banner {
-      height: 12rem;
       padding: 0 0 10rem;
       &:after {
         max-height: 10rem;

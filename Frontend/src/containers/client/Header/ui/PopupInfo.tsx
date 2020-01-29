@@ -19,7 +19,7 @@ export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, text
                 </div>
                 <div className="second-block">
                     <p>{textFirst}</p>
-                    <div className="card-info">
+                    <div className="bank-card-info">
                         <p className='card'>{card}</p>
                         <p>{cardName}</p>
                     </div>

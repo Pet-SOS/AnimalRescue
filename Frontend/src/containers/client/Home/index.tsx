@@ -8,13 +8,8 @@ import { Dispatch } from "react";
 import { AnyAction } from "redux";
 import {
   actionFetchInfoCard,
-  actionFetchInfoContacts,
-  actionClearInfoContacts,
+  actionClearInfoCard,
 } from "./store/actions";
-import {
-  selectSavedInfoCard,
-  selectInfoContacts
-} from "./store/selectors";
 import {
   selectAnimalsList,
   selectCatsList,
@@ -30,21 +25,18 @@ import {
   actionFetchSickAnimals,
   actionClearEntireAnimalsState
 } from "../Animals/store/actions";
-import { selectBlogList, selectBlogListSaved } from "../Blog/store/selectors";
+import { selectBlogListSaved } from "../Blog/store/selectors";
 import { actionFetchBlogListSavedRequest, actionFetchBlogListRequest } from "../Blog/store/actions";
 import { selectArticleList } from "../Articles/store/selectors";
 import { actionFetchArticleListRequest } from "../Articles/store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
-  blogList: selectBlogList(state),
   blogListSaved: selectBlogListSaved(state),
   catsList: selectCatsList(state),
   dogsList: selectDogsList(state),
   sickAnimalsList: selectSickAnimals(state),
   savedAnimalsCount: selectSavedAnimalsCount(state),
-  infoCard: selectSavedInfoCard(state),
-  infoContacts: selectInfoContacts(state),
   articleList: selectArticleList(state),
 });
 
@@ -63,7 +55,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     }
   },
   fetchSavedAnimalsCount: () => dispatch(actionFetchSavedAnimalsCount()),
-  fetchSickAnimals: () => dispatch(actionFetchSickAnimals()),
   fetchInfoCard: () => dispatch(actionFetchInfoCard()),
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
     switch (tag) {
@@ -75,10 +66,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       }
     }
   },
-  fetchInfoContacts:() => dispatch(actionFetchInfoContacts()),  
   fetchArticlesList:() => dispatch(actionFetchArticleListRequest()),
   clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
-  clearInfoContacts: () => dispatch(actionClearInfoContacts())
+  clearInfoCard: () => dispatch(actionClearInfoCard())
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

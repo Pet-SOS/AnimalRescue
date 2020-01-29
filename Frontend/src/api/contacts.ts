@@ -23,7 +23,7 @@ export interface IInfoContacts{
   self?: string;
 }
 
-export async function fetchInfoContacts(): Promise< IInfoContacts> {
+export async function fetchInfoContacts(): Promise<IInfoContactsResponse> {
     const res = await API.get(`Configurations/cms`);
     return res.data
 }

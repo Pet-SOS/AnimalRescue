@@ -62,17 +62,30 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionFetchAnimalsRequest):
       return {
         ...state,
+        animalsList: {
+          ...state.animalsList,
+          isLoading: true
+        },
         animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
       };
     case getType(actionFetchAnimalsSuccess):
       return {
         ...state,
         animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action),
-        animalsList: action.payload.data
+        animalsList: {
+          ...action.payload.data,
+          isLoaded: true,
+          isLoading: false
+        }
       };
     case getType(actionFetchAnimalsFailure):
       return {
         ...state,
+        animalsList: {
+          ...state.animalsList,
+          isLoading: false,
+          isLoaded: false
+        },
         animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
       };
     case getType(actionClearAnimalsList): {
@@ -85,17 +98,30 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionFetchDogsRequest):
       return {
         ...state,
+        dogsList: {
+          ...state.dogsList,
+          isLoading: true
+        },
         dogsListRequestState: fetchDogsRequestStateReducer(state.dogsListRequestState, action)
       };
     case getType(actionFetchDogsSuccess):
       return {
         ...state,
         dogsListRequestState: fetchDogsRequestStateReducer(state.dogsListRequestState, action),
-        dogsList: action.payload
+        dogsList: {
+          ...action.payload,
+          isLoaded: true,
+          isLoading: false
+        }
       };
     case getType(actionFetchDogsFailure):
       return {
         ...state,
+        dogsList: {
+          ...state.dogsList,
+          isLoaded: false,
+          isLoading: false
+        },
         dogsListRequestState: fetchDogsRequestStateReducer(state.dogsListRequestState, action)
       };
     case getType(actionClearDogs): {
@@ -108,17 +134,30 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionFetchCatsRequest):
       return {
         ...state,
+        catsList: {
+          ...state.catsList,
+          isLoading: true
+        },
         catsListRequestState: fetchCatsRequestStateReducer(state.catsListRequestState, action)
       };
     case getType(actionFetchCatsSuccess):
       return {
         ...state,
         catsListRequestState: fetchCatsRequestStateReducer(state.catsListRequestState, action),
-        catsList: action.payload
+        catsList: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true
+        }
       };
     case getType(actionFetchCatsFailure):
       return {
         ...state,
+        catsList: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: false
+        },
         catsListRequestState: fetchCatsRequestStateReducer(state.catsListRequestState, action)
       };
     case getType(actionClearCats): {
@@ -155,17 +194,30 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionFetchSickAnimals):
       return {
         ...state,
+        sickAnimalsList: {
+          ...state.sickAnimalsList,
+          isLoading: true
+        },
         sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action)
       };
     case getType(actionFetchSickAnimalsSuccess):
       return {
         ...state,
         sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
-        sickAnimalsList: action.payload.data
+        sickAnimalsList: {
+          ...action.payload.data,
+          isLoading: false,
+          isLoaded: true
+        }
       };
     case getType(actionFetchSickAnimalFailUrl):
       return {
         ...state,
+        sickAnimalsList: {
+          ...state.sickAnimalsList,
+          isLoaded: false,
+          isLoading: false
+        },
         sickAnimalsListState: fetchSickAnimalsRequestStateReducer(state.sickAnimalsListState, action),
       };
     case getType(actionClearSickAnimals): {

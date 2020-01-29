@@ -1,5 +1,5 @@
 import {createAction} from 'typesafe-actions';
-import { IInfoContacts } from '../../../../../api/contacts';
+import { IInfoContactsResponse } from '../../../../../api/contacts';
 
 export const actionIsActivePopup = createAction(
     'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
@@ -17,13 +17,16 @@ export const actionFetchInfoCardlFailUrl = createAction(
     'HOME_FETCH_INFO_CARD_FAILURL',
     (resolve) => (error: Error) => resolve({error})
 )
+export const actionClearInfoCard = createAction(
+  'CLEAR_INFO_CARD'
+)
 export const actionFetchInfoContacts = createAction(
     'HOME_FETCH_INFO_CONTACTS',
     (resolve) => () => resolve({})
 );
 export const actionFetchInfoContactsSuccess = createAction(
     'HOME_FETCH_INFO_CONTACTS_SUCCESS',
-    (resolve) => (data: IInfoContacts) => resolve(data)
+    (resolve) => (data: IInfoContactsResponse) => resolve(data)
 );
 export const actionFetchInfoContactsFailUrl = createAction(
     'HOME_FETCH_INFO_CONTACTS_FAILURL',
