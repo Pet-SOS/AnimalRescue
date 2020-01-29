@@ -12,25 +12,31 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using AnimalRescue.Contracts.BusinessLogic.Models;
+using AutoMapper;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class DocumentService : IDocumentService
     {
         private readonly IBucket bucket;
+        private readonly IMapper _mapper;
 
-        public DocumentService(IBucket bucket)
+
+        public DocumentService(IBucket bucket, IMapper mapper)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
+            Require.Objects.NotNull(mapper, nameof(mapper));
 
             this.bucket = bucket;
+            _mapper = mapper;
         }
 
-        public async Task<BucketItem> GetAsync(Guid fileId)
+        public async Task<BucketItemDto> GetAsync(Guid fileId)
         {
-            var result = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
-
-            return result;
+            var bucketItem = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
+            var bucketItemDto = _mapper.Map<BucketItem, BucketItemDto>(bucketItem);
+            return bucketItemDto;
         }
 
         public async Task<List<Guid>> UploadFileAsync(List<IFormFile> files)

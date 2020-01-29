@@ -1,10 +1,10 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
-using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.Contracts.BusinessLogic.Models;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IDocumentService :
-        IBlOneItemQueryAsyncy<BucketItem>,
+        IBlOneItemQueryAsyncy<BucketItemDto>,
         IBlUploadFileAsync
     {
     }

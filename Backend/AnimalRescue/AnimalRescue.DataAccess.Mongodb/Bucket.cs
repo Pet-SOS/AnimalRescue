@@ -52,6 +52,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         {
             Require.Objects.NotNull(fileData, nameof(fileData));
             Require.Strings.NotNullOrWhiteSpace(fileName, nameof(fileName));
+            Require.Strings.NotNullOrWhiteSpace(contentType, nameof(contentType));
 
             var gridFSUploadOptions = new GridFSUploadOptions
             {
@@ -60,7 +61,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 }
             };
 
-            ObjectId objectId = await operation(fileName, fileData, gridFSUploadOptions, default(CancellationToken));
+            ObjectId objectId = await operation(fileName, fileData, gridFSUploadOptions, default);
 
             return objectId.ToString();
         }
@@ -70,13 +71,16 @@ namespace AnimalRescue.DataAccess.Mongodb
             Require.Strings.NotNullOrWhiteSpace(fileId, nameof(fileId));
 
             ObjectId objectId = ObjectId.Parse(fileId);
-            byte[] bytes = await gridFSBucket.DownloadAsBytesAsync(objectId);
-
+            byte[] bytes;
             string contentType;
             using (var stream = await gridFSBucket.OpenDownloadStreamAsync(objectId))
             {
+                bytes = new byte[stream.Length];
+                await stream.ReadAsync(bytes);
+
                 var fi = stream.FileInfo;
                 contentType = (string) fi.Metadata[ContentTypeName];
+
                 await stream.CloseAsync(); 
             }
 
