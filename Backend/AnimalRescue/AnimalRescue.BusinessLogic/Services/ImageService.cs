@@ -39,29 +39,36 @@ namespace AnimalRescue.BusinessLogic.Services
                 return new Dictionary<string, Guid>();
             }
 
-            using (var memoryStream = new MemoryStream())
+            Image image;
+            try
             {
-                await sourceImage.CopyToAsync(memoryStream);
-                var image = Image.FromStream(memoryStream);
-
-                var uploadImageTasks = _imageSizeConfiguration.Sizes
-                    .Select(async imageSize =>
-                    {
-                        var resizedImage = ResizeImage(image, imageSize.Width, imageSize.Height);
-                        using (var imageStream = new MemoryStream())
-                        {
-                            resizedImage.Save(imageStream, ImageFormat.Png);
-                            // TODO have to be refactored when an ObjectId type be replaced by Guid
-                            var addedImageId = (await _bucket.UploadFileStreamAsync(imageStream, sourceImage.FileName)).AsGuid();
-
-                            return new KeyValuePair<string, Guid>(imageSize.Size, addedImageId);
-                        }
-                    })
-                    .ToList();
-
-                await Task.WhenAll(uploadImageTasks);
-                return uploadImageTasks.Select(x => x.Result).ToDictionary(k => k.Key, v => v.Value);
+                image = Image.FromStream(sourceImage.OpenReadStream());
             }
+            catch (ArgumentException)
+            {
+                // TODO exception logging
+                // sourceImage contains not image format
+                return new Dictionary<string, Guid>();
+            }
+
+            var uploadImageTasks = _imageSizeConfiguration.Sizes
+                .Select(async imageSize =>
+                {
+                    var resizedImage = ResizeImage(image, imageSize.Width, imageSize.Height);
+                    using (var imageStream = new MemoryStream())
+                    {
+                        resizedImage.Save(imageStream, ImageFormat.Png);
+                        // TODO have to be refactored when an ObjectId type be replaced by Guid
+                        var addedImageId = (await _bucket.UploadFileStreamAsync(imageStream, sourceImage.FileName)).AsGuid();
+
+                        return new KeyValuePair<string, Guid>(imageSize.Size, addedImageId);
+                    }
+                })
+                .ToList();
+
+            await Task.WhenAll(uploadImageTasks);
+            return uploadImageTasks.Select(x => x.Result).ToDictionary(k => k.Key, v => v.Value);
+
         }
 
         public async Task<List<Dictionary<string, Guid>>> CreateAsync(IList<IFormFile> images)
