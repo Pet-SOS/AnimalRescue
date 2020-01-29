@@ -21,11 +21,11 @@ import { IRequestParams, AllTag } from '../../../../api/requestOptions';
 import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
 import { IAnimalsListState } from '../../Animals/store/state';
+import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
 
 interface IPropTypes {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
-  fetchSickAnimals: () => void;
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
   fetchArticlesList:() => void;
@@ -43,7 +43,6 @@ interface IPropTypes {
 export const HomePageMain: React.FC<IPropTypes> = ({
   fetchAnimalsRequest,
   fetchSavedAnimalsCount,
-  fetchSickAnimals,
   fetchInfoCard,
   fetchBlogList,
   fetchArticlesList,
@@ -58,10 +57,10 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   clearInfoCard,
 }) => {
   useEffect(() => {
-    fetchSickAnimals();
     fetchAnimalsRequest();
     fetchAnimalsRequest(AnimalKind.DOG);
     fetchAnimalsRequest(AnimalKind.CAT);
+    sickAnimalsCheckAndLoadDefault();
     fetchBlogList(AllTag.SAVED);
     fetchSavedAnimalsCount();
     fetchInfoCard();

@@ -55,7 +55,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     }
   },
   fetchSavedAnimalsCount: () => dispatch(actionFetchSavedAnimalsCount()),
-  fetchSickAnimals: () => dispatch(actionFetchSickAnimals()),
   fetchInfoCard: () => dispatch(actionFetchInfoCard()),
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => {
     switch (tag) {

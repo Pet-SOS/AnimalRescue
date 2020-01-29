@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 using cms = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Cms;
+using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 
 namespace AnimalRescue.API.Models.Configurations.Contacts
 {
@@ -15,6 +16,15 @@ namespace AnimalRescue.API.Models.Configurations.Contacts
 
         [JsonPropertyName(cms.SocialLinks)]
         [JsonProperty(cms.SocialLinks)]
-        public Dictionary<string, string> SocialLinks { get; set; }  
+        public Dictionary<string, string> SocialLinks { get; set; }
+
+        [JsonPropertyName(person.Emails)]
+        [JsonProperty(person.Emails)]
+        public Dictionary<string, string> Emails { get; set; }
+
+        [JsonPropertyName(person.Addresses)]
+        [JsonProperty(person.Addresses)]
+        public Dictionary<string, string> Addresses { get; set; }
+
     }
 }
