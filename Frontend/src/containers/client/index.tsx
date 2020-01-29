@@ -5,6 +5,7 @@ import {AppFooter} from './Footer';
 import {HomePage} from './Home';
 import {FinancialReports} from './FinancialReports';
 import { RulesPage } from './Rules';
+import { Contacts } from './ContactsPage';
 
 interface IPropTypes extends RouteComponentProps {
 
@@ -19,6 +20,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path='/financial-reports' component={FinancialReports} exact/>
             <Route path='/rules' component={RulesPage} exact/>
             <Route path={props.match.path} component={HomePage} exact/>
+            <Route path='/contacts' component={Contacts} exact/>
           </Switch>
         </div>
         <AppFooter/>
