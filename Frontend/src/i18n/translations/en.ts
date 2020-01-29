@@ -142,4 +142,15 @@ export default {
    /*     FinancialReportsPage      */
    financialReportsPageTitle:'Financial reports',
    financialReportsPageText:'Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed',
-}
+   
+   /*    ContactsPage             */
+    contactsTitle: 'Contacts',
+    contactsHelp: 'Rescue Services Hotline',
+    contactsRoundTheClock: 'Round the clock 24/7',
+    contactsAdoptionIssues: 'For adoption issues',
+    contactsemail: 'Email Address',
+    contactsOffice: 'Office',
+    contactsWarning: 'We do not accept animals without a prior call',
+
+  }
+

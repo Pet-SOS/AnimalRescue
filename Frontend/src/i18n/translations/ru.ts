@@ -142,4 +142,13 @@ export default {
   /*     FinancialReportsPage      */
   financialReportsPageTitle:'Финансовые отчеты',
   financialReportsPageText:'Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены',
+
+   /*    ContactsPage             */
+   contactsTitle: 'Контакты',
+   contactsHelp:'Горячая линия Службы спасения',
+   contactsRoundTheClock:'Круглосуточно 24/7',
+   contactsAdoptionIssues: 'По вопросам усыновления',
+   contactsemail:'Электронный адрес',
+   contactsOffice: 'Офис',
+   contactsWarning: 'Мы не принимаем животных без предварительного звонка',
 }

@@ -51,4 +51,18 @@ export default {
   rulesHowToAdoptListItemText3: `Обов'язковим етапом є підписання договору.`,
   rulesHowToAdoptListItemTitle4: 'Випробувальний термін',
   rulesHowToAdoptListItemText4: 'Якщо у вас виникають труднощі з вихованцем, не соромтеся нам дзвонити! Ми допоможемо і якщо все-таки не вийде подружитися, заберемо тварину назад.',
+   
+  /*     FinancialReportsPage      */
+   financialReportsPageTitle: 'Фінансові звіти',
+   financialReportsPageText: 'Кожного місяця до 20 числа ми готуємо фінансовий звіт, в якому вказуємо всі суми, які прийшли від доброзичливців і як вони були розподілені',
+
+    /*    ContactsPage             */
+    contactsTitle: 'Контакти',
+    contactsHelp: 'Гаряча лінія Служба порятунку',
+    contactsRoundTheClock: 'Цілодобово 24/7',
+    contactsAdoptionIssues: 'З питань усиновлення',
+    contactsemail: 'Електронна адреса',
+    contactsOffice: 'Офіс',
+    contactsWarning: 'Ми не приймаємо тварин без попереднього дзвінка',
+
 }
