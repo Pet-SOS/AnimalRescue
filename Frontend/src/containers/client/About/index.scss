@@ -1,0 +1,88 @@
+@import './../../../styles/variables.scss';
+
+.about-page-holder{
+  background: $bg-lite-box;
+  padding: 3.75rem 0 0;
+  p {
+    margin: 0 0 2rem;
+    &.description {
+      font-size: 1.5rem;
+      line-height: 2.125rem;
+    }
+  }
+  .title {
+    margin: 0 0 1.5rem;
+  }
+  .banner {
+    height: 23.75rem;
+    background: $bg-orange;
+    border-radius: 1.5rem;
+    position: relative;
+    margin: 0 0 2.5625rem;
+    padding: 0 0 22.4375rem;
+    .image-holder {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin: 0 2rem;
+        img {
+            max-width: 14%;
+            width: 100%;
+        }
+    }
+  }
+  .about-content {
+    max-width: 54.375rem;
+    margin: 0 auto;
+  }
+  .block-holder {
+    margin: 0 0 5rem;
+  }
+}
+@media (max-width: $medium-device-width) {
+    .about-page-holder .banner{
+        height: 20rem;
+        padding: 0 0 17rem;
+        &:after {
+          max-height: 17rem;
+        }
+        .image-holder {
+            margin: 0 1rem;
+            img {
+                max-width: 20%;
+                &:first-child, &:last-child {
+                display: none;
+                }
+            }
+        }
+    } 
+}
+@media (max-width: $small-device-width) {
+    .about-page-holder .banner {
+        height: 14rem;
+        padding: 0 0 12rem;
+        &:after {
+          max-height: 12rem;
+        }      
+        .image-holder {
+            margin: 0 0.5rem;
+        }
+    }
+}
+@media (max-width: $min-device-width) {  
+    .about-page-holder .banner {
+        height: 12rem;
+        padding: 0 0 10rem;
+        &:after {
+            max-height: 10rem;
+        }      
+        .image-holder img {
+            max-width: 33%;
+            &:nth-child(-n + 2), &:nth-last-child(-n + 2) {
+                display: none;
+            }
+        }
+    }
+}
