@@ -13,7 +13,7 @@ export interface IAddresses{
   street:string;
 }
 
-export interface IInfoContacts{
+export interface IInfoContactsResponse {
  data: {
     socialLinks: ISocialLinks;
     phones: string[];
