@@ -38,10 +38,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes> {
                 title:'Финансовый отчет',
                 date:'2016'
             },
-            {
-                title:'Финансовый отчет',
-                date:'2015'
-            },
+
         ];
     componentDidMount(){
         if(store.getState().animals.sickAnimalsList.totalCount === 0){
@@ -60,9 +57,11 @@ export class FinancialReportsPage extends React.Component<IPropTypes> {
                     <ul className='box-reports'>
                     {
                         this.reports.map((item, i:number)=>
-                            <li  key={i} className='report'>
-                                <p className='title-report'>{item.title}</p>
-                                <p className='date-report'>{item.date}</p>
+                            <li  key={i} className='maine-report'>
+                                <div className='report'>
+                                    <p className='title-report'>{item.title}</p>
+                                    <p className='date-report'>{item.date}</p>
+                                </div>
                             </li>
                         )
                     }

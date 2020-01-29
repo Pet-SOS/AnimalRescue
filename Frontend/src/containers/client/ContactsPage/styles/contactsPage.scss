@@ -1,0 +1,109 @@
+@import '../../../../styles/variables.scss';
+
+.contacts{
+    background: $bg-lite-box;
+    padding: 3.75rem 0 0;
+    .box-social-link{
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 1.875rem;
+    }
+    .info{
+        margin: 1.5rem  0 2rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    .box-info{
+        max-width: 25.375rem;
+        .contacts-box{
+           font-size: 1.5rem;
+           line-height: 2rem;
+           word-wrap: break-word;
+           &.smaller{
+               font-size: 1.125rem;
+           }
+        }
+        .contacts-tex{
+            font-size: 1rem;
+            line-height: 1.375rem;
+            color: $text-lite-color;
+        }
+    }
+    .main-social-link{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .social-link{
+        background: $main-bg-color;
+        width: 12.25rem;
+        height: 6rem;
+        border-radius: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.625rem;
+        a {
+            color: $text-color;
+            font-size: 1.125rem;
+            line-height: 1.5rem;
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            svg{
+                margin-right: 0.5rem;
+            }
+        }
+        
+    }
+    .map{
+        margin-bottom: 5rem;
+        iframe{
+            border-radius: 1.5rem;
+        }
+    }
+}
+@media all and (max-width:1011px){
+    .content {
+        padding: 0 1.3rem!important;
+    }
+}
+@media all and (max-width:869px){
+    .contacts{
+        padding: 1rem 0 0;
+        .content{
+            .info, .box-social-link{
+                flex-wrap: wrap!important;
+                margin-bottom: 0;
+                .box-info{
+                    max-width: 100%;
+                    width: 100%;
+                    margin-bottom: 1.5rem;
+                }
+            }
+        }
+    }
+}
+@media all and (max-width:686px){
+    .contacts{
+        .content{
+            .box-social-link{
+                .main-social-link{
+                    justify-content: flex-start;
+                }
+                .social-link{
+                    width: auto;
+                    height: auto;
+                    background: transparent;
+                    a{
+                        p{
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

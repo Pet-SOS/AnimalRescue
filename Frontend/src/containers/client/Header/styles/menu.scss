@@ -22,6 +22,22 @@
     &.heart{
       padding: 1rem 1rem 1rem 0.2rem
     }
+    a{
+      font-size: 1.125rem;
+      line-height: 1.5625rem;
+      text-decoration: none;
+      color: $text-lite-color;
+      font-weight: bold;
+      font-style: normal;
+      display: flex;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      padding-bottom: 1rem;
+    }
+    &:hover a, &:active a,&:focus a {
+      color:$text-color-active;
+      outline: none;
+    }
     .dropdown{
       display: none;
       position: absolute;

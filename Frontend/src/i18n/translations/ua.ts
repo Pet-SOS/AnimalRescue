@@ -72,4 +72,18 @@ export default {
   helpPageVolunteeringTitle: 'Волонтерством',
   helpPageVolunteeringText: 'Якщо ви хочете допомогти руками - у нас завжди знайдеться робота! Ви активна людина, любите тварин, у вас є вільний час і бажання робити добрі і важливі вчинки - ви можете стати частиною команди допомоги і порятунку бездомних тварин.',
   helpPageVolunteeringListTitle: 'Яку роботу можуть виконувати волонтери?',
+   
+  /*     FinancialReportsPage      */
+   financialReportsPageTitle: 'Фінансові звіти',
+   financialReportsPageText: 'Кожного місяця до 20 числа ми готуємо фінансовий звіт, в якому вказуємо всі суми, які прийшли від доброзичливців і як вони були розподілені',
+
+    /*    ContactsPage             */
+    contactsTitle: 'Контакти',
+    contactsHelp: 'Гаряча лінія Служба порятунку',
+    contactsRoundTheClock: 'Цілодобово 24/7',
+    contactsAdoptionIssues: 'З питань усиновлення',
+    contactsemail: 'Електронна адреса',
+    contactsOffice: 'Офіс',
+    contactsWarning: 'Ми не приймаємо тварин без попереднього дзвінка',
+
 }

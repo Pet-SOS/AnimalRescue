@@ -43,6 +43,14 @@ export const DEFAULT_CONTACTS: IInfoContacts ={
       facebook: '',
       youtube: '',
     },
+    emails:{
+      animalRescue1: '',
+    },
+    addresses: {
+      country:'',
+      town:'',
+      street: '',
+    },
     phones: [],
   },
   isLoading: false,

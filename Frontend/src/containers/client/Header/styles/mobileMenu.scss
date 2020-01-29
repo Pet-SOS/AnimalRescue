@@ -56,6 +56,24 @@
             -moz-transition: all 25ms;
             transition: all 25ms;
         }
+        a{
+            font-size: 1.125rem;
+            line-height: 1.5625rem;
+            text-decoration: none;
+            color: $text-lite-color;
+            font-weight: bold;
+            font-style: normal;
+            display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            outline: none;
+            padding-bottom: 0.125rem;
+            &:hover, &:active ,&:focus {
+                color:$text-color-active;
+                outline: none;
+              }
+          }
+         
         &.drop{
             display: flex;
             justify-content: flex-start;

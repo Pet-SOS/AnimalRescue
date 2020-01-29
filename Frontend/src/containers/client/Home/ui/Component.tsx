@@ -109,7 +109,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           }
           link={{
             title: <TI18n keyStr="ourGoalBlockLinkText" default="Подробнее о службе" />,
-            href: '/'
+            href: '/about'
           }}
         />
         <CounterBlock

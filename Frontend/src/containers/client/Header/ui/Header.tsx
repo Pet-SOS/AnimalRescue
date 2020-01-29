@@ -51,7 +51,7 @@ export const AppHeader: React.FC<IPropTypes> = () => {
                       </div>
                   </div>
                   <PhoneLink/>
-                  <div className="box-social-locale">
+                  <div className="box-social-locale-header">
                       <SocialLinks/>
                       <div className="change-locale"><ChangeLocale/></div>
                   </div>

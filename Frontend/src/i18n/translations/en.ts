@@ -163,4 +163,15 @@ export default {
   helpPageVolunteeringTitle: 'Volunteering',
   helpPageVolunteeringText: 'If you want to help with your hands, we will always find work! You are an active person, you love animals, you have free time and a desire to do good and important things - you can become part of a team to help and save stray animals.',
   helpPageVolunteeringListTitle: 'What work can volunteers do?',
-}
+   
+   /*    ContactsPage             */
+    contactsTitle: 'Contacts',
+    contactsHelp: 'Rescue Services Hotline',
+    contactsRoundTheClock: 'Round the clock 24/7',
+    contactsAdoptionIssues: 'For adoption issues',
+    contactsemail: 'Email Address',
+    contactsOffice: 'Office',
+    contactsWarning: 'We do not accept animals without a prior call',
+
+  }
+

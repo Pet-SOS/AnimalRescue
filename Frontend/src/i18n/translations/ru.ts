@@ -163,4 +163,13 @@ export default {
   helpPageVolunteeringTitle: 'Волонтерством',
   helpPageVolunteeringText: 'Если вы хотите помочь руками - у нас всегда найдется работа! Вы активный человек, любите животных, у вас есть свободное время и желание совершать добрые и важные поступки — вы можете стать частью команды помощи и спасения бездомных животных.',
   helpPageVolunteeringListTitle: 'Какую работу могут выполнять волонтеры?',
+
+   /*    ContactsPage             */
+   contactsTitle: 'Контакты',
+   contactsHelp:'Горячая линия Службы спасения',
+   contactsRoundTheClock:'Круглосуточно 24/7',
+   contactsAdoptionIssues: 'По вопросам усыновления',
+   contactsemail:'Электронный адрес',
+   contactsOffice: 'Офис',
+   contactsWarning: 'Мы не принимаем животных без предварительного звонка',
 }

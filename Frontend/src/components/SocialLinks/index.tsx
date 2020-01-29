@@ -14,9 +14,9 @@ const socialLinks: ISocialLinks = useSelector(() => (selectInfoContacts(store.ge
 
   return (
     <div className="social-links">
-        <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer"><FacebookLogo/></a>
-        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer"><InstagramLogo/></a>
-        <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer"><YoutubeLogo/></a>
+        <a href={socialLinks.facebook} target="_blank" ><FacebookLogo/></a>
+        <a href={socialLinks.instagram} target="_blank" ><InstagramLogo/></a>
+        <a href={socialLinks.youtube} target="_blank" ><YoutubeLogo/></a>
     </div>
   )
 };

@@ -38,7 +38,7 @@ header {
       }
     }
 
-    .box-social-locale{
+    .box-social-locale-header{
       display: flex;
       align-items: center;
       .change-locale {
@@ -103,7 +103,7 @@ header {
   }
 }
 @media all and (max-width: 1243px) {
-  header .header .box-social-locale .change-locale {
+  header .header .box-social-locale-header .change-locale {
     margin-left: 0.2rem;
   }
 }
@@ -114,8 +114,9 @@ header {
     }
     .header {
       justify-content: space-between;
-      .box-social-locale{
-        display: none;
+      .box-social-locale-header{
+          width: 1px;
+          overflow: hidden;
       }
       .box-mobile{
         display: flex;

@@ -78,7 +78,7 @@ export const MobileMenu: React.FC = () => {
                     </div>
                 </div>
                 <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-                <div className="item"><TI18n keyStr="contacts" default="Контакты"/></div>
+                <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
                 <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/><HeartLogo className='heart-logo'/></div>
                 <Button onClick={() => {}} styleType={ButtonTypes.Blue} className="btn-give">
                     <TI18n keyStr="help" default="Помочь"/>

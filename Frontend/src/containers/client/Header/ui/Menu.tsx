@@ -39,7 +39,7 @@ export const AppMenu: React.FC = () => {
                 </ul>
             </div>
             <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-        <div className="item"><TI18n keyStr="contacts" default="Контакты"/></div>
+        <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
             <div className="item heart"><HeartLogo/></div>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
             }}  styleType={ButtonTypes.Blue}>

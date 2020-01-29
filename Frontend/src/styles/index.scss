@@ -48,6 +48,10 @@ a {
   line-height: 3rem;
   font-weight: 900;
   margin: 0 0 1rem;
+  &.smaller {
+    font-size: 1.5rem;
+    line-height: 3rem;
+  }
 }
 
 .numbered-list {
