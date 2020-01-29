@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using cms = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Cms;
+using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Configurations
 {
@@ -11,5 +12,12 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.Configurations
 
         [CouplingPropertyDto(cms.SocialLinks)]
         public Dictionary<string, string> SocialLinks { get; set; }
+
+        [CouplingPropertyDto(person.Emails)]
+        public Dictionary<string, string> Emails { get; set; }
+
+        [CouplingPropertyDto(person.Addresses)]
+        public Dictionary<string, string> Addresses { get; set; }
+
     }
 }
