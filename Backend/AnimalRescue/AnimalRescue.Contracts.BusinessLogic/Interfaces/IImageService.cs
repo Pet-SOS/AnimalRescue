@@ -1,12 +1,13 @@
-﻿using System;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-    public interface IImageService
+    public interface IImageService :
+        IBlCreateAsync<Dictionary<string, Guid>, IFormFile>,
+        IBlCreateAsync<List<Dictionary<string, Guid>>, IList<IFormFile>>
     {
-        Task<Dictionary<string, Guid>> SaveImage(IFormFile sourceImage);
     }
 }
