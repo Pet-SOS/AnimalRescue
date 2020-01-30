@@ -2,7 +2,7 @@
 {
     public class ImageSize
     {
-        public string Size { get; set; }
+        public string Name { get; set; }
 
         public int Width { get; set; }
 

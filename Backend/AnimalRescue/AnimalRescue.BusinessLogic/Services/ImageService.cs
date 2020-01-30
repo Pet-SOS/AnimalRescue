@@ -58,10 +58,11 @@ namespace AnimalRescue.BusinessLogic.Services
                     using (var imageStream = new MemoryStream())
                     {
                         resizedImage.Save(imageStream, ImageFormat.Png);
-                        // TODO have to be refactored when an ObjectId type be replaced by Guid
-                        var addedImageId = (await _bucket.UploadFileStreamAsync(imageStream, sourceImage.FileName)).AsGuid();
 
-                        return new KeyValuePair<string, Guid>(imageSize.Size, addedImageId);
+                        // TODO have to be refactored when an ObjectId type be replaced by Guid
+                        var addedImageId = (await _bucket.UploadFileBytesAsync(imageStream.ToArray(), sourceImage.FileName, sourceImage.ContentType)).AsGuid();
+
+                        return new KeyValuePair<string, Guid>(imageSize.Name, addedImageId);
                     }
                 })
                 .ToList();
@@ -102,14 +103,12 @@ namespace AnimalRescue.BusinessLogic.Services
             if (nPercentHeight < nPercentWidth)
             {
                 nPercent = nPercentHeight;
-                destX = Convert.ToInt16((newWidth -
-                                                (sourceWidth * nPercent)) / 2);
+                destX = Convert.ToInt16((newWidth - (sourceWidth * nPercent)) / 2);
             }
             else
             {
                 nPercent = nPercentWidth;
-                destY = Convert.ToInt16((newHeight -
-                                                (sourceHeight * nPercent)) / 2);
+                destY = Convert.ToInt16((newHeight - (sourceHeight * nPercent)) / 2);
             }
 
             var destWidth = (int)(sourceWidth * nPercent);
