@@ -2,7 +2,7 @@ import React from "react";
 import {TI18n} from "../../../../i18n";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
-import {Link} from'react-router-dom';
+import {Link, NavLink} from'react-router-dom';
 import { store } from "../../../../store";
 import { actionIsActivePopup } from "../../Home/store/actions";
 import "../styles/menu.scss"
@@ -13,14 +13,14 @@ import { HOW_TO_HELP_QUERY_NAME, HelpTypes } from "../../HowToHelp/Component";
 export const AppMenu: React.FC = () => {
     return (
         <div className="header-menu">
-            <div className="item">
+            <NavLink className="item"  to="/about" activeClassName="is-active">
                 <TI18n keyStr="headerMenuItem1" default="О службе"/>
                 <ul className="dropdown">
-                    <li><Link to="/about"><TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" /></Link></li>
-                    <li><Link to={RULES_PAGE_LINK}><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
-                    <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
+                    <li><NavLink to="/about/help" activeClassName="is-active"><TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" /></NavLink></li>
+                    <li><NavLink to={`/about${RULES_PAGE_LINK}`} activeClassName="is-active"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></NavLink></li>
+                    <li><NavLink to="/about/financial-reports" activeClassName="is-active"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></NavLink></li>
                 </ul>
-            </div>
+            </NavLink>
             <div className="item">
                 <TI18n keyStr="headerMenuItem2" default="Ищу друга"/>
                 <ul className="dropdown">
@@ -30,15 +30,15 @@ export const AppMenu: React.FC = () => {
                     <li><a href="pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
                 </ul>
             </div>
-            <Link className="item" to={HOW_TO_HELP_PAGE_LINK}><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" />
+            <NavLink  className="item" to={HOW_TO_HELP_PAGE_LINK} activeClassName="is-active"><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" />
               <ul className="dropdown">
-                <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.FINANCE}`}><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></Link></li>
-                <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.STUFF}`}><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></Link></li>
-                <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.VOLUNTEERING}`}><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></Link></li>
+                <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.FINANCE}`} activeClassName="is-active"><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></NavLink></li>
+                <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.STUFF}`} activeClassName="is-active"><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></NavLink></li>
+                <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.VOLUNTEERING}`} activeClassName="is-active"><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></NavLink></li>
               </ul>
-            </Link>
+            </NavLink >
             <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-            <Link className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link>
+            <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
             <div className="item heart"><HeartLogo/></div>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
             }}  styleType={ButtonTypes.Blue}>

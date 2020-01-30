@@ -30,7 +30,8 @@ export const HowToHelp: React.FC<IPropTypes> = ({
   location
 }) => {
   const scrollToBlock = () => {
-    const helpType = queryString.parse(location.search)[HOW_TO_HELP_QUERY_NAME];
+    const locationURl:string[] = location.pathname.split('/');
+    const helpType = locationURl[locationURl.length-1];
     const el = !!helpType && typeof helpType === 'string' ? document.getElementById(`${helpType}`) : null;
     if (!!el) {
       el.scrollIntoView({
