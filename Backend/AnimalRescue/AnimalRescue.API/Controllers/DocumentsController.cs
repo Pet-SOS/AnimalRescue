@@ -40,8 +40,8 @@ namespace AnimalRescue.API.Controllers
             {
                 return NotFound();
             }
-
-            return File(fileBytes.Data, fileBytes.ContentType); 
+            
+            return File(fileBytes.Data, fileBytes?.ContentType ?? System.Net.Mime.MediaTypeNames.Application.Octet); 
         } 
     }
 }

@@ -72,19 +72,19 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             ObjectId objectId = ObjectId.Parse(fileId);
             byte[] bytes;
-            string contentType;
+            BsonValue contentType;
+
             using (var stream = await gridFSBucket.OpenDownloadStreamAsync(objectId))
             {
                 bytes = new byte[stream.Length];
                 await stream.ReadAsync(bytes);
 
-                var fi = stream.FileInfo;
-                contentType = (string) fi.Metadata[ContentTypeName];
+                contentType = stream.FileInfo?.Metadata?.GetValue(ContentTypeName);
 
                 await stream.CloseAsync(); 
             }
 
-            BucketItem bucketItem = new BucketItem() { Data = bytes, ContentType = contentType };
+            BucketItem bucketItem = new BucketItem() { Data = bytes, ContentType = contentType?.ToString() };
             return bucketItem;
         }
     }
