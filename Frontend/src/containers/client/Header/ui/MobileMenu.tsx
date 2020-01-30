@@ -4,9 +4,10 @@ import {Button, ButtonTypes} from "../../../../components/Button";
 import "../styles/mobileMenu.scss"
 import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
 import { SocialLinks } from "../../../../components/SocialLinks";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { HOW_TO_HELP_PAGE_LINK } from "../../HowToHelp";
 import { HOW_TO_HELP_QUERY_NAME, HelpTypes } from "../../HowToHelp/Component";
+import { RULES_PAGE_LINK } from "../../Rules";
 
 export const MobileMenu: React.FC = () => {
     let initialState = {
@@ -46,39 +47,39 @@ export const MobileMenu: React.FC = () => {
                         <span className="title"><TI18n keyStr="hotLinePhones" default="Телефоны горячей линии"/></span>
                     </div>
                 </div>
-                <div className= {stateMenu.drop1? 'active item drop': 'item drop'}  onClick={ (e)=> openedMenu(e, 'drop1')}>
+                <NavLink to='/about'  activeClassName="active" className= {stateMenu.drop1? 'active item drop': 'item drop'}  onClick={ (e)=> openedMenu(e, 'drop1')}>
                     <div className="drop-icon">
                        <span><TI18n keyStr="headerMenuItem1" default="О службе"/></span>
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
-                            <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
-                            <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
+                            <li><NavLink to="/about/help" activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" /></NavLink></li>
+                            <li><NavLink to={`/about${RULES_PAGE_LINK}`} activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></NavLink></li>
+                            <li><NavLink to="/financial-reports" activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></NavLink></li>
                         </ul>
                     </div>
-                </div>
+                </NavLink>
                 <div className= {stateMenu.drop2? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop2')}>
                     <div className="drop-icon">
                          <span><TI18n keyStr="headerMenuItem2" default="Ищу друга"/></span>
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><a href="pet-any"><TI18n keyStr="headerMenuItem2Dropdown1" default="Любого"/></a></li>
-                            <li><a href="pet-dog"><TI18n keyStr="headerMenuItem2Dropdown2" default="Собачку"/></a></li>
-                            <li><a href="pet-cat"><TI18n keyStr="headerMenuItem2Dropdown3" default="Котика"/></a></li>
-                            <li><a href="pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
+                            <li><a href="/pet-any"><TI18n keyStr="headerMenuItem2Dropdown1" default="Любого"/></a></li>
+                            <li><a href="/pet-dog"><TI18n keyStr="headerMenuItem2Dropdown2" default="Собачку"/></a></li>
+                            <li><a href="/pet-cat"><TI18n keyStr="headerMenuItem2Dropdown3" default="Котика"/></a></li>
+                            <li><a href="/pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
                         </ul>
                     </div>
                 </div>
-                <div className= {stateMenu.drop3? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop3')}>
-            <div className="drop-icon" >
+                <NavLink to={HOW_TO_HELP_PAGE_LINK}  activeClassName="active" className= {stateMenu.drop3? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop3')}>
+                    <div className="drop-icon" >
                          <span><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?"/></span>
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.FINANCE}`}><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></Link></li>
-                            <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.STUFF}`}><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></Link></li>
-                            <li><Link to={`${HOW_TO_HELP_PAGE_LINK}?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.VOLUNTEERING}`}><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></Link></li>
+                            <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.FINANCE}`} activeClassName="active"><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" /></NavLink></li>
+                            <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.STUFF}`} activeClassName="active"><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" /></NavLink></li>
+                            <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.VOLUNTEERING}`} activeClassName="active"><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></NavLink></li>
                         </ul>
                     </div>
-                </div>
+                </NavLink>
                 <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-                <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
+                <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
                 <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/><HeartLogo className='heart-logo'/></div>
                 <Button onClick={() => {}} styleType={ButtonTypes.Blue} className="btn-give">
                     <TI18n keyStr="help" default="Помочь"/>
