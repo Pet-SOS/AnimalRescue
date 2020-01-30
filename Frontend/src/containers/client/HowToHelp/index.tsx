@@ -4,7 +4,7 @@ import { AnyAction } from "redux";
 import { selectSickAnimals } from "../Animals/store/selectors";
 import { ICustomAppState } from "../../../store/state";
 import { actionClearEntireAnimalsState } from "../Animals/store/actions";
-import { HowToHelp } from "./Component";
+import { HowToHelp, HOW_TO_HELP_QUERY_NAME, HelpTypes } from "./Component";
 import { actionClearInfoCard } from "../Home/store/actions";
 import { selectSavedInfoCard } from "../Home/store/selectors";
 
@@ -18,4 +18,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
 });
 
 export const HowToHelpPage = connect(mapStateToProps, mapDispatchToProps)(HowToHelp);
-export const HOW_TO_HELP_PAGE_LINK: string = '/how-to-help'
+export const HELP_PAGE_LINKS = {
+  default: '/how-to-help',
+  finance: `/how-to-help?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.FINANCE}`,
+  stuff: `/how-to-help?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.STUFF}`,
+  volunteering: `/how-to-help?${HOW_TO_HELP_QUERY_NAME}=${HelpTypes.VOLUNTEERING}`
+}
