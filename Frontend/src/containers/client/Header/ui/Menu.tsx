@@ -37,7 +37,7 @@ export const AppMenu: React.FC = () => {
                 <li><NavLink to={`${HOW_TO_HELP_PAGE_LINK}/${HelpTypes.VOLUNTEERING}`} activeClassName="is-active"><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" /></NavLink></li>
               </ul>
             </NavLink >
-            <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
+            <NavLink to="/blog" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
             <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
             <div className="item heart"><HeartLogo/></div>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))

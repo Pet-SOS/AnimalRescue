@@ -9,6 +9,7 @@ import  { AppFooter }  from './Footer';
 import { Contacts } from './ContactsPage';
 import { AboutPage } from './About';
 import { HelpTypes } from './HowToHelp/Component';
+import { BlogPage } from './Blog/ui/BlogPage';
 
 interface IPropTypes extends RouteComponentProps {}
 
@@ -27,6 +28,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path='/about/help' component={AboutPage} exact/>
             <Route path={`/about${RULES_PAGE_LINK}`} component={RulesPage} exact/>
             <Route path={props.match.path} component={HomePage} exact/>
+            <Route path='/blog' component={BlogPage} exact/>
             <Route path='/contacts' component={Contacts} exact/>
           </Switch>
         </div>

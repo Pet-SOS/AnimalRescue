@@ -172,4 +172,7 @@ export default {
    contactsemail:'Электронный адрес',
    contactsOffice: 'Офис',
    contactsWarning: 'Мы не принимаем животных без предварительного звонка',
+
+     /*   BlogPage             */
+     blogPageTitle:'Блог',
 }
