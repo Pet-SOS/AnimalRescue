@@ -1,8 +1,5 @@
 import React from 'react';
 import { store } from '../../../../store';
-import { IInfoContacts } from '../../../../api/contacts';
-import { IInfoCard } from '../../../../api/infoCard';
-import { IAnimalsResponse } from '../../../../api/animals';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { TI18n } from '../../../../i18n';
 import {ReactComponent as Facebook} from '../../../../assets/helpBlock/facebook.svg';
@@ -10,10 +7,11 @@ import {ReactComponent as Instagram} from '../../../../assets//helpBlock/twitter
 import {ReactComponent as Youtube} from '../../../../assets//helpBlock/youtube.svg';
 import  defaultText  from '../../../../i18n/translations/ru';
 import '../styles/contactsPage.scss';
-
+import { IInfoCard, IInfoContacts } from '../../Home/store/state';
+import { IAnimalsListState } from '../../Animals/store/state';
 
 interface IPropTypes {
-    sickAnimalsList: IAnimalsResponse,
+  sickAnimalsList: IAnimalsListState,
     infoCard: IInfoCard,
     infoContacts: IInfoContacts,
     fetchSickAnimals:() => void;
@@ -73,11 +71,13 @@ export class ContactsPage extends React.Component<IPropTypes> {
                            </div>
                         </div>
                         <div className="map">
-                            <iframe width="100%" 
-                            title='map-animal-rescue'
-                                height="505" id="gmap_canvas" 
-                                src="https://maps.google.com/maps?q=%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0%2C%20%D0%B3.%20%D0%A5%D0%B0%D1%80%D1%8C%D0%BA%D0%BE%D0%B2%2C%20%D1%83%D0%BB.%20%D0%A1%D0%B5%D1%80%D0%BF%D0%BE%D0%B2%D0%B0%D1%8F%204%20(%D0%BC.%20%D0%9D%D0%B0%D1%83%D1%87%D0%BD%D0%B0%D1%8F)&t=&z=17&ie=UTF8&iwloc=&output=embed" 
-                                scrolling="no">
+                            <iframe
+                                title='map-animal-rescue'
+                                width="100%"
+                                height="505"
+                                id="gmap_canvas" 
+                                scrolling="no"
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2563.8400563048103!2d36.230044!3d50.014353!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf9b632eecf8bdf9!2sPoryatunok%20Tvaryn%20Kharkiv!5e0!3m2!1sen!2sus!4v1580380094604!5m2!1sen!2sus">
                             </iframe>
                         </div>
                 </div>

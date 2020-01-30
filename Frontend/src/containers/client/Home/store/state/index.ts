@@ -1,13 +1,23 @@
 import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
-import { IInfoCard } from './../../../../../api/infoCard';
-import { IInfoContacts } from "../../../../../api/contacts";
+import { IInfoCardResponse } from './../../../../../api/infoCard';
+import { IInfoContactsResponse } from "../../../../../api/contacts";
+
+export interface IInfoContacts extends IInfoContactsResponse {
+  isLoading: boolean;
+  isLoaded: boolean;
+}
+
+export interface IInfoCard extends IInfoCardResponse {
+  isLoading: boolean;
+  isLoaded: boolean;
+}
 
 export interface IHomePageState {
-    isActivePopup: boolean;
-    infoCardState: IRequestState;
-    infoCard: IInfoCard;
-    infoContacts: IInfoContacts;
-    infoContactsState: IRequestState;
+  isActivePopup: boolean;
+  infoCardState: IRequestState;
+  infoCard: IInfoCard;
+  infoContacts: IInfoContacts;
+  infoContactsState: IRequestState;
 }
 
 export const DEFAULT_INFO_CARD = {
@@ -21,7 +31,9 @@ export const DEFAULT_INFO_CARD = {
     },
     title: '',
     body: '',
-  }
+  },
+  isLoaded: false,
+  isLoading: false
 }
 
 export const DEFAULT_CONTACTS: IInfoContacts ={
@@ -40,7 +52,9 @@ export const DEFAULT_CONTACTS: IInfoContacts ={
       street: '',
     },
     phones: [],
-  }
+  },
+  isLoading: false,
+  isLoaded: false
 }
 
 

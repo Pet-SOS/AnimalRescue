@@ -4,7 +4,9 @@ import {Button, ButtonTypes} from "../../../../components/Button";
 import "../styles/mobileMenu.scss"
 import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
 import { SocialLinks } from "../../../../components/SocialLinks";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { RULES_PAGE_LINK } from "../../Rules";
+import { HELP_PAGE_LINKS } from "../../HowToHelp";
 
 export const MobileMenu: React.FC = () => {
     let initialState = {
@@ -44,13 +46,20 @@ export const MobileMenu: React.FC = () => {
                         <span className="title"><TI18n keyStr="hotLinePhones" default="Телефоны горячей линии"/></span>
                     </div>
                 </div>
-                <div className= {stateMenu.drop1? 'active item drop': 'item drop'}  onClick={ (e)=> openedMenu(e, 'drop1')}>
-                    <div className="drop-icon">
+                <div className= {stateMenu.drop1 ? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop1')}>
+                  <div className="drop-icon">
                        <span><TI18n keyStr="headerMenuItem1" default="О службе"/></span>
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><a href="rescue-service"><TI18n keyStr="headerMenuItem1Dropdown1" default="О службе спасения"/></a></li>
-                            <li><Link to="/rules"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></Link></li>
-                            <li><Link to="/financial-reports"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></Link></li>
+                            <li>
+                              <NavLink
+                                to="/about"
+                                activeClassName="is-active"
+                                isActive={(match, location) => (location.pathname + location.search) === '/about'}>
+                                <TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" />
+                              </NavLink>
+                            </li>
+                            <li><NavLink to={`/about${RULES_PAGE_LINK}`} activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></NavLink></li>
+                            <li><NavLink to="/about/financial-reports" activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></NavLink></li>
                         </ul>
                     </div>
                 </div>
@@ -58,25 +67,37 @@ export const MobileMenu: React.FC = () => {
                     <div className="drop-icon">
                          <span><TI18n keyStr="headerMenuItem2" default="Ищу друга"/></span>
                         <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><a href="pet-any"><TI18n keyStr="headerMenuItem2Dropdown1" default="Любого"/></a></li>
-                            <li><a href="pet-dog"><TI18n keyStr="headerMenuItem2Dropdown2" default="Собачку"/></a></li>
-                            <li><a href="pet-cat"><TI18n keyStr="headerMenuItem2Dropdown3" default="Котика"/></a></li>
-                            <li><a href="pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
+                            <li><a href="/pet-any"><TI18n keyStr="headerMenuItem2Dropdown1" default="Любого"/></a></li>
+                            <li><a href="/pet-dog"><TI18n keyStr="headerMenuItem2Dropdown2" default="Собачку"/></a></li>
+                            <li><a href="/pet-cat"><TI18n keyStr="headerMenuItem2Dropdown3" default="Котика"/></a></li>
+                            <li><a href="/pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
                         </ul>
                     </div>
                 </div>
-                <div className= {stateMenu.drop3? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop3')}>
-                    <div className="drop-icon" >
-                         <span><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?"/></span>
-                        <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><a href="help-financially"><TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово"/></a></li>
-                            <li><a href="help-things"><TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами"/></a></li>
-                            <li><a href="help-volunteering"><TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством"/></a></li>
-                        </ul>
-                    </div>
+                <div className={stateMenu.drop3 ? 'active item drop' : 'item drop'} onClick={(e) => openedMenu(e, 'drop3')}>
+                  <div className="drop-icon" >
+                    <span><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></span>
+                    <ul className="dropdown" onClick={(e) => stopFloatinUp(e)}>
+                      <li>
+                        <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
+                          <TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" />
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to={HELP_PAGE_LINKS.stuff} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.stuff)}>
+                          <TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" />
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to={HELP_PAGE_LINKS.volunteering} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.volunteering)}>
+                          <TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" />
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
-                <div className="item"><Link to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></Link></div>
+                <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
                 <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/><HeartLogo className='heart-logo'/></div>
                 <Button onClick={() => {}} styleType={ButtonTypes.Blue} className="btn-give">
                     <TI18n keyStr="help" default="Помочь"/>

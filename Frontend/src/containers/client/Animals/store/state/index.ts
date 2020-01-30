@@ -1,26 +1,32 @@
 import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
 import { IAnimalsResponse, ISavedAnimalsCountResponse } from "../../../../../api/animals";
 
+export interface IAnimalsListState extends IAnimalsResponse {
+  isLoading: boolean;
+  isLoaded: boolean;
+}
 export interface IAnimalsState {
-  animalsList: IAnimalsResponse;
+  animalsList: IAnimalsListState;
   animalsListRequestState: IRequestState;
   sickAnimalsListState: IRequestState;
-  sickAnimalsList: IAnimalsResponse;
-  catsList: IAnimalsResponse;
+  sickAnimalsList: IAnimalsListState;
+  catsList: IAnimalsListState;
   catsListRequestState: IRequestState;
-  dogsList: IAnimalsResponse;
+  dogsList: IAnimalsListState;
   dogsListRequestState: IRequestState;
   savedAnimalsCount: ISavedAnimalsCountResponse;
   savedAnimalsCountRequestState: IRequestState;
 }
 
-export const DEFAULT_ANIMALS: IAnimalsResponse = {
+export const DEFAULT_ANIMALS: IAnimalsListState = {
   data: [],
   pageCount: 0,
   pageNumber: 0,
   pageSize: 0,
   self: '',
-  totalCount: 0
+  totalCount: 0,
+  isLoading: false,
+  isLoaded: false
 };
 
 export const DEFAULT_ANIMALS_STATE: IAnimalsState = {

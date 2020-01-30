@@ -55,6 +55,8 @@
             -webkit-transition: all 25ms;
             -moz-transition: all 25ms;
             transition: all 25ms;
+            color:$text-color-active;
+            outline: none;
         }
         a{
             font-size: 1.125rem;
@@ -136,6 +138,10 @@
                 white-space: nowrap;
                 outline: none;
                 padding-bottom: 0.125rem;
+                &.active{
+                    color:$text-color-active;
+                    outline: none;
+                }
               }
               &:hover a, &:active a,&:focus a {
                 color:$text-color-active;

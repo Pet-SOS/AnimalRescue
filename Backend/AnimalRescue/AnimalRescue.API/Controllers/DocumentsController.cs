@@ -44,8 +44,8 @@ namespace AnimalRescue.API.Controllers
             {
                 return NotFound();
             }
-
-            return File(fileBytes, "application/octet-stream"); ;
+            
+            return File(fileBytes.Data, fileBytes?.ContentType ?? System.Net.Mime.MediaTypeNames.Application.Octet); 
         } 
     }
 }

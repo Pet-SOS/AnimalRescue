@@ -2,14 +2,13 @@ import React from 'react';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
-import { IAnimalsResponse } from '../../../../api/animals';
-import { IInfoContacts } from '../../../../api/contacts';
-import { IInfoCard } from '../../../../api/infoCard';
+import { IAnimalsListState } from '../../Animals/store/state';
 import '../styles/financialReportsPage.scss';
+import { IInfoCard, IInfoContacts } from '../../Home/store/state';
 
 
 interface IPropTypes {
-    sickAnimalsList: IAnimalsResponse,
+    sickAnimalsList: IAnimalsListState,
     infoCard: IInfoCard,
     infoContacts: IInfoContacts,
     fetchSickAnimals:() => void;

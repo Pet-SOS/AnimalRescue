@@ -13,7 +13,7 @@ export interface IAddresses{
   street:string;
 }
 
-export interface IInfoContacts{
+export interface IInfoContactsResponse {
  data: {
     socialLinks: ISocialLinks;
     phones: string[];
@@ -23,7 +23,7 @@ export interface IInfoContacts{
   self?: string;
 }
 
-export async function fetchInfoContacts(): Promise< IInfoContacts> {
+export async function fetchInfoContacts(): Promise<IInfoContactsResponse> {
     const res = await API.get(`Configurations/cms`);
     return res.data
 }

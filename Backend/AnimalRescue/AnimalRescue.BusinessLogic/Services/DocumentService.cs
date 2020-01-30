@@ -1,6 +1,7 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 
 using Microsoft.AspNetCore.Http;
@@ -11,25 +12,31 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+using AnimalRescue.Contracts.BusinessLogic.Models;
+using AutoMapper;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class DocumentService : IDocumentService
     {
-        private readonly IBucket _bucket;
+        private readonly IBucket bucket;
+        private readonly IMapper _mapper;
 
-        public DocumentService(IBucket bucket)
+
+        public DocumentService(IBucket bucket, IMapper mapper)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
+            Require.Objects.NotNull(mapper, nameof(mapper));
 
-            _bucket = bucket;
+            this.bucket = bucket;
+            _mapper = mapper;
         }
 
-        public async Task<byte[]> GetAsync(Guid fileId)
+        public async Task<BucketItemDto> GetAsync(Guid fileId)
         {
-            var result = await _bucket.GetFileBytesAsync(fileId.AsObjectIdString());
-
-            return result;
+            var bucketItem = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
+            var bucketItemDto = _mapper.Map<BucketItem, BucketItemDto>(bucketItem);
+            return bucketItemDto;
         }
 
         public async Task<List<Guid>> UploadFileAsync(List<IFormFile> files)
@@ -50,7 +57,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             using (Stream fileStream = file.OpenReadStream())
             {
-                return await _bucket.UploadFileStreamAsync(fileStream, file.FileName);
+                return await bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
             }
         }
     }
