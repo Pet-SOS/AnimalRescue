@@ -12,21 +12,17 @@
   justify-content: space-between;
   margin-bottom: 0.8rem;
   padding: 0 0 0 1.5rem;
-  .item, .item a {
+  .item {
     position: relative;
     margin: auto;
     padding: 1rem 1.3rem;
     cursor: pointer;
     font-weight: bold;
     color: $text-lite-color;
-    &.is-active{
-      color:$text-color-active;
-      outline: none;
-    }
     &.heart{
       padding: 1rem 1rem 1rem 0.2rem
     }
-    a{
+    a {
       font-size: 1.125rem;
       line-height: 1.5625rem;
       text-decoration: none;
@@ -38,7 +34,14 @@
       white-space: nowrap;
       padding-bottom: 1rem;
     }
+    & > a {
+      padding: 0;
+    }
     &:hover a, &:active a,&:focus a {
+      color:$text-color-active;
+      outline: none;
+    }
+    .is-active{
       color:$text-color-active;
       outline: none;
     }
