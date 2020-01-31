@@ -29,7 +29,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
 		[CouplingPropertyName(common.ImageIds)]
 		[BsonElement("imageIds")]
-		public List<string> ImageIds { get; set; } = new List<string>();
+		public List<Dictionary<string, string>> ImageIds { get; set; } = new List<Dictionary<string, string>>();
 
         [CouplingPropertyName(common.Tags)]
         [BsonElement("tags")]

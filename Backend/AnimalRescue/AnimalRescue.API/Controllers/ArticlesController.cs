@@ -20,24 +20,24 @@ namespace AnimalRescue.API.Controllers
     {
         private readonly ILogger<ArticlesController> _logger;
         private readonly IArticleService _articleService;
-        private readonly IDocumentService _documentService;
+        private readonly IImageService _imageService;
         public readonly IMapper _mapper;
 
         public ArticlesController(
             ILogger<ArticlesController> logger,
             IMapper mapper,
             IArticleService articleService,
-            IDocumentService documentService)
+            IImageService imageService)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(articleService, nameof(articleService));
-            Require.Objects.NotNull(documentService, nameof(documentService));
+            Require.Objects.NotNull(imageService, nameof(imageService));
 
             _logger = logger;
             _mapper = mapper;
             _articleService = articleService;
-            _documentService = documentService;
+            _imageService = imageService;
         }
 
         [HttpGet("{id}")]
@@ -65,7 +65,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<ArticleInfoModel>> CreateItemAsync([FromForm] ArticleCreateModel storyCreateModel)
         {
-            return await CreatedItemAsync<ArticleDto, ArticleCreateModel, ArticleInfoModel>(_articleService, _documentService, storyCreateModel, storyCreateModel.Images, _mapper);
+            return await CreatedItemAsync<ArticleDto, ArticleCreateModel, ArticleInfoModel>(_articleService, _imageService, storyCreateModel, storyCreateModel.Images, _mapper);
         }
 
         [HttpPut("{id}")]
@@ -74,7 +74,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] ArticleUpdateModel storyUpdateModel)
         {
-            await UpdateDataAsync(_articleService, _documentService, id, storyUpdateModel, storyUpdateModel.Images, _mapper);
+            await UpdateDataAsync(_articleService, _imageService, id, storyUpdateModel, storyUpdateModel.Images, _mapper);
         }
 
         [HttpDelete("{id}")]

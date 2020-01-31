@@ -9,7 +9,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
     public class BaseCommonDto : BaseAndTimeDto
     {
-        public List<Guid> ImageIds { get; set; } = new List<Guid>();
+        [CouplingPropertyDto(common.ImageIds)]
+        public List<Dictionary<string, Guid>> ImageIds { get; set; } = new List<Dictionary<string, Guid>>();
 
         [CouplingPropertyDto(common.CommonTag)]
         public List<string> Tags { get; set; } 

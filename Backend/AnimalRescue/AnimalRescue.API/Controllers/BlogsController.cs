@@ -18,19 +18,19 @@ namespace AnimalRescue.API.Controllers
     public class BlogsController : ApiControllerBase
     {
         private readonly IBlFullCrud<BlogDto, BlogDto> _blogService;
-        private readonly IDocumentService _documentService;
+        private readonly IImageService _imageService;
         private readonly IMapper _mapper;
 
         public BlogsController(IBlFullCrud<BlogDto, BlogDto> blogService,
-            IDocumentService documentService,
+            IImageService imageService,
             IMapper mapper)
         {
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(blogService, nameof(blogService));
-            Require.Objects.NotNull(documentService, nameof(documentService));
+            Require.Objects.NotNull(imageService, nameof(imageService));
 
             _blogService = blogService;
-            _documentService = documentService;
+            _imageService = imageService;
             _mapper = mapper;
         }
 
@@ -62,7 +62,7 @@ namespace AnimalRescue.API.Controllers
         {
             Require.Objects.NotNull(blogCreateModel, nameof(blogCreateModel));
 
-            return await CreatedItemAsync<BlogDto, BlogCreateModel, BlogInfoModel>(_blogService, _documentService, blogCreateModel, blogCreateModel.Images, _mapper);
+            return await CreatedItemAsync<BlogDto, BlogCreateModel, BlogInfoModel>(_blogService, _imageService, blogCreateModel, blogCreateModel.Images, _mapper);
         }
 
         [HttpDelete("{id}")]
@@ -84,7 +84,7 @@ namespace AnimalRescue.API.Controllers
         {
             Require.Objects.NotNull(blogUpdateModel, nameof(blogUpdateModel));
 
-            await UpdateDataAsync(_blogService, _documentService, id, blogUpdateModel, blogUpdateModel.Images, _mapper);
+            await UpdateDataAsync(_blogService, _imageService, id, blogUpdateModel, blogUpdateModel.Images, _mapper);
         }
     }
 }
