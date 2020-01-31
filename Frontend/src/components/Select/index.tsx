@@ -1,79 +1,68 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, RefObject} from 'react';
 import cn from 'classnames';
 import './index.scss';
 
 interface IOptionPropType {
-    label: string;
-    onClick: () => void;
-    className?: string
+  label: string;
+  onClick: () => void;
+  className?: string
 }
 
-const Option: React.FC<IOptionPropType> = ({label, onClick, className}) => {
-    return (
-        <div className={className} onClick={onClick}>{label}</div>
-    )
-};
+const Option: React.FC<IOptionPropType> = ({ label, onClick, className }) => <li className={className} onClick={onClick}>{label}</li>
 
-interface IPropTypes {
-    data: { label: string; value: string; }[];
-    onChange: (value: string) => void;
-    selected?: string;
-    mainStyles?: React.CSSProperties
+export enum SelectExpandDirections {TOP = 'top', BOTTOM = 'bottom'}
+export interface ISelectPropTypes {
+  data: { label: string; value: string; }[];
+  onChange: (value: string) => void;
+  selected?: string;
+  expandDirection?: SelectExpandDirections;
 }
 
-export const Select: React.FC<IPropTypes> = ({data, selected, onChange, mainStyles}) => {
-    const [selectedValue, setSelected] = useState(selected || '');
-    const [active, setActive] = useState(false);
+export const Select: React.FC<ISelectPropTypes> = ({ data, selected, onChange, expandDirection }) => {
+  const [selectedValue, setSelectedValue] = useState(selected);
+  const [isActive, setIsActive] = useState(false);
+  const selectEl: RefObject<HTMLDivElement> = React.createRef();
+  useEffect(() => {
+    setSelectedValue(selected);
+  }, [selected]);
 
-    useEffect(() => {
-        setSelected(selected || '');
-    }, [selected]);
+  useEffect(() => {
+    const handleClick = () => {
+      if (isActive) {
+        setIsActive(false);
+      }
+    }
+    document.addEventListener('click', handleClick, false);
+    return () => {
+      document.removeEventListener('click', handleClick, false)
+    }
+  }, [isActive])
 
-    const getSelectedValue = () => {
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].value === selectedValue) {
-                return data[i].label;
-            }
-        }
-    };
+  const getSelectedValue = () => {
+    const selectedOption = data.find(item => item.value === selectedValue);
+    if (!!selectedOption) {
+      return selectedOption.label
+    }
+  };
 
-    const onOptionClick = (value: string) => {
-        setSelected(value);
-        setActive(false);
-        onChange(value)
-    };
+  const onOptionClick = (value: string) => {
+    setSelectedValue(value);
+    onChange(value)
+  };
 
-    const renderArrow = () => {
-        return (
-            <div
-                className={cn("arrow", {"arrow-top": active})}
-                style={{background: `url(${require('../../assets/select/arrow_down.svg')}) no-repeat center`}}
-            />
-        )
-    };
-
-    return (
-        <div className="select-wr" style={{...mainStyles}}>
-            <div className="selected-wr" onClick={() => setActive(true)}>
-                <div className="selected">
-                    {getSelectedValue()}
-                </div>
-                {renderArrow()}
-            </div>
-            {active && (
-                <div className="options">
-                    {data.map((item) => {
-                        return (
-                            <Option
-                                key={item.value}
-                                className={cn({'selected': (selectedValue === item.value)})}
-                                label={item.label}
-                                onClick={() => onOptionClick(item.value)}
-                            />
-                        )
-                    })}
-                </div>
-            )}
-        </div>
-    )
+  return (
+    <div className={cn('select', { 'active': isActive })} ref={selectEl}>
+      <button type='button' onClick={() => setIsActive(!isActive)}>{getSelectedValue()}</button>        
+      <ul className={cn('options', { 'expand-top': expandDirection === SelectExpandDirections.TOP })}>
+        {data.map(item => (
+          <Option
+            key={item.value}
+            className={cn({ 'selected': (selectedValue === item.value) })}
+            label={item.label}
+            onClick={() => onOptionClick(item.value)}
+          />
+        ))}
+      </ul>
+    </div>
+  )
 };
