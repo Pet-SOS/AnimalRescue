@@ -47,7 +47,7 @@ namespace AnimalRescue.BusinessLogic.Services
             catch (ArgumentException)
             {
                 // TODO exception logging
-                // sourceImage contains not image format
+                // sourceImage contains file with no supported format
                 return new Dictionary<string, Guid>();
             }
 
@@ -81,55 +81,30 @@ namespace AnimalRescue.BusinessLogic.Services
             return ids;
         }
 
-        private Bitmap ResizeImage(Image image, int newWidth, int newHeight)
+        private Bitmap ResizeImage(Image image, int width, int height)
         {
-            var sourceWidth = image.Width;
-            var sourceHeight = image.Height;
 
-            //Consider vertical pics
-            if (sourceWidth < sourceHeight)
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
             {
-                var buff = newWidth;
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                newWidth = newHeight;
-                newHeight = buff;
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
             }
 
-            int sourceX = 0, sourceY = 0, destX = 0, destY = 0;
-            float nPercent;
-
-            var nPercentWidth = (newWidth / (float)sourceWidth);
-            var nPercentHeight = (newHeight / (float)sourceHeight);
-            if (nPercentHeight < nPercentWidth)
-            {
-                nPercent = nPercentHeight;
-                destX = Convert.ToInt16((newWidth - (sourceWidth * nPercent)) / 2);
-            }
-            else
-            {
-                nPercent = nPercentWidth;
-                destY = Convert.ToInt16((newHeight - (sourceHeight * nPercent)) / 2);
-            }
-
-            var destWidth = (int)(sourceWidth * nPercent);
-            var destHeight = (int)(sourceHeight * nPercent);
-
-            var bmPhoto = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb);
-
-            bmPhoto.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (var grPhoto = Graphics.FromImage(bmPhoto))
-            {
-                grPhoto.Clear(Color.Black);
-                grPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-                grPhoto.DrawImage(image,
-                        new Rectangle(destX, destY, destWidth, destHeight),
-                        new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
-                        GraphicsUnit.Pixel);
-
-                return bmPhoto;
-            }
+            return destImage;
         }
     }
 }
