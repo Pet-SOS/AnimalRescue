@@ -1,10 +1,13 @@
-﻿using System.Drawing;
-using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-    public interface IImageService
+    public interface IImageService :
+        IBlCreateAsync<Dictionary<string, Guid>, IFormFile>,
+        IBlCreateAsync<List<Dictionary<string, Guid>>, IList<IFormFile>>
     {
-        Bitmap GetResizedImage(Bitmap sourceBitmap, ImageResizeType imageResizeType);
     }
 }

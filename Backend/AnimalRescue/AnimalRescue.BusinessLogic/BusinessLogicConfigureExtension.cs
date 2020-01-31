@@ -40,12 +40,13 @@ namespace AnimalRescue.BusinessLogic
                 new EmployeeMappingProfile()
             });
 
-            services.AddSingleton<IImageResize, ImageResize>();
-
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
+
+            services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
+            services.AddScoped<IImageService, ImageService>();
 
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();

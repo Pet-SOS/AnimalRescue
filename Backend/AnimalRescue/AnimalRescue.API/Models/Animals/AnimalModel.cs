@@ -37,7 +37,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(common.ImageIds)]
         [JsonProperty(common.ImageIds)]
-        public List<Guid> ImageIds { get; set; } = new List<Guid>();
+        public List<Dictionary<string, Guid>> ImageIds { get; set; } = new List<Dictionary<string, Guid>>();
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]

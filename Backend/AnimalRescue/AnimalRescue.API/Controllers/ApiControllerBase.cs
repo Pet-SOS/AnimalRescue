@@ -85,7 +85,7 @@ namespace AnimalRescue.API.Controllers
 
         protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDto, TInModel, TOutModel>(
             IBlCreateAsync<TDto, TDto> service,
-            IDocumentService documentService,
+            IImageService imageService,
             TInModel value,
             List<IFormFile> files,
             IMapper mapper)
@@ -93,7 +93,7 @@ namespace AnimalRescue.API.Controllers
             where TDto : BaseCommonDto
         {
             TDto itemDto = mapper.Map<TInModel, TDto>(value);
-            itemDto.ImageIds = await documentService.UploadFileAsync(files);
+            itemDto.ImageIds = await imageService.CreateAsync(files);
             itemDto = await service.CreateAsync(itemDto);
             var itemModel = mapper.Map<TDto, TOutModel>(itemDto);
 
@@ -122,8 +122,7 @@ namespace AnimalRescue.API.Controllers
         }
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
-            IDocumentService documentService,
-            //string id,
+            IImageService imageService,
             Guid id,
             TModel value,
             List<IFormFile> files,
@@ -132,7 +131,7 @@ namespace AnimalRescue.API.Controllers
         {
             var dto = mapper.Map<TModel, TDto>(value);
             dto.Id = id;
-            dto.ImageIds = await documentService.UploadFileAsync(files);
+            dto.ImageIds = await imageService.CreateAsync(files);
 
             await service.UpdateAsync(dto);
         }

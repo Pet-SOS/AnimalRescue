@@ -19,7 +19,7 @@ namespace AnimalRescue.API.Models.Blogs
         public string Body { get; set; }
 
         [JsonProperty(common.ImageIds)]
-        public List<Guid> ImageIds { get; set; } = new List<Guid>();
+        public List<Dictionary<string, Guid>> ImageIds { get; set; } = new List<Dictionary<string, Guid>>();
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
