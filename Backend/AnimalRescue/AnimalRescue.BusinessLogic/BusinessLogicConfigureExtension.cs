@@ -36,7 +36,8 @@ namespace AnimalRescue.BusinessLogic
                 new DonationConfigurationMappingProfile(),
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
-                new BucketItemMappingProfile()
+                new BucketItemMappingProfile(),
+                new EmployeeMappingProfile()
             });
 
             services.AddSingleton<IImageResize, ImageResize>();
@@ -52,6 +53,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<ITagService, TagService>()
                 .AddScoped<IStoryService, StoryService>()
                 .AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
     }
 }
