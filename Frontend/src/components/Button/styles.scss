@@ -58,12 +58,20 @@
     }
   }
   &.blue-circle {
-    background: url("../../assets/header/vector.svg") no-repeat center;
     background-color: $btn-blue;
     box-shadow: 0px 4px 16px rgba(62, 91, 157, 0.5);
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:after {
+      content: '';
+      background: url("../../assets/header/vector.svg") no-repeat center;
+      width: 17px;
+      height: 13.75px;
+    }
     &:hover, &:focus {
       background-color: $text-color-active;
     }

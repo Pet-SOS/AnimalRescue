@@ -1,0 +1,36 @@
+@import './../../../../styles/variables.scss';
+.blog-item-page-holder {
+  padding: 2.5rem 0 0;
+  .back-link-holder {
+    margin: 0 0 1.5rem;
+  }
+  .blog-item-content {
+    max-width: 54.375rem;
+    width: 100%;
+    margin: 0 auto 5rem;
+    .story-body {
+      margin: 0 0 2.5rem;
+    }
+    .warning strong, .warning strong a {
+      margin: 0;
+      display: inline;
+      color: $text-color;
+    }
+  }
+  .item-date:after {
+    content: "\2022";
+    display: inline-block;
+    vertical-align: baseline;
+    margin: 0 0.5rem;
+  }
+  .blog-block-container {
+    padding: 0;
+    background: none;
+    .content {
+      padding: 0;
+      .left-block {
+        width: auto;
+      } 
+    }
+  }
+}

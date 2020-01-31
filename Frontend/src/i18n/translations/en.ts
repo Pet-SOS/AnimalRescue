@@ -173,5 +173,11 @@ export default {
     contactsOffice: 'Office',
     contactsWarning: 'We do not accept animals without a prior call',
 
+  backToBlog: 'Back to blog',
+  blogItemWarning: `You can help homeless houses, hands or raw materials for manufacturing, contact us by phone`,
+  moreSuccessStories: 'More success stories',
+  moreUsefulAdvices: 'More useful articles',
+  usefulAdvices: 'Useful Advices',
+  successStories: 'Success stories',
   }
 

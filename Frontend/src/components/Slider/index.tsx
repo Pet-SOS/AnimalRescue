@@ -14,6 +14,7 @@ interface IPropTypes {
   isSwipeDisable?: boolean;
   autoPlayDelayMs?: number;
   spaceBetween?: number;
+  breakpoints?: { [key: number]: IPropTypes }
 }
 
 export enum SlideEffects { FADE = 'fade', CUBE = 'cube', COVERFLOW = 'coverflow', FLIP = 'flip'}
@@ -28,7 +29,8 @@ export const Slider: React.FC<IPropTypes> = ({
   isAutoplay,
   autoPlayDelayMs,
   spaceBetween,
-  isSwipeDisable
+  isSwipeDisable,
+  breakpoints
 }) => {
   const getSliderParams = () => {
     const sliderParams: any = {
@@ -37,7 +39,8 @@ export const Slider: React.FC<IPropTypes> = ({
       slidesPerView: !!slidesPerView ? Math.abs(slidesPerView) : 1,
       loop: isLoop,
       effect: slideEffect,
-      noSwiping: !!isSwipeDisable
+      noSwiping: !!isSwipeDisable,
+      breakpoints
     }
     if (!!spaceBetween) {
       sliderParams.spaceBetween = spaceBetween;
