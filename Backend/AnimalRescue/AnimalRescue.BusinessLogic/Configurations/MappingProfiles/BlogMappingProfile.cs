@@ -14,9 +14,9 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 		{
 			CreateMap<Article, BlogDto>()
 				.ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()))
-				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(MappingProfileHelper.ConvertToDtoDictionary)));
+				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtentions.AsGuid)));
 			CreateMap<BlogDto, Article>()
-				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(MappingProfileHelper.ConvertToEntityDictionary)))
+				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtentions.AsObjectIdString)))
 				.ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
 				.ForMember(x => x.Type, o => o.MapFrom(b => EntityType.Blog));
 

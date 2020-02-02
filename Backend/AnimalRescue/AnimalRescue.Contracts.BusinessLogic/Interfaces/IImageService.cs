@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IImageService :
-        IBlCreateAsync<Dictionary<string, Guid>, IFormFile>,
-        IBlCreateAsync<List<Dictionary<string, Guid>>, IList<IFormFile>>
+        IBlCreateAsync<Guid?, IFormFile>,
+        IBlCreateAsync<List<Guid>, IList<IFormFile>>
     {
     }
 }

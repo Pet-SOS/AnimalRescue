@@ -1,4 +1,13 @@
-﻿using System;
+﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.Infrastructure.Validation;
+
+using Microsoft.AspNetCore.Http;
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -6,11 +15,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
-using AnimalRescue.DataAccess.Mongodb.Interfaces;
-using AnimalRescue.Infrastructure.Validation;
-using Microsoft.AspNetCore.Http;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -19,24 +23,29 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly IImageSizeConfiguration _imageSizeConfiguration;
 
         private readonly IBucket _bucket;
+        private readonly IDocumentCollectionRepository _documentCollectionRepository;
 
-        public ImageService(IImageSizeConfiguration imageSizeConfiguration, IBucket bucket)
+        public ImageService(
+            IImageSizeConfiguration imageSizeConfiguration,
+            IBucket bucket,
+            IDocumentCollectionRepository documentCollectionRepository)
         {
+            Require.Objects.NotNull(bucket, nameof(bucket));
+            Require.Objects.NotNull(documentCollectionRepository, nameof(documentCollectionRepository));
             Require.Objects.NotNull(imageSizeConfiguration, nameof(imageSizeConfiguration));
             Require.Collections.NotEmpty(imageSizeConfiguration.Sizes, nameof(imageSizeConfiguration.Sizes));
 
-            Require.Objects.NotNull(bucket, nameof(bucket));
-
             _imageSizeConfiguration = imageSizeConfiguration;
             _bucket = bucket;
+            _documentCollectionRepository = documentCollectionRepository;
         }
 
-        public async Task<Dictionary<string, Guid>> CreateAsync(IFormFile sourceImage)
+        public async Task<Guid?> CreateAsync(IFormFile sourceImage)
         {
             if (sourceImage == null || sourceImage.Length == 0)
             {
                 // TODO exception logging
-                return new Dictionary<string, Guid>();
+                return null;
             }
 
             Image image;
@@ -48,35 +57,59 @@ namespace AnimalRescue.BusinessLogic.Services
             {
                 // TODO exception logging
                 // sourceImage contains file with no supported format
-                return new Dictionary<string, Guid>();
+                return null;
             }
 
             var uploadImageTasks = _imageSizeConfiguration.Sizes
                 .Select(async imageSize =>
                 {
-                    var resizedImage = ResizeImage(image, imageSize.Width, imageSize.Height);
+                    var resizedImage = ResizeImage(
+                        image, 
+                        imageSize.Width, 
+                        imageSize.Height);
+
                     using (var imageStream = new MemoryStream())
                     {
-                        resizedImage.Save(imageStream, ImageFormat.Png);
+                        resizedImage.Save(
+                            imageStream,
+                            ImageFormat.Png);
 
                         // TODO have to be refactored when an ObjectId type be replaced by Guid
-                        var addedImageId = (await _bucket.UploadFileBytesAsync(imageStream.ToArray(), sourceImage.FileName, sourceImage.ContentType)).AsGuid();
+                        var addedImageId = (await _bucket.UploadFileBytesAsync(
+                            imageStream.ToArray(), 
+                            sourceImage.FileName, 
+                            sourceImage.ContentType));
 
-                        return new KeyValuePair<string, Guid>(imageSize.Name, addedImageId);
+                        return new KeyValuePair<string, string>(
+                            imageSize.Name, 
+                            addedImageId);
                     }
                 })
                 .ToList();
 
             await Task.WhenAll(uploadImageTasks);
-            return uploadImageTasks.Select(x => x.Result).ToDictionary(k => k.Key, v => v.Value);
 
+            var resultId = await _documentCollectionRepository
+                .CreateAsync(new DocumentCollection
+                {
+                    TypeNameToDocumentId = uploadImageTasks
+                        .Select(x => x.Result)
+                        .ToDictionary(k => k.Key.ToLower(), v => v.Value)
+                });
+
+            return resultId.Id.AsGuid();
         }
 
-        public async Task<List<Dictionary<string, Guid>>> CreateAsync(IList<IFormFile> images)
+        public async Task<List<Guid>> CreateAsync(IList<IFormFile> images)
         {
             var tasks = images.Select(CreateAsync).ToArray();
             await Task.WhenAll(tasks);
-            var ids = tasks.Select(x => x.Result).ToList();
+
+            var ids = tasks
+                .Select(x => x.Result)
+                .Where(x => x != null)
+                .Select(x => (Guid)x)
+                .ToList();
 
             return ids;
         }

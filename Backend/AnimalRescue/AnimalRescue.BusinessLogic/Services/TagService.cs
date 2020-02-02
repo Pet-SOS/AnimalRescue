@@ -77,7 +77,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var tag = mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(tagDto);
             tag = await _tagRepository.CreateAsync(tag);
-            tagDto = mapper.Map<IEnumerable<Tags>, IEnumerable<TagDto>>(tag);
+            //tagDto = mapper.Map<IEnumerable<Tags>, IEnumerable<TagDto>>(tag);
 
             return tagDto;
         }

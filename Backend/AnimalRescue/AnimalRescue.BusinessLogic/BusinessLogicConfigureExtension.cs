@@ -48,6 +48,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
             services.AddScoped<IImageService, ImageService>();
 
+            services.AddScoped<IDocumentCollectionService, DocumentCollectionService>();
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
