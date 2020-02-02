@@ -15,10 +15,10 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
         public ArticleMappingProfile()
         {
             CreateMap<Article, ArticleDto>()
-                .ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(MappingProfileHelper.ConvertToDtoDictionary)))
+                .ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtentions.AsGuid)))
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()));
             CreateMap<ArticleDto, Article>()
-                .ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(MappingProfileHelper.ConvertToEntityDictionary)))
+                .ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtentions.AsObjectIdString)))
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
                 .ForMember(x => x.Type, o => o.MapFrom(b => EntityType.Article))
                 .ForMember(x => x.ModifiedBy, options => options.Ignore());

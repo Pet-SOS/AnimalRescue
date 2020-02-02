@@ -32,6 +32,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IAliasStore, AliasStore>()
                 .AddSingleton<IQueryFilterBuilder, QueryFilterBuilder>()
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
+                .AddSingleton<IQueryBuilder<DocumentCollection>, QueryBuilder<DocumentCollection>>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
                 .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
                 .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
@@ -42,6 +43,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             services
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
+                .AddScoped<IBaseCollection<DocumentCollection>, BaseCollection<DocumentCollection>>()
                 .AddScoped<IBaseCollection<Animal>, BaseCollection<Animal>>()
                 .AddScoped<IBaseCollection<Employee>, BaseCollection<Employee>>()
                 .AddScoped<IBaseCollection<Article>, BaseCollection<Article>>()
@@ -53,7 +55,8 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IArticleRepository, ArticleRepository>()
                 .AddScoped<ITagRepository, TagRepository>()
-                .AddScoped<IEmployeeRepository, EmployeeRepository>();
+                .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();
         }
     }
 }

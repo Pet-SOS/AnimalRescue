@@ -10,6 +10,10 @@ namespace AnimalRescue.API.Models.Blogs
 {
     public class BaseInfoModel : BaseAndTimeModel
     {
+        [JsonPropertyName(common.Type)]
+        [JsonProperty(common.Type)]
+        public string Type { get; set; }
+
         [JsonPropertyName(common.Title)]
         [JsonProperty(common.Title)]
         public string Title { get; set; }
@@ -19,7 +23,7 @@ namespace AnimalRescue.API.Models.Blogs
         public string Body { get; set; }
 
         [JsonProperty(common.ImageIds)]
-        public List<Dictionary<string, Guid>> ImageIds { get; set; } = new List<Dictionary<string, Guid>>();
+        public List<Guid> ImageIds { get; set; } = new List<Guid>();
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
