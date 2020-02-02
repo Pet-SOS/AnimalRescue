@@ -5,7 +5,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.Blogs
 {
     public class BlogDto : BlogBaseDto
     {
-        [CouplingPropertyDto(common.Type)]
+        [CouplingPropertyDto(common.BlogType)]
         public string Type { get; set; } 
     }
 }
