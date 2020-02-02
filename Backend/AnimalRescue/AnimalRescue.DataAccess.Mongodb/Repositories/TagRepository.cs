@@ -51,16 +51,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             return await _baseCollection.CreateAsync(tags);
         }
 
-        public async Task<IEnumerable<Tags>> CreateAsync(IEnumerable<Tags> tags)
+        public async Task CreateAsync(IEnumerable<Tags> tags)
         {
             if (tags?.Count() == 0)
             {
-                return tags;
+                return;
             }
 
-            var tags2 =  tags.Select(x=> { x.Id = string.Empty; x.CreatedAt = DateTime.UtcNow; return x; });
-            var result = await _baseCollection.CreateAsync(tags2);
-            return result;
+            tags =  tags.Select(x=> { x.Id = null; x.CreatedAt = DateTime.UtcNow; return x; });
+            await _baseCollection.CreateAsync(tags);
         }
 
         public async Task UpdateAsync(Tags tags)
