@@ -16,5 +16,14 @@
     .button.blue-circle {
       background-color: $text-color-active;
     }
-  }        
+  }
+  &.back-link {
+    flex-direction: row-reverse;
+    .button {
+      margin: 0 1rem 0 0;
+      &:after {
+        transform: rotate(180deg);
+      }
+    }
+  }     
 }

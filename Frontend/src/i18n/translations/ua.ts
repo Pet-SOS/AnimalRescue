@@ -172,4 +172,11 @@ export default {
     contactsemail: 'Електронна адреса',
     contactsOffice: 'Офіс',
     contactsWarning: 'Ми не приймаємо тварин без попереднього дзвінка',
+
+  backToBlog: 'Назад в блог',
+  blogItemWarning: `Маєте змогу допомогти будиночками для безпритульних, руками або сировиною для виготовлення, зв'яжіться з нами за телефоном`,
+  moreSuccessStories: 'Ще історій успіху',
+  moreUsefulAdvices: 'Ще корисних статей',
+  usefulAdvices: 'Корисні поради',
+  successStories: 'Історії успіху',
 }

@@ -1,0 +1,22 @@
+.banner.custom-banner {
+  height: 42rem;
+  padding: 3rem 3rem 7rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) -16.48%, rgba(13, 43, 75, 0.8) 84.45%);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  color: #ffffff;
+  .banner-title {
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 3rem;
+    margin: 0 0 3rem;
+  }
+  .banner-subtitle {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+}

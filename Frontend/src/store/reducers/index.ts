@@ -6,6 +6,7 @@ import { BLOGS_KEY, blogsReducer } from './../../containers/client/Blog/store/re
 
 import {i18nReducer} from "../../i18n/store/reducer";
 import { ARTICLES_KEY, articlesReducer } from "../../containers/client/Articles/store/reducer";
+import { blogItemReducer, BLOG_ITEM_KEY } from './../../containers/client/Blog/store/reducer/blogitem.reducer';
 
 export const createReducers = () => {
     return combineReducers({
@@ -14,6 +15,7 @@ export const createReducers = () => {
         [ADMIN_HOME_PAGE_KEY]: AdminHomePageReducer,
         [ANIMALS_KEY]: animalsReducer,
         [BLOGS_KEY]: blogsReducer,
+        [BLOG_ITEM_KEY]: blogItemReducer,
         [ARTICLES_KEY]: articlesReducer,
     })
 };

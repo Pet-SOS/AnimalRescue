@@ -34,3 +34,6 @@ export const actionFetchBlogListSavedFailure = createAction(
   'FETCH_BLOG_LIST_SAVED_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
 );
+export const actionClearEntireBlogsState = createAction(
+  'CLEAR_ENTIRE_BLOG_STATE'
+)
