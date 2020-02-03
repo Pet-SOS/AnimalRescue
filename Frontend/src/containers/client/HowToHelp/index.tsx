@@ -7,12 +7,18 @@ import { actionClearEntireAnimalsState } from "../Animals/store/actions";
 import { HowToHelp, HOW_TO_HELP_QUERY_NAME, HelpTypes } from "./Component";
 import { actionClearInfoCard } from "../Home/store/actions";
 import { selectSavedInfoCard } from "../Home/store/selectors";
+import { IRequestParams } from "../../../api/requestOptions";
+import { actionFetchVacanciesRequest, actionClearVacanciesState } from "../Vacancies/store/actions/vacancies.actions";
+import { selectVacancies } from "../Vacancies/store/selectors/vacancies.selector";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   sickAnimalsList: selectSickAnimals(state),
   infoCard: selectSavedInfoCard(state),
+  vacancies: selectVacancies(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
+  fetchVacancies: (requestParams?: IRequestParams) => dispatch(actionFetchVacanciesRequest(requestParams)),
+  clearVacancies: () => dispatch(actionClearVacanciesState()),
   clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
   clearInfoCard: () => dispatch(actionClearInfoCard()),
 });

@@ -27,7 +27,7 @@ export async function fetchBlogList(requestParams?: IRequestParams): Promise<IBl
   return res.data
 }
 
-export async function fetchBlogItem(id: string): Promise<IBlogItem[]> {
+export async function fetchBlogItem(id: string): Promise<IBlogItem> {
   const res = await API.get(`blogs/${id}`);
   return res.data
 }

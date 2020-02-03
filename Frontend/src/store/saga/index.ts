@@ -6,6 +6,7 @@ import { watchAnimals } from '../../containers/client/Animals/store/saga';
 import { watchBlogs } from '../../containers/client/Blog/store/saga';
 import { watchArticles } from '../../containers/client/Articles/store/saga';
 import { watchBlogItem } from '../../containers/client/Blog/store/saga/blogitem.saga';
+import { watchVacancies } from '../../containers/client/Vacancies/store/saga/vacancies.saga';
 
 export function* appSaga() {
     try {
@@ -15,7 +16,8 @@ export function* appSaga() {
           watchAnimals(),
           watchBlogs(),
           watchBlogItem(),
-          watchArticles()
+          watchArticles(),
+          watchVacancies()
         ]);
     } catch (e) {
         logger.error(e);
