@@ -5,11 +5,11 @@ import { HelpBlock } from '../Header/ui/HelpBlock';
 import queryString from 'query-string';
 import { Location } from 'history';
 import { ExpandedList } from '../../../components/ExpandedList';
-import { IExpandedListItemProps } from '../../../components/ExpandedList/item';
 import { IAnimalsListState } from '../Animals/store/state';
 import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IInfoCard } from '../Home/store/state';
 import { infoCardCheckAndLoad } from '../Home/store/selectors';
+import { IVacanciesState } from '../Vacancies/store/state/vacancies.state';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -17,16 +17,22 @@ export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
 interface IPropTypes {
   clearAnimalsState: () => void;
   clearInfoCard: () => void;
+  fetchVacancies: () => void;
+  clearVacancies: () => void;
   sickAnimalsList: IAnimalsListState;
   infoCard: IInfoCard;
-  location: Location
+  vacancies: IVacanciesState,
+  location: Location;
 }
 
 export const HowToHelp: React.FC<IPropTypes> = ({
+  fetchVacancies,
+  clearVacancies,
   clearAnimalsState,
   sickAnimalsList,
   clearInfoCard,
   infoCard,
+  vacancies,
   location
 }) => {
   const scrollToBlock = () => {
@@ -41,68 +47,16 @@ export const HowToHelp: React.FC<IPropTypes> = ({
   useEffect(() => {
     sickAnimalsCheckAndLoadDefault();
     infoCardCheckAndLoad();
+    fetchVacancies();
     return () => {
       clearInfoCard();
       clearAnimalsState();
+      clearVacancies();
     }
   }, []);
   useEffect(() => {
     scrollToBlock();
   }, [window.location.href]);
-
-  const vacations: IExpandedListItemProps[] = [
-    {
-      title: <TI18n keyStr='photographer' default='Фотограф' />,
-      body: [
-        <p>
-          <TI18n
-            keyStr='photographerVacationText1'
-            default='Чтобы питомец быстрее нашел свою семью, ему нужна хорошие фотографии. Именно поэтому помощь профессиональных фотографов в этом случае крайне желательна и важна.' />
-        </p>,
-        <p>
-          <TI18n
-            keyStr='photographerVacationText2'
-            default='Для каждого питомца приюта создаётся персональная страница, частью которой являются фотографии и короткое видео. Эта информация размещается на сайте и других публичных ресурсах. Можно выделить пару часов времени, навестить питомцев приюта и, заодно, сделать им потрясающие фотографии — размер помощи неоценим.' />
-        </p>
-      ]
-    },
-    {
-      title: <TI18n keyStr='infoHelp' default='Информационная помощь' />,
-      body: [
-        <p>Description infoHelp</p>
-      ]
-    },
-    {
-      title: <TI18n keyStr='dogSitter' default='Догситтер (выгульщик собак)' />,
-      body: [
-        <p>Description dogSitter</p>
-      ]
-    },
-    {
-      title: <TI18n keyStr='dogHandler' default='Кинолог' />,
-      body: [
-        <p>Description dogHandler</p>
-      ]
-    },
-    {
-      title: <TI18n keyStr='veterinarian' default='Ветеринар' />,
-      body: [
-        <p>Description veterinarian</p>
-      ]
-    },
-    {
-      title: <TI18n keyStr='driver' default='Водитель' />,
-      body: [
-        <p>Description driver</p>
-      ]
-    },
-    {
-      title: <TI18n keyStr='handyman' default='Разнорабочий' />,
-      body: [
-        <p>Description handyman</p>
-      ]
-    }
-  ]
 
   return (
     <React.Fragment>
@@ -177,14 +131,19 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default='Если вы хотите помочь руками - у нас всегда найдется работа! Вы активный человек, любите животных, у вас есть свободное время и желание совершать добрые и важные поступки — вы можете стать частью команды помощи и спасения бездомных животных.'
                 />
               </p>
-              <h4 className='title'>
-                <TI18n
-                  keyStr='helpPageVolunteeringListTitle'
-                  default='Какую работу могут выполнять волонтеры?' />
-              </h4>
-              <div className='vacations-list'>
-                <ExpandedList data={vacations} />
-              </div>
+              {!!vacancies && !!vacancies.data && !!vacancies.data.length && <React.Fragment>
+                <h4 className='title'>
+                  <TI18n
+                    keyStr='helpPageVolunteeringListTitle'
+                    default='Какую работу могут выполнять волонтеры?' />
+                </h4>
+                <div className='vacations-list'>
+                  <ExpandedList data={vacancies.data.map(vacancy => ({
+                    title: vacancy.name,
+                    body: [vacancy.description]
+                  }))} />
+                </div>
+              </React.Fragment>}
             </div>
           </div>
         </div>
