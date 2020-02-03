@@ -33,4 +33,13 @@
       } 
     }
   }
+  .swiper-slide {
+    height: 22.9rem;
+    display: flex;
+    align-items: center;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
 }
