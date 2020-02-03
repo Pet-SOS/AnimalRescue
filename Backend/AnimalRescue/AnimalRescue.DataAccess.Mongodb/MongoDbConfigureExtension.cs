@@ -32,16 +32,20 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IAliasStore, AliasStore>()
                 .AddSingleton<IQueryFilterBuilder, QueryFilterBuilder>()
                 .AddSingleton<IQuerySortBuilder, QuerySortBuilder>()
+                .AddSingleton<IQueryBuilder<DocumentCollection>, QueryBuilder<DocumentCollection>>()
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
                 .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
                 .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
+                .AddSingleton<IQueryBuilder<Employee>, QueryBuilder<Employee>>()
                 .AddSingleton<IQueryBuilder<FinancialReport>, QueryBuilder<FinancialReport>>()
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>();
 
             services
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
+                .AddScoped<IBaseCollection<DocumentCollection>, BaseCollection<DocumentCollection>>()
                 .AddScoped<IBaseCollection<Animal>, BaseCollection<Animal>>()
+                .AddScoped<IBaseCollection<Employee>, BaseCollection<Employee>>()
                 .AddScoped<IBaseCollection<Article>, BaseCollection<Article>>()
                 .AddScoped<IBaseCollection<FinancialReport>, BaseCollection<FinancialReport>>()
                 .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
@@ -50,7 +54,9 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IFinancialReportRepository, FinancialReportRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IArticleRepository, ArticleRepository>()
-                .AddScoped<ITagRepository, TagRepository>();
+                .AddScoped<ITagRepository, TagRepository>()
+                .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();
         }
     }
 }

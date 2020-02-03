@@ -20,24 +20,24 @@ namespace AnimalRescue.API.Controllers
     {
         private readonly ILogger<StoriesController> _logger;
         private readonly IStoryService _storyService;
-        private readonly IDocumentService _documentService;
+        private readonly IImageService _imageService;
         public readonly IMapper _mapper;
 
         public StoriesController(
             ILogger<StoriesController> logger,
             IMapper mapper,
             IStoryService storyService,
-            IDocumentService documentService)
+            IImageService imageService)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(storyService, nameof(storyService));
-            Require.Objects.NotNull(documentService, nameof(documentService));
+            Require.Objects.NotNull(imageService, nameof(imageService));
 
             _logger = logger;
             _mapper = mapper;
             _storyService = storyService;
-            _documentService = documentService;
+            _imageService = imageService;
         }
 
         [HttpGet("{id}")]
@@ -65,7 +65,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<StoryInfoModel>> CreateItemAsync([FromForm] StoryCreateModel storyCreateModel)
         {
-            return await CreatedItemAsync<StoryDto,StoryCreateModel,StoryInfoModel>(_storyService, _documentService, storyCreateModel, storyCreateModel.Images, _mapper);
+            return await CreatedItemAsync<StoryDto,StoryCreateModel,StoryInfoModel>(_storyService, _imageService, storyCreateModel, storyCreateModel.Images, _mapper);
         }
 
         [HttpPut("{id}")]
@@ -74,7 +74,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] StoryUpdateModel storyUpdateModel)
         {
-            await UpdateDataAsync(_storyService, _documentService, id, storyUpdateModel, storyUpdateModel.Images, _mapper);
+            await UpdateDataAsync(_storyService, _imageService, id, storyUpdateModel, storyUpdateModel.Images, _mapper);
         }
 
         [HttpDelete("{id}")]

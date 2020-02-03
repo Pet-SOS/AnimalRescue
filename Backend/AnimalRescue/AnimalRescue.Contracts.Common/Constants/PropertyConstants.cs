@@ -63,6 +63,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Images = "images";
             public const string IsRescued = "isRescued";
             public const string Type = "type";
+            public const string BlogType = "blogType";
             public const string ContentType = "contentType";
         }
 

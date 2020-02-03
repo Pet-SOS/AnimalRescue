@@ -73,13 +73,10 @@ namespace AnimalRescue.BusinessLogic.Services
             return tagDto;
         }
 
-        public async Task<IEnumerable<TagDto>> CreateAsync(IEnumerable<TagDto> tagDto)
+        public async Task CreateAsync(IEnumerable<TagDto> tagDto)
         {
             var tag = mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(tagDto);
-            tag = await _tagRepository.CreateAsync(tag);
-            tagDto = mapper.Map<IEnumerable<Tags>, IEnumerable<TagDto>>(tag);
-
-            return tagDto;
+            await _tagRepository.CreateAsync(tag);
         }
 
         public async Task UpdateAsync(TagDto tagDto)
@@ -105,7 +102,8 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateIfNotExistAsync(IEnumerable<TagDto> tags)
         {
             IEnumerable<TagDto> tagsFroSafe = await GetFilteredTags(tags.ToList());
-            await CreateAsync(tagsFroSafe);
+            var tag = mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(tagsFroSafe);
+            await _tagRepository.CreateAsync(tag);
         }
 
         private async Task<List<TagDto>> GetFilteredTags(List<TagDto> tags) => tags

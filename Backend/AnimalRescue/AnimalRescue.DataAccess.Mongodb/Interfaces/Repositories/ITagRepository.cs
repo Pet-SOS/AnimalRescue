@@ -11,7 +11,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
         IBaseQuerAsyncy<Tags, string>,
         IBaseCountQueryAsync<DbQuery>,
         IBaseCreateAsync<Tags>,
-        IBaseCreateAsync<IEnumerable<Tags>>,
+        IBaseVoidCreateAsync<IEnumerable<Tags>>,
         IBaseUpdateAsync<Tags>,
         IBaseDeleteAsync<string> ,
         IBaseWhereAsync<List<Tags>, List<Tags>>

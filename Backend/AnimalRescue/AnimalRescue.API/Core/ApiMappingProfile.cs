@@ -7,6 +7,7 @@ using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
 using AnimalRescue.API.Models.FinancialReports;
 using AnimalRescue.API.Models.Tags;
+using AnimalRescue.API.Models.Employees;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
@@ -47,6 +48,11 @@ namespace AnimalRescue.API.Core
             CreateMap<TagDto, TagModel>();
             CreateMap<TagCreateUpdateModel, TagModel>();
             CreateMap<TagCreateUpdateModel, TagDto>();
+
+            CreateMap<EmployeeModel, EmployeeDto>();
+            CreateMap<EmployeeDto, EmployeeModel>();
+            CreateMap<EmployeeCreateUpdateModel, EmployeeModel>();
+            CreateMap<EmployeeCreateUpdateModel, EmployeeDto>();
 
             BlogConfigs(); 
         }

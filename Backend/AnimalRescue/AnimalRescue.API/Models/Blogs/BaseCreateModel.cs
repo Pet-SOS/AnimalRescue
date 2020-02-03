@@ -10,6 +10,10 @@ namespace AnimalRescue.API.Models.Blogs
 {
     public class BaseCreateModel
     {
+        [JsonPropertyName(common.Type)]
+        [JsonProperty(common.Type)]
+        public string Type { get; set; }
+
         [JsonPropertyName(common.Title)]
         [JsonProperty(common.Title)]
         public string Title { get; set; }

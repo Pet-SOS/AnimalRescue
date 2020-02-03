@@ -36,22 +36,26 @@ namespace AnimalRescue.BusinessLogic
                 new DonationConfigurationMappingProfile(),
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
-                new BucketItemMappingProfile()
+                new BucketItemMappingProfile(),
+                new EmployeeMappingProfile()
             });
-
-            services.AddSingleton<IImageResize, ImageResize>();
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
 
+            services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
+            services.AddScoped<IImageService, ImageService>();
+
+            services.AddScoped<IDocumentCollectionService, DocumentCollectionService>();
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
             services.AddScoped<ITagService, TagService>()
                 .AddScoped<IStoryService, StoryService>()
                 .AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
         }
     }
 }
