@@ -6,6 +6,7 @@ WORKDIR /src
 ADD . .
 
 # dotnet commands to build and publish
+RUN dotnet restore --no-cache
 RUN dotnet publish -c Release -o out
 
 # Second stage - Build runtime image

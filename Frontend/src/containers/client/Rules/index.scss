@@ -38,22 +38,6 @@
     max-width: 54.375rem;
     margin: 0 auto;
   }
-  .warning {
-    background: $bg-warning;
-    border-radius: 24px;
-    padding: 2.5rem 3rem;
-    font-size: 1.5rem;
-    line-height: 2.125rem;
-    strong {
-      display: block;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin: 0 0 1rem;
-    }
-    p:last-child {
-      margin: 0;
-    }
-  }
   .row-holder {
     display: flex;
     justify-content: space-between;

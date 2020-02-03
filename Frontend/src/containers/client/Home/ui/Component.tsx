@@ -175,7 +175,6 @@ export const HomePageMain: React.FC<IPropTypes> = ({
                 title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
                 href: '/'
               }}
-            showLink={true}
         />
       </div>
     </React.Fragment>

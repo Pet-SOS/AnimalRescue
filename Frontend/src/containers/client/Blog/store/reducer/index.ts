@@ -8,7 +8,8 @@ import {
   actionFetchBlogListSuccess,
   actionFetchBlogListSavedRequest,
   actionFetchBlogListSavedSuccess,
-  actionFetchBlogListSavedFailure
+  actionFetchBlogListSavedFailure,
+  actionClearEntireBlogsState
 } from "../actions";
 
 const fetchBlogListStateReducer = genericRequestReducer(
@@ -59,6 +60,11 @@ export const blogsReducer = (state: IBlogsState = DEFAULT_BLOGS_STATE, action: A
         ...state,
         blogListSavedRequestState: fetchBlogListSavedStateReducer(state.blogListSavedRequestState, action)
       };
+    case getType(actionClearEntireBlogsState): {
+      return {
+        ...DEFAULT_BLOGS_STATE
+      }
+    }
     default:
       return state;
   }

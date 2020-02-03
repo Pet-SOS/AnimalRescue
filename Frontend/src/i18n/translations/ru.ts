@@ -173,7 +173,14 @@ export default {
    contactsOffice: 'Офис',
    contactsWarning: 'Мы не принимаем животных без предварительного звонка',
 
-     /*   BlogPage             */
-     blogPageTitle:'Блог',
-     blogBtnAll:'Все',
-}
+    /*   BlogPage             */
+    blogPageTitle:'Блог',
+    blogBtnAll:'Все',
+    /*               */
+    backToBlog: 'Назад в блог',
+    blogItemWarning: `Маєте змогу допомогти будиночками для безпритульних, руками або сировиною для виготовлення, зв'яжіться з нами за телефоном`,
+    moreSuccessStories: 'Еще историй успеха',
+    moreUsefulAdvices: 'Еще полезных статей',
+    usefulAdvices: 'Полезные советы',
+    successStories: 'Истории успеха',
+  }

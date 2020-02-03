@@ -9,18 +9,18 @@ interface IPropTypes {
     title: string | React.ReactNode;
     data: IBlogItem[]
     link?: IBlockLinkPropTypes
-    showLink: boolean
   }
 
-  export const BlogBlock: React.FC<IPropTypes> = ({ title, link, data}) => {
+  export const BlogBlock: React.FC<IPropTypes> = ({ title, link, data }) => {
     return (
       <div className="blog-block-container">
           <div className="content">
             <div className="column-container">
-                <div className="left-block title">{title}</div> 
-                <div className="right-block">
-                    {!!link && !!link.href && <BlockLink {...link}/>}
-                </div>  
+                <div className="left-block title">{title}</div>
+                {!!link && !!link.href && <div className="right-block">
+                    <BlockLink {...link}/>
+                </div>}
+                  
             </div>
             <ul className="blog-list-holder">
               { 

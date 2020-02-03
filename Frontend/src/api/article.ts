@@ -20,10 +20,8 @@ export interface IArticleListResponse {
   pageSize: number;
   self: string;
 }
-const params = {
-  Filter: `type~eq~('${BlogTags.story}')`
-}
+
 export async function fetchArticleList(requestParams?: IRequestParams): Promise<IArticleListResponse[]> {
-  const res = await API.get(`Blogs`, { params });
+  const res = await API.get(`Blogs`, { params: prepareRequestParams(requestParams)});
   return res.data
 }

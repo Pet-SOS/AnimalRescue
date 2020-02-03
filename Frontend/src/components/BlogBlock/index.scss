@@ -4,12 +4,22 @@
     width: 100%;
     height: auto;
     margin-bottom: 1rem;
+    position: relative;
+    .blog-item-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
     .blog-item-image{
         display: inline-block;
         width: 100%;
         height: 12.25rem;
         border-radius: 0.75rem;
         margin-bottom: 1rem;
+        background-size: cover;
+        background-position: center;
     }
     .blog-item-title{
         height: 1.5rem;
