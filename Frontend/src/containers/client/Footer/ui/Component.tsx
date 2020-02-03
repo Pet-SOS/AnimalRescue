@@ -3,6 +3,7 @@ import {SocialLinks} from "../../../../components/SocialLinks";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ChangeLocale, TI18n} from '../../../../i18n';
 import { PhoneLink } from '../../../../components/PhoneLink';
+import { SelectExpandDirections } from '../../../../components/Select';
 import '../styles/footer.scss';
 
 export const AppFooter: React.FC = () =>  (
@@ -111,7 +112,7 @@ export const AppFooter: React.FC = () =>  (
             <TI18n keyStr="footerRights" default="Все права защищены" />
           </span>
         </div>
-        <ChangeLocale/>
+        <ChangeLocale expandDirection={SelectExpandDirections.TOP}/>
       </div>
     </div>
   </footer>
