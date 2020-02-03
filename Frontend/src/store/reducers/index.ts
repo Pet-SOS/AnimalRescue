@@ -3,10 +3,10 @@ import {homePageReducer, HOME_PAGE_KEY} from "../../containers/client/Home/store
 import {AdminHomePageReducer, ADMIN_HOME_PAGE_KEY} from "../../containers/admin/Home/store/reducer";
 import { ANIMALS_KEY, animalsReducer } from './../../containers/client/Animals/store/reducer/index';
 import { BLOGS_KEY, blogsReducer } from './../../containers/client/Blog/store/reducer/index';
-
 import {i18nReducer} from "../../i18n/store/reducer";
 import { ARTICLES_KEY, articlesReducer } from "../../containers/client/Articles/store/reducer";
 import { blogItemReducer, BLOG_ITEM_KEY } from './../../containers/client/Blog/store/reducer/blogitem.reducer';
+import { VACANCIES_KEY, vacanciesReducer } from './../../containers/client/Vacancies/store/reducer/vacancies.reducer';
 
 export const createReducers = () => {
     return combineReducers({
@@ -17,5 +17,6 @@ export const createReducers = () => {
         [BLOGS_KEY]: blogsReducer,
         [BLOG_ITEM_KEY]: blogItemReducer,
         [ARTICLES_KEY]: articlesReducer,
+        [VACANCIES_KEY]: vacanciesReducer
     })
 };
