@@ -40,7 +40,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
     }
 
     renderImgs = (imageIds: string[]) => imageIds.map(imageId => <img key={imageId} style={{width: 100, height: 100}}
-                                                                      src={`${BASE_URL}documents/${imageId}`}/>)
+                                                                      src={`${BASE_URL}documents/${imageId}/type/medium`}/>)
 
     submit = () => {
         updateAnimal({animal: this.state as IAnimal})

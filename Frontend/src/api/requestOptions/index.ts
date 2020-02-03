@@ -1,7 +1,10 @@
 export enum RequestFilterOperators { ALL = 'all', EQ = 'eq' }
 export enum RequestSortOrder { ACS = 'acs', DECS = 'decs' }
 export enum AllTag { TREATMENT = 'treatment', SAVED = 'saved' }
-
+export const BlogTags= {
+  story:'story',
+  article: 'article'
+}
 export interface IRequestFilterParams {
   fieldName: string;
   opeartor: RequestFilterOperators;

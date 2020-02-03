@@ -1,5 +1,5 @@
 import API from './index';
-import { IRequestParams, prepareRequestParams, AllTag } from './requestOptions';
+import { IRequestParams, prepareRequestParams, AllTag, BlogTags } from './requestOptions';
 import { BlogTypes } from './blog';
 
 export interface IArticleItem {
@@ -20,8 +20,10 @@ export interface IArticleListResponse {
   pageSize: number;
   self: string;
 }
-
+const params = {
+  Filter: `type~eq~('${BlogTags.story}')`
+}
 export async function fetchArticleList(requestParams?: IRequestParams): Promise<IArticleListResponse[]> {
-  const res = await API.get(`articles`, { params: prepareRequestParams(requestParams) });
+  const res = await API.get(`Blogs`, { params });
   return res.data
 }

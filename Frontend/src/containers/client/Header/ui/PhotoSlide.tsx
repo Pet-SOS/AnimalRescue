@@ -20,7 +20,7 @@ interface IPropTypes {
 
 export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex, story}) => {
  
-    const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}` : noPhoto;
+    const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}/type/medium` : noPhoto;
  
     function activateLasers(i:number , e: any) {
            updatePostInfo(i);

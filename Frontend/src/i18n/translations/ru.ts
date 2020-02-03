@@ -175,4 +175,5 @@ export default {
 
      /*   BlogPage             */
      blogPageTitle:'Блог',
+     blogBtnAll:'Все',
 }

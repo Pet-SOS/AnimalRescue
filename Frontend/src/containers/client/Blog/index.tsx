@@ -7,7 +7,6 @@ import { actionFetchInfoCard, actionFetchInfoContacts } from '../Home/store/acti
 import { actionFetchBlogListRequest } from './store/actions';
 
 
-
 const mapStateToProps = (state: ICustomAppState) => {
     return {
         blogList: state.blogs.blogList,

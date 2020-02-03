@@ -47,20 +47,20 @@ export const MobileMenu: React.FC = () => {
                     </div>
                 </div>
                 <div className= {stateMenu.drop1 ? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop1')}>
-                  <div className="drop-icon">
-                       <span><TI18n keyStr="headerMenuItem1" default="О службе"/></span>
-                        <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li>
-                              <NavLink
-                                to="/about"
-                                activeClassName="is-active"
-                                isActive={(match, location) => (location.pathname + location.search) === '/about'}>
-                                <TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" />
-                              </NavLink>
-                            </li>
-                            <li><NavLink to={`/about${RULES_PAGE_LINK}`} activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></NavLink></li>
-                            <li><NavLink to="/about/financial-reports" activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></NavLink></li>
-                        </ul>
+                    <div className="drop-icon">
+                        <span><TI18n keyStr="headerMenuItem1" default="О службе"/></span>
+                            <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
+                                <li>
+                                <NavLink
+                                    to="/about"
+                                    activeClassName="is-active"
+                                    isActive={(match, location) => (location.pathname + location.search) === '/about'}>
+                                    <TI18n keyStr="headerMenuItem1Dropdown1" default="Про службу порятунку" />
+                                </NavLink>
+                                </li>
+                                <li><NavLink to={`/about${RULES_PAGE_LINK}`} activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></NavLink></li>
+                                <li><NavLink to="/about/financial-reports" activeClassName="active"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты"/></NavLink></li>
+                            </ul>
                     </div>
                 </div>
                 <div className= {stateMenu.drop2? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop2')}>
@@ -75,26 +75,26 @@ export const MobileMenu: React.FC = () => {
                     </div>
                 </div>
                 <div className={stateMenu.drop3 ? 'active item drop' : 'item drop'} onClick={(e) => openedMenu(e, 'drop3')}>
-                  <div className="drop-icon" >
-                    <span><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></span>
-                    <ul className="dropdown" onClick={(e) => stopFloatinUp(e)}>
-                      <li>
-                        <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
-                          <TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" />
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={HELP_PAGE_LINKS.stuff} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.stuff)}>
-                          <TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" />
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={HELP_PAGE_LINKS.volunteering} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.volunteering)}>
-                          <TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" />
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
+                    <div className="drop-icon" >
+                        <span><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></span>
+                        <ul className="dropdown" onClick={(e) => stopFloatinUp(e)}>
+                        <li>
+                            <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={HELP_PAGE_LINKS.stuff} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.stuff)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" />
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={HELP_PAGE_LINKS.volunteering} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.volunteering)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" />
+                            </NavLink>
+                        </li>
+                        </ul>
+                    </div>
                 </div>
                 <NavLink to="/blog" activeClassName="active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
                 <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>

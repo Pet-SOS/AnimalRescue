@@ -13,7 +13,7 @@ interface IPropTypes {
 export const HelpedBlockItem: React.FC<IPropTypes> = ({ story }) => {
   return (
     <React.Fragment>
-      <div className="img-holder" style={{ backgroundImage: `url(${story.imageIds[0] ? `${BASE_URL}documents/${story.imageIds[0]}` : `${noPhotoImage}`})`}}>
+      <div className="img-holder" style={{ backgroundImage: `url(${story.imageIds[0] ? `${BASE_URL}documents/${story.imageIds[0]}/type/medium` : `${noPhotoImage}`})`}}>
       </div>
       <div className="info-holder">
         <div className="info-content">

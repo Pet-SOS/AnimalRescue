@@ -15,7 +15,7 @@ export const BlogItem: React.FC<IPropTypes> = ({ image, title, id, text }) => {
       <li className="blog-item-holder">
         <a href={id}>
             <div className="blog-item-image" 
-            style={{ backgroundImage: `url(${image ? `${BASE_URL}documents/${image}` : `${noPhotoImage}`})`}}>
+            style={{ backgroundImage: `url(${image ? `${BASE_URL}documents/${image}/type/medium` : `${noPhotoImage}`})`}}>
             </div>
         </a>
         <div className="blog-grey-text">{text}</div>

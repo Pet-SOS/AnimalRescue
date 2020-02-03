@@ -8,8 +8,7 @@ import { HowToHelpPage, HELP_PAGE_LINKS } from './HowToHelp';
 import { AppFooter }  from './Footer';
 import { Contacts } from './ContactsPage';
 import { AboutPage } from './About';
-import { HelpTypes } from './HowToHelp/Component';
-import { BlogPage } from './Blog/ui/BlogPage';
+import { Blog } from './Blog';
 
 interface IPropTypes extends RouteComponentProps {}
 
@@ -25,7 +24,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path={HELP_PAGE_LINKS.default} component={HowToHelpPage} exact />
             <Route path='/contacts' component={Contacts} exact />
             <Route path={props.match.path} component={HomePage} exact />
-            <Route path='/blog' component={BlogPage} exact/>
+            <Route path='/blog' component={Blog} exact/>
           </Switch>
         </div>
         <AppFooter/>

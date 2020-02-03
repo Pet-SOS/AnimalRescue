@@ -13,7 +13,7 @@ interface IPropTypes {
 export const AnimalCard: React.FC<IPropTypes> = ({ animal }) => {
   return (
     <div className="animal-card">
-      <div className="img-holder" style={{ backgroundImage: `url(${animal.imageIds[0] ? `${BASE_URL}documents/${animal.imageIds[0]}` : `${noPhotoImage}`})` }}>
+      <div className="img-holder" style={{ backgroundImage: `url(${animal.imageIds[0] ? `${BASE_URL}documents/${animal.imageIds[0]}/type/medium` : `${noPhotoImage}`})` }}>
         <Button styleType={ButtonTypes.Like} />
       </div>
       <div className="animal-name">{animal.name}</div>
