@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
-import { TI18n } from '../../../../i18n';
-import './index.scss';
-import { useParams } from 'react-router-dom';
-import { IBlogItemState } from '../store/state/blogitem.state';
 import { useSelector, shallowEqual } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { TI18n } from '../../../../i18n';
+import { IBlogItemState } from '../store/state/blogitem.state';
 import { store } from '../../../../store';
 import { selectBlogItem } from '../store/selectors/blogitem.selectors';
-import { ERequestStatus } from '../../../../api';
+import { ERequestStatus, BASE_URL } from '../../../../api';
 import { BlockLink } from '../../../../components/BlockLink';
 import { Banner } from '../../../../components/Banner';
 import { BlogTypes, IBlogListResponse } from '../../../../api/blog';
 import { selectInfoContacts } from '../../Home/store/selectors';
 import { IRequestParams, RequestFilterOperators } from '../../../../api/requestOptions';
 import { BlogBlock } from '../../Home/ui/Blog';
+import { Slider, SlidesPerViewValue } from '../../../../components/Slider';
+import './index.scss';
 
 interface IPropTypes {
   fetchBlogItem: (id: string) => void;
@@ -84,24 +85,39 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
           <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={blogItem.data.imageIds[0]}/>
           <div className='blog-item-content'>
             <div className='story-body'>{blogItem.data.body}</div>
-            {blogItem.data.type === BlogTypes.ARTICLE && <div className='warning'>
-              <p>
-                <TI18n
-                  keyStr='blogItemWarning'
-                  default={`Маєте змогу допомогти будиночками для безпритульних, руками або сировиною для виготовлення, зв'яжіться з нами за телефоном`} />
-              </p>
-              {!!phones && !!phones[0] && <strong><a className='number' href={`tel:${phones[0]}`}> {phones[0]}</a></strong>}
-            </div>}
+            {blogItem.data.type === BlogTypes.ARTICLE && (
+              <div className='warning'>
+                <p>
+                  <TI18n
+                    keyStr='blogItemWarning'
+                    default={`Маєте змогу допомогти будиночками для безпритульних, руками або сировиною для виготовлення, зв'яжіться з нами за телефоном`} />
+                </p>
+                {!!phones && !!phones[0] && <strong><a className='number' href={`tel:${phones[0]}`}> {phones[0]}</a></strong>}
+              </div>
+            )}
           </div>
+          {blogItem.data.type === BlogTypes.STORY && !!blogItem.data.imageIds.length && (
+            <div className='block-holder'>
+              <Slider
+                slides={blogItem.data.imageIds.map(imgId => <img src={`${BASE_URL}documents/${imgId}`} />)}
+                spaceBetween={24}
+                slidesPerView={SlidesPerViewValue.AUTO}
+                isPaginationHidden
+                isSwipeDisable
+              />
+            </div>
+          )}
         </React.Fragment>}
-        {!!blogList && !!blogList.data && !!blogList.data.filter(item => item.id !== blogItem.data.id).length && <BlogBlock
-          title={
-            blogItem.data.type === BlogTypes.STORY ?
-              <TI18n keyStr='moreSuccessStories' default='Еще историй успеха' /> :
-              <TI18n keyStr='moreUsefulAdvices' default='Еще полезных статей' />
-          }
-          data={blogList.data.filter(item => item.id !== blogItem.data.id).slice(0, 3)}
-        />}
+        {!!blogList && !!blogList.data && !!blogList.data.filter(item => item.id !== blogItem.data.id).length && (
+          <BlogBlock
+            title={
+              blogItem.data.type === BlogTypes.STORY ?
+                <TI18n keyStr='moreSuccessStories' default='Еще историй успеха' /> :
+                <TI18n keyStr='moreUsefulAdvices' default='Еще полезных статей' />
+            }
+            data={blogList.data.filter(item => item.id !== blogItem.data.id).slice(0, 3)}
+          />
+        )}
       </div>
     </div>
   )

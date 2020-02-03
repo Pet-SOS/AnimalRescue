@@ -1,3 +1,4 @@
+@import './../../styles/variables.scss';
 .banner.custom-banner {
   height: 42rem;
   padding: 3rem 3rem 7rem;
@@ -18,5 +19,19 @@
   .banner-subtitle {
     font-size: 1.5rem;
     line-height: 1.5rem;
+  }
+}
+@media (max-width: $normal-device-width) {
+  .banner.custom-banner  {
+    height: 30rem;
+    .banner-title {
+      margin: 0 0 1.5rem;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .banner.custom-banner  {
+    height: 20rem;
+    padding: 3rem;
   }
 }
