@@ -7,68 +7,7 @@ import { IInfoCard, IInfoContacts } from "../../Home/store/state";
 import { IBlogItem, IBlogListResponse } from "../../../../api/blog";
 import { BlogItem } from "../../../../components/BlogBlock/item";
 import { BtnPagination } from "./BtnPagination";
-const mokBlogResp = {
-    data: [
-    {
-        type: 'article',
-        title: 'Some title resp',
-        body: 'Some body resp',
-        imageIds: [],
-        tags: [],
-        createdAt: 'string',
-        id: '1'
-    },
-    {
-        type: 'article',
-        title: 'Some title resp',
-        body: 'Some body resp',
-        imageIds: [],
-        tags: [],
-        createdAt: 'string',
-        id: '1'
-    },
-    {
-        type: 'story',
-        title: 'Some story title resp',
-        body: 'Some story body resp',
-        imageIds: [],
-        tags: [],
-        createdAt: 'string',
-        id: '1'
-    },
-    {
-        type: 'article',
-        title: 'Some title resp',
-        body: 'Some body resp',
-        imageIds: [],
-        tags: [],
-        createdAt: 'string',
-        id: '1'
-    },
-    {
-        type: 'story',
-        title: 'Some story title resp',
-        body: 'Some story body resp',
-        imageIds: [],
-        tags: [],
-        createdAt: 'string',
-        id: '1'
-    },
-],
-    totalCount: 1,
-    pageNumber: 1,
-    pageCount: 1,
-    pageSize: 9,
-    self: 'string',
-}
-interface IDefaultTagsBlog {
-    article:string;
-    story:string;
-}
-// export enum DefaultTagsBlog {
-//     article= 'Полезные статьи',
-//     story = 'Истории успеха'
-// }
+
 interface IPropTypes {
     infoCard: IInfoCard,
     infoContacts: IInfoContacts,
@@ -100,7 +39,6 @@ export class BlogPage extends React.Component<IPropTypes, MyState> {
  
     render(){
         this.props.blogList.data.map(item=>{
-            // mokBlogResp.data.map(item=>{ // moke
             this.blogType[item.type] = item.type;
         })
         return (
@@ -124,7 +62,6 @@ export class BlogPage extends React.Component<IPropTypes, MyState> {
                     <ul className='box-articles'>
                     {
                        this.props.blogList.data.map((item:IBlogItem, i:number)=>
-                    //    mokBlogResp.data.map((item:any, i:number)=>
                     <div 
                         className={(this.state.activeBtn === 'all'|| this.state.activeBtn === item.type) ? `article`: 'article hide-item'}
                         key={i}>
@@ -139,14 +76,11 @@ export class BlogPage extends React.Component<IPropTypes, MyState> {
                         )
                     }
                     </ul>
-                
-                    <div className='box-pagination'>
-                        <div className="prev"></div>
-                        <BtnPagination
-                            content={this.props.blogList.pageNumber}
-                        />
-                        <div className="next"></div>
-                    </div>
+                    <BtnPagination
+                        setProps={this.props}
+                        pageCount={this.props.blogList.pageCount}
+                        fetchBlogList={this.props.fetchBlogList}
+                    />
                 </div>
             </div>
         )

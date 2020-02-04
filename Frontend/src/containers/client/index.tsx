@@ -25,8 +25,8 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path={HELP_PAGE_LINKS.default} component={HowToHelpPage} exact />
             <Route path='/contacts' component={Contacts} exact />
             <Route path='/blog/:blogId' component={BlogItemPage} exact />
+            <Route path='/blog/page/:page' component={Blog} exact/>
             <Route path={props.match.path} component={HomePage} exact />
-            <Route path='/blog' component={Blog} exact/>
           </Switch>
         </div>
         <AppFooter/>

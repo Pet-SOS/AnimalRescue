@@ -12,7 +12,6 @@ export interface IPropTypes {
 }
 
 export const BlogItem: React.FC<IPropTypes> = ({ image, title, id, text }) => {
-    console.log('tit', text)
   return (
     <li className="blog-item-holder">
         <Link to={`/blog/${id}`} className="blog-item-link" />

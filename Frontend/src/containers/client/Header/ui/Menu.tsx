@@ -57,7 +57,7 @@ export const AppMenu: React.FC = () => {
                 </ul>
             </NavLink >
             </div>
-            <NavLink to="/blog" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
+            <NavLink to="/blog/page/1" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
             <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
             <div className="item heart"><HeartLogo/></div>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))

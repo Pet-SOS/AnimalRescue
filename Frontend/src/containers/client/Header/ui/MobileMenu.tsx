@@ -96,7 +96,7 @@ export const MobileMenu: React.FC = () => {
                         </ul>
                     </div>
                 </div>
-                <NavLink to="/blog" activeClassName="active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
+                <div><NavLink to="/blog/page/1" activeClassName="active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink></div>
                 <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
                 <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/><HeartLogo className='heart-logo'/></div>
                 <Button onClick={() => {}} styleType={ButtonTypes.Blue} className="btn-give">

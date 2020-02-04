@@ -22,6 +22,6 @@ export interface IArticleListResponse {
 }
 
 export async function fetchArticleList(requestParams?: IRequestParams): Promise<IArticleListResponse[]> {
-  const res = await API.get(`Blogs`, { params: prepareRequestParams(requestParams)});
+  const res = await API.get(`blogs`, { params: prepareRequestParams(requestParams)});
   return res.data
 }

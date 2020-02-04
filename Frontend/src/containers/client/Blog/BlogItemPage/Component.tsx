@@ -75,7 +75,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
         <div className='back-link-holder'>
           <BlockLink
             title={<TI18n keyStr='backToBlog' default='Назад в блог' />}
-            href={'/blog'}
+            href={'/blog/page/1'}
             isBack
           />
         </div>

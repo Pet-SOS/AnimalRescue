@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       }
     }
   },
-  fetchArticlesList:() => dispatch(actionFetchArticleListRequest()),
+  fetchArticlesList:(pageParams?: IRequestParams) => dispatch(actionFetchArticleListRequest(pageParams)),
   clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
   clearInfoCard: () => dispatch(actionClearInfoCard())
 })
