@@ -5,6 +5,9 @@ import {ChangeLocale, TI18n} from '../../../../i18n';
 import { PhoneLink } from '../../../../components/PhoneLink';
 import { SelectExpandDirections } from '../../../../components/Select';
 import '../styles/footer.scss';
+import { NavLink } from 'react-router-dom';
+import { RULES_PAGE_LINK } from '../../Rules/index';
+import { HELP_PAGE_LINKS } from '../../HowToHelp/index';
 
 export const AppFooter: React.FC = () =>  (
   <footer className="footer">
@@ -13,24 +16,24 @@ export const AppFooter: React.FC = () =>  (
         <div className="column">
           <ul>
             <li>
-              <a href="" className="head-link">
+              <NavLink to="/about" className="head-link">
                 <TI18n keyStr="footerAbout" default="О службе" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="">
+              <NavLink to="/about">
                 <TI18n keyStr="footerAboutRescue" default="О службе спасения" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="">
+              <NavLink to={`/about${RULES_PAGE_LINK}`}>
                 <TI18n keyStr="footerRules" default="Правила работы" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="">
+              <NavLink to="/about/financial-reports">
                 <TI18n keyStr="financeReadout" default="Финансовый отсчет" />
-              </a>
+              </NavLink>
             </li>
           </ul>
           <ul>
@@ -57,37 +60,37 @@ export const AppFooter: React.FC = () =>  (
           </ul>
           <ul>
             <li>
-              <a href="" className="head-link">
+              <NavLink to={HELP_PAGE_LINKS.default} className="head-link">
                 <TI18n keyStr="footerHowToHelp" default="Как помочь" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="">
+              <NavLink to={HELP_PAGE_LINKS.finance}>
                 <TI18n keyStr="footerWithFinance" default="Финансово" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="">
+              <NavLink to={HELP_PAGE_LINKS.stuff}>
               <TI18n keyStr="footerStuff" default="Вещами" />
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="">
+              <NavLink to={HELP_PAGE_LINKS.volunteering}>
                 <TI18n keyStr="footerVolunteering" default="Волонтерство" />
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="custom-list">
             <ul>
               <li>
-                <a href="" className="head-link">
+                <NavLink to="/blog/page/1" className="head-link">
                   <TI18n keyStr="blog" default="Блог" />
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="" className="head-link">
+                <NavLink className="item" to="/contacts">
                   <TI18n keyStr="contacts" default="Контакты" />
-                </a>
+                </NavLink>
               </li>
             </ul>
             <SocialLinks />
