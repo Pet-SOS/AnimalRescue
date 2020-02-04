@@ -17,7 +17,7 @@ import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
-import { IRequestParams, AllTag } from '../../../../api/requestOptions';
+import { IRequestParams, AllTag, BlogTags, RequestFilterOperators } from '../../../../api/requestOptions';
 import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
 import { IAnimalsListState } from '../../Animals/store/state';
@@ -28,7 +28,7 @@ interface IPropTypes {
   fetchSavedAnimalsCount: () => void;
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
-  fetchArticlesList:() => void;
+  fetchArticlesList:(pageParams?: IRequestParams) => any;
   clearAnimalsState: () => void;
   clearInfoCard: () => void;
   animalsList: IAnimalsListState;
@@ -64,7 +64,11 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchBlogList(AllTag.SAVED);
     fetchSavedAnimalsCount();
     fetchInfoCard();
-    fetchArticlesList();
+    fetchArticlesList({filter:{
+      fieldName: 'type',
+      opeartor: RequestFilterOperators.EQ,
+      value: 'article'
+    }});
     return () => {
       clearAnimalsState();
       clearInfoCard();
@@ -173,7 +177,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             data={articleList.data.slice(0,3)}
             link={{
                 title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
-                href: '/'
+                href: '/blog/page/1'
               }}
         />
       </div>

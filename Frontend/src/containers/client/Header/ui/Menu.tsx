@@ -37,26 +37,27 @@ export const AppMenu: React.FC = () => {
                 </ul>
             </div>
             <div className="item">
-              <NavLink to={HELP_PAGE_LINKS.default} activeClassName="is-active"><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></NavLink >
-              <ul className="dropdown">
-                <li>
-                  <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
-                      <TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" />
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={HELP_PAGE_LINKS.stuff} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.stuff)}>
-                    <TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" />
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to={HELP_PAGE_LINKS.volunteering} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.volunteering)}>
-                      <TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" />
-                  </NavLink>
-                </li>
-              </ul>
-            </div>        
-            <div className="item"><TI18n keyStr="blog" default="Блог"/></div>
+              <NavLink to={HELP_PAGE_LINKS.default} activeClassName="is-active"><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" />
+                <ul className="dropdown">
+                    <li>
+                        <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={HELP_PAGE_LINKS.stuff} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.stuff)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={HELP_PAGE_LINKS.volunteering} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.volunteering)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" />
+                        </NavLink>
+                    </li>
+                </ul>
+            </NavLink >
+            </div>
+            <NavLink to="/blog/page/1" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
             <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
             <div className="item heart"><HeartLogo/></div>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))

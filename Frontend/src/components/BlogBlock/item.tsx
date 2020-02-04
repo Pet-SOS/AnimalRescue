@@ -12,12 +12,12 @@ export interface IPropTypes {
 }
 
 export const BlogItem: React.FC<IPropTypes> = ({ image, title, id, text }) => {
-  return (        
-      <li className="blog-item-holder">
+  return (
+    <li className="blog-item-holder">
         <Link to={`/blog/${id}`} className="blog-item-link" />
-        <div className="blog-item-image" style={{ backgroundImage: `url(${image ? `${BASE_URL}documents/${image}` : `${noPhotoImage}`})` }}/>
+        <div className="blog-item-image" style={{ backgroundImage: `url(${image ? `${BASE_URL}documents/${image}/type/medium` : `${noPhotoImage}`})` }}/>
         <div className="blog-grey-text">{text}</div>
-        <div className="blog-item-title">{title}</div>      
-      </li>  
+        <div className="blog-item-title">{title}</div>
+  </li>
   )
 }

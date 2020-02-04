@@ -1,0 +1,49 @@
+@import '../../../../styles/variables.scss';
+
+.box-pagination{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    .prev ,.next, .pagination{
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: $main-bg-color;
+        border-radius: 50%;
+        color:$text-lite-color;
+        transition: all 24ms;
+        box-shadow: 0 0.1875rem 0.25rem rgba(166, 205, 227, 0.4);
+        &:hover, &:active, &.active {
+            background: $btn-blue;
+            box-shadow: 0 0.1875rem 0.25rem rgba(62, 91, 157, 0.5);
+            color: $main-bg-color;
+            cursor: pointer;
+        }
+        &:before{
+            font-family: FontAwesome;
+            position: absolute;
+            top: 50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+    }
+    .prev{
+        margin-right: 1.5rem;
+        &:before{
+            content:"\f104";
+        }
+    }
+    .next{
+        margin-left: 1.5rem;
+        &:before{
+            content:"\f105";
+        }
+    }
+    .pagination{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        margin-right: 0.25rem;
+    }
+}
