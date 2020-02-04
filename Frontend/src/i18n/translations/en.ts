@@ -179,5 +179,8 @@ export default {
   moreUsefulAdvices: 'More useful articles',
   usefulAdvices: 'Useful Advices',
   successStories: 'Success stories',
+
+  blogPageTitle: 'Blog',
+  blogBtnAll: 'Everything',
   }
 

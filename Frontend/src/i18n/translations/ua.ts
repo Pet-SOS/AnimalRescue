@@ -179,4 +179,7 @@ export default {
   moreUsefulAdvices: 'Ще корисних статей',
   usefulAdvices: 'Корисні поради',
   successStories: 'Історії успіху',
+
+  blogPageTitle: 'Блог',
+  blogBtnAll: 'Все',
 }
