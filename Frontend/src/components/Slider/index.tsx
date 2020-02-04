@@ -1,14 +1,18 @@
 import React from 'react';
+import cn from 'classnames';
 import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.min.css';
 import './index.scss';
+
+export enum SlidesPerViewValue { AUTO = 'auto' }
+export enum SlideEffects { FADE = 'fade', CUBE = 'cube', COVERFLOW = 'coverflow', FLIP = 'flip' }
 
 interface IPropTypes {
   slides: React.ReactNode[];
   isPaginationHidden?: boolean;
   isNavigationHidden?: boolean;
   isLoop?: boolean;
-  slidesPerView?: number;
+  slidesPerView?: number | SlidesPerViewValue;
   slideEffect?: SlideEffects;
   isAutoplay?: boolean;
   isSwipeDisable?: boolean;
@@ -17,7 +21,6 @@ interface IPropTypes {
   breakpoints?: { [key: number]: IPropTypes }
 }
 
-export enum SlideEffects { FADE = 'fade', CUBE = 'cube', COVERFLOW = 'coverflow', FLIP = 'flip'}
 
 export const Slider: React.FC<IPropTypes> = ({
   slides,
@@ -36,7 +39,7 @@ export const Slider: React.FC<IPropTypes> = ({
     const sliderParams: any = {
       rebuildOnUpdate: true,
       shouldSwiperUpdate: true,
-      slidesPerView: !!slidesPerView ? Math.abs(slidesPerView) : 1,
+      slidesPerView: !!slidesPerView ? slidesPerView === SlidesPerViewValue.AUTO ? slidesPerView : Math.abs(slidesPerView) : 1,
       loop: isLoop,
       effect: slideEffect,
       noSwiping: !!isSwipeDisable,
@@ -67,7 +70,12 @@ export const Slider: React.FC<IPropTypes> = ({
     return sliderParams;
   }
   return (
-    <div className={`custom-slider-wrapper ${isPaginationHidden ? '' : 'pagination-active'}`}>
+    <div className={
+      cn('custom-slider-wrapper', {
+        'pagination-active': !isPaginationHidden,
+        'auto-slides': slidesPerView === SlidesPerViewValue.AUTO
+      })
+    }>
       <div className="custom-slider-inner">
         <Swiper {...getSliderParams()}>
           {slides.map((slide, index) => <div key={index}>{slide}</div>)}
