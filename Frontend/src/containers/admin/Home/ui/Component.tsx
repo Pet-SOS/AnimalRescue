@@ -1,25 +1,46 @@
 import React from 'react';
 import '../styles/home.scss';
-import {IAnimal, IAnimalsResponse} from "../../../../api/animals";
-import {AnimalEditCard} from "../../../client/Animals/AnimalEditCard";
+import {DEFAULT_ANIMAL, IAnimal, IAnimalsResponse} from "../../../../api/animals";
+import {AnimalEditCard} from "../../AnimalEditCard";
 
 interface AdminHomeProps {
     animalsList: IAnimalsResponse
     fetchAnimalsRequest: () => void;
+    deleteAnimal: (id: string) => void
+    postAnimal: (animal: IAnimal) => void
+    updateAnimal: (params: { animal: IAnimal, id?: string }) => void
 }
+
 export class AdminHomePage extends React.Component<AdminHomeProps> {
 
     componentDidMount(): void {
         this.props.fetchAnimalsRequest()
     }
 
+    deleteAnimal = (id: string) => {
+        this.props.deleteAnimal(id)
+    }
+
+    postAnimal = (animal: IAnimal) => {
+        this.props.postAnimal(animal)
+    }
+
+    updateAnimal = (params: { animal: IAnimal, id?: string }) => {
+        this.props.updateAnimal(params)
+    }
+
+
     renderAnimal = (animal: IAnimal) => {
-        return (<div key={animal.id} className={'animal-card'}>
-          {<AnimalEditCard animal={animal}/>}
+        return (<div key={animal.id || 'newAnimal'} className={'animal-card'}>
+            {<AnimalEditCard animal={animal}
+                             deleteAnimal={this.deleteAnimal}
+                             postAnimal={this.postAnimal}
+                             updateAnimal={this.updateAnimal}/>}
         </div>)
     }
 
     renderAnimals = (animals: IAnimal[]) => {
+        animals.push({...DEFAULT_ANIMAL})
         return animals.map((animal: IAnimal) => this.renderAnimal(animal))
     }
 

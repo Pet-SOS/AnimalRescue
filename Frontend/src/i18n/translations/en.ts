@@ -179,6 +179,8 @@ export default {
   moreUsefulAdvices: 'More useful articles',
   usefulAdvices: 'Useful Advices',
   successStories: 'Success stories',
+  blogPageTitle: 'Blog',
+  blogBtnAll: 'Everything',
 
   number: 'Number',
   year: 'year',
@@ -189,5 +191,5 @@ export default {
   howToTake: 'How to take?',
   instructionsListItemText1: 'Get to know the animal. This will help to understand whether it suits you in temperature.',
   instructionsListItemText2: 'The curator will tell you about the individual needs of the selected pet. Prepare for the animal everything you need.',
-  }
+ }
 

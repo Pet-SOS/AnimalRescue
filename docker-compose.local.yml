@@ -9,11 +9,13 @@ services:
     image: animalrescue.api
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "9595:80"
     environment:
       - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
       - MongoDbSettings__DatabaseName=AnimalRescue
       - Logging__LogLevel__Default=Debug
+      - Logging__LogLevel__Microsoft=Debug
+      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
     links:
       - mongodb
     depends_on:

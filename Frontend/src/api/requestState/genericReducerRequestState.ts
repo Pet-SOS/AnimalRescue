@@ -1,5 +1,5 @@
 import {AnyAction} from 'redux';
-import {getType, } from 'typesafe-actions';
+import {getType,} from 'typesafe-actions';
 import {ActionCreator} from 'typesafe-actions/src/types';
 import {DEFAULT_REQUEST_STATE, IRequestState} from './defaultRequestState';
 import {ERequestStatus} from './enumRequestState';
@@ -24,7 +24,6 @@ export const genericRequestReducer = (
                     ...state,
                     status: ERequestStatus.SUCCESS,
                     error: null,
-                    time: new Date().getTime()
                 };
 
             case getType(failure):

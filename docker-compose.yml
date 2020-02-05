@@ -17,6 +17,8 @@ services:
       - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
       - MongoDbSettings__DatabaseName=${MongoDB_database}
       - Logging__LogLevel__Default=Debug
+      - Logging__LogLevel__Microsoft=Debug
+      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
     depends_on:
       - mongodb
 

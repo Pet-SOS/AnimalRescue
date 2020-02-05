@@ -5,7 +5,16 @@ import {genericRequestReducer} from "../../../../../api";
 import {
     actionAdminHomeFetchAnimalsRequest,
     actionAdminHomeFetchAnimalsSuccess,
-    actionAdminHomeFetchAnimalsFailure
+    actionAdminHomeFetchAnimalsFailure,
+    actionAdminDeleteAnimalRequest,
+    actionAdminDeleteAnimalSuccess,
+    actionAdminDeleteAnimalFailure,
+    actionAdminPostAnimalRequest,
+    actionAdminPostAnimalSuccess,
+    actionAdminPostAnimalFailure,
+    actionAdminUpdateAnimalRequest,
+    actionAdminUpdateAnimalFailure,
+    actionAdminUpdateAnimalSuccess
 } from "../actions";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
@@ -13,6 +22,25 @@ const fetchAnimalsRequestStateReducer = genericRequestReducer(
     actionAdminHomeFetchAnimalsSuccess,
     actionAdminHomeFetchAnimalsFailure
 );
+
+const postAnimalsRequestStateReducer = genericRequestReducer(
+    actionAdminPostAnimalRequest,
+    actionAdminPostAnimalSuccess,
+    actionAdminPostAnimalFailure
+);
+
+const updateAnimalsRequestStateReducer = genericRequestReducer(
+    actionAdminUpdateAnimalRequest,
+    actionAdminUpdateAnimalSuccess,
+    actionAdminUpdateAnimalFailure
+);
+
+const deleteAnimalsRequestStateReducer = genericRequestReducer(
+    actionAdminDeleteAnimalRequest,
+    actionAdminDeleteAnimalSuccess,
+    actionAdminDeleteAnimalFailure
+);
+
 
 export const AdminHomePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
     switch (action.type) {
@@ -33,6 +61,57 @@ export const AdminHomePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_S
                 ...state,
                 animalsListRequestState: fetchAnimalsRequestStateReducer(state.animalsListRequestState, action)
             };
+
+
+        case getType(actionAdminPostAnimalRequest):
+            return {
+                ...state,
+                animalPostRequestState: postAnimalsRequestStateReducer(state.animalPostRequestState, action)
+            };
+        case getType(actionAdminPostAnimalSuccess):
+            return {
+                ...state,
+                animalPostRequestState: postAnimalsRequestStateReducer(state.animalPostRequestState, action),
+            };
+        case getType(actionAdminPostAnimalFailure):
+            return {
+                ...state,
+                animalPostRequestState: postAnimalsRequestStateReducer(state.animalPostRequestState, action)
+            };
+
+        case getType(actionAdminUpdateAnimalRequest):
+            return {
+                ...state,
+                animalUpdateRequestState: updateAnimalsRequestStateReducer(state.animalUpdateRequestState, action)
+            };
+        case getType(actionAdminUpdateAnimalFailure):
+            return {
+                ...state,
+                animalUpdateRequestState: updateAnimalsRequestStateReducer(state.animalUpdateRequestState, action),
+            };
+        case getType(actionAdminUpdateAnimalSuccess):
+            return {
+                ...state,
+                animalUpdateRequestState: updateAnimalsRequestStateReducer(state.animalUpdateRequestState, action)
+            };
+
+
+        case getType(actionAdminDeleteAnimalRequest):
+            return {
+                ...state,
+                animalDeleteRequestState: deleteAnimalsRequestStateReducer(state.animalDeleteRequestState, action)
+            };
+        case getType(actionAdminDeleteAnimalSuccess):
+            return {
+                ...state,
+                animalDeleteRequestState: deleteAnimalsRequestStateReducer(state.animalDeleteRequestState, action),
+            };
+        case getType(actionAdminDeleteAnimalFailure):
+            return {
+                ...state,
+                animalDeleteRequestState: deleteAnimalsRequestStateReducer(state.animalDeleteRequestState, action)
+            };
+
 
         default:
             return state;
