@@ -7,7 +7,7 @@ ADD . .
 
 # dotnet commands to build and publish
 RUN dotnet restore --no-cache
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Debug -o out
 
 # Second stage - Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
