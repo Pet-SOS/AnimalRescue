@@ -37,7 +37,7 @@ export const AppMenu: React.FC = () => {
                 </ul>
             </div>
             <div className="item">
-              <NavLink to={HELP_PAGE_LINKS.default} activeClassName="is-active"><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" />
+              <NavLink to={HELP_PAGE_LINKS.default} activeClassName="is-active"><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></NavLink >
                 <ul className="dropdown">
                     <li>
                         <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
@@ -55,7 +55,6 @@ export const AppMenu: React.FC = () => {
                         </NavLink>
                     </li>
                 </ul>
-            </NavLink >
             </div>
             <NavLink to="/blog/page/1" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
             <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>

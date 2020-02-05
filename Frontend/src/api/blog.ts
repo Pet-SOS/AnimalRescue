@@ -13,6 +13,11 @@ export interface IBlogItem {
   id?: string;
 }
 
+export interface IBlogItemResponse {
+  data: IBlogItem;
+  self: string;
+}
+
 export interface IBlogListResponse {
   data: IBlogItem[];
   totalCount: number;
@@ -27,7 +32,7 @@ export async function fetchBlogList(requestParams?: IRequestParams): Promise<IBl
   return res.data
 }
 
-export async function fetchBlogItem(id: string): Promise<IBlogItem> {
+export async function fetchBlogItem(id: string): Promise<IBlogItemResponse> {
   const res = await API.get(`blogs/${id}`);
   return res.data
 }

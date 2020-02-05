@@ -179,7 +179,16 @@ export default {
   moreUsefulAdvices: 'Ще корисних статей',
   usefulAdvices: 'Корисні поради',
   successStories: 'Історії успіху',
-
   blogPageTitle: 'Блог',
   blogBtnAll: 'Все',
+
+  number: 'Номер',
+  year: 'рік',
+  someHistory: 'Трохи історії',
+  character: 'Характер',
+  wantToAdopt: 'Хочу усиновити',
+  shareAnimalText: 'Поділися історією хвостика, щоб допомогти йому швидше знайти будинок',
+  howToTake: 'Як взяти?',
+  instructionsListItemText1: 'Познайомтеся з твариною. Це допоможе зрозуміти, чи підходить вона вам по темпераметру.',
+  instructionsListItemText2: 'Куратор вам розповість про індивідуальні потреби обраного вихованця. Підготуйте для тварини все необхідне.',
 }
