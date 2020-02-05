@@ -63,9 +63,7 @@ namespace AnimalRescue.BusinessLogic.Services
             var uploadImageTasks = _imageSizeConfiguration.Sizes
                 .Select(async imageSize =>
                 {
-                    var resizedImage = ResizeImage(
-                        image, 
-                        imageSize.Width, 
+                    var resizedImage = GetResizedImage(image, imageSize.Width,
                         imageSize.Height);
 
                     using (var imageStream = new MemoryStream())
@@ -114,6 +112,29 @@ namespace AnimalRescue.BusinessLogic.Services
             return ids;
         }
 
+        public Bitmap GetResizedImage(Image image, int width, int height)
+        {
+            Bitmap resBitmap;
+            var newSize = new Size(width, height);
+            int newWidthActual;
+            int newHeightActual;
+
+            if (image.Width > image.Height)
+            {
+                double ratioX = image.Width / newSize.Width;
+                newWidthActual = newSize.Width;
+                newHeightActual = (int)Math.Round(image.Height / ratioX);
+            }
+            else
+            {
+                double ratioY = image.Height / newSize.Height;
+                newWidthActual = (int)Math.Round(image.Width / ratioY);
+                newHeightActual = newSize.Height;
+            }
+            resBitmap = ResizeImage(image, newWidthActual, newHeightActual);
+
+            return resBitmap;
+        }
         private Bitmap ResizeImage(Image image, int width, int height)
         {
 
