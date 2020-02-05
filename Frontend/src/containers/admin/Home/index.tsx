@@ -1,7 +1,11 @@
 import {connect} from "react-redux";
 import {AdminHomePage} from "./ui/Component";
 import {ICustomAppState} from "../../../store/state";
-import {actionAdminHomeFetchAnimalsRequest} from "./store/actions";
+import {
+    actionAdminDeleteAnimalRequest,
+    actionAdminHomeFetchAnimalsRequest,
+    actionAdminPostAnimalRequest, actionAdminUpdateAnimalRequest
+} from "./store/actions";
 import {selectAnimalsList} from "./store/selectors";
 
 const mapStateToProps = (state: ICustomAppState) => ({
@@ -9,5 +13,8 @@ const mapStateToProps = (state: ICustomAppState) => ({
 });
 
 export const HomePage = connect(mapStateToProps, {
-    fetchAnimalsRequest: actionAdminHomeFetchAnimalsRequest
+    fetchAnimalsRequest: actionAdminHomeFetchAnimalsRequest,
+    deleteAnimal: actionAdminDeleteAnimalRequest,
+    postAnimal: actionAdminPostAnimalRequest,
+    updateAnimal: actionAdminUpdateAnimalRequest
 })(AdminHomePage);
