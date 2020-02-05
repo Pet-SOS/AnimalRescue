@@ -1,21 +1,24 @@
-import { IBlogItemResponse } from './../../../../../api/blog';
+import { IAnimalResponse } from './../../../../../api/animals';
 import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
 
-export interface IBlogItemState extends IBlogItemResponse {
+export interface IAnimalItemState extends IAnimalResponse {
   isLoading: boolean;
   isLoaded: boolean;
   requestState: IRequestState;
 }
 
-export const DEFAULT_BLOG_ITEM_STATE: IBlogItemState = {
+export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
   data: {
-    type: '',
-    title: '',
-    body: '',
+    number: 0,
+    name: '',
+    kindOfAnimal: '',
+    gender: '',
+    description: '',
+    age: 0,
     imageIds: [],
     tags: [],
     createdAt: '',
-    id: '',
+    images: []
   },
   self: '',
   isLoaded: false,

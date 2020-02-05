@@ -179,5 +179,15 @@ export default {
   moreUsefulAdvices: 'More useful articles',
   usefulAdvices: 'Useful Advices',
   successStories: 'Success stories',
+
+  number: 'Number',
+  year: 'year',
+  someHistory: 'A bit of history',
+  character: 'Character',
+  wantToAdopt: 'I want to adopt',
+  shareAnimalText: 'Share the story of the ponytail to help him find a home faster',
+  howToTake: 'How to take?',
+  instructionsListItemText1: 'Get to know the animal. This will help to understand whether it suits you in temperature.',
+  instructionsListItemText2: 'The curator will tell you about the individual needs of the selected pet. Prepare for the animal everything you need.',
   }
 

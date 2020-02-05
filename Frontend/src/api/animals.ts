@@ -28,8 +28,14 @@ export interface IAnimal {
   imageIds: string[]
   tags: string[]
   id?: string 
-  readonly?: boolean
+  readonly?: boolean;
   images: []
+  createdAt?: string;
+}
+
+export interface IAnimalResponse {
+  data: IAnimal;
+  self: string;
 }
 
 export interface IAnimalsResponse {
@@ -57,5 +63,10 @@ export async function updateAnimal(params: { animal: IAnimal }): Promise<void> {
 
 export async function fetchSavedAnimalsCount(): Promise<ISavedAnimalsCountResponse> {
   const res = await API.get('animals/counter');
+  return res.data
+}
+
+export async function fetchAnimalItem(id: string): Promise<IAnimalResponse> {
+  const res = await API.get(`animals/${id}`);
   return res.data
 }
