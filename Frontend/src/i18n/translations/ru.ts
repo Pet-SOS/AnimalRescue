@@ -184,6 +184,15 @@ export default {
     usefulAdvices: 'Полезные советы',
     successStories: 'Истории успеха',
 
+    number: 'Номер',
+    year: 'год',
+    someHistory: 'Немного истории',
+    character: 'Характер',
+    wantToAdopt: 'Хочу усыновить',
+    shareAnimalText: 'Поделись историей хвостика, чтобы помочь ему быстрее найти дом',
+    howToTake: 'Как взять?',
+    instructionsListItemText1: 'Познакомьтесь с животным. Это поможет понять, подходит ли оно вам по темпераметру.',
+    instructionsListItemText2: 'Куратор вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое.',
     /*        lookingForAFriendPage    */
     lookingForAFriendPageTitle: 'Ищу друга',
   }

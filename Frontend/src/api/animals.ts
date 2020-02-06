@@ -20,17 +20,23 @@ export enum Gender {MALE = 'male', FEMALE = 'female'}
 export enum AnimalKind { CAT = 'cat', DOG = 'dog', ANY='any'}
 
 export interface IAnimal {
-    number: number
-    name: string
-    kindOfAnimal: string | AnimalKind
-    gender: string | Gender
-    description: string
-    age: number
-    imageIds: string[]
-    tags: string
-    id?: string
-    readonly?: boolean
-    images: []
+  number: number
+  name: string
+  kindOfAnimal: string | AnimalKind
+  gender: string | Gender
+  description: string
+  age: number
+  imageIds: string[]
+  tags: string[]
+  id?: string 
+  readonly?: boolean;
+  images: []
+  createdAt?: string;
+}
+
+export interface IAnimalResponse {
+  data: IAnimal;
+  self: string;
 }
 
 export const DEFAULT_ANIMAL: IAnimal = {
@@ -41,7 +47,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     description: ' ',
     age: 0,
     imageIds: [],
-    tags: '',
+    tags: [],
     images: []
 }
 
@@ -77,8 +83,12 @@ export async function deleteAnimal(id: string): Promise<void> {
     await API.delete(`animals/${id}`);
 }
 
-
 export async function fetchSavedAnimalsCount(): Promise<ISavedAnimalsCountResponse> {
-    const res = await API.get('animals/counter');
-    return res.data
+  const res = await API.get('animals/counter');
+  return res.data
+}
+
+export async function fetchAnimalItem(id: string): Promise<IAnimalResponse> {
+  const res = await API.get(`animals/${id}`);
+  return res.data
 }

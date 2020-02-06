@@ -17,7 +17,7 @@ import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
-import { IRequestParams, AllTag, BlogTags, RequestFilterOperators } from '../../../../api/requestOptions';
+import { IRequestParams, AllTag, RequestFilterOperators } from '../../../../api/requestOptions';
 import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
 import { IAnimalsListState } from '../../Animals/store/state';

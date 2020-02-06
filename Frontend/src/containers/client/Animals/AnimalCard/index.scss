@@ -1,5 +1,6 @@
 @import '../../../../styles/variables.scss';
 .animal-card {
+  display: block;
   margin: 0.875rem 1.25rem 0;
   &:hover {
     .img-holder {
@@ -20,6 +21,8 @@
     line-height: 1.25rem;
     font-weight: bold;
     margin: 0 0 0.25rem;
+    display: block;
+    color: $text-color;
   }
   .description {
     line-height: 1.375rem;

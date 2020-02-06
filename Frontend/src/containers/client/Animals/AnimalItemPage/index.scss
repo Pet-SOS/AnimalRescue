@@ -1,0 +1,156 @@
+@import './../../../../styles/variables.scss';
+.animal-item-page {
+  padding: 3.75rem 0 0;
+  h4 {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin: 0 0 1rem;
+  }
+  .animal-info {
+    padding: 0 0 5rem;
+    .content {
+      display: flex;
+      justify-content: space-between;
+      .column {
+        &:first-child {
+          width: 61.61%;
+          padding: 0 2.6875rem 0 0;
+        }
+        &:last-child {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 38.39%;
+        }
+      }
+    }
+    .custom-slider-inner {
+      border-radius: 1.5rem;
+    }
+    .swiper-slide {
+      height: 29.625rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      .img-holder {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+    .thumb-swiper .swiper-slide {
+      border-radius: .5rem;
+      img {
+        max-height: 100%;
+      }
+    }
+  }
+  .main-info {
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 0.5rem;
+      .title {
+        margin: 0;
+        color: #000000
+      }
+    }
+    .animal-number {
+      display: block;
+      margin: 0 0 0.5rem;
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+      color: $text-lite-color;
+    }
+    .gender-age {
+      margin: 0 0 1.625rem;
+      .gender:after {
+        content: "\2022";
+        display: inline-block;
+        vertical-align: baseline;
+        margin: 0 0.5rem;
+      }
+    }
+    .tags-list {
+      font: 0;
+      line-height: 0;
+      margin: 0 0 1.25rem;
+      li {
+        padding: 0.25rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        display: inline-block;
+        color: $text-lite-color;
+        background: $bg-lite-lite;
+        border-radius: 1rem;
+        margin: 0 1rem 1rem 0;
+      }
+    }
+  }
+  .block-holder {
+    margin: 0 0 2.25rem;
+  }
+  .btn-holder .button {
+    margin: 0 0 1.5rem;
+  }
+  .instructions {
+    background: #ffffff;
+    padding: 5rem 0 2.6875rem;
+    .title {
+      margin: 0 0 1.5rem;
+    }
+    .numbered-list {
+      display: grid;
+      grid-template-columns: repeat(2, 50%);
+      grid-template-rows: repeat(2, auto);
+      grid-auto-flow: column;
+      margin: 0;
+      li {
+        margin: 0 0 2.3125rem;
+        strong {
+          font-size: 1.5rem;
+          line-height: 1.5rem;
+          display: block;
+          margin: 0 0 1.5rem;
+          font-weight: 900;
+        }
+      }
+    }
+  }
+  .animal-slider-holder {
+    padding: 5rem 0;
+    .animal-kind {
+      text-transform: lowercase;
+    }
+  }
+}
+@media (max-width: $normal-device-width) {
+  .animal-item-page .animal-info .swiper-slide { height: 20rem; }
+}
+@media (max-width: $medium-device-width) {
+  .animal-item-page {
+    .animal-info {
+      .content {
+        display: block;
+        .column {
+          &:first-child { margin: 0 0 1rem; }
+          &:first-child, &:last-child  {
+            width: 100%;
+            padding: 0;
+          }
+        }
+      }
+      .swiper-slide { height: 25rem; }    
+    }
+    .instructions .numbered-list { display: block; }
+  }
+}
+@media (max-width: $small-device-width) {
+  .numbered-list .list-body {
+    margin-left: -4rem;
+  }
+}

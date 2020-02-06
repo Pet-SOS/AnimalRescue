@@ -88,8 +88,25 @@
   opacity: 0;
   visibility: hidden;
 }
+.thumb-swiper {
+  padding: 1.5rem 0 0;
+  .swiper-slide {
+    width: auto;
+    opacity: 0.5;
+    height: 5.625rem!important;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: $defaultHoverTransition;
+    border: 2px solid transparent;
+    cursor: pointer;
+    &.swiper-slide-active {
+      opacity: 1;
+      border-color: $text-color-active;
+    }
+  }
+}
 @media (max-width: $medium-device-width) {
   .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
-      margin-top: -2.75rem;
-    }  
+    margin-top: -2.75rem;
+  }  
 }

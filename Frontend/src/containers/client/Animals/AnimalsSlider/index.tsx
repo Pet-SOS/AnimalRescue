@@ -14,13 +14,14 @@ export const AnimalsSlider: React.FC<IPropTypes> = ({ data, title, link }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [slidesPerView, setSlidesPerView] = useState(3);
   useEffect(() => {
-    const listener = () => {
+    const setWindowParams = () => {
       setWindowWidth(window.innerWidth);
       setSlidesPerView(window.innerWidth > 1023 ? 3 : window.innerWidth > 600 ? 2.33 : 1.2);
     }
-    window.addEventListener('resize', listener);
+    setWindowParams();
+    window.addEventListener('resize', setWindowParams);
     return () => {
-      window.removeEventListener('resize', listener);
+      window.removeEventListener('resize', setWindowParams);
     };
   }, []);
   
