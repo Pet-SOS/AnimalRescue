@@ -23,7 +23,8 @@ import {
   actionClearCats,
   actionClearSavedAnimalsCount,
   actionClearSickAnimals,
-  actionClearEntireAnimalsState
+  actionClearEntireAnimalsState,
+  onAnimalFavoriteButtonClicked
 } from "../actions";
 import { DEFAULT_ANIMALS } from './../state';
 
@@ -228,7 +229,19 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
       }
     }
     case getType(actionClearEntireAnimalsState): {
-      return {...DEFAULT_ANIMALS_STATE}
+      return {
+        ...DEFAULT_ANIMALS_STATE,
+        favoriteAnimalsIds: [...state.favoriteAnimalsIds]
+      }
+    }
+    case getType(onAnimalFavoriteButtonClicked): {
+      const currentFavoriteAnimalsIds = [...state.favoriteAnimalsIds];
+      const newIds: string[] = currentFavoriteAnimalsIds.includes(action.payload) ? currentFavoriteAnimalsIds.filter(id => id !== action.payload) : [...currentFavoriteAnimalsIds, action.payload];
+      localStorage.setItem('favoriteAnimalsIds', JSON.stringify(newIds));
+      return {
+        ...state,
+        favoriteAnimalsIds: newIds
+      }
     }
     default:
       return state;

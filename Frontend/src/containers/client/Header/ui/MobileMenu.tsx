@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import {TI18n, ChangeLocale} from "../../../../i18n";
 import {Button, ButtonTypes} from "../../../../components/Button";
-import "../styles/mobileMenu.scss"
-import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
+import "../styles/mobileMenu.scss";
 import { SocialLinks } from "../../../../components/SocialLinks";
 import { NavLink } from "react-router-dom";
 import { RULES_PAGE_LINK } from "../../Rules";
 import { HELP_PAGE_LINKS } from "../../HowToHelp";
+import { useSelector, shallowEqual } from "react-redux";
+import { selectFavoriteAnimalsIds } from "../../Animals/store/selectors";
+import { store } from "../../../../store";
+import { FavoriteCounter } from "../../../../components/FavoriteCounter";
 
 export const MobileMenu: React.FC = () => {
+  const favoriteAnimalsIds: string[] = useSelector(() => selectFavoriteAnimalsIds(store.getState()), shallowEqual);
+
     let initialState = {
         drop1: false,
         drop2: false,
@@ -98,7 +103,9 @@ export const MobileMenu: React.FC = () => {
                 </div>
                 <div><NavLink to="/blog/page/1" activeClassName="active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink></div>
                 <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
-                <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/><HeartLogo className='heart-logo'/></div>
+                <div className="item heart"><TI18n keyStr="headerMenuItem7" default="Понравились"/>
+                  <FavoriteCounter count={favoriteAnimalsIds.length} />
+                </div>
                 <Button onClick={() => {}} styleType={ButtonTypes.Blue} className="btn-give">
                     <TI18n keyStr="help" default="Помочь"/>
                 </Button>
