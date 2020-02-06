@@ -94,3 +94,7 @@ export const actionClearSavedAnimalsCount = createAction(
 export const actionClearEntireAnimalsState = createAction(
   'CLEAR_ALL_ANIMALS_STATE'
 )
+export const onAnimalFavoriteButtonClicked = createAction(
+  'ANIMAL_FAVORIVE_BUTTON_CLICKED',
+  (resolve) => (id: string) => resolve(id)
+)

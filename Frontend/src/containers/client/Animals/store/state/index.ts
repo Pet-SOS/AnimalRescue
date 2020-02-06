@@ -16,6 +16,7 @@ export interface IAnimalsState {
   dogsListRequestState: IRequestState;
   savedAnimalsCount: ISavedAnimalsCountResponse;
   savedAnimalsCountRequestState: IRequestState;
+  favoriteAnimalsIds: string[];
 }
 
 export const DEFAULT_ANIMALS: IAnimalsListState = {
@@ -29,6 +30,11 @@ export const DEFAULT_ANIMALS: IAnimalsListState = {
   isLoaded: false
 };
 
+const getDefaultFavoriteAnimalsIds = (): string[] => {
+  const localStorageList = localStorage.getItem('favoriteAnimalsIds');
+  return !!localStorageList && Array.isArray(JSON.parse(localStorageList)) ? JSON.parse(localStorageList) : [];
+}
+
 export const DEFAULT_ANIMALS_STATE: IAnimalsState = {
   animalsList: { ...DEFAULT_ANIMALS },
   animalsListRequestState: { ...DEFAULT_REQUEST_STATE },
@@ -40,4 +46,5 @@ export const DEFAULT_ANIMALS_STATE: IAnimalsState = {
   dogsListRequestState: { ...DEFAULT_REQUEST_STATE },
   savedAnimalsCount: { data: 0, self: '' },
   savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE },
+  favoriteAnimalsIds: getDefaultFavoriteAnimalsIds()
 };

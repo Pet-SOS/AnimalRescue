@@ -17,6 +17,7 @@ import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { ShareLink } from '../../../../components/ShareLink';
 import './index.scss';
 import { scrollTop } from '../../../../assets/shared/scrollTop';
+import { ButtonLike } from '../../../../components/ButtonLike';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -109,7 +110,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                 <div className='main-info'>
                   <div className='head'>
                     <h2 className='title'>{animalItem.data.name}</h2>
-                    <Button styleType={ButtonTypes.Like} />
+                    <ButtonLike id={animalItem.data.id} />
                   </div>
                   <span className='animal-number'>
                     <TI18n keyStr='number' default='Номер' />
