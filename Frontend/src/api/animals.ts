@@ -17,7 +17,7 @@ const crateFormData = (data: Object) => {
 
 export enum Gender {MALE = 'male', FEMALE = 'female'}
 
-export enum AnimalKind { CAT = 'cat', DOG = 'dog' }
+export enum AnimalKind { CAT = 'cat', DOG = 'dog', ANY='any'}
 
 export interface IAnimal {
     number: number

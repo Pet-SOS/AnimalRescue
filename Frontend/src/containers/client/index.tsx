@@ -10,6 +10,7 @@ import { Contacts } from './ContactsPage';
 import { AboutPage } from './About';
 import { Blog } from './Blog';
 import { BlogItemPage } from './Blog/BlogItemPage';
+import { LookingForAFriend } from './LookingForAFriend';
 
 interface IPropTypes extends RouteComponentProps {}
 
@@ -26,6 +27,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path='/contacts' component={Contacts} exact />
             <Route path='/blog/:blogId' component={BlogItemPage} exact />
             <Route path='/blog/page/:page' component={Blog} exact/>
+            <Route path='/looking-for-a-friend/:page' component={LookingForAFriend} exact/>
             <Route path={props.match.path} component={HomePage} exact />
           </Switch>
         </div>

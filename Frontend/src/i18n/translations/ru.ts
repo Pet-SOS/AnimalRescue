@@ -183,4 +183,7 @@ export default {
     moreUsefulAdvices: 'Еще полезных статей',
     usefulAdvices: 'Полезные советы',
     successStories: 'Истории успеха',
+
+    /*        lookingForAFriendPage    */
+    lookingForAFriendPageTitle: 'Ищу друга',
   }
