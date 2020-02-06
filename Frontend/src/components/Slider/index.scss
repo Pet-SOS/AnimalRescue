@@ -97,7 +97,8 @@
     border-radius: 0.5rem;
     overflow: hidden;
     transition: $defaultHoverTransition;
-      border: 2px solid transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
     &.swiper-slide-active {
       opacity: 1;
       border-color: $text-color-active;

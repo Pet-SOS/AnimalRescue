@@ -5,7 +5,6 @@ import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
 import { ERequestStatus, BASE_URL } from '../../../../api';
 import { IRequestParams, RequestFilterOperators } from '../../../../api/requestOptions';
-import './index.scss';
 import { IAnimalItemState } from '../store/state/animal.state';
 import { IAnimalsResponse, AnimalKind } from '../../../../api/animals';
 import { selectAnimalItem } from '../store/selectors/animalitem.selector';
@@ -15,6 +14,9 @@ import { AnimalsSlider } from '../AnimalsSlider';
 import { sickAnimalsCheckAndLoadDefault } from '../store/selectors';
 import { IAnimalsListState } from '../store/state';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { ShareLink } from '../../../../components/ShareLink';
+import './index.scss';
+import { scrollTop } from '../../../../assets/shared/scrollTop';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -46,6 +48,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
     return () => {
       clearAnimalItemState();
       clearAnimalsState();
+      scrollTop()
     }
   }, [animalId]);
   useEffect(() => {
@@ -62,6 +65,25 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       fetchAnimalsList(requsetParams);
     }
   }, [status])
+
+  const instructionsList: { title: React.ReactNode , text: React.ReactNode }[] = [
+    {
+      title: <TI18n keyStr="rulesHowToAdoptListItemTitle1" default="Личная встреча" />,
+      text: <TI18n keyStr="instructionsListItemText1" default="Познакомьтесь с животным. Это поможет понять, подходит ли оно вам по темпераметру." />
+    },
+    {
+      title: <TI18n keyStr="rulesHowToAdoptListItemTitle2" default="Подготовьте дом к новому жильцу" />,
+      text: <TI18n keyStr="instructionsListItemText2" default="Куратор вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое." />,
+    },
+    {
+      title: <TI18n keyStr="rulesHowToAdoptListItemTitle3" default="Подписать договор" />,
+      text: <TI18n keyStr="rulesHowToAdoptListItemText3" default="Обязательным этапом является подписание договора." />
+    },
+    {
+      title: <TI18n keyStr="rulesHowToAdoptListItemTitle3" default="Подписать договор" />,
+      text: <TI18n keyStr="rulesHowToAdoptListItemText4" default="Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно." />
+    }
+  ]
 
   return (
     <div className='animal-item-page'>
@@ -116,17 +138,15 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                     </h4>
                     <p>{animalItem.data.description}</p>
                   </div>
-
                 </div>
                 <div className='btn-holder'>
                   <Button styleType={ButtonTypes.Blue}>
                     <TI18n keyStr="wantToAdopt" default="Хочу усыновить" />
                   </Button>
-                  <a className="facebook-share" target='_blank' href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>
-                    <div className='share-wrapper'>
-                      <span><TI18n keyStr="shareAnimalText" default="Поделись историей хвостика, чтобы помочь ему быстрее найти дом" /></span>
-                    </div>
-                  </a>
+                  <ShareLink
+                    link={window.location.href}
+                    text={<TI18n keyStr="shareAnimalText" default="Поделись историей хвостика, чтобы помочь ему быстрее найти дом" />}
+                  />
                 </div>
               </div>
             </React.Fragment>
@@ -138,39 +158,15 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
           <h2 className='title'>
             <TI18n keyStr="howToTake" default="Как взять?" />
           </h2>
-          <ul className='numbered-list'>
-            <li>
-              <strong>
-                <TI18n keyStr="rulesHowToAdoptListItemTitle1" default="Личная встреча" />
-              </strong>
-              <span>
-                <TI18n keyStr="instructionsListItemText1" default="Познакомьтесь с животным. Это поможет понять, подходит ли оно вам по темпераметру." />
-              </span>
-            </li>
-            <li>
-              <strong>
-                <TI18n keyStr="rulesHowToAdoptListItemTitle2" default="Подготовьте дом к новому жильцу" />
-              </strong>
-              <span>
-                <TI18n keyStr="instructionsListItemText2" default="Куратор вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое." />
-              </span>
-            </li>
-            <li>
-              <strong>
-                <TI18n keyStr="rulesHowToAdoptListItemTitle3" default="Подписать договор" />
-              </strong>
-              <span>
-                <TI18n keyStr="rulesHowToAdoptListItemText3" default="Обязательным этапом является подписание договора." />
-              </span>
-            </li>
-            <li>
-              <strong>
-                <TI18n keyStr="rulesHowToAdoptListItemTitle4" default="Испытательный срок" />
-              </strong>
-              <span>
-                <TI18n keyStr="rulesHowToAdoptListItemText4" default="Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно." />
-              </span>
-            </li>
+          <ul className='numbered-list' style={{ gridTemplateRows: `repeat(${Math.ceil(instructionsList.length / 2)}, auto)`}}>
+            {instructionsList.map((item, index) => (
+              <li key={index}>
+                <strong>{item.title}</strong>
+                <div className='list-body'>
+                  <span>{item.text}</span>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
