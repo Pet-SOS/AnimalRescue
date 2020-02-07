@@ -119,13 +119,13 @@ namespace AnimalRescue.BusinessLogic.Services
 
             if (image.Width > image.Height)
             {
-                double ratioX = image.Width / newSize.Width;
+                double ratioX = (double)image.Width / (double)newSize.Width;
                 newWidthActual = newSize.Width;
                 newHeightActual = (int)Math.Round(image.Height / ratioX);
             }
             else
             {
-                double ratioY = image.Height / newSize.Height;
+                double ratioY = (double)image.Height / (double)newSize.Height;
                 newWidthActual = (int)Math.Round(image.Width / ratioY);
                 newHeightActual = newSize.Height;
             }
