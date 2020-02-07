@@ -11,6 +11,10 @@
       margin-top: -2.25rem;
     }
   }
+  &.one-slide .swiper-wrapper {
+    display: flex;
+    justify-content: center;
+  }
 }
 .custom-slider-inner {
   overflow: hidden;

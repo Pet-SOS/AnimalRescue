@@ -24,7 +24,7 @@ interface IPropTypes {
             </div>
             <ul className="blog-list-holder">
               { 
-                data.map((blog)=> <BlogItem key={blog.title}
+                data.map((blog)=> <BlogItem key={blog.id}
                   image={blog.imageIds[0]}
                   text={<TI18n keyStr="blogBlockItemType" default="Блог" />}
                   title={blog.title}
