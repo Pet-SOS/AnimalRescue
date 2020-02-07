@@ -195,4 +195,9 @@ export default {
     instructionsListItemText2: 'Куратор вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое.',
     /*        lookingForAFriendPage    */
     lookingForAFriendPageTitle: 'Ищу друга',
+    lookingForAFriendPageSelectKind: 'Вид',
+    lookingForAFriendPageSelectBreed: 'Порода',
+    lookingForAFriendPageSelectGender: 'Пол',
+    lookingForAFriendPageSelectAge: 'Возраст',
+    lookingForAFriendPageSelectSize: 'Размер',
   }

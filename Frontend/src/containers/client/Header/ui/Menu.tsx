@@ -28,7 +28,7 @@ export const AppMenu: React.FC = () => {
               </ul>
             </div>
             <div className="item">
-                <NavLink to='/animals/page/:page1'><TI18n keyStr="headerMenuItem2" default="Ищу друга"/></NavLink>
+                <NavLink to='/animals/page/1'><TI18n keyStr="headerMenuItem2" default="Ищу друга"/></NavLink>
                 <ul className="dropdown">
                     <li><a href="pet-any"><TI18n keyStr="headerMenuItem2Dropdown1" default="Любого"/></a></li>
                     <li><a href="pet-dog"><TI18n keyStr="headerMenuItem2Dropdown2" default="Собачку"/></a></li>

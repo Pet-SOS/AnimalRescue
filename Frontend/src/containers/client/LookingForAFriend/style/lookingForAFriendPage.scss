@@ -3,4 +3,23 @@
 .looking-friend-block{
     padding: 3rem 0 5rem 0;
     background: $bg-lite-gray;
+    .box-select{
+        display: flex;
+        justify-content: space-between;
+    }
+    .content-block{
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        .animal{
+            width: 33.2%;
+            height: auto;
+            margin: 0;
+            padding: 0 1.25rem 1.25rem 0;
+            .animal-card{
+                margin: 0;
+            }
+        }
+    }
 }
