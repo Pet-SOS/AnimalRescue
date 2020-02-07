@@ -1,15 +1,19 @@
 import React from "react";
 import {TI18n} from "../../../../i18n";
 import {Button, ButtonTypes} from "../../../../components/Button";
-import {ReactComponent as HeartLogo} from '../../../../assets/header/heart.svg';
 import {NavLink} from'react-router-dom';
 import { store } from "../../../../store";
 import { actionIsActivePopup } from "../../Home/store/actions";
 import "../styles/menu.scss"
 import { RULES_PAGE_LINK } from "../../Rules";
 import { HELP_PAGE_LINKS } from "../../HowToHelp";
+import { useSelector, shallowEqual } from "react-redux";
+import { selectFavoriteAnimalsIds } from "../../Animals/store/selectors";
+import { FavoriteCounter } from "../../../../components/FavoriteCounter";
 
 export const AppMenu: React.FC = () => {
+  const favoriteAnimalsIds: string[] = useSelector(() => selectFavoriteAnimalsIds(store.getState()), shallowEqual);
+
     return (
         <div className="header-menu">
             <div className="item">
@@ -58,7 +62,9 @@ export const AppMenu: React.FC = () => {
             </div>
             <NavLink to="/blog/page/1" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
             <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
-            <div className="item heart"><HeartLogo/></div>
+            <NavLink activeClassName="is-active" className="item heart" to="/animals?type=favorite">
+              <FavoriteCounter count={favoriteAnimalsIds.length}/>
+            </NavLink>
             <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
             }}  styleType={ButtonTypes.Blue}>
                 <TI18n keyStr="help" default="Помочь"/>

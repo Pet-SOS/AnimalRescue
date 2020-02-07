@@ -152,11 +152,10 @@
         }
         &.heart{
             height: 100%;
-        }
-        .heart-logo{
-            position: relative;
-            top: 0.5rem;
-            margin-left: 1rem;
+            .favorite-counter {
+              display: inline-block;
+              margin: 0 0 0 1rem;
+            }
         }
     }
     .btn-give{
