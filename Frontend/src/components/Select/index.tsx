@@ -2,6 +2,7 @@ import React, {useState, useEffect, RefObject} from 'react';
 import cn from 'classnames';
 import './index.scss';
 
+
 interface IOptionPropType {
   label: string;
   onClick: () => void;
@@ -16,9 +17,10 @@ export interface ISelectPropTypes {
   onChange: (value: string) => void;
   selected?: string;
   expandDirection?: SelectExpandDirections;
+  title: boolean| React.ReactNode;
 }
 
-export const Select: React.FC<ISelectPropTypes> = ({ data, selected, onChange, expandDirection }) => {
+export const Select: React.FC<ISelectPropTypes> = ({ data, selected, onChange, expandDirection, title }) => {
   const [selectedValue, setSelectedValue] = useState(selected);
   const [isActive, setIsActive] = useState(false);
   const selectEl: RefObject<HTMLDivElement> = React.createRef();
@@ -52,6 +54,9 @@ export const Select: React.FC<ISelectPropTypes> = ({ data, selected, onChange, e
 
   return (
     <div className={cn('select', { 'active': isActive })} ref={selectEl}>
+    { title &&
+      <div>{title}</div>
+    }
       <button type='button' onClick={() => setIsActive(!isActive)}>{getSelectedValue()}</button>        
       <ul className={cn('options', { 'expand-top': expandDirection === SelectExpandDirections.TOP })}>
         {data.map(item => (

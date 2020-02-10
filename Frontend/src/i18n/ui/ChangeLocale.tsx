@@ -18,6 +18,7 @@ const ChangeLocaleMain: React.FC<ISelectLocale> = ({ selected, setLocale, expand
       selected={selected}
       onChange={(value: string) => setLocale(value)}
       expandDirection={expandDirection}
+      title={false}
   />
 )
 

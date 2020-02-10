@@ -67,3 +67,30 @@
     }
   
 }
+@media all and(max-width: 654px){
+    .blog-page{
+        .box-btn{
+            flex-wrap: wrap;
+            li{
+                margin-bottom: 0.5rem;
+            }
+        }
+        .box-articles {
+            .article {
+                width:50%;
+                flex-basis: 50%;
+            }
+        }
+    }
+}
+@media all and(max-width: 459px){
+    .blog-page{
+        .box-articles {
+            .article {
+                width:100%;
+                flex-basis: 100%;
+            }
+        }
+    }
+
+}

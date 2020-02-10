@@ -198,4 +198,11 @@ export default {
   adoptPopupText2: 'Чтобы забрать его к себе, позвоните нам по номеру ',
   adoptPopupText3: ' или оставьте нам свои контакты и мы сами вам перезвоним.',
   callBack: 'Перезвоните мне',
+  
+  lookingForAFriendPageTitle: 'Ищу друга',
+  lookingForAFriendPageSelectKind: 'Вид',
+  lookingForAFriendPageSelectBreed: 'Порода',
+  lookingForAFriendPageSelectGender: 'Пол',
+  lookingForAFriendPageSelectAge: 'Возраст',
+  lookingForAFriendPageSelectSize: 'Размер',
 }

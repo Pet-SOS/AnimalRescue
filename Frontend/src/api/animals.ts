@@ -15,10 +15,42 @@ const crateFormData = (data: Object) => {
     return formData
 }
 
-export enum Gender {MALE = 'male', FEMALE = 'female'}
+export enum Gender {MALE = 'male', FEMALE = 'female', ANY='any'}
 
-export enum AnimalKind { CAT = 'cat', DOG = 'dog' }
+export enum AnimalKind { CAT = 'cat', DOG = 'dog', ANY='any'}
+export enum AnimalBreed {
+    ANY='Любая',
+    METIS='Метис',
+    ALABAI='Алабай',
+    SHEPHERD='Овчарка',
+    DOBERMAN='Доберман',
+    STAFFORD='Стаффорд',
+    DACHSHUND='Такса'
+}
+export enum AnimalSize {
+    ANY='Любой',
+    SMALL='Мелкий',
+    MEDIUM='Средний',
+    LARGE='Большой'
+}
+export enum AnimalGender{
+    ANY='Любой',
+    MALE = 'Мальчик',
+    FEMALE = 'Девочка', 
+}
+export enum AnimalFilterKind { 
+    ANY='Любой',
+    DOG = 'Собака',
+    CAT = 'Котик'
+}
 
+export enum AnimalAge{
+    ANY='Любой',
+    TOONE = 'от 6 до 12 мес',
+    TOTHREE = 'от 1 до 3 лет', 
+    TOFIVE= 'от 3 до 5 лет',
+    FROMFIVE= 'от 5 лет'
+}
 export interface IAnimal {
   number: number
   name: string

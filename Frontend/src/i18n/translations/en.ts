@@ -196,4 +196,10 @@ export default {
   adoptPopupText2: 'To pick him up, call us at ',
   adoptPopupText3: ' or leave us your contacts and we will call you back.',
   callBack: 'Call me back',
+  lookingForAFriendPageTitle: 'Looking for a friend',
+  lookingForAFriendPageSelectKind: 'View',
+  lookingForAFriendPageSelectBreed: 'Breed',
+  lookingForAFriendPageSelectGender: 'Gender',
+  lookingForAFriendPageSelectAge: 'Age',
+  lookingForAFriendPageSelectSize: 'Size',
 }
