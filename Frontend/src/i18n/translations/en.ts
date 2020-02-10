@@ -191,5 +191,15 @@ export default {
   howToTake: 'How to take?',
   instructionsListItemText1: 'Get to know the animal. This will help to understand whether it suits you in temperature.',
   instructionsListItemText2: 'The curator will tell you about the individual needs of the selected pet. Prepare for the animal everything you need.',
- }
-
+ 
+  adoptPopupText1: 'We are glad that you liked our puffy!',
+  adoptPopupText2: 'To pick him up, call us at ',
+  adoptPopupText3: ' or leave us your contacts and we will call you back.',
+  callBack: 'Call me back',
+  lookingForAFriendPageTitle: 'Looking for a friend',
+  lookingForAFriendPageSelectKind: 'View',
+  lookingForAFriendPageSelectBreed: 'Breed',
+  lookingForAFriendPageSelectGender: 'Gender',
+  lookingForAFriendPageSelectAge: 'Age',
+  lookingForAFriendPageSelectSize: 'Size',
+}

@@ -1,0 +1,101 @@
+@import './../../styles/variables.scss';
+.adopt-popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  .adopt-popup-holder {
+    max-width: 45rem;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    .popup-head {
+      background: $bg-orange;
+      padding: 4rem 6.125rem 3rem 3rem;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      .title {
+        font-size: 3rem;
+        line-height: 3rem;
+        margin: 0;
+        span { display: block; }
+      }
+      .close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background: $main-bg-color;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        &:before, &:after {
+          position: absolute;
+          content: '';
+          width: 0.0625rem;
+          height: 0.875rem;
+          background:$text-lite-color;
+          transform:  translate(-50%, -50%) rotate(45deg);
+          left: 50%;
+          top:50%;
+        }
+        &::after { transform: translate(-50%, -50%) rotate(-45deg); }
+      }
+    }
+    .popup-content {
+      padding: 1.5rem 2rem 3rem 3rem;
+      p { margin: 0 0 1rem; }
+      .phone {
+        color: $text-color;
+        display: inline-block;
+      }
+    }
+    form {
+      max-width: 24rem;
+      width: 100%;
+      input {
+        display: block;
+        border-radius: 1.9375rem;
+        border: none;
+        outline: none;
+        padding: 1.125rem 1.5rem;
+        margin: 0 0 1rem;
+        width: 100%;
+        &:last-of-type { margin: 0 0 1.5rem; }
+      }
+      button { box-shadow: 0px 8px 24px rgba(62, 91, 157, 0.5); }
+    }
+  }
+}
+
+@media (max-width: $medium-device-width) {
+  .adopt-popup-wrapper .adopt-popup-holder {
+    .popup-head {
+      display: block;
+      text-align: center;
+      padding: 2.5rem 2.5rem 1.5rem;
+      .title { margin: 0 0 1.5rem; }
+      .close {
+        top: .5rem;
+        right: .5rem;
+      }
+    }
+    .popup-content { padding: 1.5rem 2rem 3rem 2rem; }
+    form {
+      max-width: 100%;
+      text-align: center;
+    }
+  }
+}

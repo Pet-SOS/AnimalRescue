@@ -94,7 +94,11 @@ export const Slider: React.FC<IPropTypes> = ({
   
   return (
     <React.Fragment>
-      <div className={cn('custom-slider-wrapper', { 'pagination-active': !isPaginationHidden, 'auto-slides': slidesPerView === SlidesPerViewValue.AUTO })}>
+      <div className={cn('custom-slider-wrapper', {
+        'pagination-active': !isPaginationHidden,
+        'auto-slides': slidesPerView === SlidesPerViewValue.AUTO,
+        'one-slide': slides.length === 1
+        })}>
         <div className="custom-slider-inner">
           <Swiper {...getSliderParams()} >
             {slides.map((slide, index) => <div key={index}>{slide}</div>)}

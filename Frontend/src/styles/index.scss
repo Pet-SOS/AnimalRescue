@@ -137,19 +137,24 @@ p.description {
   margin: 0 0 5rem;
 }
 .warning {
-    background: $bg-warning;
-    border-radius: 24px;
-    padding: 2.5rem 3rem;
-    font-size: 1.5rem;
-    line-height: 2.125rem;
-    strong {
-      display: block;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin: 0 0 1rem;
-    }
-    p:last-child {
-      margin: 0;
-    }
+  background: $bg-warning;
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  font-size: 1.5rem;
+  line-height: 2.125rem;
+  strong {
+    display: block;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0 0 1rem;
   }
+  p:last-child {
+    margin: 0;
+  }
+}
+input, textarea, ::placeholder {
+  background: $input-bg-color;
+  color: $text-lite-color;
+  font: 1.125rem/1.5rem 'Nunito', 'Roboto', sans-serif;
+}
 @import "media";

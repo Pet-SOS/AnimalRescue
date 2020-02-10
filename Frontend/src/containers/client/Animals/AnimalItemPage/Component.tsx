@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { TI18n } from '../../../../i18n';
@@ -15,9 +15,10 @@ import { sickAnimalsCheckAndLoadDefault } from '../store/selectors';
 import { IAnimalsListState } from '../store/state';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { ShareLink } from '../../../../components/ShareLink';
-import './index.scss';
 import { scrollTop } from '../../../../assets/shared/scrollTop';
 import { ButtonLike } from '../../../../components/ButtonLike';
+import { AdoptPopup } from '../../../../components/AdoptPopup';
+import './index.scss';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -41,15 +42,16 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
   const { animalId } = useParams();
   const { isLoading, isLoaded } = useSelector(() => selectAnimalItem(store.getState()), shallowEqual);
   const { status } = useSelector(() => selectAnimalItem(store.getState()).requestState, shallowEqual);
+  const [ isAdoptPopupActive, setIsAdoptPopupActive ] = useState(false)
   useEffect(() => {
     if (!!animalId) {
       fetchAnimalItem(animalId);
       sickAnimalsCheckAndLoadDefault();
+      scrollTop();
     }
     return () => {
       clearAnimalItemState();
       clearAnimalsState();
-      scrollTop()
     }
   }, [animalId]);
   useEffect(() => {
@@ -141,7 +143,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                   </div>
                 </div>
                 <div className='btn-holder'>
-                  <Button styleType={ButtonTypes.Blue}>
+                  <Button styleType={ButtonTypes.Blue} onClick={() => setIsAdoptPopupActive(true)}>
                     <TI18n keyStr="wantToAdopt" default="Хочу усыновить" />
                   </Button>
                   <ShareLink
@@ -201,6 +203,9 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
         }}
         story={true}
       />
+      { isAdoptPopupActive && (
+        <AdoptPopup onClose={() => setIsAdoptPopupActive(false)}/>
+      )}
     </div>
    )
 }
