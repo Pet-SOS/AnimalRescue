@@ -10,6 +10,7 @@ import { useSelector, shallowEqual } from "react-redux";
 import { selectFavoriteAnimalsIds } from "../../Animals/store/selectors";
 import { store } from "../../../../store";
 import { FavoriteCounter } from "../../../../components/FavoriteCounter";
+import { SelectExpandDirections } from "../../../../components/Select";
 
 export const MobileMenu: React.FC = () => {
   const favoriteAnimalsIds: string[] = useSelector(() => selectFavoriteAnimalsIds(store.getState()), shallowEqual);
@@ -112,7 +113,7 @@ export const MobileMenu: React.FC = () => {
             </div>
             <div  className="box-social-locale">
                 <SocialLinks/>
-                <div className="change-locale"><ChangeLocale/></div>
+                <div className="change-locale"><ChangeLocale expandDirection={SelectExpandDirections.TOP}/></div>
             </div>
         </div>
     )

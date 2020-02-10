@@ -82,7 +82,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
         </div>
         {!isLoaded && !isLoading && status === ERequestStatus.FAILURE && <div>Not found</div>}
         {isLoaded && !isLoading && <React.Fragment>
-          <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={blogItem.data.imageIds[0]}/>
+          <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={`${BASE_URL}documents/${blogItem.data.imageIds[0]}/type/large`}/>
           <div className='blog-item-content'>
             <div className='story-body'>{blogItem.data.body}</div>
             {blogItem.data.type === BlogTypes.ARTICLE && (
@@ -99,7 +99,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
           {blogItem.data.type === BlogTypes.STORY && !!blogItem.data.imageIds.length && (
             <div className='block-holder'>
               <Slider
-                slides={blogItem.data.imageIds.map(imgId => <img src={`${BASE_URL}documents/${imgId}`} />)}
+                slides={blogItem.data.imageIds.map(imgId => <img src={`${BASE_URL}documents/${imgId}/type/medium`} />)}
                 spaceBetween={24}
                 slidesPerView={SlidesPerViewValue.AUTO}
                 isPaginationHidden
