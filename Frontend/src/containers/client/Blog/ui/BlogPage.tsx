@@ -7,26 +7,59 @@ import { IInfoCard, IInfoContacts } from "../../Home/store/state";
 import { IBlogItem, IBlogListResponse } from "../../../../api/blog";
 import { BlogItem } from "../../../../components/BlogBlock/item";
 import { BtnPagination } from "./BtnPagination";
+import { IRequestParams, RequestFilterOperators, IRequestFilterParams } from "../../../../api/requestOptions";
+import { RouteProps, RouteComponentProps, RouteChildrenProps } from "react-router";
 
 interface IPropTypes {
     infoCard: IInfoCard,
+    match: any,
+    history: any,
+    location:any,
     infoContacts: IInfoContacts,
     blogList:IBlogListResponse,
-    fetchBlogList:() => void;
+    fetchBlogList:(params?:any) => any;
     fetchInfoCard:() => void;
     fetchInfoContacts:() => void;
 } 
 type MyState = { activeBtn: string };
-export class BlogPage extends React.Component<IPropTypes, MyState> {
+interface RouteParams {id: string, params?: string}
+export class BlogPage extends React.Component<IPropTypes , MyState> {
+    blogFilter : {[key: string]: string}= {
+        blog: 'Блог',
+        story:'Истории успеха',
+        article:'Полезные советы'
+    }
     blogType:any = new Object();
  
     constructor(props:IPropTypes) {
         super(props);
         this.state = {activeBtn: 'all'};
     }
+    filterParams = {
+        fieldName: 'type',
+        opeartor: RequestFilterOperators.EQ,
+        value: ''
+    }
     componentDidMount(){
         if(store.getState().blogs.blogList.totalCount === 0){
-            this.props.fetchBlogList();
+            if(this.props.location.search!==''){
+                const paramsSerch = this.props.location.search.split('=')[1];
+                this.filterParams.value =  paramsSerch;
+                this.setState ( prevState => ({
+                    activeBtn: paramsSerch
+                }))
+                this.props.fetchBlogList({
+                    page: +this.props.match.params.page,
+                    size:15,
+                    filter: this.filterParams
+                });
+            } else{
+                this.props.fetchBlogList({
+                    page: +this.props.match.params.page,
+                    size:15
+                });
+            }
+           
             this.props.fetchInfoCard();
             this.props.fetchInfoContacts();
         }
@@ -34,44 +67,88 @@ export class BlogPage extends React.Component<IPropTypes, MyState> {
     filterItemInBlog(typeBtn:string){
         this.setState ( prevState => ({
             activeBtn: typeBtn
-            }))
+        }))
+        if (+this.props.match.params.page > 1){
+            this.props.history.push(`/blog/page/1`);
+           
+        }
+        if(typeBtn!=='all'){
+            this.props.history.push({
+                pathname: '/blog/page/1',
+                search: "?type=" +  typeBtn
+            })
+        }else{
+            this.props.history.push({
+                pathname: '/blog/page/1'
+            }) 
+        }
+       
+        this.filterParams.value = typeBtn
+        const params  = {
+            size: 15,
+            filter: typeBtn === 'all'? null : this.filterParams,
+        }
+  
+        this.props.fetchBlogList({...params})
+    }
+    goToPagination(toPage:string| number){
+        if(this.props.location.search!==''){
+
+            this.filterParams.value = this.state.activeBtn
+            this.props.fetchBlogList({
+                page: toPage,
+                size: 15,
+                filter: this.filterParams
+            })
+            this.props.history.push({
+                pathname: `/blog/page/${toPage}`,
+                search: "?type=" +  this.state.activeBtn
+            })
+            return;
+        }else{
+            this.props.fetchBlogList({
+                page: toPage,
+                size: 15,
+            })
+            this.props.history.push({
+                pathname: `/blog/page/${toPage}`
+            }) 
+        }
+       
     }
  
     render(){
-        this.props.blogList.data.map(item=>{
-            this.blogType[item.type] = item.type;
-        })
         return (
             <div className="blog-page">
                 <div className='content'>
                     <div className="title"> <TI18n keyStr='blogPageTitle' default={defaultText.blogPageTitle}/></div>
                     <ul className='box-btn'>
-                        <li 
+                       <li 
                         className={this.state.activeBtn === 'all' ? `active all`: 'all'}
                         onClick={(e) => this.filterItemInBlog('all')}><TI18n keyStr='blogBtnAll' default={defaultText.blogBtnAll}/></li>
                         {
-                            Object.keys(this.blogType).map((item,i)=>
+                            Object.keys(this.blogFilter).map((item,i)=>
                                 <li
                                 onClick={(e) => this.filterItemInBlog(item)}
                                 key={i}
                                 className={this.state.activeBtn === item ? `active ${item}`: item}
-                                >{item}</li>
+                                >{this.blogFilter[item]}</li>
                             )
                         }
                      </ul>
                     <ul className='box-articles'>
                     {
                        this.props.blogList.data.map((item:IBlogItem, i:number)=>
-                    <div 
-                        className={(this.state.activeBtn === 'all'|| this.state.activeBtn === item.type) ? `article`: 'article hide-item'}
+                    <div
+                        className='article'
                         key={i}>
-                            <BlogItem
-                                key={item.title}
-                                image={item.imageIds[0]}
-                                title={item.title}
-                                id={item.id ? item.id : ''}
-                                text={item.type}
-                            />
+                        <BlogItem
+                            key={item.title}
+                            image={item.imageIds[0]}
+                            title={item.title}
+                            id={item.id ? item.id : ''}
+                            text={item.type}
+                         />
                         </div>
                         )
                     }
@@ -79,7 +156,7 @@ export class BlogPage extends React.Component<IPropTypes, MyState> {
                     <BtnPagination
                         setProps={this.props}
                         pageCount={this.props.blogList.pageCount}
-                        fetchBlogList={this.props.fetchBlogList}
+                        goToPagination={this.goToPagination.bind(this)}
                     />
                 </div>
             </div>

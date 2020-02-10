@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../style/btnPagination.scss';
-import { IInfoCard, IInfoContacts } from '../../Home/store/state';
-import { IBlogListResponse } from '../../../../api/blog';
+
 import { IRequestParams } from '../../../../api/requestOptions';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ interface IPropTypes {
     pageNumber: number;
 } 
 
-export const BtnPagination: React.FC<any> = ({pageCount, fetchBlogList, setProps})=>{
+export const BtnPagination: React.FC<any> = ({pageCount, setProps, goToPagination})=>{
     
     let arrForPage: number[]=[];
     for (let i = 0; i < pageCount; i++) {
@@ -21,29 +20,18 @@ export const BtnPagination: React.FC<any> = ({pageCount, fetchBlogList, setProps
     const startPagination = arrForPage[0];
     const endPagination = arrForPage[arrForPage.length -1]
 
-    const { match, history } = setProps;
+    const { match } = setProps;
 
-      const goToSelectPage = (iter: number) => {
-        fetchBlogList({
-            page:iter
-        })
-    }
     const goToStepPrev=()=>{
         if((match.params && match.params.page) > startPagination){
             const urlPage = +match.params.page-1;
-            history.push(`/blog/page/${urlPage}`)
-            fetchBlogList({
-                page:urlPage
-            })
+            goToPagination(urlPage);
         }
     }
     const goToSelectNext=()=>{
         if((match.params && match.params.page) < endPagination){
             const urlPage = +match.params.page+1;
-            history.push(`/blog/page/${+match.params.page+1}`)
-            fetchBlogList({
-                page:urlPage
-            })
+            goToPagination(urlPage);
         }
     }
     return(
@@ -51,7 +39,7 @@ export const BtnPagination: React.FC<any> = ({pageCount, fetchBlogList, setProps
         <div className="prev" onClick={()=>{goToStepPrev()}}></div>
        {
         arrForPage.map((iter, index)=>
-            <Link to={`/blog/page/${iter}`} className = {+match.params.page === iter?'pagination active': 'pagination'} onClick={()=>{goToSelectPage(iter)}}>{iter}</Link>
+            <div className = {+match.params.page === iter?'pagination active': 'pagination'} onClick={()=>{goToPagination(iter)}}>{iter}</div>
         )
        }
         <div className="next" onClick={()=>{goToSelectNext()}}></div>
