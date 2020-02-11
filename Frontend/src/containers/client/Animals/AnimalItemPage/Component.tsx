@@ -15,7 +15,6 @@ import { sickAnimalsCheckAndLoadDefault } from '../store/selectors';
 import { IAnimalsListState } from '../store/state';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { ShareLink } from '../../../../components/ShareLink';
-import { scrollTop } from '../../../../assets/shared/scrollTop';
 import { ButtonLike } from '../../../../components/ButtonLike';
 import { AdoptPopup } from '../../../../components/AdoptPopup';
 import './index.scss';
@@ -47,7 +46,6 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
     if (!!animalId) {
       fetchAnimalItem(animalId);
       sickAnimalsCheckAndLoadDefault();
-      scrollTop();
     }
     return () => {
       clearAnimalItemState();
