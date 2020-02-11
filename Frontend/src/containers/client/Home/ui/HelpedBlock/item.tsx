@@ -10,22 +10,20 @@ interface IPropTypes {
   story: IBlogItem;
 }
 
-export const HelpedBlockItem: React.FC<IPropTypes> = ({ story }) => {
-  return (
-    <React.Fragment>
-      <div className="img-holder" style={{ backgroundImage: `url(${story.imageIds[0] ? `${BASE_URL}documents/${story.imageIds[0]}/type/medium` : `${noPhotoImage}`})`}}>
+export const HelpedBlockItem: React.FC<IPropTypes> = ({ story }) => (
+  <React.Fragment>
+    <div className="img-holder" style={{ backgroundImage: `url(${story.imageIds[0] ? `${BASE_URL}documents/${story.imageIds[0]}/type/medium` : `${noPhotoImage}`})` }}>
+    </div>
+    <div className="info-holder">
+      <div className="info-content">
+        <div className="info-title">{story.title}</div>
+        <div className='info-text'>{story.body}</div>
       </div>
-      <div className="info-holder">
-        <div className="info-content">
-          <div className="info-title">{story.title}</div>
-          <div className="info-text">{story.body}</div>
-        </div>
-        <BlockLink 
-          title={<TI18n keyStr="readStory" default="Читать историю" />}
-          href={''}
-          isButtonHidden={true}
-        />
-      </div>
-    </React.Fragment>
-  )
-}
+      <BlockLink
+        title={<TI18n keyStr="readStory" default="Читать историю" />}
+        href={`blog/${story.id}`}
+        isButtonHidden={true}
+      />
+    </div>
+  </React.Fragment>
+)
