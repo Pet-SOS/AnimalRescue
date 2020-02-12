@@ -205,4 +205,6 @@ export default {
   lookingForAFriendPageSelectGender: 'Пол',
   lookingForAFriendPageSelectAge: 'Возраст',
   lookingForAFriendPageSelectSize: 'Размер',
+  countAnimalsFirstPart:'Хозяина ждут',
+  countAnimalsSecondPart:'хвостика '
 }

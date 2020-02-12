@@ -202,4 +202,6 @@ export default {
   lookingForAFriendPageSelectGender: 'Gender',
   lookingForAFriendPageSelectAge: 'Age',
   lookingForAFriendPageSelectSize: 'Size',
+  countAnimalsFirstPart: 'The owner is waiting',
+  countAnimalsSecondPart: 'tail'
 }

@@ -1,0 +1,55 @@
+
+@import '../../styles/variables.scss';
+
+.box-checkbox{
+    display:flex;
+    justify-content: center;
+    margin: 0 0.5rem 0 0;
+    align-items: center;
+    input {
+        position: relative;
+        visibility: hidden;
+        outline: none;
+        cursor: pointer;
+        &:checked{
+            &::before{
+                position: absolute;
+                visibility: visible;
+                font-family: FontAwesome;
+                font-style: normal;
+                content:'\f00c';
+                font-weight: 100;
+                width: 0.7rem;
+                height: 0.7rem;
+                font-size: 1rem;
+                color: $text-lite-color;
+                z-index: 2;
+                left: 50%;
+                top:0;
+                transform: translate(-50%,-50%);
+              }
+       
+        }
+        &::after{
+            position: absolute;
+            visibility: visible;
+            content:'';
+            left: 50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            border: 0.125rem solid $btn-border;
+            width:1.5rem;
+            height: 1.5rem;
+            background: $bg-lite-box;
+            border-radius: 0.25rem;
+        }
+       
+    }
+    p{
+        color: $text-lite-color;
+        line-height: 1.5rem;
+        font-size: 1rem;
+        vertical-align: middle;
+        margin-left: 0.45rem;
+    }
+}

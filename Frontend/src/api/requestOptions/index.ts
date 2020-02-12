@@ -17,15 +17,18 @@ export interface IRequestSortParams {
 export interface IRequestParams {
   page?: number;
   size?: number;
-  filter?: IRequestFilterParams;
+  filter?: IRequestFilterParams | string;
   sort?: IRequestSortParams;
+  params?:{
+    Filter: string;
+  }
 }
 
 export const prepareRequestParams = (requestParams?: IRequestParams) => {
   const params: any = {
     ...requestParams
   };
-  if (!!requestParams?.filter && !!requestParams?.filter?.fieldName && !!requestParams?.filter?.opeartor) {
+  if ((typeof requestParams?.filter != 'string') &&!!requestParams?.filter && !!requestParams?.filter?.fieldName && !!requestParams?.filter?.opeartor) {
     params.filter = `${requestParams?.filter?.fieldName}~${requestParams?.filter?.opeartor}~'${requestParams?.filter?.value}'`
   }
   if (!!requestParams?.sort && !!requestParams?.sort?.fieldName && !!requestParams?.sort?.order) {
