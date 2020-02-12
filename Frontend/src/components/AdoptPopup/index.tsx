@@ -19,7 +19,10 @@ export const AdoptPopup: React.FC<IPropTypes> = ({ onClose }) => {
     <div className='adopt-popup-wrapper'>
       <div className='adopt-popup-holder'>
         <div className='popup-head'>
-          <button type='button' className='close' onClick={onClose}></button>
+          <Button
+            styleType={ButtonTypes.Close}
+            onClick={onClose}
+          />
           <h2 className='title'>
             <TI18n keyStr="wantToAdopt" default="Хочу усыновить" />
             {!!name && (

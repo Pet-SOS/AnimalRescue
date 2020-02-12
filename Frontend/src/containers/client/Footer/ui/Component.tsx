@@ -8,6 +8,8 @@ import '../styles/footer.scss';
 import { NavLink } from 'react-router-dom';
 import { RULES_PAGE_LINK } from '../../Rules/index';
 import { HELP_PAGE_LINKS } from '../../HowToHelp/index';
+import { actionIsActivePopup } from '../../Home/store/actions';
+import { store } from '../../../../store';
 
 export const AppFooter: React.FC = () =>  (
   <footer className="footer">
@@ -88,7 +90,7 @@ export const AppFooter: React.FC = () =>  (
                 </NavLink>
               </li>
               <li>
-                <NavLink className="item" to="/contacts">
+                <NavLink className="head-link" to="/contacts">
                   <TI18n keyStr="contacts" default="Контакты" />
                 </NavLink>
               </li>
@@ -98,7 +100,7 @@ export const AppFooter: React.FC = () =>  (
         </div>
         <div className="column">
           <PhoneLink/>
-          <Button onClick={() => { }} styleType={ButtonTypes.Blue}>
+          <Button onClick={() => { store.dispatch(actionIsActivePopup(true)) }} styleType={ButtonTypes.Blue}>
             <TI18n keyStr="help" default="Помочь" />
           </Button>
         </div>
