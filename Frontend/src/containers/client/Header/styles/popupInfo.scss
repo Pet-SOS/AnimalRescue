@@ -54,37 +54,10 @@
                     }
                 }
             }
-            .close{
+            .close {
                 position: absolute;
-                width: 2.5rem;
-                height: 2.5rem;
-                border-radius: 50%;
-                background: $main-bg-color;
                 right: 1.5rem;
                 top: 1.5rem;
-                &:hover, &:active{
-                    cursor: pointer;
-                }
-                &::before {
-                    position: absolute;
-                    content: '';
-                    width: 0.0625rem;
-                    height: 0.875rem;
-                    background:$text-lite-color;
-                    transform:  translate(-50%, -50%) rotate(45deg);
-                    left: 50%;
-                    top:50%;
-                }
-                &::after {
-                    position: absolute;
-                    content: '';
-                    width: 0.0625rem;
-                    height: 0.875rem;
-                    background:$text-lite-color;
-                    transform: translate(-50%, -50%) rotate(-45deg);
-                    left: 50%;
-                    top:50%;
-                }
             }
             .title{
                 font-weight: 900;

@@ -76,4 +76,23 @@
       background-color: $text-color-active;
     }
   }
+  &.close {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: $main-bg-color;
+    &:before, &:after {
+      position: absolute;
+      content: '';
+      width: 0.1rem;
+      height: 1.1rem;
+      background:$text-lite-color;
+      transform:  translate(-50%, -50%) rotate(45deg);
+      left: 50%;
+      top:50%;
+    }
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+}
 }

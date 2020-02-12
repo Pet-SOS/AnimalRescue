@@ -1,7 +1,8 @@
 import React from 'react';
-import '../styles/popupInfo.scss';
 import { store } from '../../../../store';
 import { actionIsActivePopup } from '../../Home/store/actions';
+import { ButtonTypes, Button } from '../../../../components/Button';
+import '../styles/popupInfo.scss';
 
 
 export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, textFirst, textSecond, textThird, textThirdTwo}) => {
@@ -9,9 +10,10 @@ export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, text
         <div className="box-popup">
             <div className="popup">
                 <div className="first-block">
-                    <div className="close" 
-                        onClick={() => {store.dispatch(actionIsActivePopup(false))}} 
-                    ></div>
+                    <Button
+                      styleType={ButtonTypes.Close}
+                      onClick={() => store.dispatch(actionIsActivePopup(false)) }
+                    />
                     <div className="title">{title}</div>
                     <div className='pets'>
                     {boxImages.map((item: string, index: number)=> <img src={item} className={`bg-image${index} pet`} key={index} alt='pets'/>)}
