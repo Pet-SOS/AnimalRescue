@@ -1,7 +1,7 @@
 @import '../../../../styles/variables.scss';
 .header-bottom {
   width:100%;
-  padding: 3rem 0 5rem 0;
+  padding: 5rem 0;
   .content {
     flex-direction: row;
     display: flex;
@@ -10,9 +10,9 @@
     width:50%;
     line-height: 1.625rem;
     margin-right: 5.25rem;
-    .box-text{
-      text-align: left;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .text {
       font-size: 1.125rem;
       line-height: 1.625rem;
@@ -41,7 +41,26 @@
     .block-more {
       padding: 1.75rem 0 0;
     }
-
+  &.story {
+    .content {
+      min-height: 28rem;
+    }
+    .left-block {
+      padding: 0 0 .5rem;
+      .text {
+        overflow: hidden;
+        width: 100%;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+      }
+    }
+    .block-more {
+      padding: 2.75rem 0 0;
+    }
+  }
 }
 @media all and (max-width: 1118px) {
   .header-bottom {
@@ -50,7 +69,7 @@
 }
 @media all and (max-width: 996px) {
   .header-bottom {
-    padding: 2rem 0 5rem;
+    padding: 5rem 0;
     .order-center{
       display: block;
       text-align: center;

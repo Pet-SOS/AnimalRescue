@@ -31,13 +31,15 @@ export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex, 
             onClick={() => {store.dispatch(actionIsActivePopup(true))}} >
                 <div  className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
             </div>
-            <div className="btn-slider">
+            {!!sliders && sliders.length > 1 && (
+              <div className="btn-slider">
                 {sliders.map((item: IPropTypes, index: number) => {
-                    return (
-                    <div className={index === slideIndex ? 'active-indicator' : ''}  key={index} onClick={(e) => activateLasers(index, e)}></div>
-                    )
+                  return (
+                    <div className={index === slideIndex ? 'active-indicator' : ''} key={index} onClick={(e) => activateLasers(index, e)}></div>
+                  )
                 })}
-            </div>
+              </div>
+            )}
         </div>
    )
 }
