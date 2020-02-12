@@ -1,8 +1,7 @@
 @import './../../styles/variables.scss';
 .banner.custom-banner {
-  height: 42rem;
+  height: 38.4375rem;
   padding: 3rem 3rem 7rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) -16.48%, rgba(13, 43, 75, 0.8) 84.45%);
   background-position: center;
   background-size: cover;
   display: flex;
@@ -10,6 +9,24 @@
   align-items: center;
   justify-content: flex-end;
   color: #ffffff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  &:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) -16.48%, rgba(13, 43, 75, 0.8) 84.45%);
+    z-index: 2;
+  }
+  .banner-content {
+    position: relative;
+    z-index: 3;
+  }
   .banner-title {
     font-weight: 900;
     font-size: 3rem;
@@ -29,9 +46,21 @@
     }
   }
 }
+@media (max-width: $medium-device-width) {
+  .banner.custom-banner {
+    padding: 2rem;
+    .banner-title {
+      font-size: 2rem;
+      line-height: 2rem;
+    }
+    .banner-subtitle {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+  }
+}
 @media (max-width: 700px) {
   .banner.custom-banner  {
     height: 20rem;
-    padding: 3rem;
   }
 }
