@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import {TI18n} from "../../../../i18n";
-import {Button, ButtonTypes} from "../../../../components/Button";
+import { Button } from "../../../../components/Button";
 import {PhotoSlide} from'./PhotoSlide';
-import "../styles/help-block.scss"
 import { actionIsActivePopup } from "../../Home/store/actions";
 import {store} from '../../../../store/index';
+import { BlockLink } from "../../../../components/BlockLink";
+import { HELP_PAGE_LINKS } from "../../HowToHelp";
+import "../styles/help-block.scss"
 
 export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, color, text, btn, story}) => {
     const [indexPost, setIndexPost] = useState(0);
@@ -42,9 +44,10 @@ export const HelpBlock: React.FC<any> = ({animalsList, backgroundColor, title, c
                             <a href='financial-reports'><TI18n keyStr="btnHelp" default="Посмотреть, куда уйдут мои деньги"/></a>
                         </div>:
                             <div className="block-more">
-                                <p><TI18n keyStr="headerBottomMore" default="Хочу помочь иначе"/></p>
-                                <Button styleType={ButtonTypes.BlueCircle} onClick={() => {
-                                }}/>
+                                <BlockLink
+                                  title={<TI18n keyStr="headerBottomMore" default="Хочу помочь иначе" />}
+                                  href={HELP_PAGE_LINKS.default}
+                                />
                             </div>
                         }
                     </div>
