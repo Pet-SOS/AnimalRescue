@@ -39,7 +39,7 @@ export const BtnPagination: React.FC<any> = ({pageCount, setProps, goToPaginatio
         <div className="prev" onClick={()=>{goToStepPrev()}}></div>
        {
         arrForPage.map((iter, index)=>
-            <div className = {+match.params.page === iter?'pagination active': 'pagination'} onClick={()=>{goToPagination(iter)}}>{iter}</div>
+            <div  key={index} className = {+match.params.page === iter?'pagination active': 'pagination'} onClick={()=>{goToPagination(iter)}}>{iter}</div>
         )
        }
         <div className="next" onClick={()=>{goToSelectNext()}}></div>
