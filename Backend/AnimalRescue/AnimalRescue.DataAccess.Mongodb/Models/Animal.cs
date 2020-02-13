@@ -53,5 +53,18 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(common.Tags)]
         [BsonElement("tags")] 
         public List<string> Tags { get; set; }
+
+
+        [CouplingPropertyName(animal.CoverImage)]
+        [BsonElement("coverImage")]
+        public int CoverImage { get; set; }
+
+        [CouplingPropertyName(animal.Birthday)]
+        [BsonElement("birthday")]
+        public DateTime Birthday { get; set; }
+
+        [CouplingPropertyName(animal.Character)]
+        [BsonElement("character")]
+        public string Character { get; set; }
     }
 }
