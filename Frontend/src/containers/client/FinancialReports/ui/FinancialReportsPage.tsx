@@ -57,11 +57,11 @@ export class FinancialReportsPage extends React.Component<IPropTypes> {
                     <ul className='box-reports'>
                     {
                         this.reports.map((item, i:number)=>
-                            <li  key={i} className='maine-report'>
-                                <div className='report'>
+                            <li key={i}>
+                                <a className='report' href='/'>
                                     <p className='title-report'>{item.title}</p>
                                     <p className='date-report'>{item.date}</p>
-                                </div>
+                                </a>
                             </li>
                         )
                     }
