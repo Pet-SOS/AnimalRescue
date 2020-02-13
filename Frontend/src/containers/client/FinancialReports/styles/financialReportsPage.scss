@@ -7,26 +7,16 @@
     }
     .text-report{
         margin-bottom: 2.3125rem;
-    }
-    .box-reports{
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        max-width: 54.375rem;
         width: 100%;
     }
-    .maine-report{
-        flex-basis: 33.3%;
-        width:33.3%;
-        padding: 0 1rem 1.2rem;
-        @media all and (max-width:680px){
-            width: 48%!important;
-            flex-basis:  48%;
-        }
-        @media all and (max-width:400px){
-            flex-basis:  50%;
-            width:50%;
-            padding: 0 0.5rem 0.5rem;
-        }
+    .box-reports{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1.5rem;
+      @media all and (max-width:680px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     .report{
         background: $bg-orange;
@@ -35,7 +25,6 @@
         font-size: 1.5rem;
         line-height: 1.5rem;
         padding: 2rem 1.5rem;
-        margin-bottom: 1.5rem;
         display: flex;
         width: 100%;
         height: 12.4375rem;
@@ -60,6 +49,8 @@
             display: flex;
             justify-content: flex-end;
             font-weight: 900;
+            font-size: 3rem;
+            line-height: 1.5rem;
         }
     }
 
