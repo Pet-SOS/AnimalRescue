@@ -108,6 +108,17 @@ a {
     background: url('./../img/icons/no.png') no-repeat;
   }
 }
+.dots-list li {
+  position: relative;
+  padding: 0 0 0 1.2rem;
+  margin: 0 0 1rem;
+  &:before {
+    content: '\2022';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
 .bank-card-info {
   min-width: 21rem;
   display: inline-block;
