@@ -43,6 +43,7 @@
         align-items: center;
         justify-content: center;
         margin-right: 0.625rem;
+        margin-top: -1.5rem;
         a {
             color: $text-color;
             font-size: 1.125rem;
@@ -62,6 +63,13 @@
         margin-bottom: 5rem;
         iframe{
             border-radius: 1.5rem;
+        }
+    }
+}
+@media all and (max-width:1192px){
+    .content {
+        .social-link{
+            margin-top: 0;
         }
     }
 }
