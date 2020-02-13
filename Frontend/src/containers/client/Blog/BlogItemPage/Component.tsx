@@ -13,6 +13,9 @@ import { selectInfoContacts } from '../../Home/store/selectors';
 import { IRequestParams, RequestFilterOperators } from '../../../../api/requestOptions';
 import { BlogBlock } from '../../Home/ui/Blog';
 import { Slider, SlidesPerViewValue } from '../../../../components/Slider';
+import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { IAnimalsListState } from '../../Animals/store/state';
+import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
 import './index.scss';
 
 interface IPropTypes {
@@ -22,6 +25,7 @@ interface IPropTypes {
   clearBlogsState: () => void;
   blogItem: IBlogItemState;
   blogList: IBlogListResponse;
+  sickAnimalsList: IAnimalsListState;
 }
 
 export const BlogItemPageComponent: React.FC<IPropTypes> = ({
@@ -30,7 +34,8 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
   blogItem,
   fetchBlogList,
   blogList,
-  clearBlogsState
+  clearBlogsState,
+  sickAnimalsList
 }) => {
   const { blogId } = useParams();
   const { isLoading, isLoaded } = useSelector(() => selectBlogItem(store.getState()), shallowEqual);
@@ -39,6 +44,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
   useEffect(() => {
     if (!!blogId) {
       fetchBlogItem(blogId);
+      sickAnimalsCheckAndLoadDefault();
     }
     return () => {
       clearBlogItemState();
@@ -119,6 +125,21 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
           />
         )}
       </div>
+      <HelpBlock
+        animalsList={sickAnimalsList}
+        backgroundColor='#333572'
+        title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
+        color='#409275'
+        text={{
+          color: '#ffffff',
+          content: <TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />
+        }}
+        btn={{
+          style: 'yellow',
+          content: <TI18n keyStr='footerRightBtn' default='Помочь' />
+        }}
+        story={true}
+      />
     </div>
   )
 }
