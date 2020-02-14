@@ -6,12 +6,7 @@ using System.Collections.Generic;
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IDocumentCollectionRepository :
-        IBaseQuerAsyncy<List<DocumentCollection>, DbQuery>,
-        IBaseQuerAsyncy<DocumentCollection, string>,
-        IBaseCreateAsync<DocumentCollection>,
-        IBaseUpdateAsync<DocumentCollection>,
-        IBaseDeleteAsync<string>
+    public interface IDocumentCollectionRepository : IBaseRepository<DocumentCollection>
     {
     }
 }
