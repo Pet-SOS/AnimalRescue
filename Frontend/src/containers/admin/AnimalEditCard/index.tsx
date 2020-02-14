@@ -27,6 +27,8 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             age: props.animal.age,
             imageIds: props.animal.imageIds,
             tags: props.animal.tags || '',
+            character: props.animal.character || '',
+            coverImage: props.animal.coverImage,
             id: props.animal.id,
             images: []
         }
