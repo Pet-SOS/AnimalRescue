@@ -11,7 +11,7 @@ import { Banner } from '../../../../components/Banner';
 import { BlogTypes, IBlogListResponse } from '../../../../api/blog';
 import { selectInfoContacts } from '../../Home/store/selectors';
 import { IRequestParams, RequestFilterOperators } from '../../../../api/requestOptions';
-import { BlogBlock } from '../../Home/ui/Blog';
+import { BlogBlock } from '../../Home/ui/BlogBlock/BlogBlock';
 import { Slider, SlidesPerViewValue } from '../../../../components/Slider';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';

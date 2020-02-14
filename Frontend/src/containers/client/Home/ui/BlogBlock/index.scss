@@ -1,16 +1,19 @@
-@import '../../../../styles/variables.scss';
+@import './../../../../../styles/variables.scss';
 
 .blog-block-container {
     padding: 5rem 0 5rem;
     width: 100%;
     background: $main-bg-color;
-    .content {
         .blog-list-holder{
             flex-direction: row;
             display: flex;
             justify-content: space-between; 
             margin-bottom: 1.5rem;  
             width: 100%;
+            li {              
+              max-width: 31.87%;
+              width: 100%;
+            }
         }
         .title {
             position: relative;
@@ -40,18 +43,15 @@
         .bottom-redirect{
             display: none;
         }
-    }
 }
 @media all and (max-width: $medium-device-width) {
     .blog-block-container {
         .content {
             padding: 0 1rem;
-            .blog-list-holder{
-                li{
-                    min-width: 48%;
-                    &:last-child{
-                        display: none!important;
-                    }
+            .blog-list-holder li {
+                min-width: 48%;
+                &:last-child{
+                    display: none!important;
                 }
             }
         }
@@ -87,7 +87,7 @@
                 justify-content: center;
                 li{
                     &:last-child{
-                        display: none!important;
+                        display: none;
                     }                    
                     width: 100%;
                     max-width: 21.75rem;
