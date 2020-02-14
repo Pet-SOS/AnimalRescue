@@ -42,5 +42,17 @@ namespace AnimalRescue.API.Models.Animals
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
         public List<string> Tags { get; set; } = new List<string>();
+
+        [JsonPropertyName(animal.CoverImage)]
+        [JsonProperty(animal.CoverImage)]
+        public int CoverImage { get; set; }
+
+        [JsonPropertyName(animal.Birthday)]
+        [JsonProperty(animal.Birthday)]
+        public DateTime Birthday { get; set; }
+
+        [JsonPropertyName(animal.Character)]
+        [JsonProperty(animal.Character)]
+        public string Character { get; set; }
     }
 }

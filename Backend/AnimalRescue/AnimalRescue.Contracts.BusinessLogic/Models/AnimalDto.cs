@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
+﻿using System;
+using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
@@ -20,5 +21,11 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         public string Description { get; set; }
 
         public int Age { get; set; }
+
+        public int CoverImage { get; set; }
+
+        public DateTime Birthday { get; set; }
+
+        public string Character { get; set; }
     }
 }
