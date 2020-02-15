@@ -140,8 +140,6 @@ namespace AnimalRescue.BusinessLogic.Services
             var destRect = new Rectangle(0, 0, adjustedSize.Width, adjustedSize.Height);
             var destImage = new Bitmap(adjustedSize.Width, adjustedSize.Height);
 
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
             using (var graphics = Graphics.FromImage(destImage))
             {
                 graphics.CompositingMode = CompositingMode.SourceCopy;
