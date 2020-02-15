@@ -3,12 +3,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-    public interface IFinancialReportService :
-        IBlCollectinQueryAsyncy<FinancialReportDto>,  
-        IBlOneItemQueryAsyncy<FinancialReportDto>,
-        IBlCreateAsync<FinancialReportDto, FinancialReportDto>,
-        IBlUpdateAsync<FinancialReportDto>,
-        IBlDeleteAsync
+    public interface IFinancialReportService : IBlFullCrud<FinancialReportDto, FinancialReportDto>
     {
     }
 }

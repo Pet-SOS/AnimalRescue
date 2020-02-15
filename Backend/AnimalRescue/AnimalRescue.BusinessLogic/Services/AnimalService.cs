@@ -9,7 +9,8 @@ namespace AnimalRescue.BusinessLogic.Services
 {
     internal class AnimalService : BaseService<AnimalDto, Animal>, IBlFullCrud<AnimalDto, AnimalDto>
     {
-        public AnimalService(IAnimalRepository animalRepository, IMapper mapper) : base(animalRepository, mapper)
+        public AnimalService(IAnimalRepository repository, IMapper mapper) 
+            : base(repository, mapper)
         {
         }   
     }

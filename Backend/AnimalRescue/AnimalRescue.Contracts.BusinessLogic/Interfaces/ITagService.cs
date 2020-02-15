@@ -6,11 +6,7 @@ using System.Collections.Generic;
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface ITagService :
-        IBlCollectinQueryAsyncy<TagDto>,
-        IBlOneItemQueryAsyncy<TagDto>,
-        IBlCreateAsync<TagDto, TagDto>,
-        IBlUpdateAsync<TagDto>,
-        IBlDeleteAsync,
+        IBlFullCrud<TagDto, TagDto>,
         IBlCreateIfNotExistAsync<IEnumerable<TagDto>>
     {
     }
