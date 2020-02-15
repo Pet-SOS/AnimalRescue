@@ -85,36 +85,26 @@ export const AboutServices: React.FC<IPropTypes> = ({
                     keyStr='aboutServiceHistoryText3'
                     default='Є багато причин, за якими люди відмовляються від своїх домашніх тварин, в тому числі:' />
               </p>
-              <p>
-                <TI18n
-                    keyStr='aboutReason1'
-                    default='• несподівані фінансові труднощі' />
-              </p>
-              <p>
-                <TI18n
-                    keyStr='aboutReason2'
-                    default='• переїзд в іншу країну' />
-              </p>
-              <p>
-                <TI18n
-                    keyStr='aboutReason3'
-                    default='• конфлікт між тваринами в сім’ї' />
-              </p>
-              <p>
-                <TI18n
-                    keyStr='aboutReason4'
-                    default='• напружений графік роботи' />
-              </p>
-              <p>
-                <TI18n
-                    keyStr='aboutReason5'
-                    default='• проблеми зі здоров’ям' />
-              </p>
-              <p>
-                <TI18n
-                    keyStr='aboutReason6'
-                    default='• нерідко це звичайна безвідповідальність' />
-              </p>
+              <ul className='dots-list'>
+                <li>
+                  <TI18n keyStr='aboutReason1' default='несподівані фінансові труднощі' />
+                </li>
+                <li>
+                  <TI18n keyStr='aboutReason2' default='переїзд в іншу країну' />
+                </li>
+                <li>
+                  <TI18n keyStr='aboutReason3' default='конфлікт між тваринами в сім’ї' />
+                </li>
+                <li>
+                  <TI18n keyStr='aboutReason4' default='напружений графік роботи' />
+                </li>
+                <li>
+                  <TI18n keyStr='aboutReason5' default='проблеми зі здоров’ям' />
+                </li>
+                <li>
+                  <TI18n keyStr='aboutReason6' default='нерідко це звичайна безвідповідальність' />
+                </li>
+              </ul>
               <p>
                 <TI18n
                   keyStr='aboutServiceHistoryText4'
@@ -128,8 +118,6 @@ export const AboutServices: React.FC<IPropTypes> = ({
             </div>
           </div>
         </div>
-
-
         <HelpBlock
           animalsList={sickAnimalsList}
           backgroundColor='#333572'

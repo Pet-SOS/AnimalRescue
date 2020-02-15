@@ -7,8 +7,8 @@ import { IInfoCard, IInfoContacts } from "../../Home/store/state";
 import { IBlogItem, IBlogListResponse } from "../../../../api/blog";
 import { BlogItem } from "../../../../components/BlogBlock/item";
 import { BtnPagination } from "./BtnPagination";
-import { IRequestParams, RequestFilterOperators, IRequestFilterParams } from "../../../../api/requestOptions";
-import { RouteProps, RouteComponentProps, RouteChildrenProps } from "react-router";
+import { RequestFilterOperators } from "../../../../api/requestOptions";
+
 
 interface IPropTypes {
     infoCard: IInfoCard,
@@ -22,7 +22,7 @@ interface IPropTypes {
     fetchInfoContacts:() => void;
 } 
 type MyState = { activeBtn: string };
-interface RouteParams {id: string, params?: string}
+
 export class BlogPage extends React.Component<IPropTypes , MyState> {
     blogFilter : {[key: string]: string}= {
         blog: 'Блог',

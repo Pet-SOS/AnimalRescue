@@ -5,7 +5,8 @@ import cn from 'classnames';
 export enum ButtonTypes {
   Blue = 'blue',
   Yellow ='yellow',
-  BlueCircle = 'blue-circle'
+  BlueCircle = 'blue-circle',
+  Close = 'close'
 }
 
 interface IPropTypes {

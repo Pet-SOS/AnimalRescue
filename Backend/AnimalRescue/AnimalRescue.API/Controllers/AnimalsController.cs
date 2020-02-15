@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -42,6 +44,23 @@ namespace AnimalRescue.API.Controllers
         public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
             return await GetItemAsync<AnimalDto, AnimalModel>(_animalService, id, _mapper);
+        }
+
+        [HttpPost("bunch")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<List<AnimalModel>>> GetItemsByIdsAsync([BindRequired, FromBody] AnimalBanch animalBanch)
+        {
+            List<AnimalModel> result = new List<AnimalModel>(animalBanch.AnimalIds.Count);
+            foreach (Guid item in animalBanch.AnimalIds)
+            {
+                var data = await _animalService.GetAsync(item);
+                if (data != null)
+                    result.Add(_mapper.Map<AnimalDto, AnimalModel>(data));
+            }
+
+            return Item(result);
         }
 
         [HttpGet]

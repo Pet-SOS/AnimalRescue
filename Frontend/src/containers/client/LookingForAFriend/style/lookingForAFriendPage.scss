@@ -3,9 +3,66 @@
 .looking-friend-block{
     padding: 3rem 0 5rem 0;
     background: $bg-lite-gray;
+    .box-checkBoks{
+        display: flex;
+        justify-content: space-between;
+        max-width: 40rem;
+        margin: 0 0 1.5rem;
+    }
     .box-select{
         display: flex;
         justify-content: space-between;
+        .select{
+            background: $input-bg-color;
+            width: 12rem;
+            border-radius: 1.9375rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            padding: 0.6875rem 1.5rem 0.5rem;
+            margin-bottom: 1.5rem;
+            &.active {
+                border-radius: 1.9375rem 1.9375rem 0 0;
+            }
+            .title-select{
+                font-size: 0.875rem;
+                line-height: 0.875rem;
+                font-weight: bold;
+                margin-bottom: 0.2rem;
+            }
+            .options{
+                width:100%;
+                background: $input-bg-color;
+                box-shadow: 0 8px 16px rgba(167, 140, 69, 0.3);
+                border-radius: 0 0 31px 31px;
+                padding:  2rem 1.5rem;
+                top:101%;
+                .selected{
+                    background: transparent;
+                }
+                li{
+                    &:hover, &:active{
+                        background: transparent;
+                        color:$text-lite-color;
+                    }
+                }
+            }
+            button{
+                width: 100%;
+                text-align: left;
+                color:$text-lite-color;
+                &:after{
+                    top:0;
+                }
+            }
+        }
+    }
+    .box-all-animals{
+        font-size: 1.125rem;
+        line-height: 3rem;
+        margin-bottom: 1.5rem;
+        span{
+            padding: 0 0.5rem;
+        }
     }
     .content-block{
         display: flex;
@@ -21,5 +78,8 @@
                 margin: 0;
             }
         }
+    }
+    .box-pagination{
+        margin: 3.75rem 0;
     }
 }

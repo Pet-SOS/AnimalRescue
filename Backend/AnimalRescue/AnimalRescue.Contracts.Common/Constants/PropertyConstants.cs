@@ -48,6 +48,9 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Age = "age";
             public const string DateOfFound = "dateOfFound";
             public const string DateOfAdopted = "dateOfAdopted";
+            public const string CoverImage = "coverImage";
+            public const string Birthday = "birthday";
+            public const string Character = "character";
         }
 
         public static class Common

@@ -51,6 +51,14 @@ export enum AnimalAge{
     TOFIVE= 'от 3 до 5 лет',
     FROMFIVE= 'от 5 лет'
 }
+export enum Tags{
+    VACCINATED='привит',
+    READYTOTRAVEL='доступен для выезда заграницу',
+    TREATMENT='на лечении',
+    SPECIAL='особенный',
+    STERILIZED='стерилизован',
+    SAVED='спасен'
+}
 export interface IAnimal {
   number: number
   name: string

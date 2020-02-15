@@ -55,7 +55,7 @@ export const Select: React.FC<ISelectPropTypes> = ({ data, selected, onChange, e
   return (
     <div className={cn('select', { 'active': isActive })} ref={selectEl}>
     { title &&
-      <div>{title}</div>
+      <div className='title-select'>{title}</div>
     }
       <button type='button' onClick={() => setIsActive(!isActive)}>{getSelectedValue()}</button>        
       <ul className={cn('options', { 'expand-top': expandDirection === SelectExpandDirections.TOP })}>

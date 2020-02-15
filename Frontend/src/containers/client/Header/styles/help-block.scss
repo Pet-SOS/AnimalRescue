@@ -1,7 +1,7 @@
 @import '../../../../styles/variables.scss';
 .header-bottom {
   width:100%;
-  padding: 3rem 0 5rem 0;
+  padding: 5rem 0;
   .content {
     flex-direction: row;
     display: flex;
@@ -10,12 +10,12 @@
     width:50%;
     line-height: 1.625rem;
     margin-right: 5.25rem;
-    .box-text{
-      text-align: left;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .text {
       font-size: 1.125rem;
-      line-height: 1.5rem;
+      line-height: 1.625rem;
       color: #0D2B4B;
       margin-bottom: 2.25rem;
     }
@@ -39,40 +39,28 @@
     margin-bottom: 1.5rem;
   }
     .block-more {
-      padding: 0.5rem 0;
-      margin-top: 1.75rem;
-      font-weight: bold;
-      font-style: normal;
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      height: 2.5rem;
-      cursor: pointer;
-      a{
-        text-decoration: none;
-        color: $bg-orange;
-      }
-      p {
-        color:$text-color-active;
-        margin-right: 1rem;
-        font-size: 1.25rem;
-        vertical-align: middle;
-      }
-      &:hover, &:active {
-       
-        p{
-          color: $btn-hover;
-          transition: all 25ms;
-        }
-        .blue-circle {
-          background-color: $text-color-active;
-          transition: all 25ms;
-          color: $main-bg-color;
-          box-shadow: 0px 4px 16px rgba(62, 91, 157, 0.5);
-        }
+      padding: 1.75rem 0 0;
+    }
+  &.story {
+    .content {
+      min-height: 28rem;
+    }
+    .left-block {
+      padding: 0 0 .5rem;
+      .text {
+        overflow: hidden;
+        width: 100%;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
       }
     }
-
+    .block-more {
+      padding: 2.75rem 0 0;
+    }
+  }
 }
 @media all and (max-width: 1118px) {
   .header-bottom {
@@ -81,7 +69,7 @@
 }
 @media all and (max-width: 996px) {
   .header-bottom {
-    padding: 2rem 0 5rem;
+    padding: 5rem 0;
     .order-center{
       display: block;
       text-align: center;
