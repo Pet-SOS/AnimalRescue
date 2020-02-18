@@ -68,6 +68,8 @@ export interface IAnimal {
   age: number
   imageIds: string[]
   tags: string[]
+  coverImage: number
+  character: string
   id?: string 
   readonly?: boolean;
   images: []
@@ -88,6 +90,8 @@ export const DEFAULT_ANIMAL: IAnimal = {
     age: 0,
     imageIds: [],
     tags: [],
+    character: '',
+    coverImage: 0,
     images: []
 }
 

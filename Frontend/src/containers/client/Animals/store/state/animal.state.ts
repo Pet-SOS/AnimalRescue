@@ -17,6 +17,8 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     age: 0,
     imageIds: [],
     tags: [],
+    character: '',
+    coverImage: 0,
     createdAt: '',
     images: []
   },

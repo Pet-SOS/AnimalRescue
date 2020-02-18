@@ -137,7 +137,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                     <h4 className='title'>
                       <TI18n keyStr='character' default='Характер' />
                     </h4>
-                    <p>{animalItem.data.description}</p>
+                    <p>{animalItem.data.character}</p>
                   </div>
                 </div>
                 <div className='btn-holder'>
