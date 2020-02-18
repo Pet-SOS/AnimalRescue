@@ -5,7 +5,7 @@ import  defaultText  from '../../../../i18n/translations/ru';
 import { store } from "../../../../store";
 import { IInfoCard, IInfoContacts } from "../../Home/store/state";
 import { IBlogItem, IBlogListResponse } from "../../../../api/blog";
-import { BlogItem } from "../../../../components/BlogBlock/item";
+import { BlogCard } from "./BlogCard";
 import { BtnPagination } from "./BtnPagination";
 import { RequestFilterOperators } from "../../../../api/requestOptions";
 
@@ -25,7 +25,6 @@ type MyState = { activeBtn: string };
 
 export class BlogPage extends React.Component<IPropTypes , MyState> {
     blogFilter : {[key: string]: string}= {
-        blog: 'Блог',
         story:'Истории успеха',
         article:'Полезные советы'
     }
@@ -137,21 +136,16 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
                         }
                      </ul>
                     <ul className='box-articles'>
-                    {
-                       this.props.blogList.data.map((item:IBlogItem, i:number)=>
-                    <div
-                        className='article'
-                        key={i}>
-                        <BlogItem
-                            key={item.title}
+                      {this.props.blogList.data.map((item:IBlogItem, i:number)=> (
+                        <li key={i}>
+                          <BlogCard
                             image={item.imageIds[0]}
                             title={item.title}
                             id={item.id ? item.id : ''}
                             text={item.type}
-                         />
-                        </div>
-                        )
-                    }
+                          />
+                        </li>
+                      ))}
                     </ul>
                     <BtnPagination
                         setProps={this.props}

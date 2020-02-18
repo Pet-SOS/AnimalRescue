@@ -1,34 +1,33 @@
-@import './../../styles/variables.scss';
-.blog-item-holder{
-    max-width: 30%;
-    width: 100%;
-    height: auto;
+@import './../../../../styles/variables.scss';
+.blog-card-holder{
     margin-bottom: 1rem;
     position: relative;
-    .blog-item-link {
+    .blog-card-link {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
     }
-    .blog-item-image{
-        display: inline-block;
-        min-width: 21.8125rem;
-        width: 100%;
+    .blog-card-image{
         height: 12.25rem;
         border-radius: 0.75rem;
         margin-bottom: 1rem;
         background-size: cover;
         background-position: center;
     }
-    .blog-item-title{
-        display: inline-block;
-        height: auto;
+    .blog-card-title{
         font-size: 1.25rem;
         line-height: 28px;
         margin: 0.5rem 0 0.5rem;;
         color: $text-color;
+        overflow: hidden;
+        width: 100%;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
     }
     .blog-grey-text{
         font-size: 1rem;
