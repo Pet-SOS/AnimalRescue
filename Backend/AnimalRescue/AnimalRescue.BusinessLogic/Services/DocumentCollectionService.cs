@@ -24,7 +24,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var documentCollection = await _repository.GetAsync(id.AsObjectIdString());
 
-            return documentCollection.TypeNameToDocumentId.TryGetValue(name.ToLower(), out string data) 
+            return documentCollection != null && documentCollection.TypeNameToDocumentId.TryGetValue(name.ToLower(), out string data) 
                 ? data.AsGuid() 
                 : (Guid?)null;
         }
