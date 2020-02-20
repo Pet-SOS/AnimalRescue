@@ -58,6 +58,14 @@ namespace AnimalRescue.API.Controllers
         {
             return await GetCollectionAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, queryRequest, _mapper);
         }
+        [HttpGet("years")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<List<FinancialReportByYearDto>>> GetYearsAsync([FromQuery]ApiQueryRequest queryRequest)
+        {
+            return Item( await _financialReportService.GetReportsByYearsAsync());
+        }
 
         [HttpPost]
         [ProducesResponseType(201)]

@@ -44,6 +44,7 @@ namespace AnimalRescue.BusinessLogic
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
+            services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto>, EmployeeService>();
 
             services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
             services.AddScoped<IImageService, ImageService>();
@@ -52,10 +53,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddScoped<ITagService, TagService>()
-                .AddScoped<IStoryService, StoryService>()
-                .AddScoped<IArticleService, ArticleService>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ITagService, TagService>();
         }
     }
 }
