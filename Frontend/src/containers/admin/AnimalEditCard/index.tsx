@@ -28,6 +28,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             imageIds: props.animal.imageIds,
             tags: props.animal.tags || '',
             character: props.animal.character || '',
+            birthday: props.animal.birthday || '',
             coverImage: props.animal.coverImage,
             id: props.animal.id,
             images: []
@@ -65,7 +66,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
 
     render() {
         const {
-            number, name, kindOfAnimal, gender, description, age, imageIds, tags, id
+            number, name, kindOfAnimal, gender, description, character, coverImage, birthday, age, imageIds, tags, id
         } = this.state
         return (
             <>
@@ -75,6 +76,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                                          onChange={(e) => this.changeValue(e, 'kindOfAnimal')}/></div>
                 <div>gender <input value={gender} onChange={(e) => this.changeValue(e, 'gender')}/></div>
                 <div>age <input value={age} onChange={(e) => this.changeValue(e, 'age')}/></div>
+                <div>birthday <input value={birthday} onChange={(e) => this.changeValue(e, 'birthday')}/></div>
                 <div>tags <input value={tags} onChange={(e) => this.changeValue(e, 'tags')}/></div>
                 <div>id {id}</div>
                 {this.renderImgs(imageIds)}
@@ -87,8 +89,11 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                         <label htmlFor={id || 'newFile'} className={'add-button button'}>Add file</label>
                     </div>
                 </div>
+                <div>coverImage <input value={coverImage} onChange={(e) => this.changeValue(e, 'coverImage')}/></div>
                 <div>description</div>
                 <textarea value={description} onChange={(e) => this.changeValue(e, 'description')}/>
+                <div>character</div>
+                <textarea value={character} onChange={(e) => this.changeValue(e, 'character')}/>
                 {this.state.id ? (
                     <div>
                         <button onClick={this.submit}>SAVE</button>
