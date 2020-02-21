@@ -207,5 +207,12 @@ export default {
 
   sterilized: 'Sterilized',
   vaccinated: 'Vaccinated',
-  readyToAbroad: 'Ready to go abroad'
+  readyToAbroad: 'Ready to go abroad',
+
+  fromTwoToFourYears: 'years',
+  fromFiveToTwentyYears: 'years',
+  fromTwoToFourMonths: 'months',
+  fromFiveToTwelveMonths: 'months',
+  week: 'week',
+  fromTwoToFourWeeks: 'weeks'
 }

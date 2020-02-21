@@ -18,6 +18,7 @@ import { ShareLink } from '../../../../components/ShareLink';
 import { ButtonLike } from '../../../../components/ButtonLike';
 import { AdoptPopup } from '../../../../components/AdoptPopup';
 import './index.scss';
+import { Age } from '../../../../components/Age';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -133,7 +134,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                         <TI18n keyStr={animalItem.data.gender} default={animalItem.data.gender} />
                       </span>
                     )}
-                    <span>{animalItem.data.age}&nbsp;<TI18n keyStr='year' default='год' /></span>
+                    <Age birthday={animalItem.data.birthday} />
                   </div>
                   <ul className='tags-list'>
                     {animalItem.data.tags.map((tag, index) => <li key={index}>{capitalizedString(tag)}</li>)}

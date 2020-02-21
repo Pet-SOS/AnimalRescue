@@ -210,5 +210,12 @@ export default {
 
   sterilized: 'Стерилизован',
   vaccinated: 'Привит',
-  readyToAbroad: 'Готов к выезду за границу'
+  readyToAbroad: 'Готов к выезду за границу',
+
+  fromTwoToFourYears: 'года',
+  fromFiveToTwentyYears: 'лет',
+  fromTwoToFourMonths: 'месяца',
+  fromFiveToTwelveMonths: 'месяцев',
+  week: 'неделя',
+  fromTwoToFourWeeks: 'недели'
 }
