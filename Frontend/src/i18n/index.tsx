@@ -6,9 +6,10 @@ import {ELocales} from "./store/state";
 import en from './translations/en';
 import ru from './translations/ru';
 import ua from './translations/ua';
+import de from './translations/de';
 
 i18n.defaultLocale = ELocales.Ua;
-i18n.translations = { en, ru, ua };
+i18n.translations = { en, ru, ua, de };
 
 interface IPropTypes {
   keyStr: string;

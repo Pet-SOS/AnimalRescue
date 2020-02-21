@@ -4,7 +4,7 @@ export default {
 
   hotLinePhones: 'Цілодобово 24/7',
 
-  headerTitle: 'Порятунок тварин в Харкові',
+  headerTitle: 'Порятунок тварин Харків',
   headerMenuItem1: 'Про службу',
   headerMenuItem2: 'Шукаю друга',
   headerMenuItem3: 'Як я можу допомогти?',

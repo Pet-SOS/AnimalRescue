@@ -46,7 +46,7 @@ export const AppHeader: React.FC<IPropTypes> = () => {
                       <div className="logo-main">
                           <div className="logo"><Link to="/"><Logo/></Link></div>
                           <div className="logo-text">
-                              <TI18n keyStr="headerTitle" default="Спасение животных в Харькове"/>
+                              <TI18n keyStr="headerTitle" default="Спасение животных Харьков"/>
                           </div>
                       </div>
                   </div>

@@ -12,7 +12,7 @@ export const AdminHeader: React.FC<IPropTypes> = () => (
       <div className="logo-main">
         <div className="logo"><Logo /></div>
         <div className="logo-text">
-          <TI18n keyStr="headerTitle" default="Спасение животных в Харькове" />
+          <TI18n keyStr="headerTitle" default="Спасение животных Харьков" />
         </div>
       </div>
       <div className="logo-main">

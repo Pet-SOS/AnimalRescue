@@ -1,7 +1,8 @@
 export enum ELocales {
   Ua = 'ua',
+  En = 'en',
+  De = 'de',
   Ru = 'ru',
-  En = 'en'
 }
 
 export interface ILocales {
