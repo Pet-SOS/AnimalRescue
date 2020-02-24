@@ -18,6 +18,7 @@ import { ShareLink } from '../../../../components/ShareLink';
 import { ButtonLike } from '../../../../components/ButtonLike';
 import { AdoptPopup } from '../../../../components/AdoptPopup';
 import './index.scss';
+import { Age } from '../../../../components/Age';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -84,7 +85,18 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       title: <TI18n keyStr="rulesHowToAdoptListItemTitle3" default="Подписать договор" />,
       text: <TI18n keyStr="rulesHowToAdoptListItemText4" default="Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно." />
     }
-  ]
+  ];
+
+  const defaultAnimalTags: React.ReactNode[] = [
+    <TI18n keyStr="sterilized" default="Стерилизован" />,
+    <TI18n keyStr="vaccinated" default="Привит" />,
+    <TI18n keyStr="readyToAbroad" default="Готов к выезду за границу" />
+  ];
+
+  const capitalizedString = (str: string): string => {
+    const newStr: string = str.trim().toLowerCase();
+    return !!newStr ? `${newStr[0].toUpperCase()}${newStr.slice(1)}` : newStr;
+  }
 
   return (
     <div className='animal-item-page'>
@@ -122,10 +134,11 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                         <TI18n keyStr={animalItem.data.gender} default={animalItem.data.gender} />
                       </span>
                     )}
-                    <span>{animalItem.data.age}&nbsp;<TI18n keyStr='year' default='год' /></span>
+                    <Age birthday={animalItem.data.birthday} />
                   </div>
                   <ul className='tags-list'>
-                    {animalItem.data.tags.map((tag, index) => <li key={index}>{tag}</li>)}
+                    {animalItem.data.tags.map((tag, index) => <li key={index}>{capitalizedString(tag)}</li>)}
+                    {defaultAnimalTags.map((tag, index) => <li key={index}><span>{tag}</span></li>)}
                   </ul>
                   <div className='block-holder'>
                     <h4 className='title'>

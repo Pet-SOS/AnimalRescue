@@ -19,13 +19,13 @@ namespace AnimalRescue.API.Controllers
     public class EmployeesController : ApiControllerBase
     {
         private readonly ILogger<EmployeesController> _logger;
-        private readonly IEmployeeService _employeeService;
+        private readonly IBlFullCrud<EmployeeDto, EmployeeDto> _employeeService;
         public readonly IMapper _mapper;
 
         public EmployeesController(
             ILogger<EmployeesController> logger,
             IMapper mapper,
-            IEmployeeService employeeService)
+            IBlFullCrud<EmployeeDto, EmployeeDto> employeeService)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));

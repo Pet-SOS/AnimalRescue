@@ -4,7 +4,7 @@ export default {
 
   hotLinePhones: 'Круглосуточно 24/7',
 
-  headerTitle: 'Спасение животных в Харькове',
+  headerTitle: 'Спасение животных Харьков',
   headerMenuItem1: 'О службе',
   headerMenuItem2: 'Ищу друга',
   headerMenuItem3: 'Как я могу помочь?',
@@ -178,7 +178,7 @@ export default {
     blogBtnAll:'Все',
     /*               */
     backToBlog: 'Назад в блог',
-    blogItemWarning: `Маєте змогу допомогти будиночками для безпритульних, руками або сировиною для виготовлення, зв'яжіться з нами за телефоном`,
+  blogItemWarning: `Можете помочь домиками для бездомных, руками или сырьем для изготовления, свяжитесь с нами по телефону`,
     moreSuccessStories: 'Еще историй успеха',
     moreUsefulAdvices: 'Еще полезных статей',
     usefulAdvices: 'Полезные советы',
@@ -207,5 +207,15 @@ export default {
   lookingForAFriendPageSelectSize: 'Размер',
   countAnimalsFirstPart:'Хозяина ждут',
   countAnimalsSecondPart:'хвостика',
-  lookingForAFriendPageClearFilter: 'Сбросить все фильтры'
+  lookingForAFriendPageClearFilter: 'Сбросить все фильтры',
+  sterilized: 'Стерилизован',
+  vaccinated: 'Привит',
+  readyToAbroad: 'Готов к выезду за границу',
+
+  fromTwoToFourYears: 'года',
+  fromFiveToTwentyYears: 'лет',
+  fromTwoToFourMonths: 'месяца',
+  fromFiveToTwelveMonths: 'месяцев',
+  week: 'неделя',
+  fromTwoToFourWeeks: 'недели'
 }

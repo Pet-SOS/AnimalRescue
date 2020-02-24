@@ -4,7 +4,7 @@ export default {
 
   hotLinePhones: 'Цілодобово 24/7',
 
-  headerTitle: 'Порятунок тварин в Харкові',
+  headerTitle: 'Порятунок тварин Харків',
   headerMenuItem1: 'Про службу',
   headerMenuItem2: 'Шукаю друга',
   headerMenuItem3: 'Як я можу допомогти?',
@@ -204,5 +204,16 @@ export default {
   lookingForAFriendPageSelectSize: 'Розмір',
   countAnimalsFirstPart: 'Господаря чекають',
   countAnimalsSecondPart: 'хвостика',
-  lookingForAFriendPageClearFilter: 'Скинути всі фільтри'
+  lookingForAFriendPageClearFilter: 'Скинути всі фільтри',
+
+  sterilized: 'Стерилізован',
+  vaccinated: 'Щеплений',
+  readyToAbroad: 'Готов до виїзду за кордон',
+
+  fromTwoToFourYears: 'роки',
+  fromFiveToTwentyYears: 'років',
+  fromTwoToFourMonths: 'місяці',
+  fromFiveToTwelveMonths: 'місяців',
+  week: 'тиждень',
+  fromTwoToFourWeeks: 'тиждні'
 }

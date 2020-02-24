@@ -205,4 +205,15 @@ export default {
   countAnimalsFirstPart: 'The owner is waiting',
   countAnimalsSecondPart: 'tail',
   lookingForAFriendPageClearFilter: 'Clear all filters',
+
+  sterilized: 'Sterilized',
+  vaccinated: 'Vaccinated',
+  readyToAbroad: 'Ready to go abroad',
+
+  fromTwoToFourYears: 'years',
+  fromFiveToTwentyYears: 'years',
+  fromTwoToFourMonths: 'months',
+  fromFiveToTwelveMonths: 'months',
+  week: 'week',
+  fromTwoToFourWeeks: 'weeks'
 }
