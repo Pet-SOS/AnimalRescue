@@ -17,7 +17,7 @@ const crateFormData = (data: Object) => {
 
 export enum Gender {MALE = 'male', FEMALE = 'female', ANY='any'}
 
-export enum AnimalKind { CAT = 'cat', DOG = 'dog', ANY='any'}
+export enum AnimalKind { CAT = 'CAT', DOG = 'DOG', ANY='ANY'}
 export enum AnimalBreed {
     ANY='Любая',
     METIS='Метис',
@@ -41,7 +41,7 @@ export enum AnimalGender{
 export enum AnimalFilterKind { 
     ANY='Любой',
     DOG = 'Собака',
-    CAT = 'Котик'
+    CAT = 'Котик',
 }
 
 export enum AnimalAge{
@@ -57,7 +57,8 @@ export enum Tags{
     TREATMENT='на лечении',
     SPECIAL='особенный',
     STERILIZED='стерилизован',
-    SAVED='спасен'
+    SAVED='спасен',
+    THELOSS ='потеряшка'
 }
 export interface IAnimal {
   number: number

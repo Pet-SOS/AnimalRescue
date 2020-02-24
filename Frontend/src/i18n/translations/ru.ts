@@ -206,8 +206,8 @@ export default {
   lookingForAFriendPageSelectAge: 'Возраст',
   lookingForAFriendPageSelectSize: 'Размер',
   countAnimalsFirstPart:'Хозяина ждут',
-  countAnimalsSecondPart:'хвостика ',
-
+  countAnimalsSecondPart:'хвостика',
+  lookingForAFriendPageClearFilter: 'Сбросить все фильтры',
   sterilized: 'Стерилизован',
   vaccinated: 'Привит',
   readyToAbroad: 'Готов к выезду за границу',

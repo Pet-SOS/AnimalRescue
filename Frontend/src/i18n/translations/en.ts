@@ -204,6 +204,7 @@ export default {
   lookingForAFriendPageSelectSize: 'Size',
   countAnimalsFirstPart: 'The owner is waiting',
   countAnimalsSecondPart: 'tail',
+  lookingForAFriendPageClearFilter: 'Clear all filters',
 
   sterilized: 'Sterilized',
   vaccinated: 'Vaccinated',

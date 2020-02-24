@@ -72,12 +72,6 @@ export const MobileMenu: React.FC = () => {
                 <div className= {stateMenu.drop2? 'active item drop': 'item drop'} onClick={ (e)=> openedMenu(e, 'drop2')}>
                     <div className="drop-icon">
                          <NavLink to='/animals/page/1'><TI18n keyStr="headerMenuItem2" default="Ищу друга"/></NavLink>
-                        <ul className="dropdown" onClick={(e)=> stopFloatinUp(e)}>
-                            <li><a href="/pet-any"><TI18n keyStr="headerMenuItem2Dropdown1" default="Любого"/></a></li>
-                            <li><a href="/pet-dog"><TI18n keyStr="headerMenuItem2Dropdown2" default="Собачку"/></a></li>
-                            <li><a href="/pet-cat"><TI18n keyStr="headerMenuItem2Dropdown3" default="Котика"/></a></li>
-                            <li><a href="/pet-the-loss"><TI18n keyStr="headerMenuItem2Dropdown4" default="Потеряшку"/></a></li>
-                        </ul>
                     </div>
                 </div>
                 <div className={stateMenu.drop3 ? 'active item drop' : 'item drop'} onClick={(e) => openedMenu(e, 'drop3')}>

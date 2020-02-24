@@ -44,21 +44,6 @@ export const AppFooter: React.FC = () =>  (
               <NavLink to='/animals/page/1'><TI18n keyStr="animals" default="Животные" /></NavLink>
               </a>
             </li>
-            <li>
-              <a href="">
-                <TI18n keyStr="footerDogs" default="Собачки" />
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <TI18n keyStr="footerCats" default="Котики" />
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <TI18n keyStr="footerLosts" default="Потеряшки" />
-              </a>
-            </li>
           </ul>
           <ul>
             <li>
