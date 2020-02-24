@@ -176,7 +176,10 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionFetchSavedAnimalsCountSuccess):
       return {
         ...state,
-        savedAnimalsCount: action.payload,
+        savedAnimalsCount: {
+          ...action.payload,
+          data: DEFAULT_ANIMALS_STATE.savedAnimalsCount.data + +action.payload.data
+        },
         savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
       }
     case getType(actionFetchSavedAnimalsCountFailure):
@@ -188,7 +191,7 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionClearSavedAnimalsCount): {
       return {
         ...state,
-        savedAnimalsCount: { data: 0, self: '' },
+        savedAnimalsCount: { ...DEFAULT_ANIMALS_STATE.savedAnimalsCount},
         savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE }
       }
     }

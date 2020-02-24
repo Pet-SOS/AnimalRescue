@@ -1,6 +1,8 @@
 import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
 import { IAnimalsResponse, ISavedAnimalsCountResponse } from "../../../../../api/animals";
 
+const DEFAULT_SAVED_ANIMALS_COUNT: number = 3000;
+
 export interface IAnimalsListState extends IAnimalsResponse {
   isLoading: boolean;
   isLoaded: boolean;
@@ -44,7 +46,7 @@ export const DEFAULT_ANIMALS_STATE: IAnimalsState = {
   catsListRequestState: { ...DEFAULT_REQUEST_STATE },
   dogsList: { ...DEFAULT_ANIMALS },
   dogsListRequestState: { ...DEFAULT_REQUEST_STATE },
-  savedAnimalsCount: { data: 0, self: '' },
+  savedAnimalsCount: { data: DEFAULT_SAVED_ANIMALS_COUNT, self: '' },
   savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE },
   favoriteAnimalsIds: getDefaultFavoriteAnimalsIds()
 };
