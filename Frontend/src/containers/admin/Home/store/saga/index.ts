@@ -19,7 +19,7 @@ import {
 
 function* fetchHomePageAnimalsListSaga() {
     try {
-        const response = yield call(fetchAnimals);
+        const response = yield call(fetchAnimals, {size: 100});
         yield put(actionAdminHomeFetchAnimalsSuccess(response))
     } catch (e) {
         yield put(actionAdminHomeFetchAnimalsFailure(e))
