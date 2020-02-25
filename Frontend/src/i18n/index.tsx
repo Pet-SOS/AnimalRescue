@@ -23,6 +23,7 @@ const TI18nMain = (props: IPropTypes) => {
   if(props.default){
     params.defaultValue = props.default
   }
+  console.log(props.keyStr, params);
   return (<>{i18n.t(props.keyStr, params)}</>)
 };
 
