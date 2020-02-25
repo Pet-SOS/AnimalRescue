@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 interface IPropTypes{
     state: boolean;
-    name:string;
+    name:any;
     tag:string;
     setCheckboxCheck:(name:string) => void 
 }
