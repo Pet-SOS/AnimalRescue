@@ -50,7 +50,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<List<AnimalModel>>> GetItemsByIdsAsync([BindRequired, FromBody] AnimalBanch animalBanch)
+        public async Task<ActionResult<List<AnimalModel>>> GetItemsByIdsAsync([BindRequired, FromForm] AnimalBanch animalBanch)
         {
             List<AnimalModel> result = new List<AnimalModel>(animalBanch.AnimalIds.Count);
             foreach (Guid item in animalBanch.AnimalIds)
