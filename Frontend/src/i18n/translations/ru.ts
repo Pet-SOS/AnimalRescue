@@ -210,7 +210,7 @@ export default {
   lookingForAFriendPageClearFilter: 'Сбросить все фильтры',
   sterilized: 'Стерилизован',
   vaccinated: 'Привит',
-  readyToAbroad: 'Готов к выезду за границу',
+  readytoabroad: 'Готов к выезду за границу',
 
   fromTwoToFourYears: 'года',
   fromFiveToTwentyYears: 'лет',

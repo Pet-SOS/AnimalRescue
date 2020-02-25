@@ -30,6 +30,10 @@ interface IPropTypes {
   sickAnimalsList: IAnimalsListState;
 }
 
+enum TagTypes { DEFAULT = 'default', MEDICAL = 'medical', ADDITIONAL = 'additional' }
+const defaultMedicalTags: string[] = ['sterilized', 'vaccinated'];
+const defaultAdditionalTags: string[] = ['readytoabroad'];
+
 export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
   fetchAnimalItem,
   clearAnimalItemState,
@@ -87,15 +91,16 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
     }
   ];
 
-  const defaultAnimalTags: React.ReactNode[] = [
-    <TI18n keyStr="sterilized" default="Стерилизован" />,
-    <TI18n keyStr="vaccinated" default="Привит" />,
-    <TI18n keyStr="readyToAbroad" default="Готов к выезду за границу" />
-  ];
-
   const capitalizedString = (str: string): string => {
     const newStr: string = str.trim().toLowerCase();
     return !!newStr ? `${newStr[0].toUpperCase()}${newStr.slice(1)}` : newStr;
+  }
+
+  const getCurrentTags = (tagType?: TagTypes): string[] => {
+    const arrToFilter: string[] = tagType === TagTypes.MEDICAL ? defaultMedicalTags : tagType === TagTypes.ADDITIONAL ? defaultAdditionalTags : [];
+    return !!arrToFilter && !!arrToFilter.length
+      ? arrToFilter.filter(tag => animalItem.data.tags.map(t => t.toLowerCase()).includes(tag.toLowerCase()))
+      : animalItem.data.tags.filter(tag => !defaultMedicalTags.includes(tag.toLowerCase()) && !defaultAdditionalTags.includes(tag.toLowerCase()));
   }
 
   return (
@@ -137,8 +142,9 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                     <Age birthday={animalItem.data.birthday} />
                   </div>
                   <ul className='tags-list'>
-                    {animalItem.data.tags.map((tag, index) => <li key={index}>{capitalizedString(tag)}</li>)}
-                    {defaultAnimalTags.map((tag, index) => <li key={index}><span>{tag}</span></li>)}
+                    {getCurrentTags().map((tag, index) => <li key={index}>{capitalizedString(tag)}</li>)}
+                    {getCurrentTags(TagTypes.MEDICAL).map((tag, index) => <li className='medical' key={index}><TI18n keyStr={tag} default={capitalizedString(tag)} /></li>) }
+                    {getCurrentTags(TagTypes.ADDITIONAL).map((tag, index) => <li className='additional' key={index}><span><TI18n keyStr={tag} default={capitalizedString(tag)} /></span></li>)}
                   </ul>
                   <div className='block-holder'>
                     <h4 className='title'>

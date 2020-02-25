@@ -210,5 +210,5 @@ export default {
 
   sterilized: 'Стерилизован',
   vaccinated: 'Geimpft',
-  readyToAbroad: 'Bereit ins Ausland zu gehen'
+  readytoabroad: 'Bereit ins Ausland zu gehen'
 }
