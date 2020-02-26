@@ -6,10 +6,12 @@ import './index.scss';
 
 export enum SlidesPerViewValue { AUTO = 'auto' }
 export enum SlideEffects { FADE = 'fade', CUBE = 'cube', COVERFLOW = 'coverflow', FLIP = 'flip' }
+export enum ThumbSlidesAlignment { LEFT = 'left', RIGHT = 'right' }
 
 interface IPropTypes {
   slides: React.ReactNode[];
   thumbSlides?: React.ReactNode[];
+  thumbSlidesAlignment?: ThumbSlidesAlignment;
   isPaginationHidden?: boolean;
   isNavigationHidden?: boolean;
   isLoop?: boolean;
@@ -35,7 +37,8 @@ export const Slider: React.FC<IPropTypes> = ({
   spaceBetween,
   isSwipeDisable,
   breakpoints,
-  thumbSlides
+  thumbSlides,
+  thumbSlidesAlignment
 }) => {
   const [swiper, updateSwiper] = useState();
   const [swiperThumbs, updateSwiperThumbs] = useState();
@@ -106,7 +109,9 @@ export const Slider: React.FC<IPropTypes> = ({
         </div>
       </div>
       {!!thumbSlides && !!thumbSlides.length && (
-        <div className='thumb-swiper'>
+        <div className={cn('thumb-swiper', {
+          [`align-${thumbSlidesAlignment}`]: !!thumbSlidesAlignment
+        })}>
           <Swiper {...thumbsParams}>
             {thumbSlides.map((slide, index) => <div key={index}>{slide}</div>)}
           </Swiper>

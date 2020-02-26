@@ -40,9 +40,7 @@ export const AppFooter: React.FC = () =>  (
           </ul>
           <ul>
             <li>
-              <a href="" className="head-link">
-              <NavLink to='/animals/page/1'><TI18n keyStr="animals" default="Животные" /></NavLink>
-              </a>
+              <NavLink className="head-link" to='/animals/page/1'><TI18n keyStr="animals" default="Животные" /></NavLink>
             </li>
           </ul>
           <ul>
