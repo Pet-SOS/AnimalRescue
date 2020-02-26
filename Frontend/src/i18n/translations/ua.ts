@@ -177,10 +177,10 @@ export default {
   blogItemWarning: `Маєте змогу допомогти будиночками для безпритульних, руками або сировиною для виготовлення, зв'яжіться з нами за телефоном`,
   moreSuccessStories: 'Ще історій успіху',
   moreUsefulAdvices: 'Ще корисних статей',
-  usefulAdvices: 'Корисні поради',
-  successStories: 'Історії успіху',
+  blogarticle: 'Корисні поради',
+  blogstory: 'Історії успіху',
   blogPageTitle: 'Блог',
-  blogBtnAll: 'Все',
+  blogBtnAll: 'Всi',
 
   number: 'Номер',
   year: 'рік',

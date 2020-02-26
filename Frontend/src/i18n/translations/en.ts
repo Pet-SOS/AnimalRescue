@@ -177,8 +177,8 @@ export default {
   blogItemWarning: `You can help homeless houses, hands or raw materials for manufacturing, contact us by phone`,
   moreSuccessStories: 'More success stories',
   moreUsefulAdvices: 'More useful articles',
-  usefulAdvices: 'Useful Advices',
-  successStories: 'Success stories',
+  blogarticle:  'Useful Advices',
+  blogstory: 'Success stories',
   blogPageTitle: 'Blog',
   blogBtnAll: 'Everything',
 
