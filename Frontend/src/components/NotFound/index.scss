@@ -1,0 +1,16 @@
+.not-found {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .title {
+    font-size: 6rem;
+    line-height: 6rem;
+  }
+  strong {
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+}

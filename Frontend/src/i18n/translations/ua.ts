@@ -241,4 +241,6 @@ export default {
   AnimalSizesmall: 'Дрібний',
   AnimalSizemedium: 'Середній',
   AnimalSizelarge: 'Великий',
+
+  pageNotFound: 'Сторінку не знайдено'
 }

@@ -12,6 +12,7 @@ import { Blog } from './Blog';
 import { BlogItemPage } from './Blog/BlogItemPage';
 import { LookingForAFriend } from './LookingForAFriend';
 import { AnimalItemPage } from './Animals/AnimalItemPage';
+import { NotFound } from '../../components/NotFound';
 
 interface IPropTypes extends RouteComponentProps {}
 
@@ -31,6 +32,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path='/animals/page/:page' component={LookingForAFriend} exact/>
             <Route path='/animals/:animalId' component={AnimalItemPage} exact />
             <Route path={props.match.path} component={HomePage} exact />
+            <Route component={NotFound}></Route>
           </Switch>
         </div>
         <AppFooter/>
