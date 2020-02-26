@@ -8,7 +8,7 @@ import { IRequestParams, RequestFilterOperators } from '../../../../api/requestO
 import { IAnimalItemState } from '../store/state/animal.state';
 import { IAnimalsResponse, AnimalKind } from '../../../../api/animals';
 import { selectAnimalItem } from '../store/selectors/animalitem.selector';
-import { Slider } from '../../../../components/Slider';
+import { Slider, ThumbSlidesAlignment } from '../../../../components/Slider';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { AnimalsSlider } from '../AnimalsSlider';
 import { sickAnimalsCheckAndLoadDefault } from '../store/selectors';
@@ -116,12 +116,12 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                   isPaginationHidden
                   slides={animalItem.data.imageIds.map(imgId => (
                     <div className="img-holder" style={{ backgroundImage: `url(${BASE_URL}documents/${imgId}/type/medium)` }}></div>
-                  ))
-                }
+                  ))}
                   thumbSlides={animalItem.data.imageIds.map(imgId => (
                     <img src={`${BASE_URL}documents/${imgId}/type/medium`} />
                   ))}
-                />              
+                  thumbSlidesAlignment={ThumbSlidesAlignment.LEFT}
+                />
               </div>
               <div className='column'>
                 <div className='main-info'>
