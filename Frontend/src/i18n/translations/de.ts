@@ -208,9 +208,9 @@ export default {
   countAnimalsFirstPart: 'Der Besitzer wartet',
   countAnimalsSecondPart: 'Pferdeschwanz ',
 
-  sterilized: 'sterilisiert',
-  vaccinated: 'geimpft',
-  readyToAbroad: 'bereit ins Ausland zu gehen',
+  sterilized: 'Sterilisiert',
+  vaccinated: 'Geimpft',
+  readytoabroad: 'Bereit ins Ausland zu gehen',
   speziell: 'speziell',
    theLoss: 'lost',
   //

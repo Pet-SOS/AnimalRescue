@@ -208,9 +208,9 @@ export default {
   countAnimalsFirstPart:'Хозяина ждут',
   countAnimalsSecondPart:'хвостика',
   lookingForAFriendPageClearFilter: 'Сбросить все фильтры',
-  sterilized: 'стерилизован',
-  vaccinated: 'привит',
-  readyToAbroad: 'готов к выезду заграницу',
+  sterilized: 'Стерилизован',
+  vaccinated: 'Привит',
+  readytoabroad: 'Готов к выезду заграницу',
   special:'особенный',
   theLoss:'потеряшка',
 

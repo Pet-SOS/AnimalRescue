@@ -206,9 +206,9 @@ export default {
   countAnimalsSecondPart: 'хвостика',
   lookingForAFriendPageClearFilter: 'Скинути всі фільтри',
 
-  sterilized: 'cтерилізован',
-  vaccinated: 'щеплений',
-  readyToAbroad: 'готов до виїзду за кордон',
+  sterilized: 'Стерилізован',
+  vaccinated: 'Щеплений',
+  readytoabroad: 'Готов до виїзду за кордон',
   special: 'особливий',
    theLoss: 'потеряшка',
 

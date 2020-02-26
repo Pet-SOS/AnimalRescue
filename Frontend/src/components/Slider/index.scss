@@ -94,6 +94,15 @@
 }
 .thumb-swiper {
   padding: 1.5rem 0 0;
+  &.align-left, &.align-right {
+      .swiper-wrapper {
+      transform: none!important;
+      flex-wrap: wrap;
+    }
+  }
+  &.align-right .swiper-wrapper {
+    justify-content: flex-end;
+  }
   .swiper-slide {
     width: auto;
     opacity: 0.5;
