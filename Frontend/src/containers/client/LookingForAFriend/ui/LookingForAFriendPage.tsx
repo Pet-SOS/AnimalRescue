@@ -322,7 +322,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                 tag={this.state.SPECIAL.key}
                             />
                             <CheckBoks
-                                name={<TI18n keyStr='readyToAbroad'/>}
+                                name={<TI18n keyStr='readytoabroad'/>}
                                 setCheckboxCheck={this.setCheckboxCheck.bind(this)}
                                 state={this.state.READYTOTRAVEL.check}
                                 tag={this.state.READYTOTRAVEL.key}
