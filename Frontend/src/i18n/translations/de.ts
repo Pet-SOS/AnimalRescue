@@ -181,8 +181,9 @@ export default {
   blogItemWarning: `Sie können einem kleinen Mädchen mit Freunden für lebensmittelfreie Menschen helfen, mit ihren Händen und sogar mit einem Sirovino für Vigotovlennya, rufen Sie uns an`,
   moreSuccessStories: 'Weitere Erfolgsgeschichten',
   moreUsefulAdvices: 'Weitere nützliche Artikel',
-  usefulAdvices: 'Nützliche Tipps',
-  successStories: 'Erfolgsgeschichten',
+  blogarticle:  'Nützliche Ratschläge',
+  blogstory: 'Erfolgsgeschichten',
+  
 
   number: 'Nummer',
   year: 'Jahr',

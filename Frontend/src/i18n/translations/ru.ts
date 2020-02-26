@@ -181,8 +181,8 @@ export default {
   blogItemWarning: `Можете помочь домиками для бездомных, руками или сырьем для изготовления, свяжитесь с нами по телефону`,
     moreSuccessStories: 'Еще историй успеха',
     moreUsefulAdvices: 'Еще полезных статей',
-    usefulAdvices: 'Полезные советы',
-    successStories: 'Истории успеха',
+    blogarticle: 'Полезные советы',
+    blogstory: 'Истории успеха',
 
   number: 'Номер',
   year: 'год',

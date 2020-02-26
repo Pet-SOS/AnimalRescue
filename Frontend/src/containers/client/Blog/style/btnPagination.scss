@@ -45,5 +45,37 @@
         align-items: center;
         font-size: 1rem;
         margin-right: 0.25rem;
+        &.hide{
+            display: none;
+        }
+        &.first, &.last{
+            position: relative;
+        }
+        &.first{
+           margin-right: 2rem;
+           &::after{
+                position: absolute;
+                content:'...';
+                width: 1rem;
+                font-size: 1rem;
+                line-height: 1.5rem;
+                color: $text-color;
+                right: -1.5rem;
+                bottom: 0;
+           }
+        }
+        &.last{
+            margin-left: 2rem;
+            &::before{
+                position: absolute;
+                content:'...';
+                width: 1rem;
+                font-size: 1rem;
+                line-height: 1.5rem;
+                color: $text-color;
+                left:-1rem;
+                bottom: 0.5rem;
+            }
+        }
     }
 }

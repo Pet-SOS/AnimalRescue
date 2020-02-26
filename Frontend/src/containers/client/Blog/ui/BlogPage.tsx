@@ -24,9 +24,10 @@ interface IPropTypes {
 type MyState = { activeBtn: string };
 
 export class BlogPage extends React.Component<IPropTypes , MyState> {
-    blogFilter : {[key: string]: string}= {
-        story:'Истории успеха',
-        article:'Полезные советы'
+    contantSize = 1;
+    blogFilter : {[key: string]: React.ReactNode}= {
+        story: <TI18n keyStr='blogstory'/>,
+        article:<TI18n keyStr='blogarticle'/>
     }
     blogType:any = new Object();
  
@@ -49,13 +50,13 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
                 }))
                 this.props.fetchBlogList({
                     page: +this.props.match.params.page,
-                    size:15,
+                    size:this.contantSize,
                     filter: this.filterParams
                 });
             } else{
                 this.props.fetchBlogList({
                     page: +this.props.match.params.page,
-                    size:15
+                    size:this.contantSize
                 });
             }
            
@@ -84,7 +85,7 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
        
         this.filterParams.value = typeBtn
         const params  = {
-            size: 15,
+            size: this.contantSize,
             filter: typeBtn === 'all'? null : this.filterParams,
         }
   
@@ -96,7 +97,7 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
             this.filterParams.value = this.state.activeBtn
             this.props.fetchBlogList({
                 page: toPage,
-                size: 15,
+                size: this.contantSize,
                 filter: this.filterParams
             })
             this.props.history.push({
@@ -107,7 +108,7 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
         }else{
             this.props.fetchBlogList({
                 page: toPage,
-                size: 15,
+                size: this.contantSize,
             })
             this.props.history.push({
                 pathname: `/blog/page/${toPage}`

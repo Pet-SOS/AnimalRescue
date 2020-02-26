@@ -45,7 +45,7 @@ interface IState {
 export class LookingForAFriendPage extends React.Component<IPropTypes> {
     public state: any; 
     public toPage: number = 1;
-    public sizeAnimalToPage:number = 6;
+    public sizeAnimalToPage:number = 15;
     public allFilterRequestString: string ='';
     public tagsAll='tags~all~';
     public initialState: any;
@@ -102,7 +102,6 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
             }
         };
         this.initialState = this.state;
-
     }
 
     getCindOfAnimal(type: string): any{
@@ -134,7 +133,6 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 }}, ()=> this.sendFilterRequest())
             }
         })
-       
     }
 
     componentDidMount(){
@@ -217,7 +215,6 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
     }
 
     setLocale(value:string, objLocale:{[key: string]: string}, type:string){
-        
         const keyObj = Object.keys(objLocale)[Object.values(objLocale).indexOf(value)]
          this.props.history.push({
             pathname: `/animals/page/1`,
