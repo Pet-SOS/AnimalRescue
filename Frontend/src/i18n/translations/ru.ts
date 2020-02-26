@@ -243,4 +243,6 @@ export default {
   AnimalSizesmall:'Мелкий',
   AnimalSizemedium:'Средний',
   AnimalSizelarge:'Большой',
+
+  pageNotFound: 'Страница не найдена'
 }

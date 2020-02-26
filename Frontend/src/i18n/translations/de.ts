@@ -237,4 +237,6 @@ export default {
   AnimalSizesmall: 'Klein',
   AnimalSizemedium: 'Mittel',
   AnimalSizelarge: 'Groß',
+
+  pageNotFound: 'Seite nicht gefunden'
 }
