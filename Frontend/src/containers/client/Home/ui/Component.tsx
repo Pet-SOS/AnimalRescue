@@ -1,4 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import {TI18n} from '../../../../i18n';
 import { AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
@@ -22,15 +24,20 @@ import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
 import { IAnimalsListState } from '../../Animals/store/state';
 import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
+import { IYouTubeVideo } from '../../../../api/youtube';
+import { selectInfoContacts } from '../store/selectors';
+import { store } from '../../../../store';
 
 interface IPropTypes {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
   fetchInfoCard: ()=> void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
-  fetchArticlesList:(pageParams?: IRequestParams) => any;
+  fetchArticlesList: (pageParams?: IRequestParams) => any;
+  fetchYouTubeVideos: (count?: number) => void;
   clearAnimalsState: () => void;
   clearInfoCard: () => void;
+  clearYouTubeVideos: () => void;
   animalsList: IAnimalsListState;
   blogListSaved: IBlogListResponse;
   catsList: IAnimalsListState;
@@ -38,6 +45,7 @@ interface IPropTypes {
   sickAnimalsList: IAnimalsListState;
   savedAnimalsCount: ISavedAnimalsCountResponse;
   articleList: IArticleListResponse;
+  videosList: IYouTubeVideo[]
 }
 
 export const HomePageMain: React.FC<IPropTypes> = ({
@@ -46,15 +54,18 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchInfoCard,
   fetchBlogList,
   fetchArticlesList,
+  fetchYouTubeVideos,
   animalsList,
   blogListSaved,
   articleList,
   catsList,
   dogsList,
+  videosList,
   sickAnimalsList,
   savedAnimalsCount,
   clearAnimalsState,
   clearInfoCard,
+  clearYouTubeVideos,
 }) => {
   useEffect(() => {
     fetchAnimalsRequest();
@@ -64,6 +75,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchBlogList(AllTag.SAVED);
     fetchSavedAnimalsCount();
     fetchInfoCard();
+    fetchYouTubeVideos(2);
     fetchArticlesList({filter:{
       fieldName: 'type',
       opeartor: RequestFilterOperators.EQ,
@@ -72,6 +84,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     return () => {
       clearAnimalsState();
       clearInfoCard();
+      clearYouTubeVideos();
     }
   }, [])
   const getCounterDateString = (): string => {
@@ -79,6 +92,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     const yearString: string = `${currentDate.getFullYear()}`;
     return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;
   }
+  const youTubeChannelLink: string = useSelector(() => (selectInfoContacts(store.getState()).data.socialLinks.youtube));
   return (
     <React.Fragment>
       <HelpBlock
@@ -142,18 +156,18 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           }}
           story={true}
         />
-        <YouTubeBox
-          title={<TI18n keyStr="titleYouTubeBox" default="Видео-истории" />}
-          backgroundColor='#ffffff'
-          subTitle={<TI18n keyStr="subTitleYouTubeBox" default="Истории о спасенных животных" />}
-          links={[
-            {src: 'https://www.youtube.com/embed/JE0yDo7Qkec',
-              title:'История спасенного зенненхунда'
-             }, {
-               src:'https://www.youtube.com/embed/I4IuqbcgpBs',
-               title:'Мне кажется, животным не хватает любви'
-             }]}
-        />
+        {!!videosList && !!videosList.length && (
+          <YouTubeBox
+            title={<TI18n keyStr="titleYouTubeBox" default="Видео-истории" />}
+            backgroundColor='#ffffff'
+            subTitle={<TI18n keyStr="subTitleYouTubeBox" default="Истории о спасенных животных" />}
+            videoLinks={videosList.slice(0, 2).map(video => ({
+              src: `https://www.youtube.com/embed/${video.id.videoId}`,
+              title: video.snippet.title
+            }))}
+            channelLink={youTubeChannelLink}
+          />
+        )}
         <div className="animals-slider-wrapper">
           {dogsList.data && dogsList.data.length > 0 && <AnimalsSlider
             data={dogsList.data}
