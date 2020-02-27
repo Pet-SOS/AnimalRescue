@@ -65,11 +65,20 @@ export class FavoritesPage extends React.Component<IPropTypes> {
 
                     {favoriteAnimalsCount() > 0 && 
                         <div className="text">
+                            {favoriteAnimalsCount() > 1 &&
                                 <span>
                                     <TI18n keyStr='itLikedYouText' default='Вам сподобалися ' />
                                     {favoriteAnimalsCount()}
                                     <TI18n keyStr='tailsText' default=' хвостиків' />
-                                </span>                        
+                                </span>  
+                            }    
+                            {favoriteAnimalsCount() === 1 &&
+                                <span>
+                                    <TI18n keyStr='itLikedYouText1' default='Вам сподобався ' />
+                                    1
+                                    <TI18n keyStr='tailsText1' default=' хвостик' />
+                                </span>  
+                            }                     
                         </div> 
                     }
                 </div>

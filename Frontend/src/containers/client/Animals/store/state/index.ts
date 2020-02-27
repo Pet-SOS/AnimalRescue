@@ -1,6 +1,8 @@
 import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
 import { IAnimalsResponse, ISavedAnimalsCountResponse } from "../../../../../api/animals";
 
+export const DEFAULT_SAVED_ANIMALS_COUNT: number = 3000;
+
 export interface IAnimalsListState extends IAnimalsResponse {
   isLoading: boolean;
   isLoaded: boolean;

@@ -17,47 +17,50 @@ const crateFormData = (data: Object) => {
 
 export enum Gender {MALE = 'male', FEMALE = 'female', ANY='any'}
 
-export enum AnimalKind { CAT = 'cat', DOG = 'dog', ANY='any'}
-export enum AnimalBreed {
-    ANY='Любая',
-    METIS='Метис',
-    ALABAI='Алабай',
-    SHEPHERD='Овчарка',
-    DOBERMAN='Доберман',
-    STAFFORD='Стаффорд',
-    DACHSHUND='Такса'
-}
-export enum AnimalSize {
-    ANY='Любой',
-    SMALL='Мелкий',
-    MEDIUM='Средний',
-    LARGE='Большой'
-}
+export enum AnimalKind { CAT = 'CAT', DOG = 'DOG', ANY='ANY'}
 export enum AnimalGender{
-    ANY='Любой',
-    MALE = 'Мальчик',
-    FEMALE = 'Девочка', 
+    ANY='any',
+    MALE = 'male',
+    FEMALE = 'female', 
 }
 export enum AnimalFilterKind { 
-    ANY='Любой',
-    DOG = 'Собака',
-    CAT = 'Котик'
+    ANY='any',
+    DOG = 'dog',
+    CAT = 'cat',
+}
+export enum AnimalBreed {
+    ANY='any',
+    METIS='metis',
+    ALABAI='alabai',
+    SHEPHERD='shepherd',
+    DOBERMAN='doberman',
+    STAFFORD='stafford',
+    DACHSHUND='dachshund'
 }
 
 export enum AnimalAge{
-    ANY='Любой',
-    TOONE = 'от 6 до 12 мес',
-    TOTHREE = 'от 1 до 3 лет', 
-    TOFIVE= 'от 3 до 5 лет',
-    FROMFIVE= 'от 5 лет'
+    ANY='any',
+    TOONE = 'toOne',
+    TOTHREE = 'toThree', 
+    TOFIVE= 'toFive',
+    FROMFIVE= 'fromFive'
 }
+
+export enum AnimalSize {
+    ANY='any',
+    SMALL='small',
+    MEDIUM='medium',
+    LARGE='large'
+}
+
 export enum Tags{
     VACCINATED='привит',
     READYTOTRAVEL='доступен для выезда заграницу',
     TREATMENT='на лечении',
     SPECIAL='особенный',
     STERILIZED='стерилизован',
-    SAVED='спасен'
+    SAVED='спасен',
+    THELOSS ='потеряшка'
 }
 export interface IAnimal {
   number: number

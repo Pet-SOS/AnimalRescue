@@ -26,6 +26,7 @@
     }
     .custom-slider-inner {
       border-radius: 1.5rem;
+      background-color: $bg-lite-lite;
     }
     .swiper-slide {
       height: 29.625rem;
@@ -37,8 +38,9 @@
       .img-holder {
         width: 100%;
         height: 100%;
-        background-size: cover;
+        background-size: contain;
         background-position: center;
+        background-repeat: no-repeat;
       }
     }
     .thumb-swiper .swiper-slide {
@@ -89,10 +91,10 @@
         background: $bg-lite-lite;
         border-radius: 1rem;
         margin: 0 1rem 1rem 0;
-        &:nth-last-child(-n+3) {
+        &.medical  {
           background: $bg-lite-green;
         }
-        &:last-child {
+        &.additional {
           background: $btn-story;
           span {
             display: inline-block;

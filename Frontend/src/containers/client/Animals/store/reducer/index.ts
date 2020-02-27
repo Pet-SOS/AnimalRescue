@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { DEFAULT_ANIMALS_STATE, IAnimalsState } from "../state";
+import { DEFAULT_ANIMALS_STATE, IAnimalsState, DEFAULT_SAVED_ANIMALS_COUNT } from "../state";
 import { getType } from "typesafe-actions";
 import { genericRequestReducer, DEFAULT_REQUEST_STATE } from "../../../../../api";
 import {
@@ -185,19 +185,21 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(actionFetchSavedAnimalsCountSuccess):
       return {
         ...state,
-        savedAnimalsCount: action.payload,
+        savedAnimalsCount: {
+          ...action.payload,
+          data: DEFAULT_SAVED_ANIMALS_COUNT + +action.payload.data
+        },
         savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
       }
     case getType(actionFetchSavedAnimalsCountFailure):
       return {
         ...state,
-        savedAnimalsCount: action.payload,
         savedAnimalsCountRequestState: fetchSavedAnimalsCountStateReducer(state.savedAnimalsCountRequestState, action)
       }
     case getType(actionClearSavedAnimalsCount): {
       return {
         ...state,
-        savedAnimalsCount: { data: 0, self: '' },
+        savedAnimalsCount: { ...DEFAULT_ANIMALS_STATE.savedAnimalsCount },
         savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE }
       }
     }

@@ -72,7 +72,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
   }
   const getItemSubtitle = (): JSX.Element => {
     const dateString = getItemDateString();
-    const itemTypeSubtitle = blogItem.data.type === BlogTypes.ARTICLE ? <TI18n keyStr='usefulAdvices' default='Полезные советы' /> : <TI18n keyStr='successStories' default='Истории успеха' />
+    const itemTypeSubtitle = blogItem.data.type === BlogTypes.ARTICLE ? <TI18n keyStr='blogarticle' default='Полезные советы' /> : <TI18n keyStr='blogstory' default='Истории успеха' />
     return <React.Fragment>{!!dateString ? <span className='item-date'>{dateString}</span> : ''}{itemTypeSubtitle}</React.Fragment>
   }
   
