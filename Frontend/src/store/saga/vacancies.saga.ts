@@ -1,7 +1,7 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { getType } from "typesafe-actions";
-import { IRequestParams } from "../../../../../api/requestOptions";
-import { fetchVacancies } from "../../../../../api/vacancies";
+import { IRequestParams } from "../../api/requestOptions";
+import { fetchVacancies } from "../../api/vacancies";
 import { actionFetchVacanciesSuccess, actionFetchVacanciesFailure, actionFetchVacanciesRequest } from "../actions/vacancies.actions";
 
 function* getVacancies(action: { type: string, payload?: IRequestParams }) {
