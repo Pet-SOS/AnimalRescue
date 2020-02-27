@@ -97,4 +97,19 @@ export const actionClearEntireAnimalsState = createAction(
 export const onAnimalFavoriteButtonClicked = createAction(
   'ANIMAL_FAVORIVE_BUTTON_CLICKED',
   (resolve) => (id: string) => resolve(id)
-)
+);
+export const actionFetchFavoriteAnimalsRequest = createAction(
+  'FETCH_FAVORITES_REQUEST',
+  (resolve) => (requestParams?: IRequestParams) => resolve(requestParams)
+);
+export const actionFetchFavoriteAnimalsSuccess = createAction(
+  'FETCH_FAVORITES_SUCCESS',
+  (resolve) => (data: IAnimalsResponse) => resolve({ data })
+);
+export const actionFetchFavoriteAnimalsFailure = createAction(
+  'FETCH_FAVORITES_FAILURE',
+  (resolve) => (error: Error) => resolve({ error })
+);
+export const actionFetchClearFavoriteAnimals = createAction(
+  'CLEAR_FAVORITES'
+);

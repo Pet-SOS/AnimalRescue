@@ -214,5 +214,10 @@ export default {
   fromTwoToFourMonths: 'місяці',
   fromFiveToTwelveMonths: 'місяців',
   week: 'тиждень',
-  fromTwoToFourWeeks: 'тиждні'
+  fromTwoToFourWeeks: 'тиждні',
+
+  favoritesPageTitle: 'Mені сподобалися',
+  noneFavoriteAnimalsText: 'Ви поки не відзначили нікого з тварин, придивіться, раптом ваш друг чекає вас у нас.',
+  itLikedYouText: 'Вам сподобалися ',
+  tailsText: ' хвостиків',
 }

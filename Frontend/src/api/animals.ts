@@ -138,3 +138,8 @@ export async function fetchAnimalItem(id: string): Promise<IAnimalResponse> {
   const res = await API.get(`animals/${id}`);
   return res.data
 }
+
+export async function fetchFavoriteAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
+    const res = await API.post(`animals/bunch`, {params: prepareRequestParams(requestParams)});
+    return res.data
+}

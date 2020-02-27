@@ -17,6 +17,8 @@ export interface IAnimalsState {
   savedAnimalsCount: ISavedAnimalsCountResponse;
   savedAnimalsCountRequestState: IRequestState;
   favoriteAnimalsIds: string[];
+  favoriteAnimalsListRequestState: IRequestState;
+  favoriteAnimalsList: IAnimalsListState;
 }
 
 export const DEFAULT_ANIMALS: IAnimalsListState = {
@@ -46,5 +48,7 @@ export const DEFAULT_ANIMALS_STATE: IAnimalsState = {
   dogsListRequestState: { ...DEFAULT_REQUEST_STATE },
   savedAnimalsCount: { data: 0, self: '' },
   savedAnimalsCountRequestState: { ...DEFAULT_REQUEST_STATE },
-  favoriteAnimalsIds: getDefaultFavoriteAnimalsIds()
+  favoriteAnimalsIds: getDefaultFavoriteAnimalsIds(),
+  favoriteAnimalsList: { ...DEFAULT_ANIMALS },
+  favoriteAnimalsListRequestState: { ...DEFAULT_REQUEST_STATE },
 };
