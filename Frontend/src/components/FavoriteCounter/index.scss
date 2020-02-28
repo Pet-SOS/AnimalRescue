@@ -5,20 +5,20 @@
   min-height: 1.375rem;
   span {
     display: inline-block;
-    margin: 0 0 0 0.75rem;
+    margin: 0 0 0 7px;
     color: $text-lite-color;
   }
-  &:before {
-    content: '';
-    width: 1.5rem;
-    height: 1.375rem;
-    background: url('./../../assets/header/heart.svg') no-repeat center / contain;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  &.active:before {
-    background-image: url('./../../img/icons/icon-heart-active.png');
-  }
+  //&:before {
+  //  content: '';
+  //  width: 1.5rem;
+  //  height: 1.375rem;
+  //  background: url('./../../assets/header/heart.svg') no-repeat center / contain;
+  //  position: absolute;
+  //  left: 0;
+  //  top: 50%;
+  //  transform: translateY(-50%);
+  //}
+  //&.active:before {
+  //  background-image: url('./../../img/icons/icon-heart-active.png');
+  //}
 }

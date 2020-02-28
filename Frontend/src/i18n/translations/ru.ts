@@ -5,9 +5,10 @@ export default {
   hotLinePhones: 'Круглосуточно 24/7',
 
   headerTitle: 'Спасение животных Харьков',
+  headerMenuItem0: 'Главная',
   headerMenuItem1: 'О службе',
   headerMenuItem2: 'Ищу друга',
-  headerMenuItem3: 'Как я могу помочь?',
+  headerMenuItem3: 'Как я могу помочь',
   blog: 'Блог',
   contacts: 'Контакты',
   help: 'Помочь',
