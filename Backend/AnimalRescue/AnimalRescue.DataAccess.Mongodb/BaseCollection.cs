@@ -35,7 +35,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
             Require.Objects.NotNull(database, nameof(database));
             Require.Objects.NotNull(queryBuilder, nameof(queryBuilder));
-
+ 
             this.database = database;
             this.collection = database.GetCollection<T>(collectionName);
             this.queryBuilder = queryBuilder;
@@ -58,7 +58,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<List<T>> GetAsync(DbQuery query)
         {
             List<T> requestedCollection = await collection
-                .Find(queryBuilder.FilterAsString(query.Filter))
+                .Find(queryBuilder.FilterAsFilterDefinition(query.Filter))
                 .Sort(queryBuilder.SortAsString(query.Sort))
                 .Skip(query.Skip)
                 .Limit(query.Size)
@@ -70,7 +70,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<int> GetCountAsync(DbQuery query)
         {
             long count = await collection
-                .Find(queryBuilder.FilterAsString(query.Filter))
+                .Find(queryBuilder.FilterAsFilterDefinition(query.Filter))
                 .CountDocumentsAsync();
 
             return (int)count;

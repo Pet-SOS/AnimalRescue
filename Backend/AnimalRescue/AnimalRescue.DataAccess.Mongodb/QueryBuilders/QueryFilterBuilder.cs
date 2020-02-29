@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using MongoDB.Driver;
+
+using System.Linq;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
@@ -20,6 +22,19 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             var result = filterArrey != null  
                 ? "{" + string.Join(",", filterArrey) + "}"  
                 : defaultFilter;
+
+            return result;
+        }
+        public FilterDefinition<T> BuildFilterParams<T>(string rowFilterParams)
+        {
+            var filterArrey = rowFilterParams?
+                .Split(";")
+                .Select(data => new StrictTerm<T>(aliasStore, data))
+                .Select(term => term.GetDbTermFilterDefinition());
+
+            var result = filterArrey != null  
+                ? Builders<T>.Filter.And(filterArrey)
+                : Builders<T>.Filter.Empty;
 
             return result;
         }
