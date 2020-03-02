@@ -11,6 +11,7 @@ export const selectDogsList = (state: ICustomAppState): IAnimalsListState => sta
 export const selectCatsList = (state: ICustomAppState): IAnimalsListState => state[ANIMALS_KEY].catsList;
 export const selectSavedAnimalsCount = (state: ICustomAppState): ISavedAnimalsCountResponse => state[ANIMALS_KEY].savedAnimalsCount;
 export const selectFavoriteAnimalsIds = (state: ICustomAppState): string[] => state[ANIMALS_KEY].favoriteAnimalsIds; 
+export const selectFavoriteAnimalsList = (state: ICustomAppState): IAnimalsListState => state[ANIMALS_KEY].favoriteAnimalsList;
 
 export const sickAnimalsCheckAndLoadDefault = (): void => {
   const state: IAnimalsListState = selectSickAnimals(store.getState());

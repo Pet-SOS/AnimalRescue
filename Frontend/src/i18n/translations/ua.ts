@@ -242,5 +242,12 @@ export default {
   AnimalSizemedium: 'Середній',
   AnimalSizelarge: 'Великий',
 
-  pageNotFound: 'Сторінку не знайдено'
+  pageNotFound: 'Сторінку не знайдено',
+
+  favoritesPageTitle: 'Mені сподобалися',
+  noneFavoriteAnimalsText: 'Ви поки не відзначили нікого з тварин, придивіться, раптом ваш друг чекає вас у нас.',
+  itLikedYouText: 'Вам сподобалися ',
+  tailsText: ' хвостиків',
+  itLikedYouText1: 'Вам сподобався ',
+  tailsText1: ' хвостик',
 }

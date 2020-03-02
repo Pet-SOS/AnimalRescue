@@ -55,7 +55,7 @@ export default {
   readStory: 'Geschichte lesen',
 
   dogsListTitle: 'Unsere Hunde',
-  catsListTitle: 'Unsere Siegel',
+  catsListTitle: 'Unsere Katzen',
 
   female: 'Mädchen',
   male: 'Junge',
@@ -214,6 +214,13 @@ export default {
   readytoabroad: 'Bereit ins Ausland zu gehen',
   speziell: 'speziell',
    theLoss: 'lost',
+
+  fromTwoToFourYears: 'Jahre',
+  fromFiveToTwentyYears: 'Jahre',
+  fromTwoToFourMonths: 'Monate',
+  fromFiveToTwelveMonths: 'Monate',
+  week: 'Woche',
+  fromTwoToFourWeeks: 'Wochen',
   //
   AnimalFilterKindany: 'Beliebig',
   AnimalFilterKinddog: 'Hund',
@@ -238,5 +245,12 @@ export default {
   AnimalSizemedium: 'Mittel',
   AnimalSizelarge: 'Groß',
 
-  pageNotFound: 'Seite nicht gefunden'
+  pageNotFound: 'Seite nicht gefunden',
+
+  favoritesPageTitle: 'Ich mag',
+  noneFavoriteAnimalsText: 'Sie haben noch keines der Tiere bemerkt, schauen Sie mal, plötzlich wartet Ihr Freund mit uns auf Sie.',
+  itLikedYouText: 'Sie mochten die ',
+  tailsText: ' Schwänze', 
+  itLikedYouText1: 'Sie mochten ',
+  tailsText1: ' Schwanz', 
 }
