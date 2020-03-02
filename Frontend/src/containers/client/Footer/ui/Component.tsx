@@ -17,9 +17,14 @@ export const AppFooter: React.FC = () =>  (
       <div className="footer-top">
         <div className="column">
           <ul>
-            <li>
+            <li className='desktop-view mobile-view'>
               <NavLink to="/about" className="head-link">
                 <TI18n keyStr="footerAbout" default="О службе" />
+              </NavLink>
+            </li>
+            <li className='mobile-view'>
+              <NavLink to={HELP_PAGE_LINKS.default} className="head-link">
+                <TI18n keyStr="footerHowToHelp" default="Как помочь" />
               </NavLink>
             </li>
             <li>
@@ -38,12 +43,7 @@ export const AppFooter: React.FC = () =>  (
               </NavLink>
             </li>
           </ul>
-          <ul>
-            <li>
-              <NavLink className="head-link" to='/animals/page/1'><TI18n keyStr="animals" default="Животные" /></NavLink>
-            </li>
-          </ul>
-          <ul>
+          <ul className='desktop-view'>
             <li>
               <NavLink to={HELP_PAGE_LINKS.default} className="head-link">
                 <TI18n keyStr="footerHowToHelp" default="Как помочь" />
@@ -68,6 +68,9 @@ export const AppFooter: React.FC = () =>  (
           <div className="custom-list">
             <ul>
               <li>
+                <NavLink className="head-link" to='/animals/page/1'><TI18n keyStr="headerMenuItem2" default="Ищу друга" /></NavLink>
+              </li>
+              <li>
                 <NavLink to="/blog/page/1" className="head-link">
                   <TI18n keyStr="blog" default="Блог" />
                 </NavLink>
@@ -78,14 +81,16 @@ export const AppFooter: React.FC = () =>  (
                 </NavLink>
               </li>
             </ul>
-            <SocialLinks />
           </div>
         </div>
         <div className="column">
           <PhoneLink/>
-          <Button onClick={() => { store.dispatch(actionIsActivePopup(true)) }} styleType={ButtonTypes.Blue}>
-            <TI18n keyStr="help" default="Помочь" />
-          </Button>
+          <div className='buttons-holder'>
+            <SocialLinks />
+            <Button onClick={() => { store.dispatch(actionIsActivePopup(true)) }} styleType={ButtonTypes.Blue}>
+              <TI18n keyStr="help" default="Помочь" />
+            </Button>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">

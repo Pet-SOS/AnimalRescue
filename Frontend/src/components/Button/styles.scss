@@ -20,8 +20,10 @@
     border-radius: 4.81rem;
     height: inherit;
     text-align: center;
-    padding: 1rem 3.25rem;
+    padding: 1rem 1.5rem;
     letter-spacing: 0.1em;
+    min-width: 9.75rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
     &:focus, &:hover{
       background: $btn-hover!important;
     }
