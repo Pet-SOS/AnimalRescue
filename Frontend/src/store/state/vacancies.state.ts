@@ -1,5 +1,5 @@
-import { IVacanciesResponse } from './../../../../../api/vacancies';
-import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
+import { IVacanciesResponse } from '../../api/vacancies';
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../api';
 
 export interface IVacanciesState extends IVacanciesResponse {
   isLoading: boolean;

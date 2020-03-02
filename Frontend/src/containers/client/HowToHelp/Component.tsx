@@ -9,7 +9,7 @@ import { IAnimalsListState } from '../Animals/store/state';
 import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IInfoCard } from '../Home/store/state';
 import { infoCardCheckAndLoad } from '../Home/store/selectors';
-import { IVacanciesState } from '../Vacancies/store/state/vacancies.state';
+import { IVacanciesState } from '../../../store/state/vacancies.state';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
