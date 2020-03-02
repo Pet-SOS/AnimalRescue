@@ -1,8 +1,36 @@
+@import './../../styles/variables.scss';
+
 .social-links {
   display: flex;
   flex-direction: row;
-  padding-top: 1rem;
-  svg {
-    cursor: pointer;
+  li {
+    margin: 0 .5rem;
+    min-height: 3.375rem;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  a {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: 1px solid $bg-lite-box;
+    box-shadow: 0px 4px 6px $bg-lite-lite;
+    background-repeat: no-repeat;
+    background-position: center;
+    &.facebook {
+      background-image: url('./../../img/icons/facebook.png');
+    }
+    &.instagram {
+      background-image: url('./../../img/icons/instagram.png');
+    }
+    &.youtube {
+      background-image: url('./../../img/icons/youtube.png');
+    }
   }
 }
