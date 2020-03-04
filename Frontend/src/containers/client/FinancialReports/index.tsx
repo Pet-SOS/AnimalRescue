@@ -1,10 +1,12 @@
 import { FinancialReportsPage } from './ui/FinancialReportsPage'
+import { FinancialReportsListPage } from './ui/FinancialReportsListPage'
 import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 
 import { ICustomAppState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { actionFetchSickAnimals } from '../Animals/store/actions';
 import { actionFetchInfoCard, actionFetchInfoContacts } from '../Home/store/actions';
+import { actionFinancialReportRequest } from './store/actions';
 
 
 
@@ -13,6 +15,7 @@ const mapStateToProps = (state: ICustomAppState) => {
         sickAnimalsList: state.animals.sickAnimalsList,
         infoCard: state.homePage.infoCard,
         infoContacts: state.homePage.infoContacts,
+        financeReports:state.financialReport.financeReports
 
     };
   };
@@ -21,7 +24,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
         {
             fetchSickAnimals: actionFetchSickAnimals,
             fetchInfoCard: actionFetchInfoCard,
-            fetchInfoContacts: actionFetchInfoContacts, 
+            fetchInfoContacts: actionFetchInfoContacts,
+            fetchFinancialReport: actionFinancialReportRequest,
         },
         dispatch
       )
@@ -29,3 +33,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
 
 
 export const FinancialReports = connect(mapStateToProps, mapDispatchToProps)(FinancialReportsPage);
+export const FinancialReportsList = connect(mapStateToProps, mapDispatchToProps)(FinancialReportsListPage);

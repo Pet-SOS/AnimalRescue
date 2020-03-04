@@ -18,6 +18,15 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+    .reports{
+        color: $text-color-active;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1.5rem;
+        @media all and (max-width:680px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+    }
     .report{
         background: $bg-orange;
         border-radius: 1.5rem;
@@ -52,6 +61,9 @@
             font-size: 3rem;
             line-height: 1.5rem;
         }
+    }
+    .pdf-icon{
+        margin-right: 1rem;
     }
 
 }

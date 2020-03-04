@@ -8,6 +8,7 @@ import { ARTICLES_KEY, articlesReducer } from "../../containers/client/Articles/
 import { blogItemReducer, BLOG_ITEM_KEY } from './../../containers/client/Blog/store/reducer/blogitem.reducer';
 import { VACANCIES_KEY, vacanciesReducer } from './../../containers/client/Vacancies/store/reducer/vacancies.reducer';
 import { ANIMAL_ITEM_KEY, animalItemReducer } from './../../containers/client/Animals/store/reducer/animal.reducer';
+import { REPORT_KEY, financialReportReducer } from "../../containers/client/FinancialReports/store/reducer";
 
 export const createReducers = () => {
     return combineReducers({
@@ -19,6 +20,7 @@ export const createReducers = () => {
         [BLOGS_KEY]: blogsReducer,
         [BLOG_ITEM_KEY]: blogItemReducer,
         [ARTICLES_KEY]: articlesReducer,
-        [VACANCIES_KEY]: vacanciesReducer
+        [VACANCIES_KEY]: vacanciesReducer,
+        [REPORT_KEY]: financialReportReducer
     })
 };

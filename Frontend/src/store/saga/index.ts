@@ -8,6 +8,7 @@ import { watchArticles } from '../../containers/client/Articles/store/saga';
 import { watchBlogItem } from '../../containers/client/Blog/store/saga/blogitem.saga';
 import { watchVacancies } from '../../containers/client/Vacancies/store/saga/vacancies.saga';
 import { watchAnimalItem } from '../../containers/client/Animals/store/saga/animalitem.saga';
+import { watchFinancialReport } from '../../containers/client/FinancialReports/store/saga';
 
 export function* appSaga() {
     try {
@@ -19,7 +20,8 @@ export function* appSaga() {
           watchBlogItem(),
           watchArticles(),
           watchVacancies(),
-          watchAnimalItem()
+          watchAnimalItem(),
+          watchFinancialReport()
         ]);
     } catch (e) {
         logger.error(e);
