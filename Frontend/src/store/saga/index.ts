@@ -8,6 +8,7 @@ import { watchArticles } from '../../containers/client/Articles/store/saga';
 import { watchBlogItem } from '../../containers/client/Blog/store/saga/blogitem.saga';
 import { watchVacancies } from './vacancies.saga';
 import { watchAnimalItem } from '../../containers/client/Animals/store/saga/animalitem.saga';
+import { watchFinancialReport } from '../../containers/client/FinancialReports/store/saga';
 import { watchYouTubeVideosActions } from './youtube-videos.saga';
 
 export function* appSaga() {
@@ -21,6 +22,7 @@ export function* appSaga() {
           watchArticles(),
           watchVacancies(),
           watchAnimalItem(),
+          watchFinancialReport(),
           watchYouTubeVideosActions()
         ]);
     } catch (e) {

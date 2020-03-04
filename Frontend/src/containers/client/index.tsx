@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch, RouteComponentProps} from 'react-router';
 import { AppHeader } from './Header';
 import {HomePage} from './Home';
-import {FinancialReports} from './FinancialReports';
+import {FinancialReports, FinancialReportsList} from './FinancialReports';
 import { RulesPage, RULES_PAGE_LINK } from './Rules';
 import { HowToHelpPage, HELP_PAGE_LINKS } from './HowToHelp';
 import { AppFooter }  from './Footer';
@@ -26,6 +26,7 @@ export const Client: React.FC<IPropTypes> = (props: IPropTypes) => {
             <Route path='/about' component={AboutPage} exact />
             <Route path={`/about${RULES_PAGE_LINK}`} component={RulesPage} exact />
             <Route path='/about/financial-reports' component={FinancialReports} exact />
+            <Route path='/about/financial-reports/:year' component={FinancialReportsList} exact />
             <Route path={HELP_PAGE_LINKS.default} component={HowToHelpPage} exact />
             <Route path='/contacts' component={Contacts} exact />
             <Route path='/blog/:blogId' component={BlogItemPage} exact />

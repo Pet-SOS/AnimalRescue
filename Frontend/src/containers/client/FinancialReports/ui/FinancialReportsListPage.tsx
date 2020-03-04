@@ -5,11 +5,12 @@ import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';
 import '../styles/financialReportsPage.scss';
 import { IInfoCard, IInfoContacts } from '../../Home/store/state';
-import { IFinancialReport } from '../../../../api/financialReport';
-import { NavLink } from 'react-router-dom';
+import { IFinancialReport, IInfoFile, fetchFinancialReporDocument } from '../../../../api/financialReport';
+import { ReactComponent as Pdf } from '../../../../img/pdf.svg';
 
 
 interface IPropTypes {
+    match: any;
     sickAnimalsList: IAnimalsListState;
     infoCard: IInfoCard;
     infoContacts: IInfoContacts;
@@ -19,32 +20,75 @@ interface IPropTypes {
     fetchInfoContacts:() => void;
     fetchFinancialReport:()=> void;
 }
-export class FinancialReportsPage extends React.Component<IPropTypes> {
+interface IState{
+    reports: string[];
+    pdfReport: {
+        file: string;
+        url: string;
+    }
+}
+export class FinancialReportsListPage extends React.Component<IPropTypes, IState> {
+    year = this.props.match.params.year;
+    reports: IInfoFile[] = [];
+
+    constructor(props: IPropTypes) {
+        super(props);
+        this.state= {
+            reports:[],
+            pdfReport: {
+                file:'',
+                url: ''
+            }
+        }
+    }
+
     componentDidMount(){
-        this.props.fetchFinancialReport();
         if(store.getState().animals.sickAnimalsList.totalCount === 0){
             this.props.fetchSickAnimals();
             this.props.fetchInfoCard();
             this.props.fetchInfoContacts()
+            this.props.fetchFinancialReport();
         }
     }
+
+    getFinanceReportsForYear(){
+        this.props.financeReports.map((iter: IFinancialReport)=>{
+            if(iter.date == this.year){
+                this.reports=[...iter.reports];
+            }
+        })
+    }
+
+    openPdfFile(item: IInfoFile){
+        fetchFinancialReporDocument(item.fileId)
+        .then((resp)=>{
+            const file = new Blob(
+                [resp.data],
+                {type: 'application/pdf'});
+            const fileURL =URL.createObjectURL(file);    
+
+           const strWindowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
+            window.open(fileURL,'pdf-report', strWindowFeatures);
+         })
+        .catch(error => {
+            console.log(error);
+          });
+    }
+
     render(){
+        this.getFinanceReportsForYear();
         return (
         <React.Fragment>
             <div className='financial-report-block'>
                 <div className="content">
                     <div className="title"> <TI18n keyStr="financialReportsPageTitle" default="Финансовые отчеты"/></div>
                     <div className="text-report"> <TI18n keyStr="financialReportsPageText" default="Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены"/></div>
-                    <ul className='box-reports'>
+                    <ul className='reports'>
                     {
-                        this.props.financeReports.map((item, i:number)=>
-                            <li key={i}>
-                                <NavLink to={`/about/financial-reports/${item.date}`} className='report' href={`/${item.date}`}>
-                                    <p className='title-report'>{ <TI18n keyStr="financialReportsPageTitle"/>}</p>
-                                    <p className='date-report'>{item.date}</p>
-                                </NavLink>
-                            </li>
-                        )
+                        this.reports.map((item, i:number)=>
+                            <li key={i} onClick={()=>{this.openPdfFile(item)}}>
+                                <Pdf className='pdf-icon' />{item.title}
+                            </li>)
                     }
                    </ul>
                 </div>
