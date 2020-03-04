@@ -32,5 +32,4 @@ function* fetchHomePageInfoContacts(){
 export function* watchHomePage() {
   yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
   yield takeEvery(getType(actionFetchInfoContacts), fetchHomePageInfoContacts);
-  yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
 }

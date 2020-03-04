@@ -6,9 +6,10 @@ import { BLOGS_KEY, blogsReducer } from './../../containers/client/Blog/store/re
 import {i18nReducer} from "../../i18n/store/reducer";
 import { ARTICLES_KEY, articlesReducer } from "../../containers/client/Articles/store/reducer";
 import { blogItemReducer, BLOG_ITEM_KEY } from './../../containers/client/Blog/store/reducer/blogitem.reducer';
-import { VACANCIES_KEY, vacanciesReducer } from './../../containers/client/Vacancies/store/reducer/vacancies.reducer';
+import { VACANCIES_KEY, vacanciesReducer } from './vacancies.reducer';
 import { ANIMAL_ITEM_KEY, animalItemReducer } from './../../containers/client/Animals/store/reducer/animal.reducer';
 import { REPORT_KEY, financialReportReducer } from "../../containers/client/FinancialReports/store/reducer";
+import { videosReducer, YOUTUBE_VIDEOS_KEY } from "./youtube-videos.reducer";
 
 export const createReducers = () => {
     return combineReducers({
@@ -21,6 +22,7 @@ export const createReducers = () => {
         [BLOG_ITEM_KEY]: blogItemReducer,
         [ARTICLES_KEY]: articlesReducer,
         [VACANCIES_KEY]: vacanciesReducer,
-        [REPORT_KEY]: financialReportReducer
+        [REPORT_KEY]: financialReportReducer,
+        [YOUTUBE_VIDEOS_KEY]: videosReducer
     })
-};
+  }

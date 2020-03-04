@@ -1,6 +1,6 @@
 import { actionClearVacanciesState } from './../actions/vacancies.actions';
-import { IVacanciesState, DEFAULT_VACANCIES_STATE } from './../state/vacancies.state';
-import { genericRequestReducer } from "../../../../../api";
+import { IVacanciesState, DEFAULT_VACANCIES_STATE } from '../state/vacancies.state';
+import { genericRequestReducer } from "../../api";
 import { actionFetchVacanciesRequest, actionFetchVacanciesSuccess, actionFetchVacanciesFailure } from "../actions/vacancies.actions";
 import { AnyAction } from 'redux';
 import { getType } from 'typesafe-actions';

@@ -22,13 +22,14 @@ import {
   actionFetchDogsRequest,
   actionFetchAnimalsRequest,
   actionFetchSavedAnimalsCount,
-  actionFetchSickAnimals,
   actionClearEntireAnimalsState
 } from "../Animals/store/actions";
 import { selectBlogListSaved } from "../Blog/store/selectors";
 import { actionFetchBlogListSavedRequest, actionFetchBlogListRequest } from "../Blog/store/actions";
 import { selectArticleList } from "../Articles/store/selectors";
 import { actionFetchArticleListRequest } from "../Articles/store/actions";
+import { loadYouTubeVideos, clearYouTubeVideos } from "../../../store/actions/youtube-videos.actions";
+import { selectVideosList } from "../../../store/selectors/youtube-videos.selectors";
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
@@ -38,6 +39,7 @@ const mapStateToProps = (state: ICustomAppState) => ({
   sickAnimalsList: selectSickAnimals(state),
   savedAnimalsCount: selectSavedAnimalsCount(state),
   articleList: selectArticleList(state),
+  videosList: selectVideosList(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({ 
@@ -68,7 +70,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   },
   fetchArticlesList:(pageParams?: IRequestParams) => dispatch(actionFetchArticleListRequest(pageParams)),
   clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
-  clearInfoCard: () => dispatch(actionClearInfoCard())
+  clearInfoCard: () => dispatch(actionClearInfoCard()),
+  fetchYouTubeVideos: (count?: number) => dispatch(loadYouTubeVideos(count)),
+  clearYouTubeVideos: () => dispatch(clearYouTubeVideos())
 })
 
 export const HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePageMain);

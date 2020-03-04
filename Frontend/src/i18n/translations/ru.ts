@@ -244,5 +244,12 @@ export default {
   AnimalSizemedium:'Средний',
   AnimalSizelarge:'Большой',
 
-  pageNotFound: 'Страница не найдена'
+  pageNotFound: 'Страница не найдена',
+  
+  favoritesPageTitle: 'Mне понравились',
+  noneFavoriteAnimalsText: 'Вы пока не отметили никого из животных, присмотритесь, вдруг ваш друг ждет вас у нас.',
+  itLikedYouText: 'Вам приглянулись ',
+  tailsText: ' хвостиков',
+  itLikedYouText1: 'Вам приглянулся ',
+  tailsText1: ' хвостик',
 }

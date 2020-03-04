@@ -1,6 +1,6 @@
 import { createAction } from 'typesafe-actions';
-import { IRequestParams } from '../../../../../api/requestOptions';
-import { IVacanciesResponse } from './../../../../../api/vacancies';
+import { IRequestParams } from '../../api/requestOptions';
+import { IVacanciesResponse } from '../../api/vacancies';
 
 export const actionFetchVacanciesRequest = createAction(
   'FETCH_VACANCIES_REQUEST',

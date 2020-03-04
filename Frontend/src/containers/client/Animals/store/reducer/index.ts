@@ -24,7 +24,11 @@ import {
   actionClearSavedAnimalsCount,
   actionClearSickAnimals,
   actionClearEntireAnimalsState,
-  onAnimalFavoriteButtonClicked
+  onAnimalFavoriteButtonClicked,
+  actionFetchFavoriteAnimalsRequest,
+  actionFetchFavoriteAnimalsSuccess,
+  actionFetchFavoriteAnimalsFailure,
+  actionFetchClearFavoriteAnimals
 } from "../actions";
 import { DEFAULT_ANIMALS } from './../state';
 
@@ -58,6 +62,11 @@ const fetchSavedAnimalsCountStateReducer = genericRequestReducer(
   actionFetchSavedAnimalsCountFailure
 )
 
+const fetchFavoriteAnimalsStateReducer = genericRequestReducer(
+  actionFetchFavoriteAnimalsRequest,
+  actionFetchFavoriteAnimalsSuccess,
+  actionFetchFavoriteAnimalsFailure,
+);
 export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, action: AnyAction): IAnimalsState => {
   switch (action.type) {
     case getType(actionFetchAnimalsRequest):
@@ -243,6 +252,42 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
       return {
         ...state,
         favoriteAnimalsIds: newIds
+      }
+    }
+    case getType(actionFetchFavoriteAnimalsRequest):
+      return {
+        ...state,
+        favoriteAnimalsList: {
+          ...state.favoriteAnimalsList,
+          isLoading: true
+        },
+        favoriteAnimalsListRequestState: fetchFavoriteAnimalsStateReducer(state.favoriteAnimalsListRequestState, action)
+      };
+    case getType(actionFetchFavoriteAnimalsSuccess):
+      return {
+        ...state,
+        favoriteAnimalsListRequestState: fetchFavoriteAnimalsStateReducer(state.favoriteAnimalsListRequestState, action),
+        favoriteAnimalsList: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true
+        }
+      };
+    case getType(actionFetchFavoriteAnimalsFailure):
+      return {
+        ...state,
+        favoriteAnimalsList: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: false
+        },
+        favoriteAnimalsListRequestState: fetchFavoriteAnimalsStateReducer(state.favoriteAnimalsListRequestState, action)
+      };
+    case getType(actionFetchClearFavoriteAnimals): {
+      return {
+        ...state,
+        favoriteAnimalsList: { ...DEFAULT_ANIMALS },
+        favoriteAnimalsListRequestState: { ...DEFAULT_REQUEST_STATE }
       }
     }
     default:

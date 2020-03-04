@@ -7,13 +7,14 @@ interface ILinksObj {
     title:string
 }
 interface IPropTypes {
-    links: ILinksObj[];
+    videoLinks: ILinksObj[];
     backgroundColor:string;
     title: React.ReactNode;
     subTitle:React.ReactNode;
+    channelLink: string;
  }
 
-export const YouTubeBox: React.FC<IPropTypes> = ({links, backgroundColor, title, subTitle}) => {
+export const YouTubeBox: React.FC<IPropTypes> = ({ videoLinks, backgroundColor, title, subTitle, channelLink }) => {
     return(
         <div style={{backgroundColor}} className="video-history">
             <div className='content'>
@@ -25,14 +26,15 @@ export const YouTubeBox: React.FC<IPropTypes> = ({links, backgroundColor, title,
                   <div className='header-link'>
                     <BlockLink
                         isButtonHidden={false}
-                        href={'/'}
+                        href={channelLink}
+                        isExternalLink
                         title={<TI18n keyStr="youtubeTitleLink" default="Смотреть все истории на нашем канале"/>}
                     />
                   </div>
                 </div>
                 <ul className='box-video'>
                     {
-                        links.map((link,i) => 
+                      videoLinks.map((link,i) => 
                     <li key={i}>
                         <div className="video">
                             <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'}  title={`video${i}`} ></iframe>

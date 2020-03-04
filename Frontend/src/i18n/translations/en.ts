@@ -241,5 +241,12 @@ export default {
   AnimalSizemedium: 'Medium',
   AnimalSizelarge: 'Large',
 
-  pageNotFound: 'Page not found'
+  pageNotFound: 'Page not found',
+
+  favoritesPageTitle: 'I liked it',
+  noneFavoriteAnimalsText: 'You have not yet noted any of the animals, take a closer look, suddenly your friend is waiting for you with us.',
+  itLikedYouText: 'You liked the ',
+  tailsText: ' tails',
+  itLikedYouText1: 'You liked a ',
+  tailsText1: ' tail',
 }
