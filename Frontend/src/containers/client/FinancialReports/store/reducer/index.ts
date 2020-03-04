@@ -3,6 +3,7 @@ import { AnyAction } from "redux";
 import { getType } from "typesafe-actions";
 import { actionFinancialReportRequest, actionFinancialReportSuccess, actionFinancialReportFailure } from "../actions";
 import { IFinanceReportsState, DEFAULT_FINANCE_REPORT } from "../state";
+import { IFinancialReport } from "../../../../../api/financialReport";
 
 const fetchFinancialReportStateReducer = genericRequestReducer(
     actionFinancialReportRequest,
@@ -22,7 +23,9 @@ export const financialReportReducer = (state: IFinanceReportsState = DEFAULT_FIN
         return {
           ...state,
           financeReportsRequestState: fetchFinancialReportStateReducer(state.financeReportsRequestState, action),
-          financeReports: action.payload.data
+          financeReports: action.payload.data.sort((a:IFinancialReport, b:IFinancialReport):number=> {
+            return parseInt(a.date) - parseInt(b.date);
+          })
         }
       case getType(actionFinancialReportFailure): 
         return {

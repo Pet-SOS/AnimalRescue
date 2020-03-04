@@ -1,6 +1,7 @@
 import React from 'react';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
+import moment from 'moment';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';
 import '../styles/financialReportsPage.scss';
@@ -54,7 +55,10 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
     getFinanceReportsForYear(){
         this.props.financeReports.map((iter: IFinancialReport)=>{
             if(iter.date == this.year){
-                this.reports=[...iter.reports];
+                let sortReportsByDate = iter.reports.sort((a, b):any => {
+                    return moment(a.date).month()+1 - moment(b.date).month()+1
+                });
+                this.reports=[...sortReportsByDate]
             }
         })
     }
