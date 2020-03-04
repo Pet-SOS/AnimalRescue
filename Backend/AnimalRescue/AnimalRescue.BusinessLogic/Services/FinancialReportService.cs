@@ -29,7 +29,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var data = await _financialReportRepository.GetAsync(new ApiQueryRequest { Size = int.MaxValue }.ToDbQuery());
             var result = data
-                .Select(x => new { x.CreatedAt.Year, report = x })
+                .Select(x => new { x.Date.Year, report = x })
                 .GroupBy(x => x.Year)
                 .Select(x => new FinancialReportByYearDto
                 {

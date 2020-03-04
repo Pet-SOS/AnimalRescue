@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.Common.Constants;
+﻿using System;
+using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 
@@ -20,5 +21,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(PropertyConstants.FinancialReport.FileId)]
         [BsonElement("fileLink")]
         public string FileId { get; set; }
+
+        [CouplingPropertyName(PropertyConstants.FinancialReport.Date)]
+        [BsonElement("date")]
+        public DateTime Date { get; set; }
     }
 }
