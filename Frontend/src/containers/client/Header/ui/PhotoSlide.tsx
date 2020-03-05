@@ -5,41 +5,19 @@ import '../styles/photoSlider.scss';
 import { actionIsActivePopup } from '../../Home/store/actions';
 import {store} from '../../../../store';
 
-
-interface IPropTypes {
-    number: number;
-    name: string;
-    kindOfAnimal: string;
-    gender: string;
-    description: string;
-    age: number;
-    imageIds: string [];
-    tags: any[]
-    id: string;
-}
-
-export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex, story}) => {
- 
-    const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}/type/medium` : noPhoto;
- 
-    function activateLasers(i:number , e: any) {
-           updatePostInfo(i);
-    }
-     return(
-        <div className="slide">
-            <div className={story ? 'box-img story' : 'box-img'}
-            onClick={() => {store.dispatch(actionIsActivePopup(true))}} >
-                <div  className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
-            </div>
-            {!!sliders && sliders.length > 1 && (
-              <div className="btn-slider">
-                {sliders.map((item: IPropTypes, index: number) => {
-                  return (
-                    <div className={index === slideIndex ? 'active-indicator' : ''} key={index} onClick={(e) => activateLasers(index, e)}></div>
-                  )
-                })}
-              </div>
-            )}
+export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex }) => { 
+  const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}/type/medium` : noPhoto;
+  return(
+    <div className="slide">
+      <div className='box-img' onClick={() => {store.dispatch(actionIsActivePopup(true))}} >
+        <div className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
+      </div>
+      {!!sliders && !!sliders.length && (
+        <div className='buttons-holder'>
+          <button onClick={() => updatePostInfo(slideIndex - 1 < 0 ? sliders.length - 1 : slideIndex - 1)} className='swiper-button-prev'></button>
+          <button onClick={() => updatePostInfo(slideIndex + 1 > sliders.length - 1 ? 0 : slideIndex + 1)} className='swiper-button-next'></button>
         </div>
-   )
+      )}
+    </div>
+  )
 }

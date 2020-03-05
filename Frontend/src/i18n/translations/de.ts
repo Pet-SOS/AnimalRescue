@@ -252,5 +252,9 @@ export default {
   itLikedYouText: 'Sie mochten die ',
   tailsText: ' Schwänze', 
   itLikedYouText1: 'Sie mochten ',
-  tailsText1: ' Schwanz', 
+  tailsText1: ' Schwanz',
+
+  wantToHelp: 'Ich möchte helfen',
+  whereMoneyGo: 'Sehen Sie, wohin das Geld fließt',
+  hiIAm: 'Hallo, ich heiße'
 }

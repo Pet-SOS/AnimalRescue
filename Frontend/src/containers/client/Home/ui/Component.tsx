@@ -106,9 +106,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         }}
         btn={{
           style: 'blue',
-          content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать" />
+          content: <TI18n keyStr="wantToHelp" default="Хочу допомогти" />
         }}
-        story={false}
       />
       <div className="home-page-client">
         <OurGoalBlock
@@ -154,7 +153,6 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             style: 'yellow',
             content: <TI18n keyStr="footerRightBtn" default="Помочь" />
           }}
-          story={true}
         />
         {!!videosList && !!videosList.length && (
           <YouTubeBox

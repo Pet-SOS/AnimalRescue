@@ -249,4 +249,8 @@ export default {
   tailsText: ' tails',
   itLikedYouText1: 'You liked a ',
   tailsText1: ' tail',
+
+  wantToHelp: 'Want to help',
+  whereMoneyGo: 'See where the money will go',
+  hiIAm: 'Hi, I am'
 }
