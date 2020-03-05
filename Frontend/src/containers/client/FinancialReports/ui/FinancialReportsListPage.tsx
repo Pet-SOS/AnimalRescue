@@ -1,6 +1,7 @@
 import React from 'react';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
+import moment from 'moment';
 import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';
 import '../styles/financialReportsPage.scss';
@@ -54,7 +55,7 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
     getFinanceReportsForYear(){
         this.props.financeReports.map((iter: IFinancialReport)=>{
             if(iter.date == this.year){
-                this.reports=[...iter.reports];
+                this.reports=[...iter.reports]
             }
         })
     }
@@ -87,7 +88,7 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
                     {
                         this.reports.map((item, i:number)=>
                             <li key={i} onClick={()=>{this.openPdfFile(item)}}>
-                                <Pdf className='pdf-icon' />{item.title}
+                                <Pdf className='pdf-icon' /><TI18n keyStr={`dateText${moment(item.date).month()}`}/> <span className='year-report'>{moment(item.date).year()}</span>
                             </li>)
                     }
                    </ul>
