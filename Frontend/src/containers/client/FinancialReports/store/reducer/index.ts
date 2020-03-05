@@ -10,6 +10,19 @@ const fetchFinancialReportStateReducer = genericRequestReducer(
     actionFinancialReportSuccess,
     actionFinancialReportFailure
 )
+const sortingByDate =(data: IFinancialReport[]) => {
+  data = data.sort((a:IFinancialReport, b:IFinancialReport):number=> {
+     return parseInt(a.date) - parseInt(b.date);
+   })
+  return data.map((iter): any =>{
+    return {
+      ...iter,
+      reports: iter.reports.sort((a, b):any => {
+           return new Date(a.date).getTime() - new Date(b.date).getTime();
+         })
+    }
+   })
+ }
 
 export const financialReportReducer = (state: IFinanceReportsState = DEFAULT_FINANCE_REPORT, action: AnyAction): IFinanceReportsState => {
     switch (action.type) {
@@ -23,9 +36,8 @@ export const financialReportReducer = (state: IFinanceReportsState = DEFAULT_FIN
         return {
           ...state,
           financeReportsRequestState: fetchFinancialReportStateReducer(state.financeReportsRequestState, action),
-          financeReports: action.payload.data.sort((a:IFinancialReport, b:IFinancialReport):number=> {
-            return parseInt(a.date) - parseInt(b.date);
-          })
+          financeReports: sortingByDate(action.payload.data)
+    
         }
       case getType(actionFinancialReportFailure): 
         return {

@@ -7,7 +7,7 @@ import { fetchFinancialReport } from "../../../../../api/financialReport";
 function* getFinancialReport(action: { type: string, payload?: IRequestParams }){
     try{
         const response =  yield call(fetchFinancialReport, action.payload);
-        yield put(actionFinancialReportSuccess(response))
+       yield put(actionFinancialReportSuccess(response))
     } catch (e) {
         yield put(actionFinancialReportFailure(e))
     }

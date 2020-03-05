@@ -5,7 +5,7 @@ export interface IInfoFile {
     title: string;
     body: string;
     fileId: string;
-    date: string;
+    date: Date;
     createdAt: string;
     modifiedAt: null | string;
     createdBy: null | string;

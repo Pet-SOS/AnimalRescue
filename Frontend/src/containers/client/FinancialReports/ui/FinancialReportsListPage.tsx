@@ -55,10 +55,7 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
     getFinanceReportsForYear(){
         this.props.financeReports.map((iter: IFinancialReport)=>{
             if(iter.date == this.year){
-                let sortReportsByDate = iter.reports.sort((a, b):any => {
-                    return moment(a.date).month()+1 - moment(b.date).month()+1
-                });
-                this.reports=[...sortReportsByDate]
+                this.reports=[...iter.reports]
             }
         })
     }
@@ -91,7 +88,7 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
                     {
                         this.reports.map((item, i:number)=>
                             <li key={i} onClick={()=>{this.openPdfFile(item)}}>
-                                <Pdf className='pdf-icon' />{item.title}
+                                <Pdf className='pdf-icon' /><TI18n keyStr={`dateText${moment(item.date).month()}`}/> <span className='year-report'>{moment(item.date).year()}</span>
                             </li>)
                     }
                    </ul>
