@@ -16,6 +16,12 @@ namespace AnimalRescue.API.Controllers
             _accountService = accountService;
         }
 
+
+        /// <summary>
+        /// Allows to authorize in Animal Rescue system.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Authorization data.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(SignInAccountModel), 200)]
         [ProducesResponseType(typeof(string), 400)]
@@ -31,6 +37,11 @@ namespace AnimalRescue.API.Controllers
             return Ok(authData);
         }
 
+        /// <summary>
+        /// Makes a reset password link and sends an email.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Reset Password link.</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(string), 400)]
@@ -42,6 +53,11 @@ namespace AnimalRescue.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Allows to reset password.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(302)]
         [ProducesResponseType(typeof(string), 400)]
@@ -52,6 +68,11 @@ namespace AnimalRescue.API.Controllers
             return Redirect(returnUrl);
         }
 
+        /// <summary>
+        /// Allows to unlock a user account.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(302)]
         [ProducesResponseType(typeof(string), 400)]

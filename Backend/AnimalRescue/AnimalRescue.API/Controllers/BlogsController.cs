@@ -6,7 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    [Authorize]
     public class BlogsController : ApiControllerBase
     {
         private readonly IBlFullCrud<BlogDto, BlogDto> _blogService;
