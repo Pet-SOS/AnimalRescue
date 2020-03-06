@@ -1,7 +1,4 @@
-@import'../../../../styles/variables.scss';
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+@import './../../styles/variables.scss';
 .slide {
   .buttons-holder {
     display: flex;

@@ -1,16 +1,16 @@
 import React from 'react';
-import {BASE_URL} from "../../../../api/index";
-import noPhoto from '../../../../img/nophoto.jpg';
-import '../styles/photoSlider.scss';
-import { actionIsActivePopup } from '../../Home/store/actions';
-import {store} from '../../../../store';
+import { BASE_URL } from "../../api/index";
+import noPhoto from '../../img/nophoto.jpg';
+import './index.scss';
+import { actionIsActivePopup } from '../../containers/client/Home/store/actions';
+import { store } from '../../store';
 
-export const PhotoSlide: React.FC<any> = ({sliders, updatePostInfo, slideIndex }) => { 
+export const PhotoSlider: React.FC<any> = ({ sliders, updatePostInfo, slideIndex }) => {
   const imageUrl = sliders[0] ? `${BASE_URL}documents/${sliders[slideIndex].imageIds[0]}/type/medium` : noPhoto;
-  return(
+  return (
     <div className="slide">
-      <div className='box-img' onClick={() => {store.dispatch(actionIsActivePopup(true))}} >
-        <div className="image" style={{backgroundImage: `url(${imageUrl})`} }></div>
+      <div className='box-img' onClick={() => { store.dispatch(actionIsActivePopup(true)) }} >
+        <div className="image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
       </div>
       {!!sliders && !!sliders.length && (
         <div className='buttons-holder'>
