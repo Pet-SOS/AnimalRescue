@@ -255,5 +255,18 @@ export default {
 
   wantToHelp: 'Хочу помочь',
   whereMoneyGo: 'Посмотреть, куда уйдут деньги',
-  hiIAm: 'Привет, я'
+  hiIAm: 'Привет, я',
+
+  dateText0:'Январь',
+  dateText1:'Февраль',
+  dateText2:'Март',
+  dateText3:'Апрель',
+  dateText4:'Май',
+  dateText5:'Июнь',
+  dateText6:'Июль',
+  dateText7:'Август',
+  dateText8:'Сентябрь',
+  dateText9:'Октябрь',
+  dateText10:'Ноябрь',
+  dateText11:'Декабрь',
 }

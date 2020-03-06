@@ -252,5 +252,19 @@ export default {
 
   wantToHelp: 'Want to help',
   whereMoneyGo: 'See where the money will go',
-  hiIAm: 'Hi, I am'
+  hiIAm: 'Hi, I am',
+
+  dateText0: 'January',
+   dateText1: 'February',
+   dateText2: 'March',
+   dateText3: 'April',
+   dateText4: 'May',
+   dateText5: 'June',
+   dateText6: 'July',
+   dateText7: 'August',
+   dateText8: 'September',
+   dateText9: 'October',
+   dateText10: 'November',
+   dateText11: 'December',
+
 }
