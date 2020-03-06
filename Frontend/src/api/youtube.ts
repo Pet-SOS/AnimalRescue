@@ -1,7 +1,7 @@
 import { API_YOTUBE } from './index';
+import { getEnv } from '../env/env';
 
-export const YOUTUBE_API_KEY = 'AIzaSyDM6NS40Bma76cl1aOf4YOaQam-aFa1TJ8';
-export const CHANEL_ID = 'UCBSJrFxTYAbu1sAGdeRg8cA';
+const env = getEnv();
 
 export interface IYouTubeVideoThumbnail {
   url: string;
@@ -46,8 +46,8 @@ export interface YouTubeVideosResponse {
 export async function fetchYouTubeVideosList(count?: number): Promise<YouTubeVideosResponse> {
   const res = await API_YOTUBE.get('search', {params: {
     part: 'snippet',
-    channelId: CHANEL_ID,
-    key: YOUTUBE_API_KEY,
+    channelId: env.REACT_APP_CHANEL_ID,
+    key: env.REACT_APP_YOUTUBE_API_KEY,
     type: 'video',
     maxResults: !!count ? count : 10,
     order: 'date',
