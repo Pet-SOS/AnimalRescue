@@ -30,6 +30,14 @@ namespace AnimalRescue.API.Core.Middlewares
             {
                 await next(context);
             }
+            catch (ApplicationException ex)
+            {
+                await BuildExceptionResponse(context, ex.Message, HttpStatusCode.BadRequest);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                await BuildExceptionResponse(context, ex.Message, HttpStatusCode.Forbidden);
+            }
             catch (Exception e)
             {
                 await BuildExceptionResponse(context, e);

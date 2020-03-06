@@ -17,6 +17,10 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    /// <summary>
+    /// API management for animals
+    /// </summary>
+    //[ApiVersion("1")]
     public class AnimalsController : ApiControllerBase
     {
         private readonly IBlFullCrud<AnimalDto, AnimalDto> _animalService;
@@ -81,6 +85,11 @@ namespace AnimalRescue.API.Controllers
             return Item(await _animalService.GetCountAsync(new ApiQueryRequest()));
         }
 
+        /// <summary>
+        /// Create an animal
+        /// </summary>
+        /// <param name="animalCreateModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

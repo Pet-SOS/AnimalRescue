@@ -8,7 +8,7 @@ using baseItem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseI
 
 namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
 {
-    public class BaseAndTimeItem  : BaseItem
+    public class BaseAndTimeItem  : BaseItem, IBaseAuditItem
     {
         [CouplingPropertyName(baseItem.CreatedAt)]
         [BsonElement("createdAt")]

@@ -42,7 +42,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         }
 
         public async Task UpdateAsync(T instance) => await collection.ReplaceOneAsync(t => t.Id == instance.Id, instance);
-        public async Task RemoveAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
+        public async Task DeleteAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
         public async Task<T> CreateAsync(T instance)
         {
             await collection.InsertOneAsync(instance);
@@ -80,7 +80,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         {
             var item = await collection
                 .Find(x=>x.Id == id)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return item;
         }
