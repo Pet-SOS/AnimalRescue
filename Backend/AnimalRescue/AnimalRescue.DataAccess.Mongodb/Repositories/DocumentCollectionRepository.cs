@@ -49,7 +49,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
         public async Task DeleteAsync(string id)
         {
-            await _baseCollection.RemoveAsync(id);
+            await _baseCollection.DeleteAsync(id);
         }
 
         public async Task<int> GetCountAsync(DbQuery query)
