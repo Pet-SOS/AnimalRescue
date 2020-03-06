@@ -4,7 +4,7 @@ export default {
 
   hotLinePhones: '24/7',
 
-  headerTitle: 'Rettungstiere Kharkov',
+  headerTitle: 'Rettungstiere Charkiw',
   headerMenuItem1: 'Über den Service',
   headerMenuItem2: 'Auf der Suche nach einem Freund',
   headerMenuItem3: 'Wie kann ich helfen?',
@@ -36,8 +36,7 @@ export default {
   canHelpBlockContent: 'Mascha ist ein bescheidener und freundlicher Hund. Sehr geduldig und unauffällig. Mascha wurde von einem Auto angefahren, überlebte Stress. Zuerst hatte sie Angst, dann beruhigte sie sich und begann den Menschen zu vertrauen. Um sich von einem Unfall zu erholen, müssen Sie 3.500 UAH sammeln.',
 
   ourGoalBlockTitle: 'Unser Ziel',
-  ourGoalBlockText1: 'Wir sind der Tierrettungsdienst von Kharkov und unser Ziel ist es, Tieren in Not zu helfen. Wir retten Kätzchen, Welpen, erwachsene Katzen und Hunde, die die schwierigen Phasen ihres Katzen- oder Hundelebens durchstehen müssen. Wir unterstützen Tiere unabhängig vom Wochentag oder der Tageszeit.',
-  ourGoalBlockText2: 'Wenn Sie feststellen, dass eines der Tiere Hilfe benötigt, rufen Sie sofort unsere Hotline an und teilen Sie uns das Problem mit. Leider kann es jederzeit zu Problemen kommen, sodass die Telefone des Rettungsdienstes rund um die Uhr funktionieren. Haben Sie keine Angst, uns um 2 Uhr morgens oder um 5 Uhr morgens anzurufen.',
+  ourGoalBlockText1: 'Wir sind der Tierrettungsdienst von Kharkov. Unser Ziel ist es, Tieren in Not zu helfen. Wir retten Kätzchen, Welpen, erwachsene Katzen und Hunde, Vögel und wilde Tiere. Wir helfen Ihnen rund um die Uhr. Rufen Sie uns mindestens 2 Uhr morgens, mindestens 5 Uhr morgens an.',
   ourGoalBlockLinkText: 'Servicedetails',
 
   popupInfoBlockTitle: 'Helfen Sie Tieren',
@@ -189,7 +188,7 @@ export default {
   year: 'Jahr',
   someHistory: 'Ein bisschen Geschichte',
   character: 'Charakter',
-  wantToAdopt: 'Ich möchte adoptieren',
+  wantToAdopt: 'Möchte nach Hause nehmen',
   shareAnimalText: 'Teilen Sie Ihre Schwanzgeschichte mit, damit er schneller ein Zuhause findet',
   howToTake: 'Wie zu nehmen?',
   instructionsListItemText1: 'Lerne das Tier kennen. Dies hilft Ihnen zu verstehen, ob es in Bezug auf die Temperatur für Sie richtig ist.',
