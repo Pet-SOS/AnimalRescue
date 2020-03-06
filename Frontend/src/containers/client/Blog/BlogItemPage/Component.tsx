@@ -13,7 +13,7 @@ import { selectInfoContacts } from '../../Home/store/selectors';
 import { IRequestParams, RequestFilterOperators } from '../../../../api/requestOptions';
 import { BlogBlock } from '../../Home/ui/BlogBlock/BlogBlock';
 import { Slider, SlidesPerViewValue } from '../../../../components/Slider';
-import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { HelpBlock } from '../../../../components/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';
 import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
 import './index.scss';
@@ -126,19 +126,10 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
         )}
       </div>
       <HelpBlock
-        animalsList={sickAnimalsList}
-        backgroundColor='#333572'
+        animalsList={sickAnimalsList.data}
         title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
-        color='#409275'
-        text={{
-          color: '#ffffff',
-          content: <TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />
-        }}
-        btn={{
-          style: 'yellow',
-          content: <TI18n keyStr='footerRightBtn' default='Помочь' />
-        }}
-        story={true}
+        text={<TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />}
+        buttonText={<TI18n keyStr='footerRightBtn' default='Помочь' />}
       />
     </div>
   )

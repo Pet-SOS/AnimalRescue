@@ -249,6 +249,11 @@ export default {
   tailsText: ' хвостиків',
   itLikedYouText1: 'Вам сподобався ',
   tailsText1: ' хвостик',
+
+  wantToHelp: 'Хочу допомогти',
+  whereMoneyGo: 'Подивитися, куди підуть гроші',
+  hiIAm: 'Привіт, я',
+
   dateText0: 'Січень',
    dateText1: 'Лютий',
    dateText2: 'Март',
