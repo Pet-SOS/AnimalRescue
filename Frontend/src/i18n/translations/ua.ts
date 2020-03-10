@@ -261,4 +261,8 @@ export default {
    dateText9: 'Жовтень',
    dateText10: 'Листопад',
    dateText11: 'Грудень',
+
+  howCanIHelp: 'Як я можу допомогти',
+  wantToChooseDog: 'Хочу обрати собаку',
+  wantToChooseCat: 'Хочу обрати кота',
 }

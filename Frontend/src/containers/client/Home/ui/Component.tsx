@@ -167,16 +167,16 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             data={dogsList.data}
             title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
             link={{
-              title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
-              href: '/'
+              title: <TI18n keyStr="wantToChooseDog" default="Хочу выбрать друга" />,
+              href: '/animals/page/1?kindOfAnimal=DOG/'
             }}
           />}
           {catsList.data.length > 0 && <AnimalsSlider
             data={catsList.data}
             title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
             link={{
-              title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
-              href: '/'
+              title: <TI18n keyStr="wantToChooseCat" default="Хочу выбрать друга" />,
+              href: '/animals/page/1?kindOfAnimal=CAT/'
             }}
           />}
         </div>

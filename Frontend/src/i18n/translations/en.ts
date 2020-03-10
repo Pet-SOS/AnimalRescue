@@ -260,4 +260,8 @@ export default {
    dateText9: 'October',
    dateText10: 'November',
    dateText11: 'December',
+
+  howCanIHelp: 'How can I help',
+  wantToChooseDog: 'I want to choose a dog',
+  wantToChooseCat: 'I want to choose a cat',
 }

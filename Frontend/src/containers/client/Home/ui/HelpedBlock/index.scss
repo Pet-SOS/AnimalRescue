@@ -2,6 +2,12 @@
 .helped-holder {
   padding: 5rem 0;
   background: #ffffff;
+  .bottomButton{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
   .slider-holder {
     .custom-slider-inner {
       border-radius: 1.5rem;

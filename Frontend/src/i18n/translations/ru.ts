@@ -263,4 +263,8 @@ export default {
   dateText9:'Октябрь',
   dateText10:'Ноябрь',
   dateText11:'Декабрь',
+
+  howCanIHelp: 'Как я могу помочь',
+  wantToChooseDog: 'Хочу выбрать собаку',
+  wantToChooseCat: 'Хочу выбрать кота',
 }
