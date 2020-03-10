@@ -1,8 +1,8 @@
 import React from 'react';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
+import { HelpBlock } from '../../../../components/HelpBlock';
 import moment from 'moment';
-import { HelpBlock } from '../../Header/ui/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';
 import '../styles/financialReportsPage.scss';
 import { IInfoCard, IInfoContacts } from '../../Home/store/state';
@@ -97,19 +97,10 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
                 {
                     this.props.sickAnimalsList.totalCount > 0 &&
                 <HelpBlock
-                    animalsList={this.props.sickAnimalsList}
-                    backgroundColor='#333572'
+                    animalsList={this.props.sickAnimalsList.data}
                     title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
-                    color='#409275'
-                    text={{
-                    color: '#ffffff',
-                    content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />
-                    }}
-                    btn={{
-                    style: 'yellow',
-                    content: <TI18n keyStr="footerRightBtn" default="Помочь" />
-                    }}
-                    story={true}
+                    text={<TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />}
+                    buttonText={<TI18n keyStr="footerRightBtn" default="Помочь" />}
                 />
                 }
         </React.Fragment>

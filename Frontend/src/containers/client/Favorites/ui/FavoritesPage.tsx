@@ -2,7 +2,7 @@ import React from 'react';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
 import { IAnimalsListState } from '../../Animals/store/state';
-import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { HelpBlock } from '../../../../components/HelpBlock';
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
 import { AnimalCard } from '../../Animals/AnimalCard';
 import { IRequestParams } from '../../../../api/requestOptions/index';
@@ -127,19 +127,10 @@ export class FavoritesPage extends React.Component<IPropTypes> {
 
                 {this.props.sickAnimalsList.totalCount > 0 &&
                     <HelpBlock
-                        animalsList={this.props.sickAnimalsList}
-                        backgroundColor='#333572'
+                        animalsList={this.props.sickAnimalsList.data}
                         title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
-                        color='#409275'
-                        text={{
-                        color: '#ffffff',
-                        content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />
-                        }}
-                        btn={{
-                        style: 'yellow',
-                        content: <TI18n keyStr="footerRightBtn" default="Помочь" />
-                        }}
-                        story={true}
+                        text={<TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />}
+                        buttonText={<TI18n keyStr="footerRightBtn" default="Помочь" />}
                     />
                 }
             </div>

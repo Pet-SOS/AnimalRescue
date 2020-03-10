@@ -1,6 +1,6 @@
 import React from 'react';
 import { store } from '../../../../store';
-import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { HelpBlock } from '../../../../components/HelpBlock';
 import { TI18n } from '../../../../i18n';
 import {ReactComponent as Facebook} from '../../../../assets/helpBlock/facebook.svg';
 import {ReactComponent as Instagram} from '../../../../assets//helpBlock/twitter.svg';
@@ -84,19 +84,10 @@ export class ContactsPage extends React.Component<IPropTypes> {
                 {
                     this.props.sickAnimalsList.totalCount > 0 &&
                 <HelpBlock
-                    animalsList={this.props.sickAnimalsList}
-                    backgroundColor='#333572'
+                    animalsList={this.props.sickAnimalsList.data}
                     title={<TI18n keyStr="canHelpBlockTitle" default={defaultText.canHelpBlockTitle} />}
-                    color='#409275'
-                    text={{
-                    color: '#ffffff',
-                    content: <TI18n keyStr="canHelpBlockContent" default={defaultText.canHelpBlockContent} />
-                    }}
-                    btn={{
-                    style: 'yellow',
-                    content: <TI18n keyStr="footerRightBtn" default={defaultText.footerRightBtn} />
-                    }}
-                    story={true}
+                    text={<TI18n keyStr="canHelpBlockContent" default={defaultText.canHelpBlockContent} />}
+                    buttonText={<TI18n keyStr="footerRightBtn" default={defaultText.footerRightBtn} />}
                 />
                 }
             </div>

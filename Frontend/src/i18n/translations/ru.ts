@@ -251,6 +251,11 @@ export default {
   tailsText: ' хвостиков',
   itLikedYouText1: 'Вам приглянулся ',
   tailsText1: ' хвостик',
+
+  wantToHelp: 'Хочу помочь',
+  whereMoneyGo: 'Посмотреть, куда уйдут деньги',
+  hiIAm: 'Привет, я',
+
   dateText0:'Январь',
   dateText1:'Февраль',
   dateText2:'Март',

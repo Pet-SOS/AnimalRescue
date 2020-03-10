@@ -5,7 +5,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 
 using AutoMapper;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ConfigurationsController : ApiControllerBase
     {
         private readonly IMapper _mapper;
