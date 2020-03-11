@@ -22,7 +22,7 @@ namespace AnimalRescue.API.Controllers
     /// <summary>
     /// Financial Reports API Management
     /// </summary>
-    [Authorize]
+    [Authorize("Bearer")]
     public class FinancialReportController : ApiControllerBase
     {
         private readonly IFinancialReportService _financialReportService;

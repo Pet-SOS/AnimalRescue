@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
-    [Authorize]
+    [Authorize("Bearer")]
     public class TagsController : ApiControllerBase
     {
         private readonly ITagService _tagService;
