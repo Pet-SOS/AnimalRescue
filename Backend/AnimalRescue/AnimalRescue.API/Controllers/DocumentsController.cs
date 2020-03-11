@@ -14,7 +14,8 @@ namespace AnimalRescue.API.Controllers
     /// <summary>
     /// API documents management
     /// </summary>
-    [Authorize]
+    /// 
+    [Authorize("Bearer")]
     public class DocumentsController : ApiControllerBase
     {
         private readonly IDocumentService _documentService;
