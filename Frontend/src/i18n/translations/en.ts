@@ -261,4 +261,5 @@ export default {
    dateText9: 'October',
    dateText10: 'November',
    dateText11: 'December',
+addReport: 'Download report',
 }

@@ -24,3 +24,7 @@ export async function fetchFinancialReporDocument(id: string): Promise<any> {
     const res = await API.get(`Documents/${id}`, {responseType: 'arraybuffer'});
     return res
 }
+export async function deleteFinancialReporDocument(id: string): Promise<any> {
+    const res = await API.delete(`FinancialReport/${id}`);
+    return res
+}

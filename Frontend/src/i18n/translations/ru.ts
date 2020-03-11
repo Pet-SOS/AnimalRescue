@@ -264,4 +264,5 @@ export default {
   dateText9:'Октябрь',
   dateText10:'Ноябрь',
   dateText11:'Декабрь',
+  addReport: 'Загрузить отчет',
 }
