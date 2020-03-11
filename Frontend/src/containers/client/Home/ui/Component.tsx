@@ -98,8 +98,6 @@ export const HomePageMain: React.FC<IPropTypes> = ({
       <HelpBlock
         animalsList={animalsList.data}
         title={<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде" />}
-        text={<TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта." />}
-        buttonText={<TI18n keyStr="wantToHelp" default="Хочу допомогти" />}
         isLightMode
       />
       <div className="home-page-client">
@@ -130,8 +128,6 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         <HelpBlock
           animalsList={sickAnimalsList.data}
           title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
-          text={<TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />}
-          buttonText={<TI18n keyStr="footerRightBtn" default="Помочь" />}
         />
         {!!videosList && !!videosList.length && (
           <YouTubeBox

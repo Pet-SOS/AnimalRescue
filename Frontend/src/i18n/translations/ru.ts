@@ -268,4 +268,8 @@ export default {
   dateText9:'Октябрь',
   dateText10:'Ноябрь',
   dateText11:'Декабрь',
+
+  breadcrumbAbout: 'Узнать больше о службе спасения',
+  breadcrumbRules: 'Узнать о правилах взаимодействия со службой',
+  breadcrumbFinanceReports: 'Посмотреть финансовую отчетность',
 }

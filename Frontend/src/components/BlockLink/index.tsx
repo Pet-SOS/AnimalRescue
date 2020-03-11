@@ -17,7 +17,7 @@ export const BlockLink: React.FC<IBlockLinkPropTypes> = ({ title, href, isButton
   }
   const linkBody: JSX.Element = <React.Fragment>
     <span>{title}</span>
-    {!isButtonHidden && <Button styleType={ButtonTypes.BlueCircle} />}
+    {!isButtonHidden && <Button styleType={ButtonTypes.WhiteCircle} />}
   </React.Fragment>
 
   return isExternalLink ?
