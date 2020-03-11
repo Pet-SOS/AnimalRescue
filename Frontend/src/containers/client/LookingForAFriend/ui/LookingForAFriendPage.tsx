@@ -8,7 +8,7 @@ import { Select, SelectExpandDirections } from '../../../../components/Select';
 import { AnimalGender, AnimalBreed, AnimalFilterKind, AnimalSize, AnimalAge, Tags } from '../../../../api/animals';
 import tranlateText from '../../../../i18n/translations/ru';
 import { store } from '../../../../store';
-import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { HelpBlock } from '../../../../components/HelpBlock';
 import { AnimalCard } from '../../Animals/AnimalCard';
 import { BtnPagination } from '../../Blog/ui/BtnPagination';
 import { IRequestParams } from '../../../../api/requestOptions';
@@ -353,19 +353,10 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 />
                 </div>
                 <HelpBlock
-                    animalsList={this.props.sickAnimalsList}
-                    backgroundColor='#333572'
+                    animalsList={this.props.sickAnimalsList.data}
                     title={<TI18n keyStr="canHelpBlockTitle" default={defaultText.canHelpBlockTitle} />}
-                    color='#409275'
-                    text={{
-                    color: '#ffffff',
-                    content: <TI18n keyStr="canHelpBlockContent" default={defaultText.canHelpBlockContent} />
-                    }}
-                    btn={{
-                    style: 'yellow',
-                    content: <TI18n keyStr="footerRightBtn" default={defaultText.footerRightBtn} />
-                    }}
-                    story={true}
+                    text={<TI18n keyStr="canHelpBlockContent" default={defaultText.canHelpBlockContent} />}
+                    buttonText={<TI18n keyStr="footerRightBtn" default={defaultText.footerRightBtn} />}
                 />
             </div>
         )

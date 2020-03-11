@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.2" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalRescue.Contracts.Common\AnimalRescue.Contracts.Common.csproj" />
+    <ProjectReference Include="..\AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj" />
     <ProjectReference Include="..\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj" />
   </ItemGroup>
 

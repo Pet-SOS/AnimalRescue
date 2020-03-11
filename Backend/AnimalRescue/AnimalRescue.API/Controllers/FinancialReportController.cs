@@ -6,7 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -19,6 +19,10 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    /// <summary>
+    /// Financial Reports API Management
+    /// </summary>
+    [Authorize]
     public class FinancialReportController : ApiControllerBase
     {
         private readonly IFinancialReportService _financialReportService;

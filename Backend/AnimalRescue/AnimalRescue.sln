@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.DataAccess.Mon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.BusinessLogic", "AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj", "{836087A2-2468-4F4D-BC0A-99C06554E485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRescue.Contracts.Common", "AnimalRescue.Contracts.Common\AnimalRescue.Contracts.Common.csproj", "{7B6F8D0F-6238-4726-988A-D7517745ACDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts.Common", "AnimalRescue.Contracts.Common\AnimalRescue.Contracts.Common.csproj", "{7B6F8D0F-6238-4726-988A-D7517745ACDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRescue.Contracts.BusinessLogic", "AnimalRescue.Contracts.BusinessLogic\AnimalRescue.Contracts.BusinessLogic.csproj", "{48D1E7C6-DB10-499C-AE05-BB307BB2C9A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts.BusinessLogic", "AnimalRescue.Contracts.BusinessLogic\AnimalRescue.Contracts.BusinessLogic.csproj", "{48D1E7C6-DB10-499C-AE05-BB307BB2C9A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

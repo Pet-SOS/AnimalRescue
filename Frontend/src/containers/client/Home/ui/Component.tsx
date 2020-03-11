@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import {TI18n} from '../../../../i18n';
 import { AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
-import { HelpBlock } from '../../Header/ui/HelpBlock';
+import { HelpBlock } from '../../../../components/HelpBlock';
 import { OurGoalBlock } from './OurGoalBlock/OurGoal';
 import { CounterBlock } from './CounterBlock';
 import { HelpedBlock } from './HelpedBlock';
@@ -96,19 +96,11 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   return (
     <React.Fragment>
       <HelpBlock
-        animalsList={animalsList}
-        backgroundColor='#F9F6F7'
+        animalsList={animalsList.data}
         title={<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде" />}
-        color='#0D2B4B'
-        text={{
-          color: '#0D2B4B',
-          content: <TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта." />
-        }}
-        btn={{
-          style: 'blue',
-          content: <TI18n keyStr="headerBottomBtn" default="Пожертвовать" />
-        }}
-        story={false}
+        text={<TI18n keyStr="headerBottomContent" default="Приют ежедневно заботится о сотнях животных. Самый лучший способ помочь нам и нашим хвостикам - пожертвовать любую сумму на корм, лечение и обеспечение работы приюта." />}
+        buttonText={<TI18n keyStr="wantToHelp" default="Хочу допомогти" />}
+        isLightMode
       />
       <div className="home-page-client">
         <OurGoalBlock
@@ -117,12 +109,6 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             <TI18n
               keyStr="ourGoalBlockText1"
               default="Мы – харьковская служба спасения животных, и наша цель – помощь животным, попавшим в беду. Мы спасаем котят, щенков, взрослых кошек и собак, которым приходится переживать непростые периоды своей кошачьей или собачьей жизни. Помощь животным мы оказываем вне зависимости от дня недели и времени суток."
-            />
-          }
-          text2={
-            <TI18n
-              keyStr="ourGoalBlockText2"
-              default="Если вы увидели, что кто-то из животных нуждается в помощи, немедленно звоните на нашу горячую линию и сообщите нам о проблеме. К сожалению, беда может случиться в любое время, поэтому телефоны службы спасения работают в круглосуточном режиме – не бойтесь нам звонить и в 2 часа ночи, и в 5 часов утра."
             />
           }
           link={{
@@ -142,19 +128,10 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
         />}
         <HelpBlock
-          animalsList={sickAnimalsList}
-          backgroundColor='#333572'
+          animalsList={sickAnimalsList.data}
           title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
-          color='#409275'
-          text={{
-            color: '#ffffff',
-            content: <TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />
-          }}
-          btn={{
-            style: 'yellow',
-            content: <TI18n keyStr="footerRightBtn" default="Помочь" />
-          }}
-          story={true}
+          text={<TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />}
+          buttonText={<TI18n keyStr="footerRightBtn" default="Помочь" />}
         />
         {!!videosList && !!videosList.length && (
           <YouTubeBox

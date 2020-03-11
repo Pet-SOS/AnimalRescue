@@ -1,6 +1,6 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    /// <summary>
+    /// API documents management
+    /// </summary>
+    [Authorize]
     public class DocumentsController : ApiControllerBase
     {
         private readonly IDocumentService _documentService;

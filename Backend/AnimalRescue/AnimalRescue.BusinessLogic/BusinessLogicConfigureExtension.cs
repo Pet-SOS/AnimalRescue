@@ -5,14 +5,18 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
+using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.DataAccess.Mongodb;
-
+using AnimalRescue.DataAccess.Mongodb.Enums;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AutoMapper;
-
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic
 {
@@ -54,6 +58,52 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
             services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IJwtFactory, JwtFactory>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IEmailSender, EmailSender>();
+        }
+
+        public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
+        {
+            CreateRoles(serviceProvider, configuration).GetAwaiter().GetResult();
+        }
+
+        private static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleNames = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Select(x => x.ToString()).ToList();
+            IdentityResult roleResult;
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await roleManager.CreateAsync(new ApplicationRole(roleName));
+                }
+            }
+            string email = configuration["AdminDetail:Email"];
+            string adminPassword = configuration["AdminDetail:Password"];
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                var admin = new ApplicationUser
+                {
+
+                    UserName = email,
+                    Email = email,
+                    FirstName = "Super",
+                    LastName = "User",
+                    ProfilePhoto = null,
+                    EmailConfirmed = true
+                };
+
+                var createPowerUser = await userManager.CreateAsync(admin, adminPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
+                }
+            }
         }
     }
 }
