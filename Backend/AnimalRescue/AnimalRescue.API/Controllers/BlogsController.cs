@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
-    [Authorize]
+    [Authorize("Bearer")]
     public class BlogsController : ApiControllerBase
     {
         private readonly IBlFullCrud<BlogDto, BlogDto> _blogService;
