@@ -2,7 +2,7 @@
 import React, { ChangeEvent } from 'react';
 import { Tabs } from 'antd';
 import'../style/FinancialReportsPage.scss';
-import { IFinancialReport, deleteFinancialReporDocument } from '../../../../api/financialReport';
+import { IFinancialReport, deleteFinancialReporDocument, addFinancialReporDocument } from '../../../../api/financialReport';
 import { ReactComponent as Pdf } from '../../../../img/pdf.svg';
 import moment, { Moment } from 'moment';
 import { TI18n } from '../../../../i18n';
@@ -39,21 +39,39 @@ export class FinancialReportsPage extends React.Component <IPropTypes, IState>{
     e.preventDefault();
     // TODO: do something with -> this.state.file
     console.log('handle uploading-', this.state);
+    addFinancialReporDocument(this.state).then(resp=>{
+      console.log(resp);
+    });
   }
 
   uploadFile(e: any) {
     e.preventDefault();
-    console.log(e.target.files[0])
-     this.setState({file: e.target.files[0] });
+    // const reader = new FileReader();
+    // reader.onload = (e:any) => {
+
+    //   const arrayBuffer = e.target.result;
+    //   const array = new Uint8Array(arrayBuffer);
+    //   console.log(array);
+    //   console.log(e);
+    //   console.log(new Int8Array(e.target.result));
+  
+    // }
+    // ;
+    // const file = reader.readAsArrayBuffer(e.target.files[0])
+    const formData = new FormData();
+    formData.append('report', e.target.files[0]);
+    this.setState({file: formData });
   }
 
   handleFileInfo(field:string, e:any){
     switch(field){
       case'title':
       case'body':
-      this.setState({field: e.target.value });
+        this.setState({[field]: e.target.value });
+        break;
       case'date':
-      console.log(e)
+        this.setState({[field]: e.toDate() });
+        break;
     }
   }
 
