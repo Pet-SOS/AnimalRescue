@@ -172,18 +172,6 @@ namespace AnimalRescue.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //bool exists = Directory.Exists(Path.Combine(_env.ContentRootPath, "Content"));
-            //if (!exists)
-            //{
-            //    Directory.CreateDirectory(Path.Combine(_env.ContentRootPath, "Content"));
-            //}
-
-            //app.UseStaticFiles(new StaticFileOptions()
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(_env.ContentRootPath, "Content")),
-            //    RequestPath = new PathString("/Content")
-            //});
-
             BusinessLogicConfigureExtension.EnsureUpdate(serviceProvider, Configuration);
 
             app.UseConfigureSwagger(/*provider*/);

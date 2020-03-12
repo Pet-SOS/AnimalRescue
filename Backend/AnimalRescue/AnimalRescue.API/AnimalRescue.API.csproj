@@ -33,8 +33,4 @@
     <ProjectReference Include="..\AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\Helpers\" />
-  </ItemGroup>
-
 </Project>
