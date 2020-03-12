@@ -7,6 +7,18 @@ namespace AnimalRescue.Infrastructure.Validation
         public static class Objects
         {
             private static bool EqualsNull(object value) => value == null;
+            private static bool NotEqualsNull(object value) => !EqualsNull(value);
+
+            public static void IfNull(object value, string message)
+            {
+                IfNull<ApplicationException>(value, message);
+            }
+
+            public static void IfNull<TE>(object value, string message) where TE: Exception
+            {
+                InnerCheck<TE, object>(value, NotEqualsNull, message);
+            }
+
             #region Not Null Region
             public static void NotNull(object value, Func<string> message)
             {

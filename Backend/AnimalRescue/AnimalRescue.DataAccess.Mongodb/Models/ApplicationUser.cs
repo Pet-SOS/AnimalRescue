@@ -34,6 +34,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("modifiedBy")]
         public string ModifiedBy { get; set; }
 
+        [BsonElement("isDeleted")]
+        public bool IsDeleted { get; set; }
+
         public ApplicationUser()
         {
 

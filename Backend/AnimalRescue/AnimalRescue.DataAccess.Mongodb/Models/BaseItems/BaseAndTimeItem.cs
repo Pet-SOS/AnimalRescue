@@ -24,6 +24,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
 
         [CouplingPropertyName(baseItem.ModifiedBy)]
         [BsonElement("modifiedBy")]
-        public string ModifiedBy { get; set; }  
+        public string ModifiedBy { get; set; }
+
+        [CouplingPropertyName(baseItem.IsDeleted)]
+        [BsonElement("isDeleted")]
+        public bool IsDeleted { get; set; }
     }
 }
