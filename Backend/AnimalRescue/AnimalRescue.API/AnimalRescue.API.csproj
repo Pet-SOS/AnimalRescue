@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="Core\Helpers\" />
   </ItemGroup>
 
 </Project>
