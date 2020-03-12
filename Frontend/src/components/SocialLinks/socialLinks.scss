@@ -1,7 +1,33 @@
+@import '../../styles/include-media';
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+@import '../../styles/base/mixins';
+
 .social-links {
   display: flex;
-  flex-direction: row;
-  padding-top: 1rem;
+  margin: 0 -6px;
+  position: relative;
+  z-index: 1;
+
+  li {
+    padding: 0 6px;
+  }
+
+  a {
+    @include size(48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 100%;
+    border: 1px solid $bg-lite-box;
+    box-shadow: 0 4px 6px $bg-lite-lite;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
   svg {
     cursor: pointer;
   }

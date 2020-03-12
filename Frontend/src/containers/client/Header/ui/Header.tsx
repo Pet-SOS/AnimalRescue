@@ -30,33 +30,31 @@ export const AppHeader: React.FC<IPropTypes> = () => {
     infoContactsCheckAndLoad();
   }, [])
     return (
-        <header>
-            <div className="content">
-                <div className="header">
-                  <div className="box-menu-logo">
-                      <div className='box-mobile' onClick={(e)=> {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setIsActiveMenu(!isActiveMenu)}}>
-                          <div  className={`${isActiveMenu? 'active-menu': ''} menu-btn`}>
-                              <div className='band'></div>
-                          </div>
-                          {isActiveMenu? <MobileMenu/> : ''} 
-                      </div>
-                      <div className="logo-main">
-                          <div className="logo"><Link to="/"><Logo/></Link></div>
-                          <div className="logo-text">
-                              <TI18n keyStr="headerTitle" default="Спасение животных Харьков"/>
-                          </div>
-                      </div>
-                  </div>
-                  <PhoneLink/>
-                  <div className="box-social-locale-header">
-                      <SocialLinks/>
-                      <div className="change-locale"><ChangeLocale/></div>
-                  </div>
+        <header className={isActiveMenu ? 'nav-active': ''}>
+            <div className="container">
+                <div className="header-content">
+                    <div className="header-top">
+                        <div className="logo-main">
+                            <Link className="logo" to="/"><Logo/></Link>
+                            <div className="logo-text">
+                                <TI18n keyStr="headerTitle" default="Спасение животных Харьков"/>
+                            </div>
+                        </div>
+                        <PhoneLink/>
+                        <div className="box-social-locale-header">
+                            <SocialLinks/>
+                            <div className="change-locale"><ChangeLocale/></div>
+                        </div>
+                    </div>
+                    <div className='wrap-navigation' >
+                        <div className='band nav-opener' onClick={(e)=> {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            setIsActiveMenu(!isActiveMenu);}} ><span>Open</span></div>
+                        <AppMenu/>
+                        {/*{isActiveMenu? <MobileMenu/> : ''}*/}
+                    </div>
                 </div>
-                <AppMenu/>
             </div>
         {isActivePopup ? <PopupInfo
             boxImages={[counterImage5,counterImage9,counterImage6,counterImage10]}

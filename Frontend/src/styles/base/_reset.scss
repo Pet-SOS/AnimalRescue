@@ -1,0 +1,66 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  max-height: 1000000px;
+}
+
+//- HTML5 display-role reset for older browsers
+main,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  color: $base-text-color;
+  background: $base-background-body;
+  font: #{$font-size-base}/#{$line-height-base} $base-font-family;
+  min-width: $base-min-width;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+
+  @include media('≥tablet') {
+    font-size: $font-size-base-lagre;
+    line-height: $line-height-base-lagre;
+  }
+}
+
+// adaptive images
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
+// google map fix
+.gm-style img {
+  max-width: none;
+}
+
+iframe {
+  @include media('<desktop') {
+    width: 100%;
+  }
+}
+
+.resize-active * {
+  transition: none !important;
+}
