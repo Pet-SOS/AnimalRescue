@@ -4,7 +4,8 @@ export default {
 
   hotLinePhones: '24/7',
 
-  headerTitle: 'Rettungstiere Kharkov',
+
+  headerTitle: 'Rettungsdienst  Kharkiv',
   headerMenuItem0: 'Die Haupt',
   headerMenuItem1: 'Über Service',
   headerMenuItem2: 'Brauche einen Freund',
@@ -37,8 +38,7 @@ export default {
   canHelpBlockContent: 'Mascha ist ein bescheidener und freundlicher Hund. Sehr geduldig und unauffällig. Mascha wurde von einem Auto angefahren, überlebte Stress. Zuerst hatte sie Angst, dann beruhigte sie sich und begann den Menschen zu vertrauen. Um sich von einem Unfall zu erholen, müssen Sie 3.500 UAH sammeln.',
 
   ourGoalBlockTitle: 'Unser Ziel',
-  ourGoalBlockText1: 'Wir sind der Tierrettungsdienst von Kharkov und unser Ziel ist es, Tieren in Not zu helfen. Wir retten Kätzchen, Welpen, erwachsene Katzen und Hunde, die die schwierigen Phasen ihres Katzen- oder Hundelebens durchstehen müssen. Wir unterstützen Tiere unabhängig vom Wochentag oder der Tageszeit.',
-  ourGoalBlockText2: 'Wenn Sie feststellen, dass eines der Tiere Hilfe benötigt, rufen Sie sofort unsere Hotline an und teilen Sie uns das Problem mit. Leider kann es jederzeit zu Problemen kommen, sodass die Telefone des Rettungsdienstes rund um die Uhr funktionieren. Haben Sie keine Angst, uns um 2 Uhr morgens oder um 5 Uhr morgens anzurufen.',
+  ourGoalBlockText1: 'Wir sind der Tierrettungsdienst von Kharkov. Unser Ziel ist es, Tieren in Not zu helfen. Wir retten Kätzchen, Welpen, erwachsene Katzen und Hunde, Vögel und wilde Tiere. Wir helfen Ihnen rund um die Uhr. Rufen Sie uns mindestens 2 Uhr morgens, mindestens 5 Uhr morgens an.',
   ourGoalBlockLinkText: 'Servicedetails',
 
   popupInfoBlockTitle: 'Helfen Sie Tieren',
@@ -56,7 +56,7 @@ export default {
   readStory: 'Geschichte lesen',
 
   dogsListTitle: 'Unsere Hunde',
-  catsListTitle: 'Unsere Siegel',
+  catsListTitle: 'Unsere Katzen',
 
   female: 'Mädchen',
   male: 'Junge',
@@ -190,7 +190,7 @@ export default {
   year: 'Jahr',
   someHistory: 'Ein bisschen Geschichte',
   character: 'Charakter',
-  wantToAdopt: 'Ich möchte adoptieren',
+  wantToAdopt: 'Möchte nach Hause nehmen',
   shareAnimalText: 'Teilen Sie Ihre Schwanzgeschichte mit, damit er schneller ein Zuhause findet',
   howToTake: 'Wie zu nehmen?',
   instructionsListItemText1: 'Lerne das Tier kennen. Dies hilft Ihnen zu verstehen, ob es in Bezug auf die Temperatur für Sie richtig ist.',
@@ -215,6 +215,13 @@ export default {
   readytoabroad: 'Bereit ins Ausland zu gehen',
   speziell: 'speziell',
    theLoss: 'lost',
+
+  fromTwoToFourYears: 'Jahre',
+  fromFiveToTwentyYears: 'Jahre',
+  fromTwoToFourMonths: 'Monate',
+  fromFiveToTwelveMonths: 'Monate',
+  week: 'Woche',
+  fromTwoToFourWeeks: 'Wochen',
   //
   AnimalFilterKindany: 'Beliebig',
   AnimalFilterKinddog: 'Hund',
@@ -239,5 +246,28 @@ export default {
   AnimalSizemedium: 'Mittel',
   AnimalSizelarge: 'Groß',
 
-  pageNotFound: 'Seite nicht gefunden'
+  pageNotFound: 'Seite nicht gefunden',
+
+  favoritesPageTitle: 'Ich mag',
+  noneFavoriteAnimalsText: 'Sie haben noch keines der Tiere bemerkt, schauen Sie mal, plötzlich wartet Ihr Freund mit uns auf Sie.',
+  itLikedYouText: 'Sie mochten die ',
+  tailsText: ' Schwänze', 
+  itLikedYouText1: 'Sie mochten ',
+  tailsText1: ' Schwanz',
+
+  wantToHelp: 'Ich möchte helfen',
+  whereMoneyGo: 'Sehen Sie, wohin das Geld fließt',
+  hiIAm: 'Hallo, ich heiße',
+  dateText0: 'Januar',
+   dateText1: 'Februar',
+   dateText2: 'März',
+   dateText3: 'April',
+   dateText4: 'Mai',
+   dateText5: 'Juni',
+   dateText6: 'Juli',
+   dateText7: 'August',
+   dateText8: 'September',
+   dateText9: 'Oktober',
+   dateText10: 'November',
+   dateText11: 'Dezember',
 }

@@ -8,7 +8,6 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { ISocialLinks } from '../../api/contacts';
 import { selectInfoContacts } from '../../containers/client/Home/store/selectors';
 
-
 export const SocialLinks: React.FC<any> = () => {
 const socialLinks: ISocialLinks = useSelector(() => (selectInfoContacts(store.getState()).data.socialLinks), shallowEqual);
 

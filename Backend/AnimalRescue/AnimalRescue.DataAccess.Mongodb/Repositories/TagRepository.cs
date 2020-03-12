@@ -82,7 +82,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
             Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
 
-            await _baseCollection.RemoveAsync(id);
+            await _baseCollection.DeleteAsync(id);
         }
 
         public async Task<int> GetCountAsync(DbQuery query)

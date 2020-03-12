@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
-import { fetchAnimals, fetchSavedAnimalsCount } from "../../../../../api/animals";
+import { fetchAnimals, fetchSavedAnimalsCount, fetchFavoriteAnimals } from "../../../../../api/animals";
 import { fetchSickAnimals } from "../../../../../api/help";
 import {
   actionFetchAnimalsRequest,
@@ -18,6 +18,9 @@ import {
   actionFetchSickAnimals,
   actionFetchSickAnimalsSuccess,
   actionFetchSickAnimalFailUrl,
+  actionFetchFavoriteAnimalsRequest,
+  actionFetchFavoriteAnimalsSuccess,
+  actionFetchFavoriteAnimalsFailure,
 } from "../actions";
 import { IRequestParams } from '../../../../../api/requestOptions';
 
@@ -55,6 +58,14 @@ function* fetchCatsList(action: { type: string, payload?: IRequestParams }) {
     yield put(actionFetchCatsFailure(e))
   }
 }
+function* fetchFavoriteAnimalsList(action: { type: string, payload?: IRequestParams }) {
+  try {
+    const response = yield call(fetchFavoriteAnimals);
+    yield put(actionFetchFavoriteAnimalsSuccess(response))
+  } catch (e) {
+    yield put(actionFetchFavoriteAnimalsFailure(e))
+  }
+}
 
 function* getSavedAnimalsCount() {
   try {
@@ -71,4 +82,5 @@ export function* watchAnimals() {
   yield takeEvery(getType(actionFetchCatsRequest), fetchCatsList);
   yield takeEvery(getType(actionFetchSavedAnimalsCount), getSavedAnimalsCount)
   yield takeEvery(getType(actionFetchSickAnimals), fetchSickAnimalsList);
+  yield takeEvery(getType(actionFetchFavoriteAnimalsRequest), fetchFavoriteAnimalsList);
 }

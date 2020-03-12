@@ -1,3 +1,4 @@
+using AnimalRescue.API.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,6 +8,8 @@ namespace AnimalRescue.API
     {
         public static void Main(string[] args)
         {
+            CurrentDirectoryHelper.SetCurrentDirectory();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -14,7 +17,8 @@ namespace AnimalRescue.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseIISIntegration()
+                    .UseStartup<Startup>();
                 });
     }
 }

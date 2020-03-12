@@ -4,7 +4,7 @@ export default {
 
   hotLinePhones: 'Around the clock',
 
-  headerTitle: 'Rescue animals in Kharkov',
+  headerTitle: 'Rescue Animals Kharkiv',
   headerMenuItem0: 'Home',
   headerMenuItem1: 'About Service',
   headerMenuItem2: 'Looking for a Friend',
@@ -19,8 +19,7 @@ export default {
   headerMenuItem1Dropdown3: 'Financial statements',
 
   ourGoalBlockTitle: 'Our goal',
-  ourGoalBlockText1: 'We are the Kharkov animal rescue service, and our goal is to help animals in distress. We save kittens, puppies, adult cats and dogs who have to go through the difficult periods of their cat or dog life. We provide assistance to animals, regardless of the day of the week or time of day.',
-  ourGoalBlockText2: 'If you see that one of the animals needs help, immediately call our hotline and let us know about the problem. Unfortunately, trouble can happen at any time, so the rescue service phones work around the clock - do not be afraid to call us at 2 a.m. or 5 a.m.',
+  ourGoalBlockText1: 'We are the Kharkov animal rescue service. Our goal is to help animals in distress. We save kittens, puppies, adult cats and dogs, birds, wild animals. We provide assistance around the clock. Call us on the hotline at least 2 a.m., at least 5 a.m.',
   ourGoalBlockLinkText: 'Service Details',
 
   helpBlockTitle: 'Help animals',
@@ -187,7 +186,7 @@ export default {
   year: 'year',
   someHistory: 'A bit of history',
   character: 'Character',
-  wantToAdopt: 'I want to adopt',
+  wantToAdopt: 'I want to take home',
   shareAnimalText: 'Share the story of the ponytail to help him find a home faster',
   howToTake: 'How to take?',
   instructionsListItemText1: 'Get to know the animal. This will help to understand whether it suits you in temperature.',
@@ -242,5 +241,30 @@ export default {
   AnimalSizemedium: 'Medium',
   AnimalSizelarge: 'Large',
 
-  pageNotFound: 'Page not found'
+  pageNotFound: 'Page not found',
+
+  favoritesPageTitle: 'I liked it',
+  noneFavoriteAnimalsText: 'You have not yet noted any of the animals, take a closer look, suddenly your friend is waiting for you with us.',
+  itLikedYouText: 'You liked the ',
+  tailsText: ' tails',
+  itLikedYouText1: 'You liked a ',
+  tailsText1: ' tail',
+
+  wantToHelp: 'Want to help',
+  whereMoneyGo: 'See where the money will go',
+  hiIAm: 'Hi, I am',
+
+  dateText0: 'January',
+   dateText1: 'February',
+   dateText2: 'March',
+   dateText3: 'April',
+   dateText4: 'May',
+   dateText5: 'June',
+   dateText6: 'July',
+   dateText7: 'August',
+   dateText8: 'September',
+   dateText9: 'October',
+   dateText10: 'November',
+   dateText11: 'December',
+
 }

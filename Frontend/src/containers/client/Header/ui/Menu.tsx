@@ -100,6 +100,7 @@ export const AppMenu: React.FC = () => {
                         <FavoriteCounter count={favoriteAnimalsIds.length}/>
                     </NavLink>
                 </li>
+<<<<<<< HEAD
             </ul>
            <div className="add-content">
                <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
@@ -112,5 +113,44 @@ export const AppMenu: React.FC = () => {
                </div>
            </div>
         </nav>
+=======
+                <li><NavLink to={`/about${RULES_PAGE_LINK}`} activeClassName="is-active"><TI18n keyStr="headerMenuItem1Dropdown2" default="Правила работы с нами" /></NavLink></li>
+                <li><NavLink to="/about/financial-reports" activeClassName="is-active"><TI18n keyStr="headerMenuItem1Dropdown3" default="Финансовые отчеты" /></NavLink></li>
+              </ul>
+            </div>
+            <div className="item">
+                <NavLink to='/animals/page/1'><TI18n keyStr="headerMenuItem2" default="Ищу друга"/></NavLink>
+            </div>
+            <div className="item">
+              <NavLink to={HELP_PAGE_LINKS.default} activeClassName="is-active"><TI18n keyStr="headerMenuItem3" default="Как я могу помочь?" /></NavLink >
+                <ul className="dropdown">
+                    <li>
+                        <NavLink to={HELP_PAGE_LINKS.finance} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.finance)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown1" default="Финансово" />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={HELP_PAGE_LINKS.stuff} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.stuff)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown2" default="Вещами" />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={HELP_PAGE_LINKS.volunteering} activeClassName="is-active" isActive={(match, location) => (location.pathname + location.search).includes(HELP_PAGE_LINKS.volunteering)}>
+                            <TI18n keyStr="headerMenuItem3Dropdown3" default="Волонтерством" />
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+            <NavLink to="/blog/page/1" activeClassName="is-active" className="item"><TI18n keyStr="blog" default="Блог"/></NavLink>
+            <NavLink activeClassName="is-active" className="item" to="/contacts"><TI18n keyStr="contacts" default="Контакты"/></NavLink>
+            <NavLink activeClassName="is-active" className="item heart" to="/favorites">
+              <FavoriteCounter count={favoriteAnimalsIds.length}/>
+            </NavLink>
+            <Button onClick={() => {store.dispatch(actionIsActivePopup(true))
+            }}  styleType={ButtonTypes.Blue}>
+                <TI18n keyStr="help" default="Помочь"/>
+            </Button>
+        </div>
+>>>>>>> ecb1e11f3b5cc3c1a8d6fdbad3dfa581b0e8e4a2
     )
 };

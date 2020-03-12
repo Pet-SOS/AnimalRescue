@@ -35,14 +35,14 @@ namespace AnimalRescue.DataAccess.Mongodb
             Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
             Require.Objects.NotNull(database, nameof(database));
             Require.Objects.NotNull(queryBuilder, nameof(queryBuilder));
-
+ 
             this.database = database;
             this.collection = database.GetCollection<T>(collectionName);
             this.queryBuilder = queryBuilder;
         }
 
         public async Task UpdateAsync(T instance) => await collection.ReplaceOneAsync(t => t.Id == instance.Id, instance);
-        public async Task RemoveAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
+        public async Task DeleteAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
         public async Task<T> CreateAsync(T instance)
         {
             await collection.InsertOneAsync(instance);
@@ -58,7 +58,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<List<T>> GetAsync(DbQuery query)
         {
             List<T> requestedCollection = await collection
-                .Find(queryBuilder.FilterAsString(query.Filter))
+                .Find(queryBuilder.FilterAsFilterDefinition(query.Filter))
                 .Sort(queryBuilder.SortAsString(query.Sort))
                 .Skip(query.Skip)
                 .Limit(query.Size)
@@ -70,7 +70,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<int> GetCountAsync(DbQuery query)
         {
             long count = await collection
-                .Find(queryBuilder.FilterAsString(query.Filter))
+                .Find(queryBuilder.FilterAsFilterDefinition(query.Filter))
                 .CountDocumentsAsync();
 
             return (int)count;
@@ -80,7 +80,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         {
             var item = await collection
                 .Find(x=>x.Id == id)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
 
             return item;
         }

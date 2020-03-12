@@ -1,7 +1,5 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
-
 using Newtonsoft.Json;
-
 using System;
 using System.Text.Json.Serialization;
 
@@ -20,5 +18,9 @@ namespace AnimalRescue.API.Models.FinancialReports
         [JsonPropertyName(PropertyConstants.FinancialReport.FileId)]
         [JsonProperty(PropertyConstants.FinancialReport.FileId)]
         public Guid FileId { get; set; }
+
+        [JsonPropertyName(PropertyConstants.FinancialReport.Date)]
+        [JsonProperty(PropertyConstants.FinancialReport.Date)]
+        public DateTime Date { get; set; }
     }
 }

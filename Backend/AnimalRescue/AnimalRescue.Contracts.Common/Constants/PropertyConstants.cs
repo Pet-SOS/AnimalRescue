@@ -83,6 +83,7 @@ namespace AnimalRescue.Contracts.Common.Constants
         {
             public const string File = "file";
             public const string FileId = "fileId";
+            public const string Date = "date";
         }
     }
 }

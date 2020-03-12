@@ -47,7 +47,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
         public async Task DeleteAsync(string financialReportId)
         {
-            await _baseCollection.RemoveAsync(financialReportId);
+            await _baseCollection.DeleteAsync(financialReportId);
         }
 
         public async Task<int> GetCountAsync(DbQuery query)

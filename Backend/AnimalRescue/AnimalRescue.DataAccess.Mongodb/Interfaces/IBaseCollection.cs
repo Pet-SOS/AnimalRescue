@@ -21,6 +21,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces
         Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances);
         Task CreateAsync(BsonDocument instance);
         Task UpdateAsync(T instance);
-        Task RemoveAsync(string id);
+        Task DeleteAsync(string id);
     }
 }

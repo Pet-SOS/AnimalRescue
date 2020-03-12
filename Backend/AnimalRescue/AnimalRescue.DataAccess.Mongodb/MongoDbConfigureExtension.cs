@@ -7,11 +7,13 @@ using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.DataAccess.Mongodb.Repositories;
 using AnimalRescue.Infrastructure.Configuration;
-
+using AspNetCore.Identity.Mongo;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using MongoDB.Driver;
+using System;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
@@ -21,13 +23,36 @@ namespace AnimalRescue.DataAccess.Mongodb
 			this IServiceCollection services,
 			IConfiguration configuration)
 		{
-            var commonSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
-            MongoClient client = new MongoClient(commonSettings.ConnectionString);
-            IMongoDatabase database = client.GetDatabase(commonSettings.DatabaseName);
+            var dbSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
+            MongoClient client = new MongoClient(dbSettings.ConnectionString);
+            IMongoDatabase database = client.GetDatabase(dbSettings.DatabaseName);
+
+            services.AddIdentityMongoDbProvider<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+
+            }, mongoIdentityOptions => {
+
+                mongoIdentityOptions.ConnectionString = $"{dbSettings.ConnectionString}/{dbSettings.DatabaseName}";
+
+            }).AddDefaultTokenProviders();
 
             services
-                .AddSingleton<IMongoDbSettings>(p => commonSettings)
-                .AddSingleton<IBucketSettings>(p => commonSettings)
+                .AddSingleton<IMongoDbSettings>(p => dbSettings)
+                .AddSingleton<IBucketSettings>(p => dbSettings)
                 .AddSingleton<IMongoClient, MongoClient>(p => client)
                 .AddSingleton<IAliasStore, AliasStore>()
                 .AddSingleton<IQueryFilterBuilder, QueryFilterBuilder>()
@@ -38,7 +63,8 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
                 .AddSingleton<IQueryBuilder<Employee>, QueryBuilder<Employee>>()
                 .AddSingleton<IQueryBuilder<FinancialReport>, QueryBuilder<FinancialReport>>()
-                .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>();
+                .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>()
+                .AddSingleton<IQueryBuilder<SecurityToken>, QueryBuilder<SecurityToken>>();
 
             services
                 .AddScoped<IMongoDatabase>(x => database)
@@ -57,6 +83,9 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<ITagRepository, TagRepository>()
                 .AddScoped<IEmployeeRepository, EmployeeRepository>()
                 .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();
+
+            services.AddScoped<IBaseCollection<SecurityToken>, BaseCollection<SecurityToken>>()
+                .AddScoped<ISecurityTokenRepository, SecurityTokenRepository>();
         }
     }
 }

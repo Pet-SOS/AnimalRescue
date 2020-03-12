@@ -6,7 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
+    [Authorize("Bearer")]
     public class TagsController : ApiControllerBase
     {
         private readonly ITagService _tagService;
