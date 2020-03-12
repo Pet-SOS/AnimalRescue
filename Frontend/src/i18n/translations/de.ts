@@ -5,7 +5,7 @@ export default {
   hotLinePhones: '24/7',
 
 
-  headerTitle: 'Rettungsdienst  Kharkiv',
+  headerTitle: 'Rettungsdienst Kharkiv',
   headerMenuItem0: 'Die Haupt',
   headerMenuItem1: 'Über Service',
   headerMenuItem2: 'Brauche einen Freund',

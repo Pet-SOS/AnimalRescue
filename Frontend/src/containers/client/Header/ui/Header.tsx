@@ -7,7 +7,6 @@ import {SocialLinks} from "../../../../components/SocialLinks";
 import {store} from '../../../../store/index';
 import { PopupInfo } from './PopupInfo';
 import { PhoneLink } from '../../../../components/PhoneLink';
-import { MobileMenu } from './MobileMenu';
 import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage9 from '../../../../img/counter-images/counter_9.png';
@@ -52,7 +51,6 @@ export const AppHeader: React.FC<IPropTypes> = () => {
                             e.preventDefault();
                             setIsActiveMenu(!isActiveMenu);}} ><span>Open</span></div>
                         <AppMenu/>
-                        {/*{isActiveMenu? <MobileMenu/> : ''}*/}
                     </div>
                 </div>
             </div>
