@@ -1,0 +1,46 @@
+// Typography
+
+@include title-size('≤');
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+.h {
+  font-family: $headings-font-family;
+  color: $headings-color;
+  font-weight: 900;
+  margin: 0 0 20px;
+  line-height: 1;
+
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
+  }
+}
+
+p {
+  margin: 0 0 16px;
+}
+
+a {
+  color: $base-link-color;
+  text-decoration: $text-decoration;
+
+  &:hover,
+  &:focus {
+    color: $base-link-hover-color;
+    text-decoration: $text-decoration-hover;
+  }
+}
+
+a[href*="mailto:"] {
+  word-wrap: break-word;
+}

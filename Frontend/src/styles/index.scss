@@ -1,21 +1,33 @@
-@import '../../node_modules/reset-css/reset';
-@import "font-face";
+@import 'include-media';
+
 @import './variables';
+@import 'base/variables';
+@import 'base/functions';
+@import 'base/mixins';
+@import 'base/helpers';
+@import 'base/reset';
+//@import 'base/forms';
+@import 'base/typography';
+
+//@import '../../node_modules/reset-css/reset';
+
+@import "font-face";
+
 * {
   box-sizing: border-box;
 }
-html {  
-  height: 100%;
-  body {
-    margin: 0;
-    font-family:'Nunito', 'Roboto',  sans-serif;
-    color: $text-color;
-    font-size: 1.125rem;
-    line-height: 1.625rem;
-    height: 100%;
-    background: $bg-lite-box;
-  }
-}
+//html {
+//  height: 100%;
+//  body {
+//    margin: 0;
+//    font-family:'Nunito', 'Roboto',  sans-serif;
+//    color: $text-color;
+//    font-size: 1.125rem;
+//    line-height: 1.625rem;
+//    height: 100%;
+//    background: $bg-lite-box;
+//  }
+//}
 
 #root {
     display: flex;
@@ -41,10 +53,27 @@ header, footer {
   box-sizing: border-box;
   max-width: 100%;
 }
+
+.container {
+  padding: 0 24px;
+  margin: 0 auto;
+  max-width: 1288px;
+  
+  @include media('≤desktop') {
+    max-width: 1143px;
+  }
+}
+
+
 a {
   transition: $defaultHoverTransition;
   text-decoration: none;
 }
+
+ul {
+  @extend %listreset;
+}
+
 .title {
   color: $text-color;
   font-size: 3rem;

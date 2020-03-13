@@ -1,8 +1,17 @@
+@import './../../styles/include-media';
 @import './../../styles/variables.scss';
+@import './../../styles/base/mixins';
+
 .phone-block {
+  margin: 0 auto;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+
+  @include media('≤tablet') {
+    margin: 0;
+  }
+
   .icon-phone{
     position: relative;
     display:flex;
@@ -15,6 +24,12 @@
     background-color: $main-bg-color;
     border-radius: 50%;
     box-shadow: inset 0 0 0 15px rgba(236, 187, 59, 0.2);
+
+    @include media('≤phone') {
+      display: none;
+    }
+
+
     &:before {
       content:'';
       position: absolute;
@@ -28,29 +43,34 @@
     }
   }
   .phone {
-    display: flex;
-    flex-direction: column;
-    font-style: normal;
-    font-weight: normal;
-    align-items: left;
-    justify-content: left;
-    vertical-align: middle;
-    text-align: left;
+
     .number {
-      font-weight: normal;
       font-size: 1.5rem;
       font-weight: bold;
       line-height: 2.0625rem;
       color: #0D2B4B;
-      outline: none;
-      text-decoration: none;
+      //outline: none;
+      //text-decoration: none;
+      white-space: nowrap;
+
+      @include media('≤phone') {
+        font-size: 20px;
+        line-height: 27px;
+      }
     }
+
     .title {
+      display: block;
       font-size: 1rem;
       line-height: 1.375rem;
       color: $text-lite-color;
       font-weight: normal;
       margin: 0;
+
+      @include media('≤phone') {
+        font-size: 14px;
+        line-height: 19px;
+      }
     }
   }
 }
