@@ -94,6 +94,17 @@
                     }
                 }
             }
+            .bank-card{
+                display: flex;
+                justify-content: flex-start; 
+                flex-wrap: nowrap;
+                align-items: center;
+                align-content: center;          
+            }
+            .copy-to-clipboard{
+                margin-left: 1.5rem;
+                align-self: center;
+            }
         }
     }
 }
@@ -136,6 +147,13 @@
             max-width: 23.4375rem;
             .second-block{
                 padding: 1.5rem 1.75rem 1.5rem 1.75rem;
+                .bank-card{
+                    flex-direction: column;
+                    .copy-to-clipboard{
+                        margin: 0.125rem 0 2rem;
+                        align-self: flex-start;
+                    }
+                }
             }
             .first-block{
                 .pets .pet.bg-image1{

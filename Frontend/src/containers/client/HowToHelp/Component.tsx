@@ -10,6 +10,8 @@ import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IInfoCard } from '../Home/store/state';
 import { infoCardCheckAndLoad } from '../Home/store/selectors';
 import { IVacanciesState } from '../../../store/state/vacancies.state';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copyImage from '../../../img/copy-pink.jpg';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -87,10 +89,17 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default='Наша служба ежедневно заботится о сотнях животных. У нас есть автомобиль, благодаря которому мы можем выезжать на срочные вызовы, свой отдел лечения, адоптации и пристройства. Самый легкий способ помочь нам и нашим пушистикам - пожертвовать любую сумму на корм, лечение и обеспечение работы службы и приютов.'
                 />
               </p>
-              {!!infoCard?.data?.bankCard?.cardNumber && <div className="bank-card-info">
-                <p className='card'>{infoCard.data.bankCard.cardNumber}</p>
-                <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
-              </div>}
+              {!!infoCard?.data?.bankCard?.cardNumber && 
+              <div className="bank-card">
+                <div className="bank-card-info">
+                  <p className='card'>{infoCard.data.bankCard.cardNumber}</p>
+                  <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
+                </div>
+                <CopyToClipboard text={infoCard.data.bankCard.cardNumber} className="copy-to-clipboard">
+                  <img src={copyImage} alt="copy"/>
+                </CopyToClipboard>
+              </div>
+              }
             </div>
             <div id={HelpTypes.STUFF} className='block-holder'>
               <h3 className='title'>

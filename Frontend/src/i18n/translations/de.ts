@@ -42,10 +42,10 @@ export default {
   popupInfoBlockTitle: 'Helfen Sie Tieren',
   popupInfoCard: '5169 3305 1022 8304',
   popupInfoCardName: 'Volkova Galina',
-  popupBlockFirstText: 'Wenn Sie uns und unseren Stationen helfen möchten, überweisen Sie einen beliebigen Betrag auf die Privatbankkarte:',
-  popupBlockSecondText: 'Wir brauchen auch:',
+  popupBlockFirstText: 'Wir sind sehr dankbar für Ihren Wunsch zu helfen! Sie können einen beliebigen Betrag auf eine Privatbankkarte überweisen:',
+  popupBlockSecondText: 'Wenn Sie anders helfen können, brauchen wir es immer:',
   popupBlockThirdText: 'Menschen, die das Bedürfnis und die Fähigkeit haben, ein Tier (vom Baby bis zum Erwachsenen) vor der Adoption zu überbelichten;',
-  popupBlockThirdTextTwo: 'Spezialisten mit nicht standardmäßigen und interessanten Optionen für Foto- und Videofilme unserer Tiere für die Website.',
+  popupBlockThirdTextTwo: 'Spezialisten mit interessanten Optionen für Foto- und Videofilme unserer Tiere für die Website.',
 
   counterBlockTitle: 'Die von uns geretteten Tiere',
   counterBlockText: 'nach',
