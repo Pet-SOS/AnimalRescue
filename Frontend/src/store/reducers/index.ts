@@ -10,11 +10,13 @@ import { VACANCIES_KEY, vacanciesReducer } from './vacancies.reducer';
 import { ANIMAL_ITEM_KEY, animalItemReducer } from './../../containers/client/Animals/store/reducer/animal.reducer';
 import { REPORT_KEY, financialReportReducer } from "../../containers/client/FinancialReports/store/reducer";
 import { videosReducer, YOUTUBE_VIDEOS_KEY } from "./youtube-videos.reducer";
+import { ADMIN_LOGIN_KEY, AdminLoginReducer } from "../../containers/admin/Login/store/reducer";
 
 export const createReducers = () => {
     return combineReducers({
         i18n: i18nReducer,
         [HOME_PAGE_KEY]: homePageReducer,
+        [ADMIN_LOGIN_KEY]: AdminLoginReducer,
         [ADMIN_HOME_PAGE_KEY]: AdminHomePageReducer,
         [ANIMALS_KEY]: animalsReducer,
         [ANIMAL_ITEM_KEY]: animalItemReducer,

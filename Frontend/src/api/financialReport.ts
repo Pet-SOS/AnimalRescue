@@ -17,7 +17,6 @@ export interface IFinancialReport {
     reports: IInfoFile[];
 }
 export async function fetchFinancialReport(requestParams?: IRequestParams): Promise<IFinancialReport[]> {
-    debugger
     const res = await API.get(`FinancialReport/years`);
     return res.data
 }
