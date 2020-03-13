@@ -172,12 +172,6 @@ namespace AnimalRescue.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(_env.ContentRootPath, "Content")),
-                RequestPath = new PathString("/Content")
-            });
-
             BusinessLogicConfigureExtension.EnsureUpdate(serviceProvider, Configuration);
 
             app.UseConfigureSwagger(/*provider*/);

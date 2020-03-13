@@ -1,4 +1,3 @@
-using AnimalRescue.API.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -8,8 +7,6 @@ namespace AnimalRescue.API
     {
         public static void Main(string[] args)
         {
-            CurrentDirectoryHelper.SetCurrentDirectory();
-
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -47,7 +47,7 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<SignInAccountModel> SignIn(SignInAccountAuthorizationViewModel model)
         {
             ApplicationUser identityUser = _userManager.Users
-                .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper() || x.PhoneNumber == model.PhoneNumber);
+                .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper());
 
             Require.Objects.NotNull<NotFoundException>(identityUser, $"User not found");
 
