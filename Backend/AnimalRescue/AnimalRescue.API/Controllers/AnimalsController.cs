@@ -26,7 +26,6 @@ namespace AnimalRescue.API.Controllers
         private readonly IBlFullCrud<AnimalDto, AnimalDto> _animalService;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
-        private object mapper;
 
         public AnimalsController(
             IMapper mapper,
