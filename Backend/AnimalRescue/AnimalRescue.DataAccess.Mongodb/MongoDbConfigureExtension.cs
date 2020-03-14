@@ -46,7 +46,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             }, mongoIdentityOptions => {
 
-                mongoIdentityOptions.ConnectionString = $"{dbSettings.ConnectionString}/{dbSettings.DatabaseName}";
+                mongoIdentityOptions.ConnectionString = $"{dbSettings.ConnectionString}";
 
             }).AddDefaultTokenProviders();
 
