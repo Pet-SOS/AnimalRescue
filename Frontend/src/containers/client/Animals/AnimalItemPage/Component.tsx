@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
-import { ERequestStatus, BASE_URL } from '../../../../api';
+import { ERequestStatus } from '../../../../api';
 import { IRequestParams, RequestFilterOperators } from '../../../../api/requestOptions';
 import { IAnimalItemState } from '../store/state/animal.state';
 import { IAnimalsResponse, AnimalKind } from '../../../../api/animals';
@@ -19,6 +19,7 @@ import { ButtonLike } from '../../../../components/ButtonLike';
 import { AdoptPopup } from '../../../../components/AdoptPopup';
 import './index.scss';
 import { Age } from '../../../../components/Age';
+import { selectApiUrl } from '../../../../store/selectors/config.selector';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -46,7 +47,8 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
   const { animalId } = useParams();
   const { isLoading, isLoaded } = useSelector(() => selectAnimalItem(store.getState()), shallowEqual);
   const { status } = useSelector(() => selectAnimalItem(store.getState()).requestState, shallowEqual);
-  const [ isAdoptPopupActive, setIsAdoptPopupActive ] = useState(false)
+  const [isAdoptPopupActive, setIsAdoptPopupActive] = useState(false);
+  const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
   useEffect(() => {
     if (!!animalId) {
       fetchAnimalItem(animalId);
@@ -115,10 +117,10 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                   isSwipeDisable
                   isPaginationHidden
                   slides={animalItem.data.imageIds.map(imgId => (
-                    <div className="img-holder" style={{ backgroundImage: `url(${BASE_URL}documents/${imgId}/type/medium)` }}></div>
+                    <div className="img-holder" style={{ backgroundImage: `url(${baseUrl}documents/${imgId}/type/medium)` }}></div>
                   ))}
                   thumbSlides={animalItem.data.imageIds.map(imgId => (
-                    <img src={`${BASE_URL}documents/${imgId}/type/medium`} />
+                    <img src={`${baseUrl}documents/${imgId}/type/medium`} />
                   ))}
                   thumbSlidesAlignment={ThumbSlidesAlignment.LEFT}
                 />              
