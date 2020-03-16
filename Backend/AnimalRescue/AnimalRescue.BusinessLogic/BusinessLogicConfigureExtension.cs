@@ -9,6 +9,7 @@ using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.DataAccess.Mongodb.Enums;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.Infrastructure.Configuration;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -82,23 +83,22 @@ namespace AnimalRescue.BusinessLogic
                     roleResult = await roleManager.CreateAsync(new ApplicationRole(roleName));
                 }
             }
-            string email = configuration["AdminDetail:Email"];
-            string adminPassword = configuration["AdminDetail:Password"];
-            var user = await userManager.FindByEmailAsync(email);
+            var adminSettings = configuration.GetTypedSection<AdminSettings>("AdminDetail");
+            var user = await userManager.FindByEmailAsync(adminSettings.Email);
             if (user == null)
             {
                 var admin = new ApplicationUser
                 {
 
-                    UserName = email,
-                    Email = email,
+                    UserName = adminSettings.Email,
+                    Email = adminSettings.Email,
                     FirstName = "Super",
                     LastName = "User",
                     ProfilePhoto = null,
                     EmailConfirmed = true
                 };
 
-                var createPowerUser = await userManager.CreateAsync(admin, adminPassword);
+                var createPowerUser = await userManager.CreateAsync(admin, adminSettings.Password);
                 if (createPowerUser.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
