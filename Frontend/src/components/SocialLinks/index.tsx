@@ -1,4 +1,7 @@
 import React from 'react';
+import {ReactComponent as FacebookLogo} from '../../assets/header/facebook.svg';
+import {ReactComponent as InstagramLogo} from '../../assets/header/instagram.svg';
+import {ReactComponent as YoutubeLogo} from '../../assets/header/youtube.svg';
 import './socialLinks.scss';
 import { store } from '../../store';
 import { useSelector, shallowEqual } from 'react-redux';
@@ -10,15 +13,9 @@ const socialLinks: ISocialLinks = useSelector(() => (selectInfoContacts(store.ge
 
   return (
     <ul className="social-links">
-      <li>
-        <a className='facebook' href={socialLinks.facebook} target="_blank" ></a>
-      </li>
-      <li>
-        <a className='instagram' href={socialLinks.instagram} target="_blank" ></a>
-      </li>
-      <li>
-        <a className='youtube' href={socialLinks.youtube} target="_blank" ></a>
-      </li>
+        <li><a href={socialLinks.facebook} target="_blank" ><FacebookLogo/></a></li>
+        <li><a href={socialLinks.instagram} target="_blank" ><InstagramLogo/></a></li>
+        <li><a href={socialLinks.youtube} target="_blank" ><YoutubeLogo/></a></li>
     </ul>
   )
 };

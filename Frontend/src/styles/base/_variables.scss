@@ -1,0 +1,137 @@
+// Colors
+// Color calculator - http://razorltd.github.io/sasscolourfunctioncalculator/
+// Color names - http://name-of-color.com/
+
+$gray:               #0D2B4B;
+$black:              #000;
+$white:              #fff;
+$blue:               #5b759e;
+$yellow:             #E2A811;
+
+$base-font-sans-serif:        'Arial', 'Helvetica Neue', 'Helvetica', sans-serif;
+$base-font-serif:             'Times New Roman', 'Times', 'Baskerville', 'Georgia', serif;
+$base-font:                   'Nunito', $base-font-sans-serif;
+
+// Body
+$base-text-color:             $gray !default;
+//$base-background-color:       $gray !default;
+$base-background-body:        #f9f6f7 !default;
+$base-background-footer:      $base-background-body !default;
+$font-size-base:              18px !default;
+$line-height-base:            1.44444 !default;
+$font-size-base-lagre:        18px !default;
+$line-height-base-lagre:      1.44444 !default;
+$base-font-family:            $base-font !default;
+$base-min-width:              375px;
+
+$max-width-center-container:  1288px;
+$padding-container:           0 24px;
+
+// font weight
+$thin:                        100;
+$extra-light:                 200;
+$light:                       300;
+$normal:                      400;
+$medium:                      500;
+$semibold:                    600;
+$bold:                        700;
+$extra-bold:                  800;
+$black-font:                  900;
+
+// default margins
+$vertical-rhythm:             16px;
+$widget-margin:               16px;
+
+// Liks
+$base-link-color:             $yellow;
+$base-link-hover-color:       #3E5B9D;
+$text-decoration:             none;
+$text-decoration-hover:       none;
+
+// Headers size
+$title-palette: (
+    widescreen: (
+      'h1': 48,
+      'h2': 48,
+      'h3': 36,
+      'h4': 24,
+      'h5': 18,
+      'h6': 16
+    ),
+    desktop: (
+      'h1': 48,
+      'h2': 48,
+      'h3': 36,
+      'h4': 24,
+      'h5': 18,
+      'h6': 16
+    ),
+    tablet: (
+      'h1': 48,
+      'h2': 48,
+      'h3': 36,
+      'h4': 24,
+      'h5': 18,
+      'h6': 16
+    ),
+    phone: (
+      'h1': 32,
+      'h2': 32,
+      'h3': 28,
+      'h4': 24,
+      'h5': 18,
+      'h6': 16
+    )
+);
+$headings-font-family:              $base-font-family;
+$headings-color:                    inherit !default;
+
+// Buttons
+$btn-color:                         $white !default;
+$btn-background:                    $gray !default;
+$btn-border:                        1px solid $black;
+$btn-padding:                       4px 10px !default;
+$btn-font-size:                     $font-size-base - 2 !default;
+$btn-line-height:                   $font-size-base + 2;
+// hover
+$btn-hover-background:              $black !default;
+$btn-hover-color:                   $white !default;
+
+// Forms
+$input-font-size:                   $btn-font-size; // font size for forms elements
+$input-line-height:                 $btn-line-height; // line height for forms elements
+$input-padding:                     $btn-padding !default; // padding for forms elements
+$input-border:                      1px solid $black !default; // border for forms elements
+$input-border-radius:               0 !default; // border radius for forms elements
+$input-height:                      $font-size-base + 14px; // height for forms elements
+$input-font-family:                 $base-font;
+//submit
+$submit-background:                 $btn-background;
+$submit-color:                      $btn-color;
+$submit-height:                     $input-height;
+$submit-border:                     $btn-border;
+$submit-padding:                    $input-padding;
+$submit-font-size:                  $input-font-size;
+$submit-line-height:                $input-line-height;
+// submit hover
+$submit-hover-background:           $btn-hover-background; // submit background hover
+$submit-hover-color:                $btn-hover-color; // submit color hover
+//focus
+$input-focus-border-color:          $black !default; // border color for forms elements
+//placeholder
+$placeholder-color:                 $gray !default;
+// select
+$select-height:                     $input-height;
+$select-border:                     $input-border;
+$select-border-radius:              $input-border-radius;
+$select-padding:                    $input-padding;
+$select-font-size:                  $input-font-size;
+$select-line-height:                $input-line-height;
+
+
+// nav
+$nav-color:                         $black;
+$mobile-nav-drop-bg:                $black;
+$mobile-nav-drop-color:             $white;
+
+$animation-speed:                   0.3s;
