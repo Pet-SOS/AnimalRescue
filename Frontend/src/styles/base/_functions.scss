@@ -1,0 +1,34 @@
+/// colors black & white
+/// @example scss - Usage
+///   .my-class {
+///     background: black(0.15);
+///     color: white(0.9);
+///   }
+@function black($opacity) {
+  @return rgba(black, $opacity);
+}
+
+@function white($opacity) {
+  @return rgba(white, $opacity);
+}
+
+@mixin title-size($symbol) {
+  @each $media, $titles-size in $title-palette {
+    @if $media == mobile {
+      @each $title, $size  in $titles-size {
+        #{$title} {
+          font-size: $size + px;
+        }
+    }
+  } @else {
+      @include media(#{$symbol}#{$media}) {
+        @each $title, $size  in $titles-size {
+          #{$title},
+          .#{$title} {
+            font-size: $size + px;
+          }
+        }
+      }
+    }
+  }
+}

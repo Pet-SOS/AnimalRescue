@@ -1,104 +1,303 @@
-@import "../../../../styles/variables";
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
 
 .header-menu {
   display: flex;
-  width: 100%;
-  max-height: 3.65rem;
   background: $main-bg-color;
-  border: 0.062rem solid $menu-border-color;
-  box-sizing: border-box;
-  box-shadow: 0 0.375rem 0.75rem rgba(233, 230, 231, 0.8);
+  box-shadow: 0 6px 12px rgba($bg-lite-lite, 0.8);
   border-radius: 2rem;
-  justify-content: space-between;
-  margin-bottom: 0.8rem;
-  padding: 0 0 0 1.5rem;
-  .item {
-    position: relative;
-    margin: auto;
-    padding: 1rem 1.3rem;
-    cursor: pointer;
-    font-weight: bold;
-    color: $text-lite-color;
-    &.heart {
-      padding: 1rem 1rem 1rem 0.2rem;
+  line-height: 25px;
+  color: $text-lite-color;
+  font-weight: bold;
+
+  @include media('≤tablet') {
+    display: inline-block;
+    vertical-align: top;
+    width: 375px;
+    background-color: transparent;
+    border-radius: 0;
+    //overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 5;
+    transition: transform 0.3s cubic-bezier(.23, 1, .32, 1), opacity 0.2s;
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  .nav-active & {
+    @include media('≤tablet') {
+      transform: translateX(0);
+      opacity: 1;
     }
+  }
+
+  .button.blue {
+    padding: 15px 40px;
+    height: 100%;
+  }
+}
+
+.nav-list {
+  padding-left: 22px;
+  display: flex;
+  flex-grow: 1;
+  //flex-shrink: 0;
+
+  @include media('≤tablet') {
+    display: block;
+    padding: 8px 24px 0;
+    border-radius: 24px 24px 0 0;
+    background-color: $main-bg-color;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba($bg-lite-lite, 0.8);
+  }
+}
+
+
+
+.nav-item {
+  position: relative;
+  margin: 0;
+  min-height: 55px;
+  font-weight: bold;
+  color: $text-lite-color;
+
+  & + & {
+    @include media('≤tablet') {
+      border-top: 1px solid $bg-lite-lite;
+    }
+  }
+
+  &.drop > a {
+    pointer-events: none;
+
+    @include media('≤tablet') {
+      position: relative;
+      padding-right: 40px;
+    }
+
+    i {
+      display: none;
+      @include size(32px);
+      background-color: $white;
+      box-shadow: 0px 4px 6px $bg-lite-lite;
+      border-radius: 100%;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+
+      @include media('≤tablet') {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &:before {
+        width: .5rem;
+        height: .5rem;
+        border-top: .125rem solid #62738d;
+        border-right: .125rem solid #62738d;
+        transform: rotate(135deg) skew(7deg,7deg);
+        transition: all .2s ease-in-out;
+
+        @include media('≤tablet') {
+          content: "";
+        }
+      }
+    }
+  }
+
+
+  > a {
+    display: inline-block;
+    vertical-align: top;
+    padding: 15px 18px;
+    height: 100%;
+    color: inherit;
+
+    @include media('≤tablet') {
+      display: block;
+      padding-left: 0;
+    }
+  }
+
+  &:hover a, &:active a,&:focus a {
+    color:$text-color-active;
+    outline: none;
+  }
+  .is-active {
+    color: $text-color-active;
+    outline: none;
+  }
+
+  .heart {
+    @include media('≤tablet') {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 0;
+    }
+
+    span:not(.count) {
+      display: none;
+
+      @include media('≤tablet') {
+        display: inline;
+      }
+
+    }
+
+    i {
+      display: flex;
+      align-items: center;
+      margin-left: 11px;
+      height: 100%;
+      padding: 0;
+      font-style: normal;
+
+      @include media('≤tablet') {
+        height: 24px;
+      }
+    }
+
+    &:hover {
+      svg {
+        stroke: $text-color-active;
+      }
+
+      .active {
+        svg {
+          fill: $text-color-active;
+          stroke: $text-color-active;
+        }
+      }
+    }
+
+    svg {
+      fill: none;
+      stroke: $text-lite-color;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .active {
+      svg {
+        fill: $error-color-text;
+        stroke: $error-color-text;
+      }
+    }
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    width: auto;
+    top: 100%;
+    left: 0;
+    background: $main-bg-color;
+    padding: 1.75rem 2.1875rem 2.125rem 1.5rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+    box-shadow: 0px 6px 12px rgba(233, 230, 231, 0.8);
+    box-sizing: border-box;
+    z-index: 7;
+
+    @include media('≤tablet') {
+      position: static;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    li {
+
+      &:hover a, &:active a,&:focus a, .is-active{
+        color:$text-color-active;
+        outline: none;
+      }
+    }
+
     a {
       font-size: 1.125rem;
       line-height: 1.5625rem;
       text-decoration: none;
       color: $text-lite-color;
-      font-weight: bold;
+      font-weight: normal;
       font-style: normal;
       display: flex;
       flex-wrap: nowrap;
       white-space: nowrap;
       padding-bottom: 1rem;
-    }
-    & > a {
-      padding: 0;
-    }
-    &:hover a, &:active a,&:focus a {
-      color:$text-color-active;
-      outline: none;
-    }
-    .is-active{
-      color:$text-color-active;
-      outline: none;
-    }
-    .dropdown{
-      display: none;
-      position: absolute;
-      width: auto;
-      top: 3.625rem;
-      left: 0;
-      background: $main-bg-color;
-      padding: 1.75rem 2.1875rem 2.125rem 1.5rem;
-      border-radius: 0 0 1.5rem 1.5rem;
-      box-shadow: 0px 6px 12px rgba(233, 230, 231, 0.8);
-      box-sizing: border-box;
-      z-index: 7;
-      li {
-        &:last-child a{
-          padding-bottom: 0;
-        }
-        a{
-          font-size: 1.125rem;
-          line-height: 1.5625rem;
-          text-decoration: none;
-          color: $text-lite-color;
-          font-weight: normal;
-          font-style: normal;
-          display: flex;
-          flex-wrap: nowrap;
-          white-space: nowrap;
-          padding-bottom: 1rem;
-        }
-        &:hover a, &:active a,&:focus a, .is-active{
-          color:$text-color-active;
-          outline: none;
-        }
+
+      @include media('≤tablet') {
+        padding: 8px 0;
       }
     }
-    &:hover, &:active,&:focus {
-      color:$text-color-active;
-      outline: none;
-      .dropdown{
-        display: block!important;
+  }
+  &:hover, &:active,&:focus {
+    color:$text-color-active;
+    outline: none;
+    .dropdown{
+      display: block;
+
+      @include media('≤tablet') {
+        display: none;
       }
     }
   }
 
-  .button.blue { box-shadow: none; }
+  &.drop.active {
+    .dropdown {
+      display: block;
+    }
 
-  .help-button {
-    background: #5EAC38;
-    border-radius: 4.81rem;
-    width: 12.5rem;
-    height: inherit;
-    text-align: center;
-    padding: 1.2rem 0;
-    span {
-      margin: 0 auto;
+    i:before {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.add-content {
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+
+  @include media('≤tablet') {
+    background-color: $bg-lite-box;
+    padding: 24px 24px 0;
+    box-shadow: 0 6px 12px rgba($bg-lite-lite, 0.8);
+  }
+
+  &:after {
+    width: 100%;
+    height: 24px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: inherit;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 6px 12px rgba($bg-lite-lite, 0.8);
+
+    @include media('≤tablet') {
+      content: '';
+    }
+  }
+
+  .button {
+    @include media('≤tablet') {
+      margin-bottom: 24px;
+    }
+  }
+
+  .box-social-locale-header {
+    display: none;
+
+    @include media('≤tablet') {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 }

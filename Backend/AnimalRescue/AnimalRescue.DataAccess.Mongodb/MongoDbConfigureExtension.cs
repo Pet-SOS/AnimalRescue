@@ -7,27 +7,36 @@ using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.DataAccess.Mongodb.Repositories;
 using AnimalRescue.Infrastructure.Configuration;
-using AspNetCore.Identity.Mongo;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using MongoDB.Driver;
+using MongoDbGenericRepository;
 using System;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
     public static class MongoDbConfigureExtension
-	{
-		public static void AddConfigureMongoDb(
-			this IServiceCollection services,
-			IConfiguration configuration)
-		{
+    {
+        public static void AddConfigureMongoDb(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
             var dbSettings = configuration.GetTypedSection<MongoDbSettings>(nameof(MongoDbSettings));
-            MongoClient client = new MongoClient(dbSettings.ConnectionString);
+
+            var client = new MongoClient(dbSettings.ConnectionString);
+            if (client is null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
             IMongoDatabase database = client.GetDatabase(dbSettings.DatabaseName);
 
-            services.AddIdentityMongoDbProvider<ApplicationUser, ApplicationRole>(options =>
+            // Important! Use Mongo connectionString instead of MongoCredentials with asp.net identity 2.0+
+            // sasl protocol mechanism SCRAM-SHA-1
+            var mongoDbContext = new MongoDbContext(database);
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
@@ -44,11 +53,8 @@ namespace AnimalRescue.DataAccess.Mongodb
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
 
-            }, mongoIdentityOptions => {
-
-                mongoIdentityOptions.ConnectionString = $"{dbSettings.ConnectionString}/{dbSettings.DatabaseName}";
-
-            }).AddDefaultTokenProviders();
+            }).AddMongoDbStores<IMongoDbContext>(mongoDbContext)
+            .AddDefaultTokenProviders();
 
             services
                 .AddSingleton<IMongoDbSettings>(p => dbSettings)

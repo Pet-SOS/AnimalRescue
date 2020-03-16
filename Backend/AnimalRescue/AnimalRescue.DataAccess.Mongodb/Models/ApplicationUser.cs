@@ -1,45 +1,35 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.Infrastructure.Helpers;
-using AspNetCore.Identity.Mongo.Model;
+using AspNetCore.Identity.MongoDbCore.Models;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDbGenericRepository.Attributes;
 using System;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
+    [CollectionName("users")]
     [BsonDiscriminator("users")]
-    public class ApplicationUser: MongoUser, IBaseAuditItem
+    public class ApplicationUser : MongoIdentityUser<string>, IBaseAuditItem
     {
-        [BsonElement("firstName")]
         public string FirstName { get; set; }
-
-        [BsonElement("lastName")]
         public string LastName { get; set; }
-
-        [BsonElement("profilePhoto")]
         public string ProfilePhoto { get; set; }
-
-
-        [BsonElement("birthday")]
         public string Birthday { get; set; }
-
-        [BsonElement("createdAt")]
         public DateTime CreatedAt { get; set; }
-
-        [BsonElement("modifiedAt")]
         public DateTime? ModifiedAt { get; set; }
-
-        [BsonElement("createdBy")]
         public string CreatedBy { get; set; }
-
-        [BsonElement("modifiedBy")]
         public string ModifiedBy { get; set; }
 
-        [BsonElement("isDeleted")]
         public bool IsDeleted { get; set; }
 
-        public ApplicationUser()
+        public ApplicationUser() : base()
         {
 
+            CreatedAt = DateHelper.GetUtc();
+        }
+
+        public ApplicationUser(string userName, string email) : base(userName, email)
+        {
             CreatedAt = DateHelper.GetUtc();
         }
     }
