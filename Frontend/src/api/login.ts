@@ -1,4 +1,5 @@
 import API from './index';
+
 export interface IResponceSignIn{
     token: string;
     expireDate: string;
@@ -20,9 +21,8 @@ export interface IDataSignIn {
 
 export async function fetchlogin(data:any): Promise<any> {
     debugger
-    console.log('==>', data);
-    const res = await API.post('https://localhost:5001/api/Account/signIn', {body: { ...data.data } });
-    console.log('==>', res.data);
+    const res = await API.post('Account/signIn', data);
+    localStorage.setItem('jwt-token', res.data.token);
     return res.data
 }
   

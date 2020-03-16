@@ -54,17 +54,19 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<List<AnimalModel>>> GetItemsByIdsAsync([BindRequired, FromBody] AnimalBanch animalBanch)
+        public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetItemsByIdsAsync([BindRequired, FromBody] AnimalBanch animalBanch)
         {
-            List<AnimalModel> result = new List<AnimalModel>(animalBanch.AnimalIds.Count);
+            List<AnimalModel> resultModels = new List<AnimalModel>(animalBanch.AnimalIds.Count);
             foreach (Guid item in animalBanch.AnimalIds)
             {
                 var data = await _animalService.GetAsync(item);
                 if (data != null)
-                    result.Add(_mapper.Map<AnimalDto, AnimalModel>(data));
+                {
+                    var newItem = _mapper.Map<AnimalDto, AnimalModel>(data);
+                    resultModels.Add(newItem);
+                }
             }
-
-            return Item(result);
+            return Collection(resultModels, resultModels.Count, 1, resultModels.Count);
         }
 
         [HttpGet]

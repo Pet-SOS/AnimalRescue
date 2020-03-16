@@ -5,9 +5,10 @@ export default {
   hotLinePhones: 'Цілодобово 24/7',
 
   headerTitle: 'Порятунок тварин Харків',
+  headerMenuItem0: 'Головна',
   headerMenuItem1: 'Про службу',
   headerMenuItem2: 'Шукаю друга',
-  headerMenuItem3: 'Як я можу допомогти?',
+  headerMenuItem3: 'Як допомогти',
   blog: 'Блог',
   contacts: 'Контакти',
   help: 'Допомогти',

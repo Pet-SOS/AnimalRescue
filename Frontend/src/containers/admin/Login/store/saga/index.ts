@@ -1,16 +1,14 @@
 import { actionAdminLoginRequest, actionAdminLoginRequestSuccess, actionAdminLoginRequestFailure } from "../actions";
-import { fetchlogin } from "../../../../../api/login";
+import { fetchlogin, IResponceSignIn } from "../../../../../api/login";
 import { call, put, takeEvery} from 'redux-saga/effects';
 import { getType } from "typesafe-actions";
 
 
-function* postLoginSaga(action: { type: string, payload?: any}) {
+
+function* postLoginSaga(action: { type: string, payload?: IResponceSignIn}) {
     debugger
     try {
-        console.log('action', action);
-        const data = action.payload;
-        const response = yield call(fetchlogin, {data});
-        console.log('response',response);
+        const response = yield call(fetchlogin, action.payload);
         yield put(actionAdminLoginRequestSuccess(response)) 
     } catch (e) {
         yield put(actionAdminLoginRequestFailure(e))

@@ -1,10 +1,9 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.Common.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Core.Extensions
 {
@@ -39,7 +38,7 @@ namespace AnimalRescue.API.Core.Extensions
                 || string.IsNullOrEmpty(user.LastName)
                 || !user.Roles.Any())
             {
-                throw new UnauthorizedAccessException("Can't get required users field. Token isn't valid");
+                throw new UnauthorizedException("Can't get required users field. Token isn't valid");
             }
         }
     }

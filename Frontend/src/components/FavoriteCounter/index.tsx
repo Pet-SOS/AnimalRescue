@@ -1,4 +1,5 @@
 import React from 'react';
+import {ReactComponent as HeartLogo} from '../../assets/header/heart-count.svg';
 import './index.scss';
 import cn from 'classnames';
 
@@ -7,9 +8,10 @@ interface IPropTypes {
 }
 
 export const FavoriteCounter: React.FC<IPropTypes> = ({ count }: IPropTypes) => (
-  <div className={cn('favorite-counter', { 'active': !!count })}>
+  <i className={cn('favorite-counter', { 'active': !!count })}>
+      <HeartLogo />
     {!!count && (
-      <span>{count}</span>
+      <span className='count'>{count}</span>
     )}
-  </div>
+  </i>
 )

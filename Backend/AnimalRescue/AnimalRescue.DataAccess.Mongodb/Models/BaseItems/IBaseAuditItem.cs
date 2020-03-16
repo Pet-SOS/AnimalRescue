@@ -10,5 +10,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
         DateTime? ModifiedAt { get; set; }
         string CreatedBy { get; set; }
         string ModifiedBy { get; set; }
+        bool IsDeleted { get; set; }
     }
 }

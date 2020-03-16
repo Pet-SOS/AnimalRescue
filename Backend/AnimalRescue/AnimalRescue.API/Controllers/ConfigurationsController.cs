@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
-
     [Authorize(Policy = "Bearer", Roles = "Admin")]
     public class ConfigurationsController : ApiControllerBase
     {

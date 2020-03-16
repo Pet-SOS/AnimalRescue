@@ -5,12 +5,13 @@ export default {
   hotLinePhones: 'Around the clock',
 
   headerTitle: 'Rescue Animals Kharkiv',
-  headerMenuItem1: 'In the shelter',
-  headerMenuItem2: 'Our animals',
-  headerMenuItem3: 'How can I help',
-  blog: 'The blog',
+  headerMenuItem0: 'Home',
+  headerMenuItem1: 'About Service',
+  headerMenuItem2: 'Looking for a Friend',
+  headerMenuItem3: 'How to help',
+  blog: 'Blog',
   contacts: 'Contacts',
-  help: 'Help',
+  help: 'Donate',
   headerMenuItem7: 'Liked',
 
   headerMenuItem1Dropdown1:'About the rescue service',

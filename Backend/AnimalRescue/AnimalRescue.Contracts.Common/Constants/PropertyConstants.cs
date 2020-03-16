@@ -77,6 +77,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string ModifiedAt = "modifiedAt";
             public const string CreatedBy = "createdBy";
             public const string ModifiedBy = "modifiedBy";
+            public const string IsDeleted = "isDeleted";
         }
 
         public static class FinancialReport
