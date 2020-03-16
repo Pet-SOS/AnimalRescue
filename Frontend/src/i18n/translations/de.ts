@@ -4,13 +4,15 @@ export default {
 
   hotLinePhones: '24/7',
 
-  headerTitle: 'Rettungstiere Charkiw',
-  headerMenuItem1: 'Über den Service',
-  headerMenuItem2: 'Auf der Suche nach einem Freund',
-  headerMenuItem3: 'Wie kann ich helfen?',
-  blog: 'Der Blog',
+
+  headerTitle: 'Rettungsdienst Kharkiv',
+  headerMenuItem0: 'Die Haupt',
+  headerMenuItem1: 'Über Service',
+  headerMenuItem2: 'Brauche einen Freund',
+  headerMenuItem3: 'Wie man hilft',
+  blog: 'Blog',
   contacts: 'Kontaktdaten',
-  help: 'Um zu helfen',
+  help: 'Spenden',
   headerMenuItem7: 'Wie',
 
   headerMenuItem1Dropdown1: 'Über den Rettungsdienst',

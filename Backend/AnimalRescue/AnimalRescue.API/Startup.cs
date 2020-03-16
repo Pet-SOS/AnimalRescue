@@ -25,23 +25,11 @@ namespace AnimalRescue.API
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _env;
-
         public IConfiguration Configuration { get; }
 
-        public Startup(IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            _env = env;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
-
-            Console.WriteLine("*Environment: {0}", env.EnvironmentName);
+            Configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -147,7 +135,7 @@ namespace AnimalRescue.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider/*, IApiVersionDescriptionProvider provider*/)
         {
-            if (_env.EnvironmentName == "Development")
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -171,12 +159,6 @@ namespace AnimalRescue.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(_env.ContentRootPath, "Content")),
-                RequestPath = new PathString("/Content")
-            });
 
             BusinessLogicConfigureExtension.EnsureUpdate(serviceProvider, Configuration);
 

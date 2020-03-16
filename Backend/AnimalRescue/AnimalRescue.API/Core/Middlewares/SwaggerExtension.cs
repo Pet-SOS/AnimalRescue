@@ -57,7 +57,7 @@ namespace AnimalRescue.API.Core.Middlewares
                     }
                 });
 
-                c.IncludeXmlComments(xmlPath);
+               // c.IncludeXmlComments(xmlPath);
             });
         }
 

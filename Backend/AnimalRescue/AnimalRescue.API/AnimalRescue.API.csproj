@@ -7,7 +7,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
     <DocumentationFile>bin\Debug\netcoreapp3.1\AnimalRescue.API.xml</DocumentationFile>
-    <OutputPath>bin\Debug\netcoreapp3.1\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.Identity.Mongo" Version="6.3.5" />
+    <PackageReference Include="AspNetCore.Identity.MongoDbCore" Version="2.1.0" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
@@ -31,11 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Content\" />
-    <Folder Include="Core\Helpers\" />
   </ItemGroup>
 
 </Project>
