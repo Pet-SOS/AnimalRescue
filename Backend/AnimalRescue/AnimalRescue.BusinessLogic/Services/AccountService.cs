@@ -6,16 +6,16 @@ using AnimalRescue.DataAccess.Mongodb.Enums;
 using AnimalRescue.Infrastructure.Validation;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using System.IdentityModel.Tokens.Jwt;
 using System.Web;
-using Microsoft.Extensions.Configuration;
 using AnimalRescue.BusinessLogic.Extensions;
 using AnimalRescue.Contracts.BusinessLogic.Services;
+using AnimalRescue.Infrastructure.Configurations;
+using Microsoft.Extensions.Options;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -26,14 +26,14 @@ namespace AnimalRescue.BusinessLogic.Services
         public readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ISecurityTokenRepository _securityTokensRepository;
         private readonly IJwtFactory _jwtFactory;
-        private readonly IConfiguration _configuration;
+        private readonly AppSettings _appSettings;
         private readonly IEmailSender _emailSender;
 
         public AccountService(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ISecurityTokenRepository securityTokenRepository,
             IJwtFactory jwtFactory,
-            IConfiguration configuration,
+            IOptions<AppSettings> appSettingsOptions,
             IEmailSender emailSender
             )
         {
@@ -41,7 +41,7 @@ namespace AnimalRescue.BusinessLogic.Services
             _signInManager = signInManager;
             _securityTokensRepository = securityTokenRepository;
             _jwtFactory = jwtFactory;
-            _configuration = configuration;
+            _appSettings = appSettingsOptions.Value;
             _emailSender = emailSender;
         }
         public async Task<SignInAccountModel> SignIn(SignInAccountAuthorizationViewModel model)
@@ -52,16 +52,13 @@ namespace AnimalRescue.BusinessLogic.Services
             Require.Objects.NotNull<NotFoundException>(identityUser, $"User not found");
 
             var isConfirm = await _userManager.IsEmailConfirmedAsync(identityUser);
-            if (!isConfirm)
-            {
-                throw new ApplicationException("Email not confirmed.");
-            }
+            Require.Booleans.IsTrue<BadRequestException>(isConfirm, "Email is not confirmed.");
 
             var accessFailedCount = identityUser.AccessFailedCount;
             var signInResult = await _signInManager.PasswordSignInAsync(identityUser, model.Password, false, true);
             if (signInResult == SignInResult.Failed)
             {
-                throw new ApplicationException("Invalid login attempt.");
+                throw new BadRequestException("Invalid login attempt.");
             }
             if (signInResult == SignInResult.LockedOut)
             {
@@ -71,7 +68,7 @@ namespace AnimalRescue.BusinessLogic.Services
                     await SendNotificationAboutLockAccount(identityUser, token);
                 }
 
-                throw new ApplicationException(@"Invalid login attempt.
+                throw new BadRequestException(@"Invalid login attempt.
                                 Your account has been blocked for 10 minutes.");
             }
             var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser, model.RememberMe);
@@ -109,12 +106,12 @@ namespace AnimalRescue.BusinessLogic.Services
 
             if (!isEmailConfirmed)
             {
-                throw new ApplicationException("Email is not confirmed.");
+                throw new BadRequestException("Email is not confirmed.");
             }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var url = $"{_configuration["FrontEndUrl"]}account/reset-password?userId={HttpUtility.UrlEncode(user.Id)}&code={HttpUtility.UrlEncode(code)}";
+            var url = $"{_appSettings.FrontEndUrl}account/reset-password?userId={HttpUtility.UrlEncode(user.Id)}&code={HttpUtility.UrlEncode(code)}";
 
             var bodyBuilder = new StringBuilder();
             var body = bodyBuilder.AppendLine($"Hi, {user.FirstName}! ")
@@ -128,19 +125,16 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var userId = HttpUtility.UrlDecode(model.UserId);
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                throw new ApplicationException("User not found.");
-            }
+            Require.Objects.NotNull<NotFoundException>(user, $"User not found");
 
             var validCode = model.Code.Replace(" ", "+").Replace("%20", "+");
             var result = await _userManager.ResetPasswordAsync(user, validCode, model.Password);
             if (!result.Succeeded)
             {
-                throw new ApplicationException(result.GetErrors());
+                throw new BadRequestException(result.GetErrors());
             }
 
-            return $"{_configuration["FrontEndUrl"]}account/signIn";
+            return $"{_appSettings.FrontEndUrl}account/signIn";
         }
 
         public async Task<string> UnlockUser(string token)
@@ -155,7 +149,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
             if (string.IsNullOrEmpty(userId) || jwtToken.ValidTo < DateTime.UtcNow)
             {
-                throw new ApplicationException("This token is invalid or expired");
+                throw new BadRequestException("This token is invalid or expired");
             }
 
             ApplicationUser user = await _userManager.FindByIdAsync(userId);
@@ -163,7 +157,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
             await _userManager.SetLockoutEndDateAsync(user, new DateTimeOffset(DateTime.UtcNow));
 
-            return $"{_configuration["FrontEndUrl"]}account/forgot-password";
+            return $"{_appSettings.FrontEndUrl}account/forgot-password";
         }
 
         #region Private
@@ -185,7 +179,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var bodyBuilder = new StringBuilder();
 
-            string link = $"{_configuration["FrontEndUrl"]}account/unlock-account?token={token}";
+            string link = $"{_appSettings.FrontEndUrl}account/unlock-account?token={token}";
             var body = bodyBuilder.AppendLine($"Dear {user.FirstName},")
                 .AppendLine("Your account has been blocked because you exceeded the number of login attempts.")
                 .Append($"To unlock your account click on verification <a href='{link}'>link</a>")
