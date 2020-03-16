@@ -6,7 +6,7 @@ export interface IAPIConfig {
 }
 
 export async function fetchConfig(): Promise<IAPIConfig> {
-  const res = await fetch('../api/config.json');
+  const res = await fetch(`${process.env.PUBLIC_URL}/api/config.json`);
   const data = await res.text()
   return JSON.parse(data)
 }
