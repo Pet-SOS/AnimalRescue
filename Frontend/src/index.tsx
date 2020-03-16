@@ -6,9 +6,33 @@ import {App} from './App';
 import * as serviceWorker from './serviceWorker';
 import {store, history} from "./store";
 import './styles/index.scss';
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { API_YOTUBE, API } from './api';
+
+async function getBaseUrl() {
+  const res = await fetch('../api/config.json');
+  const data = await res.text()
+  return JSON.parse(data)
+}
+
+API.interceptors.request.use(
+  async config => {
+    config.baseURL = await getBaseUrl().then(data => data.REACT_APP_API_URL);
+    return config;
+  },
+  error => Promise.reject(error)
+);
+
+API_YOTUBE.interceptors.request.use(
+  async config => {
+    config.baseURL = await getBaseUrl().then(data => data.REACT_APP_YOUTUBE_URL);
+    config.params.channelId = await getBaseUrl().then(data => data.REACT_APP_CHANEL_ID);
+    config.params.key = await getBaseUrl().then(data => data.REACT_APP_YOUTUBE_API_KEY);
+    return config;
+  },
+  error => Promise.reject(error)
+)
 
 library.add(faEnvelope, faKey);
 

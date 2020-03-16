@@ -1,0 +1,6 @@
+{ 
+  "REACT_APP_API_URL": "https://localhost:5001/api/",
+  "REACT_APP_YOUTUBE_URL": "https://www.googleapis.com/youtube/v3/",
+  "REACT_APP_YOUTUBE_API_KEY": "AIzaSyDM6NS40Bma76cl1aOf4YOaQam-aFa1TJ8",
+  "REACT_APP_CHANEL_ID": "UCBSJrFxTYAbu1sAGdeRg8cA"
+}

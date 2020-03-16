@@ -1,4 +1,4 @@
-import API from './index';
+import { API } from './index';
 import { IRequestParams, prepareRequestParams, AllTag } from './requestOptions';
 
 export enum BlogTypes {BLOG = 'blog', ARTICLE = 'article', STORY = 'story'}

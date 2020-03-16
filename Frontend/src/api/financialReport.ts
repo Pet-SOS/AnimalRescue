@@ -1,4 +1,4 @@
-import API from './index';
+import { API } from './index';
 import { IRequestParams, prepareRequestParams } from './requestOptions';
 
 export interface IInfoFile {

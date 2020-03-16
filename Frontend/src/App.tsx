@@ -10,8 +10,8 @@ interface IPropTypes {
 
 export const App: React.FC<IPropTypes> = () => (
   <Switch>
-      <Route exact={false} path="/admin" component={Admin}/>
-      <Route exact={false} path="/" component={Client}/>
+    <Route exact={false} path="/admin" component={Admin} />
+    <Route exact={false} path="/" component={Client} />
   </Switch>
 );
 

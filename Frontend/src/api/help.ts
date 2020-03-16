@@ -1,4 +1,4 @@
-import API from './index';
+import { API } from './index';
 import {IAnimal} from './animals';
 import { AllTag } from './requestOptions';
 
