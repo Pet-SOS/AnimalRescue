@@ -146,7 +146,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           />
         )}
         <div className="animals-slider-wrapper">
-          {dogsList.data && dogsList.data.length > 0 && <AnimalsSlider
+          {!!dogsList.data && !!dogsList.data.length && <AnimalsSlider
             data={dogsList.data}
             title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
             link={{

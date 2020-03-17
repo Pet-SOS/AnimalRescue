@@ -17,9 +17,9 @@ export const defaultInterceptor = (api: AxiosInstance): void => {
 export const youtubeInterceptor = (): void => {
   API_YOTUBE.interceptors.request.use(
     config => {
-      const { YOUTUBE_URL, YOUTUBE_CHANEL_ID, YOUTUBE_API_KEY }: IAPIConfig = selectConfigData(store.getState());
+      const { YOUTUBE_URL, YOUTUBE_CHANNEL_ID, YOUTUBE_API_KEY }: IAPIConfig = selectConfigData(store.getState());
       config.baseURL = YOUTUBE_URL;
-      config.params.channelId = YOUTUBE_CHANEL_ID;
+      config.params.channelId = YOUTUBE_CHANNEL_ID;
       config.params.key = YOUTUBE_API_KEY;
       return config;
     },

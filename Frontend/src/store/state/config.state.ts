@@ -11,7 +11,7 @@ export const DEFAULT_CONFIG_STATE: IConfigState = {
     API_URL: '',
     YOUTUBE_URL: '',
     YOUTUBE_API_KEY: '',
-    YOUTUBE_CHANEL_ID: '',
+    YOUTUBE_CHANNEL_ID: '',
   },
   isLoaded: false,
   isLoading: false,
