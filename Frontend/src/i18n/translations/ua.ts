@@ -267,4 +267,8 @@ export default {
    dateText9: 'Жовтень',
    dateText10: 'Листопад',
    dateText11: 'Грудень',
+
+  breadcrumbAbout: 'Дізнатися більше про службу порятунку',
+  breadcrumbRules: 'Дізнатися про правила взаємодії зі службо',
+  breadcrumbFinanceReports: 'Подивитися фінансову звітність',
 }

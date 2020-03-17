@@ -10,6 +10,8 @@ import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IInfoCard } from '../Home/store/state';
 import { infoCardCheckAndLoad } from '../Home/store/selectors';
 import { IVacanciesState } from '../../../store/state/vacancies.state';
+import { Breadcrumbs } from '../../../components/Breadcrumbs';
+import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -58,6 +60,16 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     scrollToBlock();
   }, [window.location.href]);
 
+  const breadCrumbs: IBreadcrumbProps[] = [
+    {
+      text: <TI18n keyStr='breadcrumbAbout' default='Дізнатися більше про службу порятунку' />,
+      href: '/about'
+    },
+    {
+      text: <TI18n keyStr='breadcrumbRules' default='Дізнатися про правила взаємодії зі службою' />,
+      href: '/about/rules'
+    }
+  ];
   return (
     <React.Fragment>
       <div className='help-page-holder'>
@@ -145,13 +157,14 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                 </div>
               </React.Fragment>}
             </div>
+            <div className='block-holder'>
+              <Breadcrumbs data={breadCrumbs} />
+            </div>
           </div>
         </div>
         <HelpBlock
           animalsList={sickAnimalsList.data}
           title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
-          text={<TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />}
-          buttonText={<TI18n keyStr='footerRightBtn' default='Помочь' />}
         />
       </div>
     </React.Fragment>

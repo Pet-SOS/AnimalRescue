@@ -6,6 +6,7 @@ export enum ButtonTypes {
   Blue = 'blue',
   Yellow ='yellow',
   BlueCircle = 'blue-circle',
+  WhiteCircle = 'white-circle',
   Close = 'close'
 }
 

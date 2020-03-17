@@ -270,4 +270,8 @@ export default {
    dateText9: 'Oktober',
    dateText10: 'November',
    dateText11: 'Dezember',
+
+  breadcrumbAbout: 'Erfahren Sie mehr über Rettungsdienste',
+  breadcrumbRules: 'Erfahren Sie mehr über Richtlinien zur Servicebindung',
+  breadcrumbFinanceReports: 'Zeigen Sie den Jahresabschluss an'
 }

@@ -267,4 +267,7 @@ export default {
    dateText10: 'November',
    dateText11: 'December',
 
+  breadcrumbAbout: 'Learn more about the rescue service',
+  breadcrumbRules: 'Learn about service engagement policies',
+  breadcrumbFinanceReports: 'View the financial statements',
 }
