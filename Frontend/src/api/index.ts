@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { Cookies } from 'js-cookie';
 
-export const BASE_URL = process.env.REACT_APP_API_URL;
-//export const BASE_URL = 'https://localhost:5001/api/';
+//export const BASE_URL = process.env.REACT_APP_API_URL;
+export const BASE_URL = 'https://localhost:5001/api/';
 export const BASE_YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/';
 
 export const API_YOTUBE = axios.create({
@@ -10,7 +9,6 @@ export const API_YOTUBE = axios.create({
 })
 
 const API = axios.create({
-//export default axios.create({
     baseURL: BASE_URL,
     headers:{
       'Content-Type':'application/json'
@@ -37,8 +35,6 @@ API.interceptors.response.use(async (response) => {
     localStorage.removeItem('jwt-token');
     return;
   }
-  // handle an error here - logger, etc..
-  // call notify from service to emit message for subscribers
   return error.response
 });
  export default API;

@@ -44,10 +44,10 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
             <React.Fragment>
                 <form onSubmit={(e)=>this.handleSubmit(e)}>
                     <label><div>Username</div>
-                        <input onChange={(e)=>this.handleChangeInField(e, 'email')} type="text" placeholder="Enter Username" name="uname" required/>
+                        <input onChange={(e)=>this.handleChangeInField(e, 'email')} type="text" placeholder="" name="uname" required/>
                     </label>
                     <label><div>Password</div>
-                        <input onChange={(e)=>this.handleChangeInField(e, 'password')}  type="password" placeholder="Enter Password" name="psw" required/>
+                        <input onChange={(e)=>this.handleChangeInField(e, 'password')}  type="password" placeholder="" name="psw" required/>
                     </label>
                     <button type="submit" onSubmit={(e)=>this.handleSubmit(e)}>Login</button>
                 </form>

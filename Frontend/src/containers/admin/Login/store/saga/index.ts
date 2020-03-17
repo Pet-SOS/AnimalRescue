@@ -6,7 +6,6 @@ import { getType } from "typesafe-actions";
 
 
 function* postLoginSaga(action: { type: string, payload?: IResponceSignIn}) {
-    debugger
     try {
         const response = yield call(fetchlogin, action.payload);
         yield put(actionAdminLoginRequestSuccess(response)) 

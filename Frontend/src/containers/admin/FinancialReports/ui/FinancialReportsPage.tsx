@@ -8,6 +8,7 @@ import moment from 'moment';
 import { TI18n } from '../../../../i18n';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { DatePicker } from 'antd';
+import { fileToObject } from 'antd/lib/upload/utils';
 
 const { TabPane } = Tabs;
 interface IState{
@@ -39,9 +40,19 @@ export class FinancialReportsPage extends React.Component <IPropTypes, IState>{
     e.preventDefault();
     // TODO: do something with -> this.state.file
     console.log('handle uploading-', this.state);
-    addFinancialReporDocument(this.state).then(resp=>{
-      console.log(resp);
-    });
+    const data = {
+      file: this.state.file,
+      title:this.state.title,
+      body:this.state.body,
+      date:this.state.date
+    }
+    if(!!this.state.file){
+      console.log('data', data);
+      debugger
+      addFinancialReporDocument(data).then(resp=>{
+        console.log(resp);
+      });
+    }
   }
 
   uploadFile(e: any) {
@@ -59,8 +70,14 @@ export class FinancialReportsPage extends React.Component <IPropTypes, IState>{
     // ;
     // const file = reader.readAsArrayBuffer(e.target.files[0])
     const formData = new FormData();
-    formData.append('report', e.target.files[0]);
-    this.setState({file: formData });
+    /// const pdfFile = ;
+ 
+     formData.append('report', e.target.files[0]);
+    // formData.append('name', pdfFile.name);
+
+    //formData.get('report');
+    this.setState({file: e.target.files[0] });
+    //this.setState({file: formData });
   }
 
   handleFileInfo(field:string, e:any){
@@ -89,7 +106,7 @@ export class FinancialReportsPage extends React.Component <IPropTypes, IState>{
     return (
       <div className='main-report'>
           <div className='title'> Завантажити новий звiт</div>
-          <form onSubmit={(e)=>this.handleSubmit(e)}>
+          <form onSubmit={(e)=>this.handleSubmit(e)} >
               <div  className='field'>
                 <label>Додати файл:</label><br></br>
                 <input 

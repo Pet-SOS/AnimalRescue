@@ -7,6 +7,7 @@ import { actionAdminLoginRequest } from "./store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
     animalsList: selectAnimalsList(state),
+
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
