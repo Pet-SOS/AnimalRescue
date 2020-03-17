@@ -10,6 +10,10 @@ import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IInfoCard } from '../Home/store/state';
 import { infoCardCheckAndLoad } from '../Home/store/selectors';
 import { IVacanciesState } from '../../../store/state/vacancies.state';
+import { IExpandedListItemProps } from '../../../components/ExpandedList/item';
+import { RegularNeedsList } from './goods/RegularNeeds';
+import { MedicinesList } from './goods/MedicinesList';
+import { AntiparasiticNeedsList } from './goods/AntiparasiticList';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -58,6 +62,21 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     scrollToBlock();
   }, [window.location.href]);
 
+  const stuffListData: IExpandedListItemProps[] = [
+    {
+      title: <TI18n keyStr='helpPageStuffListTitle1' default='Постійні потреби' />,
+      body: [<RegularNeedsList/>]
+    },
+    {
+      title: <TI18n keyStr='helpPageStuffListTitle2' default='Медикаменти' />,
+      body: [<MedicinesList />]
+    },
+    {
+      title: <TI18n keyStr='helpPageStuffListTitle3' default='Протипаразитарні засоби' />,
+      body: [<AntiparasiticNeedsList/>]
+    }
+  ];
+  
   return (
     <React.Fragment>
       <div className='help-page-holder'>
@@ -99,25 +118,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default='Вещами'
                 />
               </h3>
-              <p>
-                <TI18n
-                  keyStr='helpPageStuffText1'
-                  default='Если вы хотите помочь вещами - мы всегда нуждаемся в теплых вещах, медикаментах и расходных материалах, корме, наполнителе, вещах для вольеров и уборки и пр. Список актуальных нужд приюта можно найти в документе'
-                />
-                &nbsp;
-                <a>
-                  <TI18n
-                    keyStr='viaLink'
-                    default='по ссылке'
-                  />
-                </a>
-              </p>
-              <p>
-                <TI18n
-                  keyStr='helpPageStuffText2'
-                  default='Также можете писать нам в группу Фейсбук.'
-                />
-              </p>
+              <ExpandedList data={stuffListData} />
             </div>
             <div id={HelpTypes.VOLUNTEERING} className='block-holder'>
               <h3 className='title'>
