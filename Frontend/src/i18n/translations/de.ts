@@ -274,4 +274,9 @@ export default {
   howCanIHelp: 'Wie kann ich helfen',
   wantToChooseDog: 'Ich möchte einen Hund wählen',
   wantToChooseCat: 'Ich möchte eine Katze wählen',
+  
+  breadcrumbAbout: 'Erfahren Sie mehr über Rettungsdienste',
+  breadcrumbRules: 'Erfahren Sie mehr über Richtlinien zur Servicebindung',
+  breadcrumbFinanceReports: 'Zeigen Sie den Jahresabschluss an'
+
 }

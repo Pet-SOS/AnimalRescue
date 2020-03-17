@@ -270,4 +270,9 @@ export default {
   howCanIHelp: 'How can I help',
   wantToChooseDog: 'I want to choose a dog',
   wantToChooseCat: 'I want to choose a cat',
+
+  breadcrumbAbout: 'Learn more about the rescue service',
+  breadcrumbRules: 'Learn about service engagement policies',
+  breadcrumbFinanceReports: 'View the financial statements',
+
 }

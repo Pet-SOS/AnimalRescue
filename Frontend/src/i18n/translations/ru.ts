@@ -273,4 +273,9 @@ export default {
   howCanIHelp: 'Как я могу помочь',
   wantToChooseDog: 'Хочу выбрать собаку',
   wantToChooseCat: 'Хочу выбрать кота',
+
+  breadcrumbAbout: 'Узнать больше о службе спасения',
+  breadcrumbRules: 'Узнать о правилах взаимодействия со службой',
+  breadcrumbFinanceReports: 'Посмотреть финансовую отчетность',
+
 }
