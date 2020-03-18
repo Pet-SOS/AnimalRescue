@@ -315,4 +315,8 @@ export default {
 
   antiparasiticNeedsSubtitle4: 'От клещей',
   antiparasiticNeedsList9: 'Симпарика',
+
+  breadcrumbAbout: 'Узнать больше о службе спасения',
+  breadcrumbRules: 'Узнать о правилах взаимодействия со службой',
+  breadcrumbFinanceReports: 'Посмотреть финансовую отчетность',
 }

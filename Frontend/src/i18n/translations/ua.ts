@@ -313,4 +313,8 @@ export default {
 
   antiparasiticNeedsSubtitle4: 'Від кліщів',
   antiparasiticNeedsList9: 'Сімпаріка',
+
+  breadcrumbAbout: 'Дізнатися більше про службу порятунку',
+  breadcrumbRules: 'Дізнатися про правила взаємодії зі службо',
+  breadcrumbFinanceReports: 'Подивитися фінансову звітність',
 }

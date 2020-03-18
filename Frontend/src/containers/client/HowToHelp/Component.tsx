@@ -14,6 +14,8 @@ import { IExpandedListItemProps } from '../../../components/ExpandedList/item';
 import { RegularNeedsList } from './goods/RegularNeeds';
 import { MedicinesList } from './goods/MedicinesList';
 import { AntiparasiticNeedsList } from './goods/AntiparasiticList';
+import { Breadcrumbs } from '../../../components/Breadcrumbs';
+import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -62,6 +64,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     scrollToBlock();
   }, [window.location.href]);
 
+
   const stuffListData: IExpandedListItemProps[] = [
     {
       title: <TI18n keyStr='helpPageStuffListTitle1' default='Постійні потреби' />,
@@ -77,6 +80,17 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     }
   ];
   
+  const breadCrumbs: IBreadcrumbProps[] = [
+    {
+      text: <TI18n keyStr='breadcrumbAbout' default='Дізнатися більше про службу порятунку' />,
+      href: '/about'
+    },
+    {
+      text: <TI18n keyStr='breadcrumbRules' default='Дізнатися про правила взаємодії зі службою' />,
+      href: '/about/rules'
+    }
+  ];
+
   return (
     <React.Fragment>
       <div className='help-page-holder'>
@@ -146,13 +160,14 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                 </div>
               </React.Fragment>}
             </div>
+            <div className='block-holder'>
+              <Breadcrumbs data={breadCrumbs} />
+            </div>
           </div>
         </div>
         <HelpBlock
           animalsList={sickAnimalsList.data}
           title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
-          text={<TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />}
-          buttonText={<TI18n keyStr='footerRightBtn' default='Помочь' />}
         />
       </div>
     </React.Fragment>

@@ -312,4 +312,8 @@ export default {
 
   antiparasiticNeedsSubtitle4: 'From ticks',
   antiparasiticNeedsList9: 'Simparika',
+
+  breadcrumbAbout: 'Learn more about the rescue service',
+  breadcrumbRules: 'Learn about service engagement policies',
+  breadcrumbFinanceReports: 'View the financial statements',
 }

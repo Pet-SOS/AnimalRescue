@@ -316,4 +316,9 @@ export default {
 
   antiparasiticNeedsSubtitle4: 'Von Zecken',
   antiparasiticNeedsList9: 'Simparika',
+
+  breadcrumbAbout: 'Erfahren Sie mehr über Rettungsdienste',
+  breadcrumbRules: 'Erfahren Sie mehr über Richtlinien zur Servicebindung',
+  breadcrumbFinanceReports: 'Zeigen Sie den Jahresabschluss an',
+
 }
