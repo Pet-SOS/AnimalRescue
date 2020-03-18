@@ -6,9 +6,11 @@ import {App} from './App';
 import * as serviceWorker from './serviceWorker';
 import {store, history} from "./store";
 import './styles/index.scss';
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { createInterceptors } from './api/interceptors/interceptors';
+
+createInterceptors();
 
 library.add(faEnvelope, faKey);
 

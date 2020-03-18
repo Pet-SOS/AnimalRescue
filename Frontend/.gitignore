@@ -9,6 +9,9 @@ Frontend/.env.test.local
 Frontend/.env.production.local
 public/config.json
 
+# configuration for frontend app 
+public/config.json
+
 # dependencies
 Frontend/node_modules/
 Frontend/src/react-app-env.d.ts
