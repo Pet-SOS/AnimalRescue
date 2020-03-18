@@ -61,6 +61,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IJwtFactory, JwtFactory>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<ILanguageService, LanguageService>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
