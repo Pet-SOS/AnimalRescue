@@ -1,7 +1,9 @@
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { store } from '../../../../store';
 import { actionIsActivePopup } from '../../Home/store/actions';
 import { ButtonTypes, Button } from '../../../../components/Button';
+import copyImage from '../../../../img/copy.jpg';
 import '../styles/popupInfo.scss';
 
 
@@ -21,9 +23,14 @@ export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, text
                 </div>
                 <div className="second-block">
                     <p>{textFirst}</p>
-                    <div className="bank-card-info">
-                        <p className='card'>{card}</p>
-                        <p>{cardName}</p>
+                    <div className="bank-card">
+                        <div className="bank-card-info">
+                            <p className='card'>{card}</p>
+                            <p>{cardName}</p>
+                        </div>
+                        <CopyToClipboard text={card} className="copy-to-clipboard">
+                            <img src={copyImage} alt="copy"/>
+                        </CopyToClipboard>
                     </div>
                     <p>{textSecond}</p>
                     <ul>
