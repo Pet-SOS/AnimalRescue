@@ -10,6 +10,8 @@ import counterImage5 from '../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../img/counter-images/counter_6.png';
 import counterImage7 from '../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../img/counter-images/counter_8.png';
+import { Breadcrumbs } from '../../../components/Breadcrumbs';
+import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 
 interface IPropTypes {
   fetchSickAnimals: () => void;
@@ -30,6 +32,16 @@ export const AboutServices: React.FC<IPropTypes> = ({
   }, [])
 
   const images = [counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8];
+  const breadCrumbs: IBreadcrumbProps[] = [
+    {
+      text: <TI18n keyStr='breadcrumbRules' default='Дізнатися про правила взаємодії зі службою' />,
+      href: '/about/rules'
+    },
+    {
+      text: <TI18n keyStr='breadcrumbFinanceReports' default='Подивитися фінансову звітність' />,
+      href: 'about/financial-reports'
+    }
+  ];
   return (
     <React.Fragment>
       <div className='about-page-holder'>
@@ -116,13 +128,14 @@ export const AboutServices: React.FC<IPropTypes> = ({
                   default='Не проходьте повз, якщо бачите, як беззахисний грудочку злякано притулився в підворітті, не розуміючи, куди йому бігти і де ховатися в величезному галасливому місті. Набирайте номер телефону офісу «порятунку тварин» або волонтерів притулку в будь-яких випадках, коли комусь із котяче-собачого роду потрібна негайна допомога: зняти з дерева, витягнути з ями або люка, відігріти, нагодувати, вилікувати.' />
               </p>
             </div>
+            <div className='block-holder'>
+              <Breadcrumbs data={breadCrumbs}/>
+            </div>
           </div>
         </div>
         <HelpBlock
           animalsList={sickAnimalsList.data}
           title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
-          text={<TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />}
-          buttonText={<TI18n keyStr='footerRightBtn' default='Помочь' />}
         />
       </div>
     </React.Fragment>

@@ -7,6 +7,8 @@ import '../styles/financialReportsPage.scss';
 import { IInfoCard, IInfoContacts } from '../../Home/store/state';
 import { IFinancialReport } from '../../../../api/financialReport';
 import { NavLink } from 'react-router-dom';
+import { IBreadcrumbProps } from '../../../../components/Breadcrumbs/item';
+import { Breadcrumbs } from '../../../../components/Breadcrumbs';
 
 
 interface IPropTypes {
@@ -20,6 +22,16 @@ interface IPropTypes {
     fetchFinancialReport:()=> void;
 }
 export class FinancialReportsPage extends React.Component<IPropTypes> {
+  private breadCrumbs: IBreadcrumbProps[] = [
+    {
+      text: <TI18n keyStr='breadcrumbAbout' default='Дізнатися більше про службу порятунку' />,
+      href: '/about'
+    },
+    {
+      text: <TI18n keyStr='breadcrumbRules' default='Дізнатися про правила взаємодії зі службою' />,
+      href: '/about/rules'
+    }
+  ];
     componentDidMount(){
         this.props.fetchFinancialReport();
         if(store.getState().animals.sickAnimalsList.totalCount === 0){
@@ -47,6 +59,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes> {
                         )
                     }
                    </ul>
+                <Breadcrumbs data={this.breadCrumbs} />
                 </div>
             </div>
                 {
@@ -54,8 +67,6 @@ export class FinancialReportsPage extends React.Component<IPropTypes> {
                 <HelpBlock
                     animalsList={this.props.sickAnimalsList.data}
                     title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
-                    text={<TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />}
-                    buttonText={<TI18n keyStr="footerRightBtn" default="Помочь" />}
                 />
                 }
         </React.Fragment>

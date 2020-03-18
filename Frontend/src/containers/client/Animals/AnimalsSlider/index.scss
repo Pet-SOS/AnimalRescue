@@ -2,6 +2,12 @@
 .animal-slider-holder {
   padding: 1.25rem 0;
   background: $bg-lite-box;
+  .bottomButton{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
   .slider-holder {
     margin: 0 -1.25rem 2rem;
   }
