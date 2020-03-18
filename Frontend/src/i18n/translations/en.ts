@@ -57,10 +57,10 @@ export default {
   popupInfoBlockTitle: 'Help animals',
   popupInfoCard: '5169 3305 1022 8304',
   popupInfoCardName: 'Volkova Galina',
-  popupBlockFirstText: 'If you want to help us and our wards, transfer any amount to the Privatbank card:',
-  popupBlockSecondText: 'We also need:',
+  popupBlockFirstText: 'We are very grateful for your desire to help! You can transfer any amount to a Privatbank card:',
+  popupBlockSecondText: 'If you can help otherwise, we always need it:',
   popupBlockThirdText: 'people who have the need and ability to overexpose the animal (from the baby to the adult) until adoption;',
-  popupBlockThirdTextTwo: 'specialists with non-standard and interesting options for photo and video filming of our animals for the site.',
+  popupBlockThirdTextTwo: 'specialists with interesting options for photo and video filming of our animals for the site.',
 
   month: 'month',
   dogsListTitle: 'Our dogs',
@@ -267,7 +267,12 @@ export default {
    dateText10: 'November',
    dateText11: 'December',
 
+  howCanIHelp: 'How can I help',
+  wantToChooseDog: 'I want to choose a dog',
+  wantToChooseCat: 'I want to choose a cat',
+
   breadcrumbAbout: 'Learn more about the rescue service',
   breadcrumbRules: 'Learn about service engagement policies',
   breadcrumbFinanceReports: 'View the financial statements',
+
 }

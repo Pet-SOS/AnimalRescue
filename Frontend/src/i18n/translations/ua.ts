@@ -43,10 +43,10 @@ export default {
   popupInfoBlockTitle:'Допомога тваринам',
   popupInfoCard: '5169 3305 1022 8304',
   popupInfoCardName: 'Волкова Галина',
-  popupBlockFirstText:'Якщо Ви хочете допомогти нам і нашим підопічним, переведіть будь-яку суму на карту Приватбанку:',
-  popupBlockSecondText:'Також нам потрібні:',
+  popupBlockFirstText:'Ми дуже вдячні за ваше бажання допомогти! Ви можете перевести будь-яку суму на карту Приватбанка:',
+  popupBlockSecondText:'Якщо є змога допомогти інакше, нам завжди потрібні:',
   popupBlockThirdText:'люди, у яких є потреба і можливість перетримувати у себе тварину (від малюка до дорослої особини) до моменту усиновлення;',
-  popupBlockThirdTextTwo:'фахівці з нестандартними і цікавими варіантами фото і відеозйомки наших тварин для сайту.',
+  popupBlockThirdTextTwo:'фахівці з цікавими варіантами фото і відеозйомки наших тварин для сайту.',
 
   counterBlockTitle: 'Врятованих нами тварин',
   counterBlockText: 'за даними на',
@@ -268,7 +268,12 @@ export default {
    dateText10: 'Листопад',
    dateText11: 'Грудень',
 
+  howCanIHelp: 'Як я можу допомогти',
+  wantToChooseDog: 'Хочу обрати собаку',
+  wantToChooseCat: 'Хочу обрати кота',
+
   breadcrumbAbout: 'Дізнатися більше про службу порятунку',
   breadcrumbRules: 'Дізнатися про правила взаємодії зі службо',
   breadcrumbFinanceReports: 'Подивитися фінансову звітність',
+
 }
