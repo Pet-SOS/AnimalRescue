@@ -1,5 +1,5 @@
-import API from './index';
-import { IRequestParams, prepareRequestParams, AllTag, BlogTags } from './requestOptions';
+import { API } from './index';
+import { IRequestParams, prepareRequestParams, AllTag } from './requestOptions';
 import { BlogTypes } from './blog';
 
 export interface IArticleItem {

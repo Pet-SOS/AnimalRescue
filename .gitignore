@@ -9,6 +9,9 @@ Frontend/.env.development.local
 Frontend/.env.test.local
 Frontend/.env.production.local
 
+# configuration for frontend app 
+Frontend/public/config.json
+
 # dependencies
 Frontend/node_modules/
 Frontend/src/react-app-env.d.ts
@@ -47,3 +50,4 @@ Frontend/npm-debug.log*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/Frontend/public/config.json

@@ -1,4 +1,4 @@
-import API from './index'
+import { API } from './index'
 import { IRequestParams, prepareRequestParams } from './requestOptions/index';
 
 export interface IVacancy {

@@ -11,17 +11,12 @@ import { IAnimal } from "../../api/animals";
 
 export interface IPropTypes {
   animalsList: IAnimal[];
-  title: string | React.ReactNode;
-  text: string | React.ReactNode;
-  buttonText: string | React.ReactNode;
+  title: string | React.ReactNode
   isLightMode?: boolean;
 }
 
-export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, title, text, buttonText, isLightMode }) => {
+export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, isLightMode, title }) => {
   const [indexPost, setIndexPost] = useState(0);
-  const updatePostInfo = (i: number) => {
-    setIndexPost(i);
-  }
   return (
     <div className={cn('help-block-holder', { dark: !isLightMode })}>
       <div className="content">
@@ -29,7 +24,7 @@ export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, title, text, butt
           <h2 className="title mobile">{title}</h2>
           <PhotoSlider
             sliders={animalsList.slice(0, 3)}
-            updatePostInfo={updatePostInfo}
+            updatePostInfo={setIndexPost}
             slideIndex={indexPost}
           />
         </div>
@@ -50,7 +45,7 @@ export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, title, text, butt
               onClick={() => store.dispatch(actionIsActivePopup(true))}
               styleType={isLightMode ? ButtonTypes.Blue : ButtonTypes.Yellow } className="btn-give"
             >
-              {buttonText}
+              {<TI18n keyStr="wantToHelp" default="Хочу допомогти" />}
             </Button>
           </div>
           <BlockLink

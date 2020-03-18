@@ -5,7 +5,7 @@ import { TI18n } from '../../../../i18n';
 import { IBlogItemState } from '../store/state/blogitem.state';
 import { store } from '../../../../store';
 import { selectBlogItem } from '../store/selectors/blogitem.selectors';
-import { ERequestStatus, BASE_URL } from '../../../../api';
+import { ERequestStatus } from '../../../../api';
 import { BlockLink } from '../../../../components/BlockLink';
 import { Banner } from '../../../../components/Banner';
 import { BlogTypes, IBlogListResponse } from '../../../../api/blog';
@@ -17,6 +17,7 @@ import { HelpBlock } from '../../../../components/HelpBlock';
 import { IAnimalsListState } from '../../Animals/store/state';
 import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
 import './index.scss';
+import { selectApiUrl } from '../../../../store/selectors/config.selector';
 
 interface IPropTypes {
   fetchBlogItem: (id: string) => void;
@@ -41,6 +42,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
   const { isLoading, isLoaded } = useSelector(() => selectBlogItem(store.getState()), shallowEqual);
   const { status } = useSelector(() => selectBlogItem(store.getState()).requestState, shallowEqual);
   const { phones } = useSelector(() => selectInfoContacts(store.getState()).data);
+  const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
   useEffect(() => {
     if (!!blogId) {
       fetchBlogItem(blogId);
@@ -88,7 +90,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
         </div>
         {!isLoaded && !isLoading && status === ERequestStatus.FAILURE && <div>Not found</div>}
         {isLoaded && !isLoading && <React.Fragment>
-          <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={`${BASE_URL}documents/${blogItem.data.imageIds[0]}/type/large`}/>
+          <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={`${baseUrl}documents/${blogItem.data.imageIds[0]}/type/large`}/>
           <div className='blog-item-content'>
             <div className='story-body'>{blogItem.data.body}</div>
             {blogItem.data.type === BlogTypes.ARTICLE && (
@@ -105,7 +107,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
           {blogItem.data.type === BlogTypes.STORY && !!blogItem.data.imageIds.length && (
             <div className='block-holder'>
               <Slider
-                slides={blogItem.data.imageIds.map(imgId => <img src={`${BASE_URL}documents/${imgId}/type/medium`} />)}
+                slides={blogItem.data.imageIds.map(imgId => <img src={`${baseUrl}documents/${imgId}/type/medium`} />)}
                 spaceBetween={24}
                 slidesPerView={SlidesPerViewValue.AUTO}
                 isPaginationHidden
@@ -128,8 +130,6 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
       <HelpBlock
         animalsList={sickAnimalsList.data}
         title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
-        text={<TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />}
-        buttonText={<TI18n keyStr='footerRightBtn' default='Помочь' />}
       />
     </div>
   )

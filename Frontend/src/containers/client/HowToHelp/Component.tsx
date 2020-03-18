@@ -10,6 +10,14 @@ import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IInfoCard } from '../Home/store/state';
 import { infoCardCheckAndLoad } from '../Home/store/selectors';
 import { IVacanciesState } from '../../../store/state/vacancies.state';
+import { IExpandedListItemProps } from '../../../components/ExpandedList/item';
+import { RegularNeedsList } from './goods/RegularNeeds';
+import { MedicinesList } from './goods/MedicinesList';
+import { AntiparasiticNeedsList } from './goods/AntiparasiticList';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import copyImage from '../../../img/copy-pink.jpg';
+import { Breadcrumbs } from '../../../components/Breadcrumbs';
+import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -58,6 +66,33 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     scrollToBlock();
   }, [window.location.href]);
 
+
+  const stuffListData: IExpandedListItemProps[] = [
+    {
+      title: <TI18n keyStr='helpPageStuffListTitle1' default='Постійні потреби' />,
+      body: [<RegularNeedsList/>]
+    },
+    {
+      title: <TI18n keyStr='helpPageStuffListTitle2' default='Медикаменти' />,
+      body: [<MedicinesList />]
+    },
+    {
+      title: <TI18n keyStr='helpPageStuffListTitle3' default='Протипаразитарні засоби' />,
+      body: [<AntiparasiticNeedsList/>]
+    }
+  ];
+  
+  const breadCrumbs: IBreadcrumbProps[] = [
+    {
+      text: <TI18n keyStr='breadcrumbAbout' default='Дізнатися більше про службу порятунку' />,
+      href: '/about'
+    },
+    {
+      text: <TI18n keyStr='breadcrumbRules' default='Дізнатися про правила взаємодії зі службою' />,
+      href: '/about/rules'
+    }
+  ];
+
   return (
     <React.Fragment>
       <div className='help-page-holder'>
@@ -87,10 +122,17 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default='Наша служба ежедневно заботится о сотнях животных. У нас есть автомобиль, благодаря которому мы можем выезжать на срочные вызовы, свой отдел лечения, адоптации и пристройства. Самый легкий способ помочь нам и нашим пушистикам - пожертвовать любую сумму на корм, лечение и обеспечение работы службы и приютов.'
                 />
               </p>
-              {!!infoCard?.data?.bankCard?.cardNumber && <div className="bank-card-info">
-                <p className='card'>{infoCard.data.bankCard.cardNumber}</p>
-                <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
-              </div>}
+              {!!infoCard?.data?.bankCard?.cardNumber && 
+              <div className="bank-card">
+                <div className="bank-card-info">
+                  <p className='card'>{infoCard.data.bankCard.cardNumber}</p>
+                  <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
+                </div>
+                <CopyToClipboard text={infoCard.data.bankCard.cardNumber} className="copy-to-clipboard">
+                  <img src={copyImage} alt="copy"/>
+                </CopyToClipboard>
+              </div>
+              }
             </div>
             <div id={HelpTypes.STUFF} className='block-holder'>
               <h3 className='title'>
@@ -99,25 +141,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default='Вещами'
                 />
               </h3>
-              <p>
-                <TI18n
-                  keyStr='helpPageStuffText1'
-                  default='Если вы хотите помочь вещами - мы всегда нуждаемся в теплых вещах, медикаментах и расходных материалах, корме, наполнителе, вещах для вольеров и уборки и пр. Список актуальных нужд приюта можно найти в документе'
-                />
-                &nbsp;
-                <a>
-                  <TI18n
-                    keyStr='viaLink'
-                    default='по ссылке'
-                  />
-                </a>
-              </p>
-              <p>
-                <TI18n
-                  keyStr='helpPageStuffText2'
-                  default='Также можете писать нам в группу Фейсбук.'
-                />
-              </p>
+              <ExpandedList data={stuffListData} />
             </div>
             <div id={HelpTypes.VOLUNTEERING} className='block-holder'>
               <h3 className='title'>
@@ -145,13 +169,14 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                 </div>
               </React.Fragment>}
             </div>
+            <div className='block-holder'>
+              <Breadcrumbs data={breadCrumbs} />
+            </div>
           </div>
         </div>
         <HelpBlock
           animalsList={sickAnimalsList.data}
           title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
-          text={<TI18n keyStr='canHelpBlockContent' default='Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн.' />}
-          buttonText={<TI18n keyStr='footerRightBtn' default='Помочь' />}
         />
       </div>
     </React.Fragment>

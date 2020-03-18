@@ -1,0 +1,6 @@
+{ 
+  "API_URL": "https://localhost:5001/api/",
+  "YOUTUBE_URL": "https://www.googleapis.com/youtube/v3/",
+  "YOUTUBE_API_KEY": "youtubeapikeyhere",
+  "YOUTUBE_CHANNEL_ID": "youtubechannelidhere"
+}

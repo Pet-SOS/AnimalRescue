@@ -86,8 +86,6 @@ export class ContactsPage extends React.Component<IPropTypes> {
                 <HelpBlock
                     animalsList={this.props.sickAnimalsList.data}
                     title={<TI18n keyStr="canHelpBlockTitle" default={defaultText.canHelpBlockTitle} />}
-                    text={<TI18n keyStr="canHelpBlockContent" default={defaultText.canHelpBlockContent} />}
-                    buttonText={<TI18n keyStr="footerRightBtn" default={defaultText.footerRightBtn} />}
                 />
                 }
             </div>

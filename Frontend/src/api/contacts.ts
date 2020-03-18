@@ -1,4 +1,5 @@
-import API from './index';
+import { API } from './index';
+
 export interface ISocialLinks{
     instagram: string;
     facebook: string;

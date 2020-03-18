@@ -57,7 +57,7 @@
       box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
     }
   }
-  &.blue-circle {
+  &.blue-circle, &.white-circle {
     background-color: $btn-blue;
     box-shadow: 0px 4px 16px rgba(62, 91, 157, 0.5);
     border-radius: 50%;
@@ -74,6 +74,15 @@
     }
     &:hover, &:focus {
       background-color: $text-color-active;
+    }
+  }
+  &.white-circle {
+    background-color: $bg-lite-box;
+    &:after {
+      background-image: url("../../img/icons/arrow-yellow.png");
+    }
+    &:hover, &:focus {
+      background-color: $btn-blue;
     }
   }
   &.close {
