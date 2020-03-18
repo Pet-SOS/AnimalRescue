@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ButtonTypes } from '../Button';
+import cn from 'classnames';
 import './index.scss';
 
 export interface IBlockLinkPropTypes {
@@ -13,12 +14,14 @@ export interface IBlockLinkPropTypes {
 
 export const BlockLink: React.FC<IBlockLinkPropTypes> = ({ title, href, isButtonHidden, isExternalLink, isBack }) => {
   const getLinkClasses = (): string => {
-    return `default-block-link${isBack ? ' back-link' : ''}`
+    return cn('default-block-link', { 'back-link': isBack });
   }
-  const linkBody: JSX.Element = <React.Fragment>
-    <span>{title}</span>
-    {!isButtonHidden && <Button styleType={ButtonTypes.WhiteCircle} />}
-  </React.Fragment>
+  const linkBody: JSX.Element = (
+    <React.Fragment>
+      <span>{title}</span>
+      {!isButtonHidden && <Button styleType={ButtonTypes.WhiteCircle} />}
+    </React.Fragment>
+  )
 
   return isExternalLink ?
     <a href={href} target="_blank" className={getLinkClasses()}>
