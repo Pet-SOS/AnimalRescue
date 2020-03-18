@@ -37,8 +37,8 @@ export default {
   canHelpBlockTitle: 'Wem kannst du helfen?',
   canHelpBlockContent: 'Mascha ist ein bescheidener und freundlicher Hund. Sehr geduldig und unauffällig. Mascha wurde von einem Auto angefahren, überlebte Stress. Zuerst hatte sie Angst, dann beruhigte sie sich und begann den Menschen zu vertrauen. Um sich von einem Unfall zu erholen, müssen Sie 3.500 UAH sammeln.',
 
-  ourGoalBlockTitle: 'Unser Ziel',
-  ourGoalBlockText1: 'Wir sind der Tierrettungsdienst von Kharkov. Unser Ziel ist es, Tieren in Not zu helfen. Wir retten Kätzchen, Welpen, erwachsene Katzen und Hunde, Vögel und wilde Tiere. Wir helfen Ihnen rund um die Uhr. Rufen Sie uns mindestens 2 Uhr morgens, mindestens 5 Uhr morgens an.',
+  ourGoalBlockTitle: 'Wer wir sind',
+  ourGoalBlockText1: 'Wir sind eine Nichtregierungsorganisation, die nach dem Prinzip von Notfall oder Notfall arbeitet. Unser Fokus liegt auf der Rettung von Tieren in Notfällen. Wir retten Kätzchen, Zucchini, erwachsene Katzen und Hunde, Vögel und wilde Tiere. Wir helfen Ihnen rund um die Uhr. Rufen Sie uns um 2 Uhr morgens um 5 Uhr morgens an.',
   ourGoalBlockLinkText: 'Servicedetails',
 
   popupInfoBlockTitle: 'Helfen Sie Tieren',
