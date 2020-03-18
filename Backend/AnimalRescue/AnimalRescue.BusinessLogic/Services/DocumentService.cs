@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
@@ -14,27 +14,33 @@ using System.Threading.Tasks;
 
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AutoMapper;
+using AnimalRescue.Contracts.BusinessLogic.Models.Document;
+using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.BusinessLogic.Extensions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class DocumentService : IDocumentService
     {
-        private readonly IBucket bucket;
+        private readonly IBucket _bucket;
         private readonly IMapper _mapper;
+        private readonly IOrganizationDocumentRepository _orgDocRepository;
 
-
-        public DocumentService(IBucket bucket, IMapper mapper)
+        public DocumentService(IBucket bucket, IMapper mapper,
+            IOrganizationDocumentRepository orgDocRepository)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
             Require.Objects.NotNull(mapper, nameof(mapper));
 
-            this.bucket = bucket;
+            _bucket = bucket;
             _mapper = mapper;
+            _orgDocRepository = orgDocRepository;
         }
 
         public async Task<BucketItemDto> GetAsync(Guid fileId)
         {
-            var bucketItem = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
+            var bucketItem = await _bucket.GetFileBytesAsync(fileId.AsObjectId());
             var bucketItemDto = _mapper.Map<BucketItem, BucketItemDto>(bucketItem);
             return bucketItemDto;
         }
@@ -53,12 +59,58 @@ namespace AnimalRescue.BusinessLogic.Services
             return ids;
         }
 
+        public async Task<Guid> UploadFileAsync(IFormFile file)
+        {
+            Require.Objects.NotNull(file, "The file has not been uploaded.");
+
+            var bucketFileId = await UploadFileStreamAsync(file);
+            return bucketFileId.AsGuid();
+        }
+
+        public async Task<(List<GetOrganizationDocsDocumentViewItem>, int totalNumberOf)> GetOrganizationDocs(ApiQueryRequest queryRequest)
+        {
+            var dbQuery = queryRequest.ToDbQuery();
+            var files = await _orgDocRepository.GetAsync(dbQuery);
+            var totalNumberOf = await _orgDocRepository.GetCountAsync(dbQuery);
+
+            var result = files.Select(x => new GetOrganizationDocsDocumentViewItem
+            {
+                Id = x.BucketId,
+                FileName = x.Name,
+                ContentType = x.ContentType
+            }).ToList();
+
+            return (result, totalNumberOf);
+        }
+
+        public async Task SaveOrganizationDocument(Guid uploadedDocId, IFormFile file)
+        {
+            var orgDoc = new OrganizationDocument
+            {
+                Name = file.FileName,
+                ContentType = file.ContentType,
+                BucketId = uploadedDocId.ToString()
+            };
+
+            await _orgDocRepository.CreateAsync(orgDoc);
+        }
+
+        public async Task RemoveOrganizationDocument(Guid id)
+        {
+            await _orgDocRepository.DeleteAsync(id.AsObjectIdString());
+            await _bucket.RemoveFile(id.AsObjectId());
+        }
+
+        #region Private
+
         private async Task<string> UploadFileStreamAsync(IFormFile file)
         {
             using (Stream fileStream = file.OpenReadStream())
             {
-                return await bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
+                return await _bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
             }
         }
+
+        #endregion
     }
 }

@@ -66,26 +66,28 @@ namespace AnimalRescue.DataAccess.Mongodb
             return objectId.ToString();
         }
 
-        public async Task<BucketItem> GetFileBytesAsync(string fileId)
+        public async Task<BucketItem> GetFileBytesAsync(ObjectId fileId)
         {
-            Require.Strings.NotNullOrWhiteSpace(fileId, nameof(fileId));
-
-            ObjectId objectId = ObjectId.Parse(fileId);
             byte[] bytes;
-            BsonValue contentType;
+            string contentType = string.Empty;
 
-            using (var stream = await gridFSBucket.OpenDownloadStreamAsync(objectId))
+            using (var stream = await gridFSBucket.OpenDownloadStreamAsync(fileId))
             {
                 bytes = new byte[stream.Length];
                 await stream.ReadAsync(bytes);
 
-                contentType = stream.FileInfo?.Metadata?.GetValue(ContentTypeName);
+                contentType = stream.FileInfo?.Metadata?.GetValue(ContentTypeName)?.AsString;
 
                 await stream.CloseAsync(); 
             }
 
-            BucketItem bucketItem = new BucketItem() { Data = bytes, ContentType = contentType?.ToString() };
+            BucketItem bucketItem = new BucketItem() { Data = bytes, ContentType = contentType };
             return bucketItem;
+        }
+
+        public async Task RemoveFile(ObjectId id)
+        {
+            await gridFSBucket.DeleteAsync(id);
         }
     }
 }

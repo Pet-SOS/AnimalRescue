@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 
