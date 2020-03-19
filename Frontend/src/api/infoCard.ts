@@ -1,4 +1,5 @@
-import API from './index';
+import { API } from './index';
+
 export interface IBankCard{
     cardNumber: string;
     edrpou: string;

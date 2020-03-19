@@ -5,7 +5,7 @@ import { loadYouTubeVideos, loadYouTubeVideosSuccess, loadYouTubeVideosFailUrl, 
 import { IYouTubeVideosState } from "../state/youtube-videos.state";
 import { DEFAULT_YOUTUBE_VIDEO_STATE } from '../state/youtube-videos.state';
 
-export const videosReducer = (state: IYouTubeVideosState = DEFAULT_YOUTUBE_VIDEO_STATE, action: AnyAction): IYouTubeVideosState => {
+export const youtubeVideosReducer = (state: IYouTubeVideosState = DEFAULT_YOUTUBE_VIDEO_STATE, action: AnyAction): IYouTubeVideosState => {
   switch (action.type) {
     case getType(loadYouTubeVideos):
       return {

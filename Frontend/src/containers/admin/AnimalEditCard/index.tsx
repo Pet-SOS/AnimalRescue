@@ -1,7 +1,8 @@
 import React from "react";
 import {DEFAULT_ANIMAL, IAnimal} from "../../../api/animals";
-import {BASE_URL} from "../../../api";
 import './index.scss'
+import { store } from "../../../store";
+import { selectApiUrl } from "../../../store/selectors/config.selector";
 
 
 interface IAnimalCardProps {
@@ -13,9 +14,8 @@ interface IAnimalCardProps {
 }
 
 export class AnimalEditCard extends React.Component<IAnimalCardProps> {
-
+    public baseUrl: string = '';
     public state: IAnimal;
-
     constructor(props: IAnimalCardProps) {
         super(props);
         this.state = {
@@ -31,8 +31,11 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             birthday: props.animal.birthday || '',
             coverImage: props.animal.coverImage,
             id: props.animal.id,
-            images: []
+            images: [],
         }
+    }
+    componentWillMount() {
+      this.baseUrl = selectApiUrl(store.getState());
     }
 
     changeValue = (e: any, key: any) => {
@@ -44,7 +47,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
     }
 
     renderImgs = (imageIds: string[]) => imageIds.map(imageId => <img key={imageId} style={{width: 100, height: 100}}
-                                                                      src={`${BASE_URL}documents/${imageId}/type/small`}/>)
+                                                                      src={`${this.baseUrl}documents/${imageId}/type/small`}/>)
 
     submit = () => {
         const animal = {...this.state as IAnimal}

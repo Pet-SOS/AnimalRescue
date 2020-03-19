@@ -11,10 +11,12 @@ import { watchAnimalItem } from '../../containers/client/Animals/store/saga/anim
 import { watchFinancialReport } from '../../containers/client/FinancialReports/store/saga';
 import { watchYouTubeVideosActions } from './youtube-videos.saga';
 import { watchLoginRequestHomePage } from '../../containers/admin/Login/store/saga';
+import { watchConfig } from './config.saga';
 
 export function* appSaga() {
     try {
         yield all([
+          watchConfig(),
           watchAdminHomePage(),
           watchHomePage(),
           watchAnimals(),

@@ -29,7 +29,6 @@ export async function deleteFinancialReporDocument(id: string): Promise<any> {
     const res = await API.delete(`FinancialReport/${id}`);
     return res
 }
-
 export async function addFinancialReporDocument(report?: any): Promise<any> {
     debugger
     const res = await API.post(`FinancialReport`, report);

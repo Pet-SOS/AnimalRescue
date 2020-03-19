@@ -36,5 +36,20 @@
   .vacations-list p {
     margin: 0 0 1rem;
   }
+  .bank-card{
+    display: flex;
+    justify-content: flex-start; 
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;  
+  }
+  .copy-to-clipboard{
+    margin-left: 1.5rem;
+    align-self: center;
+  } 
   .bank-card-info { margin: 0; }
+  .expanded-item-body .subtitle {
+    display: block;
+    margin: 0 0 1rem;
+  }
 }

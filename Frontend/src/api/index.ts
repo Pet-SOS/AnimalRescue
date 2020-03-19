@@ -1,12 +1,10 @@
 import axios from 'axios';
 
-//export const BASE_URL = process.env.REACT_APP_API_URL;
-export const BASE_URL = 'https://localhost:5001/api/';
+export const BASE_URL = process.env.REACT_APP_API_URL;
+// export const BASE_URL = 'https://localhost:5001/api/';
 export const BASE_YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/';
 
-export const API_YOTUBE = axios.create({
-  baseURL: BASE_YOUTUBE_URL
-})
+export const API_YOTUBE = axios.create();
 
 const API = axios.create({
     baseURL: BASE_URL,

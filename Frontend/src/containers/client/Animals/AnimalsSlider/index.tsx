@@ -3,6 +3,7 @@ import { Slider } from '../../../../components/Slider';
 import { AnimalCard } from '../AnimalCard';
 import { IBlockLinkPropTypes, BlockLink } from '../../../../components/BlockLink';
 import './index.scss';
+import { ButtonTypes, Button } from '../../../../components/Button';
 
 interface IPropTypes {
   data: any[];
@@ -40,7 +41,13 @@ export const AnimalsSlider: React.FC<IPropTypes> = ({ data, title, link }) => {
             isSwipeDisable={windowWidth > 1023 || !data || data.length <= Math.floor(slidesPerView)}
           />
         </div>}
-        {!!link && !!link.href && <BlockLink {...link} />}
+        {!!link && !!link.href && 
+          <div className="bottomButton">
+            <Button href = {link.href} styleType={ButtonTypes.Blue}>
+                  {link.title}
+            </Button>
+          </div>
+        }
       </div>
     </div>
   )
