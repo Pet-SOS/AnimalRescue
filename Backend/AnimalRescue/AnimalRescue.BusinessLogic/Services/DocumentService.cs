@@ -15,10 +15,6 @@ using System.Threading.Tasks;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AutoMapper;
 using AnimalRescue.Contracts.BusinessLogic.Models.Document;
-using AnimalRescue.Contracts.Common.Query;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
-using AnimalRescue.BusinessLogic.Extensions;
-using AnimalRescue.Contracts.Common.Exceptions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -26,17 +22,14 @@ namespace AnimalRescue.BusinessLogic.Services
     {
         private readonly IBucket _bucket;
         private readonly IMapper _mapper;
-        private readonly IOrganizationDocumentRepository _orgDocRepository;
 
-        public DocumentService(IBucket bucket, IMapper mapper,
-            IOrganizationDocumentRepository orgDocRepository)
+        public DocumentService(IBucket bucket, IMapper mapper)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
             Require.Objects.NotNull(mapper, nameof(mapper));
 
             _bucket = bucket;
             _mapper = mapper;
-            _orgDocRepository = orgDocRepository;
         }
 
         public async Task<BucketItemDto> GetAsync(Guid fileId)
@@ -71,39 +64,6 @@ namespace AnimalRescue.BusinessLogic.Services
                 FileName = data.Item1.FileName,
                 UserId = data.Item2
             };
-        }
-
-        public async Task<BlCollectonResponse<GetOrganizationDocsDocumentViewItem>> GetAsync(ApiQueryRequest queryRequest)
-        {
-            var dbQuery = queryRequest.ToDbQuery();
-            var files = await _orgDocRepository.GetAsync(dbQuery);
-            var totalNumberOf = await _orgDocRepository.GetCountAsync(dbQuery);
-
-            var result = files.Select(x => new GetOrganizationDocsDocumentViewItem
-            {
-                Id = x.BucketId,
-                FileName = x.Name
-            }).ToList();
-
-            return new BlCollectonResponse<GetOrganizationDocsDocumentViewItem>
-            { Collection = result, TotalCount = totalNumberOf };
-        }
-
-        public async Task CreateAsync(UploadOrganizationDocumentModel model)
-        {
-            var orgDoc = _mapper.Map<UploadOrganizationDocumentModel, OrganizationDocument>(model);
-
-            await _orgDocRepository.CreateAsync(orgDoc);
-        }
-
-        public async Task DeleteAsync(Guid bucketId)
-        {
-            var deletedResult = await _orgDocRepository.DeleteAsync(bucketId.ToString());
-
-            Require.Booleans.IsTrue<NotFoundException>(deletedResult,
-                "Failed to delete document. Probably document is not found.");
-
-            await _bucket.RemoveFile(bucketId.AsObjectId());
         }
 
         #region Private

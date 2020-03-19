@@ -112,6 +112,15 @@ namespace AnimalRescue.API.Controllers
                 new { id = item.Id },
                 BuildContentApiResponse(item));
         }
+        protected ActionResult<T> CreatedItem<T>(string actionName, string controllerName, object routeValues, T item)
+            where T : struct
+        {
+            return CreatedAtAction(
+                actionName,
+                controllerName,
+                routeValues,
+                BuildContentApiResponse(item));
+        }
 
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
