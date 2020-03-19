@@ -12,7 +12,7 @@ export enum ButtonTypes {
 }
 
 interface IPropTypes {
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   className?: string;
   styleType?: ButtonTypes;
   href?: string;

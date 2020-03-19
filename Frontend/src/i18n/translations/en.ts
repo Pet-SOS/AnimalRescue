@@ -18,8 +18,8 @@ export default {
   headerMenuItem1Dropdown2: 'Rules for working with us',
   headerMenuItem1Dropdown3: 'Financial statements',
 
-  ourGoalBlockTitle: 'Our goal',
-  ourGoalBlockText1: 'We are the Kharkov animal rescue service. Our goal is to help animals in distress. We save kittens, puppies, adult cats and dogs, birds, wild animals. We provide assistance around the clock. Call us on the hotline at least 2 a.m., at least 5 a.m.',
+  ourGoalBlockTitle: 'Who we are',
+  ourGoalBlockText1: 'We are a non-governmental organization operating under the principle of Emergency or Emergency. Our focus is to rescue animals in emergencies. We rescue kittens, zucchini, adult cats and dogs, birds, wild animals. We provide assistance around the clock. Give us a call at 2am at 5am.',
   ourGoalBlockLinkText: 'Service Details',
 
   helpBlockTitle: 'Help animals',
@@ -263,6 +263,7 @@ export default {
    dateText9: 'October',
    dateText10: 'November',
    dateText11: 'December',
+   addReport: 'Download report',
 
   helpPageStuffListTitle1: 'Regular needs',
   helpPageStuffListTitle2: 'Medicines',

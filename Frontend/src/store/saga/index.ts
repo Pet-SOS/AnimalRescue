@@ -10,6 +10,7 @@ import { watchVacancies } from './vacancies.saga';
 import { watchAnimalItem } from '../../containers/client/Animals/store/saga/animalitem.saga';
 import { watchFinancialReport } from '../../containers/client/FinancialReports/store/saga';
 import { watchYouTubeVideosActions } from './youtube-videos.saga';
+import { watchLoginRequestHomePage } from '../../containers/admin/Login/store/saga';
 import { watchConfig } from './config.saga';
 
 export function* appSaga() {
@@ -25,7 +26,8 @@ export function* appSaga() {
           watchVacancies(),
           watchAnimalItem(),
           watchFinancialReport(),
-          watchYouTubeVideosActions()
+          watchYouTubeVideosActions(),
+          watchLoginRequestHomePage()
         ]);
     } catch (e) {
         logger.error(e);
