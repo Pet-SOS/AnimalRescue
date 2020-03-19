@@ -12,30 +12,32 @@ export enum ButtonTypes {
 }
 
 interface IPropTypes {
-    content?: string;
-    onClick?: (e?:any) => void;
-    className?: string;
-    styleType?: ButtonTypes;
-    children?: React.ReactNode;
-    href?: string;
+  onClick?: (e?: any) => void;
+  className?: string;
+  styleType?: ButtonTypes;
+  href?: string;
+  children?: React.ReactNode | string;
 }
 
-export const Button: React.FC<IPropTypes> = (
-    {content, onClick, className, styleType, children, href}: IPropTypes
-) => {
-    return href ?
+export const Button: React.FC<IPropTypes> = ({
+  onClick,
+  className,
+  styleType,
+  href,
+  children
+}) => (!!href ?
     (
-    <Link to={href} className={cn(className,{button: true, [styleType || '']: [!!styleType]})}>
-        {content || children || null}
-    </Link>
+      <Link to={href} className={cn(className, 'button', {[styleType as string]: [!!styleType]})}>
+        { children || null}
+      </Link>
     ) :
     (
-        <button
-            className={cn(className,{button: true, [styleType || '']: [!!styleType]})}
-            onClick={onClick}
-            type='button'
-        >
-            {content || children || null}
-        </button>
+      <button
+        className={cn(className, 'button', {[styleType as string]: [!!styleType]})}
+        onClick={onClick}
+        type='button'
+      >
+        { children || null}
+      </button>
     )
-};
+);
