@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IOrganizationDocumentRepository: IBaseRepository<OrganizationDocument>
+    public interface IOrganizationDocumentRepository: IBaseCollection<OrganizationDocument>
     {
     }
 }

@@ -18,6 +18,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models.Document;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.BusinessLogic.Extensions;
+using AnimalRescue.Contracts.Common.Exceptions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -59,15 +60,20 @@ namespace AnimalRescue.BusinessLogic.Services
             return ids;
         }
 
-        public async Task<Guid> UploadFileAsync(IFormFile file)
+        public async Task<UploadOrganizationDocumentModel> UploadFileAsync((IFormFile, string) data)
         {
-            Require.Objects.NotNull(file, "The file has not been uploaded.");
+            Require.Objects.NotNull(data.Item1, "The file has not been uploaded.");
 
-            var bucketFileId = await UploadFileStreamAsync(file);
-            return bucketFileId.AsGuid();
+            var bucketFileId = await UploadFileStreamAsync(data.Item1);
+            return new UploadOrganizationDocumentModel
+            {
+                BucketId = bucketFileId.AsGuid(),
+                FileName = data.Item1.FileName,
+                UserId = data.Item2
+            };
         }
 
-        public async Task<(List<GetOrganizationDocsDocumentViewItem>, int totalNumberOf)> GetOrganizationDocs(ApiQueryRequest queryRequest)
+        public async Task<BlCollectonResponse<GetOrganizationDocsDocumentViewItem>> GetAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
             var files = await _orgDocRepository.GetAsync(dbQuery);
@@ -76,29 +82,28 @@ namespace AnimalRescue.BusinessLogic.Services
             var result = files.Select(x => new GetOrganizationDocsDocumentViewItem
             {
                 Id = x.BucketId,
-                FileName = x.Name,
-                ContentType = x.ContentType
+                FileName = x.Name
             }).ToList();
 
-            return (result, totalNumberOf);
+            return new BlCollectonResponse<GetOrganizationDocsDocumentViewItem>
+            { Collection = result, TotalCount = totalNumberOf };
         }
 
-        public async Task SaveOrganizationDocument(Guid uploadedDocId, IFormFile file)
+        public async Task CreateAsync(UploadOrganizationDocumentModel model)
         {
-            var orgDoc = new OrganizationDocument
-            {
-                Name = file.FileName,
-                ContentType = file.ContentType,
-                BucketId = uploadedDocId.ToString()
-            };
+            var orgDoc = _mapper.Map<UploadOrganizationDocumentModel, OrganizationDocument>(model);
 
             await _orgDocRepository.CreateAsync(orgDoc);
         }
 
-        public async Task RemoveOrganizationDocument(Guid id)
+        public async Task DeleteAsync(Guid bucketId)
         {
-            await _orgDocRepository.DeleteAsync(id.AsObjectIdString());
-            await _bucket.RemoveFile(id.AsObjectId());
+            var deletedResult = await _orgDocRepository.DeleteAsync(bucketId.ToString());
+
+            Require.Booleans.IsTrue<NotFoundException>(deletedResult,
+                "Failed to delete document. Probably document is not found.");
+
+            await _bucket.RemoveFile(bucketId.AsObjectId());
         }
 
         #region Private

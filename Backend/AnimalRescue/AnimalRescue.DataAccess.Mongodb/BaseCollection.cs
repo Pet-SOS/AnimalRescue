@@ -18,7 +18,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         where T : BaseItem
     {
         public IMongoCollection<T> Collection => collection;
-        public IMongoCollection<BsonDocument> NativeCollection => 
+        public IMongoCollection<BsonDocument> NativeCollection =>
             nativeCollection ?? (nativeCollection = database.GetCollection<BsonDocument>(collectionName));
         protected readonly IMongoDatabase database;
         protected readonly IMongoCollection<T> collection;
@@ -27,22 +27,28 @@ namespace AnimalRescue.DataAccess.Mongodb
         protected readonly string collectionName;
 
         public BaseCollection(
-            IMongoDatabase database, 
-            IQueryBuilder<T> queryBuilder)     
+            IMongoDatabase database,
+            IQueryBuilder<T> queryBuilder)
         {
             collectionName = typeof(T).GetCustomAttribute<BsonDiscriminatorAttribute>()?.Discriminator;
-            
+
             Require.Strings.NotNullOrWhiteSpace(collectionName, nameof(collectionName));
             Require.Objects.NotNull(database, nameof(database));
             Require.Objects.NotNull(queryBuilder, nameof(queryBuilder));
- 
+
             this.database = database;
             this.collection = database.GetCollection<T>(collectionName);
             this.queryBuilder = queryBuilder;
         }
 
         public async Task UpdateAsync(T instance) => await collection.ReplaceOneAsync(t => t.Id == instance.Id, instance);
-        public async Task DeleteAsync(string id) => await collection.DeleteOneAsync(t => t.Id == id);
+
+        public virtual async Task<bool> DeleteAsync(string id)
+        {
+            var result = await collection.DeleteOneAsync(t => t.Id == id);
+            return result.DeletedCount > 0;
+        }
+
         public async Task<T> CreateAsync(T instance)
         {
             await collection.InsertOneAsync(instance);
@@ -79,7 +85,7 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<T> GetAsync(string id)
         {
             var item = await collection
-                .Find(x=>x.Id == id)
+                .Find(x => x.Id == id)
                 .SingleOrDefaultAsync();
 
             return item;

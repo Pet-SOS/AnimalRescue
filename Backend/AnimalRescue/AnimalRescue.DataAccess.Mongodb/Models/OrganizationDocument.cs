@@ -12,10 +12,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("name")]
         public string Name { get; set; }
 
-        [CouplingPropertyName(PropertyConstants.Common.ContentType)]
-        [BsonElement("contentType")]
-        public string ContentType { get; set; }
-
         [BsonElement("bucketId")]
         public string BucketId { get; set; }
 

@@ -42,7 +42,8 @@ namespace AnimalRescue.BusinessLogic
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
                 new BucketItemMappingProfile(),
-                new EmployeeMappingProfile()
+                new EmployeeMappingProfile(),
+                new DocumentMappingProfile()
             });
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()

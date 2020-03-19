@@ -2,9 +2,6 @@
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
@@ -15,6 +12,12 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             : base(database, builder)
         {
 
+        }
+
+        public override async Task<bool> DeleteAsync(string bucketId)
+        {
+            var result = await Collection.DeleteOneAsync(x => x.BucketId == bucketId);
+            return result.DeletedCount > 0;
         }
 
     }

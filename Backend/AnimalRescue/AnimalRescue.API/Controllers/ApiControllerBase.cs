@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -42,6 +43,11 @@ namespace AnimalRescue.API.Controllers
             int pageSize)
             where T : class
         {
+            if (!source.Any())
+            {
+                return NotFound();
+            }
+
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
             {
                 return BadRequest("Page criteria oversizes the total quantity of items in the list.");

@@ -1,8 +1,9 @@
-﻿using AnimalRescue.API.Core.Responses;
+﻿using AnimalRescue.API.Core.Extensions;
+using AnimalRescue.API.Core.Responses;
+using AnimalRescue.API.Models;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Document;
 using AnimalRescue.Contracts.Common.Query;
-using AnimalRescue.Infrastructure.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -24,12 +24,9 @@ namespace AnimalRescue.API.Controllers
         private readonly IDocumentService _documentService;
         private readonly IDocumentCollectionService _documentCollectionService;
 
-        public DocumentsController(
-            IDocumentService documentService,
+        public DocumentsController(IDocumentService documentService,
             IDocumentCollectionService documentCollectionService)
         {
-            Require.Objects.NotNull(documentService, nameof(documentService));
-
             _documentService = documentService;
             _documentCollectionService = documentCollectionService;
         }
@@ -54,7 +51,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetBytesAsync([BindRequired, FromRoute] Guid id)
+        public async Task<IActionResult> Get([BindRequired, FromRoute] Guid id)
         {
             var fileBytes = await _documentService.GetAsync(id);
 
@@ -72,7 +69,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetBytesAsync(
-            [BindRequired, FromRoute] Guid id, 
+            [BindRequired, FromRoute] Guid id,
             [BindRequired, FromRoute] string name)
         {
             var documentId = await _documentCollectionService.GetAsync(id, name);
@@ -98,16 +95,17 @@ namespace AnimalRescue.API.Controllers
         /// <param name="file"></param>
         /// <returns>Id of uploaded document.</returns>
         [HttpPost("upload/organization")]
-        [ProducesResponseType(typeof(Guid), 200)]
+        [ProducesResponseType(typeof(ContentApiResponse<BaseModel>), 201)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<IActionResult> UploadOrganizationDocument(IFormFile file)
+        public async Task<ActionResult<BaseModel>> UploadOrganizationDocument(IFormFile file)
         {
-            var bucketId = await _documentService.UploadFileAsync(file);
+            var identityUser = User.Identity.GetUser();
 
-            await _documentService.SaveOrganizationDocument(bucketId, file);
+            var uploadedModel = await _documentService.UploadFileAsync((file, identityUser.Id));
 
-            return Ok(bucketId);
+            await _documentService.CreateAsync(uploadedModel);
 
+            return CreatedItem(new BaseModel { Id = uploadedModel.BucketId });
         }
 
         /// <summary>
@@ -120,28 +118,25 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(typeof(CollectionSegmentApiResponse<GetOrganizationDocsDocumentViewItem>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetOrganizationDocs([FromQuery]ApiQueryRequest queryRequest)
+        public async Task<ActionResult<CollectionSegmentApiResponse<GetOrganizationDocsDocumentViewItem>>>
+            GetOrganizationDocs([FromQuery]ApiQueryRequest queryRequest)
         {
-            var (orgDocs, totalNumberOf) = await _documentService.GetOrganizationDocs(queryRequest);
-            if (!orgDocs.Any())
-            {
-                return NotFound();
-            }
-            var result = Collection(orgDocs, totalNumberOf, queryRequest.Page, queryRequest.Size);
-            return Ok(result);
+            var source = await _documentService.GetAsync(queryRequest);
+
+            return Collection(source.Collection, source.TotalCount, queryRequest.Page, queryRequest.Size);
         }
 
         /// <summary>
         /// Removes document of organization.
         /// </summary>
-        /// <param name="id">Id of a specific document.</param>
+        /// <param name="id">Id of a specific document in FS.</param>
         /// <returns></returns>
-        [HttpPost("{id}/organization")]
-        [ProducesResponseType(typeof(Guid), 200)]
+        [HttpDelete("{id}/organization")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteOrganizationDoc([FromRoute] Guid id)
         {
-            await _documentService.RemoveOrganizationDocument(id);
+            await _documentService.DeleteAsync(id);
 
             return Ok();
         }
