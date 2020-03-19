@@ -1,13 +1,11 @@
 import {connect} from "react-redux";
 import {ICustomAppState} from "../../../store/state";
-import {selectAnimalsList} from "../Home/store/selectors";
 import { bindActionCreators, Dispatch, AnyAction } from "redux";
 import { LoginComponent } from "./ui/LoginComponent";
 import { actionAdminLoginRequest } from "./store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
-    animalsList: selectAnimalsList(state),
-
+    accountSignIn:state.AdminLogin.accountSignIn
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {

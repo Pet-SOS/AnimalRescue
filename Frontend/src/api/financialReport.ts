@@ -1,5 +1,5 @@
 import API from './index';
-import { IRequestParams, prepareRequestParams } from './requestOptions';
+import { IRequestParams } from './requestOptions';
 
 export interface IInfoFile {
     title: string;

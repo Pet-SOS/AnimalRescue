@@ -15,9 +15,6 @@ const API = axios.create({
     }
 });
 API.interceptors.request.use(async (config) => {
-  console.log('config', config);
-  // config.url
-  debugger;
   let token = localStorage.getItem('jwt-token');
   console.log('token', token);
   if(token){

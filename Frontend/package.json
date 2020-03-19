@@ -24,6 +24,7 @@
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
+    "react-router-guards": "^1.0.1",
     "react-router-redux": "^4.0.8",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",

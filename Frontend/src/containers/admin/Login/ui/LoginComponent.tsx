@@ -1,15 +1,18 @@
 import React from "react";
-import { IDataSignIn } from "../../../../api/login";
+import { IDataSignIn, IResponceSignIn } from "../../../../api/login";
+import { getJwt } from "../../helpers/jwt";
 
 interface IPropTypes {
     fetchLoginRequest: (body: IDataSignIn) => {}
+    history: any;
+    location:any;
+    accountSignIn: IResponceSignIn;
 }
 
 interface IState  {
     email: string; //admin@animalrescue.com
-    phoneNumber?: string;
     password: string; //TestPassword123#
-    rememberMe?: boolean;
+    rememberMe: boolean;
 }
 
 export class LoginComponent extends React.Component <IPropTypes, IState>{
@@ -18,7 +21,6 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
       this.state = {
         email: '',
         password: '',
-        phoneNumber: '',
         rememberMe:true
       };
     }
@@ -27,9 +29,14 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
     }
     handleSubmit(e: any) {
         e.preventDefault();
-        // TODO: do something with -> this.state.file
-        console.log('handle uploading-', this.state);
-        this.props.fetchLoginRequest(this.state)
+        this.props.fetchLoginRequest(this.state);
+        const jwt = getJwt();
+       
+        if(!!jwt){
+            console.log('jwt', !!jwt);
+            console.log( this.props)
+            this.props.history.push(`${this.props.location.state}`)
+        }
     }
 
     handleChangeInField(e:any, key:string) {

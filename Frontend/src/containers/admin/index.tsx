@@ -1,45 +1,39 @@
 import React from 'react';
-import {Route, Switch, RouteComponentProps} from 'react-router';
+import {RouteComponentProps} from 'react-router';
 import {HomePage} from "./Home";
-
-import { Tabs } from 'antd';
 import { FinancialReports } from './FinancialReports';
 import { Login } from './Login';
 import { AdminHomePage } from './AdminHomePage';
+import { GuardProvider, GuardedRoute } from 'react-router-guards';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { guardLogin } from './guards/guardLogin';
 
-
-const { TabPane } = Tabs;
-
-interface IPropTypes extends RouteComponentProps {}
-
-// domain /account/signIn
+const history = createBrowserHistory();
+interface IPropTypes extends RouteComponentProps {
+  history:any
+}
+// To Do:
+// domain /account/signIn                     = done!
 // domain /account/singUp
 // domain /account/forgot-password
 // domain /account/reset-password
 // account/unlock-account
+
+
 const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
-  console.log('==>',props.match.path);
+  history.location.state = props.match.path
   return  (
-    <React.Fragment>
-      <Switch>
-      <Route path={`${props.match.path}/signIn`} component={Login} exact/>
-        <Tabs defaultActiveKey="1"  tabPosition='left' onChange={()=>{}}>
-            <TabPane  tab="admin" key="1">
-              <Route path={`${props.match.path}`} component={AdminHomePage} exact/>
-            </TabPane> 
-            <TabPane tab="animals" key="2">
-              <Route path={`${props.match.path}/animals`} component={HomePage} exact/>
-            </TabPane>
-            <TabPane tab="reports" key="3">
-              <Route path={`${props.match.path}/reports`} component={FinancialReports} exact/>
-            </TabPane>
-            <TabPane tab="Tab 3" key="4">
-              Content of Tab Pane 3
-            </TabPane>
-      </Tabs>
-      </Switch>
-    </React.Fragment>
+    <Router history={history}>
+      <GuardProvider >
+        <GuardedRoute path={`${props.match.path}/signIn`} exact component={Login} />
+        <GuardProvider guards={[guardLogin]}>
+              <GuardedRoute path={`${props.match.path}`} component={AdminHomePage} exact/>
+              <GuardedRoute path={`${props.match.path}/animals`} component={HomePage} exact/>
+              <GuardedRoute path={`${props.match.path}/reports`} component={FinancialReports} exact/>
+        </GuardProvider>
+      </GuardProvider>
+  </Router>
   )
 }
-
 export default Admin
