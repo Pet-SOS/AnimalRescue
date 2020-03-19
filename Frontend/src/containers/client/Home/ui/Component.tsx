@@ -102,15 +102,15 @@ export const HomePageMain: React.FC<IPropTypes> = ({
       />
       <div className="home-page-client">
         <OurGoalBlock
-          title={<TI18n keyStr="ourGoalBlockTitle" default="Наша цель" />}
+          title={<TI18n keyStr="ourGoalBlockTitle" default="Хто ми" />}
           text1={
             <TI18n
               keyStr="ourGoalBlockText1"
-              default="Мы – харьковская служба спасения животных, и наша цель – помощь животным, попавшим в беду. Мы спасаем котят, щенков, взрослых кошек и собак, которым приходится переживать непростые периоды своей кошачьей или собачьей жизни. Помощь животным мы оказываем вне зависимости от дня недели и времени суток."
+              default="Ми громадська організація, яка працює за принципом МНС або швидкої допомоги. Наш напрямок - це порятунок тварин у надзвичайних ситуаціях. Ми рятуємо кошенят, цуциків, дорослих котів та собак, птахів, диких тварин. Допомогу ми надаємо цілодобово. Телефонуйте нам на гарячу лінію хоч о 2 годині ночі, хоч о 5 годині ранку."
             />
           }
           link={{
-            title: <TI18n keyStr="ourGoalBlockLinkText" default="Подробнее о службе" />,
+            title: <TI18n keyStr="ourGoalBlockLinkText" default="Докладніше про службу" />,
             href: '/about'
           }}
         />
@@ -142,20 +142,20 @@ export const HomePageMain: React.FC<IPropTypes> = ({
           />
         )}
         <div className="animals-slider-wrapper">
-          {dogsList.data && dogsList.data.length > 0 && <AnimalsSlider
+          {!!dogsList.data && !!dogsList.data.length && <AnimalsSlider
             data={dogsList.data}
             title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
             link={{
-              title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
-              href: '/'
+              title: <TI18n keyStr="wantToChooseDog" default="Хочу выбрать друга" />,
+              href: '/animals/page/1?kindOfAnimal=DOG/'
             }}
           />}
           {catsList.data.length > 0 && <AnimalsSlider
             data={catsList.data}
             title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
             link={{
-              title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
-              href: '/'
+              title: <TI18n keyStr="wantToChooseCat" default="Хочу выбрать друга" />,
+              href: '/animals/page/1?kindOfAnimal=CAT/'
             }}
           />}
         </div>

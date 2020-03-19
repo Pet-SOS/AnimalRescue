@@ -6,12 +6,16 @@ WORKDIR /app
 ADD . .
 
 # install and cache app dependencies
-RUN yarn
-RUN yarn build
+RUN npm install
+RUN npm run build
 
 # Second stage - Build runtime image
 FROM nginx:alpine
+RUN apk add jq
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /app/build /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+COPY docker-entrypoint.sh .
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+RUN ["chmod", "+x", "./docker-entrypoint.sh"]
+CMD ["./docker-entrypoint.sh"]

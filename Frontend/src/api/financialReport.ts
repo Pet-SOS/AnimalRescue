@@ -1,5 +1,5 @@
 import API from './index';
-import { IRequestParams, prepareRequestParams } from './requestOptions';
+import { IRequestParams } from './requestOptions';
 
 export interface IInfoFile {
     title: string;
@@ -17,10 +17,20 @@ export interface IFinancialReport {
     reports: IInfoFile[];
 }
 export async function fetchFinancialReport(requestParams?: IRequestParams): Promise<IFinancialReport[]> {
-    const res = await API.get(`FinancialReport/years`, { params: prepareRequestParams(requestParams) });
+    const res = await API.get(`FinancialReport/years`);
     return res.data
 }
 export async function fetchFinancialReporDocument(id: string): Promise<any> {
+   
     const res = await API.get(`Documents/${id}`, {responseType: 'arraybuffer'});
     return res
+}
+export async function deleteFinancialReporDocument(id: string): Promise<any> {
+    const res = await API.delete(`FinancialReport/${id}`);
+    return res
+}
+export async function addFinancialReporDocument(report?: any): Promise<any> {
+    debugger
+    const res = await API.post(`FinancialReport`, report);
+    return res.data
 }

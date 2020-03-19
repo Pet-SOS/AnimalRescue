@@ -1,4 +1,4 @@
-import API from './index'
+import { API } from './index'
 import {IRequestParams, prepareRequestParams} from './requestOptions'
 
 const crateFormData = (data: Object) => {
@@ -115,7 +115,7 @@ export interface ISavedAnimalsCountResponse {
 }
 
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-    const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+  const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
     return res.data
 }
 

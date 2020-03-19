@@ -33,6 +33,11 @@ services:
     restart: unless-stopped
     ports:
       - "9090:80"
+    environment:
+      - API_URL=http://localhost:9595/api/
+      - YOUTUBE_URL=https://www.googleapis.com/youtube/v3/
+      - YOUTUBE_API_KEY=youtubeapikeyhere
+      - YOUTUBE_CHANNEL_ID=youtubechannelidhere
     networks:
       - frontend
 
