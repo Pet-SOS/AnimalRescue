@@ -264,6 +264,7 @@ export default {
    dateText9: 'Жовтень',
    dateText10: 'Листопад',
    dateText11: 'Грудень',
+  addReport: 'Завантажити звіт',
 
   helpPageStuffListTitle1: 'Постійні потреби',
   helpPageStuffListTitle2: 'Медикаменти',

@@ -267,6 +267,7 @@ export default {
    dateText9: 'Oktober',
    dateText10: 'November',
    dateText11: 'Dezember',
+addReport: 'Bericht herunterladen',
 
   helpPageStuffListTitle1: 'Ständige Bedürfnisse',
   helpPageStuffListTitle2: 'Medikamente',

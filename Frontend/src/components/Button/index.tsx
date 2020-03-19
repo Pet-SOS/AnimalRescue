@@ -13,7 +13,7 @@ export enum ButtonTypes {
 
 interface IPropTypes {
     content?: string;
-    onClick?: () => void;
+    onClick?: (e?:any) => void;
     className?: string;
     styleType?: ButtonTypes;
     children?: React.ReactNode;

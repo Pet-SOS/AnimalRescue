@@ -266,6 +266,7 @@ export default {
   dateText9:'Октябрь',
   dateText10:'Ноябрь',
   dateText11:'Декабрь',
+  addReport: 'Загрузить отчет',
 
   helpPageStuffListTitle1: 'Постоянные нужды',
   helpPageStuffListTitle2: 'Медикаменты',
