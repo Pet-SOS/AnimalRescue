@@ -4,11 +4,10 @@ import { Tabs } from 'antd';
 import '../style/FinancialReportsPage.scss';
 import { IFinancialReport, deleteFinancialReporDocument, addFinancialReporDocument } from '../../../../api/financialReport';
 import { ReactComponent as Pdf } from '../../../../img/pdf.svg';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { TI18n } from '../../../../i18n';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { DatePicker } from 'antd';
-import { fileToObject } from 'antd/lib/upload/utils';
 import { AdminMenu } from '../../AdminMenu';
 
 const { TabPane } = Tabs;

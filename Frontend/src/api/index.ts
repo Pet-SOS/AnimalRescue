@@ -6,7 +6,7 @@ export const BASE_YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/';
 
 export const API_YOTUBE = axios.create();
 
-const API = axios.create({
+export const API = axios.create({
     baseURL: BASE_URL,
     headers:{
       'Content-Type':'application/json'
@@ -34,7 +34,7 @@ API.interceptors.response.use(async (response) => {
   }
   return error.response
 });
- export default API;
+export default API;
 
 export * from './requestState/defaultRequestState';
 export * from './requestState/enumRequestState';
