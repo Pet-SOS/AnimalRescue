@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD
 {
     public interface IBlUploadFileAsync :
-        IBaseUploadFileAsync<List<Guid>, List<IFormFile>>, 
-        IBaseUploadFileAsync<UploadOrganizationDocumentModel, (IFormFile, string)>
+        IBaseUploadFileAsync<List<Guid>, List<IFormFile>>
     {
     }
 }

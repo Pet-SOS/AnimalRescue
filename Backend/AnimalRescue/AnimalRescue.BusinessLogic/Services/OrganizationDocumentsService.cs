@@ -10,7 +10,9 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,6 +63,24 @@ namespace AnimalRescue.BusinessLogic.Services
                 "Failed to delete document. Probably document is not found.");
 
             await _bucket.RemoveFile(bucketId.AsObjectId());
+        }
+
+        public async Task<UploadOrganizationDocumentModel> UploadFileAsync((IFormFile, string) data)
+        {
+            Require.Objects.NotNull(data.Item1, "The file has not been uploaded.");
+
+            var bucketFileId = string.Empty;
+            using (Stream fileStream = data.Item1.OpenReadStream())
+            {
+                bucketFileId = await _bucket.UploadFileStreamAsync(fileStream, data.Item1.FileName, data.Item1.ContentType);
+            }
+
+            return new UploadOrganizationDocumentModel
+            {
+                BucketId = bucketFileId.AsGuid(),
+                FileName = data.Item1.FileName,
+                UserId = data.Item2
+            };
         }
     }
 }

@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AutoMapper;
-using AnimalRescue.Contracts.BusinessLogic.Models.Document;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -51,19 +50,6 @@ namespace AnimalRescue.BusinessLogic.Services
             var ids = tasks.Select(x => x.Result.AsGuid()).ToList();
 
             return ids;
-        }
-
-        public async Task<UploadOrganizationDocumentModel> UploadFileAsync((IFormFile, string) data)
-        {
-            Require.Objects.NotNull(data.Item1, "The file has not been uploaded.");
-
-            var bucketFileId = await UploadFileStreamAsync(data.Item1);
-            return new UploadOrganizationDocumentModel
-            {
-                BucketId = bucketFileId.AsGuid(),
-                FileName = data.Item1.FileName,
-                UserId = data.Item2
-            };
         }
 
         #region Private

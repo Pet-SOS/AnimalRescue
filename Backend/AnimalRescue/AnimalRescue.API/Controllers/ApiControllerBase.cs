@@ -43,10 +43,6 @@ namespace AnimalRescue.API.Controllers
             int pageSize)
             where T : class
         {
-            if (!source.Any())
-            {
-                return NotFound();
-            }
 
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
             {

@@ -62,7 +62,7 @@ namespace AnimalRescue.API.Controllers
         {
             var identityUser = User.Identity.GetUser();
 
-            var uploadedModel = await _documentService.UploadFileAsync((file, identityUser.Id));
+            var uploadedModel = await _organizationDocumentsService.UploadFileAsync((file, identityUser.Id));
 
             await _organizationDocumentsService.CreateAsync(uploadedModel);
 
