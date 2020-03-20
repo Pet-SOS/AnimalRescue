@@ -71,7 +71,7 @@ namespace AnimalRescue.BusinessLogic.Services
                 throw new BadRequestException(@"Invalid login attempt.
                                 Your account has been blocked for 10 minutes.");
             }
-            var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser, model.RememberMe);
+            var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser.Id, model.RememberMe);
 
             //TODO: CreateRefreshTokenIfNotExist
 

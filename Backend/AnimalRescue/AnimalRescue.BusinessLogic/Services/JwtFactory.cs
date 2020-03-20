@@ -25,18 +25,17 @@ namespace AnimalRescue.BusinessLogic.Services
             _appSettings = appSettings.Value;
         }
 
-        public async Task<(string generatedAccessToken, string generatedRefreshToken, DateTime refreshTokenExpires)> GenerateAuthorizationToken(ApplicationUser user, bool rememberMe)
+        public async Task<(string generatedAccessToken, string generatedRefreshToken, DateTime refreshTokenExpires)> GenerateAuthorizationToken(string userId, bool rememberMe)
         {
+            var user = await _userManager.FindByIdAsync(userId);
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            var userFullName = $"{user.FirstName ?? string.Empty} {user.LastName ?? string.Empty}";
             var claims = new List<Claim>
             {
                 new Claim("UserId", user.Id),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Name, userFullName),
                 new Claim(ClaimTypes.GivenName, user.FirstName ?? string.Empty),
                 new Claim(ClaimTypes.Surname, user.LastName ?? string.Empty)
             };
