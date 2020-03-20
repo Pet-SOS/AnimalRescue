@@ -3,6 +3,8 @@ import { HelpedBlockItem } from './item';
 import { Slider } from '../../../../../components/Slider';
 import './index.scss';
 import { IBlogItem } from '../../../../../api/blog';
+import { Button, ButtonTypes } from '../../../../../components/Button';
+import { TI18n } from '../../../../../i18n';
 
 interface IPropTypes {
   data: IBlogItem[];
@@ -18,6 +20,11 @@ export const HelpedBlock: React.FC<IPropTypes> = ({ data, title }) => {
         {!!data && !!data.length && <div className="slider-holder">
           <Slider slides={getSlideElements()} isSwipeDisable={true}/>
         </div>}
+        <div className="bottomButton">
+          <Button href = {'/how-to-help'} styleType={ButtonTypes.Blue}>
+                <TI18n keyStr="howCanIHelp" default="Как я могу помочь" />
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/home.scss';
 import {DEFAULT_ANIMAL, IAnimal, IAnimalsResponse} from "../../../../api/animals";
 import {AnimalEditCard} from "../../AnimalEditCard";
+import { AdminMenu } from '../../AdminMenu';
 
 interface AdminHomeProps {
     animalsList: IAnimalsResponse
@@ -46,9 +47,16 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
 
     render() {
         return (
-            <div className="home-page">
-                {this.renderAnimals(this.props.animalsList.data)}
+            <div className='boxAdmin'>
+                <AdminMenu 
+                selectedKey={'animals'}
+                openKeys={'sub-1'}
+                />
+                <div className="home-page">
+                    {this.renderAnimals(this.props.animalsList.data)}
+                </div>
             </div>
+           
         )
     }
 };

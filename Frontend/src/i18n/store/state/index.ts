@@ -1,8 +1,16 @@
+import { APP_LANGUAGE_KEY } from "../reducer";
+
+export const getDefaultLocale = (): ELocales => {
+  const useLocale: string = (localStorage.getItem(APP_LANGUAGE_KEY) || window.navigator.language.slice(0, 2)).toLowerCase();
+  const matchedLocale: ELocales = ELocales[useLocale as keyof typeof ELocales];
+  return !!matchedLocale ? matchedLocale : ELocales.ua;
+}
+
 export enum ELocales {
-  Ua = 'ua',
-  En = 'en',
-  De = 'de',
-  Ru = 'ru',
+  ua = 'ua',
+  en = 'en',
+  de = 'de',
+  ru = 'ru',
 }
 
 export interface ILocales {
@@ -10,12 +18,6 @@ export interface ILocales {
     value: string;
 }
 
-export const locales = Object.entries(ELocales).map(([key, value]): ILocales => ({key: key, value: value}));
+export const locales = Object.entries(ELocales).map(([key, value]): ILocales => ({ key, value }));
 
-export interface II18nState {
-    locale: string;
-}
-
-export const defaultI18nState = {
-    locale: ELocales.Ua
-};
+export const defaultI18nState: ELocales = getDefaultLocale();

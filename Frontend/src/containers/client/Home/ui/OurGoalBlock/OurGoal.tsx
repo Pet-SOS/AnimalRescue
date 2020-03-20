@@ -6,11 +6,10 @@ import './OurGoal.scss';
 interface IPropTypes {
     title: string | React.ReactNode;
     text1?: string | React.ReactNode;
-    text2?: string | React.ReactNode;
     link?: IBlockLinkPropTypes
   }
 
-export const OurGoalBlock: React.FC<IPropTypes> = ({ title, link, text1, text2}) => (
+export const OurGoalBlock: React.FC<IPropTypes> = ({ title, link, text1}) => (
   <div className="our-goal-container">
       <div className="content">
         <div className="title">{title}</div>

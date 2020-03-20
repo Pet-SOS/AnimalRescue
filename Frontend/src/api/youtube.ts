@@ -1,8 +1,5 @@
 import { API_YOTUBE } from './index';
 
-export const YOUTUBE_API_KEY = 'AIzaSyDM6NS40Bma76cl1aOf4YOaQam-aFa1TJ8';
-export const CHANEL_ID = 'UCBSJrFxTYAbu1sAGdeRg8cA';
-
 export interface IYouTubeVideoThumbnail {
   url: string;
   width: number;
@@ -46,8 +43,6 @@ export interface YouTubeVideosResponse {
 export async function fetchYouTubeVideosList(count?: number): Promise<YouTubeVideosResponse> {
   const res = await API_YOTUBE.get('search', {params: {
     part: 'snippet',
-    channelId: CHANEL_ID,
-    key: YOUTUBE_API_KEY,
     type: 'video',
     maxResults: !!count ? count : 10,
     order: 'date',

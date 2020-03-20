@@ -99,8 +99,6 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
                 <HelpBlock
                     animalsList={this.props.sickAnimalsList.data}
                     title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
-                    text={<TI18n keyStr="canHelpBlockContent" default="Маша скромная и добрая собачка. Очень терпеливая и ненавязчивая. Маша была сбита машиной, пережила стресс. Сначала была испугана, потом успокоилась и начала доверять людям. Для восстановления после аварии нужно собрать 3 500 грн." />}
-                    buttonText={<TI18n keyStr="footerRightBtn" default="Помочь" />}
                 />
                 }
         </React.Fragment>

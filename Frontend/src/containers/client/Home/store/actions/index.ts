@@ -7,7 +7,6 @@ export const actionIsActivePopup = createAction(
 );
 export const actionFetchInfoCard = createAction(
     'HOME_FETCH_INFO_CARD',
-    (resolve) => () => resolve({})
 );
 export const actionFetchInfoCardSuccess = createAction(
     'HOME_FETCH_INFO_CARD_SUCCESS',
