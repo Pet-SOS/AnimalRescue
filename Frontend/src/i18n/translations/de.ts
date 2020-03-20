@@ -193,9 +193,12 @@ export default {
   instructionsListItemText1: 'Lerne das Tier kennen. Dies hilft Ihnen zu verstehen, ob es in Bezug auf die Temperatur für Sie richtig ist.',
   instructionsListItemText2: 'Der Kurator informiert Sie über die individuellen Bedürfnisse des ausgewählten Haustieres. Bereiten Sie alles für das Tier vor.',
 
+  adoptPopupTitle: 'Ich möchte das Tier mit nach Hause nehmen',
   adoptPopupText1: 'Wir freuen uns, dass Sie unseren Pelzmantel haben!',
-  adoptPopupText2: 'Um es abzuholen, rufen Sie uns unter der Nummer an ',
-  adoptPopupText3: ' oder hinterlassen Sie uns Ihre Kontakte und wir rufen Sie zurück.',
+  adoptPopupText2: 'Um ihn abzuholen ',
+  adoptPopupText3: 'rufen Sie uns unter Nummer an ',
+  adoptPopupText4: ' oder ',
+  adoptPopupText5: 'hinterlassen Sie uns Ihre Kontakte und wir rufen Sie zurück.',
   callBack: 'Ruf mich zurück',
 
   lookingForAFriendPageTitle: 'Auf der Suche nach einem anderen',
@@ -325,4 +328,6 @@ addReport: 'Bericht herunterladen',
   howCanIHelp: 'Wie kann ich helfen',
   wantToChooseDog: 'Ich möchte einen Hund wählen',
   wantToChooseCat: 'Ich möchte eine Katze wählen',
+
+  backToAnimalsCatalog: 'Zurück zur Freundesuche',
 }
