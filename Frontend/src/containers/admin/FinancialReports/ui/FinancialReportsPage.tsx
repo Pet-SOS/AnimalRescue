@@ -8,29 +8,17 @@ import moment from 'moment';
 import { TI18n } from '../../../../i18n';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { DatePicker } from 'antd';
-<<<<<<< HEAD
-import { fileToObject } from 'antd/lib/upload/utils';
-
-const { TabPane } = Tabs;
-interface IState {
-  [key: string]: any;
-  // [title:string]:string;
-  // [body:string]:string;
-  // [date:Date| string
-=======
 import { AdminMenu } from '../../AdminMenu';
 
 const { TabPane } = Tabs;
 interface IState {
  [key:string]: any;
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
 }
 interface IPropTypes {
   financeReports: IFinancialReport[];
   fetchFinancialReport: () => {};
 };
 export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
-
   constructor(props: any) {
     super(props);
     this.state = {
@@ -46,43 +34,24 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
 
   handleSubmit(e: any) {
     e.preventDefault();
-<<<<<<< HEAD
-  
-=======
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
     const { file, title, body, date } = this.state;
     if (!file) {
       return;
     }
 
     let localDate = moment(date).format("L");
-<<<<<<< HEAD
-
-
-=======
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
     const formData = new FormData();
     formData.append('title', title);
     formData.append('body', body);
     formData.append('date', localDate);
     formData.append('file', file, file.name);
-<<<<<<< HEAD
-
-    addFinancialReporDocument(formData).then(resp => {
-      console.log(resp);
-=======
     addFinancialReporDocument(formData).then(resp => {
       this.props.fetchFinancialReport();
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
     });
   }
 
   async uploadFile(e: any) {
     e.preventDefault();
-<<<<<<< HEAD
-    debugger
-=======
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
     await this.setState({ file: e.target.files[0] });
   }
 
@@ -98,88 +67,21 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
     }
   }
 
-<<<<<<< HEAD
-  deleteReport(id: string, title: string): void {
-    console.log(title);
-    deleteFinancialReporDocument(id).then(resp => {
-=======
   async deleteReport(id: string, title: string): Promise<any> {
     await deleteFinancialReporDocument(id)
     .then(resp=>{
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
       console.log(resp);
       if (resp.status === 200) {
         this.props.fetchFinancialReport();
       }
     })
-<<<<<<< HEAD
-=======
     .catch((err) => {
       console.log(err);
     })
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
   }
 
   render() {
     return (
-<<<<<<< HEAD
-      <div className='main-report'>
-        <div className='title'> Завантажити новий звiт</div>
-        <form onSubmit={(e) => this.handleSubmit(e)} >
-          <div className='field'>
-            <label>Додати файл:</label><br></br>
-            <input
-              className="custom-file-input"
-              type="file"
-              onChange={(e) => this.uploadFile(e)} />
-          </div>
-          <div className='field'>
-            <label>Додати ім'я:</label><br></br>
-            <input className="fileInput"
-              type="text"
-              placeholder=''
-              onChange={(e) => this.handleFileInfo('title', e)} />
-          </div>
-          <div className='field'>
-            <label>Додати опис:</label><br></br>
-            <input className="fileInput"
-              type="text"
-              placeholder=''
-              onChange={(e) => this.handleFileInfo('body', e)} />
-          </div>
-          <div className='field'>
-            <label>Додати дату:</label><br></br>
-            <DatePicker
-              placeholder=''
-              onChange={(e) => this.handleFileInfo('date', e)}
-            />
-          </div>
-        </form>
-        <Button
-          onClick={(e) => this.handleSubmit(e)}
-          styleType={ButtonTypes.Blue}>
-          <TI18n keyStr="addReport" />
-        </Button>
-        <div className='title'>Список звітів за всi роки</div>
-        {this.props.financeReports.length > 0 &&
-          <div>
-            <Tabs defaultActiveKey="1" tabPosition='top'>
-              {this.props.financeReports.map((report: IFinancialReport, i: number) => (
-                <TabPane tab={report.date} key={report.date + 1} >
-                  <div>
-                    {report.reports.map((list) => (
-                      <p key={list.fileId} className='report' >
-                        <Pdf className='pdf-icon' /><TI18n keyStr={`dateText${moment(list.date).month()}`} /> <span className='year-report'>{moment(list.date).year()}</span>
-                        <span onClick={() => { this.deleteReport(list.fileId, list.title) }} className='delete'></span>
-                      </p>
-                    ))}
-                  </div>
-                </TabPane>
-              ))}
-            </Tabs>
-          </div>
-        }
-=======
       <div className='boxAdmin'>
         <AdminMenu 
           selectedKey={'reports'}
@@ -242,7 +144,6 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
             </div>
           }
         </div>
->>>>>>> bccb613218c881aba520c01d96557523bf65af0b
       </div>
     );
   }
