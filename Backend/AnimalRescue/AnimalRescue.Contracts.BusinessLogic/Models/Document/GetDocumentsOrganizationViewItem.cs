@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Document
 {
     public class GetDocumentsOrganizationViewItem

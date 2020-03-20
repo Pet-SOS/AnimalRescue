@@ -27,6 +27,10 @@ namespace AnimalRescue.BusinessLogic.Services
         public OrganizationDocumentsService(IMapper mapper, IBucket bucket,
             IOrganizationDocumentRepository orgDocRepository)
         {
+            Require.Objects.NotNull(mapper, nameof(mapper));
+            Require.Objects.NotNull(bucket, nameof(bucket));
+            Require.Objects.NotNull(orgDocRepository, nameof(orgDocRepository));
+
             _mapper = mapper;
             _bucket = bucket;
             _orgDocRepository = orgDocRepository;

@@ -139,7 +139,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<string> UnlockUser(string token)
         {
-            var securityToken = await _securityTokensRepository.GetIfExists(token);
+            var securityToken = await _securityTokensRepository.GetByToken(token);
             Require.Objects.NotNull<NotFoundException>(token, "Token not found");
 
             await _securityTokensRepository.DeleteAsync(securityToken.Id);

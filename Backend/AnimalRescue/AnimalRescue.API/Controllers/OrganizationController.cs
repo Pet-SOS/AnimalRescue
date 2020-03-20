@@ -3,6 +3,7 @@ using AnimalRescue.API.Core.Responses;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Document;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.Infrastructure.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,36 +19,13 @@ namespace AnimalRescue.API.Controllers
     [Authorize("Bearer")]
     public class OrganizationController : ApiControllerBase
     {
-        private readonly IDocumentService _documentService;
         private readonly IOrganizationDocumentsService _organizationDocumentsService;
 
-        public OrganizationController(IDocumentService documentService,
-            IOrganizationDocumentsService organizationDocumentsService)
+        public OrganizationController(IOrganizationDocumentsService organizationDocumentsService)
         {
-            _documentService = documentService;
+            Require.Objects.NotNull(organizationDocumentsService, nameof(organizationDocumentsService));
+
             _organizationDocumentsService = organizationDocumentsService;
-        }
-
-        /// <summary>
-        /// Downloads a document.
-        /// </summary>
-        /// <param name="bucketId">Id of a specific document</param>
-        /// <returns></returns>
-        [HttpGet("documents/{bucketId}")]
-        [AllowAnonymous]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> GetDocument([BindRequired, FromRoute] Guid bucketId)
-        {
-            var fileBytes = await _documentService.GetAsync(bucketId);
-
-            if (fileBytes is null)
-            {
-                return NotFound();
-            }
-
-            return File(fileBytes.Data, fileBytes?.ContentType ?? System.Net.Mime.MediaTypeNames.Application.Octet);
         }
 
         /// <summary>
@@ -58,7 +36,7 @@ namespace AnimalRescue.API.Controllers
         [HttpPost("documents/upload")]
         [ProducesResponseType(typeof(ContentApiResponse<Guid>), 201)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult<Guid>> UploadDocument(IFormFile file)
+        public async Task<ActionResult<Guid>> UploadDocument([BindRequired] IFormFile file)
         {
             var identityUser = User.Identity.GetUser();
 
@@ -66,8 +44,8 @@ namespace AnimalRescue.API.Controllers
 
             await _organizationDocumentsService.CreateAsync(uploadedModel);
 
-            return CreatedItem(nameof(GetDocument), ControllerContext.ActionDescriptor.ControllerName,
-                new { bucketId = uploadedModel.BucketId }, uploadedModel.BucketId);
+            return CreatedItem("Get", "Documents",
+                new { id = uploadedModel.BucketId }, uploadedModel.BucketId);
         }
 
         /// <summary>

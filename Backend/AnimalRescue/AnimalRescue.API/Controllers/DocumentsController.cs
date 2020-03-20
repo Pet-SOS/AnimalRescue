@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Infrastructure.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,9 @@ namespace AnimalRescue.API.Controllers
         public DocumentsController(IDocumentService documentService,
             IDocumentCollectionService documentCollectionService)
         {
+            Require.Objects.NotNull(documentService, nameof(documentService));
+            Require.Objects.NotNull(documentCollectionService, nameof(documentCollectionService));
+
             _documentService = documentService;
             _documentCollectionService = documentCollectionService;
         }
