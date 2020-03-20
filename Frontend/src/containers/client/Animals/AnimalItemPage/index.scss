@@ -1,6 +1,5 @@
 @import './../../../../styles/variables.scss';
 .animal-item-page {
-  padding: 3.75rem 0 0;
   h4 {
     font-size: 1.5rem;
     line-height: 1.5rem;
@@ -153,7 +152,10 @@
   }
 }
 @media (max-width: $normal-device-width) {
-  .animal-item-page .animal-info .swiper-slide { height: 20rem; }
+  .animal-item-page {
+    padding: 1.25rem 0 0;
+    .animal-info .swiper-slide { height: 20rem; }
+  }
 }
 @media (max-width: $medium-device-width) {
   .animal-item-page {
@@ -174,5 +176,8 @@
   }
 }
 @media (max-width: $small-device-width) {
+  .animal-item-page {
+    padding: 0;
+  }
   .numbered-list .list-body { margin-left: -4rem; }
 }

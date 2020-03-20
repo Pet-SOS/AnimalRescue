@@ -2,7 +2,6 @@
 
 .contacts{
     background: $bg-lite-box;
-    padding: 3.75rem 0 0;
     .box-social-link{
         display: flex;
         justify-content: space-between;
@@ -73,26 +72,28 @@
         }
     }
 }
+@media (max-width: $normal-device-width) {
+  .contacts {
+    padding: 1.25rem 0 0;
+  }
+}
 @media all and (max-width:1011px){
     .content {
         padding: 0 1.3rem!important;
     }
 }
 @media all and (max-width:869px){
-    .contacts{
-        padding: 1rem 0 0;
-        .content{
-            .info, .box-social-link{
-                flex-wrap: wrap!important;
-                margin-bottom: 0;
-                .box-info{
-                    max-width: 100%;
-                    width: 100%;
-                    margin-bottom: 1.5rem;
-                }
-            }
-        }
+  .contacts .content {
+    .info, .box-social-link {
+      flex-wrap: wrap!important;
+      margin-bottom: 0;
+      .box-info {
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
     }
+  }
 }
 @media all and (max-width:686px){
     .contacts{
@@ -114,4 +115,7 @@
             }
         }
     }
+}
+@media (max-width: $small-device-width) {
+  .contacts { padding: 0; }
 }
