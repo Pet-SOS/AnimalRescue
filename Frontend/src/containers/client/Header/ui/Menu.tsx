@@ -10,7 +10,6 @@ import { HELP_PAGE_LINKS } from "../../HowToHelp";
 import { useSelector, shallowEqual } from "react-redux";
 import { selectFavoriteAnimalsIds } from "../../Animals/store/selectors";
 import { FavoriteCounter } from "../../../../components/FavoriteCounter";
-import {PhoneLink} from "../../../../components/PhoneLink";
 import {SocialLinks} from "../../../../components/SocialLinks";
 
 export const AppMenu: React.FC = () => {

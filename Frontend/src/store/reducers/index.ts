@@ -9,12 +9,15 @@ import { blogItemReducer, BLOG_ITEM_KEY } from './../../containers/client/Blog/s
 import { VACANCIES_KEY, vacanciesReducer } from './vacancies.reducer';
 import { ANIMAL_ITEM_KEY, animalItemReducer } from './../../containers/client/Animals/store/reducer/animal.reducer';
 import { REPORT_KEY, financialReportReducer } from "../../containers/client/FinancialReports/store/reducer";
+import { ADMIN_LOGIN_KEY, AdminLoginReducer } from "../../containers/admin/Login/store/reducer";
 import { youtubeVideosReducer, YOUTUBE_VIDEOS_KEY } from "./youtube-videos.reducer";
 import { CONFIG_KEY, configReducer } from './config.reducer';
+import { APP_LANGUAGE_KEY } from './../../i18n/store/reducer/index';
 
 export const createReducers = () => {
   return combineReducers({
-    i18n: i18nReducer,
+    [APP_LANGUAGE_KEY]: i18nReducer,
+    [ADMIN_LOGIN_KEY]: AdminLoginReducer,
     [HOME_PAGE_KEY]: homePageReducer,
     [ADMIN_HOME_PAGE_KEY]: AdminHomePageReducer,
     [ANIMAL_ITEM_KEY]: animalItemReducer,

@@ -5,6 +5,7 @@ import {ICustomAppState} from "../../store/state";
 import {actionSetLocale} from "../store/actions";
 import {Select, SelectExpandDirections} from "../../components/Select";
 import '../styles/index.scss';
+import { APP_LANGUAGE_KEY } from '../store/reducer';
 
 interface ISelectLocale {
   setLocale: (locale: string) => void;
@@ -23,7 +24,7 @@ const ChangeLocaleMain: React.FC<ISelectLocale> = ({ selected, setLocale, expand
 )
 
 const selectLocaleMapStateToProps = (state: ICustomAppState) => ({
-    selected: state.i18n.locale
+  selected: state[APP_LANGUAGE_KEY]
 });
 
 export const ChangeLocale = connect(selectLocaleMapStateToProps, {
