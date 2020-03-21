@@ -27,7 +27,6 @@ const favoriteAnimalsCount = () => {
 export class FavoritesPage extends React.Component<IPropTypes> {
     componentDidMount(){
         const listIds : string[] = store.getState().animals.favoriteAnimalsIds;
-        console.log(listIds);
         if(favoriteAnimalsCount() === 0){
             if(store.getState().animals.catsList.totalCount === 0){
                 this.props.fetchCats();
@@ -41,7 +40,6 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                     this.props.fetchCats();
                 }
             //*Remove after the BE finish*
-            debugger
             this.props.fetchFavoriteAnimals(listIds);          
         }
         if(store.getState().animals.sickAnimalsList.totalCount === 0){
