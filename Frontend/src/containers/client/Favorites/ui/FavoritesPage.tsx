@@ -17,7 +17,7 @@ interface IPropTypes {
     fetchSickAnimals:() => void;
     fetchCats: () => void;
     fetchDogs: () => void; 
-    fetchFavoriteAnimals: (param: IRequestParams) => void;
+    fetchFavoriteAnimals: (animalIds: string[]) => void;
   }
   
 const favoriteAnimalsCount = () => {
@@ -26,6 +26,8 @@ const favoriteAnimalsCount = () => {
 }
 export class FavoritesPage extends React.Component<IPropTypes> {
     componentDidMount(){
+        const listIds : string[] = store.getState().animals.favoriteAnimalsIds;
+        console.log(listIds);
         if(favoriteAnimalsCount() === 0){
             if(store.getState().animals.catsList.totalCount === 0){
                 this.props.fetchCats();
@@ -39,9 +41,8 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                     this.props.fetchCats();
                 }
             //*Remove after the BE finish*
-            this.props.fetchFavoriteAnimals({
-                animalIds : store.getState().animals.favoriteAnimalsIds
-            });          
+            debugger
+            this.props.fetchFavoriteAnimals(listIds);          
         }
         if(store.getState().animals.sickAnimalsList.totalCount === 0){
             this.props.fetchSickAnimals();
