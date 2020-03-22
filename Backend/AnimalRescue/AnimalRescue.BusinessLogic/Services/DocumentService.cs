@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
@@ -14,51 +14,71 @@ using System.Threading.Tasks;
 
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AutoMapper;
+using AnimalRescue.Contracts.BusinessLogic.Models.Document;
+using AnimalRescue.Contracts.Common.Exceptions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class DocumentService : IDocumentService
     {
-        private readonly IBucket bucket;
+        private readonly IBucket _bucket;
         private readonly IMapper _mapper;
-
 
         public DocumentService(IBucket bucket, IMapper mapper)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
             Require.Objects.NotNull(mapper, nameof(mapper));
 
-            this.bucket = bucket;
+            _bucket = bucket;
             _mapper = mapper;
         }
 
         public async Task<BucketItemDto> GetAsync(Guid fileId)
         {
-            var bucketItem = await bucket.GetFileBytesAsync(fileId.AsObjectIdString());
+            var bucketItem = await _bucket.GetFileBytesAsync(fileId.AsObjectId());
             var bucketItemDto = _mapper.Map<BucketItem, BucketItemDto>(bucketItem);
             return bucketItemDto;
         }
 
-        public async Task<List<Guid>> UploadFileAsync(List<IFormFile> files)
+        public async Task<List<UploadDocumentModel>> UploadFileAsync(IEnumerable<IFormFile> files)
         {
-            if (files == null || files.Count == 0)
+            if (files is null || !files.Any())
             {
-                return new List<Guid>();
+                return null;
             }
 
-            var tasks = files.Select(UploadFileStreamAsync).ToArray();
-            await Task.WhenAll(tasks);
-            var ids = tasks.Select(x => x.Result.AsGuid()).ToList();
+            var tasks = files.Select(UploadFileAsync).ToArray();
+            var uploadedResult = await Task.WhenAll(tasks);
 
-            return ids;
+            return uploadedResult.ToList();
         }
 
-        private async Task<string> UploadFileStreamAsync(IFormFile file)
+        public async Task<UploadDocumentModel> UploadFileAsync(IFormFile file)
         {
+            Require.Objects.NotNull<BadRequestException>(file, "Failed to upload file.");
+
+            var uploadedResult = await UploadFileStreamAsync(file);
+
+            return uploadedResult;
+        }
+
+        #region Private
+
+        private async Task<UploadDocumentModel> UploadFileStreamAsync(IFormFile file)
+        {
+            var fileId = string.Empty;
             using (Stream fileStream = file.OpenReadStream())
             {
-                return await bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
+                fileId = await _bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
             }
+
+            return new UploadDocumentModel
+            {
+                Id = fileId.AsGuid(),
+                FileName = file.FileName
+            };
         }
+
+        #endregion
     }
 }
