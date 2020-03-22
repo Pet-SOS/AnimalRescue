@@ -42,8 +42,7 @@ namespace AnimalRescue.BusinessLogic
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
                 new BucketItemMappingProfile(),
-                new EmployeeMappingProfile(),
-                new DocumentMappingProfile()
+                new EmployeeMappingProfile()
             });
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
@@ -63,7 +62,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IJwtFactory, JwtFactory>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();
-            services.AddScoped<IOrganizationDocumentsService, OrganizationDocumentsService>();
+            services.AddScoped<IOrganizationDocumentService, OrganizationDocumentService>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)

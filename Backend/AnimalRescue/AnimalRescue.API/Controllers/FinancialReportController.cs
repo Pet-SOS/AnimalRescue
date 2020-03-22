@@ -7,14 +7,11 @@ using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -26,26 +23,25 @@ namespace AnimalRescue.API.Controllers
     public class FinancialReportController : ApiControllerBase
     {
         private readonly IFinancialReportService _financialReportService;
-
         private readonly IDocumentService _documentService;
-
-        private readonly ILogger<FinancialReportController> _logger;
-
         private readonly IMapper _mapper;
 
         public FinancialReportController(
             IFinancialReportService financialReportService,
             IDocumentService documentService,
-            ILogger<FinancialReportController> logger,
             IMapper mapper)
         {
+            Require.Objects.NotNull(financialReportService, nameof(financialReportService));
+            Require.Objects.NotNull(documentService, nameof(documentService));
+            Require.Objects.NotNull(mapper, nameof(mapper));
+
             _financialReportService = financialReportService;
             _documentService = documentService;
-            _logger = logger;
             _mapper = mapper;
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -55,6 +51,7 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -63,6 +60,7 @@ namespace AnimalRescue.API.Controllers
             return await GetCollectionAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, queryRequest, _mapper);
         }
         [HttpGet("years")]
+        [AllowAnonymous]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -76,16 +74,15 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<FinancialReportModel>> CreateItemAsync([FromForm] FinancialReportCreateUpdateModel financialReportCreateModel)
         {
-            Require.Objects.NotNull(financialReportCreateModel.File, nameof(financialReportCreateModel.File));
+            if(financialReportCreateModel is null)
+            {
+                return BadRequest();
+            }
 
-            var fileIds = await _documentService.UploadFileAsync(
-                new List<IFormFile>()
-                {
-                    financialReportCreateModel.File
-                });
+            var document = await _documentService.UploadFileAsync(financialReportCreateModel.File);
 
             var financialReportModel = _mapper.Map<FinancialReportCreateUpdateModel, FinancialReportModel>(financialReportCreateModel);
-            financialReportModel.FileId = fileIds.First();
+            financialReportModel.FileId = document.Id;
 
             return await CreatedItemAsync(_financialReportService, financialReportModel, _mapper);
         }
@@ -98,15 +95,11 @@ namespace AnimalRescue.API.Controllers
         {
             Require.Objects.NotNull(financialReportUpdateModel.File, nameof(financialReportUpdateModel.File));
 
-            var fileIds = await _documentService.UploadFileAsync(
-                new List<IFormFile>()
-                {
-                    financialReportUpdateModel.File
-                });
+            var document = await _documentService.UploadFileAsync(financialReportUpdateModel.File);
 
             var financialReportModel = _mapper.Map<FinancialReportCreateUpdateModel, FinancialReportModel>(financialReportUpdateModel);
             financialReportModel.Id = id;
-            financialReportModel.FileId = fileIds.First();
+            financialReportModel.FileId = document.Id;
 
             await UpdateDataAsync(_financialReportService, id, financialReportModel, _mapper);
         }

@@ -9,29 +9,23 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    class OrganizationDocumentsService : IOrganizationDocumentsService
+    class OrganizationDocumentService : IOrganizationDocumentService
     {
-        private readonly IMapper _mapper;
         private readonly IOrganizationDocumentRepository _orgDocRepository;
         private readonly IBucket _bucket;
 
-        public OrganizationDocumentsService(IMapper mapper, IBucket bucket,
+        public OrganizationDocumentService(IBucket bucket,
             IOrganizationDocumentRepository orgDocRepository)
         {
-            Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(bucket, nameof(bucket));
             Require.Objects.NotNull(orgDocRepository, nameof(orgDocRepository));
 
-            _mapper = mapper;
             _bucket = bucket;
             _orgDocRepository = orgDocRepository;
         }
@@ -52,11 +46,20 @@ namespace AnimalRescue.BusinessLogic.Services
             { Collection = result, TotalCount = totalNumberOf };
         }
 
-        public async Task CreateAsync(UploadOrganizationDocumentModel model)
+        public async Task<GetDocumentsOrganizationViewItem> CreateAsync(UploadDocumentModel model, string userId)
         {
-            var orgDoc = _mapper.Map<UploadOrganizationDocumentModel, OrganizationDocument>(model);
+            Require.Objects.NotNull<BadRequestException>(model, "Failed to save document. Probably document is not uploaded.");
+
+            var orgDoc = new OrganizationDocument()
+            {
+                BucketId = model.Id.ToString(),
+                Name = model.FileName,
+                CreatedBy = userId,
+            };
 
             await _orgDocRepository.CreateAsync(orgDoc);
+
+            return new GetDocumentsOrganizationViewItem { FileName = orgDoc.Name, Id = orgDoc.BucketId };
         }
 
         public async Task DeleteAsync(Guid bucketId)
@@ -67,24 +70,6 @@ namespace AnimalRescue.BusinessLogic.Services
                 "Failed to delete document. Probably document is not found.");
 
             await _bucket.RemoveFile(bucketId.AsObjectId());
-        }
-
-        public async Task<UploadOrganizationDocumentModel> UploadFileAsync((IFormFile, string) data)
-        {
-            Require.Objects.NotNull(data.Item1, "The file has not been uploaded.");
-
-            var bucketFileId = string.Empty;
-            using (Stream fileStream = data.Item1.OpenReadStream())
-            {
-                bucketFileId = await _bucket.UploadFileStreamAsync(fileStream, data.Item1.FileName, data.Item1.ContentType);
-            }
-
-            return new UploadOrganizationDocumentModel
-            {
-                BucketId = bucketFileId.AsGuid(),
-                FileName = data.Item1.FileName,
-                UserId = data.Item2
-            };
         }
     }
 }

@@ -19,33 +19,37 @@ namespace AnimalRescue.API.Controllers
     [Authorize("Bearer")]
     public class OrganizationController : ApiControllerBase
     {
-        private readonly IOrganizationDocumentsService _organizationDocumentsService;
+        private readonly IDocumentService _documentService;
+        private readonly IOrganizationDocumentService _organizationDocumentsService;
 
-        public OrganizationController(IOrganizationDocumentsService organizationDocumentsService)
+        public OrganizationController(IOrganizationDocumentService organizationDocumentsService, 
+            IDocumentService documentService)
         {
             Require.Objects.NotNull(organizationDocumentsService, nameof(organizationDocumentsService));
+            Require.Objects.NotNull(documentService, nameof(documentService));
 
             _organizationDocumentsService = organizationDocumentsService;
+            _documentService = documentService;
         }
 
         /// <summary>
         /// Upload and save document of organization.
         /// </summary>
         /// <param name="file"></param>
-        /// <returns>Id of uploaded document.</returns>
+        /// <returns>Uploaded document.</returns>
         [HttpPost("documents/upload")]
-        [ProducesResponseType(typeof(ContentApiResponse<Guid>), 201)]
+        [ProducesResponseType(typeof(ContentApiResponse<GetDocumentsOrganizationViewItem>), 201)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<ActionResult<Guid>> UploadDocument([BindRequired] IFormFile file)
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<GetDocumentsOrganizationViewItem>> UploadDocument([BindRequired] IFormFile file)
         {
             var identityUser = User.Identity.GetUser();
 
-            var uploadedModel = await _organizationDocumentsService.UploadFileAsync((file, identityUser.Id));
+            var documentModel = await _documentService.UploadFileAsync(file);
 
-            await _organizationDocumentsService.CreateAsync(uploadedModel);
+            var orgDocItem = await _organizationDocumentsService.CreateAsync(documentModel, identityUser.Id);
 
-            return CreatedItem("Get", "Documents",
-                new { id = uploadedModel.BucketId }, uploadedModel.BucketId);
+            return CreatedItem("Get", "Documents", new { id = orgDocItem.Id }, orgDocItem);
         }
 
         /// <summary>

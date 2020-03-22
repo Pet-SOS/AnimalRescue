@@ -108,7 +108,7 @@ namespace AnimalRescue.API.Controllers
                 BuildContentApiResponse(item));
         }
         protected ActionResult<T> CreatedItem<T>(string actionName, string controllerName, object routeValues, T item)
-            where T : struct
+            where T : class, new()
         {
             return CreatedAtAction(
                 actionName,

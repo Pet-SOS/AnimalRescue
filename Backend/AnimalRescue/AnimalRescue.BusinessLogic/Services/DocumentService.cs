@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AutoMapper;
+using AnimalRescue.Contracts.BusinessLogic.Models.Document;
+using AnimalRescue.Contracts.Common.Exceptions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -38,28 +40,43 @@ namespace AnimalRescue.BusinessLogic.Services
             return bucketItemDto;
         }
 
-        public async Task<List<Guid>> UploadFileAsync(List<IFormFile> files)
+        public async Task<List<UploadDocumentModel>> UploadFileAsync(IEnumerable<IFormFile> files)
         {
-            if (files == null || files.Count == 0)
+            if (files is null || !files.Any())
             {
-                return new List<Guid>();
+                return null;
             }
 
-            var tasks = files.Select(UploadFileStreamAsync).ToArray();
-            await Task.WhenAll(tasks);
-            var ids = tasks.Select(x => x.Result.AsGuid()).ToList();
+            var tasks = files.Select(UploadFileAsync).ToArray();
+            var uploadedResult = await Task.WhenAll(tasks);
 
-            return ids;
+            return uploadedResult.ToList();
+        }
+
+        public async Task<UploadDocumentModel> UploadFileAsync(IFormFile file)
+        {
+            Require.Objects.NotNull<BadRequestException>(file, "Failed to upload file.");
+
+            var uploadedResult = await UploadFileStreamAsync(file);
+
+            return uploadedResult;
         }
 
         #region Private
 
-        private async Task<string> UploadFileStreamAsync(IFormFile file)
+        private async Task<UploadDocumentModel> UploadFileStreamAsync(IFormFile file)
         {
+            var fileId = string.Empty;
             using (Stream fileStream = file.OpenReadStream())
             {
-                return await _bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
+                fileId = await _bucket.UploadFileStreamAsync(fileStream, file.FileName, file.ContentType);
             }
+
+            return new UploadDocumentModel
+            {
+                Id = fileId.AsGuid(),
+                FileName = file.FileName
+            };
         }
 
         #endregion

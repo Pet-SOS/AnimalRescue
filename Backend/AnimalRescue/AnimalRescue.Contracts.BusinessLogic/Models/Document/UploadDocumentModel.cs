@@ -2,10 +2,9 @@
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Document
 {
-    public class UploadOrganizationDocumentModel
+    public class UploadDocumentModel
     {
-        public Guid BucketId { get; set; }
+        public Guid Id { get; set; }
         public string FileName { get; set; }
-        public string UserId { get; set; }
     }
 }
