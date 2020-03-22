@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 
-namespace AnimalRescue.DataAccess.Mongodb.Exceptions
+namespace AnimalRescue.DataAccess.Mongodb.Extensions
 {
-    public static class BsonSerializerExtentions
+    public static class BsonSerializerExtensions
     {
         public static T Deserialize<T>(this BsonDocument data)
         {
