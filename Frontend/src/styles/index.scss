@@ -62,6 +62,10 @@ header, footer {
   @include media('≤desktop') {
     max-width: 1143px;
   }
+
+  @include media('≤phone') {
+    padding: 0 16px;
+  }
 }
 
 
