@@ -78,7 +78,7 @@ stages:
                   inputs: 
                     action: createSecret
                     secretType: generic
-                    secretName: animalrescue-api
+                    secretName: animalrescue-portal
                     secretArguments: --from-literal=api_url="https://$(api.hostname)/api/" 
                                      --from-literal=youtube_url=$(youtube_url) 
                                      --from-literal=youtube_api_key=$(youtube_api_key) 

@@ -48,9 +48,3 @@ spec:
                   key: youtube_channel_id
       imagePullSecrets:
         - name: #{imagePullSecret}#
-
-
-        "API_URL": "https://#{api.hostname}#/api/",
-      "YOUTUBE_URL": "#{youtube_url}#",
-      "YOUTUBE_API_KEY": "#{youtube_api_key}#",
-      "YOUTUBE_CHANNEL_ID": "#{youtube_channel_id}#"
