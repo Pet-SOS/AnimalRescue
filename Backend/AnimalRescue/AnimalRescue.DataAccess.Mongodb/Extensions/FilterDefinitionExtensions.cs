@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace AnimalRescue.DataAccess.Mongodb.Exceptions
+namespace AnimalRescue.DataAccess.Mongodb.Extensions
 {
-    public static class FilterDefinitionExceptions
+    public static class FilterDefinitionExtensions
     {
         public static FilterDefinition<BsonDocument> EQ(this string propertyName, string value)
         {

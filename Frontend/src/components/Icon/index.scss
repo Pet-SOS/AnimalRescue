@@ -1,0 +1,112 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?m2xvrt');
+  src:  url('fonts/icomoon.eot?m2xvrt#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?m2xvrt') format('truetype'),
+  url('fonts/icomoon.woff?m2xvrt') format('woff'),
+  url('fonts/icomoon.svg?m2xvrt#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-step:before {
+  content: "\e914";
+  color: #62738d;
+}
+.icon-footprint:before {
+  content: "\e900";
+  color: #e2a811;
+}
+.icon-heart:before {
+  content: "\e901";
+  color: #62738d;
+}
+.icon-heart-full:before {
+  content: "\e902";
+  color: #f67670;
+}
+.icon-instagram:before {
+  content: "\e903";
+}
+.icon-pdf:before {
+  content: "\e904";
+  color: #3e5b9d;
+}
+.icon-phone:before {
+  content: "\e905";
+  color: #62738d;
+}
+.icon-review:before {
+  content: "\e906";
+}
+.icon-star:before {
+  content: "\e907";
+  color: #e2a811;
+}
+.icon-youtube:before {
+  content: "\e908";
+  color: #f8251c;
+}
+.icon-filter:before {
+  content: "\e909";
+  color: #f67670;
+}
+.icon-arrow-down:before {
+  content: "\e90a";
+  color: #62738d;
+}
+.icon-arrow-left:before {
+  content: "\e90b";
+  color: #e2a811;
+}
+.icon-arrow-right:before {
+  content: "\e90c";
+  color: #e2a811;
+}
+.icon-back:before {
+  content: "\e90d";
+  color: #62738d;
+}
+.icon-close:before {
+  content: "\e90e";
+  color: #62738d;
+}
+.icon-copy .path1:before {
+  content: "\e90f";
+  color: rgb(98, 115, 141);
+}
+.icon-copy .path2:before {
+  content: "\e910";
+  margin-left: -0.83984375em;
+  color: rgb(249, 246, 247);
+}
+.icon-copy .path3:before {
+  content: "\e911";
+  margin-left: -0.83984375em;
+  color: rgb(98, 115, 141);
+}
+.icon-copy .path4:before {
+  content: "\e912";
+  margin-left: -0.83984375em;
+  color: rgb(249, 246, 247);
+}
+.icon-fb:before {
+  content: "\e913";
+  color: #5871ac;
+}

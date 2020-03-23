@@ -14,7 +14,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
         }
 
-        public async Task<SecurityToken> GetIfExists(string token)
+        public async Task<SecurityToken> GetByToken(string token)
         {
             var securityToken = (await Collection.FindAsync(queryBuilder.Where(x => x.Token == token))).SingleOrDefault();
             return securityToken;

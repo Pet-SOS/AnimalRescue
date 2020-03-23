@@ -186,9 +186,12 @@ export default {
   instructionsListItemText1: 'Get to know the animal. This will help to understand whether it suits you in temperature.',
   instructionsListItemText2: 'The curator will tell you about the individual needs of the selected pet. Prepare for the animal everything you need.',
  
+  adoptPopupTitle: 'I want to take the animal home',
   adoptPopupText1: 'We are glad that you liked our puffy!',
-  adoptPopupText2: 'To pick him up, call us at ',
-  adoptPopupText3: ' or leave us your contacts and we will call you back.',
+  adoptPopupText2: 'To pick up this animal ',
+  adoptPopupText3: 'call us by number ',
+  adoptPopupText4: ' or ',
+  adoptPopupText5: 'leave us your contacts and we will call you back.',
   callBack: 'Call me back',
   lookingForAFriendPageTitle: 'Looking for a friend',
   lookingForAFriendPageSelectKind: 'View',
@@ -318,4 +321,6 @@ export default {
   breadcrumbAbout: 'Learn more about the rescue service',
   breadcrumbRules: 'Learn about service engagement policies',
   breadcrumbFinanceReports: 'View the financial statements',
+
+  backToAnimalsCatalog: 'Back to friend search',
 }

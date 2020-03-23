@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
-
+using AnimalRescue.Infrastructure.Helpers;
 using MongoDB.Bson.Serialization.Attributes;
 
 using System;
@@ -29,5 +29,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
         [CouplingPropertyName(baseItem.IsDeleted)]
         [BsonElement("isDeleted")]
         public bool IsDeleted { get; set; }
+
+        public BaseAndTimeItem()
+        {
+            CreatedAt = DateHelper.GetUtc();
+        }
     }
 }
