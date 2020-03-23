@@ -20,6 +20,7 @@ import { AdoptPopup } from '../../../../components/AdoptPopup';
 import './index.scss';
 import { Age } from '../../../../components/Age';
 import { selectApiUrl } from '../../../../store/selectors/config.selector';
+import { BlockLink } from '../../../../components/BlockLink';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -107,6 +108,13 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
 
   return (
     <div className='animal-item-page'>
+      <div className='content back-link'>
+        <BlockLink
+          title={<TI18n keyStr='backToAnimalsCatalog' default='Повернутися до пошуку друга' />}
+          href={'/animals/page/1'}
+          isBack
+        />
+      </div>
       <div className='animal-info'>
         <div className='content'>
           {!isLoaded && !isLoading && status === ERequestStatus.FAILURE && <div>Not found</div>}
@@ -122,7 +130,6 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                   thumbSlides={animalItem.data.imageIds.map(imgId => (
                     <img src={`${baseUrl}documents/${imgId}/type/medium`} />
                   ))}
-                  thumbSlidesAlignment={ThumbSlidesAlignment.LEFT}
                 />              
               </div>
               <div className='column'>
