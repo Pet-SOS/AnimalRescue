@@ -7,12 +7,24 @@
 .footer {
   padding: 28px 0 0;
 
+  @include media('≤tablet') {
+    padding-top: 32px;
+  }
+
+  @include media('≤phone') {
+    padding-top: 24px;
+  }
+
   a {
     color: inherit;
   }
 
   nav {
     padding-top: 20px;
+
+    @include media('≤tablet') {
+      padding-top: 32px;
+    }
   }
 
   .add-content {
@@ -23,7 +35,7 @@
     justify-content: flex-end;
     align-items: center;
     align-content: flex-start;
-    
+
     @include media('≤tablet') {
         //flex: 0 0 33.33%;
       flex: 0 1 auto;
@@ -35,7 +47,7 @@
         content: none;
       }
     }
-    
+
     @include media('≤phone') {
       justify-content: flex-start;
     }
@@ -45,15 +57,15 @@
     flex: 1 1 100%;
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 23px;
-    
+    margin-bottom: 24px;
+
     @include media('≤tablet') {
         flex: 0 1 auto;
       margin: 0 auto 0 0;
     }
 
     @include media('≤phone') {
-      margin: 0 0 23px 0;
+      margin: 0 0 24px 0;
       flex: 1 1 100%;
       justify-content: flex-start;
     }
@@ -63,6 +75,13 @@
         display: block;
       }
     }
+
+    .number {
+      @include media('≤phone') {
+        font-size: 1.5rem;
+        line-height: 33px;
+      }
+    }
   }
 
   .social-links {
@@ -70,8 +89,16 @@
     margin: 0 -8px;
     align-items: center;
 
+    @include media('≤phone') {
+      margin: 0 -2px;
+    }
+
     li {
       padding: 0 8px;
+
+      @include media('≤phone') {
+        padding: 0 2px;
+      }
     }
   }
 
@@ -108,8 +135,13 @@
   }
 
   @include media('≤phone') {
+    margin: 0 -8px;
     max-width: none;
     columns: 2;
+
+    &:after {
+      content: none;
+    }
   }
 
   li {
@@ -130,6 +162,8 @@
 
     @include media('≤phone') {
       width: 100%;
+      padding: 0 8px;
+      float: none;
     }
 
     &:nth-child(2) {
@@ -152,31 +186,34 @@
   padding: 19px 0;
   font-size: 14px;
   color: $text-lite-color;
-  border-top: 1px solid $btn-border;
+  border-top: 1px solid #DBDADB;
+
+  @include media('≤phone') {
+    align-items: flex-start;
+    padding: 24px 0;
+  }
 
   .list {
-    margin: 0 -8px;
+    padding-right: 8px;
+    
+    @include media('≤phone') {
+      padding-right: 76px;
+    }
 
     li {
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      padding: 0 8px;
+      display: inline;
+      padding-right: 8px;
 
       + li {
-        $point: 4px;
-        padding-left: 8px + $point;
 
         &:before {
-          @include size($point);
+          @include size(4px);
           content: '';
-          display: block;
+          display: inline-block;
+          vertical-align: middle;
           background-color: $text-lite-color;
           border-radius: 100%;
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
+          margin-right: 8px;
         }
       }
     }
@@ -187,64 +224,3 @@
     font-size: 16px;
   }
 }
-
-//@media (max-width: 855px) {
-//  .footer-top {
-//    .column {
-//      width: 55%;
-//      &:last-child {
-//        display: flex;
-//        flex-direction: column;
-//        align-items: center;
-//        width: 45%;
-//      }
-//    }
-//    .phone-block { margin: 0 0 1rem; }
-//    .buttons-holder { flex-direction: column-reverse; }
-//    .social-links {
-//      margin: 0;
-//      padding: 1rem 0 0;
-//    }
-//  }
-//}
-//@media (max-width: $medium-device-width) {
-//  .footer-top {
-//    flex-direction: column-reverse;
-//    margin: 0;
-//    .column, .column:last-child {
-//      width: 100%;
-//      margin: 0 0 2rem;
-//      flex-direction: row;
-//      justify-content: space-between;
-//    }
-//    .column:first-child {
-//      justify-content: flex-start;
-//      margin: 0 0 1rem;
-//      ul { margin: 0 11% 0 0; }
-//    }
-//    .buttons-holder { flex-direction: row; }
-//    .social-links {
-//      padding: 0;
-//      margin: 0 2rem 0 0;
-//      li { margin: .25rem; }
-//    }
-//  }
-//}
-//@media (max-width: 720px) {
-//  .footer-top .column:last-child {
-//    flex-direction: column;
-//  }
-//}
-//@media (max-width: 430px) {
-//  .footer-top {
-//    .column:first-child {
-//      justify-content: space-between;
-//    }
-//    ul li, .desktop-view {
-//      display: none;
-//    }
-//    .custom-list ul li, .mobile-view, .social-links li {
-//      display: block;
-//    }
-//  }
-//}

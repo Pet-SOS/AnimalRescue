@@ -12,7 +12,9 @@ export const PhoneLink: React.FC<any> = () => {
 })
   return (
     <div className="phone-block">
-      <div className="icon-phone"><Phone /></div>
+      <div className="icon-holder">
+          <i className="icon-phone"></i>
+      </div>
       <div className="phone">
         <a className="number" href={`tel:${phoneNumber[0]}`}>{phoneNumber[0]}</a>
         <span className="title"><TI18n keyStr="hotLinePhones" default="Телефоны горячей линии" /></span>
