@@ -40,6 +40,12 @@
 header, footer {
   flex: 0 0 auto;
 }
+header {
+  margin: 0 0 2.5rem;
+  @media (max-width: $normal-device-width) {
+    margin: 0 0 1.25rem;
+  }
+}
 .main {
   flex: 1 0 auto;
   display: flex;
@@ -61,6 +67,10 @@ header, footer {
   
   @include media('≤desktop') {
     max-width: 1143px;
+  }
+
+  @include media('≤phone') {
+    padding: 0 16px;
   }
 }
 

@@ -1,9 +1,10 @@
 @import './../../styles/variables.scss';
 .help-block-holder {
   background: $bg-lite-gray;
-  padding: 5rem 0;  
+  padding: 0 0 5rem;
   &.dark {
     background: $bg-purple;
+    padding: 5rem 0;
     .title {
       color: $btn-hover;
     }
@@ -96,13 +97,9 @@
     justify-content: flex-end;
   }
 }
-@media all and (max-width: 1118px) {
-  .help-block-holder {
-    padding: 3rem 0 5rem 0;
-  }
-}
 @media (max-width: $normal-device-width) {
   .help-block-holder {
+    padding: 1.25rem 0 5rem;
     .desktop {
       display: none;
     }
@@ -149,6 +146,7 @@
 }
 @media all and (max-width: $small-device-width) {
   .help-block-holder {
+    padding: 0 0 5rem;
     &.dark .description-holder {
       color: #ffffff;
     }

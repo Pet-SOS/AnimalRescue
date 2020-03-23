@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;

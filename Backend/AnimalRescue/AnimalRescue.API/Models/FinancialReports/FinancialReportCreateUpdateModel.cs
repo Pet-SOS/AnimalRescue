@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AnimalRescue.API.Models.FinancialReports
 {
@@ -18,6 +19,7 @@ namespace AnimalRescue.API.Models.FinancialReports
 
         [JsonPropertyName(PropertyConstants.FinancialReport.File)]
         [JsonProperty(PropertyConstants.FinancialReport.File)]
+        [Required]
         public IFormFile File { get; set; }
 
         [JsonPropertyName(PropertyConstants.FinancialReport.Date)]

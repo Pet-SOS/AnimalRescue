@@ -3,9 +3,9 @@
 using System;
 using System.Linq;
 
-namespace AnimalRescue.DataAccess.Mongodb.Exceptions
+namespace AnimalRescue.DataAccess.Mongodb.Extensions
 {
-    public static class ObjectIdExtentions
+    public static class ObjectIdExtensions
     {
         public static ObjectId AsObjectId(this Guid gid)
         {
