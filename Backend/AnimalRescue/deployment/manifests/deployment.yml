@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{baseServiceName}#
+  labels:
+    app: #{baseServiceName}#
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: #{baseServiceName}#
+  template:
+    metadata:
+      labels:
+        app: #{baseServiceName}#
+    spec:
+      containers:
+        - name: #{baseServiceName}#
+          image: #{containerRegistry}#/#{imageRepository}#:#{Build.BuildNumber}#
+          resources:
+            requests:
+              memory: "#{api.memory.request}#"
+              cpu: "#{api.cpu.request}#"
+            limits:
+              memory: "#{api.memory.limit}#"
+              cpu: "#{api.cpu.limit}#"
+          env:
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-api
+                  key: db_connection_string
+            - name: MongoDbSettings__DatabaseName
+              value: #{mongodbDatabase}#
+            - name: MongoDbSettings__BucketName
+              value: #{mongodbBucketName}#
+            - name: Logging__LogLevel__Default
+              value: Debug
+            - name: Logging__LogLevel__Microsoft
+              value: Debug
+            - name: Logging__LogLevel__Microsoft.Hosting.Lifetime
+              value: Debug
+      imagePullSecrets:
+        - name: #{imagePullSecret}#
