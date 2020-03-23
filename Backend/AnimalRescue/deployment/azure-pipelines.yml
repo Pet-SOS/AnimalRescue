@@ -1,5 +1,6 @@
 name: 1.0$(Rev:.r)
 
+pr: none
 trigger:
   branches:
     include:
@@ -78,7 +79,7 @@ stages:
                     action: createSecret
                     secretType: generic
                     secretName: animalrescue-api
-                    secretArguments: --from-literal=db_connection_string="mongodb://$(mongodbUsername):$(mongodbPassword)@mongodb.default.svc.cluster.local:27017"
+                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017"
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3

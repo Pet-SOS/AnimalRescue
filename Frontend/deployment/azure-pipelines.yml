@@ -1,5 +1,6 @@
 name: 1.0$(Rev:.r)
 
+pr: none
 trigger:
   branches:
     include:
