@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
@@ -14,9 +14,9 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 		{
 			CreateMap<Article, BlogDto>()
 				.ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()))
-				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtentions.AsGuid)));
+				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtensions.AsGuid)));
 			CreateMap<BlogDto, Article>()
-				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtentions.AsObjectIdString)))
+				.ForMember(x => x.ImageIds, o => o.MapFrom(x => x.ImageIds.Select(ObjectIdExtensions.AsObjectIdString)))
 				.ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()));
 
 			CreateMap<BlogCreateDto, Article>()

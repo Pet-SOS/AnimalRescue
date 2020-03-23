@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.Contracts.Common.Exceptions;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
-using condition = AnimalRescue.DataAccess.Mongodb.Exceptions.FilterDefinitionExceptions;
+using condition = AnimalRescue.DataAccess.Mongodb.Extensions.FilterDefinitionExtensions;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
