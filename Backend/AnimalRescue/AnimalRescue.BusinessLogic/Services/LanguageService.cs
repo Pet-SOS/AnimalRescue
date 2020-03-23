@@ -1,34 +1,25 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-
-using System.Collections.Generic;
 using System.Linq;
+using AnimalRescue.Infrastructure.Validation;
+using System.Collections.Generic;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class LanguageService : ILanguageService
     {
-        private class Culture
-        {
-            public int Weight { get; set; }
-            public string Characters { get; set; }
-            public string Language { get; set; }
-            public int Sum { get; set; }
-        };
+        private readonly ILanguageConfiguration _languageConfiguration;
 
-        private List<Culture> languages = new List<Culture> {
-            new Culture { Weight = 1, Language =  "uk-ua",  Characters =  "АаБбВвГгҐґДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя"},
-            new Culture { Weight = 2, Language = "ru-ru",  Characters = "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя" },
-            new Culture { Weight = 3, Language =  "en-us",  Characters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"},
-            new Culture { Weight = 4, Language =  "de-de",   Characters ="AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZzÄäÖöÜüẞß"}
-        };
-
-        public LanguageService()
+        public LanguageService(ILanguageConfiguration languageConfiguration)
         {
-        } 
+            Require.Objects.NotNull(languageConfiguration, nameof(languageConfiguration));
+            Require.Collections.NotEmpty(languageConfiguration.Languages, nameof(languageConfiguration.Languages));
+
+            _languageConfiguration = languageConfiguration;
+        }
 
         public string GetCulture(string text)
         {
-            var result = languages
+            var result = _languageConfiguration.Languages
                  .Select(x =>
                  {
                      x.Sum = GetMatchedCharsCount(text, x.Characters);
@@ -45,6 +36,11 @@ namespace AnimalRescue.BusinessLogic.Services
         private static int GetMatchedCharsCount(string inputString, string langCharSet)
         {
             return inputString.Sum(ch => langCharSet.Contains(ch) ? 1 : 0);
+        }
+
+        public IEnumerable<string> AllCultures()
+        {
+            return _languageConfiguration.Languages.Select(x => x.Language);
         }
     }
 }
