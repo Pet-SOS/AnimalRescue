@@ -188,9 +188,12 @@ export default {
   instructionsListItemText1: 'Познакомьтесь с животным. Это поможет понять, подходит ли оно вам по темпераметру.',
   instructionsListItemText2: 'Куратор вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое.',
 
+  adoptPopupTitle: 'Хочу забрать животное домой',
   adoptPopupText1: 'Мы рады, что вам приглянулся наш пушистик!',
-  adoptPopupText2: 'Чтобы забрать его к себе, позвоните нам по номеру ',
-  adoptPopupText3: ' или оставьте нам свои контакты и мы сами вам перезвоним.',
+  adoptPopupText2: 'Чтобы забрать его к себе, ',
+  adoptPopupText3: 'позвоните нам по номеру ',
+  adoptPopupText4: ' или ',
+  adoptPopupText5: 'оставьте нам свои контакты и мы сами вам перезвоним.',
   callBack: 'Перезвоните мне',
   
   lookingForAFriendPageTitle: 'Ищу друга',
@@ -321,4 +324,6 @@ export default {
   breadcrumbAbout: 'Узнать больше о службе спасения',
   breadcrumbRules: 'Узнать о правилах взаимодействия со службой',
   breadcrumbFinanceReports: 'Посмотреть финансовую отчетность',
+
+  backToAnimalsCatalog: 'Вернуться к поиску друга',
 }

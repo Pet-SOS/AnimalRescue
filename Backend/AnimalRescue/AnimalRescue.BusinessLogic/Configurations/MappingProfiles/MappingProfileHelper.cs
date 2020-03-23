@@ -1,4 +1,4 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Exceptions;
+﻿using AnimalRescue.DataAccess.Mongodb.Extensions;
 using System;
 using System.Collections.Generic;
 

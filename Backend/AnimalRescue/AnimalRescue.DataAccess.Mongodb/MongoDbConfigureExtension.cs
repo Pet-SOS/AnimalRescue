@@ -70,7 +70,8 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<Employee>, QueryBuilder<Employee>>()
                 .AddSingleton<IQueryBuilder<FinancialReport>, QueryBuilder<FinancialReport>>()
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>()
-                .AddSingleton<IQueryBuilder<SecurityToken>, QueryBuilder<SecurityToken>>();
+                .AddSingleton<IQueryBuilder<SecurityToken>, QueryBuilder<SecurityToken>>()
+                .AddSingleton<IQueryBuilder<OrganizationDocument>, QueryBuilder<OrganizationDocument>>();
 
             services
                 .AddScoped<IMongoDatabase>(x => database)
@@ -92,6 +93,9 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             services.AddScoped<IBaseCollection<SecurityToken>, BaseCollection<SecurityToken>>()
                 .AddScoped<ISecurityTokenRepository, SecurityTokenRepository>();
+
+            services.AddScoped<IBaseCollection<OrganizationDocument>, BaseCollection<OrganizationDocument>>()
+                .AddScoped<IOrganizationDocumentRepository, OrganizationDocumentRepository>();
         }
     }
 }

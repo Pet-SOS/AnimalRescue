@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.Infrastructure.Validation;
 
