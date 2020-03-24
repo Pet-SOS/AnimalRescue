@@ -71,7 +71,7 @@ namespace AnimalRescue.BusinessLogic.Services
                 throw new BadRequestException(@"Invalid login attempt.
                                 Your account has been blocked for 10 minutes.");
             }
-            var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser, model.RememberMe);
+            var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser.Id, model.RememberMe);
 
             //TODO: CreateRefreshTokenIfNotExist
 
@@ -139,7 +139,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<string> UnlockUser(string token)
         {
-            var securityToken = await _securityTokensRepository.GetIfExists(token);
+            var securityToken = await _securityTokensRepository.GetByToken(token);
             Require.Objects.NotNull<NotFoundException>(token, "Token not found");
 
             await _securityTokensRepository.DeleteAsync(securityToken.Id);

@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{baseServiceName}#
+  labels:
+    app: #{baseServiceName}#
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: #{baseServiceName}#
+  template:
+    metadata:
+      labels:
+        app: #{baseServiceName}#
+    spec:
+      containers:
+        - name: #{baseServiceName}#
+          image: #{containerRegistry}#/#{imageRepository}#:#{Build.BuildNumber}#
+          resources:
+            requests:
+              memory: "#{portal.memory.request}#"
+              cpu: "#{portal.cpu.request}#"
+            limits:
+              memory: "#{portal.memory.limit}#"
+              cpu: "#{portal.cpu.limit}#"
+          env:
+            - name: API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: #{baseServiceName}#
+                  key: api_url
+            - name: YOUTUBE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: #{baseServiceName}#
+                  key: youtube_url
+            - name: YOUTUBE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: #{baseServiceName}#
+                  key: youtube_api_key
+            - name: YOUTUBE_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: #{baseServiceName}#
+                  key: youtube_channel_id
+      imagePullSecrets:
+        - name: #{imagePullSecret}#

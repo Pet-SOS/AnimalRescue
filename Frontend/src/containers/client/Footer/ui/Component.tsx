@@ -13,98 +13,83 @@ import { store } from '../../../../store';
 
 export const AppFooter: React.FC = () =>  (
   <footer className="footer">
-    <div className="content">
+    <div className="container">
       <div className="footer-top">
-        <div className="column">
-          <ul>
-            <li className='desktop-view mobile-view'>
+        <nav>
+          <ul className="footer-nav">
+            <li>
               <NavLink to="/about" className="head-link">
                 <TI18n keyStr="footerAbout" default="О службе" />
               </NavLink>
+              <ul className="sub-list">
+                <li>
+                  <NavLink to="/about">
+                    <TI18n keyStr="footerAboutRescue" default="О службе спасения" />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={`/about${RULES_PAGE_LINK}`}>
+                    <TI18n keyStr="footerRules" default="Правила работы" />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about/financial-reports">
+                    <TI18n keyStr="financeReadout" default="Финансовый отсчет" />
+                  </NavLink>
+                </li>
+              </ul>
             </li>
-            <li className='mobile-view'>
-              <NavLink to={HELP_PAGE_LINKS.default} className="head-link">
-                <TI18n keyStr="footerHowToHelp" default="Как помочь" />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">
-                <TI18n keyStr="footerAboutRescue" default="О службе спасения" />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={`/about${RULES_PAGE_LINK}`}>
-                <TI18n keyStr="footerRules" default="Правила работы" />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about/financial-reports">
-                <TI18n keyStr="financeReadout" default="Финансовый отсчет" />
-              </NavLink>
-            </li>
-          </ul>
-          <ul className='desktop-view'>
             <li>
               <NavLink to={HELP_PAGE_LINKS.default} className="head-link">
                 <TI18n keyStr="footerHowToHelp" default="Как помочь" />
               </NavLink>
+              <ul className='sub-list'>
+                <li>
+                  <NavLink to={HELP_PAGE_LINKS.finance}>
+                    <TI18n keyStr="footerWithFinance" default="Финансово" />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={HELP_PAGE_LINKS.stuff}>
+                    <TI18n keyStr="footerStuff" default="Вещами" />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={HELP_PAGE_LINKS.volunteering}>
+                    <TI18n keyStr="footerVolunteering" default="Волонтерство" />
+                  </NavLink>
+                </li>
+              </ul>
             </li>
             <li>
-              <NavLink to={HELP_PAGE_LINKS.finance}>
-                <TI18n keyStr="footerWithFinance" default="Финансово" />
+              <NavLink to='/animals/page/1'><TI18n keyStr="headerMenuItem2" default="Ищу друга" /></NavLink>
+            </li>
+            <li>
+              <NavLink to="/blog/page/1">
+                <TI18n keyStr="blog" default="Блог" />
               </NavLink>
             </li>
             <li>
-              <NavLink to={HELP_PAGE_LINKS.stuff}>
-              <TI18n keyStr="footerStuff" default="Вещами" />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={HELP_PAGE_LINKS.volunteering}>
-                <TI18n keyStr="footerVolunteering" default="Волонтерство" />
+              <NavLink to="/contacts">
+                <TI18n keyStr="contacts" default="Контакты" />
               </NavLink>
             </li>
           </ul>
-          <div className="custom-list">
-            <ul>
-              <li>
-                <NavLink className="head-link" to='/animals/page/1'><TI18n keyStr="headerMenuItem2" default="Ищу друга" /></NavLink>
-              </li>
-              <li>
-                <NavLink to="/blog/page/1" className="head-link">
-                  <TI18n keyStr="blog" default="Блог" />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="head-link" to="/contacts">
-                  <TI18n keyStr="contacts" default="Контакты" />
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="column">
+        </nav>
+        <div className="add-content">
           <PhoneLink/>
-          <div className='buttons-holder'>
-            <SocialLinks />
-            <Button onClick={() => { store.dispatch(actionIsActivePopup(true)) }} styleType={ButtonTypes.Blue}>
-              <TI18n keyStr="help" default="Помочь" />
-            </Button>
-          </div>
+          <SocialLinks />
+          <Button onClick={() => { store.dispatch(actionIsActivePopup(true)) }} styleType={ButtonTypes.Blue}>
+            <TI18n keyStr="help" default="Помочь" />
+          </Button>
         </div>
       </div>
       <div className="footer-bottom">
-        <div className="rights">
-          <span>
-            &copy; 2019 - 2020
-          </span>
-          <span>
-            <TI18n keyStr="footerOrganization" default="Общественная организация «Спасение животных Харьков»" />
-          </span>
-          <span>
-            <TI18n keyStr="footerRights" default="Все права защищены" />
-          </span>
-        </div>
+        <ul className="list">
+          <li className="copyright">&copy; 2019 - 2020</li>
+          <li><TI18n keyStr="footerOrganization" default="Общественная организация «Спасение животных Харьков»" /></li>
+          <li><TI18n keyStr="footerRights" default="Все права защищены" /></li>
+        </ul>
         <ChangeLocale expandDirection={SelectExpandDirections.TOP}/>
       </div>
     </div>

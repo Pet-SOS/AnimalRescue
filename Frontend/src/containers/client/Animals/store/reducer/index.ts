@@ -164,7 +164,7 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
       return {
         ...state,
         catsList: {
-          ...action.payload,
+          ...state.catsList,
           isLoading: false,
           isLoaded: false
         },
@@ -277,7 +277,7 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
       return {
         ...state,
         favoriteAnimalsList: {
-          ...action.payload,
+          ...state.favoriteAnimalsList,
           isLoading: false,
           isLoaded: false
         },

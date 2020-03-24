@@ -42,6 +42,7 @@ namespace AnimalRescue.API.Controllers
             int pageSize)
             where T : class
         {
+
             if (!IsPagingValid(pageNumber, pageSize, totalCount))
             {
                 return BadRequest("Page criteria oversizes the total quantity of items in the list.");
@@ -104,6 +105,15 @@ namespace AnimalRescue.API.Controllers
             return CreatedAtAction(
                 GetItemByIdMethodName,
                 new { id = item.Id },
+                BuildContentApiResponse(item));
+        }
+        protected ActionResult<T> CreatedItem<T>(string actionName, string controllerName, object routeValues, T item)
+            where T : class, new()
+        {
+            return CreatedAtAction(
+                actionName,
+                controllerName,
+                routeValues,
                 BuildContentApiResponse(item));
         }
 
