@@ -1,0 +1,95 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{baseServiceName}#
+  labels:
+    app: #{baseServiceName}#
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: #{baseServiceName}#
+  template:
+    metadata:
+      labels:
+        app: #{baseServiceName}#
+    spec:
+      containers:
+        - name: #{baseServiceName}#
+          image: #{containerRegistry}#/#{imageRepository}#:#{Build.BuildNumber}#
+          resources:
+            requests:
+              memory: "#{api.memory.request}#"
+              cpu: "#{api.cpu.request}#"
+            limits:
+              memory: "#{api.memory.limit}#"
+              cpu: "#{api.cpu.limit}#"
+          env:
+            - name: AdminDetail__Email
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-admin
+                  key: email
+            - name: AdminDetail__Password
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-admin
+                  key: password
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-api
+                  key: db_connection_string        
+            - name: MongoDbSettings__DatabaseName
+              value: #{mongodbDatabase}#
+            - name: MongoDbSettings__BucketName
+              value: #{mongodbBucketName}#
+            - name: AppSettings__JwtExpireHours
+              value: "1"
+            - name: AppSettings__JwtExpireDays
+              value: "1"
+            - name: AppSettings__JwtExpireDaysGain
+              value: "30"
+            - name: AppSettings__JwtIssuer
+              value: https://#{api.hostname}#/
+            - name: AppSettings__JwtAudience
+              value: #{api.hostname}#
+            - name: AppSettings__JwtKey
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-api
+                  key: jwt_key
+            - name: AppSettings__FrontEndUrl
+              value: https://#{portal.hostname}#/
+            - name: Smtp__Host
+              valueFrom:
+                secretKeyRef:
+                  name: smtp
+                  key: host
+            - name: Smtp__Port
+              value: "#{smtp_port}#"
+            - name: Smtp__UseSsl
+              value: "true"
+            - name: Smtp__DisplayName
+              value: #{smtp_displayname}#
+            - name: Smtp__Email
+              value: #{smtp_email}#
+            - name: Smtp__Username
+              valueFrom:
+                secretKeyRef:
+                  name: smtp
+                  key: username
+            - name: Smtp__Password
+              valueFrom:
+                secretKeyRef:
+                  name: smtp
+                  key: password
+            - name: Logging__LogLevel__Default
+              value: Information
+            - name: Logging__LogLevel__Microsoft
+              value: Information
+            - name: Logging__LogLevel__Microsoft.Hosting.Lifetime
+              value: Information
+      imagePullSecrets:
+        - name: #{imagePullSecret}#
