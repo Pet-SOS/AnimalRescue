@@ -268,7 +268,7 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         ...state,
         favoriteAnimalsListRequestState: fetchFavoriteAnimalsStateReducer(state.favoriteAnimalsListRequestState, action),
         favoriteAnimalsList: {
-          ...action.payload,
+          ...action.payload.data,
           isLoading: false,
           isLoaded: true
         }
