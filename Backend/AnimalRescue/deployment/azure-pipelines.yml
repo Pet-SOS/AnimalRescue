@@ -79,7 +79,29 @@ stages:
                     action: createSecret
                     secretType: generic
                     secretName: animalrescue-api
-                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017"
+                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017" 
+                                     --from-literal=jwt_key="$(JwtKey)"
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create smtp secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: smtp
+                    secretArguments: --from-literal=host="$(smtp_host)" 
+                                     --from-literal=username="$(smtp_username)" 
+                                     --from-literal=password="$(smtp_password)"
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create admin secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: animalrescue-admin
+                    secretArguments: --from-literal=email="$(admin_email)" 
+                                     --from-literal=password="$(admin_password)" 
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3
