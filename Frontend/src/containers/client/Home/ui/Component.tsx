@@ -159,14 +159,16 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             }}
           />}
         </div>
-        <BlogBlock
+        {!!articleList.data && !!articleList.data.length && (
+          <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
-            data={articleList.data.slice(0,3)}
+            data={articleList.data.slice(0, 3)}
             link={{
-                title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
-                href: '/blog/page/1'
-              }}
-        />
+              title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
+              href: '/blog/page/1'
+            }}
+          />
+        )}
       </div>
     </React.Fragment>
   )
