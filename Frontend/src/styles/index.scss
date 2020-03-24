@@ -55,6 +55,7 @@ header, footer {
 }
 
 .container {
+  width: 100%;
   padding: 0 24px;
   margin: 0 auto;
   max-width: 1288px;
@@ -199,7 +200,7 @@ p.description {
   }
 }
 input, textarea, ::placeholder {
-  background: $input-bg-color;
+  background-color: $input-bg-color;
   color: $text-lite-color;
   font: 1.125rem/1.5rem 'Nunito', 'Roboto', sans-serif;
 }
