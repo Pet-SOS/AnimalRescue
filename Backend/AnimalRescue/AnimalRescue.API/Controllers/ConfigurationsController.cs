@@ -1,13 +1,13 @@
-﻿using AnimalRescue.API.Models.Configurations.Contacts;
+﻿using AnimalRescue.API.Core.Responses;
+using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
-
+using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 using System.Threading.Tasks;
 
@@ -17,12 +17,13 @@ namespace AnimalRescue.API.Controllers
     public class ConfigurationsController : ApiControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ILogger<ConfigurationsController> _logger;
         private readonly IConfigurationService _configurationService;
 
-        public ConfigurationsController(ILogger<ConfigurationsController> logger, IConfigurationService configurationService, IMapper mapper)
+        public ConfigurationsController(IConfigurationService configurationService, IMapper mapper)
         {
-            _logger = logger;
+            Require.Objects.NotNull(mapper, nameof(mapper));
+            Require.Objects.NotNull(configurationService, nameof(configurationService));
+
             _configurationService = configurationService;
             _mapper = mapper;
         }
@@ -37,6 +38,10 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpGet("donation")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(ContentApiResponse<DonationConfigurationModel>), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<DonationConfigurationModel>> GetDonationAsync()
         {
             var modelDto = await _configurationService.GetDonationConfigurationAsync();
@@ -54,6 +59,10 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpGet("cms")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(ContentApiResponse<CmsConfigurationModel>), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<CmsConfigurationModel>> GetCmsAsync()
         {
             var modelDto = await _configurationService.GetCmsConfigurationAsync();

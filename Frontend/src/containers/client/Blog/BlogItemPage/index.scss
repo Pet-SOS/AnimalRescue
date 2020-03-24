@@ -1,6 +1,5 @@
 @import './../../../../styles/variables.scss';
 .blog-item-page-holder {
-  padding: 2.5rem 0 0;
   .back-link-holder {
     margin: 0 0 1.5rem;
   }
@@ -41,5 +40,16 @@
       max-height: 100%;
       max-width: 100%;
     }
+  }
+}
+
+@media (max-width: $normal-device-width) {
+  .blog-item-page-holder {
+    padding: 1.25rem 0 0;
+  }
+}
+@media (max-width: $small-device-width) {
+  .blog-item-page-holder {
+    padding: 0;
   }
 }
