@@ -48,7 +48,7 @@ namespace AnimalRescue.API.Controllers
                 return BadRequest("Page criteria oversizes the total quantity of items in the list.");
             }
 
-            int pageCount = totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
+            int pageCount = pageSize == 0 ? 0 : totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
 
             return new CollectionSegmentApiResponse<T>
             {
