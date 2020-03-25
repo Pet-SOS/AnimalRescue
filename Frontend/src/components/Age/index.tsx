@@ -65,7 +65,7 @@ interface IPropTypes {
     }
 
     let weeks = duration.get('weeks')
-    let weeksWord = (x: number): string => { return (x == 1) ? 'week' : 'fromTwoToFourWeeks'; }
+    let weeksWord = (x: number): string => { return (x === 1) ? 'week' : 'fromTwoToFourWeeks'; }
 
     return (
         <span>

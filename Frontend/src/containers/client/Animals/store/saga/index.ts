@@ -58,9 +58,9 @@ function* fetchCatsList(action: { type: string, payload?: IRequestParams }) {
     yield put(actionFetchCatsFailure(e))
   }
 }
-function* fetchFavoriteAnimalsList(action: { type: string, payload?: IRequestParams }) {
+function* fetchFavoriteAnimalsList(action: { type: string, payload: string[] }) {
   try {
-    const response = yield call(fetchFavoriteAnimals);
+    const response = yield call(fetchFavoriteAnimals, action.payload);
     yield put(actionFetchFavoriteAnimalsSuccess(response))
   } catch (e) {
     yield put(actionFetchFavoriteAnimalsFailure(e))

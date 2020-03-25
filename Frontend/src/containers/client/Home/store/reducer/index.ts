@@ -79,7 +79,7 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
       }
     }
-    case getType(actionFetchInfoContactsSuccess):
+    case getType(actionFetchInfoContactsSuccess): {
       return {
         ...state,
         infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action),
@@ -89,7 +89,8 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
           isLoaded: true
         }
       };
-    case getType(actionFetchInfoContactsFailUrl):
+    }
+    case getType(actionFetchInfoContactsFailUrl): {
       return {
         ...state,
         infoContacts: {
@@ -99,6 +100,7 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         },
         infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
       };
+    }
     case getType(actionClearInfoContacts): {
       return {
         ...state,

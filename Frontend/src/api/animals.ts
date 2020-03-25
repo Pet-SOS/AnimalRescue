@@ -116,7 +116,7 @@ export interface ISavedAnimalsCountResponse {
 
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
   const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
-    return res.data
+  return res.data
 }
 
 export async function updateAnimal(params: { animal: IAnimal, id?: string }): Promise<void> {
@@ -142,7 +142,7 @@ export async function fetchAnimalItem(id: string): Promise<IAnimalResponse> {
   return res.data
 }
 
-export async function fetchFavoriteAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-    const res = await API.post(`animals/bunch`, {params: prepareRequestParams(requestParams)});
-    return res.data
+export async function fetchFavoriteAnimals(animalIds: string[]): Promise<IAnimalsResponse[]> {
+  const res = await API.post(`animals/bunch`, {animalIds});
+  return res.data
 }

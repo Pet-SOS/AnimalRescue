@@ -3,7 +3,7 @@ import './index.scss';
 import { Button } from '../Button';
 import { store } from './../../store/index'
 import cn from 'classnames';
-import { onAnimalFavoriteButtonClicked } from '../../containers/client/Animals/store/actions';
+import { onAnimalFavoriteButtonClicked, actionFetchFavoriteAnimalsRequest } from '../../containers/client/Animals/store/actions';
 import { useSelector, shallowEqual } from 'react-redux';
 import { selectFavoriteAnimalsIds } from '../../containers/client/Animals/store/selectors';
 
@@ -16,6 +16,7 @@ export const ButtonLike: React.FC<IPropTypes> = ({ id }: IPropTypes) => {
   const onLikeClick = () => {
     if (!!id) {
       store.dispatch(onAnimalFavoriteButtonClicked(id));
+      !!id && favoriteAnimalsIds.includes(id) ? store.dispatch(actionFetchFavoriteAnimalsRequest(favoriteAnimalsIds.filter(i => i !== id))) : store.dispatch(actionFetchFavoriteAnimalsRequest([...favoriteAnimalsIds, id]));
     }
   }
   const isActive = (): boolean => {
