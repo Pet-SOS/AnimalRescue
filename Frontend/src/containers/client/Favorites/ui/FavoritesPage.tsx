@@ -36,7 +36,9 @@ export class FavoritesPage extends React.Component<IPropTypes> {
         if(store.getState().animals.sickAnimalsList.totalCount === 0){
             this.props.fetchSickAnimals();
         }        
-        this.props.fetchFavoriteAnimals(store.getState().animals.favoriteAnimalsIds);
+        if (favoriteAnimalsCount() > 0) {
+            this.props.fetchFavoriteAnimals(store.getState().animals.favoriteAnimalsIds);
+        } 
     }  
       
     render(){    
