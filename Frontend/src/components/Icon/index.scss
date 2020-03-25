@@ -25,6 +25,43 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-date:before {
+  content: "\e916";
+  color: #62738d;
+}
+.icon-cost:before {
+  content: "\e917";
+  color: #62738d;
+}
+.icon-person:before {
+  content: "\e918";
+  color: #62738d;
+}
+.icon-website:before {
+  content: "\e919";
+  color: #62738d;
+}
+.icon-delete:before {
+  content: "\e91a";
+  color: #62738d;
+}
+.icon-edit:before {
+  content: "\e91b";
+  color: #62738d;
+}
+.icon-visibility:before {
+  content: "\e91c";
+  color: #409275;
+}
+.icon-search:before {
+  content: "\e91d";
+  color: #62738d;
+}
+.icon-no-visibility:before {
+  content: "\e915";
+  color: #62738d;
+}
 .icon-step:before {
   content: "\e914";
   color: #62738d;

@@ -287,3 +287,17 @@ $animation-speed: 0.3s !default;
     font-style: $style;
   }
 }
+
+//@include v-center(800px);
+
+@mixin v-center($min-height: 400px) {
+  display: flex;
+
+  > * {
+    min-height: $min-height;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+}
