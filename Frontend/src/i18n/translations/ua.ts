@@ -15,7 +15,7 @@ export default {
   headerMenuItem7:'Сподобалися',
 
   headerMenuItem1Dropdown1:'Про службу порятунку',
-  headerMenuItem1Dropdown2:'Правила роботи з нами',
+  headerMenuItem1Dropdown2:'Правила взаємодії зі службою',
   headerMenuItem1Dropdown3:'Фінансові звіти',
 
   headerMenuItem2Dropdown1:'Будь-якого',

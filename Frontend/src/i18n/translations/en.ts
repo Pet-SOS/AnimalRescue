@@ -15,7 +15,7 @@ export default {
   headerMenuItem7: 'Liked',
 
   headerMenuItem1Dropdown1:'About the rescue service',
-  headerMenuItem1Dropdown2: 'Rules for working with us',
+  headerMenuItem1Dropdown2: 'Service Interaction Rules',
   headerMenuItem1Dropdown3: 'Financial statements',
 
   ourGoalBlockTitle: 'Who we are',
