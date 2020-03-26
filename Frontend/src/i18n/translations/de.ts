@@ -88,7 +88,7 @@ export default {
   subTitleYouTubeBox: 'Geschichten von geretteten Tieren',
   youtubeTitleLink: 'Sehen Sie sich alle Geschichten auf unserem Kanal an',
 
-  rulesPageTitle: 'Serviceregeln',
+  rulesPageTitle: 'Serviceinteraktionsregeln',
   rulesMainText: 'Wir wissen nie, wann Tiere dringend Hilfe benötigen, aber wir wissen, dass wir immer bereit sein müssen, diese bereitzustellen. Das Rettungsteam reagiert auf Anrufe in Situationen, in denen Tiere geschützt werden müssen.',
   rulesWhatShouldIDoTitle: 'Was ist, wenn ich sehe, dass das Tier Hilfe braucht?',
   rulesWhatShouldIDoText1: 'Wenn Sie gesehen haben, wie ein kleines Kätzchen in den Müll geworfen wurde, ein Igel mit einem gebrochenen Bein, der einen Welpen im Abwasserkanal jammerte, eine Katze, die in den Lüftungsschacht kletterte und nicht aussteigen konnte, oder ein anderes Tier, das Hilfe brauchte - wählen Sie sofort unsere Nummer',
@@ -139,7 +139,7 @@ export default {
 
   /*     FinancialReportsPage      */
   financialReportsPageTitle: 'Jahresabschluss',
-  financialReportsPageText: 'Bis zum 20. Tag erstellen wir jeden Monat einen Finanzbericht, in dem wir alle von Gratulanten erhaltenen Beträge und deren Verteilung angeben',
+  financialReportsPageText: 'Bis zum 20. Tag erstellen wir jeden Monat einen Finanzbericht, in dem wir alle von Gratulanten erhaltenen Beträge und deren Verteilung angeben.',
 
   photographer: 'Fotograf',
   photographerVacationText1: 'Damit ein Haustier seine Familie schnell finden kann, braucht es gute Fotos. Deshalb ist die Hilfe von professionellen Fotografen in diesem Fall äußerst wünschenswert und wichtig.',
