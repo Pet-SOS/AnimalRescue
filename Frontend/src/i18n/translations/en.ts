@@ -88,7 +88,7 @@ export default {
   aboutServiceHowWeWorkTitle: 'How we work',
   aboutServiceHowWeWorkText: 'Round the clock. All calls are made exclusively through the hotline +38 095 478 88 78',
 
-  rulesPageTitle: 'Service Rules',
+  rulesPageTitle: 'Service Interaction Rules',
   rulesMainText: 'We never know when animals may need urgent help, but we know that we must always be ready to provide it. The rescue team responds to calls in situations where animals need protection.',
   rulesWhatShouldIDoTitle: 'What if I see that the animal needs help?',
   rulesWhatShouldIDoText1: 'If you saw a small kitten thrown into the trash, a hedgehog with a broken leg, whining a puppy in the sewer, a cat who climbed into the ventilation shaft and was unable to get out, or any other animal in need of help - immediately dial our number',
@@ -138,7 +138,7 @@ export default {
   footerRightBtn:'To help',
    /*     FinancialReportsPage      */
    financialReportsPageTitle:'Financial reports',
-   financialReportsPageText:'Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed',
+   financialReportsPageText:'Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed.',
 
   photographer: 'Photographer',
   photographerVacationText1: 'For a pet to quickly find his family, he needs good photos. That is why the help of professional photographers in this case is extremely desirable and important.',
