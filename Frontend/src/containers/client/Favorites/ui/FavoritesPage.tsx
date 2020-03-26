@@ -23,23 +23,21 @@ interface IPropTypes {
   }
 
 export class FavoritesPage extends React.Component<IPropTypes> {
-  public componentDidMount(){
-        if(this.props.catsList.totalCount === 0){
-            this.props.fetchCats();
-        }
-        if(this.props.dogsList.totalCount === 0){
-            this.props.fetchDogs();
-        }
-        if(this.props.sickAnimalsList.totalCount === 0){
-            this.props.fetchSickAnimals();
-        }        
-        if (this.favoriteAnimalsCount() > 0) {
-            this.props.fetchFavoriteAnimals(this.props.favoriteAnimalsIds);
-        } 
-    }
-  public componentDidUpdate(nextProps: IPropTypes): void {
+  public componentDidMount() {
+    this.props.fetchFavoriteAnimals(this.props.favoriteAnimalsIds);
+    this.props.fetchSickAnimals();
+  }
+  public componentWillUpdate(nextProps: IPropTypes): void {
     if (this.props.favoriteAnimalsIds.length < nextProps.favoriteAnimalsIds.length) {
       this.props.fetchFavoriteAnimals(nextProps.favoriteAnimalsIds);
+    }
+    if (!nextProps.favoriteAnimalsIds.length) {
+      if (!nextProps.catsList.isLoaded && !nextProps.catsList.isLoading) {
+        this.props.fetchCats();
+      }
+      if (!nextProps.dogsList.isLoaded && !nextProps.dogsList.isLoading) {
+        this.props.fetchDogs();
+      }
     }
   }
   public componentWillUnmount(): void {
