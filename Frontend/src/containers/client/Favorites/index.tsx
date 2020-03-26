@@ -3,7 +3,16 @@ import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 
 import { ICustomAppState } from '../../../store/state';
 import { connect } from 'react-redux';
-import { actionFetchSickAnimals, actionFetchCatsRequest, actionFetchDogsRequest, actionFetchFavoriteAnimalsRequest } from '../Animals/store/actions';
+import {
+  actionFetchSickAnimals,
+  actionFetchCatsRequest,
+  actionFetchDogsRequest,
+  actionFetchFavoriteAnimalsRequest,
+  actionClearSickAnimals,
+  actionClearDogs,
+  actionClearCats,
+  actionClearFavoriteAnimals
+} from '../Animals/store/actions';
 
 const mapStateToProps = (state: ICustomAppState) => {
     return {
@@ -21,7 +30,11 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
             fetchSickAnimals: actionFetchSickAnimals,
             fetchCats: actionFetchCatsRequest,
             fetchDogs: actionFetchDogsRequest,
-            fetchFavoriteAnimals: actionFetchFavoriteAnimalsRequest
+            fetchFavoriteAnimals: actionFetchFavoriteAnimalsRequest,
+            clearSickAnimals: actionClearSickAnimals,
+            clearDogsList: actionClearDogs,
+            clearCatsList: actionClearCats,
+            clearFavoriteAnimalsList: actionClearFavoriteAnimals
         },
         dispatch
       )
