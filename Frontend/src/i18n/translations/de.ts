@@ -16,7 +16,7 @@ export default {
   headerMenuItem7: 'Wie',
 
   headerMenuItem1Dropdown1: 'Über den Rettungsdienst',
-  headerMenuItem1Dropdown2: 'Regeln für die Zusammenarbeit mit uns',
+  headerMenuItem1Dropdown2: 'Serviceinteraktionsregeln',
   headerMenuItem1Dropdown3: 'Jahresabschluss',
 
   headerMenuItem2Dropdown1: 'Beliebig',
