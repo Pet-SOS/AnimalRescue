@@ -8,9 +8,9 @@ interface IPropTypes{
 }
 export const CheckBoks: React.FC<IPropTypes> = ({setCheckboxCheck, state, name, tag}) => {
     return (
-        <div className='box-checkbox'>
+        <label className='box-checkbox'>
             <input type="checkbox" onChange={()=>{setCheckboxCheck(tag)}} checked={state}/>
-            <p>{name}</p>
-        </div>
+            <span>{name}</span>
+        </label>
     )
 }

@@ -5,6 +5,15 @@
   list-style: none;
 }
 
+// Button reset
+%button-reset {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
 // clearfix
 %clearfix {
   &:after {
