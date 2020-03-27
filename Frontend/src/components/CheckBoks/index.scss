@@ -1,56 +1,53 @@
+@import '../../styles/include-media';
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+@import '../../styles/base/mixins';
 
-@import '../../styles/variables.scss';
+.box-checkbox {
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
 
-.box-checkbox{
-    display:flex;
-    justify-content: center;
-    margin: 0 1rem 0.5rem 0;
-    align-items: center;
-    input {
-        position: relative;
-        visibility: hidden;
-        outline: none;
-        cursor: pointer;
-        &:checked{
-            &::before{
-                position: absolute;
-                visibility: visible;
-                font-family: FontAwesome;
-                font-style: normal;
-                content:'\f00c';
-                font-weight: 100;
-                width: 0.7rem;
-                height: 0.7rem;
-                font-size: 1rem;
-                color: $text-lite-color;
-                z-index: 2;
-                left: 50%;
-                top:0;
-                transform: translate(-50%,-50%);
-              }
-       
-        }
-        &::after{
-            position: absolute;
-            visibility: visible;
-            content:'';
-            left: 50%;
-            top:50%;
-            transform: translate(-50%,-50%);
-            border: 0.125rem solid $btn-border;
-            width:1.5rem;
-            height: 1.5rem;
-            background: $bg-lite-box;
-            border-radius: 0.25rem;
-        }
-       
+    &:hover span:before{
+        border-color: $orange;
     }
-    p{
-        color: $text-lite-color;
-        line-height: 1.5rem;
-        font-size: 1rem;
-        vertical-align: middle;
-        margin-left: 0.45rem;        
-        text-transform: lowercase;
+
+    input {
+        display: none;
+
+        &:checked + span:before {
+            border: 2px solid $orange;
+        }
+
+        &:checked + span:after {
+            content: '';
+            @include size(12px);
+            display: block;
+            border-radius: 2px;
+            background-color: $orange;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 6px;
+        }
+    }
+
+    span {
+        position: relative;
+        padding-left: 36px;
+
+        &:before {
+            @include animate(border-color);
+            @include size(24px);
+            content: '';
+            display: block;
+            border: 2px solid #DBDADB;
+            border-radius: 4px;
+            background-color: $main-bg-color;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+        }
     }
 }

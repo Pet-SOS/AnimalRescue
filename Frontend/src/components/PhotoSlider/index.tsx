@@ -10,16 +10,16 @@ export const PhotoSlider: React.FC<any> = ({ sliders, updatePostInfo, slideIndex
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
   const imageUrl = sliders[0] ? `${baseUrl}documents/${sliders[slideIndex].imageIds[0]}/type/medium` : noPhoto;
   return (
-    <div className="slide">
-      <div className='box-img' onClick={() => { store.dispatch(actionIsActivePopup(true)) }} >
-        <div className="image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+    <>
+      <div className='image-help-holder' onClick={() => { store.dispatch(actionIsActivePopup(true)) }} >
+        <div className="image-help" style={{ backgroundImage: `url(${imageUrl})` }}></div>
       </div>
       {!!sliders && !!sliders.length && (
-        <div className='buttons-holder'>
+        <div className='buttons-help-holder'>
           <button onClick={() => updatePostInfo(slideIndex - 1 < 0 ? sliders.length - 1 : slideIndex - 1)} className='swiper-button-prev'></button>
           <button onClick={() => updatePostInfo(slideIndex + 1 > sliders.length - 1 ? 0 : slideIndex + 1)} className='swiper-button-next'></button>
         </div>
       )}
-    </div>
+    </>
   )
 }

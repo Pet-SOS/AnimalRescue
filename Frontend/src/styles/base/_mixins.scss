@@ -213,7 +213,7 @@
 //     or @include animate(color width);
 //     or @include animate(color width, 1s, linear);
 //
-$animation-speed: 0.3s !default;
+$animation-speed: 0.2s !default;
 
 @mixin animate($properties, $duration: $animation-speed, $easing: ease-in-out) {
   $list: ();
