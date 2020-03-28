@@ -2,6 +2,7 @@
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Driver;
+using System.Linq;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
@@ -22,8 +23,8 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             this.aliasStore = aliasStore;
             this.rowTermData = rowTermData;
         }
-        public FilterDefinition<TEntity> GetDbTermFilterDefinition() 
-        { 
+        public FilterDefinition<TEntity> GetDbTermFilterDefinition()
+        {
             var arr = rowTermData.Split("~");
             Alias = aliasStore.GetAlias<TEntity>(arr[0]);
             var field = Alias?.DataBasePropertyName;
@@ -31,7 +32,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             Require.Strings.NotNullOrWhiteSpace<BadRequestException>(field,
                 () => $"Specified field '{arr[0]}' for filtering data is not exist");
             Require.Booleans.IsTrue<BadRequestException>(
-                FilterContractConstants.Rulses.ContainsKey(arr[1]),
+                StrictFilterContractConstants.AvailableRules.Any(x => x == arr[1]),
                 () => $"Specified operator '{arr[1]}' for filtering data is not exist");
 
             FieldName = field;
