@@ -1,7 +1,10 @@
-﻿namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
+﻿using System;
+
+namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal interface IAliasStore
+    public interface IAliasStore
     {
-        Alias GetAlias<T>(string aliasePropertyName);
+        Alias GetAlias<T>(string aliasPropertyName);
+        Alias GetAlias(Type type, string aliasPropertyName);
     }
 }
