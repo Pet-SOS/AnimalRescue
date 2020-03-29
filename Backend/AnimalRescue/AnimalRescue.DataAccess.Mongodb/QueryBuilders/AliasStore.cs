@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal class AliasStore  : IAliasStore
+    internal class AliasStore : IAliasStore
     {
         private ConcurrentDictionary<Type, List<Alias>> aliasDictionary;
 
@@ -27,7 +27,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
         public Alias GetAlias<T>(string aliasePropertyName)
         {
-            Type type = typeof(T);            
+            Type type = typeof(T);
 
             return GetAlias(type, aliasePropertyName);
         }
@@ -36,14 +36,38 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         {
             if (aliasDictionary.TryGetValue(type, out var currentAlias))
             {
-                return currentAlias
+                Alias result = currentAlias
                     .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
+
+                if (result == null)
+                {
+                    result = FindNestedAlias(aliasePropertyName);
+                }
+
+                return result;
             }
 
             currentAlias = GetAliases(type);
 
             return currentAlias
                 .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
+        }
+
+        private Alias FindNestedAlias(string aliasePropertyName)
+        {
+            var data = aliasDictionary.Where(x => x.Value.Any(alias => IsEqualNames(alias, aliasePropertyName)));
+            if(data != null)
+            {
+                if(data.Count() > 0)
+                {
+                    return data
+                        .First()
+                        .Value
+                        .First(alias => IsEqualNames(alias, aliasePropertyName));
+                }
+            }
+
+            return null; 
         }
 
         private List<Alias> GetAliases(Type type)
@@ -125,6 +149,6 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             }
 
             return result;
-        } 
+        }
     }
 }

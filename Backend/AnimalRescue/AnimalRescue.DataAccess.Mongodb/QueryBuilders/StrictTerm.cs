@@ -2,14 +2,15 @@
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Driver;
+
 using System.Linq;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
     internal class StrictTerm<TEntity>
     {
-        private readonly IAliasStore aliasStore;
         private readonly string rowTermData;
+        public readonly IAliasStore AliasStore;
         public Alias Alias;
         public string FieldName { get; set; }
         public string CommandName { get; set; }
@@ -20,24 +21,25 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         {
             Require.Objects.NotNull(rowTermData, nameof(rowTermData));
 
-            this.aliasStore = aliasStore;
+            this.AliasStore = aliasStore;
             this.rowTermData = rowTermData;
         }
         public FilterDefinition<TEntity> GetDbTermFilterDefinition()
         {
-            var arr = rowTermData.Split("~");
-            Alias = aliasStore.GetAlias<TEntity>(arr[0]);
+            var rowTerm = rowTermData.GetRawTerm();
+            Alias = AliasStore.GetAlias<TEntity>(rowTerm.field);
             var field = Alias?.DataBasePropertyName;
 
-            Require.Strings.NotNullOrWhiteSpace<BadRequestException>(field,
-                () => $"Specified field '{arr[0]}' for filtering data is not exist");
-            Require.Booleans.IsTrue<BadRequestException>(
-                StrictFilterContractConstants.AvailableRules.Any(x => x == arr[1]),
-                () => $"Specified operator '{arr[1]}' for filtering data is not exist");
 
+            Require.Strings.NotNullOrWhiteSpace<BadRequestException>(field,
+                () => $"Specified field '{rowTerm.field}' for filtering data is not exist");
+            Require.Booleans.IsTrue<BadRequestException>(
+                StrictFilterContractConstants.AvailableRules.Any(x => x == rowTerm.command),
+                () => $"Specified operator '{rowTerm.command}' for filtering data is not exist");
+
+            CommandName = rowTerm.command;
             FieldName = field;
-            CommandName = arr[1];
-            Content = arr[2];
+            Content = rowTerm.content;
 
             return StrictFilterContractConstants.GetFilterDefinition(this);
         }

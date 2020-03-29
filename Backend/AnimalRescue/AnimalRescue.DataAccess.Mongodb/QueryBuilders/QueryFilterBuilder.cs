@@ -16,25 +16,19 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public string BuildStringFilterParams<T>(string rowFilterParams)
         {
             var filterArrey = rowFilterParams?
-                .Split(";")
+                .GetRawTerms()
                 .Select(data => new Term(aliasStore, data))
                 .Select(term => term.GetDbTerm<T>());
-            var result = filterArrey != null  
-                ? "{" + string.Join(",", filterArrey) + "}"  
+            var result = filterArrey != null
+                ? "{" + string.Join(",", filterArrey) + "}"
                 : defaultFilter;
 
             return result;
         }
         public FilterDefinition<T> BuildFilterParams<T>(string rowFilterParams)
         {
-            var filterArrey = rowFilterParams?
-                .Split(";")
-                .Select(data => new StrictTerm<T>(aliasStore, data))
-                .Select(term => term.GetDbTermFilterDefinition());
-
-            var result = filterArrey != null  
-                ? Builders<T>.Filter.And(filterArrey)
-                : Builders<T>.Filter.Empty;
+            var result = rowFilterParams?
+                .BuildFilterParams<T>(aliasStore);
 
             return result;
         }
