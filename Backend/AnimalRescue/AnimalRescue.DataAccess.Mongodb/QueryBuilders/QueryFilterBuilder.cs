@@ -27,8 +27,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         }
         public FilterDefinition<T> BuildFilterParams<T>(string rowFilterParams)
         {
-            var result = rowFilterParams?
-                .BuildFilterParams<T>(aliasStore);
+            var result = QueryAnalyzer.BuildFilterParams<T>(rowFilterParams, aliasStore);
 
             return result;
         }
