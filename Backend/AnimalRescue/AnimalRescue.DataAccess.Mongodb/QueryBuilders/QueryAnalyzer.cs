@@ -69,7 +69,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         }
 
         public static FilterDefinition<T> BuildFilterParams<T>(
-            this string rowFilterParams,
+            string rowFilterParams,
             IAliasStore aliasStore)
         {
             var filterArrey = rowFilterParams?
