@@ -4,7 +4,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
     public interface IAliasStore
     {
-        Alias GetAlias<T>(string aliasePropertyName);
-        Alias GetAlias(Type type, string aliasePropertyName);
+        Alias GetAlias<T>(string aliasPropertyName);
+        Alias GetAlias(Type type, string aliasPropertyName);
     }
 }

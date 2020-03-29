@@ -25,23 +25,23 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             aliasDictionary = new ConcurrentDictionary<Type, List<Alias>>(concurrencyLevel, initialCapacity);
         }
 
-        public Alias GetAlias<T>(string aliasePropertyName)
+        public Alias GetAlias<T>(string aliasPropertyName)
         {
             Type type = typeof(T);
 
-            return GetAlias(type, aliasePropertyName);
+            return GetAlias(type, aliasPropertyName);
         }
 
-        public Alias GetAlias(Type type, string aliasePropertyName)
+        public Alias GetAlias(Type type, string aliasPropertyName)
         {
             if (aliasDictionary.TryGetValue(type, out var currentAlias))
             {
                 Alias result = currentAlias
-                    .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
+                    .FirstOrDefault(alias => IsEqualNames(alias, aliasPropertyName));
 
                 if (result == null)
                 {
-                    result = FindNestedAlias(aliasePropertyName);
+                    result = FindNestedAlias(aliasPropertyName);
                 }
 
                 return result;
@@ -50,12 +50,12 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             currentAlias = GetAliases(type);
 
             return currentAlias
-                .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
+                .FirstOrDefault(alias => IsEqualNames(alias, aliasPropertyName));
         }
 
-        private Alias FindNestedAlias(string aliasePropertyName)
+        private Alias FindNestedAlias(string aliasPropertyName)
         {
-            var data = aliasDictionary.Where(x => x.Value.Any(alias => IsEqualNames(alias, aliasePropertyName)));
+            var data = aliasDictionary.Where(x => x.Value.Any(alias => IsEqualNames(alias, aliasPropertyName)));
             if(data != null)
             {
                 if(data.Count() > 0)
@@ -63,7 +63,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                     return data
                         .First()
                         .Value
-                        .First(alias => IsEqualNames(alias, aliasePropertyName));
+                        .First(alias => IsEqualNames(alias, aliasPropertyName));
                 }
             }
 
@@ -93,14 +93,15 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             return currentAlias;
         }
 
-        private static bool IsEqualNames(Alias alias, string aliasePropertyName)
+        private static bool IsEqualNames(Alias alias, string aliasPropertyName)
         {
-            return alias.AliasePropertyName
-                .Equals(aliasePropertyName, StringComparison.OrdinalIgnoreCase);
+            return alias.AliasPropertyName
+                .Equals(aliasPropertyName, StringComparison.OrdinalIgnoreCase);
         }
+
         private static bool IsEqual(Alias x, Alias y) =>
             x.PropertyName == y.PropertyName
-            && x.AliasePropertyName == y.AliasePropertyName
+            && x.AliasPropertyName == y.AliasPropertyName
             && x.DataBasePropertyName == y.DataBasePropertyName;
 
         private static Alias ConvertToAlias(PropertyInfo propertyInfo)
@@ -115,7 +116,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
             return new Alias
             {
-                AliasePropertyName = aliasName,
+                AliasPropertyName = aliasName,
                 DataBasePropertyName = elementName,
                 PropertyType = propertyInfo.PropertyType,
                 PropertyName = propertyInfo.Name,
@@ -141,7 +142,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                     continue;
                 }
 
-                currentAlias.AliasePropertyName = $"{alias.AliasePropertyName}.{currentAlias.AliasePropertyName}";
+                currentAlias.AliasPropertyName = $"{alias.AliasPropertyName}.{currentAlias.AliasPropertyName}";
                 currentAlias.DataBasePropertyName = $"{alias.DataBasePropertyName}.{currentAlias.DataBasePropertyName}";
 
                 result.Add(currentAlias);
