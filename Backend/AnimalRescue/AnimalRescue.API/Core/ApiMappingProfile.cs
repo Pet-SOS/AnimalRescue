@@ -17,6 +17,7 @@ using AutoMapper;
 
 using System.Collections.Generic;
 using System.Linq;
+using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 
 namespace AnimalRescue.API.Core
 {
@@ -44,10 +45,10 @@ namespace AnimalRescue.API.Core
             CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
-            CreateMap<TagModel, TagDto>();
-            CreateMap<TagDto, TagModel>();
+            CreateMap<TagModel, LanguageValueDto>();
+            CreateMap<LanguageValueDto, TagModel>();
             CreateMap<TagCreateUpdateModel, TagModel>();
-            CreateMap<TagCreateUpdateModel, TagDto>();
+            CreateMap<TagCreateUpdateModel, LanguageValueDto>();
 
             CreateMap<EmployeeModel, EmployeeDto>();
             CreateMap<EmployeeDto, EmployeeModel>();
