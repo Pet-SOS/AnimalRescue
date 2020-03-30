@@ -18,3 +18,7 @@ export async function fetchOrganizationDocuments(): Promise<IOrganizationDocumen
     const res = await API.get('Organization/documents');
     return res.data
 }
+export async function fetchDocumentById(id: string): Promise<any> {
+    const res = await API.get(`Documents/${id}`, {responseType: 'arraybuffer'});
+    return res
+}
