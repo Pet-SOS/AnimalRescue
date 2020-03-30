@@ -61,7 +61,7 @@ namespace AnimalRescue.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<WellKnownTagModel>> CreateItemAsync([FromForm] WellKnownTagCreateUpdateModel tagCreateModel)
+        public async Task<ActionResult<WellKnownTagModel>> CreateItemAsync([FromBody] WellKnownTagCreateUpdateModel tagCreateModel)
         {
             return await CreatedItemAsync<WellKnownTagDto, WellKnownTagCreateUpdateModel, WellKnownTagModel>(_tagService, tagCreateModel, _mapper);
         }
@@ -70,7 +70,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] WellKnownTagCreateUpdateModel tagUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromBody] WellKnownTagCreateUpdateModel tagUpdateModel)
         {
             await UpdateDataAsync(_tagService, id, tagUpdateModel, _mapper);
         }
