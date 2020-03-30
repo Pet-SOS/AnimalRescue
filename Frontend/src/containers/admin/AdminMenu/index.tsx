@@ -17,6 +17,9 @@ interface IPropTypes{
 }
 interface IState{
     collapsed: boolean;
+    selectedKey:string;
+    openKeys?:string;
+
 }
 const { SubMenu } = Menu;
 
@@ -25,31 +28,37 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         super(props);
         this.state ={
             collapsed: false,
+            selectedKey: this.props.selectedKey,
+            // openKeys: this.props.openKeys
         }
     }   
 
 
   toggleCollapsed = () => {
+    console.log()
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
-
+  handleClick=(e:any)=> {
+    console.log(e);
+  }
   render() {
+    let {selectedKey, openKeys} = this.state;
     return (
       <div style={{ width: 256 }}>
         <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
           {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
         </Button>
         <Menu
-        selectedKeys={[this.props.selectedKey]}
-        openKeys={[this.props.openKeys]}
+        onClick={this.handleClick}
+        selectedKeys={[selectedKey]}
           mode="inline"
           theme="light"
           inlineCollapsed={this.state.collapsed}
         >
         <SubMenu
-            key="sub-1"
+            key="sub1"
             title={
             <span>
                 <MailOutlined />
@@ -62,38 +71,41 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
             <Menu.Item key="reports" >
                 <NavLink to={`/admin/reports`}>Фінансові звіти</NavLink>
             </Menu.Item>
+            <Menu.Item key="common" >
+                <NavLink to={`/admin/common`}>Загальні налаштування</NavLink>
+            </Menu.Item>
             <Menu.Item key="animals">
                 <NavLink to={`/admin/animals`}>Тварини</NavLink>
             </Menu.Item>
         </SubMenu>
-          <SubMenu
-            key="sub-2"
-            title={
-              <span>
-                <MailOutlined />
-                <span>Navigation One</span>
-              </span>
-            }>
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
+        <SubMenu
+          key="sub2"
+          title={
+            <span>
+              <MailOutlined />
+              <span>Navigation One</span>
+            </span>
+          }>
+          <Menu.Item key="5">Option 5</Menu.Item>
+          <Menu.Item key="6">Option 6</Menu.Item>
+          <Menu.Item key="7">Option 7</Menu.Item>
+          <Menu.Item key="8">Option 8</Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="sub3"
+          title={
+            <span>
+              <AppstoreOutlined />
+              <span>Navigation Two</span>
+            </span>
+          }>
+          <Menu.Item key="9">Option 9</Menu.Item>
+          <Menu.Item key="10">Option 10</Menu.Item>
+          <SubMenu key="sub4" title="Submenu">
+            <Menu.Item key="11">Option 11</Menu.Item>
+            <Menu.Item key="12">Option 12</Menu.Item>
           </SubMenu>
-          <SubMenu
-            key="sub-3"
-            title={
-              <span>
-                <AppstoreOutlined />
-                <span>Navigation Two</span>
-              </span>
-            }>
-            <Menu.Item key="9">Option 9</Menu.Item>
-            <Menu.Item key="10">Option 10</Menu.Item>
-            <SubMenu key="sub4" title="Submenu">
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
-            </SubMenu>
-          </SubMenu>
+        </SubMenu>
         </Menu>
       </div>
     );

@@ -21,7 +21,6 @@ export async function fetchFinancialReport(requestParams?: IRequestParams): Prom
     return res.data
 }
 export async function fetchFinancialReporDocument(id: string): Promise<any> {
-   
     const res = await API.get(`Documents/${id}`, {responseType: 'arraybuffer'});
     return res
 }
@@ -30,7 +29,6 @@ export async function deleteFinancialReporDocument(id: string): Promise<any> {
     return res
 }
 export async function addFinancialReporDocument(report?: any): Promise<any> {
-    debugger
     const res = await API.post(`FinancialReport`, report);
     return res.data
 }
