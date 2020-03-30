@@ -41,6 +41,7 @@ namespace AnimalRescue.BusinessLogic
                 new DonationConfigurationMappingProfile(),
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
+                new WellKnownTagMappingProfile(),
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile()
             });
@@ -59,6 +60,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
             services.AddScoped<ITagService, TagService>();
+            services.AddScoped<IWellKnownTagService, WellKnownTagService>();
             services.AddScoped<IJwtFactory, JwtFactory>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();

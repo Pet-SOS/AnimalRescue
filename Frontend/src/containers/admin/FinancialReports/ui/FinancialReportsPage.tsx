@@ -19,7 +19,6 @@ interface IPropTypes {
   fetchFinancialReport: () => {};
 };
 export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
-
   constructor(props: any) {
     super(props);
     this.state = {
@@ -86,7 +85,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
       <div className='boxAdmin'>
         <AdminMenu 
           selectedKey={'reports'}
-          openKeys={'sub-1'}
+          openKeys={'sub1'}
         />
         <div className='main-report'>
           <div className='title'> Завантажити новий звiт</div>
@@ -115,7 +114,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
             <div className='field'>
               <label>Додати дату:</label><br></br>
               <DatePicker
-                placeholder=''
+              defaultValue={moment('YYYY-MM-DD')}
                 onChange={(e) => this.handleFileInfo('date', e)}
               />
             </div>

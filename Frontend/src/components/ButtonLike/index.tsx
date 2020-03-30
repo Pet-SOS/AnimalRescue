@@ -16,14 +16,6 @@ export const ButtonLike: React.FC<IPropTypes> = ({ id }: IPropTypes) => {
   const onLikeClick = () => {
     if (!!id) {
       store.dispatch(onAnimalFavoriteButtonClicked(id));
-      if (!!id && favoriteAnimalsIds.includes(id)) {
-        if (favoriteAnimalsIds.length > 1) {
-          store.dispatch(actionFetchFavoriteAnimalsRequest(favoriteAnimalsIds.filter(i => i !== id)));
-        }
-      }
-      else {
-        store.dispatch(actionFetchFavoriteAnimalsRequest([...favoriteAnimalsIds, id]));
-      }
     }
   }
   const isActive = (): boolean => {
