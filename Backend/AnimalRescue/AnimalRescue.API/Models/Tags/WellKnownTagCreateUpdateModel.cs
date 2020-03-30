@@ -25,6 +25,6 @@ namespace AnimalRescue.API.Models.Tags
 
         [JsonPropertyName(PropertyConstants.Common.Values)]
         [JsonProperty(PropertyConstants.Common.Values)]
-        public List<LanguageValue> Values { get; set; }
+        public List<LanguageValueModel> Values { get; set; }
     }
 }

@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
-using AnimalRescue.Contracts.Common.Constants;
+﻿using AnimalRescue.Contracts.Common.Constants;
+
 using Newtonsoft.Json;
+
+using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.Tags
 {
-    public class LanguageValue
+    public class LanguageValueModel
     {
         [JsonPropertyName(PropertyConstants.Common.Lang)]
         [JsonProperty(PropertyConstants.Common.Lang)]
