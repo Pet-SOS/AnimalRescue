@@ -39,7 +39,7 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
         const jwt = getJwt();
        
         if(!!jwt){
-            this.props.history.push(`${this.props.location.state}`)
+            this.props.history.push(`/admin`)
         }
     }
 

@@ -23,12 +23,6 @@ namespace AnimalRescue.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(IEnumerable<WellKnownTagDto> wellKnownTagDto)
-        {
-            var wellKnownTag = _mapper.Map<IEnumerable<WellKnownTagDto>, IEnumerable<WellKnownTag>>(wellKnownTagDto);
-            await _wellKnownTagRepository.CreateAsync(wellKnownTag);
-        }
-
         public async Task<List<WellKnownTagDto>> WhereAsync(List<WellKnownTagDto> value)
         {
             var wellKnownTags = _mapper.Map<List<WellKnownTagDto>, List<WellKnownTag>>(value);

@@ -45,10 +45,17 @@ namespace AnimalRescue.API.Core
             CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
-            CreateMap<TagModel, LanguageValueDto>();
-            CreateMap<LanguageValueDto, TagModel>();
+            CreateMap<TagModel, TagDto>();
+            CreateMap<TagDto, TagModel>();
             CreateMap<TagCreateUpdateModel, TagModel>();
-            CreateMap<TagCreateUpdateModel, LanguageValueDto>();
+            CreateMap<TagCreateUpdateModel, TagDto>();
+
+            CreateMap<LanguageValueModel, LanguageValueDto>();
+            CreateMap<LanguageValueDto, LanguageValueModel>();
+            CreateMap<WellKnownTagModel, WellKnownTagDto>();
+            CreateMap<WellKnownTagDto, WellKnownTagModel>();
+            CreateMap<WellKnownTagCreateUpdateModel, WellKnownTagDto>();
+            CreateMap<WellKnownTagCreateUpdateModel, WellKnownTagDto>();
 
             CreateMap<EmployeeModel, EmployeeDto>();
             CreateMap<EmployeeDto, EmployeeModel>();
