@@ -326,4 +326,9 @@ export default {
   breadcrumbFinanceReports: 'Посмотреть финансовую отчетность',
 
   backToAnimalsCatalog: 'Вернуться к поиску друга',
+
+  sizeTagCategory: 'Размер',
+  healthTagCategory: 'Здоровье',
+
+  backToAllTags: 'Вернуться к тегам',
 }

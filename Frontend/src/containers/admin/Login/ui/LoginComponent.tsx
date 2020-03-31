@@ -17,6 +17,7 @@ interface IState  {
     email: string; //admin@animalrescue.com
     password: string; //TestPassword123#
     rememberMe: boolean;
+    showPass: boolean;
 }
 
 export class LoginComponent extends React.Component <IPropTypes, IState>{
@@ -25,7 +26,8 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
       this.state = {
         email: '',
         password: '',
-        rememberMe:true
+        rememberMe: true,
+        showPass: false
       };
     }
 
@@ -50,12 +52,9 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
     }
 
     showPass() {
-        // let x = document.getElementById("pass");
-        // if (x.type === "password") {
-        //     x.type = "text";
-        // } else {
-        //     x.type = "password";
-        // }
+        this.setState(prevState => ({
+          showPass: !prevState.showPass
+        }))
     };
 
     render(){
@@ -77,8 +76,8 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
                             <form onSubmit={(e)=>this.handleSubmit(e)}>
                                 <div className="form-row"><input onChange={(e)=>this.handleChangeInField(e, 'email')} type="text" placeholder="Эл.адреса" name="uname" required/></div>
                                 <div className="form-row">
-                                    <input onChange={(e)=>this.handleChangeInField(e, 'password')} id="pass" type="password" placeholder="Пароль" name="psw" required/>
-                                    <label className="password-checkbox" onClick={()=>this.showPass}><input type="checkbox" /><i>show pass</i></label>
+                                    <input onChange={(e)=>this.handleChangeInField(e, 'password')} id="pass" type={this.state.showPass ? "text" : "password"} placeholder="Пароль" name="psw" required/>
+                                    <label className="password-checkbox"><input type="checkbox" onInput={() => this.showPass()} checked={this.state.showPass}/><i>show pass</i></label>
                                     <span className="text-error">
                                         Введені електронна адреса або пароль невірні. Будь ласка, спробуйте ще раз.
                                     </span>
