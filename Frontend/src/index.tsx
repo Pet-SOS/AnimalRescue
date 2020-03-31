@@ -9,7 +9,9 @@ import './styles/index.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { createInterceptors } from './api/interceptors/interceptors';
+import windowResizeHandler from './assets/shared/windowResizeHandler';
 
+windowResizeHandler();
 createInterceptors();
 
 library.add(faEnvelope, faKey);
@@ -24,6 +26,7 @@ ReactDOM.render(
 );
 
 history.listen(() => window.scrollTo(0, 0))
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

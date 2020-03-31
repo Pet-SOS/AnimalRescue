@@ -13,7 +13,7 @@ export const defaultInterceptors = (api: AxiosInstance): void => {
     error => Promise.reject(error)
   );
   api.interceptors.response.use(
-    response => response.status === 404 ? Promise.reject(response) : response,
+    response => response.status !== 200 && response.status !== 201 ? Promise.reject(response) : response,
     error => Promise.reject(error)
   )
 }

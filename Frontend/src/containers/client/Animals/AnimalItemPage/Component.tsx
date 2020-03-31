@@ -8,7 +8,7 @@ import { IRequestParams, RequestFilterOperators } from '../../../../api/requestO
 import { IAnimalItemState } from '../store/state/animal.state';
 import { IAnimalsResponse, AnimalKind } from '../../../../api/animals';
 import { selectAnimalItem } from '../store/selectors/animalitem.selector';
-import { Slider, ThumbSlidesAlignment } from '../../../../components/Slider';
+import { Slider } from '../../../../components/Slider';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { AnimalsSlider } from '../AnimalsSlider';
 import { sickAnimalsCheckAndLoadDefault } from '../store/selectors';
