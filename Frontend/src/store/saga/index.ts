@@ -12,6 +12,7 @@ import { watchFinancialReport } from '../../containers/client/FinancialReports/s
 import { watchYouTubeVideosActions } from './youtube-videos.saga';
 import { watchLoginRequestHomePage } from '../../containers/admin/Login/store/saga';
 import { watchConfig } from './config.saga';
+import { watchTags } from './tags.saga';
 
 export function* appSaga() {
     try {
@@ -27,7 +28,8 @@ export function* appSaga() {
           watchAnimalItem(),
           watchFinancialReport(),
           watchYouTubeVideosActions(),
-          watchLoginRequestHomePage()
+          watchLoginRequestHomePage(),
+          watchTags(),
         ]);
     } catch (e) {
         logger.error(e);

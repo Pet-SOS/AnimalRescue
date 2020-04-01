@@ -50,7 +50,7 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
             <div className='boxAdmin'>
                 <AdminMenu
                 selectedKey={'animals'}
-                openKeys={'sub-1'}
+                openKeys={['sub2', 'sub1']}
                 />
                 <main className="home-page">
                     <div className="container">

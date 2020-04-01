@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import i18n from 'i18n-js';
 import {ICustomAppState} from "../store/state";
-import { getDefaultLocale } from "./store/state";
+import { getDefaultLocale, ELocales } from "./store/state";
 import en from './translations/en';
 import ru from './translations/ru';
 import ua from './translations/ua';
@@ -14,12 +14,13 @@ i18n.translations = { en, ru, ua, de };
 
 interface IPropTypes {
   keyStr: string;
-  currentLocale: string;
+  currentLocale: ELocales;
   default?: string;
+  locale?: ELocales;
 }
 
 const TI18nMain = (props: IPropTypes) => {
-  i18n.locale = props.currentLocale;
+  i18n.locale = !!props.locale ? props.locale : props.currentLocale;
   const params: any = {};
   if(props.default){
     params.defaultValue = props.default

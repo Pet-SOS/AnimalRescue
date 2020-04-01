@@ -13,8 +13,11 @@ aside {
     width: 100%;
     flex-basis: 100%;
     padding-top: 0;
-    position: relative;
-    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
   }
 
   &:before {
@@ -146,6 +149,7 @@ aside {
         @include media('≤phone') {
           width: 20%;
           margin: 0 !important;
+          border-right: 0;
         }
 
         &:nth-child(3) {
@@ -157,6 +161,11 @@ aside {
       }
     }
 
+    .ant-menu-item:active,
+    .ant-menu-submenu-title:active {
+      background-color: $input-bg-color;
+    }
+
     .ant-menu-sub {
       background-color: transparent;
 
@@ -164,6 +173,7 @@ aside {
         @include animate(transform 2s);
         background-color: $white;
         display: block !important;
+        padding: 0 24px 24px;
         position: absolute;
         top: 0;
         left: 0;
@@ -174,9 +184,28 @@ aside {
 
       .ant-menu-item {
         @include media('≤phone') {
-          padding-left: 16px !important;
+          padding: 16px 16px 16px 0 !important;
+          font-size: 18px;
+          line-height: 23px !important;
+          text-align: left;
+          font-weight: 700;
+          color: #62738D;
+          margin: 0 !important;
+        }
+
+        &:not(:last-child) {
+          @include media('≤phone') {
+            border-bottom: 1px solid $bg-lite-lite !important;
+          }
+        }
+
+        > a {
+          @include media('≤phone') {
+            align-items: flex-start !important;
+          }
         }
       }
+
     }
 
     .ant-menu-submenu-open {
@@ -226,10 +255,6 @@ aside {
     i {
       font-size: 0;
 
-      @include media('≤phone') {
-        //display: block;
-      }
-
       &:before {
         font-size: 24px;
         margin-right: 8px;
@@ -257,10 +282,6 @@ aside {
       }
     }
   }
-  //.ant-menu-submenu > .ant-menu {
-  //  background: transparent;
-  //}
-
 
   .ant-menu-inline .ant-menu-submenu-title {
     padding-right: 24px;
@@ -273,6 +294,10 @@ aside {
 
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: $input-bg-color;
+    
+    @include media('≤phone') {
+        background-color: transparent;
+    }
   }
 
   .ant-menu-item.ant-menu-item-selected {
@@ -294,6 +319,10 @@ aside {
   .ant-menu-vertical-right .ant-menu-item::after,
   .ant-menu-inline .ant-menu-item::after {
     border-right: 4px solid $orange;
+
+    @include media('≤phone') {
+      border: 0;
+    }
   }
 
   .ant-menu-vertical .ant-menu-item:not(:last-child),
@@ -301,6 +330,10 @@ aside {
   .ant-menu-vertical-right .ant-menu-item:not(:last-child),
   .ant-menu-inline .ant-menu-item:not(:last-child) {
     margin: 0 0 4px;
+    
+    @include media('≤phone') {
+      margin-bottom: 0;
+    }
   }
 
   .ant-menu-item:hover,
@@ -372,9 +405,9 @@ aside {
   .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
   .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
     line-height: 24px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    height: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: auto;
 
     @include media('≤phone') {
       height: auto;

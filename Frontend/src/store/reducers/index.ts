@@ -13,6 +13,7 @@ import { ADMIN_LOGIN_KEY, AdminLoginReducer } from "../../containers/admin/Login
 import { youtubeVideosReducer, YOUTUBE_VIDEOS_KEY } from "./youtube-videos.reducer";
 import { CONFIG_KEY, configReducer } from './config.reducer';
 import { APP_LANGUAGE_KEY } from './../../i18n/store/reducer/index';
+import { TAGS_KEY, tagsReducer } from './tags.reducer';
 
 export const createReducers = () => {
   return combineReducers({
@@ -28,6 +29,7 @@ export const createReducers = () => {
     [CONFIG_KEY]: configReducer,
     [VACANCIES_KEY]: vacanciesReducer,
     [REPORT_KEY]: financialReportReducer,
+    [TAGS_KEY]: tagsReducer,
     [YOUTUBE_VIDEOS_KEY]: youtubeVideosReducer
   })
 }

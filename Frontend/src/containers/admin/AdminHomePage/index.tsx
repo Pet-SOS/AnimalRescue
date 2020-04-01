@@ -23,7 +23,7 @@ export class AdminHomePage extends React.Component <IPropTypes, IState>{
         <div className='boxAdmin'>
             <AdminMenu
                 selectedKey={'admin'}
-                openKeys={'sub1'}
+                openKeys={['sub2', 'sub1']}
             />
             <main>
                 <div className="container">

@@ -16,12 +16,11 @@ import {ReactComponent as Logo} from "../../../assets/header/logo.svg";
 
 interface IPropTypes{
     selectedKey:string;
-    openKeys:string
+    openKeys:string[];
 }
 interface IState{
     collapsed: boolean;
     selectedKey:string;
-    openKeys?:string;
 
 }
 const { SubMenu } = Menu;
@@ -47,7 +46,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
     console.log(e);
   }
   render() {
-    let {selectedKey, openKeys} = this.state;
+    let {selectedKey} = this.state;
     return (
       <aside>
           <div className="logo-main">
@@ -61,21 +60,18 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                   <span>Нова заявка</span><i className="icon-close">icon</i>
               </Button>
           </div>
-
-        {/*<Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>*/}
-        {/*  {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}*/}
-        {/*</Button>*/}
         <nav>
             <Menu
                 onClick={this.handleClick}
                 selectedKeys={[selectedKey]}
+                openKeys={this.props.openKeys}
                 mode="inline"
                 theme="light"
                 inlineCollapsed={this.state.collapsed}
                 className="main-admin-nav"
             >
-                <Menu.Item key="animals"><NavLink to={`/admin/animals`}><i className="icon-step-1">icon</i>Тварини</NavLink></Menu.Item>
-                <Menu.Item><NavLink to={`/admin/animals`}><i className="icon-tag">icon</i>Теги</NavLink></Menu.Item>
+                <Menu.Item key="animals-list"><NavLink to={`/admin/animals-list`}><i className="icon-step-1">icon</i>Тварини</NavLink></Menu.Item>
+                <Menu.Item key="tags"><NavLink to={`/admin/tags`}><i className="icon-tag">icon</i>Теги</NavLink></Menu.Item>
                 <SubMenu
                     key="sub1"
                     title={
@@ -97,7 +93,8 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                         <span>Інше</span>
                     </span>
                     }>
-                    <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-request">icon</i>Заявки</NavLink></Menu.Item>
+                    <Menu.Item disabled><NavLink to={`/admin/`}><i className="icon-request">icon</i>Заявки</NavLink></Menu.Item>
+                    <Menu.Item><NavLink to={`/admin/animals`}><i className="icon-request">icon</i>Тварини old</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-people">icon</i>Працівники</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-date">icon</i>Графік чергувань</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-location">icon</i>Перетримки</NavLink></Menu.Item>

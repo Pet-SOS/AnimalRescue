@@ -85,7 +85,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
       <div className='boxAdmin'>
         <AdminMenu 
           selectedKey={'reports'}
-          openKeys={'sub1'}
+          openKeys={['sub2', 'sub1']}
         />
         <main className='main-report'>
           <div className='title'> Завантажити новий звiт</div>
