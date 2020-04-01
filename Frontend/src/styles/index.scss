@@ -46,6 +46,11 @@ header {
     margin: 0 0 1.25rem;
   }
 }
+table {
+  width:100%;
+  table-layout: fixed;
+  overflow-wrap: break-word;
+}
 .main {
   flex: 1 0 auto;
   display: flex;

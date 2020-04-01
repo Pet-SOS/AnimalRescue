@@ -80,6 +80,9 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
             <Menu.Item key="animals">
                 <NavLink to={`/admin/animals`}>Тварини-old</NavLink>
             </Menu.Item>
+            <Menu.Item key="tags">
+              <NavLink to={`/admin/tags`}>Теги</NavLink>
+            </Menu.Item>
         </SubMenu>
         <SubMenu
           key="sub2"

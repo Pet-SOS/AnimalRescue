@@ -323,4 +323,9 @@ export default {
   breadcrumbFinanceReports: 'View the financial statements',
 
   backToAnimalsCatalog: 'Back to friend search',
+
+  sizeTagCategory: 'Size',
+  healthTagCategory: 'Health',
+
+  backToAllTags: 'Back to tags',
 }

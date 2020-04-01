@@ -324,4 +324,9 @@ export default {
   breadcrumbFinanceReports: 'Подивитися фінансову звітність',
 
   backToAnimalsCatalog: 'Повернутися до пошуку друга',
+
+  sizeTagCategory: 'Розмір',
+  healthTagCategory: 'Здоров\'я',
+
+  backToAllTags: 'Повернутися до тегів',
 }
