@@ -331,4 +331,7 @@ export default {
   healthTagCategory: 'Здоровье',
 
   backToAllTags: 'Вернуться к тегам',
+
+  confirmTitle: 'Подтвердить',
+  cancelTitle: 'Отменить',
 }

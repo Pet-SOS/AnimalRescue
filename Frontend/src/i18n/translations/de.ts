@@ -332,4 +332,7 @@ addReport: 'Bericht herunterladen',
   healthTagCategory: 'Gesundheit',
 
   backToAllTags: 'Zurück zu den Tags',
+
+  confirmTitle: 'Bestätigen',
+  cancelTitle: 'Stornieren',
 }

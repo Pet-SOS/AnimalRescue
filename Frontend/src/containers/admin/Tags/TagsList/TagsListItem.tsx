@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ITag, ITagValue } from '../../../../api/tags';
 import { ELocales } from '../../../../i18n/store/state';
 import { actionDeleteTag } from '../../../../store/actions/tags.actions';
+import customConfirm from './../../../../components/Confirm';
 import './style.scss';
 
 interface IPropTypes {
@@ -18,6 +19,16 @@ const TagsListItem: React.FC<IPropTypes> = ({ tag, deleteTag }) => {
 
     return !!currentValue && !!currentValue.value ? currentValue.value : '...';
   }
+  const onTagDelete = async () => {
+    const confirm = await customConfirm(
+      `Видалити тег '${getTagName(ELocales.ua)}'?`,
+      'Видалити',
+      'Скасувати'
+    );
+    if (!!confirm) {
+      deleteTag(tag.id as string)
+    }
+  }
 
   return (
     <tr>
@@ -27,7 +38,7 @@ const TagsListItem: React.FC<IPropTypes> = ({ tag, deleteTag }) => {
       <td>{getTagName(ELocales.ru)}</td>
       <td>0</td>
       <td><button type="button">Edit</button></td>
-      <td><button type="button" onClick={() => deleteTag(tag.id as string)}>Delete</button></td>
+      <td><button type="button" onClick={onTagDelete}>Delete</button></td>
     </tr>
   )
 }

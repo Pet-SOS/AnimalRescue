@@ -329,4 +329,7 @@ export default {
   healthTagCategory: 'Здоров\'я',
 
   backToAllTags: 'Повернутися до тегів',
+
+  confirmTitle: 'Підтвердити',
+  cancelTitle: 'Відмінити',
 }
