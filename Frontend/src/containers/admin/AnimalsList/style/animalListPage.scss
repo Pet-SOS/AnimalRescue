@@ -1,0 +1,16 @@
+.animals-list{
+    width:100%;
+    .box-action{
+        display: flex;
+        justify-content: space-between;
+        .button.blue{
+            padding: 0.4rem 1.5rem!important;
+        }
+    }
+    table{
+        width: 100%;
+        td{
+            height: 60px;
+        }
+    }
+}

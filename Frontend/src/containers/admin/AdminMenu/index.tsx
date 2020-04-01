@@ -29,7 +29,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         this.state ={
             collapsed: false,
             selectedKey: this.props.selectedKey,
-            // openKeys: this.props.openKeys
+            //openKeys: this.props.openKeys
         }
     }   
 
@@ -57,6 +57,9 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
           theme="light"
           inlineCollapsed={this.state.collapsed}
         >
+        <Menu.Item key="animals-list">
+          <NavLink to={`/admin/animals-list`}>Тварини</NavLink>
+        </Menu.Item>
         <SubMenu
             key="sub1"
             title={
@@ -75,7 +78,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                 <NavLink to={`/admin/common`}>Загальні налаштування</NavLink>
             </Menu.Item>
             <Menu.Item key="animals">
-                <NavLink to={`/admin/animals`}>Тварини</NavLink>
+                <NavLink to={`/admin/animals`}>Тварини-old</NavLink>
             </Menu.Item>
             <Menu.Item key="tags">
               <NavLink to={`/admin/tags`}>Теги</NavLink>
