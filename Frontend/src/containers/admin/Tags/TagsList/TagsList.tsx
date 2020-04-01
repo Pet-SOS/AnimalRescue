@@ -11,7 +11,7 @@ import { RequestFilterOperators } from '../../../../api/requestOptions';
 import { AdminMenu } from '../../AdminMenu';
 import { TI18n } from '../../../../i18n';
 import { ELocales } from '../../../../i18n/store/state';
-import { TagsListItem } from './TagsListItem';
+import TagsListItem from './TagsListItem';
 import { BlockLink } from '../../../../components/BlockLink';
 import './style.scss';
 

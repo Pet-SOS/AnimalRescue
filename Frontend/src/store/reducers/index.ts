@@ -14,6 +14,7 @@ import { youtubeVideosReducer, YOUTUBE_VIDEOS_KEY } from "./youtube-videos.reduc
 import { CONFIG_KEY, configReducer } from './config.reducer';
 import { APP_LANGUAGE_KEY } from './../../i18n/store/reducer/index';
 import { TAGS_KEY, tagsReducer } from './tags.reducer';
+import { SNACKBAR_KEY, snackbarReducer } from './snackbar.reducer';
 
 export const createReducers = () => {
   return combineReducers({
@@ -29,6 +30,7 @@ export const createReducers = () => {
     [CONFIG_KEY]: configReducer,
     [VACANCIES_KEY]: vacanciesReducer,
     [REPORT_KEY]: financialReportReducer,
+    [SNACKBAR_KEY]: snackbarReducer,
     [TAGS_KEY]: tagsReducer,
     [YOUTUBE_VIDEOS_KEY]: youtubeVideosReducer
   })
