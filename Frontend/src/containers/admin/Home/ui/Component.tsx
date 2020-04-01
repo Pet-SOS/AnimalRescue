@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/home.scss';
 import {DEFAULT_ANIMAL, IAnimal, IAnimalsResponse} from "../../../../api/animals";
-import {AnimalEditCard} from "../../AnimalEditCard";
+import {AnimalEditCard} from "../../AnimalEditCard/ui/AnimalEditCard";
 import { AdminMenu } from '../../AdminMenu';
 
 interface AdminHomeProps {

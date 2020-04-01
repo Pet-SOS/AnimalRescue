@@ -116,7 +116,6 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
 }
 
     render(){ 
-        console.log('==>',this.state)
         return(
             <form onSubmit={(e)=>this.handleSubmit(e)}>
             <h3>Контактна інформація</h3>
