@@ -18,6 +18,21 @@ export const actionGetTagsListError = createAction(
   (resolve) => (error: Error) => resolve(error)
 );
 
+export const actionDeleteTag = createAction(
+  'DELETE_TAG_REQUEST',
+  (resolve) => (tagId: string) => resolve(tagId)
+);
+
+export const actionDeleteTagSuccess = createAction(
+  'DELETE_TAG_SUCCESS',
+  (resolve) => (tagId: string) => resolve(tagId)
+);
+
+export const actionDeleteTagError = createAction(
+  'DELETE_TAG_ERROR',
+  (resolve) => (error: Error) => resolve(error)
+);
+
 export const actionClearTagsList = createAction(
   'CLEAR_TAGS_LIST'
 )
