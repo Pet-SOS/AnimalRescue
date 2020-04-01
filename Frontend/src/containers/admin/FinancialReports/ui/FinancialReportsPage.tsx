@@ -87,7 +87,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
           selectedKey={'reports'}
           openKeys={'sub1'}
         />
-        <div className='main-report'>
+        <main className='main-report'>
           <div className='title'> Завантажити новий звiт</div>
           <form onSubmit={(e) => this.handleSubmit(e)} >
             <div className='field'>
@@ -143,7 +143,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
               </Tabs>
             </div>
           }
-        </div>
+        </main>
       </div>
     );
   }

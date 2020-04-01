@@ -1,0 +1,466 @@
+@import '../../../styles/include-media';
+@import '../../../styles/base/variables';
+@import '../../../styles/variables';
+@import '../../../styles/base/helpers';
+@import '../../../styles/base/mixins';
+
+aside {
+  width: 312px;
+  flex: 0 0 312px;
+  padding-top: 16px;
+
+  @include media('≤phone') {
+    width: 100%;
+    flex-basis: 100%;
+    padding-top: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  &:before {
+    @include size(68px);
+    display: block;
+    border-radius: 100%;
+    box-shadow: 0px -2px 12px rgba(88, 113, 172, 0.2);
+    //background-color: #f9f6f7;
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include media('≤phone') {
+      content: '';
+    }
+
+  }
+
+  nav {
+    @include media('≤phone') {
+      position: relative;
+      background-color: #f9f6f7;
+      box-shadow: 0px -2px 12px rgba(88, 113, 172, 0.2);
+    }
+  }
+
+  .logo-main {
+    padding: 0 24px;
+    margin-bottom: 16px;
+
+    @include media('≤phone') {
+      display: none;
+    }
+
+    .logo {
+      @include size(48px);
+      margin-right: 8px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      line-height: 1;
+    }
+  }
+
+  .wrap-btn {
+    text-align: center;
+    margin-bottom: 16px;
+
+    @include media('≤phone') {
+      @include size(68px);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f9f6f7;
+      border-radius: 100%;
+      top: -24px;
+      left: 50%;
+      z-index: 1;
+      transform: translateX(-50%);
+      margin: 0;
+    }
+
+    .button {
+      line-height: 24px;
+      padding: 12px 24px;
+      min-width: 225px;
+
+      @include media('≤phone') {
+        @include size(48px)
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        min-width: 0;
+        padding: 10px;
+        border-radius: 100%;
+      }
+
+      span {
+        @include media('≤phone') {
+          display: none;
+        }
+      }
+
+      i {
+        display: none;
+        font-size: 0;
+
+        @include media('≤phone') {
+          @include size(14px);
+          display: block;
+          transform: rotate(45deg);
+
+        }
+
+        &:before {
+          font-size: 14px;
+          color: inherit;
+        }
+      }
+    }
+  }
+
+  .ant-menu {
+    font-weight: 700;
+    font-size: 18px;
+    background: transparent;
+    color: $text-color;
+    border: 0;
+
+    @include media('≤phone') {
+      font-size: 14px;
+    }
+
+    &.ant-menu-sub {
+      font-weight: 400;
+    }
+
+
+    &.main-admin-nav {
+      @include media('≤phone') {
+        display: flex;
+      }
+
+      > li {
+        @include media('≤phone') {
+          width: 20%;
+          margin: 0 !important;
+        }
+
+        &:nth-child(3) {
+          @include media('≤phone') {
+            width: 40%;
+            padding-left: 20%;
+          }
+        }
+      }
+    }
+
+    .ant-menu-sub {
+      background-color: transparent;
+
+      @include media('≤phone') {
+        @include animate(transform 2s);
+        background-color: $white;
+        display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        transform: translateY(0);
+      }
+
+      .ant-menu-item {
+        @include media('≤phone') {
+          padding-left: 16px !important;
+        }
+      }
+    }
+
+    .ant-menu-submenu-open {
+      .ant-menu-sub {
+        @include media('≤phone') {
+          transform: translateY(-100%);
+          box-shadow: 0px -6px 12px rgba(233, 230, 231, 0.8);
+          border-radius: 24px 24px 0 0;
+        }
+      }
+    }
+
+    .ant-menu-item > a,
+    .ant-menu-submenu-title {
+      //@include animate(color);
+      transition-duration: 0s;
+      color: inherit;
+
+      @include media('≤phone') {
+        margin: 0;
+      }
+
+      &:only-child {
+        display: flex;
+        align-items: center;
+
+        @include media('≤phone') {
+          flex-direction: column;
+        }
+      }
+
+      i:before,
+      i:after {
+        color: $text-lite-color;
+      }
+
+      &:hover {
+        color: $orange;
+
+        i:before,
+        i:after {
+          color: inherit;
+        }
+      }
+    }
+
+    i {
+      font-size: 0;
+
+      @include media('≤phone') {
+        //display: block;
+      }
+
+      &:before {
+        font-size: 24px;
+        margin-right: 8px;
+
+        @include media('≤phone') {
+          margin: 0;
+        }
+      }
+    }
+
+    .ant-menu-submenu-arrow {
+      @include media('≤phone') {
+        display: none;
+      }
+    }
+
+    .icon-tag:before {
+      font-size: 14px;
+      padding: 0 5px;
+
+      @include media('≤phone') {
+        display: inline-block;
+        vertical-align: top;
+        padding: 5px;
+      }
+    }
+  }
+  //.ant-menu-submenu > .ant-menu {
+  //  background: transparent;
+  //}
+
+
+  .ant-menu-inline .ant-menu-submenu-title {
+    padding-right: 24px;
+  }
+
+  .ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+    width: 100%;
+  }
+
+
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: $input-bg-color;
+  }
+
+  .ant-menu-item.ant-menu-item-selected {
+    color: $orange;
+
+    a i:before {
+      color: $orange;
+    }
+  }
+
+  .ant-menu-item-selected > a *,
+  .ant-menu-item-selected > a,
+  .ant-menu-item-selected > a:hover {
+    color: $orange !important;
+  }
+
+  .ant-menu-vertical .ant-menu-item::after,
+  .ant-menu-vertical-left .ant-menu-item::after,
+  .ant-menu-vertical-right .ant-menu-item::after,
+  .ant-menu-inline .ant-menu-item::after {
+    border-right: 4px solid $orange;
+  }
+
+  .ant-menu-vertical .ant-menu-item:not(:last-child),
+  .ant-menu-vertical-left .ant-menu-item:not(:last-child),
+  .ant-menu-vertical-right .ant-menu-item:not(:last-child),
+  .ant-menu-inline .ant-menu-item:not(:last-child) {
+    margin: 0 0 4px;
+  }
+
+  .ant-menu-item:hover,
+  .ant-menu-item-active,
+  .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+  .ant-menu-submenu-active,
+  .ant-menu-submenu-title:hover {
+    color: inherit;
+  }
+
+
+
+  .ant-menu-item-disabled > a,
+  .ant-menu-submenu-disabled > a {
+    color: rgba($text-color, 0.5) !important;
+
+    i {
+      color: inherit;
+
+      &:before,
+      &:after {
+        color:inherit;
+      }
+    }
+  }
+
+  .icon-tag:before {
+    font-size: 20px;
+  }
+
+
+  .ant-menu-submenu-selected {
+    color: inherit;
+  }
+
+  .ant-menu-vertical .ant-menu-item,
+  .ant-menu-vertical-left .ant-menu-item,
+  .ant-menu-vertical-right .ant-menu-item,
+  .ant-menu-inline .ant-menu-item,
+  .ant-menu-vertical .ant-menu-submenu-title,
+  .ant-menu-vertical-left .ant-menu-submenu-title,
+  .ant-menu-vertical-right .ant-menu-submenu-title,
+  .ant-menu-inline .ant-menu-submenu-title {
+    font-size: inherit;
+    
+    @include media('≤phone') {
+      //font-size: 0;
+    }
+
+    > span {
+      display: flex;
+      align-items: center;
+
+      @include media('≤phone') {
+        flex-direction: column;
+      }
+    }
+  }
+
+
+  .ant-menu-sub.ant-menu-inline > .ant-menu-item,
+  .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical > .ant-menu-item,
+  .ant-menu-vertical-left > .ant-menu-item,
+  .ant-menu-vertical-right > .ant-menu-item,
+  .ant-menu-inline > .ant-menu-item,
+  .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title,
+  .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    line-height: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    height: 44px;
+
+    @include media('≤phone') {
+      height: auto;
+      line-height: 20px;
+    }
+  }
+
+  .ant-menu-submenu-vertical > .ant-menu-submenu-title .ant-menu-submenu-arrow,
+  .ant-menu-submenu-vertical-left > .ant-menu-submenu-title .ant-menu-submenu-arrow,
+  .ant-menu-submenu-vertical-right > .ant-menu-submenu-title .ant-menu-submenu-arrow,
+  .ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+    transition: none;
+    position: static;
+
+    &:before {
+      content: none;
+    }
+
+    &:after {
+      @include animate(transform);
+      @extend %icomoon;
+      content: "\e90a";
+      height: auto;
+      width: auto;
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 6px;
+      background: none;
+    }
+  }
+
+  .ant-menu-submenu-vertical > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-vertical-left > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-vertical-right > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-vertical > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-vertical-left > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-vertical-right > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before {
+    background: none;
+  }
+
+  .ant-menu-submenu-open.ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+    transform: none;
+  }
+
+  .ant-menu-submenu-open.ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
+    transform: translate(0, -50%) rotate3d(1, 0, 0, 180deg);
+  }
+
+
+  .etc-sub-menu {
+    .ant-menu-submenu-title {
+      display: none;
+
+      @include media('≤phone') {
+        display: block;
+      }
+    }
+
+    .ant-menu-item {
+      padding-left: 24px !important;
+      font-weight: 700;
+
+      @include media('≤phone') {
+        padding-left: 0;
+      }
+    }
+
+    .ant-menu-hidden {
+      display: block;
+
+      @include media('≤phone') {
+        display: none;
+      }
+    }
+
+    .ant-menu-sub {
+      i {
+        @include media('≤phone') {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
