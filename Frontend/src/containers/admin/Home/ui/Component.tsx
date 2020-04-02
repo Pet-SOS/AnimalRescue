@@ -48,13 +48,15 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
     render() {
         return (
             <div className='boxAdmin'>
-                <AdminMenu 
+                <AdminMenu
                 selectedKey={'animals'}
-                openKeys={'sub-1'}
+                openKeys={['sub2', 'sub1']}
                 />
-                <div className="home-page">
-                    {this.renderAnimals(this.props.animalsList.data)}
-                </div>
+                <main className="home-page">
+                    <div className="container">
+                        {this.renderAnimals(this.props.animalsList.data)}
+                    </div>
+                </main>
             </div>
            
         )

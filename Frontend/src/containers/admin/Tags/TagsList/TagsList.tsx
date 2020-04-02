@@ -34,7 +34,7 @@ const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, clearTagsList, tagsList
 
   return (
     <div className='boxAdmin'>
-      <AdminMenu selectedKey={'tags'} openKeys={'sub-1'} />
+      <AdminMenu selectedKey={'tags'} openKeys={['sub2', 'sub1']}/>
       <div className='tags-list-holder'>
         <BlockLink
           title={'Повернутися до тегів'}

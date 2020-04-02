@@ -26,38 +26,40 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
             <div className='boxAdmin'>
                 <AdminMenu
                     selectedKey={'common'}
-                    openKeys={'sub1'}
+                    openKeys={['sub2', 'sub1']}
                 />
-                <div>
-                <div>
-                    <h2> Загальні налаштування </h2>
-                    <div>
-                        {this.props.infoContacts.data && this.props.infoContacts.self &&
-                            this.props.infoCard.self  && 
-                            <AdminCommonHead
-                            socialLinks={this.props.infoContacts.data.socialLinks}
-                            phones={this.props.infoContacts.data.phones}
-                            emails={this.props.infoContacts.data.emails}
-                            addresses= {this.props.infoContacts.data.addresses}
-                            infoCard={this.props.infoCard.data}
-                        />}
+                <main>
+                    <div className="container">
+                        <div>
+                            <h2> Загальні налаштування </h2>
+                            <div>
+                                {this.props.infoContacts.data && this.props.infoContacts.self &&
+                                this.props.infoCard.self  &&
+                                <AdminCommonHead
+                                    socialLinks={this.props.infoContacts.data.socialLinks}
+                                    phones={this.props.infoContacts.data.phones}
+                                    emails={this.props.infoContacts.data.emails}
+                                    addresses= {this.props.infoContacts.data.addresses}
+                                    infoCard={this.props.infoCard.data}
+                                />}
+                            </div>
+                        </div>
+                        <Tabs defaultActiveKey="1" onChange={this.callback}>
+                            <TabPane tab="Укр" key="1">
+                                Content of Tab Pane 1
+                            </TabPane>
+                            <TabPane tab="Eng" key="2">
+                                Content of Tab Pane 2
+                            </TabPane>
+                            <TabPane tab="Deu" key="3">
+                                Content of Tab Pane 3
+                            </TabPane>
+                            <TabPane tab="Рус" key="4">
+                                Content of Tab Pane 3
+                            </TabPane>
+                        </Tabs>
                     </div>
-                </div>
-                <Tabs defaultActiveKey="1" onChange={this.callback}>
-                    <TabPane tab="Укр" key="1">
-                    Content of Tab Pane 1
-                    </TabPane>
-                    <TabPane tab="Eng" key="2">
-                    Content of Tab Pane 2
-                    </TabPane>
-                    <TabPane tab="Deu" key="3">
-                    Content of Tab Pane 3
-                    </TabPane>
-                    <TabPane tab="Рус" key="4">
-                    Content of Tab Pane 3
-                    </TabPane>
-                </Tabs>
-                </div>
+                </main>
             </div>
         )
     }
