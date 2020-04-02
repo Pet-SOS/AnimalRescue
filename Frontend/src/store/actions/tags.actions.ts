@@ -1,6 +1,6 @@
 import { createAction } from 'typesafe-actions';
 
-import { ITagsResponse } from '../../api/tags';
+import { ITagsResponse, ITag } from '../../api/tags';
 import { IRequestParams } from '../../api/requestOptions';
 
 export const actionGetTagsList = createAction(
@@ -30,6 +30,21 @@ export const actionDeleteTagSuccess = createAction(
 
 export const actionDeleteTagError = createAction(
   'DELETE_TAG_ERROR',
+  (resolve) => (error: Error) => resolve(error)
+);
+
+export const actionAddTag = createAction(
+  'ADD_TAG_REQUEST',
+  (resolve) => (tag: ITag) => resolve(tag)
+);
+
+export const actionAddTagSuccess = createAction(
+  'ADD_TAG_SUCCESS',
+  (resolve) => (tag: ITag) => resolve(tag)
+);
+
+export const actionAddTagError = createAction(
+  'ADD_TAG_ERROR',
   (resolve) => (error: Error) => resolve(error)
 );
 

@@ -9,7 +9,7 @@ import './styles/index.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { createInterceptors } from './api/interceptors/interceptors';
-import windowResizeHandler from './assets/shared/windowResizeHandler';
+import windowResizeHandler from './shared/windowResizeHandler';
 
 windowResizeHandler();
 createInterceptors();
