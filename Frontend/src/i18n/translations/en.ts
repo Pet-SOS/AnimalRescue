@@ -328,4 +328,7 @@ export default {
   healthTagCategory: 'Health',
 
   backToAllTags: 'Back to tags',
+  
+  confirmTitle: 'Confirm',
+  cancelTitle: 'Cancel',
 }
