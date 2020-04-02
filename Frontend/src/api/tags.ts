@@ -41,6 +41,11 @@ export async function fetchTags(requestParams?: IRequestParams): Promise<ITagsRe
   return res.data
 }
 
+export async function addTagRequest(tag: ITag): Promise<{data: ITag; self: string}> {
+  const res = await API.post('/WellKnownTag', tag);
+  return res.data
+}
+
 export async function deleteTagRequest(tagId: string): Promise<void> {
   const res = await API.delete(`/WellKnownTag/${tagId}`);
   return res.data

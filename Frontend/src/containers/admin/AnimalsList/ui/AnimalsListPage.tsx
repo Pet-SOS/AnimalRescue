@@ -52,7 +52,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
             <div className='boxAdmin'>
                 <AdminMenu
                     selectedKey={'animals-list'}
-                    openKeys={''}
+                    openKeys={['']}
                 />
                 <div className='animals-list'>
                     <h2>Тварини</h2>

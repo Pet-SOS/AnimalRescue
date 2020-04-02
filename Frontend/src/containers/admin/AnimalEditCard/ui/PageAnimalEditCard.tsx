@@ -18,7 +18,7 @@ export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
                 <div className='boxAdmin'>
                     <AdminMenu 
                         selectedKey={'animals-list'}
-                        openKeys={''}
+                        openKeys={['']}
                     />
                     <div>
                         <AnimalEditCard

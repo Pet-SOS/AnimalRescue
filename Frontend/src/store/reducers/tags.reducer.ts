@@ -8,7 +8,10 @@ import {
   actionClearTagsList,
   actionDeleteTag,
   actionDeleteTagSuccess,
-  actionDeleteTagError
+  actionDeleteTagError,
+  actionAddTag,
+  actionAddTagSuccess,
+  actionAddTagError
 } from './../actions/tags.actions';
 import { genericRequestReducer } from "../../api";
 import { DEFAULT_TAGS_STATE, ITagsState } from '../state/tags.state';
@@ -60,7 +63,6 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         isLoaded: true,
         data: newTagsList,
         totalCount: isDeleted ? state.totalCount - 1 : state.totalCount,
-        pageSize: isDeleted ? state.pageSize - 1 : state.pageSize,
         requestState: tagsListStateReducer(state.requestState, action),
       }
     }
@@ -71,6 +73,30 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         isLoading: false,
         requestState: tagsListStateReducer(state.requestState, action)
       };
+    }
+    case getType(actionAddTag): {
+      return {
+        ...state,
+        isLoading: true,
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
+    }
+    case getType(actionAddTagSuccess): {
+      return {
+        ...state,
+        isLoading: false,
+        isLoaded: true,
+        data: [...state.data, action.payload],
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
+    }
+    case getType(actionAddTagError): {
+      return {
+        ...state,
+        isLoading: false,
+        isLoaded: false,
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
     }
     case getType(actionClearTagsList): {
       return {

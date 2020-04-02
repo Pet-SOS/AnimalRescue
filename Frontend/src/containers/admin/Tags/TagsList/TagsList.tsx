@@ -1,4 +1,4 @@
-import React, { useEffect, Dispatch } from 'react';
+import React, { useEffect, Dispatch, useState } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useParams } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ITag } from '../../../../api/tags';
 import { ICustomAppState } from '../../../../store/state';
 import { selectTagsListData } from '../../../../store/selectors/tags.selector';
-import { actionGetTagsList, actionClearTagsList } from '../../../../store/actions/tags.actions';
+import { actionGetTagsList, actionClearTagsList, actionAddTag } from '../../../../store/actions/tags.actions';
 import { RequestFilterOperators } from '../../../../api/requestOptions';
 import { AdminMenu } from '../../AdminMenu';
 import { TI18n } from '../../../../i18n';
@@ -14,15 +14,18 @@ import { ELocales } from '../../../../i18n/store/state';
 import TagsListItem from './TagsListItem';
 import { BlockLink } from '../../../../components/BlockLink';
 import './style.scss';
+import { TagForm, ITagForm } from '../TagForm/TagForm';
 
 interface IPropTypes {
   fetchTagsList: (categoryName: string) => void;
+  addTag: (tag: ITag) => void;
   clearTagsList: () => void;
   tagsList: Array<ITag>;
 }
 
-const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, clearTagsList, tagsList }) => {
+const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, addTag, clearTagsList, tagsList }) => {
   const { tagCategoryName } = useParams();
+  const [isTagFormActive, setIsTagFormActive] = useState(false);
   useEffect(() => {
     if (!!tagCategoryName) {
       fetchTagsList(tagCategoryName.toLowerCase().trim());
@@ -31,6 +34,24 @@ const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, clearTagsList, tagsList
       clearTagsList();
     }
   }, [tagCategoryName]);
+  useEffect(() => {
+    if (isTagFormActive) {
+      setIsTagFormActive(false)
+    }
+  }, [tagsList.length])
+
+  const onTagFormSubmit = (tagForm: ITagForm) => {
+    const newTag: ITag = {
+      category: tagCategoryName || '',
+      kindOfAnimal: '',
+      code: `#${tagCategoryName}`,
+      values: Object.keys(tagForm).map(key => ({
+        lang: key as ELocales,
+        value: tagForm[key as ELocales] || ''
+      }))
+    }
+    addTag(newTag);
+  }
 
   return (
     <div className='boxAdmin'>
@@ -61,18 +82,24 @@ const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, clearTagsList, tagsList
               <TagsListItem key={index} tag={tag}/>
             ))}
             <tr>
-              <td>
-                <button>+ новый тег</button>
-              </td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
+              {!isTagFormActive && (
+                  <React.Fragment>
+                    <td>
+                      <button onClick={() => setIsTagFormActive(true)}>+ новый тег</button>
+                    </td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                  </React.Fragment>
+                )
+              }
             </tr>
           </tbody>
         </table>
+        {isTagFormActive && (<TagForm onSubmit={onTagFormSubmit} onCancel={() => {setIsTagFormActive(false)}}/>)}
       </div>
     </div>
   )
@@ -89,6 +116,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
       value: categoryName
     }
   })),
+  addTag: (tag: ITag) => dispatch(actionAddTag(tag)),
   clearTagsList: () => dispatch(actionClearTagsList()),
 });
 
