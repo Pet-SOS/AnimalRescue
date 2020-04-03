@@ -4,7 +4,8 @@ namespace AnimalRescue.Contracts.Common.Constants
 {
     public static class PropertyConstants
     {
-        public static IEnumerable<string> ArticleTypes(){
+        public static IEnumerable<string> ArticleTypes()
+        {
             yield return EntityType.Article;
             yield return EntityType.Blog;
             yield return EntityType.Story;
@@ -34,11 +35,13 @@ namespace AnimalRescue.Contracts.Common.Constants
         {
             public const string FirstName = "firstName";
             public const string LastName = "lastName";
-            public const string Phone = "phone";
+            public const string Phone = "phoneNumber";
             public const string Email = "email";
             public const string Emails = "emails";
             public const string Addresses = "addresses";
-       }
+            public const string Birthday = "birthday";
+            public const string ProfilePhoto = "profilePhoto";
+        }
 
         public static class Animal
         {

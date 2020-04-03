@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces
 {
     public interface IBaseCollection<T>
-        where T : BaseItem
+        where T : IBaseAuditItem, new()
     {
         IMongoCollection<T> Collection { get; }
         IMongoCollection<BsonDocument> NativeCollection { get; }

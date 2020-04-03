@@ -16,6 +16,7 @@ using AnimalRescue.BusinessLogic.Extensions;
 using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.Infrastructure.Configurations;
 using Microsoft.Extensions.Options;
+using AutoMapper;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -28,13 +29,15 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly IJwtFactory _jwtFactory;
         private readonly AppSettings _appSettings;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
 
         public AccountService(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ISecurityTokenRepository securityTokenRepository,
             IJwtFactory jwtFactory,
             IOptions<AppSettings> appSettingsOptions,
-            IEmailSender emailSender
+            IEmailSender emailSender,
+            IMapper mapper
             )
         {
             _userManager = userManager;
@@ -43,7 +46,9 @@ namespace AnimalRescue.BusinessLogic.Services
             _jwtFactory = jwtFactory;
             _appSettings = appSettingsOptions.Value;
             _emailSender = emailSender;
+            _mapper = mapper;
         }
+
         public async Task<SignInAccountModel> SignIn(SignInAccountAuthorizationViewModel model)
         {
             ApplicationUser identityUser = _userManager.Users
@@ -73,18 +78,9 @@ namespace AnimalRescue.BusinessLogic.Services
             }
             var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser.Id, model.RememberMe);
 
-            //TODO: CreateRefreshTokenIfNotExist
+            //TODO: CreateRefreshTokenIfNotExist - save refresh token in database
 
-            var userRoles = await _userManager.GetRolesAsync(identityUser);
-
-            var userData = new UserAccountModelItem
-            {
-                Email = identityUser.Email,
-                UserId = identityUser.Id,
-                UserName = $@"{identityUser.FirstName ?? string.Empty} {identityUser.LastName ?? string.Empty}",
-                ProfilePhoto = identityUser.ProfilePhoto ?? string.Empty,
-                UserRole = string.Join(",", userRoles)
-            };
+            var userData = _mapper.Map<UserAccountModelItem>(identityUser);
 
             var authData = new SignInAccountModel
             {

@@ -2,6 +2,7 @@
 using AnimalRescue.BusinessLogic.Queries;
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces.UsersManagement;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
@@ -32,6 +33,9 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddConfigureMongoDb(configuration);
 
+            var provider = services.BuildServiceProvider();
+            var userManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
+
             profiles.AddRange(new Profile[] {
                 new AnimalMappingProfile(),
                 new StoryMappingProfile(),
@@ -42,7 +46,8 @@ namespace AnimalRescue.BusinessLogic
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
                 new BucketItemMappingProfile(),
-                new EmployeeMappingProfile()
+                new EmployeeMappingProfile(),
+                new ApplicationUserMappingProfile(userManager)
             });
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
@@ -63,6 +68,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IOrganizationDocumentService, OrganizationDocumentService>();
+            services.AddScoped<IUsersManagementService, UsersManagementService>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)

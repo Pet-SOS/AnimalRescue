@@ -11,6 +11,8 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public const string Gt = "gt";
         public const string Lte = "lte";
         public const string Lt = "lt";
+        public const string Ne = "ne";
+
         public static Dictionary<string, Func<Term, string>> Rulses
             = new Dictionary<string, Func<Term, string>>()
             {
@@ -20,6 +22,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 { Gt, (term) => $"{term.FieldName}:{{${Gt}:{term.Content}}}" },
                 { Lte, (term) => $"{term.FieldName}:{{${Lte}:{term.Content}}}" },
                 { Lt, (term) => $"{term.FieldName}:{{${Lt}:{term.Content}}}" },
+                { Ne, (term) => $"{term.FieldName}:{{${Ne}:{term.Content}}}" },
             };
     }
 }

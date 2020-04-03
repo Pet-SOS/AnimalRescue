@@ -12,15 +12,24 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
     public class ApplicationUser : MongoIdentityUser<string>, IBaseAuditItem
     {
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
+
         public string ProfilePhoto { get; set; }
-        public string Birthday { get; set; }
+
+        public DateTime? Birthday { get; set; }
+
         public DateTime CreatedAt { get; set; }
+
         public DateTime? ModifiedAt { get; set; }
+
         public string CreatedBy { get; set; }
+
         public string ModifiedBy { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public DateTime? LastPasswordChange { get; set; }
 
         public ApplicationUser() : base()
         {

@@ -117,6 +117,12 @@ namespace AnimalRescue.API.Controllers
                 BuildContentApiResponse(item));
         }
 
+        protected ActionResult<T> CreatedItem<T>(string uri, T item)
+            where T : class, new()
+        {
+            return Created(uri, BuildContentApiResponse(item));
+        }
+
         protected async Task UpdateDataAsync<TDto, TModel>(
             IBlUpdateAsync<TDto> service,
             //string id,
