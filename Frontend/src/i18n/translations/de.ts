@@ -327,4 +327,12 @@ addReport: 'Bericht herunterladen',
   wantToChooseCat: 'Ich möchte eine Katze wählen',
 
   backToAnimalsCatalog: 'Zurück zur Freundesuche',
+
+  sizeTagCategory: 'Größe',
+  healthTagCategory: 'Gesundheit',
+
+  backToAllTags: 'Zurück zu den Tags',
+
+  confirmTitle: 'Bestätigen',
+  cancelTitle: 'Stornieren',
 }

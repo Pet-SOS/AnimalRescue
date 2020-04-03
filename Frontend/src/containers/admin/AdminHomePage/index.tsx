@@ -21,13 +21,15 @@ export class AdminHomePage extends React.Component <IPropTypes, IState>{
     render(){
         return(
         <div className='boxAdmin'>
-            <AdminMenu 
+            <AdminMenu
                 selectedKey={'admin'}
-                openKeys={'sub1'}
+                openKeys={['sub2', 'sub1']}
             />
-            <div>
-                ADMIN HOME PAGE
-            </div>
+            <main>
+                <div className="container">
+                    <h2>ADMIN HOME PAGE</h2>
+                </div>
+            </main>
         </div>
         )
     }
