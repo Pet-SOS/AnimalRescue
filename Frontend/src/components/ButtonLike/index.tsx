@@ -3,7 +3,7 @@ import './index.scss';
 import { Button } from '../Button';
 import { store } from './../../store/index'
 import cn from 'classnames';
-import { onAnimalFavoriteButtonClicked } from '../../containers/client/Animals/store/actions';
+import { onAnimalFavoriteButtonClicked, actionFetchFavoriteAnimalsRequest } from '../../containers/client/Animals/store/actions';
 import { useSelector, shallowEqual } from 'react-redux';
 import { selectFavoriteAnimalsIds } from '../../containers/client/Animals/store/selectors';
 

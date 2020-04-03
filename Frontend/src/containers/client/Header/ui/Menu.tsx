@@ -94,7 +94,7 @@ export const AppMenu: React.FC = () => {
                     <NavLink activeClassName="is-active" to="/contacts"><TI18n keyStr="contacts"/></NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink activeClassName="is-active" className="heart" to="/animals?type=favorite">
+                    <NavLink activeClassName="is-active" className="heart" to="/favorites">
                         <span><TI18n keyStr="headerMenuItem7"/></span>
                         <FavoriteCounter count={favoriteAnimalsIds.length}/>
                     </NavLink>

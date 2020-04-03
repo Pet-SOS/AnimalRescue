@@ -1,11 +1,9 @@
 import React from 'react';
 import { TI18n } from '../../../../i18n';
-import { store } from '../../../../store';
 import { IAnimalsListState } from '../../Animals/store/state';
 import { HelpBlock } from '../../../../components/HelpBlock';
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
 import { AnimalCard } from '../../Animals/AnimalCard';
-import { IRequestParams } from '../../../../api/requestOptions/index';
 import '../style/FavoritesPage.scss';
 
 interface IPropTypes {
@@ -17,37 +15,42 @@ interface IPropTypes {
     fetchSickAnimals:() => void;
     fetchCats: () => void;
     fetchDogs: () => void; 
-    fetchFavoriteAnimals: (param: IRequestParams) => void;
+    fetchFavoriteAnimals: (animalIds: string[]) => void;
+    clearSickAnimals: () => void;
+    clearDogsList: () => void;
+    clearCatsList: () => void;
+    clearFavoriteAnimalsList: () => void;
   }
-  
-const favoriteAnimalsCount = () => {
-    const listIds : string[] = store.getState().animals.favoriteAnimalsIds;
-    return listIds.length;
-}
+
 export class FavoritesPage extends React.Component<IPropTypes> {
-    componentDidMount(){
-        if(favoriteAnimalsCount() === 0){
-            if(store.getState().animals.catsList.totalCount === 0){
-                this.props.fetchCats();
-            }
-            if(store.getState().animals.dogsList.totalCount === 0){
-                this.props.fetchDogs();
-            }
-        } else {
-            //*Remove after the BE finish*
-                if(store.getState().animals.catsList.totalCount === 0){
-                    this.props.fetchCats();
-                }
-            //*Remove after the BE finish*
-            this.props.fetchFavoriteAnimals({
-                animalIds : store.getState().animals.favoriteAnimalsIds
-            });          
-        }
-        if(store.getState().animals.sickAnimalsList.totalCount === 0){
-            this.props.fetchSickAnimals();
-        }
-    }    
-    render(){    
+  public componentDidMount() {
+    this.props.fetchFavoriteAnimals(this.props.favoriteAnimalsIds);
+    this.props.fetchSickAnimals();
+  }
+  public componentWillUpdate(nextProps: IPropTypes): void {
+    if (this.props.favoriteAnimalsIds.length < nextProps.favoriteAnimalsIds.length) {
+      this.props.fetchFavoriteAnimals(nextProps.favoriteAnimalsIds);
+    }
+    if (!nextProps.favoriteAnimalsIds.length) {
+      if (!nextProps.catsList.isLoaded && !nextProps.catsList.isLoading) {
+        this.props.fetchCats();
+      }
+      if (!nextProps.dogsList.isLoaded && !nextProps.dogsList.isLoading) {
+        this.props.fetchDogs();
+      }
+    }
+  }
+  public componentWillUnmount(): void {
+    this.props.clearSickAnimals();
+    this.props.clearCatsList();
+    this.props.clearDogsList();
+    this.props.clearFavoriteAnimalsList();
+  }
+  private favoriteAnimalsCount(): number {
+    return this.props.favoriteAnimalsIds.length
+  };
+      
+    public render(){    
         return (
         <React.Fragment>
             <div className='favorites-page-holder'>
@@ -56,23 +59,23 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                         <TI18n keyStr='favoritesPageTitle' default='Mені сподобалися' />
                     </h1>
 
-                    {favoriteAnimalsCount() === 0 && 
+                    {this.favoriteAnimalsCount() === 0 && 
                         <div className="text">
                                 <TI18n keyStr='noneFavoriteAnimalsText' 
                                     default='Ви поки не відзначили нікого з тварин, придивіться, раптом ваш друг чекає вас у нас.' /> 
                         </div>
                     }
 
-                    {favoriteAnimalsCount() > 0 && 
+                    {this.favoriteAnimalsCount() > 0 && 
                         <div className="text">
-                            {favoriteAnimalsCount() > 1 &&
+                            {this.favoriteAnimalsCount() > 1 &&
                                 <span>
                                     <TI18n keyStr='itLikedYouText' default='Вам сподобалися ' />
-                                    {favoriteAnimalsCount()}
+                                    {this.favoriteAnimalsCount()}
                                     <TI18n keyStr='tailsText' default=' хвостиків' />
                                 </span>  
                             }    
-                            {favoriteAnimalsCount() === 1 &&
+                            {this.favoriteAnimalsCount() === 1 &&
                                 <span>
                                     <TI18n keyStr='itLikedYouText1' default='Вам сподобався ' />
                                     1
@@ -83,7 +86,7 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                     }
                 </div>
 
-                {favoriteAnimalsCount() === 0 && 
+                {this.favoriteAnimalsCount() === 0 && 
                     <div className="animals-slider-wrapper">
                         {this.props.dogsList.data && this.props.dogsList.data.length > 0 && <AnimalsSlider
                             data={this.props.dogsList.data}
@@ -105,24 +108,14 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                 }
 
                 <div className='content'>
-                {/* Remove after BE finish */}
-                    {favoriteAnimalsCount() > 0 && this.props.catsList.data && this.props.catsList.data.length > 0 &&
-                        <div className='content-block'>
-                        {
-                            this.props.catsList.data.length &&
-                            this.props.catsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
-                        }
-                        </div>
-                    }
-
-                    {/* {favoriteAnimalsCount() > 0 && this.props.favoriteAnimalsList.data && this.props.favoriteAnimalsList.data.length > 0 &&
+                    {this.favoriteAnimalsCount() > 0 && this.props.favoriteAnimalsList.data && this.props.favoriteAnimalsList.data.length > 0 &&
                         <div className='content-block'>
                         {
                             this.props.favoriteAnimalsList.data.length &&
                             this.props.favoriteAnimalsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
                         }
-                        </div>
-                    } */}
+                        </div>                       
+                    }
                 </div>   
 
                 {this.props.sickAnimalsList.totalCount > 0 &&

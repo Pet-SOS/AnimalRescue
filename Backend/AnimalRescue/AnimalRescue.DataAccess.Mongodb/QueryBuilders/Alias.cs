@@ -2,12 +2,11 @@
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal class Alias
+    public class Alias
     {
         public string PropertyName { get; set; }
         public string DataBasePropertyName { get; set; }
-        public string AliasePropertyName { get; set; }
-        public Type PropertyType { get; set; } 
-        
+        public string AliasPropertyName { get; set; }
+        public Type PropertyType { get; set; }         
     }
 }

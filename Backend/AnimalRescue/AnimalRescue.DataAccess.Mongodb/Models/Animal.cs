@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
+using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -66,5 +67,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(animal.Character)]
         [BsonElement("character")]
         public string Character { get; set; }
+
+        [CouplingPropertyName(common.NewTags)]
+        [BsonElement("newTags")]
+        public List<NestedTag> NewTags { get; set; }
     }
 }

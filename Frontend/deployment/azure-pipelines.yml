@@ -1,0 +1,107 @@
+name: 1.0$(Rev:.r)
+
+pr: none
+trigger:
+  branches:
+    include:
+    - prod
+  paths:
+    include:
+    - Frontend/*
+    exclude:
+    - Backend/*
+
+resources:
+  - repo: self
+
+variables:
+  - name: imageRepository
+    value: 'pet-sos/animalrescue/portal'
+  - name: containerRegistry
+    value: 'docker.pkg.github.com'
+  - name: vmImageName
+    value: 'ubuntu-latest'
+  - name: dockerRegistryServiceConnection
+    value: 'AnimalRescue-GitHub-packages'
+  - name: imagePullSecret
+    value: 'github'
+  - name: kubernetesServiceConnection
+    value: 'animalrescue-aks'
+  - name: baseServiceName
+    value: 'animalrescue-portal'
+
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: 'Frontend/Dockerfile'
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(Build.BuildNumber)
+          - upload: Frontend/deployment/manifests
+            artifact: manifests
+
+  - stage: PROD
+    displayName: PROD
+    dependsOn: Build
+    jobs:
+      - deployment: Portal
+        displayName: "Deploy to PROD"
+        pool:
+          vmImage: $(vmImageName)
+        variables:
+          - group: 'animalrescue'
+        environment: 'animalrescue'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: KubernetesManifest@0
+                  displayName: Create imagePullSecret
+                  inputs:
+                    action: createSecret
+                    secretName: $(imagePullSecret)
+                    dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                - task: KubernetesManifest@0
+                  displayName: Create mongodb secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: animalrescue-portal
+                    secretArguments: --from-literal=api_url="https://$(api.hostname)/api/" 
+                                     --from-literal=youtube_url=$(youtube_url) 
+                                     --from-literal=youtube_api_key=$(youtube_api_key) 
+                                     --from-literal=youtube_channel_id=$(youtube_channel_id) 
+                    kubernetesServiceConnection: $(kubernetesServiceConnection) 
+                    namespace: default
+                - task: replacetokens@3
+                  displayName: Replace tokens
+                  inputs:
+                    targetFiles: '$(Pipeline.Workspace)/manifests/*.yml'
+                    encoding: 'auto'
+                    writeBOM: true
+                    actionOnMissing: 'fail'
+                    keepToken: false
+                    tokenPrefix: '#{'
+                    tokenSuffix: '}#'
+                - task: KubernetesManifest@0
+                  displayName: Deploy to Kubernetes cluster
+                  inputs:
+                    action: deploy
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                    manifests: |
+                      $(Pipeline.Workspace)/manifests/*.yml
+                    containers: |
+                      $(containerRegistry)/$(imageRepository):$(Build.BuildNumber)

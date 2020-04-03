@@ -259,81 +259,106 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
     render(){
         return (
             <div className='looking-friend-block'>
-                <div className='content'>
-                    <div className='title'><TI18n keyStr="lookingForAFriendPageTitle" default={defaultText.lookingForAFriendPageTitle}/></div>
-                    <div className='box-select'>
-                        <Select
-                            data={Object.values(AnimalFilterKind).map((value:string)=>({label: i18n.t('AnimalFilterKind'+value), value: value}))}
-                            selected={this.state.kindOfAnimal.value}
-                            onChange={(value: string) => this.setLocale(value,AnimalFilterKind, 'kindOfAnimal' )}
-                            expandDirection={SelectExpandDirections.BOTTOM}
-                            title={<TI18n keyStr="lookingForAFriendPageSelectKind" default={tranlateText.lookingForAFriendPageSelectKind} />}
-                        />
-                        <Select
-                            data={Object.values(AnimalBreed).map((value)=>({label: i18n.t('AnimalBreed'+value), value: value}))}
-                            selected={this.state.breed.value}
-                            onChange={(value: string) => this.setLocale(value,AnimalBreed,'breed')}
-                            expandDirection={SelectExpandDirections.BOTTOM}
-                            title={<TI18n keyStr="lookingForAFriendPageSelectBreed" default={tranlateText.lookingForAFriendPageSelectBreed} />}
-                        />
-                        <Select
-                            data={Object.values(AnimalGender).map((value)=>({label: i18n.t('AnimalGender'+value), value: value}))}
-                            selected={this.state.gender.value}
-                            onChange={(value: string) => this.setLocale(value,AnimalGender, 'gender')}
-                            expandDirection={SelectExpandDirections.BOTTOM}
-                            title={<TI18n keyStr="lookingForAFriendPageSelectGender" default={tranlateText.lookingForAFriendPageSelectGender} />}
-                        />
-                        <Select
-                            data={Object.values(AnimalAge).map((value)=>({label: i18n.t('AnimalAge'+value), value: value}))}
-                            selected={this.state.age.value}
-                            onChange={(value: string) => this.setLocale(value, AnimalAge, 'age')}
-                            expandDirection={SelectExpandDirections.BOTTOM}
-                            title={<TI18n keyStr="lookingForAFriendPageSelectAge" default={tranlateText.lookingForAFriendPageSelectAge} />}
-                        />
-                         <Select
-                            data={Object.values(AnimalSize).map((value)=>({label: i18n.t('AnimalSize'+value), value: value}))}
-                            selected={this.state.size.value}
-                            onChange={(value: string) => this.setLocale(value, AnimalSize,'size')}
-                            expandDirection={SelectExpandDirections.BOTTOM}
-                            title={<TI18n keyStr="lookingForAFriendPageSelectSize" default={tranlateText.lookingForAFriendPageSelectSize} />}
-                        />
-                    </div>
-                    <div className='second-filter'>
-                        <div className='box-checkBoks'>
-                            <CheckBoks
-                                name={<TI18n keyStr='sterilized'/>}
-                                setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                state={this.state.STERILIZED.check}
-                                tag={this.state.STERILIZED.key}
-                            />
-                            <CheckBoks
-                                name={<TI18n keyStr='vaccinated'/>}
-                                setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                state={this.state.VACCINATED.check}
-                                tag={this.state.VACCINATED.key}
-                            />
-                            <CheckBoks
-                                name={<TI18n keyStr='special'/>}
-                                setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                state={this.state.SPECIAL.check}
-                                tag={this.state.SPECIAL.key}
-                            />
-                            <CheckBoks
-                                name={<TI18n keyStr='readytoabroad'/>}
-                                setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                state={this.state.READYTOTRAVEL.check}
-                                tag={this.state.READYTOTRAVEL.key}
-                            />
-                            <CheckBoks
-                                name={<TI18n keyStr='theLoss'/>}
-                                setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                state={this.state.THELOSS.check}
-                                tag={this.state.THELOSS.key}
-                            />
+                <div className='container'>
+                    <h2><TI18n keyStr="lookingForAFriendPageTitle" default={defaultText.lookingForAFriendPageTitle}/></h2>
+                    <div className="holder-filters">
+                        <button className="opener"><i className="icon-step">icon</i><span>Фільтри</span></button>
+                        <div className="slide">
+                            <ul className='list-selects'>
+                                <li className="item-select">
+                                    <Select
+                                        data={Object.values(AnimalFilterKind).map((value:string)=>({label: i18n.t('AnimalFilterKind'+value), value: value}))}
+                                        selected={this.state.kindOfAnimal.value}
+                                        onChange={(value: string) => this.setLocale(value,AnimalFilterKind, 'kindOfAnimal' )}
+                                        expandDirection={SelectExpandDirections.BOTTOM}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectKind" default={tranlateText.lookingForAFriendPageSelectKind} />}
+                                    />
+                                </li>
+                                <li className="item-select">
+                                    <Select
+                                        data={Object.values(AnimalBreed).map((value)=>({label: i18n.t('AnimalBreed'+value), value: value}))}
+                                        selected={this.state.breed.value}
+                                        onChange={(value: string) => this.setLocale(value,AnimalBreed,'breed')}
+                                        expandDirection={SelectExpandDirections.BOTTOM}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectBreed" default={tranlateText.lookingForAFriendPageSelectBreed} />}
+                                    />
+                                </li>
+                                <li className="item-select">
+                                    <Select
+                                        data={Object.values(AnimalGender).map((value)=>({label: i18n.t('AnimalGender'+value), value: value}))}
+                                        selected={this.state.gender.value}
+                                        onChange={(value: string) => this.setLocale(value,AnimalGender, 'gender')}
+                                        expandDirection={SelectExpandDirections.BOTTOM}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectGender" default={tranlateText.lookingForAFriendPageSelectGender} />}
+                                    />
+                                </li>
+                                <li className="item-select">
+                                    <Select
+                                        data={Object.values(AnimalAge).map((value)=>({label: i18n.t('AnimalAge'+value), value: value}))}
+                                        selected={this.state.age.value}
+                                        onChange={(value: string) => this.setLocale(value, AnimalAge, 'age')}
+                                        expandDirection={SelectExpandDirections.BOTTOM}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectAge" default={tranlateText.lookingForAFriendPageSelectAge} />}
+                                    />
+                                </li>
+                                <li className="item-select">
+                                    <Select
+                                        data={Object.values(AnimalSize).map((value)=>({label: i18n.t('AnimalSize'+value), value: value}))}
+                                        selected={this.state.size.value}
+                                        onChange={(value: string) => this.setLocale(value, AnimalSize,'size')}
+                                        expandDirection={SelectExpandDirections.BOTTOM}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectSize" default={tranlateText.lookingForAFriendPageSelectSize} />}
+                                    />
+                                </li>
+                            </ul>
+                            <div className='second-filter'>
+                                <ul className='list-checkboxes'>
+                                    <li className="item-checkbox">
+                                        <CheckBoks
+                                            name={<TI18n keyStr='sterilized'/>}
+                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
+                                            state={this.state.STERILIZED.check}
+                                            tag={this.state.STERILIZED.key}
+                                        />
+                                    </li>
+                                    <li className="item-checkbox">
+                                        <CheckBoks
+                                            name={<TI18n keyStr='vaccinated'/>}
+                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
+                                            state={this.state.VACCINATED.check}
+                                            tag={this.state.VACCINATED.key}
+                                        />
+                                    </li>
+                                    <li className="item-checkbox">
+                                        <CheckBoks
+                                            name={<TI18n keyStr='special'/>}
+                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
+                                            state={this.state.SPECIAL.check}
+                                            tag={this.state.SPECIAL.key}
+                                        />
+                                    </li>
+                                    <li className="item-checkbox">
+                                        <CheckBoks
+                                            name={<TI18n keyStr='readytoabroad'/>}
+                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
+                                            state={this.state.READYTOTRAVEL.check}
+                                            tag={this.state.READYTOTRAVEL.key}
+                                        />
+                                    </li>
+                                    <li className="item-checkbox">
+                                        <CheckBoks
+                                            name={<TI18n keyStr='theLoss'/>}
+                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
+                                            state={this.state.THELOSS.check}
+                                            tag={this.state.THELOSS.key}
+                                        />
+                                    </li>
+                                </ul>
+                                <button className='clear-filter' onClick={()=>this.clearFilter()}>
+                                    <i className="icon-filter"></i><TI18n keyStr="lookingForAFriendPageClearFilter" default={defaultText.lookingForAFriendPageClearFilter} />
+                                </button>
+                            </div>
                         </div>
-                        <button className='clear-filter' onClick={()=>this.clearFilter()}>
-                           <TI18n keyStr="lookingForAFriendPageClearFilter" default={defaultText.lookingForAFriendPageClearFilter} />
-                        </button>
                     </div>
                     <div className='box-all-animals'>
                         <TI18n keyStr="countAnimalsFirstPart" default={defaultText.countAnimalsFirstPart} />

@@ -1,8 +1,10 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.Infrastructure.Utilities;
 
 using MongoDB.Bson.Serialization.Attributes;
 
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using System.Reflection;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal class AliasStore  : IAliasStore
+    internal class AliasStore : IAliasStore
     {
         private ConcurrentDictionary<Type, List<Alias>> aliasDictionary;
 
@@ -23,32 +25,84 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             aliasDictionary = new ConcurrentDictionary<Type, List<Alias>>(concurrencyLevel, initialCapacity);
         }
 
-        public Alias GetAlias<T>(string aliasePropertyName)
+        public Alias GetAlias<T>(string aliasPropertyName)
         {
             Type type = typeof(T);
+
+            return GetAlias(type, aliasPropertyName);
+        }
+
+        public Alias GetAlias(Type type, string aliasPropertyName)
+        {
             if (aliasDictionary.TryGetValue(type, out var currentAlias))
             {
-                return currentAlias
-                    .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
+                Alias result = currentAlias
+                    .FirstOrDefault(alias => IsEqualNames(alias, aliasPropertyName));
+
+                if (result == null)
+                {
+                    result = FindNestedAlias(aliasPropertyName);
+                }
+
+                return result;
             }
 
-            currentAlias = typeof(T)
+            currentAlias = GetAliases(type);
+
+            return currentAlias
+                .FirstOrDefault(alias => IsEqualNames(alias, aliasPropertyName));
+        }
+
+        private Alias FindNestedAlias(string aliasPropertyName)
+        {
+            var data = aliasDictionary.Where(x => x.Value.Any(alias => IsEqualNames(alias, aliasPropertyName)));
+            if(data != null)
+            {
+                if(data.Count() > 0)
+                {
+                    return data
+                        .First()
+                        .Value
+                        .First(alias => IsEqualNames(alias, aliasPropertyName));
+                }
+            }
+
+            return null; 
+        }
+
+        private List<Alias> GetAliases(Type type)
+        {
+            List<Alias> currentAlias = type
                 .GetProperties()
                 .Select(ConvertToAlias)
+                .SelectMany(AliasToListNestedAliases)
                 .Where(x => x != null)
+                .Distinct(new EntityComparer<Alias>(IsEqual))
                 .ToList();
 
             aliasDictionary.TryAdd(type, currentAlias);
 
-            return currentAlias
-                .FirstOrDefault(alias => IsEqualNames(alias, aliasePropertyName));
+            var collections = currentAlias
+                .Where(currentAlias => currentAlias.PropertyType.GetInterface(nameof(ICollection)) != null)
+                .Select(currentAlias => currentAlias.PropertyType.GetGenericArguments().Single())
+                .Where(t => !t.IsPrimitive && !t.IsValueType && (t.Namespace == null || !t.Namespace.StartsWith("System")))
+                .ToList();
+
+            collections.ForEach(x => GetAliases(x));
+
+            return currentAlias;
         }
 
-        private static bool IsEqualNames(Alias alias, string aliasePropertyName)
+        private static bool IsEqualNames(Alias alias, string aliasPropertyName)
         {
-            return alias.AliasePropertyName
-                .Equals(aliasePropertyName, StringComparison.OrdinalIgnoreCase);
+            return alias.AliasPropertyName
+                .Equals(aliasPropertyName, StringComparison.OrdinalIgnoreCase);
         }
+
+        private static bool IsEqual(Alias x, Alias y) =>
+            x.PropertyName == y.PropertyName
+            && x.AliasPropertyName == y.AliasPropertyName
+            && x.DataBasePropertyName == y.DataBasePropertyName;
 
         private static Alias ConvertToAlias(PropertyInfo propertyInfo)
         {
@@ -62,11 +116,40 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
             return new Alias
             {
-                AliasePropertyName = aliasName,
+                AliasPropertyName = aliasName,
                 DataBasePropertyName = elementName,
                 PropertyType = propertyInfo.PropertyType,
                 PropertyName = propertyInfo.Name,
             };
+        }
+
+        private static List<Alias> AliasToListNestedAliases(Alias alias)
+        {
+            if (alias == null)
+            {
+                return new List<Alias>();
+            }
+
+            List<Alias> result = new List<Alias> { alias };
+
+            var propertyInfos = alias.PropertyType.GetProperties();
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                Alias currentAlias = ConvertToAlias(propertyInfo);
+
+                if (currentAlias == null)
+                {
+                    continue;
+                }
+
+                currentAlias.AliasPropertyName = $"{alias.AliasPropertyName}.{currentAlias.AliasPropertyName}";
+                currentAlias.DataBasePropertyName = $"{alias.DataBasePropertyName}.{currentAlias.DataBasePropertyName}";
+
+                result.Add(currentAlias);
+                result.AddRange(AliasToListNestedAliases(currentAlias));
+            }
+
+            return result;
         }
     }
 }

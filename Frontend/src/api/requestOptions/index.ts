@@ -19,7 +19,6 @@ export interface IRequestParams {
   size?: number;
   filter?: IRequestFilterParams | string;
   sort?: IRequestSortParams;
-  animalIds?: string[];
   params?:{
     Filter: string;
   }

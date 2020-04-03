@@ -15,7 +15,7 @@ export default {
   headerMenuItem7:'Сподобалися',
 
   headerMenuItem1Dropdown1:'Про службу порятунку',
-  headerMenuItem1Dropdown2:'Правила роботи з нами',
+  headerMenuItem1Dropdown2:'Правила взаємодії зі службою',
   headerMenuItem1Dropdown3:'Фінансові звіти',
 
   headerMenuItem2Dropdown1:'Будь-якого',
@@ -87,7 +87,7 @@ export default {
   subTitleYouTubeBox: 'Історії про врятованих тварин',
   youtubeTitleLink:'Дивитися всі історії на нашому каналі',
   
-  rulesPageTitle: 'Правила роботи служби',
+  rulesPageTitle: 'Правила взаємодії зі службою',
   rulesMainText: 'Ми ніколи не знаємо, коли тваринам може знадобитися термінова допомога, але знаємо, що завжди повинні бути готові надати її. Команда служби порятунку відповідає на виклики в ситуаціях, коли тварині потрібен захист.',
   rulesWhatShouldIDoTitle: 'Що робити, якщо я бачу, що тварині потрібна допомога?',
   rulesWhatShouldIDoText1: 'Якщо ви побачили, як маленьке кошеня викинули на смітник, їжачка з переламаною лапкою, Скуляни в каналізаційному люку цуценя, кішку, забрали у вентиляційну шахту і не зуміла звідти вибратися, або будь-яке інше тварина потребує допомоги - негайно набирайте наш номер',
@@ -156,7 +156,7 @@ export default {
   
     /*     FinancialReportsPage      */
      financialReportsPageTitle: 'Фінансові звіти',
-     financialReportsPageText: 'Кожного місяця до 20 числа ми готуємо фінансовий звіт, в якому вказуємо всі суми, які прийшли від доброзичливців і як вони були розподілені',
+     financialReportsPageText: 'Кожного місяця до 20 числа ми готуємо фінансовий звіт, в якому вказуємо всі суми, які прийшли від доброзичливців і як вони були розподілені.',
 
    /*    ContactsPage             */
     contactsTitle: 'Контакти',
@@ -324,4 +324,12 @@ export default {
   breadcrumbFinanceReports: 'Подивитися фінансову звітність',
 
   backToAnimalsCatalog: 'Повернутися до пошуку друга',
+
+  sizeTagCategory: 'Розмір',
+  healthTagCategory: 'Здоров\'я',
+
+  backToAllTags: 'Повернутися до тегів',
+
+  confirmTitle: 'Підтвердити',
+  cancelTitle: 'Відмінити',
 }

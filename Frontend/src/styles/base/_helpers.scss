@@ -5,6 +5,15 @@
   list-style: none;
 }
 
+// Button reset
+%button-reset {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
 // clearfix
 %clearfix {
   &:after {
@@ -21,6 +30,19 @@
 // transition
 %transition {
   transition: all 0.3s ease-in-out;
+}
+
+// for icomoon
+%icomoon {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 // justify nav

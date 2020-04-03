@@ -59,12 +59,19 @@ namespace AnimalRescue.Contracts.Common.Constants
         public static class Common
         {
             public const string Title = "title";
+            public const string Lang = "lang";
+            public const string Language = "language";
+            public const string Category = "category";
+            public const string Code = "code";
+            public const string Values = "values";
+            public const string Value = "value";
             public const string Body = "body";
             public const string Name = "name";
             public const string Data = "data";
             public const string Description = "description";
             public const string ImageIds = "imageIds";
             public const string Tags = "tags";
+            public const string NewTags = "newTags";
             public const string CommonTag = "commonTag";
             public const string Images = "images";
             public const string IsRescued = "isRescued";

@@ -100,7 +100,7 @@ export const onAnimalFavoriteButtonClicked = createAction(
 );
 export const actionFetchFavoriteAnimalsRequest = createAction(
   'FETCH_FAVORITES_REQUEST',
-  (resolve) => (requestParams?: IRequestParams) => resolve(requestParams)
+  (resolve) => (animalIds: string[]) => resolve(animalIds)
 );
 export const actionFetchFavoriteAnimalsSuccess = createAction(
   'FETCH_FAVORITES_SUCCESS',
@@ -110,6 +110,6 @@ export const actionFetchFavoriteAnimalsFailure = createAction(
   'FETCH_FAVORITES_FAILURE',
   (resolve) => (error: Error) => resolve({ error })
 );
-export const actionFetchClearFavoriteAnimals = createAction(
-  'CLEAR_FAVORITES'
+export const actionClearFavoriteAnimals = createAction(
+  'CLEAR_FAVORITE_ANIMALS_LIST'
 );

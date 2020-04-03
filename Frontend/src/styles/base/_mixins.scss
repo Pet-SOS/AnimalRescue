@@ -213,7 +213,7 @@
 //     or @include animate(color width);
 //     or @include animate(color width, 1s, linear);
 //
-$animation-speed: 0.3s !default;
+$animation-speed: 0.2s !default;
 
 @mixin animate($properties, $duration: $animation-speed, $easing: ease-in-out) {
   $list: ();
@@ -285,5 +285,19 @@ $animation-speed: 0.3s !default;
          url('fonts/#{$font-path}.svg##{$font-name}') format('svg');
     font-weight: $weight;
     font-style: $style;
+  }
+}
+
+//@include v-center(800px);
+
+@mixin v-center($min-height: 400px) {
+  display: flex;
+
+  > * {
+    min-height: $min-height;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
   }
 }

@@ -1,0 +1,115 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/helpers';
+@import '../../../../styles/base/mixins';
+
+.login-form-holder {
+  @include v-center(100vh);
+  text-align: center;
+  font-size: 20px;
+
+  h2 {
+    @include media('≤phone') {
+      display: none;
+    }
+  }
+
+  form {
+    padding-top: 4px;
+    width: 100%;
+    max-width: 385px;
+    margin: 0 auto;
+
+    @include media('≤phone') {
+      padding-top: 0;
+    }
+  }
+
+  .form-row {
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .wrap-button {
+    padding: 24px 0 16px;
+  }
+
+  input, button {
+    outline: none;
+  }
+
+  input {
+    -webkit-appearance: none;
+    width: 100%;
+    color: inherit;
+    padding: 17px 24px;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid transparent;
+
+    @include placeholder {
+      color: $text-lite-color;
+    }
+  }
+
+  .recover-psw {
+    font-weight: 700;
+  }
+}
+
+.header-login {
+  position: absolute;
+  padding: 16px 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.password-checkbox {
+  cursor: pointer;
+
+  i {
+    font-size: 0;
+    line-height: inherit;
+    position: absolute;
+    right: 24px;
+    top: 30px;
+    transform: translateY(-50%);
+    
+    &:before {
+      @extend %icomoon;
+      content: "\e915";
+      color: $text-lite-color;
+      font-size: 24px;
+    }
+  }
+
+  [type="checkbox"] {
+    display: none;
+  }
+
+  input:checked + i:before {
+    content: "\e91c";
+  }
+}
+
+.text-error {
+  display: none;
+  vertical-align: top;
+  padding-top: 8px;
+  font-size: 16px;
+  color: $error-color-text;
+
+  .error & {
+    display: inline-block;
+  }
+}
+
+.error {
+  input {
+    border-color: $error-color-text;
+  }
+}

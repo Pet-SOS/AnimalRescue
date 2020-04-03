@@ -4,7 +4,7 @@ import { store } from '../../store';
 import { selectConfigData, selectApiUrl } from '../../store/selectors/config.selector';
 import { IAPIConfig } from '../config';
 
-export const defaultInterceptor = (api: AxiosInstance): void => {
+export const defaultInterceptors = (api: AxiosInstance): void => {
   api.interceptors.request.use(
     config => {
       config.baseURL = selectApiUrl(store.getState());
@@ -12,6 +12,10 @@ export const defaultInterceptor = (api: AxiosInstance): void => {
     },
     error => Promise.reject(error)
   );
+  api.interceptors.response.use(
+    response => response.status !== 200 && response.status !== 201 ? Promise.reject(response) : response,
+    error => Promise.reject(error)
+  )
 }
 
 export const youtubeInterceptor = (): void => {
@@ -28,7 +32,7 @@ export const youtubeInterceptor = (): void => {
 }
 
 export const createInterceptors = () => {
-  defaultInterceptor(API);
-  defaultInterceptor(axios);
+  defaultInterceptors(API);
+  defaultInterceptors(axios);
   youtubeInterceptor();
 }

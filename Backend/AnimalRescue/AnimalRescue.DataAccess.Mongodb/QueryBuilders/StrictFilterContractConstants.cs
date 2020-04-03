@@ -1,4 +1,6 @@
-﻿using MongoDB.Bson;
+﻿using AnimalRescue.DataAccess.Mongodb.Extensions;
+
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 using System;
@@ -10,13 +12,24 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
     internal static class StrictFilterContractConstants
     {
+        public const string ElementMatch = "elementmatch";
         public const string All = "all";
         public const string Eq = "eq";
         public const string Gte = "gte";
         public const string Gt = "gt";
         public const string Lte = "lte";
         public const string Lt = "lt";
-
+        public static IEnumerable<string> AvailableRules { get 
+            {
+                yield return Eq;
+                yield return All;
+                yield return Gte;
+                yield return Gt;
+                yield return Lte;
+                yield return Lt;
+                yield return ElementMatch;
+            }
+        }
         public static FilterDefinition<TE> GetFilterDefinition<TE>(this StrictTerm<TE> strictTerm)
         {
             return LookFor(strictTerm);
@@ -25,17 +38,43 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         private static List<string> GetListValues(this string value) =>
             value.Replace("(", "").Replace(")", "").Split("^").Select(DeleteQuote).ToList();
         private static string DeleteQuote(this string value) => value.TrimStart('\'').TrimEnd('\'');
+        private static string DeleteParentheses(this string value) => value.TrimStart('(').TrimEnd(')');
 
         private static FilterDefinition<TE> LookFor<TE>(StrictTerm<TE> term)
         {
             if (term.Alias.PropertyType.IsGenericType)
             {
-                Type type = term.Alias.PropertyType.GenericTypeArguments.First();
-                return Builders<TE>.Filter.And(GetListValues(term.Content).Select(x => LookFor<TE>(type, term.FieldName, x.DeleteQuote(), term.CommandName)));
+                switch (term.CommandName)
+                {
+                    case All: 
+                        return AllFilterDefinition(term);
+                    case ElementMatch: 
+                        return ElementMatchFilterDefinition(term);
+
+                    default:
+                        throw new ArgumentException(nameof(term.CommandName));
+                }
             }
 
             return LookFor<TE>(term.Alias.PropertyType, term.FieldName, term.Content.DeleteQuote(), term.CommandName);
         }
+
+        private static FilterDefinition<TE> AllFilterDefinition<TE>(StrictTerm<TE> term)
+        {
+            Type type = term.Alias.PropertyType.GenericTypeArguments.First();
+            
+            return Builders<TE>.Filter.And(GetListValues(term.Content).Select(x => LookFor<TE>(type, term.FieldName, x.DeleteQuote(), term.CommandName)));
+        }
+
+        private static FilterDefinition<TE> ElementMatchFilterDefinition<TE>(StrictTerm<TE> term)
+        {
+            string termValue = term.Content.DeleteParentheses();
+            var filtersForConcat = termValue.GetFilterDefinitions<TE>(term.AliasStore).ToArray();
+            var filterForElemMatch = FilterDefinitionExtensions.AND<TE>(filtersForConcat);
+            
+            return Builders<TE>.Filter.ElemMatch<TE>(term.FieldName, filterForElemMatch);
+        }
+
         private static FilterDefinition<TE> LookFor<TE>(
             Type propertyType,
             string fieldName,

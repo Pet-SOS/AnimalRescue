@@ -28,9 +28,10 @@ import {
   actionFetchFavoriteAnimalsRequest,
   actionFetchFavoriteAnimalsSuccess,
   actionFetchFavoriteAnimalsFailure,
-  actionFetchClearFavoriteAnimals
+  actionClearFavoriteAnimals
 } from "../actions";
 import { DEFAULT_ANIMALS } from './../state';
+import { IAnimal } from "../../../../../api/animals";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
   actionFetchAnimalsRequest,
@@ -164,7 +165,7 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
       return {
         ...state,
         catsList: {
-          ...action.payload,
+          ...state.catsList,
           isLoading: false,
           isLoaded: false
         },
@@ -248,10 +249,17 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
     case getType(onAnimalFavoriteButtonClicked): {
       const currentFavoriteAnimalsIds = [...state.favoriteAnimalsIds];
       const newIds: string[] = currentFavoriteAnimalsIds.includes(action.payload) ? currentFavoriteAnimalsIds.filter(id => id !== action.payload) : [...currentFavoriteAnimalsIds, action.payload];
+      const newFavoriteAnimalsListData: IAnimal[] = state.favoriteAnimalsList.data.filter(animal => !!animal.id && newIds.includes(animal.id));
       localStorage.setItem('favoriteAnimalsIds', JSON.stringify(newIds));
       return {
         ...state,
-        favoriteAnimalsIds: newIds
+        favoriteAnimalsIds: newIds,
+        favoriteAnimalsList: {
+          ...state.favoriteAnimalsList,
+          data: newFavoriteAnimalsListData,
+          pageCount: newFavoriteAnimalsListData.length,
+          pageSize: newFavoriteAnimalsListData.length
+        }
       }
     }
     case getType(actionFetchFavoriteAnimalsRequest):
@@ -268,7 +276,7 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
         ...state,
         favoriteAnimalsListRequestState: fetchFavoriteAnimalsStateReducer(state.favoriteAnimalsListRequestState, action),
         favoriteAnimalsList: {
-          ...action.payload,
+          ...action.payload.data,
           isLoading: false,
           isLoaded: true
         }
@@ -277,13 +285,13 @@ export const animalsReducer = (state: IAnimalsState = DEFAULT_ANIMALS_STATE, act
       return {
         ...state,
         favoriteAnimalsList: {
-          ...action.payload,
+          ...state.favoriteAnimalsList,
           isLoading: false,
           isLoaded: false
         },
         favoriteAnimalsListRequestState: fetchFavoriteAnimalsStateReducer(state.favoriteAnimalsListRequestState, action)
       };
-    case getType(actionFetchClearFavoriteAnimals): {
+    case getType(actionClearFavoriteAnimals): {
       return {
         ...state,
         favoriteAnimalsList: { ...DEFAULT_ANIMALS },

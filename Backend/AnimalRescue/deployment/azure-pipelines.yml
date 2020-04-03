@@ -1,0 +1,126 @@
+name: 1.0$(Rev:.r)
+
+pr: none
+trigger:
+  branches:
+    include:
+    - prod
+  paths:
+    include:
+    - Backend/*
+    exclude:
+    - Frontend/*
+
+resources:
+  - repo: self
+
+variables:
+  - name: imageRepository
+    value: 'pet-sos/animalrescue/api'
+  - name: containerRegistry
+    value: 'docker.pkg.github.com'
+  - name: vmImageName
+    value: 'ubuntu-latest'
+  - name: dockerRegistryServiceConnection
+    value: 'AnimalRescue-GitHub-packages'
+  - name: imagePullSecret
+    value: 'github'
+  - name: kubernetesServiceConnection
+    value: 'animalrescue-aks'
+  - name: baseServiceName
+    value: 'animalrescue-api'
+
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: 'Backend/AnimalRescue/Dockerfile'
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(Build.BuildNumber)
+          - upload: Backend/AnimalRescue/deployment/manifests
+            artifact: manifests
+
+  - stage: PROD
+    displayName: PROD
+    dependsOn: Build
+    jobs:
+      - deployment: API
+        displayName: "Deploy to PROD"
+        pool:
+          vmImage: $(vmImageName)
+        variables:
+          - group: 'animalrescue'
+        environment: 'animalrescue'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: KubernetesManifest@0
+                  displayName: Create imagePullSecret
+                  inputs:
+                    action: createSecret
+                    secretName: $(imagePullSecret)
+                    dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                - task: KubernetesManifest@0
+                  displayName: Create mongodb secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: animalrescue-api
+                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017" 
+                                     --from-literal=jwt_key="$(JwtKey)"
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create smtp secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: smtp
+                    secretArguments: --from-literal=host="$(smtp_host)" 
+                                     --from-literal=username="$(smtp_username)" 
+                                     --from-literal=password="$(smtp_password)"
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create admin secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: animalrescue-admin
+                    secretArguments: --from-literal=email="$(admin_email)" 
+                                     --from-literal=password="$(admin_password)" 
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: replacetokens@3
+                  displayName: Replace tokens
+                  inputs:
+                    targetFiles: '$(Pipeline.Workspace)/manifests/*.yml'
+                    encoding: 'auto'
+                    writeBOM: true
+                    actionOnMissing: 'fail'
+                    keepToken: false
+                    tokenPrefix: '#{'
+                    tokenSuffix: '}#'
+                - task: KubernetesManifest@0
+                  displayName: Deploy to Kubernetes cluster
+                  inputs:
+                    action: deploy
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                    manifests: |
+                      $(Pipeline.Workspace)/manifests/*.yml
+                    containers: |
+                      $(containerRegistry)/$(imageRepository):$(Build.BuildNumber)

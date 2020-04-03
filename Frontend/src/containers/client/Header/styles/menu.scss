@@ -73,7 +73,7 @@
   }
 
   &.drop > a {
-    pointer-events: none;
+    //pointer-events: none;
 
     @include media('≤tablet') {
       position: relative;
@@ -236,12 +236,12 @@
       }
     }
   }
+
   &:hover, &:active,&:focus {
     color:$text-color-active;
     outline: none;
-    .dropdown{
-      display: block;
 
+    .dropdown {
       @include media('≤tablet') {
         display: none;
       }
