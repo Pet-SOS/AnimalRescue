@@ -3,4 +3,4 @@ import { IOrganizationDocumentsState } from "../state/organizationDocuments.stat
 import { ORGANIZATION_DOCUMENTS_KEY } from "../reducers/organizationDocuments.reducer";
 
 
-export const selectVacancies = (state: ICustomAppState): IOrganizationDocumentsState => state[ORGANIZATION_DOCUMENTS_KEY];
+export const selectOrganizationDocuments = (state: ICustomAppState): IOrganizationDocumentsState => state[ORGANIZATION_DOCUMENTS_KEY];
