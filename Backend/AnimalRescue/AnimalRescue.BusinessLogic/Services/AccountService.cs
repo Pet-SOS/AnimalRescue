@@ -185,6 +185,8 @@ namespace AnimalRescue.BusinessLogic.Services
                 .Append($"To unlock your account click on verification <a href='{link}'>link</a>")
                 .ToString();
             _emailSender.SendMail(user.Email, "Account Lock", body);
+
+            await Task.CompletedTask;
         }
 
         #endregion

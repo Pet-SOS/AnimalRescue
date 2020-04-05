@@ -39,9 +39,8 @@ namespace AnimalRescue.BusinessLogic.Services
                     smtpClient.Send(mailMessage);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //ignore
                 return false;
             }
 

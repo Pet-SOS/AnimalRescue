@@ -1,4 +1,5 @@
-﻿using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
+﻿using AnimalRescue.BusinessLogic.Configurations;
+using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
 using AnimalRescue.BusinessLogic.Queries;
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
@@ -45,6 +46,9 @@ namespace AnimalRescue.BusinessLogic
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile()
             });
+
+            IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+            services.AddSingleton<IPublisherSettings>(p => publisherSettings);
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
