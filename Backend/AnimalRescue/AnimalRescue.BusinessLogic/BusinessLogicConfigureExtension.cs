@@ -68,6 +68,7 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddSingleton<ILanguageConfiguration, LanguageConfiguration>();
             services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<ISequenceService, SequenceService>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)

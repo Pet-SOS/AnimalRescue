@@ -93,6 +93,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IArticleRepository, ArticleRepository>()
                 .AddScoped<ITagRepository, TagRepository>()
+                .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<IEmployeeRepository, EmployeeRepository>()
                 .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();

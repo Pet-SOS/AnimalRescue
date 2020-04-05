@@ -25,12 +25,15 @@ namespace AnimalRescue.API.Controllers
     {
         private readonly IBlFullCrud<AnimalDto, AnimalDto> _animalService;
         private readonly IImageService _imageService;
+        private readonly ISequenceService _sequenceService;
         private readonly IMapper _mapper;
 
         public AnimalsController(
             IMapper mapper,
             IBlFullCrud<AnimalDto, AnimalDto> animalService,
-            IImageService imageService)
+            IImageService imageService,
+            ISequenceService sequenceService
+            )
         {
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(animalService, nameof(animalService));
@@ -39,6 +42,7 @@ namespace AnimalRescue.API.Controllers
             _mapper = mapper;
             this._animalService = animalService;
             _imageService = imageService;
+            _sequenceService = sequenceService;
         }
 
         [HttpGet("{id}")]
@@ -106,6 +110,8 @@ namespace AnimalRescue.API.Controllers
                 animalModel.ImageIds = imageIds;
             }
 
+            //var sequence = _sequenceService.GetCurrentSequenceAsync();
+            //animalModel.Number = sequence.Result.Number;
 
             return await CreatedItemAsync(_animalService, animalModel, _mapper);
         }
