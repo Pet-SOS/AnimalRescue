@@ -42,6 +42,7 @@ namespace AnimalRescue.BusinessLogic
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
                 new WellKnownTagMappingProfile(),
+                new SequenceMappingProfile(),
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile()
             });

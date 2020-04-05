@@ -8,6 +8,6 @@ namespace AnimalRescue.API.Models.Tags
     {
         [JsonPropertyName(PropertyConstants.Animal.Number)]
         [JsonProperty(PropertyConstants.Animal.Number)]
-        public long Number { get; set; }
+        public int Number { get; set; }
     }
 }

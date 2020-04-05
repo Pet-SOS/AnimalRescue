@@ -69,6 +69,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
                 .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
                 .AddSingleton<IQueryBuilder<WellKnownTag>, QueryBuilder<WellKnownTag>>()
+                .AddSingleton<IQueryBuilder<Sequence>, QueryBuilder<Sequence>>()
                 .AddSingleton<IQueryBuilder<Employee>, QueryBuilder<Employee>>()
                 .AddSingleton<IQueryBuilder<FinancialReport>, QueryBuilder<FinancialReport>>()
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>()
@@ -86,6 +87,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
                 .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
                 .AddScoped<IBaseCollection<WellKnownTag>, BaseCollection<WellKnownTag>>()
+                .AddScoped<IBaseCollection<Sequence>, BaseCollection<Sequence>>()
 
                 .AddScoped<IBaseCollection<Configuration<Contacts>>, BaseCollection<Configuration<Contacts>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()

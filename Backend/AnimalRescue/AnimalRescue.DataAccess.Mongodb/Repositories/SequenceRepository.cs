@@ -19,27 +19,39 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             _baseCollection = baseCollection;
         }
 
+        public async Task<Sequence> GetAsync()
+        {
+            DbQuery dbQuery = new DbQuery();
+            var all = await _baseCollection.GetAsync(dbQuery);
+            if (all.Count > 0)
+            {
+                return all[0];
+            }
+            return null;
+        }
+
+        public async Task<Sequence> CreateSequenceAsync(Sequence sequence)
+        {
+            Require.Objects.NotNull(sequence, nameof(sequence));
+            return await _baseCollection.CreateAsync(sequence);
+        }
+
         public async Task UpdateSequenceAsync(Sequence sequence)
         {
             Require.Objects.NotNull(sequence, nameof(sequence));
 
             var oldSequence = await _baseCollection.GetAsync(sequence.Id);
-            if (oldSequence == null)
-            {
-                oldSequence = await _baseCollection.CreateAsync(sequence);
-            }
-
             oldSequence.Number = sequence.Number;
 
             await _baseCollection.UpdateAsync(oldSequence);
         }
 
-        public async Task<Sequence> GetCurrentSequenceAsync()
-        {
-            DbQuery dbQuery = new DbQuery();
-            var all = await _baseCollection.GetAsync(dbQuery);
-            return all[0];
-        }
+        //public async Task<Sequence> GetCurrentSequenceAsync()
+        //{
+        //    DbQuery dbQuery = new DbQuery();
+        //    var all = await _baseCollection.GetAsync(dbQuery);
+        //    return all[0];
+        //}
 
     }
 }

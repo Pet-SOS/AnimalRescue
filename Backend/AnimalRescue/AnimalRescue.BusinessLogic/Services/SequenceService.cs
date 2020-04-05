@@ -2,12 +2,7 @@
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Infrastructure.Utilities;
-
 using AutoMapper;
-
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -23,19 +18,34 @@ namespace AnimalRescue.BusinessLogic.Services
             _mapper = mapper;
         }
 
-
         public async Task<SequenceDto> GetCurrentSequenceAsync()
         {
-            Sequence x = await _sequenceRepository.GetCurrentSequenceAsync();
-            var sequence = _mapper.Map<Sequence, SequenceDto>(x);
-            return sequence;
+            var sequence = await GetOrCreate();
+
+            var sequenceDto = _mapper.Map<Sequence, SequenceDto>(sequence);
+            return sequenceDto;
         }
 
-        public async Task UpdateSequenceAsync(SequenceDto sequenceDto)
+        public async Task<SequenceDto> GetNextSequenceAsync()
         {
-            sequenceDto.Number = sequenceDto.Number + 1;
-            var sequence = _mapper.Map<SequenceDto, Sequence>(sequenceDto);
+            var sequence = await GetOrCreate();
+            sequence.Number = sequence.Number + 1;
             await _sequenceRepository.UpdateSequenceAsync(sequence);
+
+            var sequenceDto = _mapper.Map<Sequence, SequenceDto>(sequence);
+            return sequenceDto;
+        }
+
+        private async Task<Sequence> GetOrCreate()
+        {
+            Sequence sequence = await _sequenceRepository.GetAsync();
+            if (sequence == null)
+            {
+                sequence = new Sequence();
+                sequence.Number = 1;
+                sequence = await _sequenceRepository.CreateSequenceAsync(sequence);
+            }
+            return sequence;
         }
     }
 }
