@@ -93,7 +93,7 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                             title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
                             link={{
                             title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
-                            href: '/'
+                            href: '/animals/page/1?kindOfAnimal=DOG/'
                             }}
                         />}
                         {this.props.catsList.data && this.props.catsList.data.length > 0 && <AnimalsSlider
@@ -101,7 +101,7 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                             title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
                             link={{
                             title: <TI18n keyStr="wantToChooseFriend" default="Хочу выбрать друга" />,
-                            href: '/'
+                            href: '/animals/page/1?kindOfAnimal=CAT/'
                             }}
                         />}
                     </div>
