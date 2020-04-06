@@ -5,7 +5,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface ISequenceService
     {
-        Task<SequenceDto> GetCurrentSequenceAsync();
-        Task<SequenceDto> GetNextSequenceAsync();
+        Task<SequenceDto> GetCurrentAsync();
+        Task<SequenceDto> GetNextAsync();
     }
 }

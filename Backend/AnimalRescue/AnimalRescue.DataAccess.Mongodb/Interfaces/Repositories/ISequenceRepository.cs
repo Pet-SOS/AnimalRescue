@@ -6,8 +6,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
     public interface ISequenceRepository
     {
         Task<Sequence> GetAsync();
-        Task<Sequence> CreateSequenceAsync(Sequence sequence);
-        Task UpdateSequenceAsync(Sequence sequence);
+        Task<Sequence> CreateAsync(Sequence sequence);
+        Task UpdateAsync(Sequence sequence);
 //        Task<Sequence> GetCurrentSequenceAsync();
     }
 }

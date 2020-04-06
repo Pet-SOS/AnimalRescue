@@ -110,7 +110,7 @@ namespace AnimalRescue.API.Controllers
                 animalModel.ImageIds = imageIds;
             }
 
-            var sequenceDto = _sequenceService.GetNextSequenceAsync();
+            var sequenceDto = _sequenceService.GetNextAsync();
             animalModel.Number = sequenceDto.Result.Number;
 
             return await CreatedItemAsync(_animalService, animalModel, _mapper);

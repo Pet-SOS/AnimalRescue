@@ -4,6 +4,7 @@ using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
@@ -23,35 +24,25 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
             DbQuery dbQuery = new DbQuery();
             var all = await _baseCollection.GetAsync(dbQuery);
-            if (all.Count > 0)
-            {
-                return all[0];
-            }
-            return null;
+            return all.FirstOrDefault();
         }
 
-        public async Task<Sequence> CreateSequenceAsync(Sequence sequence)
+        public async Task<Sequence> CreateAsync(Sequence sequence)
         {
             Require.Objects.NotNull(sequence, nameof(sequence));
             return await _baseCollection.CreateAsync(sequence);
         }
 
-        public async Task UpdateSequenceAsync(Sequence sequence)
+        public async Task UpdateAsync(Sequence sequence)
         {
             Require.Objects.NotNull(sequence, nameof(sequence));
 
             var oldSequence = await _baseCollection.GetAsync(sequence.Id);
-            oldSequence.Number = sequence.Number;
-
-            await _baseCollection.UpdateAsync(oldSequence);
+            if (oldSequence != null)
+            {
+                oldSequence.Number = sequence.Number;
+                await _baseCollection.UpdateAsync(oldSequence);
+            }
         }
-
-        //public async Task<Sequence> GetCurrentSequenceAsync()
-        //{
-        //    DbQuery dbQuery = new DbQuery();
-        //    var all = await _baseCollection.GetAsync(dbQuery);
-        //    return all[0];
-        //}
-
     }
 }
