@@ -15,6 +15,7 @@ import { CONFIG_KEY, configReducer } from './config.reducer';
 import { APP_LANGUAGE_KEY } from './../../i18n/store/reducer/index';
 import { TAGS_KEY, tagsReducer } from './tags.reducer';
 import { SNACKBAR_KEY, snackbarReducer } from './snackbar.reducer';
+import { ORGANIZATION_DOCUMENTS_KEY, organizationDocumentsReducer } from "./organizationDocuments.reducer";
 
 export const createReducers = () => {
   return combineReducers({
@@ -32,6 +33,7 @@ export const createReducers = () => {
     [REPORT_KEY]: financialReportReducer,
     [SNACKBAR_KEY]: snackbarReducer,
     [TAGS_KEY]: tagsReducer,
+    [ORGANIZATION_DOCUMENTS_KEY]: organizationDocumentsReducer,
     [YOUTUBE_VIDEOS_KEY]: youtubeVideosReducer
   })
 }

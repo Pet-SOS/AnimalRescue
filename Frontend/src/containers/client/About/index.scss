@@ -27,6 +27,23 @@
   .block-holder {
     margin: 0 0 5rem;
   }
+  .docs {
+    margin-top: 1rem;
+  }
+  .doc {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 0.5rem;  
+  }
+  .pdf-icon {
+    margin-right: 1rem;
+  }
+  .file-title {
+    color: $text-color-active;
+    text-align: start;
+  }
 }
 @media (max-width: $medium-device-width) {
     .about-page-holder .banner{
