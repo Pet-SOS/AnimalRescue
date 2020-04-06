@@ -3,7 +3,6 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

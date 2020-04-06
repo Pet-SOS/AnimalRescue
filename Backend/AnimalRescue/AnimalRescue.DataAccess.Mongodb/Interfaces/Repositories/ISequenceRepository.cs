@@ -8,6 +8,5 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
         Task<Sequence> GetAsync();
         Task<Sequence> CreateAsync(Sequence sequence);
         Task UpdateAsync(Sequence sequence);
-//        Task<Sequence> GetCurrentSequenceAsync();
     }
 }
