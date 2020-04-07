@@ -12,9 +12,9 @@ export const SocialLinks: React.FC<any> = () => {
 
     return (
         <ul className="social-links">
-            <li><a href={socialLinks.facebook} target="_blank" ><Icon className='icon-fb' /></a></li>
-            <li><a href={socialLinks.instagram} target="_blank" ><InstagramLogo/></a></li>
-            <li><a href={socialLinks.youtube} target="_blank" ><Icon className='icon-youtube' /></a></li>
+            <li><a href={socialLinks.facebook} target="_blank" ><Icon className='icon-fb' /><span>Facebook</span></a></li>
+            <li><a href={socialLinks.instagram} target="_blank" ><i><InstagramLogo/></i><span>Instagram</span></a></li>
+            <li><a href={socialLinks.youtube} target="_blank" ><Icon className='icon-youtube' /><span>Youtube</span></a></li>
         </ul>
     )
 };

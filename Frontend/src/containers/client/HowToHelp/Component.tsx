@@ -18,6 +18,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import copyImage from '../../../img/copy-pink.jpg';
 import { Breadcrumbs } from '../../../components/Breadcrumbs';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
+import Banner from "../../../img/bg-banner-03.jpg";
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -96,11 +97,11 @@ export const HowToHelp: React.FC<IPropTypes> = ({
   return (
     <React.Fragment>
       <div className='help-page-holder'>
-        <div className='content'>
+        <div className='container'>
           <h1 className='title'>
             <TI18n keyStr='helpPageTitle' default='Как я могу помочь' />
           </h1>
-          <div className='banner'/>
+          <div className='banner' style={{backgroundImage: `URL(${Banner})`}} />
           <div className='help-page-content'>
             <div className='block-holder'>
               <p className='description'>
@@ -129,7 +130,14 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
                 </div>
                 <CopyToClipboard text={infoCard.data.bankCard.cardNumber} className="copy-to-clipboard">
-                  <img src={copyImage} alt="copy"/>
+                  <button>
+                    <i className="icon-copy">
+                      <span className="path1">icon</span>
+                      <span className="path2">icon</span>
+                      <span className="path3">icon</span>
+                      <span className="path4">icon</span>
+                    </i>
+                  </button>
                 </CopyToClipboard>
               </div>
               }

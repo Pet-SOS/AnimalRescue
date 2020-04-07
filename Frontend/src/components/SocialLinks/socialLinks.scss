@@ -14,21 +14,34 @@
   }
 
   a {
+    display: flex;
+    align-items: center;
+    color: inherit;
+
+    &:hover {
+      i {
+        opacity: .8;
+      }
+    }
+  }
+
+  i {
     @include size(48px);
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1;
     background-color: #fff;
     border-radius: 100%;
     border: 1px solid $bg-lite-box;
     box-shadow: 0 4px 6px $bg-lite-lite;
-
-    &:hover {
-      opacity: .8;
-    }
   }
 
   svg {
     cursor: pointer;
+  }
+
+  span {
+    display: none;
   }
 }
