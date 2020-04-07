@@ -42,6 +42,7 @@ namespace AnimalRescue.BusinessLogic
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
                 new WellKnownTagMappingProfile(),
+                new SequenceMappingProfile(),
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile()
             });
@@ -68,6 +69,7 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddSingleton<ILanguageConfiguration, LanguageConfiguration>();
             services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<ISequenceService, SequenceService>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
