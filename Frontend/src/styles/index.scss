@@ -82,8 +82,7 @@ table {
 
 
 a {
-  transition: $defaultHoverTransition;
-  text-decoration: none;
+  @include animate(color);
 }
 
 ul {
@@ -167,47 +166,83 @@ ul {
   }
 }
 .bank-card-info {
-  min-width: 21rem;
+  //min-width: 21rem;
   display: inline-block;
+  vertical-align: top;
   background: $bg-lite-gray;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   color:$btn-blue;
-  padding: 0.375rem 1.5rem  0.125rem 1.5rem;
+  padding: 8px 24px  2px 24px;
   margin: 0.875rem 0;
+  line-height: 30px;
+
   .card{
-      font-size: 1.5rem;
-      line-height: 1.875rem;
-      font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: bold;
   }
 }
 p.description {
   font-size: 1.5rem;
   line-height: 2.125rem;
 }
+
 .banner {
-  height: 23.75rem;
-  background: $bg-orange;
+  padding-top: 34.7%;
   border-radius: 1.5rem;
   position: relative;
   margin: 0 0 2.5625rem;
+  background-color: $bg-orange;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @include media('≤xs-phone') {
+    padding-top: 250px;
+  }
 }
+
 .block-holder {
-  margin: 0 0 5rem;
+  margin-bottom: 80px;
+
+  @include media('≤phone') {
+    margin-bottom: 60px;
+  }
 }
+
 .warning {
   background: $bg-warning;
   border-radius: 24px;
-  padding: 2.5rem 3rem;
-  font-size: 1.5rem;
-  line-height: 2.125rem;
-  strong {
-    display: block;
+  padding: 40px;
+  font-size: 24px;
+  line-height: 1.5;
+
+  @include media('≤xs-phone') {
+    padding: 40px 16px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  h4 {
     font-weight: 900;
     text-transform: uppercase;
     margin: 0 0 1rem;
   }
+
+  strong {
+    font-weight: 900;
+  }
+
   p:last-child {
     margin: 0;
+  }
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: $btn-blue;
+    }
   }
 }
 input, textarea, ::placeholder {
@@ -264,4 +299,5 @@ input, textarea, ::placeholder {
     max-width: none;
   }
 }
+
 @import "media";

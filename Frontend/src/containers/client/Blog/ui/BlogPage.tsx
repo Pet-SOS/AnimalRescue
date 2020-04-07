@@ -120,8 +120,8 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
     render(){
         return (
             <div className="blog-page">
-                <div className='content'>
-                    <div className="title"> <TI18n keyStr='blogPageTitle' default={defaultText.blogPageTitle}/></div>
+                <div className='container'>
+                    <h2 className="title"> <TI18n keyStr='blogPageTitle' default={defaultText.blogPageTitle}/></h2>
                     <ul className='box-btn'>
                        <li 
                         className={this.state.activeBtn === 'all' ? `active all`: 'all'}

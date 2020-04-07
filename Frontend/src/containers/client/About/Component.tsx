@@ -5,6 +5,7 @@ import { HelpBlock } from '../../../components/HelpBlock';
 import './index.scss';
 import { Breadcrumbs } from '../../../components/Breadcrumbs';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
+import Banner from  "../../../img/bg-banner-02.jpg";
 
 interface IPropTypes {
   fetchSickAnimals: () => void;
@@ -37,11 +38,11 @@ export const AboutServices: React.FC<IPropTypes> = ({
   return (
     <React.Fragment>
       <div className='about-page-holder'>
-        <div className='content'>
-          <h1 className='title'>
+        <div className='container'>
+          <h2 className='title'>
             <TI18n keyStr='aboutPageTitle' default='Про службу порятунку' />
-          </h1>
-          <div className='banner'>
+          </h2>
+          <div className='banner' style={{backgroundImage: `URL(${Banner})`}} >
           </div>
           <div className='about-content'>
             <div className='block-holder'>

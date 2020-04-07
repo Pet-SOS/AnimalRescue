@@ -2,7 +2,7 @@
 .default-block-link {
   font-size: 1.25rem;
   line-height: 1.5rem;
-  color: $text-color-active;
+  //color: $text-color-active;
   font-weight: bold;
   text-decoration: none;
   display: inline-flex;
@@ -12,7 +12,8 @@
     margin-left: 1rem;
   }
   &:hover {
-    color: $btn-hover;
+    //color: $btn-hover;
+
     .button.white-circle {
       background-color: $btn-blue;
     }

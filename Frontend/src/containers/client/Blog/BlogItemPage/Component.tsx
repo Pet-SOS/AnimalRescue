@@ -80,7 +80,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
   
   return (
     <div className='blog-item-page-holder'>
-      <div className='content'>
+      <div className='container'>
         <div className='back-link-holder'>
           <BlockLink
             title={<TI18n keyStr='backToBlog' default='Назад в блог' />}
@@ -116,17 +116,17 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
             </div>
           )}
         </React.Fragment>}
-        {!!blogList && !!blogList.data && !!blogList.data.filter(item => item.id !== blogItem.data.id).length && (
-          <BlogBlock
-            title={
-              blogItem.data.type === BlogTypes.STORY ?
-                <TI18n keyStr='moreSuccessStories' default='Еще историй успеха' /> :
-                <TI18n keyStr='moreUsefulAdvices' default='Еще полезных статей' />
-            }
-            data={blogList.data.filter(item => item.id !== blogItem.data.id).slice(0, 3)}
-          />
-        )}
       </div>
+      {!!blogList && !!blogList.data && !!blogList.data.filter(item => item.id !== blogItem.data.id).length && (
+          <BlogBlock
+              title={
+                blogItem.data.type === BlogTypes.STORY ?
+                    <TI18n keyStr='moreSuccessStories' default='Еще историй успеха' /> :
+                    <TI18n keyStr='moreUsefulAdvices' default='Еще полезных статей' />
+              }
+              data={blogList.data.filter(item => item.id !== blogItem.data.id).slice(0, 3)}
+          />
+      )}
       <HelpBlock
         animalsList={sickAnimalsList.data}
         title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
