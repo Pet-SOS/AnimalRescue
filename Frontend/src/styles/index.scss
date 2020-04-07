@@ -80,6 +80,21 @@ table {
   }
 }
 
+.section-padding {
+  padding: 80px 0;
+
+  @include media('≤phone') {
+    padding: 60px 0;
+  }
+}
+.section-margin {
+  margin: 0 0 80px;
+
+  @include media('≤phone') {
+    margin: 0 0 60px;
+  }
+}
+
 
 a {
   @include animate(color);
@@ -189,9 +204,9 @@ p.description {
 
 .banner {
   padding-top: 34.7%;
-  border-radius: 1.5rem;
+  border-radius: 24px;
   position: relative;
-  margin: 0 0 2.5625rem;
+  margin: 0 0 40px;
   background-color: $bg-orange;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -226,7 +241,7 @@ p.description {
   h4 {
     font-weight: 900;
     text-transform: uppercase;
-    margin: 0 0 1rem;
+    margin: 0 0 16px;
   }
 
   strong {

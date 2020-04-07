@@ -7,7 +7,6 @@ import { Breadcrumbs } from '../../../components/Breadcrumbs';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 import Banner from  "../../../img/bg-banner-02.jpg";
 import { IOrganizationDocumentsResponse, IDocument, fetchDocumentById } from '../../../api/organizationDocuments';
-import { ReactComponent as Pdf } from '../../../img/pdf.svg';
 
 interface IPropTypes {
   fetchSickAnimals: () => void;
@@ -87,12 +86,12 @@ export const AboutServices: React.FC<IPropTypes> = ({
                   keyStr='aboutOurGoalText'
                   default='Порятунок тварин Харків це громадська організація, яка працює за принципом МНС або швидкої допомоги для тварин. Виникла у 2015 році. За цей час спільними зусиллями надана допомога більше 4000 тваринам з яких знайдено домівки 2748 тваринам. Наш напрямок – це порятунок тварин у надзвичайних ситуаціях, де є пряма загроза життю. Наша мета – звернути увагу людей до проблеми безпритульних тварин та обєднати для знаходження ефективних рішень.' />
               </p>
-              <ul className='docs'>
+              <ul className='list-docs'>
                 {
                   organizationDocumentsList.data.map((item, i:number)=>                        
-                    <li className="doc" key={i} onClick={()=>{openPdfFile(item)}}>
-                      <Pdf className='pdf-icon' />
-                      <div className='file-title'>{item.fileName}</div>
+                    <li className="item-docs" key={i} onClick={()=>{openPdfFile(item)}}>
+                      <i className="icon-pdf">icon</i>
+                      <span className='file-title'>{item.fileName}</span>
                     </li>)
                 }
               </ul>
