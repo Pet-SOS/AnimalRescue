@@ -365,17 +365,19 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                         <span>{this.props.animalsList.totalCount}</span>
                         <TI18n keyStr="countAnimalsSecondPart" default={defaultText.countAnimalsSecondPart} />
                     </div>
-                    <div className='content-block'>
-                        {
-                            this.props.animalsList.data.length &&
-                            this.props.animalsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
-                        }
+                    <div className="hold-content-items section-margin">
+                        <div className='content-block-animals'>
+                            {
+                                this.props.animalsList.data.length &&
+                                this.props.animalsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
+                            }
+                        </div>
+                        <BtnPagination
+                            setProps={this.props}
+                            pageCount={this.props.animalsList.pageCount}
+                            goToPagination={this.goToPagination.bind(this)}
+                        />
                     </div>
-                    <BtnPagination
-                    setProps={this.props}
-                    pageCount={this.props.animalsList.pageCount}
-                    goToPagination={this.goToPagination.bind(this)}
-                />
                 </div>
                 <HelpBlock
                     animalsList={this.props.sickAnimalsList.data}

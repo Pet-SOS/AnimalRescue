@@ -180,23 +180,74 @@ ul {
     left: 0;
   }
 }
+
+.bank-card {
+  display: flex;
+  flex-wrap: nowrap;
+
+  @include media('≤xs-phone') {
+    display: block;
+  }
+
+  button {
+    //@include animate(opacity);
+    @include size(48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-left: 1.5rem;
+    border: 0;
+    padding: 0;
+    background-color: $input-bg-color;
+    outline: none;
+    cursor: pointer;
+
+    @include media('≤xs-phone') {
+      margin: 0;
+    }
+
+    i {
+      line-height: 24px;
+      height: 24px;
+    }
+
+    span {
+      font-size: 0;
+
+      &:before {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
 .bank-card-info {
-  //min-width: 21rem;
   display: inline-block;
   vertical-align: top;
+  min-width: 250px;
   background: $bg-lite-gray;
   border-radius: 8px;
-  color:$btn-blue;
+  color: $btn-blue;
   padding: 8px 24px  2px 24px;
-  margin: 0.875rem 0;
   line-height: 30px;
 
-  .card{
+  @include media('≤xs-phone') {
+    margin: 0 0 16px 0;
+  }
+
+  .card {
     font-size: 1.5rem;
     line-height: 1.25;
     font-weight: bold;
   }
+
+  p {
+    margin-bottom: 0;
+  }
 }
+
 p.description {
   font-size: 1.5rem;
   line-height: 2.125rem;

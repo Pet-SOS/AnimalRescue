@@ -3,7 +3,7 @@
 @import './../../../styles/variables';
 @import './../../../styles/base/mixins';
 
-.help-page-holder{
+.help-page-holder {
   background: $bg-lite-box;
   p {
     margin: 0 0 2rem;
@@ -11,10 +11,8 @@
 
   .bank-card-info {
     background: $bg-warning;
-    p {
-      margin: 0;
-    }
   }
+
   .title {
     margin: 0 0 1.5rem;
   }
@@ -34,61 +32,6 @@
   }
   .vacations-list p {
     margin: 0 0 1rem;
-  }
-
-  .bank-card {
-    display: flex;
-    flex-wrap: nowrap;
-    
-    @include media('≤xs-phone') {
-      display: block;
-    }
-  }
-
-  .bank-card-info {
-    min-width: 250px;
-    margin: 0;
-
-    @include media('≤xs-phone') {
-      margin: 0 0 16px 0;
-    }
-  }
-
-  button.copy-to-clipboard {
-    //@include animate(opacity);
-    @include size(48px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    overflow: hidden;
-    margin-left: 1.5rem;
-    border: 0;
-    padding: 0;
-    background-color: $input-bg-color;
-    outline: none;
-    cursor: pointer;
-
-    @include media('≤xs-phone') {
-      margin: 0;
-    }
-
-    &:hover {
-      //opacity: 0.8;
-    }
-
-    i {
-      line-height: 24px;
-      height: 24px;
-    }
-
-    span {
-      font-size: 0;
-
-      &:before {
-        font-size: 24px;
-      }
-    }
   }
 
   .expanded-item-body .subtitle {

@@ -3,31 +3,28 @@
 @import '../../styles/variables';
 @import '../../styles/base/mixins';
 
-.video-history {
+.box-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 
-    .box-content {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
+    .section-heading {
+        margin-right: auto;
 
-        .section-heading {
-            margin-right: auto;
-
-            h2 {
-                margin-bottom: 0;
-            }
+        h2 {
+            margin-bottom: 0;
         }
+    }
 
-        .hold-link {
-            @include media('≤tablet') {
-                order: 1;
-            }
+    .hold-link {
+        @include media('≤tablet') {
+            order: 1;
         }
+    }
 
-        ul {
-            padding-top: 24px;
-            width: calc(100% + 24px);
-        }
+    ul {
+        padding-top: 24px;
+        width: calc(100% + 24px);
     }
 }
 

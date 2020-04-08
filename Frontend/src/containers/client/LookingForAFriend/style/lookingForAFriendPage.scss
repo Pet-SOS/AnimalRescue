@@ -5,7 +5,6 @@
 @import '../../../../styles/base/helpers';
 
 .looking-friend-block {
-    background: $bg-lite-gray;
 
     h2 {
         margin-bottom: 32px;
@@ -66,64 +65,52 @@
         padding-top: 12px;
         margin-bottom: 1.5rem;
 
-        span{
+        span {
             padding: 0 0.5rem;
         }
     }
+}
 
-    .content-block {
-        display: flex;
-        margin: 0 -12px;
-        flex-wrap: wrap;
+.content-block-animals {
+    display: flex;
+    margin: 0 -12px;
+    flex-wrap: wrap;
 
-        .animal {
-            width: 33.3%;
-            height: auto;
-            margin: 0;
-            padding: 0 12px 32px 12px;
+    .animal {
+        $pb: 40px;
 
-            @include media('≤tablet') {
-                width: 50%;
-            }
-            
-            @include media('≤phone') {
-                width: 100%;
-            }
-            .animal-card {
-                margin: 0;
-            }
-
-            &:last-child {
-                padding-bottom: 20px;
-
-                @include media('≤phone') {
-                    padding-bottom: 32px;
-                }
-            }
-
-            &:nth-last-child(2){
-                padding-bottom: 20px;
-
-                @include media('≤phone') {
-                    padding-bottom: 32px;
-                }
-            }
-
-            &:nth-last-child(3){
-                padding-bottom: 20px;
-
-                @include media('≤tablet') {
-                    padding-bottom: 32px;
-                }
-            }
-        }
-    }
-
-    .box-pagination {
-        margin: 0 0 80px;
+        width: 33.33%;
+        height: auto;
+        margin: 0;
+        padding: 0 12px;
 
         @include media('≤phone') {
-            margin-bottom: 40px;
+            width: 50%;
+        }
+
+        @include media('≤xs-phone') {
+            width: 100%;
+        }
+
+        .animal-card {
+            margin: 0;
+        }
+
+
+        &:nth-last-child(n + 4) {
+            padding-bottom: $pb;
+        }
+
+        &:nth-last-child(3) {
+            @include media('≤phone') {
+                padding-bottom: $pb;
+            }
+        }
+
+        &:nth-last-child(2) {
+            @include media('≤xs-phone') {
+                padding-bottom: $pb;
+            }
         }
     }
 }

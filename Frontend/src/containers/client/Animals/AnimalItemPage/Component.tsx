@@ -182,8 +182,8 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
           )}
         </div>
       </div>
-      <div className='instructions'>
-        <div className='content'>
+      <section className='instructions'>
+        <div className='container'>
           <h2 className='title'>
             <TI18n keyStr="howToTake" default="Как взять?" />
           </h2>
@@ -198,21 +198,23 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
             ))}
           </ul>
         </div>
-      </div>
+      </section>
       {!!animalsList.data.filter(animal => animal.id !== animalItem.data.id).length && (
-        <AnimalsSlider
-          data={animalsList.data.filter(animal => animal.id !== animalItem.data.id)}
-          title={
-            <React.Fragment>
-              <TI18n keyStr="other" default="Другие" />&nbsp;
-            <span className='animal-kind'>
+        <section className="section-slider-animals">
+          <AnimalsSlider
+              data={animalsList.data.filter(animal => animal.id !== animalItem.data.id)}
+              title={
+                <React.Fragment>
+                  <TI18n keyStr="other" default="Другие" />&nbsp;
+                  <span className='animal-kind'>
                 {animalItem.data.kindOfAnimal === AnimalKind.CAT ? <TI18n keyStr="footerCats" default="котики" /> :
-                  animalItem.data.kindOfAnimal === AnimalKind.DOG ? <TI18n keyStr="footerDogs" default="собачки" /> : null
+                    animalItem.data.kindOfAnimal === AnimalKind.DOG ? <TI18n keyStr="footerDogs" default="собачки" /> : null
                 }
               </span>
-            </React.Fragment>
-          }
-        />
+                </React.Fragment>
+              }
+          />
+        </section>
       )}
       <HelpBlock
         animalsList={sickAnimalsList.data}

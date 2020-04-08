@@ -4,8 +4,6 @@
 @import '../../../../styles/base/mixins';
 
 .blog-page {
-    background: $bg-lite-box;
-    padding: 0 0 80px;
 
     h2 {
       margin: 0 0 24px;
@@ -62,11 +60,12 @@
         flex-wrap: wrap;
         margin: 0 -12px;
 
-            li{
+            li {
+                $pb: 24px;
+
                 text-decoration: none;
                 width: 33.33%;
                 padding: 0 12px;
-                margin: 0 0 1.5rem;
 
                 @include media('≤phone') {
                     width: 50%;
@@ -76,16 +75,22 @@
                     width: 100%;
                 }
 
+                &:nth-last-child(n + 4) {
+                    padding-bottom: $pb;
+                }
+
+                &:nth-last-child(3) {
+                    @include media('≤phone') {
+                        padding-bottom: $pb;
+                    }
+                }
+
+                &:nth-last-child(2) {
+                    @include media('≤xs-phone') {
+                        padding-bottom: $pb;
+                    }
+                }
+
             }
     }
 }
-//@media all and(max-width: $medium-device-width){
-//    .blog-page{
-//        .box-btn{
-//            flex-wrap: wrap;
-//            li{
-//                margin-bottom: 0.5rem;
-//            }
-//        }
-//    }
-//}
