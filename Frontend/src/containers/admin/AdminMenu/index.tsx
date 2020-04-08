@@ -2,12 +2,6 @@ import'./index.scss';
 
 
 import { Menu } from 'antd';
-import {
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import { Button, ButtonTypes} from "../../../components/Button";
@@ -21,17 +15,19 @@ interface IPropTypes{
 interface IState{
     collapsed: boolean;
     selectedKey:string;
+    openKeys:string[];
 
 }
 const { SubMenu } = Menu;
 
 export class AdminMenu extends React.Component <IPropTypes, IState>{
+  rootSubmenuKeys=['sub1','sub2'];
     constructor(props:IPropTypes){
         super(props);
         this.state ={
             collapsed: false,
             selectedKey: this.props.selectedKey,
-            //openKeys: this.props.openKeys
+            openKeys: ['sub2']
         }
     }
 
@@ -42,9 +38,20 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
       collapsed: !this.state.collapsed,
     });
   };
-  handleClick=(e:any)=> {
+  handleClick = (e:any) => {
     console.log(e);
   }
+
+  onOpenChange = (openKeys:any) => {
+    const latestOpenKey = openKeys.find((key: string) => this.state.openKeys.indexOf(key) === -1);
+    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      this.setState({ openKeys });
+    } else {
+      this.setState({
+        openKeys: latestOpenKey ? [latestOpenKey] : [],
+      });
+    }
+  };
   render() {
     let {selectedKey} = this.state;
     return (
@@ -62,15 +69,15 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
           </div>
         <nav>
             <Menu
-                onClick={this.handleClick}
                 selectedKeys={[selectedKey]}
-                openKeys={this.props.openKeys}
+                openKeys={this.state.openKeys}
+                onOpenChange={this.onOpenChange}
                 mode="inline"
                 theme="light"
                 inlineCollapsed={this.state.collapsed}
                 className="main-admin-nav"
             >
-                <Menu.Item key="animals-list"><NavLink to={`/admin/animals-list`}><i className="icon-step-1">icon</i>Тварини</NavLink></Menu.Item>
+                <Menu.Item key="animals-list"><NavLink to={`/admin/animals-list/page/1`}><i className="icon-step-1">icon</i>Тварини</NavLink></Menu.Item>
                 <Menu.Item key="tags"><NavLink to={`/admin/tags`}><i className="icon-tag">icon</i>Теги</NavLink></Menu.Item>
                 <SubMenu
                     key="sub1"
@@ -100,18 +107,6 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-location">icon</i>Перетримки</NavLink></Menu.Item>
                     <Menu.Item><NavLink to={`/admin`}><i className="icon-person">icon</i>Профіль</NavLink></Menu.Item>
                 </SubMenu>
-                {/*<SubMenu*/}
-                {/*    key="sub2"*/}
-                {/*    title={"Navigation One"}>*/}
-
-                {/*    <Menu.Item key="admin">*/}
-                {/*        <NavLink to={`/admin`}>Admin</NavLink>*/}
-                {/*    </Menu.Item>*/}
-                {/*    <Menu.Item disabled key="5">Option 5</Menu.Item>*/}
-                {/*    <Menu.Item disabled key="6">Option 6</Menu.Item>*/}
-                {/*    <Menu.Item key="7">Option 7</Menu.Item>*/}
-                {/*    <Menu.Item key="8">Option 8</Menu.Item>*/}
-                {/*</SubMenu>*/}
             </Menu>
         </nav>
       </aside>
