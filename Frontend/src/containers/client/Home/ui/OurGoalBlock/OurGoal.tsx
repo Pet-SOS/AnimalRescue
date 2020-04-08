@@ -10,11 +10,11 @@ interface IPropTypes {
   }
 
 export const OurGoalBlock: React.FC<IPropTypes> = ({ title, link, text1}) => (
-  <div className="our-goal-container">
-      <div className="content">
-        <div className="title">{title}</div>
+  <section className="our-goal-container section-padding">
+      <div className="container">
+        <h2 className="title">{title}</h2>
         <div className="text">{text1}</div>
         {!!link && !!link.href && <BlockLink {...link}/>}
       </div>
-  </div>
+  </section>
 )

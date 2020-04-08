@@ -16,44 +16,43 @@ interface IPropTypes {
 
 export const YouTubeBox: React.FC<IPropTypes> = ({ videoLinks, backgroundColor, title, subTitle, channelLink }) => {
     return(
-        <div style={{backgroundColor}} className="video-history">
-            <div className='content'>
-                <div className='box-header'>
-                <div className='block-title'>
-                        <div className='title'>{title}</div>
-                        <div>{subTitle}</div>
+        <section style={{backgroundColor}} className="video-history section-padding">
+            <div className='container'>
+                <div className='box-content'>
+                    <div className='section-heading'>
+                        <h2>{title}</h2>
+                        {/*<p>{subTitle}</p>*/}
+                    </div>
+                    <div className='hold-link'>
+                        <BlockLink
+                            isButtonHidden={false}
+                            href={channelLink}
+                            isExternalLink
+                            title={<TI18n keyStr="youtubeTitleLink" default="Смотреть все истории на нашем канале"/>}
+                        />
+                    </div>
+                    <ul className='box-video'>
+                        {
+                            videoLinks.map((link,i) =>
+                                <li key={i}>
+                                    <div className="video">
+                                        <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'}  title={`video${i}`} ></iframe>
+                                        <button id="play" className="play-btn">Play</button>
+                                    </div>
+                                    <p>{link.title}</p>
+                                </li>)
+                        }
+                    </ul>
                 </div>
-                  <div className='header-link'>
-                    <BlockLink
-                        isButtonHidden={false}
-                        href={channelLink}
-                        isExternalLink
-                        title={<TI18n keyStr="youtubeTitleLink" default="Смотреть все истории на нашем канале"/>}
-                    />
-                  </div>
-                </div>
-                <ul className='box-video'>
-                    {
-                      videoLinks.map((link,i) => 
-                    <li key={i}>
-                        <div className="video">
-                            <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'}  title={`video${i}`} ></iframe>
-                            <button id="play" className="play-btn">
-  
-	                        </button>
-                        </div>
-                        <div>{link.title}</div>
-                    </li>)
-                    }
-                </ul>
-                <div className='box-link'>
-                    <BlockLink
-                        isButtonHidden={false}
-                        href={'https://www.youtube.com/channel/UCBSJrFxTYAbu1sAGdeRg8cA/videos'}
-                        title={<TI18n keyStr="youtubeTitleLink" default="Смотреть все истории на нашем канале"/>}
-                    />
-                </div>
+
+                {/*<div className='box-link'>*/}
+                {/*    <BlockLink*/}
+                {/*        isButtonHidden={false}*/}
+                {/*        href={'https://www.youtube.com/channel/UCBSJrFxTYAbu1sAGdeRg8cA/videos'}*/}
+                {/*        title={<TI18n keyStr="youtubeTitleLink" default="Смотреть все истории на нашем канале"/>}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </div>
-        </div>
+        </section>
         )
 }

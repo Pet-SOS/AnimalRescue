@@ -136,23 +136,25 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
                             )
                         }
                      </ul>
-                    <ul className='box-articles'>
-                      {this.props.blogList.data.map((item:IBlogItem, i:number)=> (
-                        <li key={i}>
-                          <BlogCard
-                            image={item.imageIds[0]}
-                            title={item.title}
-                            id={item.id ? item.id : ''}
-                            text={item.type}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                    <BtnPagination
-                        setProps={this.props}
-                        pageCount={this.props.blogList.pageCount}
-                        goToPagination={this.goToPagination.bind(this)}
-                    />
+                    <div className="hold-content-items section-margin">
+                        <ul className='box-articles'>
+                          {this.props.blogList.data.map((item:IBlogItem, i:number)=> (
+                            <li key={i}>
+                              <BlogCard
+                                image={item.imageIds[0]}
+                                title={item.title}
+                                id={item.id ? item.id : ''}
+                                text={item.type}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                        <BtnPagination
+                            setProps={this.props}
+                            pageCount={this.props.blogList.pageCount}
+                            goToPagination={this.goToPagination.bind(this)}
+                        />
+                    </div>
                 </div>
             </div>
         )

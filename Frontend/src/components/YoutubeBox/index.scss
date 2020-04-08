@@ -1,93 +1,112 @@
-@import '../../styles/variables.scss';
+@import '../../styles/include-media';
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+@import '../../styles/base/mixins';
 
-.video-history{
-    padding: 5rem 0;
-    .box-header{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1.5rem;
-        .block-title{
-            width: 45%;
-            text-align: left;
-        }
-        .header-link{
-            width: 55%;
-            text-align: right;
-            display: flex;
-            justify-content: flex-end;
+.box-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .section-heading {
+        margin-right: auto;
+
+        h2 {
+            margin-bottom: 0;
         }
     }
-    .box-video{
+
+    .hold-link {
+        @include media('≤tablet') {
+            order: 1;
+        }
+    }
+
+    ul {
+        padding-top: 24px;
+        width: calc(100% + 24px);
+    }
+}
+
+.box-video {
+    display: flex;
+    margin: 0 -12px;
+    font-size: 20px;
+    line-height: 1.4;
+    
+    @include media('≤tablet') {
+        margin-bottom: 24px;
+    }
+
+    @include media('≤xs-phone') {
+        display: block;
+        margin: 0 0 32px;
+    }
+
+    li {
         display: flex;
-        justify-content: space-between;
-        li{
-            display: flex;
-            flex-direction: column;
+        flex-direction: column;
+        width: 50%;
+        padding: 0 12px;
+
+        @include media('≤xs-phone') {
             width: 100%;
-            &:first-child{
-                margin-right: 30px;
-            }
-            .video{
-                position: relative;
-                height: 0;
-                padding-bottom: 52.54%;
-                width: 100%;
-                max-width: 33.6875rem;
-                margin-bottom: 1.5rem;
-                iframe {
-                    border-radius: 1.5rem;
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                }
+            padding: 0;
+        }
+
+        + li {
+            @include media('≤xs-phone') {
+                padding-top: 32px;
             }
         }
     }
-    .box-link{
-        margin-top:2.75rem;
-        display: none;
-    }
-}
-@media all and (max-width: 1007px) {
-    .video-history{
-        .content{
-            .box-link{
-                display: block;
-            }
-            .header-link{
-                display: none;
-            }
-            .box-header{
-                .block-title{
-                width: 100%;
-               }
-            }
+
+    .video {
+        width: 100%;
+        margin-bottom: 24px;
+        padding-bottom: 52.54%;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+
+        @include media('≤phone') {
+            margin-bottom: 16px;
         }
+
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    p {
+        margin-bottom: 0;
     }
 }
 
-@media all and (max-width: 880px) {
-    .video-history{
-        .content{
-            padding: 0 1rem;
-        }
-    }
-}
+.play-btn {
+    @include size(80px);
+    display: block;
+    border: 0;
+    padding: 0;
+    background-color: $btn-blue;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0;
+    cursor: pointer;
+    //display: none;
 
-@media all and (max-width: 594px) {
-    .video-history{
-        padding: 3.75rem 0;
-        .content{
-            padding: 0 1rem;
-            .box-video{
-                flex-wrap: wrap;
-                li{
-                    &:first-child{
-                        margin-right: 0;
-                    }
-                }
-            }
-        }
+    &:after {
+        @include triangle(25px 21px, $white, right);
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(calc(-50% + 4px), -50%);
     }
 }
