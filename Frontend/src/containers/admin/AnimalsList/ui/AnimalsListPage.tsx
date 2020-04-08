@@ -6,6 +6,9 @@ import { Button, ButtonTypes } from '../../../../components/Button';
 import '../style/animalListPage.scss';
 import noPhotoImage from './../../../../img/nophoto.jpg';
 import { store } from '../../../../store';
+import { BtnPagination } from '../../../client/Blog/ui/BtnPagination';
+import { IRequestParams } from '../../../../api/requestOptions';
+import moment from 'moment';
 
 const { Search } = Input;
 
@@ -14,17 +17,19 @@ interface AnimalsListPageProps {
     baseUrl:string;
     history: any;
     location:any;
-    animalsList: IAnimalsResponse
-    fetchAnimalsRequest: () => void;
+    animalsList: IAnimalsResponse;
+    fetchAnimalsRequest: (params?: IRequestParams) => void;
     fetchAnimalItem: (id:string) => any;
+    clearFetchAnimalItem:()=> void;
     postAnimal: (animal: IAnimal) => void
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void
 }
 
 
 export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
+    public toPage: number = 1;
+    public sizeAnimalToPage:number = 10;
     constructor(props:AnimalsListPageProps){
-       
         super(props);
         this.state={
         }
@@ -33,18 +38,44 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
         this.props.fetchAnimalItem(id);
         const stateItem=store.getState();
         if(stateItem.animalItem.data.name){
-            this.props.history.push(`${this.props.match.path}/animal`);
+            this.props.history.push(`/admin/animals-list/${id}`);
         }
-        console.log('00000',store.getState());
-
     }
 
     componentDidMount(){
-        this.props.fetchAnimalsRequest();
+        this.props.fetchAnimalsRequest({
+            page: this.props.match.params.page,
+            size: this.sizeAnimalToPage,
+        });
     }
 
     addAnimalSubmit(e:any){
-        this.props.history.push(`${this.props.match.path}/animal`)
+        this.props.clearFetchAnimalItem();
+        this.props.history.push(`/admin/animals-list/animal`)
+    }
+
+    goToPagination(toPage:string| number){
+        this.toPage =+toPage;
+        this.props.fetchAnimalsRequest({
+             page: this.toPage,
+             size: this.sizeAnimalToPage,
+         })
+         this.props.history.push({
+             pathname: `/admin/animals-list/page/${this.toPage}`,
+             state: this.state
+         })
+    }
+
+    countAgeAnimal(date:any){
+        const animalDate=moment(date);
+        const today=moment();
+        const year = animalDate.diff(today,'years');
+        const month = animalDate.diff(today,'month');
+        if(year < 0){
+            const restMonth = month-(year*12);
+            return restMonth!==0? `${-year}рокiв ${-restMonth}мiс`:`${-year}рокiв`;
+        }
+        return `${-(month-(year*12))}мiс`;
     }
     render(){
         return(
@@ -76,8 +107,9 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                 <td>Кличка</td>
                                 <td>Вид</td>
                                 <td>Стать</td>
+                                <td>Вiк</td>
+                                <td>Локація</td>
                                 <td>Статус</td>
-                                <td>Змінено</td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -92,13 +124,18 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                 <td>{animal.name}</td>
                                 <td>{animal.kindOfAnimal}</td>
                                 <td>{animal.gender}</td>
-                                <td>{'статус'}</td>
-                                <td>{'history'}</td>
+                                <td>{this.countAgeAnimal(animal.birthday)}</td>
+                                <td>Локація</td>
+                                <td>Статус</td>
                                 <td><button onClick={()=>this.updateAnimalCard(animal.id)}></button></td>
                             </tr>
                         )}
                         </tbody>
                     </table>
+                    <BtnPagination
+                    setProps={this.props}
+                    pageCount={this.props.animalsList.pageCount}
+                    goToPagination={this.goToPagination.bind(this)}/>
                 </div>
             </div>
             </>

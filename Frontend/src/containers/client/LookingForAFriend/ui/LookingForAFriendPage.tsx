@@ -45,7 +45,7 @@ interface IState {
 export class LookingForAFriendPage extends React.Component<IPropTypes> {
     public state: any; 
     public toPage: number = 1;
-    public sizeAnimalToPage:number = 15;
+    public sizeAnimalToPage:number = 3;
     public allFilterRequestString: string ='';
     public tagsAll='tags~all~';
     public initialState: any;

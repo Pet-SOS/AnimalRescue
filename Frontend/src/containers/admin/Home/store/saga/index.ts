@@ -16,10 +16,11 @@ import {
     actionAdminUpdateAnimalFailure,
     actionAdminUpdateAnimalSuccess
 } from "../actions";
+import { IRequestParams } from '../../../../../api/requestOptions';
 
-function* fetchHomePageAnimalsListSaga() {
+function* fetchHomePageAnimalsListSaga(action: { type: string, payload?: IRequestParams }) {
     try {
-        const response = yield call(fetchAnimals, {size: 100});
+        const response = yield call(fetchAnimals,action.payload);
         yield put(actionAdminHomeFetchAnimalsSuccess(response))
     } catch (e) {
         yield put(actionAdminHomeFetchAnimalsFailure(e))
