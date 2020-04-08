@@ -130,7 +130,12 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 return new List<Alias>();
             }
 
-            List<Alias> result = new List<Alias> { alias };
+            var result = new List<Alias> { alias };
+            
+            if (!alias.PropertyType.IsClass || !alias.PropertyType.IsInterface)
+            {
+                return result;
+            }
 
             var propertyInfos = alias.PropertyType.GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)

@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+﻿using AnimalRescue.BusinessLogic.Common;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +33,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
             var claims = new List<Claim>
             {
-                new Claim("UserId", user.Id),
+                new Claim(JwtClaimTypeConstants.UserId, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -56,7 +57,7 @@ namespace AnimalRescue.BusinessLogic.Services
         public string GenerateSecurityTokenLockedUser(string userId)
         {
             var claims = new List<Claim>();
-            claims.Add(new Claim("UserId", userId));
+            claims.Add(new Claim(JwtClaimTypeConstants.UserId, userId));
             var expiresIn = DateTime.UtcNow.AddMinutes(10);
             return GenerateJwt(claims, expiresIn);
         }

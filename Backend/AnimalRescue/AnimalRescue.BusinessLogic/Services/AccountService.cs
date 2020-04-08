@@ -52,7 +52,7 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<SignInAccountModel> SignIn(SignInAccountAuthorizationViewModel model)
         {
             ApplicationUser identityUser = _userManager.Users
-                .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper());
+                .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper() && !x.IsDeleted);
 
             Require.Objects.NotNull<NotFoundException>(identityUser, $"User not found");
 
@@ -81,6 +81,7 @@ namespace AnimalRescue.BusinessLogic.Services
             //TODO: CreateRefreshTokenIfNotExist - save refresh token in database
 
             var userData = _mapper.Map<UserAccountModelItem>(identityUser);
+            userData.UserRoles.AddRange(await _userManager.GetRolesAsync(identityUser));
 
             var authData = new SignInAccountModel
             {

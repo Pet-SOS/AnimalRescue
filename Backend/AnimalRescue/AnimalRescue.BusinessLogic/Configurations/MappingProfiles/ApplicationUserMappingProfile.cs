@@ -2,20 +2,19 @@
 using AnimalRescue.Contracts.BusinessLogic.Models.UsersManagement;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 {
     class ApplicationUserMappingProfile : Profile
     {
-        public ApplicationUserMappingProfile(UserManager<ApplicationUser> userManager)
+        public ApplicationUserMappingProfile()
         {
             CreateMap<ApplicationUser, GetUserUsersManagementViewItem>()
                 .ForMember(x => x.UserId, o => o.MapFrom(user => user.Id))
                 .ForMember(x => x.ProfilePhoto, o => o.MapFrom(user => user.ProfilePhoto ?? string.Empty))
                 .ForMember(
                 x => x.Roles,
-                o => o.MapFrom(user => userManager.GetRolesAsync(user).GetAwaiter().GetResult())
+                o => o.Ignore()
                 );
 
             CreateMap<ApplicationUser, UserAccountModelItem>()
@@ -24,7 +23,7 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForMember(x => x.ProfilePhoto, o => o.MapFrom(user => user.ProfilePhoto ?? string.Empty))
                 .ForMember(
                 x => x.UserRoles,
-                o => o.MapFrom(user => userManager.GetRolesAsync(user).GetAwaiter().GetResult())
+                o => o.Ignore()
                 );
         }
     }

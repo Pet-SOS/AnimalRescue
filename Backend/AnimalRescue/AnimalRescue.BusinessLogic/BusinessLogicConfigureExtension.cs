@@ -33,9 +33,6 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddConfigureMongoDb(configuration);
 
-            var provider = services.BuildServiceProvider();
-            var userManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
-
             profiles.AddRange(new Profile[] {
                 new AnimalMappingProfile(),
                 new StoryMappingProfile(),
@@ -48,7 +45,7 @@ namespace AnimalRescue.BusinessLogic
                 new WellKnownTagMappingProfile(),
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile(),
-                new ApplicationUserMappingProfile(userManager)
+                new ApplicationUserMappingProfile()
             });
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()

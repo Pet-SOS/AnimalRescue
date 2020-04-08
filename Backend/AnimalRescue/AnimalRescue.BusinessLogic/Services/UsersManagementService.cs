@@ -39,7 +39,7 @@ namespace AnimalRescue.BusinessLogic.Services
             _emailSender = emailSender;
         }
 
-        public virtual async Task<GetUserUsersManagementViewItem> CreateNew(Guid modifierUserId, CreateNewUsersManagementViewModel model)
+        public virtual async Task<GetUserUsersManagementViewItem> CreateNewAsync(Guid modifierUserId, CreateNewUsersManagementViewModel model)
         {
             var identityUser = await _userManager.FindByEmailAsync(model.Email);
             Require.Objects.IfNull(identityUser, "User already exists");
@@ -59,11 +59,11 @@ namespace AnimalRescue.BusinessLogic.Services
 
             var password = PasswordHelper.GeneratePassword(8);
             var creationResult = await _userManager.CreateAsync(newUser, password);
-            Require.Booleans.IsTrue<BadRequestException>(creationResult.Succeeded, creationResult.GetErrors());
+            Require.Booleans.IsTrue<BadRequestException>(creationResult.Succeeded, creationResult.GetErrors);
 
             CheckRole(model.Roles);
             var assignRoleResult = await _userManager.AddToRolesAsync(newUser, model.Roles);
-            Require.Booleans.IsTrue<BadRequestException>(assignRoleResult.Succeeded, assignRoleResult.GetErrors());
+            Require.Booleans.IsTrue<BadRequestException>(assignRoleResult.Succeeded, assignRoleResult.GetErrors);
 
             SendInvitationWithPassword(newUser, password);
 
@@ -72,36 +72,42 @@ namespace AnimalRescue.BusinessLogic.Services
             return userData;
         }
 
-        public virtual async Task<BlCollectonResponse<GetUserUsersManagementViewItem>> GetActiveUsers(ApiQueryRequest queryRequest)
+        public virtual async Task<BlCollectonResponse<GetUserUsersManagementViewItem>> GetUsersAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
-            dbQuery.Filter = AssignDefaults(dbQuery.Filter);
 
             var users = await _userRepository.GetAsync(dbQuery);
             var totalNumberOf = await _userRepository.GetCountAsync(dbQuery);
 
             var userCollection = _mapper.Map<IEnumerable<ApplicationUser>, List<GetUserUsersManagementViewItem>>(users);
+            foreach (var userModel in userCollection)
+            {
+                var identityUser = users.SingleOrDefault(x => x.Id == userModel.UserId);
+                userModel.Roles.AddRange(await _userManager.GetRolesAsync(identityUser));
+            }
 
             return new BlCollectonResponse<GetUserUsersManagementViewItem>
             { Collection = userCollection, TotalCount = totalNumberOf };
         }
 
-        public virtual async Task<GetUserUsersManagementViewItem> GetUser(Guid userId)
+        public virtual async Task<GetUserUsersManagementViewItem> GetUserAsync(Guid userId)
         {
-            var user = await FindOne(userId.ToString());
+            var user = await FindOneAsync(userId.ToString());
 
             var result = _mapper.Map<GetUserUsersManagementViewItem>(user);
+            result.Roles.AddRange(await _userManager.GetRolesAsync(user));
+
             return result;
         }
 
-        public virtual async Task UpdateOne(Guid userId, Guid modifierUserId, EditUsersManagementViewModel model)
+        public virtual async Task UpdateOneAsync(Guid userId, Guid modifierUserId, EditUsersManagementViewModel model)
         {
-            ApplicationUser user = await FindOne(userId.ToString());
+            ApplicationUser user = await FindOneAsync(userId.ToString());
 
             var isUsernameChanged = user.Email != model.Email;
             if (isUsernameChanged)
             {
-                var userByNewEmail =  _userManager.Users.SingleOrDefault(x=> x.Email == model.Email && !x.IsDeleted);
+                var userByNewEmail = _userManager.Users.SingleOrDefault(x => x.Email == model.Email && !x.IsDeleted);
                 Require.Objects.IfNull<BadRequestException>(userByNewEmail, $"User with email {model.Email} already exists.");
 
                 user.Email = model.Email;
@@ -115,24 +121,26 @@ namespace AnimalRescue.BusinessLogic.Services
             user.ModifiedBy = modifierUserId.ToString();
 
             var updateResult = await _userManager.UpdateAsync(user);
-            Require.Booleans.IsTrue<BadRequestException>(updateResult.Succeeded, updateResult.GetErrors());
+            Require.Booleans.IsTrue<BadRequestException>(updateResult.Succeeded, updateResult.GetErrors);
+
+            await ReAssignRolesAsync(user, model.Roles);
         }
 
-        public virtual async Task DeleteOne(Guid userId, Guid modifierUserId)
+        public virtual async Task DeleteOneAsync(Guid userId, Guid modifierUserId)
         {
-            ApplicationUser user = await FindOne(userId.ToString());
+            ApplicationUser user = await FindOneAsync(userId.ToString());
 
             user.IsDeleted = true;
             user.ModifiedAt = DateHelper.GetUtc();
             user.ModifiedBy = modifierUserId.ToString();
 
             var updateResult = await _userManager.UpdateAsync(user);
-            Require.Booleans.IsTrue<BadRequestException>(updateResult.Succeeded, updateResult.GetErrors());
+            Require.Booleans.IsTrue<BadRequestException>(updateResult.Succeeded, updateResult.GetErrors);
         }
 
         #region Private
 
-        private Task<ApplicationUser> FindOne(string userId)
+        private Task<ApplicationUser> FindOneAsync(string userId)
         {
             var task = Task.Run(() =>
             {
@@ -157,6 +165,22 @@ namespace AnimalRescue.BusinessLogic.Services
             }
         }
 
+        private async Task ReAssignRolesAsync(ApplicationUser user, IEnumerable<string> roleNamesToAssign)
+        {
+            var userInRoles = await _userManager.GetRolesAsync(user);
+            if (roleNamesToAssign.All(x => userInRoles.Contains(x)))
+            {
+                return;
+            }
+
+            var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, userInRoles);
+            Require.Booleans.IsTrue<BadRequestException>(removeRolesResult.Succeeded, removeRolesResult.GetErrors);
+
+            CheckRole(roleNamesToAssign);
+            var assignToRolesResult = await _userManager.AddToRolesAsync(user, roleNamesToAssign);
+            Require.Booleans.IsTrue<BadRequestException>(assignToRolesResult.Succeeded, assignToRolesResult.GetErrors);
+        }
+
         private void SendInvitationWithPassword(ApplicationUser user, string password)
         {
             //send an invitation email (TODO: get email template from Db)
@@ -167,14 +191,6 @@ namespace AnimalRescue.BusinessLogic.Services
                 .ToString();
 
             _emailSender.SendMail(user.Email, "Animal Rescue - An invitation", emailBody);
-        }
-
-        private string AssignDefaults(string filter)
-        {
-            filter = !string.IsNullOrEmpty(filter) ?
-                string.Join(';', filter, "IsDeleted~eq~false")
-                : "IsDeleted~eq~false";
-            return filter;
         }
 
         #endregion

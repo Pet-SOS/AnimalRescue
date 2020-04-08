@@ -3,6 +3,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
@@ -72,21 +75,19 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             string rowFilterParams,
             IAliasStore aliasStore)
         {
-            var filterArrey = rowFilterParams?
+            rowFilterParams = AssignDefaults(typeof(T), rowFilterParams);
+
+            var filterArray = rowFilterParams
                 .GetFilterDefinitions<T>(aliasStore);
 
-            var result = filterArrey != null
-                ? Builders<T>.Filter.And(filterArrey)
-                : Builders<T>.Filter.Empty;
-
-            return result;
+            return Builders<T>.Filter.And(filterArray);
         }
 
-        public static List<FilterDefinition<T>> GetFilterDefinitions<T>(             
+        public static List<FilterDefinition<T>> GetFilterDefinitions<T>(
             this string rowFilterParams,
             IAliasStore aliasStore)
         {
-            var rawTerms = rowFilterParams?
+            var rawTerms = rowFilterParams
                 .GetRawTerms()
                 .ToList();
 
@@ -96,6 +97,24 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 .ToList();
 
             return filters;
+        }
+
+        private static string AssignDefaults(Type entityType, string filter)
+        {
+            var prop = entityType.GetProperty("IsDeleted");
+            var fieldName = prop?.GetCustomAttribute<BsonElementAttribute>()?.ElementName ?? prop.Name;
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                return $"{fieldName}~eq~false";
+            }
+
+            if (filter.Contains(fieldName, StringComparison.OrdinalIgnoreCase))
+            {
+                return filter;
+            }
+
+            return string.Join(';', filter, $"{fieldName}~eq~false");
         }
     }
 }

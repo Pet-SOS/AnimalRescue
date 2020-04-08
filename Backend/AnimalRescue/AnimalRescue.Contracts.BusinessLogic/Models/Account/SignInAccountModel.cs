@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Account
 {
@@ -19,5 +18,10 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.Account
         public string UserName { get; set; }
         public string ProfilePhoto { get; set; }
         public List<string> UserRoles { get; set; }
+
+        public UserAccountModelItem()
+        {
+            UserRoles = new List<string>();
+        }
     }
 }

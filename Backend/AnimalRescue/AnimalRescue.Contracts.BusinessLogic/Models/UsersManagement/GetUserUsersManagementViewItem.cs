@@ -16,5 +16,10 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.UsersManagement
         public string CreatedAt { get; set; }
 
         public List<string> Roles { get; set; }
+
+        public GetUserUsersManagementViewItem()
+        {
+            Roles = new List<string>();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Models;
+﻿using AnimalRescue.BusinessLogic.Common;
+using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Exceptions;
 using System;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace AnimalRescue.API.Core.Extensions
         public static IdentityUserModel GetUser(this IIdentity identity)
         {
             ClaimsIdentity claimsIdentity = identity as ClaimsIdentity;
-            Guid.TryParse(claimsIdentity?.FindFirst("UserId")?.Value, out Guid userId);
+            Guid.TryParse(claimsIdentity?.FindFirst(JwtClaimTypeConstants.UserId)?.Value, out Guid userId);
             var user = new IdentityUserModel
             {
                 Id = userId,
