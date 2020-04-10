@@ -43,17 +43,19 @@ export class FinancialReportsPage extends React.Component<IPropTypes> {
     render(){
         return (
         <React.Fragment>
-            <div className='financial-report-block'>
-                <div className="content">
-                    <div className="title"> <TI18n keyStr="financialReportsPageTitle" default="Финансовые отчеты"/></div>
-                    <div className="text-report"> <TI18n keyStr="financialReportsPageText" default="Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены"/></div>
-                    <ul className='box-reports'>
+            <div className='financial-report-block section-margin'>
+                <div className="container">
+                    <h2> <TI18n keyStr="financialReportsPageTitle" default="Финансовые отчеты"/></h2>
+                    <div className="page-description">
+                        <p><TI18n keyStr="financialReportsPageText" default="Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены"/></p>
+                    </div>
+                    <ul className='box-reports section-padding'>
                     {
                         this.props.financeReports.map((item, i:number)=>
                             <li key={i}>
                                 <NavLink to={`/about/financial-reports/${item.date}`} className='report' href={`/${item.date}`}>
-                                    <p className='title-report'>{ <TI18n keyStr="financialReportsPageTitle"/>}</p>
-                                    <p className='date-report'>{item.date}</p>
+                                    <span className='title-report'>{ <TI18n keyStr="financialReportsPageTitle"/>}</span>
+                                    <strong className='date-report'>{item.date}</strong>
                                 </NavLink>
                             </li>
                         )

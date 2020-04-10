@@ -98,20 +98,18 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     <React.Fragment>
       <div className='help-page-holder'>
         <div className='container'>
-          <h1 className='title'>
-            <TI18n keyStr='helpPageTitle' default='Как я могу помочь' />
-          </h1>
+          <h2><TI18n keyStr='helpPageTitle' default='Как я могу помочь' /></h2>
           <div className='banner' style={{backgroundImage: `URL(${Banner})`}} />
           <div className='help-page-content'>
-            <div className='block-holder'>
-              <p className='description'>
+            <div className='page-description section-margin'>
+              <p>
                 <TI18n
                   keyStr='helpPageMainText'
                   default='Животных, которые либо родились бездомными, либо от них отказались их владельцы, подбирают неравнодушные граждане и волонтеры офиса «Порятунок тварин Харків». Мы помогаем пушистикам и с помощью волонтеров оплачиваем лечение и содержание животного, занимаемся адаптацией и поиском семьи, размещая объявления на своих площадках.' />
               </p>
             </div>
             <div id={HelpTypes.FINANCE} className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='helpPageFinanceTitle'
                   default='Финансово'
@@ -143,7 +141,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
               }
             </div>
             <div id={HelpTypes.STUFF} className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='helpPageStuffTitle'
                   default='Вещами'
@@ -152,7 +150,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
               <ExpandedList data={stuffListData} />
             </div>
             <div id={HelpTypes.VOLUNTEERING} className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='helpPageVolunteeringTitle'
                   default='Волонтерством' />
@@ -164,7 +162,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                 />
               </p>
               {!!vacancies && !!vacancies.data && !!vacancies.data.length && <React.Fragment>
-                <h4 className='title'>
+                <h4>
                   <TI18n
                     keyStr='helpPageVolunteeringListTitle'
                     default='Какую работу могут выполнять волонтеры?' />

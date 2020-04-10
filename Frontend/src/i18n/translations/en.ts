@@ -139,6 +139,7 @@ export default {
    /*     FinancialReportsPage      */
    financialReportsPageTitle:'Financial reports',
    financialReportsPageText:'Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed.',
+  financialReportsListPageText: 'For 2019 we spent 772,000 UAH and collected 871,000 UAH. The bulk of these funds went to treatment, care and the implementation of a sterilization program - to stop the growth of the population of street animals.',
 
   photographer: 'Photographer',
   photographerVacationText1: 'For a pet to quickly find his family, he needs good photos. That is why the help of professional photographers in this case is extremely desirable and important.',

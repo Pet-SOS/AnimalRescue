@@ -6,7 +6,7 @@ import '../styles/footer.scss';
 
 export const AdminFooter: React.FC = () => (
   <div className="app-footer">
-    <div className="content">
+    <div className="container">
       <div className="links">
         <div className="column-1">
           <div className="item-main"><TI18n keyStr="footerColumn1Item1" default="О приюте" /></div>

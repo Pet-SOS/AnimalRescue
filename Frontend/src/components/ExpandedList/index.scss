@@ -1,52 +1,76 @@
-@import './../../styles/variables.scss';
+@import './../../styles/include-media';
+@import './../../styles/base/variables';
+@import './../../styles/variables';
+@import './../../styles/base/mixins';
+
 .expanded-item {
-  overflow: hidden;
-  padding: 0.1875rem 0 0 3rem;
-  margin: 0 0 0.625rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   position: relative;
-  min-height: 2.5rem;
-  .expand-button {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 2rem;
-    height: 2rem;
-    background: #ffffff;
-    box-shadow: 0px 4px 6px $bg-lite-lite;
-    border-radius: 50%;    
-    border: 1px solid $bg-lite-box;
-    outline: none;
-    cursor: pointer;
-    padding: 0;
-    text-align: center;
+  cursor: pointer;
+
+  &:nth-last-child(n + 2) {
+    margin: 0 0 16px;
+  }
+
+  ul {
+    @include animate(opacity);
+    opacity: 0;
+  }
+
+  i {
+    @include size(32px);
     display: flex;
     align-items: center;
     justify-content: center;
-    &:after {
-      content: "";
-      width: .5rem;
-      height: .5rem;
-      border-top: .125rem solid $text-lite-color;
-      border-right: .125rem solid $text-lite-color;
-      transform: rotate(45deg) skew(7deg,7deg);
-      transition: $defaultHoverTransition;
+    line-height: 1;
+    font-size: 0;
+    background-color: $white;
+    border-radius: 100%;
+    box-shadow: 0 3px 4px rgba(166, 205, 227, 0.4);
+    flex-shrink: 0;
+    margin-right: 16px;
+
+    &:before {
+      @include animate(transform margin-left);
+      font-size: 24px;
+      transform: rotate(270deg);
+      margin-left: 4px;
     }
   }
-  cursor: pointer;
+
   .expanded-item-title {
     font-size: 1.125rem;
     line-height: 1.625rem;
     color: $text-color-active;
     font-weight: bold;
-    margin: 0 0 1rem;
     display: block;
   }
+
   .expanded-item-body {
-    overflow: hidden;
+    @include animate(max-height);
+    width: 100%;
     transition: $defaultHoverTransition;
     max-height: 0;
+    padding-left: 48px;
+    overflow: hidden;
+
+    > ul {
+      padding-top: 8px;
+    }
   }
-  &.expanded .expand-button:after {
-    transform: rotate(135deg) skew(7deg,7deg);
+
+  &.expanded {
+    margin-bottom: 0;
+
+    ul {
+      opacity: 1;
+    }
+
+    i:before {
+      transform: rotate(180deg);
+      margin-left: 0;
+    }
   }
 }
