@@ -5,6 +5,7 @@
 
 .about-page-holder {
   background: $bg-lite-box;
+
   p {
     margin: 0 0 1rem;
 
@@ -18,12 +19,9 @@
       }
     }
   }
-  .title {
-    margin: 0 0 1.5rem;
-  }
 
   .about-content {
-    max-width: 54.375rem;
+    max-width: 870px;
     margin: 0 auto;
   }
 }

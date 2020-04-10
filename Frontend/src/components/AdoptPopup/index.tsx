@@ -17,14 +17,14 @@ export const AdoptPopup: React.FC<IPropTypes> = ({ onClose }) => {
     <div className='adopt-popup-wrapper'>
       <div className='adopt-popup-holder'>
         <div className='popup-head'>
-          <Button
-            styleType={ButtonTypes.Close}
-            onClick={onClose}
-          />
-          <h2 className='title'>
+          <h2>
             <TI18n keyStr="adoptPopupTitle" default="Хочу забрати тварину додому" />
           </h2>
           <img src={heartImage} alt="heart" />
+          <Button
+              styleType={ButtonTypes.Close}
+              onClick={onClose}
+          />
         </div>
         <div className='popup-content'>
           <p>

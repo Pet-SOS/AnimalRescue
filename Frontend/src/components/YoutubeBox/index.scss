@@ -84,29 +84,3 @@
         margin-bottom: 0;
     }
 }
-
-.play-btn {
-    @include size(80px);
-    display: block;
-    border: 0;
-    padding: 0;
-    background-color: $btn-blue;
-    border-radius: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0;
-    cursor: pointer;
-    //display: none;
-
-    &:after {
-        @include triangle(25px 21px, $white, right);
-        content: '';
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(calc(-50% + 4px), -50%);
-    }
-}
