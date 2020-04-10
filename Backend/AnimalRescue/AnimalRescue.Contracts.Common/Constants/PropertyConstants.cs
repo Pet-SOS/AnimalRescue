@@ -51,6 +51,11 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string CoverImage = "coverImage";
             public const string Birthday = "birthday";
             public const string Character = "character";
+            public const string Status = "status";
+            public const string LocationType = "locationType";
+            public const string LocationName = "locationName";
+            public const string IsDonationActive = "isDonationActive";
+            public const string BannerText = "bannerText";
         }
 
         public static class Common
