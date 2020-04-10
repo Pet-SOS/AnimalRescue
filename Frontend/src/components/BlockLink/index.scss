@@ -1,15 +1,16 @@
 @import './../../styles/variables.scss';
+
 .default-block-link {
-  font-size: 1.25rem;
-  line-height: 1.5rem;
+  font-size: 20px;
+  line-height: 1.2;
   //color: $text-color-active;
   font-weight: bold;
-  text-decoration: none;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+
   .button {
-    margin-left: 1rem;
+    margin-left: 16px;
   }
   &:hover {
     //color: $btn-hover;
@@ -20,8 +21,10 @@
   }
   &.back-link {
     flex-direction: row-reverse;
+
     .button {
-      margin: 0 1rem 0 0;
+      margin: 0 16px 0 0;
+
       &:after {
         transform: rotate(180deg);
       }

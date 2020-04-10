@@ -68,15 +68,15 @@ export const AboutServices: React.FC<IPropTypes> = ({
           <div className='banner' style={{backgroundImage: `URL(${Banner})`}} >
           </div>
           <div className='about-content'>
-            <div className='block-holder'>
-              <p className='description'>
+            <div className='page-description section-margin'>
+              <p>
                 <TI18n
                   keyStr='aboutMainText'
                   default='Хочемо щоб кожен з Вас повірив, що нема нічого неможливого! Хід історії змінити може кожен. Вплинути на суспільні процеси також. Для цього потрібні прості маленькі кроки. Ми прагнемо рятувати безнадійних, рятувати тих, про кого нема кому подбати.' />
               </p>
             </div>
             <div className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='aboutOurGoalTitle'
                   default='Хто ми' />
@@ -97,7 +97,7 @@ export const AboutServices: React.FC<IPropTypes> = ({
               </ul>
             </div>
             <div className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='aboutServiceHistoryTitle'
                   default='Яким тваринам ми допомогаємо' />
@@ -124,7 +124,7 @@ export const AboutServices: React.FC<IPropTypes> = ({
               </ul>
             </div>
             <div className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='aboutServiceHowWeWorkTitle'
                   default='Як ми працюємо' />

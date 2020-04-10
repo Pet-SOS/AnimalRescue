@@ -16,18 +16,19 @@ export const HelpedBlockItem: React.FC<IPropTypes> = ({ story }) => {
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
   return (  
     <React.Fragment>
-      <div className="img-holder" style={{ backgroundImage: `url(${story.imageIds[0] ? `${baseUrl}documents/${story.imageIds[0]}/type/medium` : `${noPhotoImage}`})` }}>
+      <div className="inner-col">
+          <div className="visual" style={{ backgroundImage: `url(${story.imageIds[0] ? `${baseUrl}documents/${story.imageIds[0]}/type/medium` : `${noPhotoImage}`})` }}></div>
       </div>
-      <div className="info-holder">
-        <div className="info-content">
-          <div className="info-title">{story.title}</div>
-          <div className='info-text'>{story.body}</div>
-        </div>
-        <BlockLink
-          title={<TI18n keyStr="readStory" default="Читать историю" />}
-          href={`blog/${story.id}`}
-          isButtonHidden={true}
-        />
+      <div className="inner-col">
+          <div className="text">
+              <h4>{story.title}</h4>
+              <p className='info-text'>{story.body}</p>
+              <BlockLink
+                  title={<TI18n keyStr="readStory" default="Читать историю" />}
+                  href={`blog/${story.id}`}
+                  isButtonHidden={true}
+              />
+          </div>
       </div>
     </React.Fragment>
   )

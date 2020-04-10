@@ -34,24 +34,15 @@ export const YouTubeBox: React.FC<IPropTypes> = ({ videoLinks, backgroundColor, 
                     <ul className='box-video'>
                         {
                             videoLinks.map((link,i) =>
-                                <li key={i}>
-                                    <div className="video">
-                                        <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'}  title={`video${i}`} ></iframe>
-                                        <button id="play" className="play-btn">Play</button>
-                                    </div>
-                                    <p>{link.title}</p>
-                                </li>)
+                            <li key={i}>
+                                <div className="video">
+                                    <iframe src={link.src}  allow="autoplay; encrypted-media"  allowFullScreen={true} frameBorder={'0'}  title={`video${i}`} ></iframe>
+                                </div>
+                                <p>{link.title}</p>
+                            </li>)
                         }
                     </ul>
                 </div>
-
-                {/*<div className='box-link'>*/}
-                {/*    <BlockLink*/}
-                {/*        isButtonHidden={false}*/}
-                {/*        href={'https://www.youtube.com/channel/UCBSJrFxTYAbu1sAGdeRg8cA/videos'}*/}
-                {/*        title={<TI18n keyStr="youtubeTitleLink" default="Смотреть все истории на нашем канале"/>}*/}
-                {/*    />*/}
-                {/*</div>*/}
             </div>
         </section>
         )

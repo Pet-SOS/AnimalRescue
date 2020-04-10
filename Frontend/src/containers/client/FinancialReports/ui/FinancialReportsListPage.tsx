@@ -81,14 +81,16 @@ export class FinancialReportsListPage extends React.Component<IPropTypes, IState
         return (
         <React.Fragment>
             <div className='financial-report-block'>
-                <div className="content">
-                    <div className="title"> <TI18n keyStr="financialReportsPageTitle" default="Финансовые отчеты"/></div>
-                    <div className="text-report"> <TI18n keyStr="financialReportsPageText" default="Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены"/></div>
-                    <ul className='reports'>
+                <div className="container">
+                    <h2><TI18n keyStr="financialReportsPageTitle" default="Финансовые отчеты"/></h2>
+                    <div className="page-description">
+                        <p><TI18n keyStr="financialReportsListPageText"/></p>
+                    </div>
+                    <ul className='list-reports'>
                     {
                         this.reports.map((item, i:number)=>
                             <li key={i} onClick={()=>{this.openPdfFile(item)}}>
-                                <Pdf className='pdf-icon' /><TI18n keyStr={`dateText${moment(item.date).month()}`}/> <span className='year-report'>{moment(item.date).year()}</span>
+                                <i className="icon-pdf">icon-pdf</i><TI18n keyStr={`dateText${moment(item.date).month()}`}/><span className='year-report'>{moment(item.date).year()}</span>
                             </li>)
                     }
                    </ul>
