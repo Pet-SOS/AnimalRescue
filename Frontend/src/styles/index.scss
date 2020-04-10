@@ -363,6 +363,16 @@ input, textarea, ::placeholder {
 
   .container {
     max-width: none;
+    padding: 0 48px;
+
+    @include media('≤phone') {
+      padding: 0 24px;
+    }
+
+    @include media('≤xs-phone') {
+      padding: 0 16px;
+    }
+
   }
 }
 

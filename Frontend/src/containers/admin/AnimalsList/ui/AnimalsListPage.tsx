@@ -85,58 +85,63 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                     selectedKey={'animals-list'}
                     openKeys={['']}
                 />
-                <div className='animals-list'>
-                    <h2>Тварини</h2>
-                    <div className='box-action'>
-                        <Search
-                            placeholder="Пошук"
-                            onSearch={value => console.log(value)}
-                            style={{ width: 200 }}
-                        />
-                        <Button
-                            onClick={(e) => this.addAnimalSubmit(e)}
-                            styleType={ButtonTypes.Blue}>
-                            Додати тварину
-                      </Button>
+                <main>
+                    <div className="container">
+                        <h2>Тварини</h2>
+                        <div className='animals-list'>
+                            <div className='box-action'>
+                                <Search
+                                    placeholder="Пошук"
+                                    onSearch={value => console.log(value)}
+                                    style={{ width: 200 }}
+                                />
+                                <Button
+                                    onClick={(e) => this.addAnimalSubmit(e)}
+                                    styleType={ButtonTypes.Blue}>
+                                    Додати тварину
+                                </Button>
+                            </div>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <td>№</td>
+                                    <td>Фото</td>
+                                    <td>Кличка</td>
+                                    <td>Вид</td>
+                                    <td>Стать</td>
+                                    <td>Вiк</td>
+                                    <td>Локація</td>
+                                    <td>Статус</td>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.props.animalsList.data.length && this.props.animalsList.data.map((animal)=>
+                                    <tr key={animal.id}>
+                                        <td>{animal.number}</td>
+                                        <td
+                                            style={{
+                                                backgroundSize:'cover',
+                                                backgroundImage: `url(${animal.imageIds[0] ? `${this.props.baseUrl}documents/${animal.imageIds[0]}/type/small` : `${noPhotoImage}`})` }}></td>
+                                        <td>{animal.name}</td>
+                                        <td>{animal.kindOfAnimal}</td>
+                                        <td>{animal.gender}</td>
+                                        <td>{this.countAgeAnimal(animal.birthday)}</td>
+                                        <td>Локація</td>
+                                        <td>Статус</td>
+                                        <td><button onClick={()=>this.updateAnimalCard(animal.id)}></button></td>
+                                    </tr>
+                                )}
+                                </tbody>
+                            </table>
+                            <BtnPagination
+                                setProps={this.props}
+                                pageCount={this.props.animalsList.pageCount}
+                                goToPagination={this.goToPagination.bind(this)}/>
+                        </div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>№</td>
-                                <td>Фото</td>
-                                <td>Кличка</td>
-                                <td>Вид</td>
-                                <td>Стать</td>
-                                <td>Вiк</td>
-                                <td>Локація</td>
-                                <td>Статус</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {this.props.animalsList.data.length && this.props.animalsList.data.map((animal)=>
-                            <tr key={animal.id}>
-                                <td>{animal.number}</td>
-                                <td  
-                                style={{
-                                    backgroundSize:'cover',
-                                    backgroundImage: `url(${animal.imageIds[0] ? `${this.props.baseUrl}documents/${animal.imageIds[0]}/type/small` : `${noPhotoImage}`})` }}></td>
-                                <td>{animal.name}</td>
-                                <td>{animal.kindOfAnimal}</td>
-                                <td>{animal.gender}</td>
-                                <td>{this.countAgeAnimal(animal.birthday)}</td>
-                                <td>Локація</td>
-                                <td>Статус</td>
-                                <td><button onClick={()=>this.updateAnimalCard(animal.id)}></button></td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                    <BtnPagination
-                    setProps={this.props}
-                    pageCount={this.props.animalsList.pageCount}
-                    goToPagination={this.goToPagination.bind(this)}/>
-                </div>
+                </main>
+
             </div>
             </>
         )
