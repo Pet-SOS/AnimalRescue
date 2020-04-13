@@ -1,9 +1,102 @@
-.tags-category-holder {
-  padding: 0 3.8125rem 0 3rem;
-  tr {
-    border: 1px solid #DBDADB;
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+@import '../../../../styles/base/helpers';
+
+.section-categories {
+  > header {
+    padding-top: 0;
+    margin-bottom: 0;
   }
-  .button-cell {
-    text-align: right;
+
+  h3 {
+    margin-bottom: 24px;
+  }
+}
+
+
+.categories-table {
+  header {
+    .col-btn {
+      font-size: 0;
+    }
+  }
+
+  .col {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+
+    @include media('≤tablet') {
+      flex: 0 0 20%;
+      max-width: 20%;
+    }
+
+    &.col-edit {
+      flex: 0 0 auto;
+      max-width: none;
+      width: auto;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 24px;
+
+      a {
+        display: inline-block;
+        vertical-align: top;
+        height: 24px;
+      }
+    }
+  }
+
+  .col-value {
+    flex: 0 0 60%;
+    max-width: 60%;
+
+    @include media('≤tablet') {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+
+    @include media('≤xs-phone') {
+      display: none;
+    }
+  }
+}
+
+.с-list {
+  .с-item {
+    border: 1px solid $btn-border;
+    border-radius: 4px;
+    padding: 10px 16px;
+    border-top: 0;
+    line-height: 48px;
+
+    @include media('≤phone') {
+      padding: 21px 24px;
+    }
+  }
+
+  .row {
+    align-items: center;
+
+    @include media('≤phone') {
+      align-items: stretch;
+    }
+  }
+
+  a {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    cursor: pointer;
+
+    &:before {
+      @extend %icomoon;
+      content: "\e91b";
+      color: #62738d;
+      font-size: 24px;
+    }
   }
 }

@@ -23,47 +23,45 @@ export const TagForm: React.FC<IPropTypes> = ({ onSubmit, onCancel }) => {
   
   return (
     <form onSubmit={handleSubmit}>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <input
-                type='text'
-                name={ELocales.ua}
-                placeholder='Українська'
-                onInput={handleFieldChange}
-              />
-            </td>
-            <td>
-              <input
-                type='text'
-                name={ELocales.en}
-                placeholder='Англійська'
-                onInput={handleFieldChange}
-              />
-            </td>
-            <td>
-              <input
-                type='text'
-                name={ELocales.de}
-                placeholder='Німецька'
-                onInput={handleFieldChange}
-              />
-            </td>
-            <td>
-              <input
-                type='text'
-                name={ELocales.ru}
-                placeholder='Російська'
-                onInput={handleFieldChange}
-              />
-            </td>
-            <td>...</td>
-            <td><button type="submit">Save</button></td>
-            <td><button type="button" onClick={onCancel}>Cancel</button></td>
-          </tr>
-        </tbody>
-      </table>
+        <div className="t-item">
+          <div className="row">
+              <div className="col">
+                  <input
+                    type='text'
+                    name={ELocales.ua}
+                    placeholder='Українська'
+                    onInput={handleFieldChange}
+                  />
+              </div>
+              <div className="col">
+                  <input
+                    type='text'
+                    name={ELocales.en}
+                    placeholder='Англійська'
+                    onInput={handleFieldChange}
+                  />
+              </div>
+              <div className="col">
+                  <input
+                    type='text'
+                    name={ELocales.de}
+                    placeholder='Німецька'
+                    onInput={handleFieldChange}
+                  />
+              </div>
+              <div className="col">
+                  <input
+                    type='text'
+                    name={ELocales.ru}
+                    placeholder='Російська'
+                    onInput={handleFieldChange}
+                  />
+              </div>
+            <div className="col col-num">...</div>
+              <div className="col col-edit"><button type="submit">Save</button></div>
+              <div className="col col-del"><button className="cancel" type="button" onClick={onCancel}>Cancel</button></div>
+          </div>
+        </div>
     </form>
   )
 }

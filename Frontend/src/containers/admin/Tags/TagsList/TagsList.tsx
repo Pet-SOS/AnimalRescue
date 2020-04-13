@@ -15,6 +15,7 @@ import TagsListItem from './TagsListItem';
 import { BlockLink } from '../../../../components/BlockLink';
 import './style.scss';
 import { TagForm, ITagForm } from '../TagForm/TagForm';
+import {TagsCategoryItem} from "../TagsCategory/TagsCategoryItem";
 
 interface IPropTypes {
   fetchTagsList: (categoryName: string) => void;
@@ -56,51 +57,60 @@ const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, addTag, clearTagsList, 
   return (
     <div className='boxAdmin'>
       <AdminMenu selectedKey={'tags'} openKeys={['sub2', 'sub1']}/>
-      <div className='tags-list-holder'>
-        <BlockLink
-          title={'Повернутися до тегів'}
-          href={'/admin/tags'}
-          isBack
-        />
-        <h2 className='title'>
-          {<TI18n keyStr={`${tagCategoryName}TagCategory`} default={tagCategoryName} locale={ELocales.ua}/>}
-        </h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Українська</th>
-              <th>Англійська</th>
-              <th>Німецька</th>
-              <th>Російська</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
-              <TagsListItem key={index} tag={tag}/>
-            ))}
-            <tr>
-              {!isTagFormActive && (
-                  <React.Fragment>
-                    <td>
-                      <button onClick={() => setIsTagFormActive(true)}>+ новый тег</button>
-                    </td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                  </React.Fragment>
-                )
-              }
-            </tr>
-          </tbody>
-        </table>
-        {isTagFormActive && (<TagForm onSubmit={onTagFormSubmit} onCancel={() => {setIsTagFormActive(false)}}/>)}
-      </div>
+      <main>
+        <div className="container">
+          <section className="section-tags-list">
+            <header>
+              <BlockLink
+                  title={'Повернутися до тегів'}
+                  href={'/admin/tags'}
+                  isBack
+              />
+              <h4>{<TI18n keyStr={`${tagCategoryName}TagCategory`} default={tagCategoryName} locale={ELocales.ua}/>}</h4>
+            </header>
+            <div className="page-content">
+              <section className='section-table tags-table'>
+                <header>
+                  <div className="row">
+                    <div className="col col-ua">Українська</div>
+                    <div className="col col-en">Англійська</div>
+                    <div className="col col-de">Німецька</div>
+                    <div className="col col-ru">Російська</div>
+                    <div className="col col-num"></div>
+                    <div className="col col-edit"></div>
+                    <div className="col col-del"></div>
+                  </div>
+                </header>
+                <div className="t-list">
+                  {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
+                      <TagsListItem key={index} tag={tag}/>
+                  ))}
+                  {!isTagFormActive && (
+                  <div className="t-item">
+                    <div className="row">
+                          <React.Fragment>
+                            <div className="col col-ua">
+                              <a onClick={() => setIsTagFormActive(true)}>+ новый тег</a>
+                            </div>
+                            <div className="col col-en">...</div>
+                            <div className="col col-de">...</div>
+                            <div className="col col-ru">...</div>
+                            <div className="col col-num"></div>
+                            <div className="col col-edit"></div>
+                            <div className="col col-del"></div>
+                          </React.Fragment>
+
+                    </div>
+                  </div>
+                  )
+                  }
+                  {isTagFormActive && (<TagForm onSubmit={onTagFormSubmit} onCancel={() => {setIsTagFormActive(false)}}/>)}
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
   )
 }
