@@ -19,7 +19,7 @@ namespace AnimalRescue.BusinessLogic.Services
         where TEntityDto : BaseAndTimeDto
     {
         protected readonly IBaseRepository<TEntityDbo> _repository;
-        private readonly IMapper _mapper;
+        protected readonly IMapper _mapper;
 
         public BaseService(IBaseRepository<TEntityDbo> repository, IMapper mapper)
         {
@@ -30,7 +30,7 @@ namespace AnimalRescue.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<TEntityDto> CreateAsync(TEntityDto itemDto)
+        public virtual async Task<TEntityDto> CreateAsync(TEntityDto itemDto)
         {
             itemDto.Id = Guid.Empty;
 
@@ -74,7 +74,7 @@ namespace AnimalRescue.BusinessLogic.Services
             return itemDto;
         }
 
-        public async Task UpdateAsync(TEntityDto itemDto)
+        public virtual async Task UpdateAsync(TEntityDto itemDto)
         {
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
 
