@@ -47,8 +47,8 @@ export const ServiceWorkRules: React.FC<IPropTypes> = ({
           </h1>
           <div className='banner' style={{backgroundImage: `URL(${Banner})`}} />
           <div className='rules-content'>
-            <div className='block-holder'>
-              <p className='description'>
+            <div className='page-description section-margin'>
+              <p>
                 <TI18n
                   keyStr='rulesMainText'
                   default='Мы никогда не знаем, когда животным может понадобиться срочная помощь, но знаем, что всегда должны быть готовы оказать ее. Команда службы спасения отвечает на вызовы в ситуациях, когда животным требуется защита.' />

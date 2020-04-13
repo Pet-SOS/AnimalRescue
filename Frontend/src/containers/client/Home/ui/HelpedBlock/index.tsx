@@ -14,18 +14,18 @@ interface IPropTypes {
 export const HelpedBlock: React.FC<IPropTypes> = ({ data, title }) => {
   const getSlideElements = (): React.ReactNode[] => [...data.map(slideData => <HelpedBlockItem story={slideData} />)];
   return (
-    <div className="helped-holder">
-      <div className="content">
-        <h2 className="title">{title}</h2>
+    <section className="section-helped section-padding">
+      <div className="container">
+        <h2>{title}</h2>
         {!!data && !!data.length && <div className="slider-holder">
           <Slider slides={getSlideElements()} isSwipeDisable={true}/>
         </div>}
-        <div className="bottomButton">
+        <div className="btn-wrap">
           <Button href = {'/how-to-help'} styleType={ButtonTypes.Blue}>
                 <TI18n keyStr="howCanIHelp" default="Как я могу помочь" />
           </Button>
         </div>
       </div>
-    </div>
+    </section>
   )
 };

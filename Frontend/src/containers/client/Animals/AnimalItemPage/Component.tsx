@@ -89,7 +89,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       text: <TI18n keyStr="rulesHowToAdoptListItemText3" default="Обязательным этапом является подписание договора." />
     },
     {
-      title: <TI18n keyStr="rulesHowToAdoptListItemTitle3" default="Подписать договор" />,
+      title: <TI18n keyStr="rulesHowToAdoptListItemTitle4" default="Испытательный срок" />,
       text: <TI18n keyStr="rulesHowToAdoptListItemText4" default="Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно." />
     }
   ];
@@ -108,99 +108,81 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
 
   return (
     <div className='animal-item-page'>
-      <div className='content back-link'>
+      <div className='container'>
         <BlockLink
           title={<TI18n keyStr='backToAnimalsCatalog' default='Повернутися до пошуку друга' />}
           href={'/animals/page/1'}
           isBack
         />
       </div>
-      <div className='animal-info'>
-        <div className='content'>
+      <section className='animal-info section-margin'>
+        <div className='container'>
           {!isLoaded && !isLoading && status === ERequestStatus.FAILURE && <div>Not found</div>}
           {isLoaded && !isLoading && (
             <React.Fragment>
-              <div className='column'>
-                <Slider
-                  isSwipeDisable
-                  isPaginationHidden
-                  slides={animalItem.data.imageIds.map(imgId => (
-                    <div className="img-holder" style={{ backgroundImage: `url(${baseUrl}documents/${imgId}/type/medium)` }}></div>
-                  ))}
-                  thumbSlides={animalItem.data.imageIds.map(imgId => (
-                    <img src={`${baseUrl}documents/${imgId}/type/medium`} />
-                  ))}
-                />              
-              </div>
-              <div className='column'>
-                <div className='main-info'>
-                  <div className='head'>
-                    <h2 className='title'>{animalItem.data.name}</h2>
-                    <ButtonLike id={animalItem.data.id} />
-                  </div>
-                  <span className='animal-number'>
-                    <TI18n keyStr='number' default='Номер' />
-                    &nbsp;{animalItem.data.number}
-                  </span>
-                  <div className='gender-age'>
-                    {!!animalItem.data.gender && (
-                      <span className='gender'>
-                        <TI18n keyStr={animalItem.data.gender} default={animalItem.data.gender} />
-                      </span>
-                    )}
-                    <Age birthday={animalItem.data.birthday} />
-                  </div>
-                  <ul className='tags-list'>
-                    {getCurrentTags().map((tag, index) => <li key={index}>{capitalizedString(tag)}</li>)}
-                    {getCurrentTags(TagTypes.MEDICAL).map((tag, index) => <li className='medical' key={index}><TI18n keyStr={tag} default={capitalizedString(tag)} /></li>)}
-                    {getCurrentTags(TagTypes.ADDITIONAL).map((tag, index) => <li className='additional' key={index}><span><TI18n keyStr={tag} default={capitalizedString(tag)} /></span></li>)}
-                  </ul>
-                  <div className='block-holder'>
-                    <h4 className='title'>
-                      <TI18n keyStr='someHistory' default='Немного истории' />
-                    </h4>
-                    <p>{animalItem.data.description}</p>
-                  </div>
-                  <div className='block-holder'>
-                    <h4 className='title'>
-                      <TI18n keyStr='character' default='Характер' />
-                    </h4>
-                    <p>{animalItem.data.character}</p>
-                  </div>
-                </div>
-                <div className='btn-holder'>
-                  <Button styleType={ButtonTypes.Blue} onClick={() => setIsAdoptPopupActive(true)}>
-                    <TI18n keyStr="wantToAdopt" default="Хочу усыновить" />
-                  </Button>
-                  <ShareLink
-                    link={window.location.href}
-                    text={<TI18n keyStr="shareAnimalText" default="Поделись историей хвостика, чтобы помочь ему быстрее найти дом" />}
+              <div className="inner-content">
+                <div className='visual'>
+                  <Slider
+                      isSwipeDisable
+                      isPaginationHidden
+                      slides={animalItem.data.imageIds.map(imgId => (
+                          <div className="img-holder" style={{ backgroundImage: `url(${baseUrl}documents/${imgId}/type/medium)` }}></div>
+                      ))}
+                      thumbSlides={animalItem.data.imageIds.map(imgId => (
+                          <img src={`${baseUrl}documents/${imgId}/type/medium`} />
+                      ))}
                   />
+                </div>
+                <div className='text main-info'>
+                    <h2>{animalItem.data.name}</h2>
+                    <ButtonLike id={animalItem.data.id} />
+                    <span className='animal-number'>
+                      <TI18n keyStr='number' default='Номер' />
+                      &nbsp;{animalItem.data.number}
+                    </span>
+                    <div className='gender-age'>
+                      {!!animalItem.data.gender && (
+                          <span className='gender'><TI18n keyStr={animalItem.data.gender} default={animalItem.data.gender} /></span>
+                      )}
+                      <Age birthday={animalItem.data.birthday} />
+                    </div>
+                    <ul className='tags-list'>
+                      {getCurrentTags().map((tag, index) => <li key={index}><span>{capitalizedString(tag)}</span></li>)}
+                      {getCurrentTags(TagTypes.MEDICAL).map((tag, index) => <li className='medical' key={index}><span><TI18n keyStr={tag} default={capitalizedString(tag)} /></span></li>)}
+                      {getCurrentTags(TagTypes.ADDITIONAL).map((tag, index) => <li className='additional' key={index}><span><i className="icon-footprint">icon</i><TI18n keyStr={tag} default={capitalizedString(tag)} /></span></li>)}
+                    </ul>
+                    <h4><TI18n keyStr='someHistory' default='Немного истории' /></h4>
+                    <p>{animalItem.data.description}</p>
+                    <h4><TI18n keyStr='character' default='Характер' /></h4>
+                    <p>{animalItem.data.character}</p>
+                    <Button styleType={ButtonTypes.Blue} onClick={() => setIsAdoptPopupActive(true)}>
+                      <TI18n keyStr="wantToAdopt" default="Хочу усыновить" />
+                    </Button>
+                    <ShareLink
+                        link={window.location.href}
+                        text={<TI18n keyStr="shareAnimalText" default="Поделись историей хвостика, чтобы помочь ему быстрее найти дом" />}
+                    />
                 </div>
               </div>
             </React.Fragment>
           )}
         </div>
-      </div>
-      <section className='instructions'>
+      </section>
+      <section className='instructions section-padding'>
         <div className='container'>
-          <h2 className='title'>
-            <TI18n keyStr="howToTake" default="Как взять?" />
-          </h2>
+          <h2><TI18n keyStr="howToTake" default="Как взять?" /></h2>
           <ul className='numbered-list' style={{ gridTemplateRows: `repeat(${Math.ceil(instructionsList.length / 2)}, auto)`}}>
             {instructionsList.map((item, index) => (
               <li key={index}>
-                <strong>{item.title}</strong>
-                <div className='list-body'>
-                  <span>{item.text}</span>
-                </div>
+                <h4>{item.title}</h4>
+                <p>{item.text}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
       {!!animalsList.data.filter(animal => animal.id !== animalItem.data.id).length && (
-        <section className="section-slider-animals">
+        <section className="section-slider-animals section-padding">
           <AnimalsSlider
               data={animalsList.data.filter(animal => animal.id !== animalItem.data.id)}
               title={

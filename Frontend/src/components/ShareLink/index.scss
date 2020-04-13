@@ -1,29 +1,35 @@
-@import './../../styles/variables.scss';
+@import './../../styles/include-media';
+@import './../../styles/base/variables';
+@import './../../styles/variables';
+@import './../../styles/base/mixins';
+
 .facebook-share {
-  display: block;
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  color: $text-color;
-  background: $menu-border-color;
-  box-shadow: 0px 8px 24px rgba(62, 91, 157, 0.5);
-  border-radius: 1.5rem;
-  padding: 1.5rem;
   .share-wrapper {
-    position: relative;
-    padding: 0 0 0 4rem;
+    display: flex;
+    align-items: flex-start;
+    line-height: 24px;
+    color: $text-color;
+    background-color: $menu-border-color;
+    box-shadow: 0 8px 24px rgba($btn-blue, 0.5);
+    border-radius: 24px;
+    padding: 24px;
+  }
+
+  i {
+    @include size(48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 0;
+    background-color: $white;
+    border-radius: 100%;
+    box-shadow: 0 3px 4px rgba(166, 205, 227, 0.4);
+    flex-shrink: 0;
+    margin-right: 16px;
+
     &:before {
-      content: '';
-      width: 3rem;
-      height: 3rem;
-      background: url('./../../img/icons/facebook.png') no-repeat center #FFFFFF;
-      border: 1px solid $menu-border-color;
-      box-sizing: border-box;
-      box-shadow: 0px 3px 4px rgba(166, 205, 227, 0.4);
-      border-radius: 50%;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      font-size: 16px;
     }
   }
 }

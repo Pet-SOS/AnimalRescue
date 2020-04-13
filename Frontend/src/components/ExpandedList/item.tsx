@@ -28,7 +28,7 @@ export const ExpandedListItem: React.FC<IExpandedListItemProps> = ({ title, body
   }, [isExpanded]);
   return (
     <li className={`expanded-item ${isExpanded ? 'expanded' : ''}`} onClick={() => onItemClick()}>
-      <button className='expand-button' type='button'></button>
+      <i className="icon-arrow-bottom">icon</i>
       <span className='expanded-item-title'>{title}</span>
       <div className='expanded-item-body' ref={itemBody}>
         {body.map((el, index) => <React.Fragment key={index}>{el}</React.Fragment>)}

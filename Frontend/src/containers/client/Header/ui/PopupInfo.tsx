@@ -7,7 +7,7 @@ import copyImage from '../../../../img/copy.jpg';
 import '../styles/popupInfo.scss';
 
 
-export const PopupInfo: React.FC<any> = ({infoCard, boxImages, title, card, cardName, textFirst, textSecond, textThird, textThirdTwo}) => {
+export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, textFirst, textSecond, textThird, textThirdTwo}) => {
     return (
         <div className="box-popup">
             <div className="popup">
@@ -23,13 +23,13 @@ export const PopupInfo: React.FC<any> = ({infoCard, boxImages, title, card, card
                 </div>
                 <div className="second-block">
                     <p>{textFirst}</p>
-                    {/*{!!infoCard?.data?.bankCard?.cardNumber &&*/}
+                    {!!card &&
                     <div className="bank-card">
                         <div className="bank-card-info">
-                            <p className='card'>{/*{infoCard.data.bankCard.cardNumber}*/}1234123412341234</p>
-                            <p>{/*{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}*/}</p>
+                            <p className='card'>{card}</p>
+                            <p>{cardName}</p>
                         </div>
-                        <CopyToClipboard text={{/*infoCard.data.bankCard.cardNumber*/}} className="copy-to-clipboard">
+                        <CopyToClipboard text={card} className="copy-to-clipboard">
                             <button>
                                 <i className="icon-copy">
                                     <span className="path1">icon</span>
@@ -40,7 +40,7 @@ export const PopupInfo: React.FC<any> = ({infoCard, boxImages, title, card, card
                             </button>
                         </CopyToClipboard>
                     </div>
-                    {/*}*/}
+                    }
                     <p>{textSecond}</p>
                     <ul>
                         <li><span>{textThird}</span></li>

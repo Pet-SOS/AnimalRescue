@@ -16,18 +16,6 @@
 * {
   box-sizing: border-box;
 }
-//html {
-//  height: 100%;
-//  body {
-//    margin: 0;
-//    font-family:'Nunito', 'Roboto',  sans-serif;
-//    color: $text-color;
-//    font-size: 1.125rem;
-//    line-height: 1.625rem;
-//    height: 100%;
-//    background: $bg-lite-box;
-//  }
-//}
 
 #root {
     display: flex;
@@ -41,9 +29,10 @@ header, footer {
   flex: 0 0 auto;
 }
 header {
-  margin: 0 0 2.5rem;
-  @media (max-width: $normal-device-width) {
-    margin: 0 0 1.25rem;
+  margin-bottom: 40px;
+
+  @include media('≤phone') {
+    margin-bottom: 20px;
   }
 }
 table {
@@ -119,27 +108,27 @@ ul {
 .numbered-list {
   counter-reset: item;
   margin: 0 0 3.25rem;
+
   li {
     padding: 0.7rem 0 0 4rem;
     position: relative;
     margin: 0 0 1rem;
     min-height: 3rem;
+
     &::before {
-      font-weight: 900;
-      font-size: 1.5rem;
-      line-height: 1.5rem;
+      @include size(48px);
       content: counter(item);
       counter-increment: item;
-      width: 3rem;
-      height: 3rem;
-      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FFFFFF;
+      background-color: $white;
       border: 1px solid $bg-lite-box;
-      box-shadow: 0px 4px 6px $bg-lite-lite;
-      border-radius: 50%;
+      border-radius: 100%;
+      box-shadow: 0 4px 6px $bg-lite-lite;
+      font-size: 24px;
+      font-weight: 900;
+      position: absolute;
       left: 0;
       top: 0;
     }
@@ -171,12 +160,18 @@ ul {
 }
 .dots-list li {
   position: relative;
-  padding: 0 0 0 1.2rem;
-  margin: 0 0 1rem;
+  padding: 0 0 0 16px;
+  margin: 0 0 16px;
+
   &:before {
-    content: '\2022';
+    content: '';
+    @include size(6px);
+    display: block;
+    border-radius: 100%;
+    margin-right: 8px;
+    background-color: $text-color;
     position: absolute;
-    top: 0;
+    top: 9px;
     left: 0;
   }
 }
@@ -248,9 +243,19 @@ ul {
   }
 }
 
-p.description {
-  font-size: 1.5rem;
-  line-height: 2.125rem;
+.page-description {
+  font-size: 24px;
+  line-height: 1.5;
+  max-width: 870px;
+
+  @include media('≤xs-phone') {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  > p:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 .banner {
