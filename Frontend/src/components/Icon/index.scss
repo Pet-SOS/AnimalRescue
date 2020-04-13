@@ -26,6 +26,10 @@
 }
 
 
+.icon-done:before {
+  content: "\e925";
+  color: #62738d;
+}
 .icon-tag:before {
   content: "\e91e";
   color: #62738d;
@@ -52,7 +56,7 @@
 }
 .icon-step-1:before {
   content: "\e924";
-  //color: #62738d;
+  color: #62738d;
 }
 .icon-date:before {
   content: "\e916";

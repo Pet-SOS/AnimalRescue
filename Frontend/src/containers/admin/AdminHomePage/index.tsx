@@ -27,7 +27,7 @@ export class AdminHomePage extends React.Component <IPropTypes, IState>{
             />
             <main>
                 <div className="container">
-                    <h2>ADMIN HOME PAGE</h2>
+                    <h3>ADMIN HOME PAGE</h3>
                 </div>
             </main>
         </div>

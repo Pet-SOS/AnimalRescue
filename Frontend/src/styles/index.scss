@@ -364,10 +364,41 @@ input, textarea, ::placeholder {
   main {
     background-color: $white;
     flex-grow: 1;
+    padding-top: 24px;
+
+    @include media('≤phone') {
+      padding-top: 16px;
+    }
   }
 
   .container {
-    max-width: none;
+    max-width: 1054px;
+    padding: 0 48px;
+    margin: 0;
+
+    @include media('≤tablet') {
+      padding: 0 24px;
+    }
+
+    @include media('≤xs-phone') {
+      padding: 0 16px;
+    }
+
+  }
+
+  input, textarea {
+    width: 100%;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    padding: 11px 16px;
+    background-color: $white;
+    outline: none;
+    color: inherit;
+    position: relative;
+
+    &::placeholder {
+      background-color: transparent;
+    }
   }
 }
 
