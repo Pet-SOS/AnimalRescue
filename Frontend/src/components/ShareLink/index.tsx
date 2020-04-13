@@ -7,9 +7,10 @@ export interface IPropTypes {
 }
 
 export const ShareLink: React.FC<IPropTypes> = ({ link, text }) => (
-  <a className="facebook-share" target='_blank' href={`https://www.facebook.com/sharer/sharer.php?u=${link}`}>
-    <div className='share-wrapper'>
-      <span>{text}</span>
-    </div>
-  </a>
+  <div className="facebook-share">
+    <a className='share-wrapper'  target='_blank' href={`https://www.facebook.com/sharer/sharer.php?u=${link}`}>
+        <i className="icon-fb">icon</i>
+        <span>{text}</span>
+    </a>
+  </div>
 )

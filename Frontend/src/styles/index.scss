@@ -16,18 +16,6 @@
 * {
   box-sizing: border-box;
 }
-//html {
-//  height: 100%;
-//  body {
-//    margin: 0;
-//    font-family:'Nunito', 'Roboto',  sans-serif;
-//    color: $text-color;
-//    font-size: 1.125rem;
-//    line-height: 1.625rem;
-//    height: 100%;
-//    background: $bg-lite-box;
-//  }
-//}
 
 #root {
     display: flex;
@@ -41,9 +29,10 @@ header, footer {
   flex: 0 0 auto;
 }
 header {
-  margin: 0 0 2.5rem;
-  @media (max-width: $normal-device-width) {
-    margin: 0 0 1.25rem;
+  margin-bottom: 40px;
+
+  @include media('≤phone') {
+    margin-bottom: 20px;
   }
 }
 table {
@@ -80,10 +69,24 @@ table {
   }
 }
 
+.section-padding {
+  padding: 80px 0;
+
+  @include media('≤phone') {
+    padding: 60px 0;
+  }
+}
+.section-margin {
+  margin: 0 0 80px;
+
+  @include media('≤phone') {
+    margin: 0 0 60px;
+  }
+}
+
 
 a {
-  transition: $defaultHoverTransition;
-  text-decoration: none;
+  @include animate(color);
 }
 
 ul {
@@ -105,27 +108,27 @@ ul {
 .numbered-list {
   counter-reset: item;
   margin: 0 0 3.25rem;
+
   li {
     padding: 0.7rem 0 0 4rem;
     position: relative;
     margin: 0 0 1rem;
     min-height: 3rem;
+
     &::before {
-      font-weight: 900;
-      font-size: 1.5rem;
-      line-height: 1.5rem;
+      @include size(48px);
       content: counter(item);
       counter-increment: item;
-      width: 3rem;
-      height: 3rem;
-      position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FFFFFF;
+      background-color: $white;
       border: 1px solid $bg-lite-box;
-      box-shadow: 0px 4px 6px $bg-lite-lite;
-      border-radius: 50%;
+      border-radius: 100%;
+      box-shadow: 0 4px 6px $bg-lite-lite;
+      font-size: 24px;
+      font-weight: 900;
+      position: absolute;
       left: 0;
       top: 0;
     }
@@ -157,57 +160,160 @@ ul {
 }
 .dots-list li {
   position: relative;
-  padding: 0 0 0 1.2rem;
-  margin: 0 0 1rem;
+  padding: 0 0 0 16px;
+  margin: 0 0 16px;
+
   &:before {
-    content: '\2022';
+    content: '';
+    @include size(6px);
+    display: block;
+    border-radius: 100%;
+    margin-right: 8px;
+    background-color: $text-color;
     position: absolute;
-    top: 0;
+    top: 9px;
     left: 0;
   }
 }
-.bank-card-info {
-  min-width: 21rem;
-  display: inline-block;
-  background: $bg-lite-gray;
-  border-radius: 0.5rem;
-  color:$btn-blue;
-  padding: 0.375rem 1.5rem  0.125rem 1.5rem;
-  margin: 0.875rem 0;
-  .card{
-      font-size: 1.5rem;
-      line-height: 1.875rem;
-      font-weight: bold;
+
+.bank-card {
+  display: flex;
+  flex-wrap: nowrap;
+
+  @include media('≤xs-phone') {
+    display: block;
+  }
+
+  button {
+    //@include animate(opacity);
+    @include size(48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-left: 1.5rem;
+    border: 0;
+    padding: 0;
+    background-color: $input-bg-color;
+    outline: none;
+    cursor: pointer;
+
+    @include media('≤xs-phone') {
+      margin: 0;
+    }
+
+    i {
+      line-height: 24px;
+      height: 24px;
+    }
+
+    span {
+      font-size: 0;
+
+      &:before {
+        font-size: 24px;
+      }
+    }
   }
 }
-p.description {
-  font-size: 1.5rem;
-  line-height: 2.125rem;
+
+.bank-card-info {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 250px;
+  background: $bg-lite-gray;
+  border-radius: 8px;
+  color: $btn-blue;
+  padding: 8px 24px  2px 24px;
+  line-height: 30px;
+
+  @include media('≤xs-phone') {
+    margin: 0 0 16px 0;
+  }
+
+  .card {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
 }
+
+.page-description {
+  font-size: 24px;
+  line-height: 1.5;
+  max-width: 870px;
+
+  @include media('≤xs-phone') {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  > p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
 .banner {
-  height: 23.75rem;
-  background: $bg-orange;
-  border-radius: 1.5rem;
+  padding-top: 34.7%;
+  border-radius: 24px;
   position: relative;
-  margin: 0 0 2.5625rem;
+  margin: 0 0 40px;
+  background-color: $bg-orange;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @include media('≤xs-phone') {
+    padding-top: 250px;
+  }
 }
+
 .block-holder {
-  margin: 0 0 5rem;
+  margin-bottom: 80px;
+
+  @include media('≤phone') {
+    margin-bottom: 60px;
+  }
 }
+
 .warning {
   background: $bg-warning;
   border-radius: 24px;
-  padding: 2.5rem 3rem;
-  font-size: 1.5rem;
-  line-height: 2.125rem;
-  strong {
-    display: block;
+  padding: 40px;
+  font-size: 24px;
+  line-height: 1.5;
+
+  @include media('≤xs-phone') {
+    padding: 40px 16px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  h4 {
     font-weight: 900;
     text-transform: uppercase;
-    margin: 0 0 1rem;
+    margin: 0 0 16px;
   }
+
+  strong {
+    font-weight: 900;
+  }
+
   p:last-child {
     margin: 0;
+  }
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: $btn-blue;
+    }
   }
 }
 input, textarea, ::placeholder {
@@ -258,10 +364,42 @@ input, textarea, ::placeholder {
   main {
     background-color: $white;
     flex-grow: 1;
+    padding-top: 24px;
+
+    @include media('≤phone') {
+      padding-top: 16px;
+    }
   }
 
   .container {
-    max-width: none;
+    max-width: 1054px;
+    padding: 0 48px;
+    margin: 0;
+
+    @include media('≤tablet') {
+      padding: 0 24px;
+    }
+
+    @include media('≤xs-phone') {
+      padding: 0 16px;
+    }
+
+  }
+
+  input, textarea {
+    width: 100%;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    padding: 11px 16px;
+    background-color: $white;
+    outline: none;
+    color: inherit;
+    position: relative;
+
+    &::placeholder {
+      background-color: transparent;
+    }
   }
 }
+
 @import "media";

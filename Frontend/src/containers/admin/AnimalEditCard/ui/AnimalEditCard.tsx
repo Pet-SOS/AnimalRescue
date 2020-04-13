@@ -3,6 +3,9 @@ import {DEFAULT_ANIMAL, IAnimal} from "../../../../api/animals";
 import '../style/animalEditCard.scss'
 import { store } from "../../../../store";
 import { selectApiUrl } from "../../../../store/selectors/config.selector";
+import {Tabs} from "antd";
+import {Button, ButtonTypes} from "../../../../components/Button";
+const { TabPane } = Tabs;
 
 
 interface IAnimalCardProps {
@@ -74,39 +77,74 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
         } = this.state
         return (
             <>
-                <div>number <input value={number} onChange={(e) => this.changeValue(e, 'number')}/></div>
-                <div>name <input value={name} onChange={(e) => this.changeValue(e, 'name')}/></div>
-                <div>kindOfAnimal <input value={kindOfAnimal}
-                                         onChange={(e) => this.changeValue(e, 'kindOfAnimal')}/></div>
-                <div>gender <input value={gender} onChange={(e) => this.changeValue(e, 'gender')}/></div>
-                <div>age <input value={age} onChange={(e) => this.changeValue(e, 'age')}/></div>
-                <div>birthday <input value={birthday} onChange={(e) => this.changeValue(e, 'birthday')}/></div>
-                <div>tags <input value={tags} onChange={(e) => this.changeValue(e, 'tags')}/></div>
-                <div>id {id}</div>
-                {this.renderImgs(imageIds)}
-
-                <div>images
-                    {!!this.state.images.length && this.renderFileNames()}
-                    <div className={'add-button'}>
-                        <input type={'file'} id={id || 'newFile'} onChange={(e) => this.addImage(e)}
-                               className={"add-button hidden"}/>
-                        <label htmlFor={id || 'newFile'} className={'add-button button'}>Add file</label>
-                    </div>
+                <div className="data-edit">
+                    <p>
+                        <label>Номер</label><br />
+                        <input disabled value={number} onChange={(e) => this.changeValue(e, 'number')}/></p>
+                    <p>
+                        <label>Кличка</label><br />
+                        <input value={name} onChange={(e) => this.changeValue(e, 'name')}/></p>
+                    <p>
+                        <label>Вид</label><br />
+                        <input value={kindOfAnimal}
+                               onChange={(e) => this.changeValue(e, 'kindOfAnimal')}/></p>
+                    <p>
+                        <label>Стать</label><br />
+                        <input value={gender} onChange={(e) => this.changeValue(e, 'gender')}/></p>
+                    <p>
+                        <label>age</label><br />
+                        <input value={age} onChange={(e) => this.changeValue(e, 'age')}/></p>
+                    <p>
+                        <label>birthday</label><br />
+                        <input value={birthday} onChange={(e) => this.changeValue(e, 'birthday')}/></p>
+                    <p>
+                        <label>tags</label><br />
+                        <input value={tags} onChange={(e) => this.changeValue(e, 'tags')}/></p>
+                    <p>id {id}</p>
                 </div>
-                <div>coverImage <input value={coverImage} onChange={(e) => this.changeValue(e, 'coverImage')}/></div>
-                <div>description</div>
-                <textarea value={description} onChange={(e) => this.changeValue(e, 'description')}/>
-                <div>character</div>
-                <textarea value={character} onChange={(e) => this.changeValue(e, 'character')}/>
-                {this.state.id ? (
-                    <div>
-                        <button onClick={this.submit}>SAVE</button>
-                        <button onClick={this.delete}>DELETE</button>
-                    </div>) : (
-                    <div>
-                        <button onClick={this.post}>ADD</button>
-                    </div>)
-                }
+                <div className="tabs-edit">
+                  <Tabs defaultActiveKey="1">
+                      <TabPane tab="Зображення" key="1">
+                          <p>
+                              <span>Головне зображення</span><br />
+                              {this.renderImgs(imageIds)}
+                          </p>
+                          <p>
+                              <span>Додаткові зображення</span>
+                              <input value={coverImage} onChange={(e) => this.changeValue(e, 'coverImage')}/></p>
+                          <p>
+                              {!!this.state.images.length && this.renderFileNames()}
+                              <div className={'add-button'}>
+                                  <input type={'file'} id={id || 'newFile'} onChange={(e) => this.addImage(e)}
+                                         className={"add-button hidden"}/>
+                                  <label htmlFor={id || 'newFile'} className={'add-button button'}>Add file</label>
+                              </div>
+                          </p>
+                      </TabPane>
+                      <TabPane tab="Здоров’я" key="2">
+                          <ul>
+                              <li><label><span>Вiдкрити Cбір коштів</span><input type="checkbox"/><span>checkbox</span></label></li>
+                              <li><label><span>Стерилізован</span><input type="checkbox"/><span>checkbox</span></label></li>
+                              <li><label><span>Щеплен</span><input type="checkbox"/><span>checkbox</span></label></li>
+                              <li><label><span>Готов до виїзду за кордон</span><input type="checkbox"/><span>checkbox</span></label></li>
+                          </ul>
+                          <Button
+                              styleType={ButtonTypes.Blue}>
+                              Зберегти зміни
+                          </Button>
+                      </TabPane>
+                      <TabPane tab="Опис" key="3">
+                          <label>Трохи історії</label>
+                          <textarea value={description} onChange={(e) => this.changeValue(e, 'description')}/>
+                          <label>Характер</label>
+                          <textarea value={character} onChange={(e) => this.changeValue(e, 'character')}/>
+                      </TabPane>
+                      <TabPane tab="Історія змін" key="4">
+                          Content of Tab Pane 3
+                      </TabPane>
+                  </Tabs>
+              </div>
+
             </>)
     }
 }

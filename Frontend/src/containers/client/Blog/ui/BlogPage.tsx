@@ -120,8 +120,8 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
     render(){
         return (
             <div className="blog-page">
-                <div className='content'>
-                    <div className="title"> <TI18n keyStr='blogPageTitle' default={defaultText.blogPageTitle}/></div>
+                <div className='container'>
+                    <h2 className="title"> <TI18n keyStr='blogPageTitle' default={defaultText.blogPageTitle}/></h2>
                     <ul className='box-btn'>
                        <li 
                         className={this.state.activeBtn === 'all' ? `active all`: 'all'}
@@ -136,23 +136,25 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
                             )
                         }
                      </ul>
-                    <ul className='box-articles'>
-                      {this.props.blogList.data.map((item:IBlogItem, i:number)=> (
-                        <li key={i}>
-                          <BlogCard
-                            image={item.imageIds[0]}
-                            title={item.title}
-                            id={item.id ? item.id : ''}
-                            text={item.type}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                    <BtnPagination
-                        setProps={this.props}
-                        pageCount={this.props.blogList.pageCount}
-                        goToPagination={this.goToPagination.bind(this)}
-                    />
+                    <div className="hold-content-items section-margin">
+                        <ul className='box-articles'>
+                          {this.props.blogList.data.map((item:IBlogItem, i:number)=> (
+                            <li key={i}>
+                              <BlogCard
+                                image={item.imageIds[0]}
+                                title={item.title}
+                                id={item.id ? item.id : ''}
+                                text={item.type}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                        <BtnPagination
+                            setProps={this.props}
+                            pageCount={this.props.blogList.pageCount}
+                            goToPagination={this.goToPagination.bind(this)}
+                        />
+                    </div>
                 </div>
             </div>
         )

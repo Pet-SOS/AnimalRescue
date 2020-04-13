@@ -18,6 +18,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import copyImage from '../../../img/copy-pink.jpg';
 import { Breadcrumbs } from '../../../components/Breadcrumbs';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
+import Banner from "../../../img/bg-banner-03.jpg";
 
 export enum HelpTypes { FINANCE = 'finance', STUFF = 'stuff', VOLUNTEERING = 'volunteering' }
 export const HOW_TO_HELP_QUERY_NAME: string = 'helpType';
@@ -96,21 +97,19 @@ export const HowToHelp: React.FC<IPropTypes> = ({
   return (
     <React.Fragment>
       <div className='help-page-holder'>
-        <div className='content'>
-          <h1 className='title'>
-            <TI18n keyStr='helpPageTitle' default='Как я могу помочь' />
-          </h1>
-          <div className='banner'/>
+        <div className='container'>
+          <h2><TI18n keyStr='helpPageTitle' default='Как я могу помочь' /></h2>
+          <div className='banner' style={{backgroundImage: `URL(${Banner})`}} />
           <div className='help-page-content'>
-            <div className='block-holder'>
-              <p className='description'>
+            <div className='page-description section-margin'>
+              <p>
                 <TI18n
                   keyStr='helpPageMainText'
                   default='Животных, которые либо родились бездомными, либо от них отказались их владельцы, подбирают неравнодушные граждане и волонтеры офиса «Порятунок тварин Харків». Мы помогаем пушистикам и с помощью волонтеров оплачиваем лечение и содержание животного, занимаемся адаптацией и поиском семьи, размещая объявления на своих площадках.' />
               </p>
             </div>
             <div id={HelpTypes.FINANCE} className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='helpPageFinanceTitle'
                   default='Финансово'
@@ -129,13 +128,20 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
                 </div>
                 <CopyToClipboard text={infoCard.data.bankCard.cardNumber} className="copy-to-clipboard">
-                  <img src={copyImage} alt="copy"/>
+                  <button>
+                    <i className="icon-copy">
+                      <span className="path1">icon</span>
+                      <span className="path2">icon</span>
+                      <span className="path3">icon</span>
+                      <span className="path4">icon</span>
+                    </i>
+                  </button>
                 </CopyToClipboard>
               </div>
               }
             </div>
             <div id={HelpTypes.STUFF} className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='helpPageStuffTitle'
                   default='Вещами'
@@ -144,7 +150,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
               <ExpandedList data={stuffListData} />
             </div>
             <div id={HelpTypes.VOLUNTEERING} className='block-holder'>
-              <h3 className='title'>
+              <h3>
                 <TI18n
                   keyStr='helpPageVolunteeringTitle'
                   default='Волонтерством' />
@@ -156,7 +162,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                 />
               </p>
               {!!vacancies && !!vacancies.data && !!vacancies.data.length && <React.Fragment>
-                <h4 className='title'>
+                <h4>
                   <TI18n
                     keyStr='helpPageVolunteeringListTitle'
                     default='Какую работу могут выполнять волонтеры?' />

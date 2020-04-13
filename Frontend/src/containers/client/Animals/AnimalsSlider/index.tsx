@@ -29,8 +29,8 @@ export const AnimalsSlider: React.FC<IPropTypes> = ({ data, title, link }) => {
   const getSlideElements = (): React.ReactNode[] => [...data.map(animal => <AnimalCard animal={animal}/>)];
   return (
     <div className="animal-slider-holder">
-      <div className="content">
-        <h2 className="title">{title}</h2>
+      <div className="container">
+        <h2>{title}</h2>
         {!!data && !!data.length && <div className="slider-holder">
           <Slider
             slides={getSlideElements()}

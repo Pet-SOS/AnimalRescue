@@ -1,8 +1,10 @@
 import {createAction} from 'typesafe-actions';
 import {IAnimal, IAnimalsResponse} from "../../../../../api/animals";
+import { IRequestParams } from '../../../../../api/requestOptions';
 
 export const actionAdminHomeFetchAnimalsRequest = createAction(
-    'ADMIN_HOME_FETCH_ANIMALS_REQUEST'
+    'ADMIN_HOME_FETCH_ANIMALS_REQUEST',
+    (resolve) => (requestParams?: IRequestParams) => resolve(requestParams)
 );
 export const actionAdminHomeFetchAnimalsSuccess = createAction(
     'ADMIN_HOME_FETCH_ANIMALS_SUCCESS',

@@ -1,3 +1,57 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.section-edit {
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      .button {
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        margin-right: 16px;
+
+        &:after {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(180deg);
+        }
+      }
+
+      h3 {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 0;
+      }
+    }
+
+  .page-content {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 -20px;
+
+    @include media('≤phone') {
+      display: block;
+    }
+  }
+
+  .tabs-edit,
+  .data-edit {
+    padding: 0 20px;
+  }
+
+
+  label {
+    font-size: 16px;
+  }
+}
+
+
 .animalCard {
   padding: 5rem;
 }
@@ -12,5 +66,113 @@
   &.button {
     padding: 0.3rem;
     border: 1px solid #0D2B4B;
+  }
+}
+
+.tabs-edit {
+  flex-grow: 1;
+  overflow: hidden;
+
+  textarea {
+    min-height: 200px;
+  }
+
+  ul {
+    max-width: 343px;
+    flex-basis: 343px;
+  }
+
+  li {
+    margin-bottom: 24px;
+  }
+
+  ul label {
+    display: flex;
+    align-items: center;
+
+    span {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    input + span {
+      //display: block;
+      background: #DBDADB;
+      border-radius: 15px;
+      width: 54px;
+      height: 28px;
+      position: relative;
+      font-size: 0;
+      margin-left: auto;
+
+      &:after {
+        @include size(22px)
+        content: '';
+        display: block;
+        background: $white;
+        border-radius: 100%;
+        box-shadow: 0px 2px 4px rgba(13, 43, 75, 0.3);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 3px;
+      }
+    }
+
+    input:checked + span {
+      background-color: $btn-blue;
+
+      &:after {
+        left: auto;
+        right: 3px;
+      }
+    }
+
+    input {
+      display: none;
+    }
+  }
+}
+
+.data-edit {
+  max-width: 383px;
+  flex-basis: 383px;
+  flex-shrink: 0;
+}
+
+.boxAdmin {
+  .ant-tabs-nav-container {
+    font-size: 18px;
+  }
+
+  .ant-tabs-nav {
+    .ant-tabs-tab {
+      margin-right: 40px;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
+
+    .ant-tabs-tab-active {
+      color: $yellow;
+    }
+
+  }
+
+  .ant-tabs {
+    overflow: visible;
+
+    [role="presentation"] {
+      overflow: visible !important;
+    }
+  }
+
+  .ant-tabs-bar {
+    border-bottom: 1px solid $bg-lite-lite;
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: $yellow;
   }
 }

@@ -1,44 +1,25 @@
-@import '../../../../styles/variables.scss';
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+@import '../../../../styles/base/helpers';
 
 .favorites-page-holder {
-    padding: 5rem 0 5rem;
-    width: 100%;
-    background: $bg-lite-gray;
-    .title {
-        position: relative;
-        display: inline-block;
-        font-size: 3rem;
-        line-height: 3rem;
-        margin-bottom: 1.5rem;
+
+    h2 {
+        margin-bottom: 16px;
     }
+
+    .text {
+        margin-bottom: 40px;
+    }
+
     .animals-slider-wrapper {
-        background: $bg-lite-box;
-        padding: 3.75rem 0;
-        .animal-slider-holder .content h2.title{
-            font-size: 2.25rem;
-        }
-    }
-    .content-block {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        width: 100%;
-        margin: 1.5rem 0 1.5rem;
-        .animal {
-            width: 33.2%;
-            height: auto;
-            margin: 0;
-            padding: 0 1.25rem 1.25rem 0;
-            .animal-card {
-                margin: 0;
-            }
+        padding: 20px 0 0;
+
+        h2 {
+            font-size: 36px;
+            line-height: 1;
         }
     }
 }
-
-
-@media (max-width: $normal-device-width) {
-    .favorites-page-holder .animals-slider-wrapper {
-      padding: 2rem 0;
-    }
-  }

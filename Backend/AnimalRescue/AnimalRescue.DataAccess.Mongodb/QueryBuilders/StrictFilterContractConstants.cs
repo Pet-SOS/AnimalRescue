@@ -19,6 +19,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public const string Gt = "gt";
         public const string Lte = "lte";
         public const string Lt = "lt";
+        public const string Ne = "ne";
         public static IEnumerable<string> AvailableRules { get 
             {
                 yield return Eq;
@@ -27,6 +28,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 yield return Gt;
                 yield return Lte;
                 yield return Lt;
+                yield return Ne;
                 yield return ElementMatch;
             }
         }
@@ -125,6 +127,8 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                     return Builders<TE>.Filter.Lte(field, parseer(content));
                 case Lt:
                     return Builders<TE>.Filter.Lt(field, parseer(content));
+                case Ne:
+                    return Builders<TE>.Filter.Ne(field, parseer(content));
                 default:
                     throw new ArgumentException(nameof(operationName));
             }

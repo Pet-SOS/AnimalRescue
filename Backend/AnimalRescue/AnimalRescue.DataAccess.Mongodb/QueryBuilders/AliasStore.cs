@@ -106,8 +106,8 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
         private static Alias ConvertToAlias(PropertyInfo propertyInfo)
         {
-            var aliasName = propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>()?.AliasName ?? propertyInfo.Name;
-            var elementName = propertyInfo.GetCustomAttribute<BsonElementAttribute>()?.ElementName ?? propertyInfo.Name;
+            var aliasName = propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>()?.AliasName;
+            var elementName = propertyInfo.GetCustomAttribute<BsonElementAttribute>()?.ElementName;
 
             if (elementName == null || aliasName == null)
             {
@@ -132,11 +132,6 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
             var result = new List<Alias> { alias };
             
-            if (!alias.PropertyType.IsClass || !alias.PropertyType.IsInterface)
-            {
-                return result;
-            }
-
             var propertyInfos = alias.PropertyType.GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {

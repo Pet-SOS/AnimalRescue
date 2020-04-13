@@ -54,11 +54,8 @@ export class FavoritesPage extends React.Component<IPropTypes> {
         return (
         <React.Fragment>
             <div className='favorites-page-holder'>
-                <div className='content'>
-                    <h1 className='title'>
-                        <TI18n keyStr='favoritesPageTitle' default='Mені сподобалися' />
-                    </h1>
-
+                <div className='container'>
+                    <h2><TI18n keyStr='favoritesPageTitle' default='Mені сподобалися' /></h2>
                     {this.favoriteAnimalsCount() === 0 && 
                         <div className="text">
                                 <TI18n keyStr='noneFavoriteAnimalsText' 
@@ -106,18 +103,18 @@ export class FavoritesPage extends React.Component<IPropTypes> {
                         />}
                     </div>
                 }
-
-                <div className='content'>
-                    {this.favoriteAnimalsCount() > 0 && this.props.favoriteAnimalsList.data && this.props.favoriteAnimalsList.data.length > 0 &&
-                        <div className='content-block'>
-                        {
-                            this.props.favoriteAnimalsList.data.length &&
-                            this.props.favoriteAnimalsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
+                <div className='container'>
+                    <section className='section-margin'>
+                        {this.favoriteAnimalsCount() > 0 && this.props.favoriteAnimalsList.data && this.props.favoriteAnimalsList.data.length > 0 &&
+                        <div className='content-block-animals'>
+                            {
+                                this.props.favoriteAnimalsList.data.length &&
+                                this.props.favoriteAnimalsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
+                            }
+                        </div>
                         }
-                        </div>                       
-                    }
-                </div>   
-
+                    </section>
+                </div>
                 {this.props.sickAnimalsList.totalCount > 0 &&
                     <HelpBlock
                         animalsList={this.props.sickAnimalsList.data}

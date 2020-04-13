@@ -24,8 +24,8 @@ export const BlogCard: React.FC<IPropTypes> = ({ image, title, id, text }) => {
     <div className="blog-card-holder">
         <Link to={`/blog/${id}`} className="blog-card-link" />
       <div className="blog-card-image" style={{ backgroundImage: `url(${image ? `${baseUrl}documents/${image}/type/medium` : `${noPhotoImage}`})` }}/>
-        <div className="blog-grey-text">{convertToTitle(text)}</div>
-        <div className="blog-card-title">{title}</div>
+        <span className="blog-grey-text">{convertToTitle(text)}</span>
+        <div className="blog-card-title"><p>{title}</p></div>
     </div>
   )
 }

@@ -3,9 +3,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
@@ -19,28 +16,33 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public static IEnumerable<string> GetRawTerms(this string data)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            int countOfBrackets = 0;
-            foreach (char currentCharacter in data)
+
+            if (!string.IsNullOrWhiteSpace(data))
             {
-                if (currentCharacter == leftParentheses)
+                int countOfBrackets = 0;
+
+                foreach (char currentCharacter in data)
                 {
-                    countOfBrackets++;
-                }
-                if (currentCharacter == rightParentheses)
-                {
-                    countOfBrackets--;
+                    if (currentCharacter == leftParentheses)
+                    {
+                        countOfBrackets++;
+                    }
+                    if (currentCharacter == rightParentheses)
+                    {
+                        countOfBrackets--;
+                    }
+
+                    if (currentCharacter == semicolon && countOfBrackets == 0)
+                    {
+                        yield return stringBuilder.ToString();
+                        stringBuilder.Clear();
+                    }
+                    else
+                    {
+                        stringBuilder.Append(currentCharacter);
+                    }
                 }
 
-
-                if (currentCharacter == semicolon && countOfBrackets == 0)
-                {
-                    yield return stringBuilder.ToString();
-                    stringBuilder.Clear();
-                }
-                else
-                {
-                    stringBuilder.Append(currentCharacter);
-                }
             }
 
             yield return stringBuilder.ToString();
@@ -75,12 +77,14 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             string rowFilterParams,
             IAliasStore aliasStore)
         {
-            rowFilterParams = AssignDefaults(typeof(T), rowFilterParams);
-
-            var filterArray = rowFilterParams
+            var filterArrey = rowFilterParams?
                 .GetFilterDefinitions<T>(aliasStore);
 
-            return Builders<T>.Filter.And(filterArray);
+            var result = filterArrey != null
+                ? Builders<T>.Filter.And(filterArrey)
+                : Builders<T>.Filter.Empty;
+
+            return result;
         }
 
         public static List<FilterDefinition<T>> GetFilterDefinitions<T>(
@@ -97,24 +101,6 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 .ToList();
 
             return filters;
-        }
-
-        private static string AssignDefaults(Type entityType, string filter)
-        {
-            var prop = entityType.GetProperty("IsDeleted");
-            var fieldName = prop?.GetCustomAttribute<BsonElementAttribute>()?.ElementName ?? prop.Name;
-
-            if (string.IsNullOrEmpty(filter))
-            {
-                return $"{fieldName}~eq~false";
-            }
-
-            if (filter.Contains(fieldName, StringComparison.OrdinalIgnoreCase))
-            {
-                return filter;
-            }
-
-            return string.Join(';', filter, $"{fieldName}~eq~false");
         }
     }
 }

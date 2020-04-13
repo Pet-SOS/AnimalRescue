@@ -1,4 +1,8 @@
-@import '../../styles/variables.scss';
+@import '../../styles/include-media';
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+@import '../../styles/base/mixins';
+
 .button {
   padding: 0;
   border: none;
@@ -63,6 +67,7 @@
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
