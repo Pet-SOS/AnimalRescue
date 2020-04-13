@@ -5,37 +5,18 @@
 
 .help-page-holder {
   background: $bg-lite-box;
-  p {
-    margin: 0 0 2rem;
-  }
 
   .bank-card-info {
     background: $bg-warning;
   }
 
-  .title {
-    margin: 0 0 1.5rem;
-  }
-  h3.title {
-    font-size: 2.25rem;
-    line-height: 2.25rem;
-  }
-  h4.title {
-    font-size: 1.5rem;
-    line-height: 1.5rem;
-    margin: 0 0 1.3125rem;
-  }
-
   .help-page-content {
-    max-width: 54.375rem;
+    max-width: 870px;
     margin: 0 auto;
-  }
-  .vacations-list p {
-    margin: 0 0 1rem;
   }
 
   .expanded-item-body .subtitle {
     display: block;
-    margin: 0 0 1rem;
+    margin: 0 0 16px;
   }
 }
