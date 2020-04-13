@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.UsersManagement
 {
-    public class CreateNewUsersManagementViewModel
+    public class CreateUsersManagementViewModel
     {
         [Required]
         [EmailAddress]

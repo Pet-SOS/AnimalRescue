@@ -96,5 +96,13 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string FileId = "fileId";
             public const string Date = "date";
         }
+
+        public static class UserRole
+        {
+            public const string Admin = "Admin";
+            public const string Operator = "Operator";
+            public const string Rescuer = "Rescuer";
+            public const string Media = "Media";
+        }
     }
 }

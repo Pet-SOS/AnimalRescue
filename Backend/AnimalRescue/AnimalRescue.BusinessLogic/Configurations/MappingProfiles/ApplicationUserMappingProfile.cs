@@ -9,7 +9,7 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
     {
         public ApplicationUserMappingProfile()
         {
-            CreateMap<ApplicationUser, GetUserUsersManagementViewItem>()
+            CreateMap<ApplicationUser, GetUsersManagementViewModel>()
                 .ForMember(x => x.UserId, o => o.MapFrom(user => user.Id))
                 .ForMember(x => x.ProfilePhoto, o => o.MapFrom(user => user.ProfilePhoto ?? string.Empty))
                 .ForMember(

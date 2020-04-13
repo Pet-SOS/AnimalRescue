@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.UsersManagement
 {
-    public class GetUserUsersManagementViewItem
+    public class GetUsersManagementViewModel
     {
         public string UserId { get; set; }
 
@@ -17,7 +17,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.UsersManagement
 
         public List<string> Roles { get; set; }
 
-        public GetUserUsersManagementViewItem()
+        public GetUsersManagementViewModel()
         {
             Roles = new List<string>();
         }

@@ -8,9 +8,9 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces.UsersManagement
 {
     public interface IUsersManagementService
     {
-        Task<GetUserUsersManagementViewItem> CreateNewAsync(Guid modifierUserId, CreateNewUsersManagementViewModel model);
-        Task<BlCollectonResponse<GetUserUsersManagementViewItem>> GetUsersAsync(ApiQueryRequest queryRequest);
-        Task<GetUserUsersManagementViewItem> GetUserAsync(Guid userId);
+        Task<GetUsersManagementViewModel> CreateAsync(Guid modifierUserId, CreateUsersManagementViewModel model);
+        Task<BlCollectonResponse<GetUsersManagementViewModel>> GetAsync(ApiQueryRequest queryRequest);
+        Task<GetUsersManagementViewModel> GetAsync(Guid userId);
         Task UpdateOneAsync(Guid userId, Guid userIdModifier, EditUsersManagementViewModel model);
         Task DeleteOneAsync(Guid userId, Guid modifierUserId);
     }

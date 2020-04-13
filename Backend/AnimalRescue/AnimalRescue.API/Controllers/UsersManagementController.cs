@@ -22,17 +22,17 @@ namespace AnimalRescue.API.Controllers
         /// <summary>
         /// Creates a new application user.
         /// </summary>
-        /// <param name="model"><see cref="CreateNewUsersManagementViewModel"/></param>
+        /// <param name="model"><see cref="CreateUsersManagementViewModel"/></param>
         /// <returns>Created user model.</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(ContentApiResponse<GetUserUsersManagementViewItem>), 201)]
+        [ProducesResponseType(typeof(ContentApiResponse<GetUsersManagementViewModel>), 201)]
         [ProducesResponseType(typeof(string), 400)]
         [Route("create")]
-        public async Task<ActionResult<GetUserUsersManagementViewItem>> CreateNewAsync([FromBody] CreateNewUsersManagementViewModel model)
+        public async Task<ActionResult<GetUsersManagementViewModel>> CreateAsync([FromBody] CreateUsersManagementViewModel model)
         {
             var userModifier = User.Identity.GetUser();
 
-            var result = await _usersManagementService.CreateNewAsync(userModifier.Id, model);
+            var result = await _usersManagementService.CreateAsync(userModifier.Id, model);
 
             return CreatedItem($"users/{result.UserId}", result);
         }
@@ -43,12 +43,12 @@ namespace AnimalRescue.API.Controllers
         /// <param name="queryParams"></param>
         /// <returns>By default returns a collection of users who are not deleted.</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(CollectionSegmentApiResponse<GetUserUsersManagementViewItem>), 200)]
+        [ProducesResponseType(typeof(CollectionSegmentApiResponse<GetUsersManagementViewModel>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [Route("users")]
-        public async Task<ActionResult<CollectionSegmentApiResponse<GetUserUsersManagementViewItem>>> GetUsers([FromQuery] ApiQueryRequest queryParams)
+        public async Task<ActionResult<CollectionSegmentApiResponse<GetUsersManagementViewModel>>> GetAsync([FromQuery] ApiQueryRequest queryParams)
         {
-            var source = await _usersManagementService.GetUsersAsync(queryParams);
+            var source = await _usersManagementService.GetAsync(queryParams);
 
             return Collection(source.Collection, source.TotalCount, queryParams.Page, queryParams.Size);
         }
@@ -59,13 +59,13 @@ namespace AnimalRescue.API.Controllers
         /// <param name="id">Id of specific user.</param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ContentApiResponse<GetUserUsersManagementViewItem>), 200)]
+        [ProducesResponseType(typeof(ContentApiResponse<GetUsersManagementViewModel>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(404)]
         [Route("users/{id}", Name = "GetUser")]
-        public async Task<ActionResult<GetUserUsersManagementViewItem>> GetAsync([FromRoute] Guid id)
+        public async Task<ActionResult<GetUsersManagementViewModel>> GetItemByIdAsync([FromRoute] Guid id)
         {
-            var userModel = await _usersManagementService.GetUserAsync(id);
+            var userModel = await _usersManagementService.GetAsync(id);
 
             return Item(userModel);
         }
@@ -81,7 +81,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(404)]
         [Route("users/{id}")]
-        public async Task<ActionResult<GetUserUsersManagementViewItem>> EditAsync([FromRoute] Guid id, [FromBody] EditUsersManagementViewModel model)
+        public async Task<ActionResult<GetUsersManagementViewModel>> EditAsync([FromRoute] Guid id, [FromBody] EditUsersManagementViewModel model)
         {
             var userModifier = User.Identity.GetUser();
 
@@ -100,7 +100,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(404)]
         [Route("users/{id}")]
-        public async Task<ActionResult<GetUserUsersManagementViewItem>> RemoveAsync([FromRoute] Guid id)
+        public async Task<ActionResult<GetUsersManagementViewModel>> RemoveAsync([FromRoute] Guid id)
         {
             var userModifier = User.Identity.GetUser();
 

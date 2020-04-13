@@ -49,7 +49,7 @@ namespace AnimalRescue.BusinessLogic.Services
             _mapper = mapper;
         }
 
-        public async Task<SignInAccountModel> SignIn(SignInAccountAuthorizationViewModel model)
+        public async Task<SignInAccountModel> SignInAsync(SignInAccountAuthorizationViewModel model)
         {
             ApplicationUser identityUser = _userManager.Users
                 .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper() && !x.IsDeleted);

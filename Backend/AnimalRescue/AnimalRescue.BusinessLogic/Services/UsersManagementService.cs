@@ -33,16 +33,21 @@ namespace AnimalRescue.BusinessLogic.Services
             IUserRepository userRepository,
             IEmailSender emailSender)
         {
+            Require.Objects.NotNull(emailSender, nameof(userManager));
+            Require.Objects.NotNull(emailSender, nameof(mapper));
+            Require.Objects.NotNull(emailSender, nameof(userRepository));
+            Require.Objects.NotNull(emailSender, nameof(emailSender));
+
             _userManager = userManager;
             _mapper = mapper;
             _userRepository = userRepository;
             _emailSender = emailSender;
         }
 
-        public virtual async Task<GetUserUsersManagementViewItem> CreateNewAsync(Guid modifierUserId, CreateNewUsersManagementViewModel model)
+        public virtual async Task<GetUsersManagementViewModel> CreateAsync(Guid modifierUserId, CreateUsersManagementViewModel model)
         {
             var identityUser = await _userManager.FindByEmailAsync(model.Email);
-            Require.Objects.IfNull(identityUser, "User already exists");
+            Require.Objects.ShouldBeNull(identityUser, "User already exists");
 
             var newUser = new ApplicationUser()
             {
@@ -67,34 +72,34 @@ namespace AnimalRescue.BusinessLogic.Services
 
             SendInvitationWithPassword(newUser, password);
 
-            var userData = _mapper.Map<GetUserUsersManagementViewItem>(newUser);
+            var userData = _mapper.Map<GetUsersManagementViewModel>(newUser);
 
             return userData;
         }
 
-        public virtual async Task<BlCollectonResponse<GetUserUsersManagementViewItem>> GetUsersAsync(ApiQueryRequest queryRequest)
+        public virtual async Task<BlCollectonResponse<GetUsersManagementViewModel>> GetAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
 
             var users = await _userRepository.GetAsync(dbQuery);
             var totalNumberOf = await _userRepository.GetCountAsync(dbQuery);
 
-            var userCollection = _mapper.Map<IEnumerable<ApplicationUser>, List<GetUserUsersManagementViewItem>>(users);
+            var userCollection = _mapper.Map<IEnumerable<ApplicationUser>, List<GetUsersManagementViewModel>>(users);
             foreach (var userModel in userCollection)
             {
                 var identityUser = users.SingleOrDefault(x => x.Id == userModel.UserId);
                 userModel.Roles.AddRange(await _userManager.GetRolesAsync(identityUser));
             }
 
-            return new BlCollectonResponse<GetUserUsersManagementViewItem>
+            return new BlCollectonResponse<GetUsersManagementViewModel>
             { Collection = userCollection, TotalCount = totalNumberOf };
         }
 
-        public virtual async Task<GetUserUsersManagementViewItem> GetUserAsync(Guid userId)
+        public virtual async Task<GetUsersManagementViewModel> GetAsync(Guid userId)
         {
             var user = await FindOneAsync(userId.ToString());
 
-            var result = _mapper.Map<GetUserUsersManagementViewItem>(user);
+            var result = _mapper.Map<GetUsersManagementViewModel>(user);
             result.Roles.AddRange(await _userManager.GetRolesAsync(user));
 
             return result;
@@ -108,7 +113,7 @@ namespace AnimalRescue.BusinessLogic.Services
             if (isUsernameChanged)
             {
                 var userByNewEmail = _userManager.Users.SingleOrDefault(x => x.Email == model.Email && !x.IsDeleted);
-                Require.Objects.IfNull<BadRequestException>(userByNewEmail, $"User with email {model.Email} already exists.");
+                Require.Objects.ShouldBeNull<BadRequestException>(userByNewEmail, $"User with email {model.Email} already exists.");
 
                 user.Email = model.Email;
                 user.UserName = model.Email;
@@ -140,7 +145,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         #region Private
 
-        private Task<ApplicationUser> FindOneAsync(string userId)
+        private async Task<ApplicationUser> FindOneAsync(string userId)
         {
             var task = Task.Run(() =>
             {
@@ -148,7 +153,7 @@ namespace AnimalRescue.BusinessLogic.Services
                 Require.Objects.NotNull<NotFoundException>(user, $"User with Id {userId} is not found");
                 return user;
             });
-            return task;
+            return await task;
         }
 
         private void CheckRole(string role)

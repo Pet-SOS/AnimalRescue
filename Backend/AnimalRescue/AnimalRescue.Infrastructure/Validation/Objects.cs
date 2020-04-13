@@ -9,12 +9,12 @@ namespace AnimalRescue.Infrastructure.Validation
             private static bool EqualsNull(object value) => value == null;
             private static bool NotEqualsNull(object value) => !EqualsNull(value);
 
-            public static void IfNull(object value, string message)
+            public static void ShouldBeNull(object value, string message)
             {
-                IfNull<ApplicationException>(value, message);
+                ShouldBeNull<ApplicationException>(value, message);
             }
 
-            public static void IfNull<TE>(object value, string message) where TE: Exception
+            public static void ShouldBeNull<TE>(object value, string message) where TE: Exception
             {
                 InnerCheck<TE, object>(value, NotEqualsNull, message);
             }
