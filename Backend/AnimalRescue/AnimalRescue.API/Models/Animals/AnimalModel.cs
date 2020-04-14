@@ -58,15 +58,15 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(animal.Status)]
         [JsonProperty(animal.Status)]
-        public string Status { get; set; }
+        public WellKnownTagModel Status { get; set; }
 
         [JsonPropertyName(animal.LocationType)]
         [JsonProperty(animal.LocationType)]
-        public string LocationType { get; set; }
+        public WellKnownTagModel LocationType { get; set; }
 
         [JsonPropertyName(animal.LocationName)]
         [JsonProperty(animal.LocationName)]
-        public string LocationName { get; set; }
+        public WellKnownTagModel LocationName { get; set; }
 
         [JsonPropertyName(animal.IsDonationActive)]
         [JsonProperty(animal.IsDonationActive)]

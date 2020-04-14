@@ -18,6 +18,7 @@ using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
+using System;
 
 namespace AnimalRescue.API.Core
 {
@@ -40,8 +41,13 @@ namespace AnimalRescue.API.Core
             CreateMap<FinancialReportDto, FinancialReportModel>();
             CreateMap<FinancialReportCreateUpdateModel, FinancialReportModel>();
 
+
             CreateMap<AnimalCreateUpdateModel, AnimalModel>()
-                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
+                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)))
+                .ForMember(x=>x.Status, opt => opt.MapFrom(m=> GetWellKnownTagModel(m.Status)))
+                .ForMember(x=>x.LocationType, opt => opt.MapFrom(m=> GetWellKnownTagModel(m.LocationType)))
+                .ForMember(x=>x.LocationName, opt => opt.MapFrom(m=> GetWellKnownTagModel(m.LocationName)));
+
             CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 
@@ -71,6 +77,8 @@ namespace AnimalRescue.API.Core
             CreateMapFor<StoryCreateModel, StoryUpdateModel, StoryInfoModel, StoryDto>();
             CreateMapFor<ArticleCreateModel, ArticleUpdateModel, ArticleInfoModel, ArticleDto>();
         }
+        private WellKnownTagModel GetWellKnownTagModel(string value) 
+            => value == null ? null : new WellKnownTagModel { Id = Guid.Parse(value) };
 
         private void CreateMapFor<TCreate, TUpdate, TInfo, TDto>()
             where TCreate : BaseCreateModel

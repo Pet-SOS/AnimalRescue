@@ -1,16 +1,19 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.DataAccess.Mongodb.Extensions;
+﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
+using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
+
 using AutoMapper;
+
 using System;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Linq;
-using AnimalRescue.Contracts.BusinessLogic.Attributes;
-using AnimalRescue.DataAccess.Mongodb.Attributes;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -20,7 +23,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public AnimalService(IAnimalRepository repository,
                              IWellKnownTagRepository wellKnownTagRepository,
-                             IMapper mapper) 
+                             IMapper mapper)
             : base(repository, mapper)
         {
             _wellKnownTagRepository = wellKnownTagRepository;
@@ -30,7 +33,7 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             animalDto.Id = Guid.Empty;
             var animalDbo = _mapper.Map<AnimalDto, Animal>(animalDto);
-            await UpdateAnimalDbo(animalDbo, animalDto);
+            await RecoverWellKnownTagsAsync(animalDbo, animalDto);
 
             animalDbo = await _repository.CreateAsync(animalDbo);
             animalDto = _mapper.Map<Animal, AnimalDto>(animalDbo);
@@ -42,50 +45,32 @@ namespace AnimalRescue.BusinessLogic.Services
         public override async Task UpdateAsync(AnimalDto animalDto)
         {
             var animalDbo = _mapper.Map<AnimalDto, Animal>(animalDto);
-            await UpdateAnimalDbo(animalDbo, animalDto);
+            await RecoverWellKnownTagsAsync(animalDbo, animalDto);
 
             await _repository.UpdateAsync(animalDbo);
         }
 
-        private async Task UpdateAnimalDbo(Animal animalDbo, AnimalDto animalDto)
+        private async Task RecoverWellKnownTagsAsync(Animal animalDbo, AnimalDto animalDto)
         {
-            var propertiesDbo = Type.GetType(animalDbo.GetType().AssemblyQualifiedName).GetProperties();
-            var propertiesDto = Type.GetType(animalDto.GetType().AssemblyQualifiedName).GetProperties();
+            var propertiesDto = animalDto.GetType().GetProperties();
 
-            var wellKnownTagPropertiesDbo = propertiesDbo.Where(x => x.PropertyType.GetTypeInfo().Name == typeof(WellKnownTag).Name);
-            foreach (var wellKnownTagPropertyDbo in wellKnownTagPropertiesDbo)
+            foreach (var wellKnownTagPropertyDbo in animalDbo
+                .GetType()
+                .GetProperties()
+                .Where(x => x.PropertyType == typeof(WellKnownTag)))
             {
-                if (wellKnownTagPropertyDbo.GetCustomAttribute<CouplingPropertyNameAttribute>() is CouplingPropertyNameAttribute attributeDbo)
+                foreach (PropertyInfo propertyDto in propertiesDto)
                 {
-                    string attrValueDbo = attributeDbo.AliasName;
-                    foreach (PropertyInfo propertyDto in propertiesDto)
+                    if (propertyDto.GetCustomAttribute<CouplingPropertyDtoAttribute>() is CouplingPropertyDtoAttribute attributeDto
+                        && wellKnownTagPropertyDbo.GetCustomAttribute<CouplingPropertyNameAttribute>() is CouplingPropertyNameAttribute attributeDbo
+                        && attributeDto.AliasName == attributeDbo.AliasName
+                        && propertyDto.GetValue(animalDto, null) is WellKnownTagDto propertyDtoValue
+                        && (await _wellKnownTagRepository.GetAsync(propertyDtoValue.Id.AsObjectIdString().ToString())) is WellKnownTag tag)
                     {
-                        if (propertyDto.GetCustomAttribute<CouplingPropertyDtoAttribute>() is CouplingPropertyDtoAttribute attributeDto)
-                        {
-                            string attrValueDto = attributeDto.AliasName;
-                            if (attrValueDbo == attrValueDto)
-                            {
-                                var propertyDtoValue = propertyDto.GetValue(animalDto, null);
-
-                                WellKnownTag tag = null;
-                                if (propertyDtoValue != null)
-                                {
-                                    tag = await _wellKnownTagRepository.GetAsync(GetObjectIdString(propertyDtoValue.ToString()));
-                                }
-
-                                wellKnownTagPropertyDbo.SetValue(animalDbo, tag);
-                            }
-                        }
+                        wellKnownTagPropertyDbo.SetValue(animalDbo, tag);
                     }
                 }
             }
-        }
-
-        private static string GetObjectIdString(string guidString)
-        {
-            Guid guid;
-            Guid.TryParse(guidString, out guid);
-            return guid.AsObjectIdString();
         }
     }
 }
