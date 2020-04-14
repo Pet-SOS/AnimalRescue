@@ -11,7 +11,10 @@ import {
   actionDeleteTagError,
   actionAddTag,
   actionAddTagSuccess,
-  actionAddTagError
+  actionAddTagError,
+  actionGetAllTags,
+  actionGetAllTagsSuccess,
+  actionGetAllTagsError
 } from './../actions/tags.actions';
 import { genericRequestReducer } from "../../api";
 import { DEFAULT_TAGS_STATE, ITagsState } from '../state/tags.state';
@@ -98,6 +101,29 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         requestState: tagsListStateReducer(state.requestState, action)
       }
     }
+    case getType(actionGetAllTags): {
+      return {
+        ...state,
+        isLoading: true,
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
+    }
+    case getType(actionGetAllTagsSuccess):
+      const newTagsList: ITag[] = [...state.data, ...action.payload.data];
+      return {
+        ...state,
+        data: newTagsList,
+        isLoading: false,
+        isLoaded: true,
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
+    case getType(actionGetAllTagsError):
+      return {
+        ...state,
+        isLoaded: false,
+        isLoading: false,
+        requestState: tagsListStateReducer(state.requestState, action)
+      };
     case getType(actionClearTagsList): {
       return {
         ...DEFAULT_TAGS_STATE
