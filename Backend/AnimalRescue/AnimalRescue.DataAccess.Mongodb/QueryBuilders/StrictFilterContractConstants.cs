@@ -20,7 +20,9 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public const string Lte = "lte";
         public const string Lt = "lt";
         public const string Ne = "ne";
-        public static IEnumerable<string> AvailableRules { get 
+        public static IEnumerable<string> AvailableRules
+        {
+            get
             {
                 yield return Eq;
                 yield return All;
@@ -48,9 +50,9 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             {
                 switch (term.CommandName)
                 {
-                    case All: 
+                    case All:
                         return AllFilterDefinition(term);
-                    case ElementMatch: 
+                    case ElementMatch:
                         return ElementMatchFilterDefinition(term);
 
                     default:
@@ -64,7 +66,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         private static FilterDefinition<TE> AllFilterDefinition<TE>(StrictTerm<TE> term)
         {
             Type type = term.Alias.PropertyType.GenericTypeArguments.First();
-            
+
             return Builders<TE>.Filter.And(GetListValues(term.Content).Select(x => LookFor<TE>(type, term.FieldName, x.DeleteQuote(), term.CommandName)));
         }
 
@@ -73,7 +75,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             string termValue = term.Content.DeleteParentheses();
             var filtersForConcat = termValue.GetFilterDefinitions<TE>(term.AliasStore).ToArray();
             var filterForElemMatch = FilterDefinitionExtensions.AND<TE>(filtersForConcat);
-            
+
             return Builders<TE>.Filter.ElemMatch<TE>(term.FieldName, filterForElemMatch);
         }
 
@@ -84,12 +86,9 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             string operationName)
         {
             if (propertyType == typeof(string))
-            {   if(Eq == operationName)
-                {
-                    return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
-                }
+            {
+                return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
                 //return Builders<TE>.Filter.Text(content);
-                throw new ArgumentException($"this {nameof(operationName)}: '{operationName}' is not support for this property");
             }
 
             if (propertyType == typeof(int))
