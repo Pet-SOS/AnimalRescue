@@ -2,6 +2,7 @@
 using AnimalRescue.BusinessLogic.Queries;
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces.UsersManagement;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
@@ -44,11 +45,12 @@ namespace AnimalRescue.BusinessLogic
                 new WellKnownTagMappingProfile(),
                 new SequenceMappingProfile(),
                 new BucketItemMappingProfile(),
-                new EmployeeMappingProfile()
+                new EmployeeMappingProfile(),
+                new ApplicationUserMappingProfile()
             });
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
-                .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            
+                .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
             services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto>, EmployeeService>();
@@ -70,27 +72,29 @@ namespace AnimalRescue.BusinessLogic
             services.AddSingleton<ILanguageConfiguration, LanguageConfiguration>();
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ISequenceService, SequenceService>();
+            services.AddScoped<IUsersManagementService, UsersManagementService>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
         {
-            CreateRoles(serviceProvider, configuration).GetAwaiter().GetResult();
+            CreateRolesAsync(serviceProvider, configuration).GetAwaiter().GetResult();
         }
 
-        private static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
+        private static async Task CreateRolesAsync(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleNames = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Select(x => x.ToString()).ToList();
-            IdentityResult roleResult;
+
             foreach (var roleName in roleNames)
             {
                 var roleExist = await roleManager.RoleExistsAsync(roleName);
                 if (!roleExist)
                 {
-                    roleResult = await roleManager.CreateAsync(new ApplicationRole(roleName));
+                    await roleManager.CreateAsync(new ApplicationRole(roleName));
                 }
             }
+
             var adminSettings = configuration.GetTypedSection<AdminSettings>("AdminDetail");
             var user = await userManager.FindByEmailAsync(adminSettings.Email);
             if (user == null)

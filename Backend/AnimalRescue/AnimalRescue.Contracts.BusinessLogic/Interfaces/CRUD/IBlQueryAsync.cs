@@ -6,10 +6,10 @@ using System;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD
 {
-    public interface IBlCollectinQueryAsyncy<TOut> : IBaseQuerAsyncy<BlCollectonResponse<TOut>, ApiQueryRequest>
+    public interface IBlCollectinQueryAsyncy<TOut> : IBaseQueryAsync<BlCollectonResponse<TOut>, ApiQueryRequest>
     {
     }
-    public interface IBlOneItemQueryAsyncy<TOut> : IBaseQuerAsyncy<TOut, Guid>
+    public interface IBlOneItemQueryAsyncy<TOut> : IBaseQueryAsync<TOut, Guid>
     {
     }
 }

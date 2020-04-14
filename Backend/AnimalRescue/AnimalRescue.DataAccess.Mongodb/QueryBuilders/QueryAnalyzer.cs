@@ -16,28 +16,33 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public static IEnumerable<string> GetRawTerms(this string data)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            int countOfBrackets = 0;
-            foreach (char currentCharacter in data)
+
+            if (!string.IsNullOrWhiteSpace(data))
             {
-                if (currentCharacter == leftParentheses)
+                int countOfBrackets = 0;
+
+                foreach (char currentCharacter in data)
                 {
-                    countOfBrackets++;
-                }
-                if (currentCharacter == rightParentheses)
-                {
-                    countOfBrackets--;
+                    if (currentCharacter == leftParentheses)
+                    {
+                        countOfBrackets++;
+                    }
+                    if (currentCharacter == rightParentheses)
+                    {
+                        countOfBrackets--;
+                    }
+
+                    if (currentCharacter == semicolon && countOfBrackets == 0)
+                    {
+                        yield return stringBuilder.ToString();
+                        stringBuilder.Clear();
+                    }
+                    else
+                    {
+                        stringBuilder.Append(currentCharacter);
+                    }
                 }
 
-
-                if (currentCharacter == semicolon && countOfBrackets == 0)
-                {
-                    yield return stringBuilder.ToString();
-                    stringBuilder.Clear();
-                }
-                else
-                {
-                    stringBuilder.Append(currentCharacter);
-                }
             }
 
             yield return stringBuilder.ToString();
@@ -82,11 +87,11 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             return result;
         }
 
-        public static List<FilterDefinition<T>> GetFilterDefinitions<T>(             
+        public static List<FilterDefinition<T>> GetFilterDefinitions<T>(
             this string rowFilterParams,
             IAliasStore aliasStore)
         {
-            var rawTerms = rowFilterParams?
+            var rawTerms = rowFilterParams
                 .GetRawTerms()
                 .ToList();
 
