@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 
-import { actionGetTagsListSuccess, actionGetTagsListError, actionGetTagsList, actionDeleteTag, actionDeleteTagSuccess, actionDeleteTagError, actionAddTag, actionAddTagSuccess, actionAddTagError } from './../actions/tags.actions';
+import { actionGetTagsListSuccess, actionGetTagsListError, actionGetTagsList, actionDeleteTag, actionDeleteTagSuccess, actionDeleteTagError, actionAddTag, actionAddTagSuccess, actionAddTagError, actionGetAllTags, actionGetAllTagsSuccess, actionGetAllTagsError } from './../actions/tags.actions';
 import { getType } from "typesafe-actions";
 import { IRequestParams } from "../../api/requestOptions";
 import { fetchTags, deleteTagRequest, ITag, addTagRequest } from "../../api/tags";
@@ -12,6 +12,20 @@ function* getTags(action: { type: string, payload?: IRequestParams }) {
     yield put(actionGetTagsListSuccess(response))
   } catch (e) {
     yield put(actionGetTagsListError(e))
+  }
+}
+function* getAllTags(action: { type: string, payload?: IRequestParams }) {
+  try {
+    const response = yield call(fetchTags, action.payload);
+    yield put(actionGetAllTagsSuccess(response))
+    if(response.pageNumber < response.pageCount){
+      yield put(actionGetAllTags({
+        ...action.payload,
+        page: response.pageNumber + 1
+      }))
+    }
+  } catch (e) {
+    yield put(actionGetAllTagsError(e))
   }
 }
 function* addTag(action: { type: string, payload: ITag }) {
@@ -35,6 +49,7 @@ function* deleteTag(action: { type: string, payload: string }) {
 
 export function* watchTags() {
   yield takeEvery(getType(actionGetTagsList), getTags);
+  yield takeEvery(getType(actionGetAllTags), getAllTags);
   yield takeEvery(getType(actionDeleteTag), deleteTag);
   yield takeEvery(getType(actionAddTag), addTag)
 }

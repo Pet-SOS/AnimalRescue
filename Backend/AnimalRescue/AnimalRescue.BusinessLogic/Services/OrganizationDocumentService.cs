@@ -46,7 +46,7 @@ namespace AnimalRescue.BusinessLogic.Services
             { Collection = result, TotalCount = totalNumberOf };
         }
 
-        public async Task<GetDocumentsOrganizationViewItem> CreateAsync(UploadDocumentModel model, string userId)
+        public async Task<GetDocumentsOrganizationViewItem> CreateAsync(UploadDocumentModel model, Guid userId)
         {
             Require.Objects.NotNull<BadRequestException>(model, "Failed to save document. Probably document is not uploaded.");
 
@@ -54,7 +54,7 @@ namespace AnimalRescue.BusinessLogic.Services
             {
                 BucketId = model.Id.ToString(),
                 Name = model.FileName,
-                CreatedBy = userId,
+                CreatedBy = userId.ToString(),
             };
 
             await _orgDocRepository.CreateAsync(orgDoc);

@@ -31,15 +31,17 @@ const TagsListItem: React.FC<IPropTypes> = ({ tag, deleteTag }) => {
   }
 
   return (
-    <tr>
-      <td>{getTagName(ELocales.ua)}</td>
-      <td>{getTagName(ELocales.en)}</td>
-      <td>{getTagName(ELocales.de)}</td>
-      <td>{getTagName(ELocales.ru)}</td>
-      <td>0</td>
-      <td><button type="button">Edit</button></td>
-      <td><button type="button" onClick={onTagDelete}>Delete</button></td>
-    </tr>
+      <div className="t-item">
+          <div className="row">
+              <div className="col col-ua">{getTagName(ELocales.ua)}</div>
+              <div className="col col-en">{getTagName(ELocales.en)}</div>
+              <div className="col col-de">{getTagName(ELocales.de)}</div>
+              <div className="col col-ru">{getTagName(ELocales.ru)}</div>
+              <div className="col col-num">0</div>
+              <div className="col col-edit"><i className="icon-edit">icon</i></div>
+              <div className="col col-del"><i className="icon-delete" onClick={onTagDelete}>icon</i></div>
+          </div>
+      </div>
   )
 }
 

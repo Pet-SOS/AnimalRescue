@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace AnimalRescue.DataAccess.Mongodb
 {
     internal class BaseCollection<T> : IBaseCollection<T>
-        where T : BaseItem
+        where T : IBaseAuditItem
     {
         public IMongoCollection<T> Collection => collection;
         public IMongoCollection<BsonDocument> NativeCollection =>

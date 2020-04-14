@@ -4,7 +4,7 @@ import { ELocales } from '../i18n/store/state';
 import { AnimalKind } from './animals';
 
 export enum TagCategory {
-  size = 'size',
+  dogSize = 'dogSize',
   health = 'health',
 }
 

@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.Contracts.Common.Interfaces.CRUD
 {
-    public interface IBaseQuerAsyncy<TOut, TQuery>
+    public interface IBaseQueryAsync<TOut, TQuery>
     {
         Task<TOut> GetAsync(TQuery query);
     }
