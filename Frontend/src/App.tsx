@@ -11,8 +11,8 @@ import { Loader } from './components/Loader';
 import Snackbar from './components/Snackbar';
 import { selectIsSnackbarActive } from './store/selectors/snackbar.selector';
 import { ICustomAppState } from './store/state';
-import { actionGetTagsList } from './store/actions/tags.actions';
-import { selectIsTagsListLoaded, selectIsTagsListLoading } from './store/selectors/tags.selector';
+import { actionGetAllTags } from './store/actions/tags.actions';
+import { selectIsAllTagsLoaded, selectIsAllTagsLoading } from './store/selectors/tags.selector';
 
 interface IPropTypes {
   getApiConfig: () => void;
@@ -38,7 +38,7 @@ const App: React.FC<IPropTypes> = ({
   }, []);
   useEffect(() => {
     if (!isTagsListLoaded && !isTagListLoading && isConfigLoaded) {
-      getTagsList(999)
+      getTagsList(99)
     }
   }, [isConfigLoaded]);
 
@@ -62,12 +62,12 @@ const mapStateToProps = (state: ICustomAppState) => ({
   isConfigLoaded: selectIsConfigLoaded(state),
   isConfigLoading: selectIsConfigLoading(state),
   isSnackbarActive: selectIsSnackbarActive(state),
-  isTagsListLoaded: selectIsTagsListLoaded(state),
-  isTagListLoading: selectIsTagsListLoading(state),
+  isTagsListLoaded: selectIsAllTagsLoaded(state),
+  isTagListLoading: selectIsAllTagsLoading(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   getApiConfig: () => dispatch(actionGetApiConfig()),
-  getTagsList: (size: number) => dispatch(actionGetTagsList({size}))
+  getTagsList: (size: number) => dispatch(actionGetAllTags({size}))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
