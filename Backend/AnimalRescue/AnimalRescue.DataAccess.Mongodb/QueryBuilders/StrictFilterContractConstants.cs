@@ -84,9 +84,12 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             string operationName)
         {
             if (propertyType == typeof(string))
-            {
-                return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
+            {   if(Eq == operationName)
+                {
+                    return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
+                }
                 //return Builders<TE>.Filter.Text(content);
+                throw new ArgumentException($"this {nameof(operationName)}: '{operationName}' is not support for this property");
             }
 
             if (propertyType == typeof(int))
