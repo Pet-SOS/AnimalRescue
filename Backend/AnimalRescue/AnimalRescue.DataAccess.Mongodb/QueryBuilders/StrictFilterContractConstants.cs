@@ -1,4 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Extensions;
+﻿using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -56,7 +57,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                         return ElementMatchFilterDefinition(term);
 
                     default:
-                        throw new ArgumentException(nameof(term.CommandName));
+                        throw new BadRequestException(nameof(term.CommandName));
                 }
             }
 
@@ -67,7 +68,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         {
             Type type = term.Alias.PropertyType.GenericTypeArguments.First();
 
-            return Builders<TE>.Filter.And(GetListValues(term.Content).Select(x => LookFor<TE>(type, term.FieldName, x.DeleteQuote(), term.CommandName)));
+            return Builders<TE>.Filter.And(GetListValues(term.Content).Select(x => LookFor<TE>(type, term.FieldName, x.DeleteQuote(), Eq /* term.CommandName */)));
         }
 
         private static FilterDefinition<TE> ElementMatchFilterDefinition<TE>(StrictTerm<TE> term)
@@ -87,8 +88,12 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         {
             if (propertyType == typeof(string))
             {
-                return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
+                if (Eq == operationName)
+                {
+                    return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
+                }
                 //return Builders<TE>.Filter.Text(content);
+                throw new BadRequestException($"this {nameof(operationName)}: '{operationName}' is not support for this property");
             }
 
             if (propertyType == typeof(int))
@@ -106,7 +111,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 return LookFor<TE, bool>(fieldName, content, bool.Parse, operationName);
             }
 
-            throw new ArgumentException(nameof(propertyType));
+            throw new BadRequestException(nameof(propertyType));
         }
 
         private static FilterDefinition<TE> LookFor<TE, TField>(
@@ -132,7 +137,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 case Ne:
                     return Builders<TE>.Filter.Ne(field, parseer(content));
                 default:
-                    throw new ArgumentException(nameof(operationName));
+                    throw new BadRequestException(nameof(operationName));
             }
         }
     }
