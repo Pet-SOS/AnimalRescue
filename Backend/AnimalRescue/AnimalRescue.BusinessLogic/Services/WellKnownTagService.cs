@@ -15,12 +15,10 @@ namespace AnimalRescue.BusinessLogic.Services
     internal class WellKnownTagService : BaseService<WellKnownTagDto, WellKnownTag>, IWellKnownTagService
     {
         private readonly IWellKnownTagRepository _wellKnownTagRepository;
-        private readonly IMapper _mapper;
 
         public WellKnownTagService(IWellKnownTagRepository repository, IMapper mapper) : base(repository, mapper)
         {
             _wellKnownTagRepository = repository;
-            _mapper = mapper;
         }
 
         public async Task<List<WellKnownTagDto>> WhereAsync(List<WellKnownTagDto> value)

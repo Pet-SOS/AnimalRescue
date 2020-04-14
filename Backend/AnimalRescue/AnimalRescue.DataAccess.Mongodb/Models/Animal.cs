@@ -71,5 +71,25 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(common.NewTags)]
         [BsonElement("newTags")]
         public List<NestedTag> NewTags { get; set; }
+
+        [CouplingPropertyName(animal.Status)]
+        [BsonElement("status")]
+        public WellKnownTag Status { get; set; }
+
+        [CouplingPropertyName(animal.LocationType)]
+        [BsonElement("locationType")]
+        public WellKnownTag LocationType { get; set; }
+
+        [CouplingPropertyName(animal.LocationName)]
+        [BsonElement("locationName")]
+        public WellKnownTag LocationName { get; set; }
+
+        [CouplingPropertyName(animal.IsDonationActive)]
+        [BsonElement("isDonationActive")]
+        public bool IsDonationActive { get; set; }
+
+        [CouplingPropertyName(animal.BannerText)]
+        [BsonElement("bannerText")]
+        public string BannerText { get; set; }
     }
 }
