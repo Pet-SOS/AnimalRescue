@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.Infrastructure.Utilities;
 
 using MongoDB.Bson.Serialization.Attributes;
@@ -70,17 +71,17 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             return null; 
         }
 
-        private List<Alias> GetAliases(Type type)
+        private List<Alias> GetAliases(Type entityType)
         {
-            List<Alias> currentAlias = type
+            List<Alias> currentAlias = entityType
                 .GetProperties()
-                .Select(ConvertToAlias)
+                .Select(x=> ConvertToAlias(x, entityType))
                 .SelectMany(AliasToListNestedAliases)
                 .Where(x => x != null)
                 .Distinct(new EntityComparer<Alias>(IsEqual))
                 .ToList();
 
-            aliasDictionary.TryAdd(type, currentAlias);
+            aliasDictionary.TryAdd(entityType, currentAlias);
 
             var collections = currentAlias
                 .Where(currentAlias => currentAlias.PropertyType.GetInterface(nameof(ICollection)) != null)
@@ -104,14 +105,25 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             && x.AliasPropertyName == y.AliasPropertyName
             && x.DataBasePropertyName == y.DataBasePropertyName;
 
-        private static Alias ConvertToAlias(PropertyInfo propertyInfo)
+        private static Alias ConvertToAlias(PropertyInfo propertyInfo, Type entityType)
         {
             var aliasName = propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>()?.AliasName;
-            var elementName = propertyInfo.GetCustomAttribute<BsonElementAttribute>()?.ElementName;
-
-            if (elementName == null || aliasName == null)
+            if (aliasName == null)
             {
                 return null;
+            }
+
+            var elementName = propertyInfo.GetCustomAttribute<BsonElementAttribute>()?.ElementName;
+            if (elementName == null)
+            {
+                if(entityType.GetInterface(nameof(IApplicationExceptionFilterItem))!= null)
+                {
+                    elementName = propertyInfo.Name;
+                }
+                else
+                {
+                    return null;
+                }
             }
 
             return new Alias
@@ -135,7 +147,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             var propertyInfos = alias.PropertyType.GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-                Alias currentAlias = ConvertToAlias(propertyInfo);
+                Alias currentAlias = ConvertToAlias(propertyInfo, alias.PropertyType);
 
                 if (currentAlias == null)
                 {

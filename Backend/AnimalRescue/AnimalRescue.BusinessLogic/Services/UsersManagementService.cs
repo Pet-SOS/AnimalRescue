@@ -97,7 +97,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public virtual async Task<GetUsersManagementViewModel> GetAsync(Guid userId)
         {
-            var user = await FindOneAsync(userId.ToString());
+            var user = FindOne(userId);
 
             var result = _mapper.Map<GetUsersManagementViewModel>(user);
             result.Roles.AddRange(await _userManager.GetRolesAsync(user));
@@ -107,7 +107,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public virtual async Task UpdateOneAsync(Guid userId, Guid modifierUserId, EditUsersManagementViewModel model)
         {
-            ApplicationUser user = await FindOneAsync(userId.ToString());
+            ApplicationUser user = FindOne(userId);
 
             var isUsernameChanged = user.Email != model.Email;
             if (isUsernameChanged)
@@ -133,7 +133,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public virtual async Task DeleteOneAsync(Guid userId, Guid modifierUserId)
         {
-            ApplicationUser user = await FindOneAsync(userId.ToString());
+            ApplicationUser user = FindOne(userId);
 
             user.IsDeleted = true;
             user.ModifiedAt = DateHelper.GetUtc();
@@ -145,15 +145,14 @@ namespace AnimalRescue.BusinessLogic.Services
 
         #region Private
 
-        private async Task<ApplicationUser> FindOneAsync(string userId)
+        private ApplicationUser FindOne(Guid userId)
         {
-            var task = Task.Run(() =>
-            {
-                ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.Id == userId && !u.IsDeleted);
-                Require.Objects.NotNull<NotFoundException>(user, $"User with Id {userId} is not found");
-                return user;
-            });
-            return await task;
+            string id = userId.ToString();
+
+            ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.Id == id && !u.IsDeleted);
+            Require.Objects.NotNull<NotFoundException>(user, () => $"User with Id {id} is not found");
+
+            return user;
         }
 
         private void CheckRole(string role)

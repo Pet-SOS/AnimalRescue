@@ -41,6 +41,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Addresses = "addresses";
             public const string Birthday = "birthday";
             public const string ProfilePhoto = "profilePhoto";
+            public const string LastPasswordChange = "lastPasswordChange";
         }
 
         public static class Animal
