@@ -12,7 +12,7 @@ import Snackbar from './components/Snackbar';
 import { selectIsSnackbarActive } from './store/selectors/snackbar.selector';
 import { ICustomAppState } from './store/state';
 import { actionGetAllTags } from './store/actions/tags.actions';
-import { selectIsAllTagsLoaded, selectIsAllTagsLoading } from './store/selectors/tags.selector';
+import { selectIsTagsListLoading, selectIsTagsListLoaded } from './store/selectors/tags.selector';
 
 interface IPropTypes {
   getApiConfig: () => void;
@@ -62,8 +62,8 @@ const mapStateToProps = (state: ICustomAppState) => ({
   isConfigLoaded: selectIsConfigLoaded(state),
   isConfigLoading: selectIsConfigLoading(state),
   isSnackbarActive: selectIsSnackbarActive(state),
-  isTagsListLoaded: selectIsAllTagsLoaded(state),
-  isTagListLoading: selectIsAllTagsLoading(state),
+  isTagsListLoaded: selectIsTagsListLoaded(state),
+  isTagListLoading: selectIsTagsListLoading(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   getApiConfig: () => dispatch(actionGetApiConfig()),

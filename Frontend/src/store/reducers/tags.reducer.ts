@@ -135,4 +135,3 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
 }
 
 export const TAGS_KEY = 'tags';
-export const ALL_TAGS_KEY = 'tags';
