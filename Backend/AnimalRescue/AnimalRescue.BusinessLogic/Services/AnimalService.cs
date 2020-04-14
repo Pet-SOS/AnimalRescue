@@ -7,6 +7,8 @@ using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AutoMapper;
 using System;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Linq;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -45,12 +47,26 @@ namespace AnimalRescue.BusinessLogic.Services
 
         private async Task UpdateAnimalDbo(Animal animalDbo, AnimalDto animalDto)
         {
-            WellKnownTag status = await _wellKnownTagRepository.GetAsync(GetObjectIdString(animalDto.Status));
-            animalDbo.Status = status;
-            WellKnownTag locationType = await _wellKnownTagRepository.GetAsync(GetObjectIdString(animalDto.LocationType));
-            animalDbo.LocationType = locationType;
-            WellKnownTag locationName = await _wellKnownTagRepository.GetAsync(GetObjectIdString(animalDto.LocationName));
-            animalDbo.LocationName = locationName;
+            var wellKnownTagTypeName = Type.GetType("AnimalRescue.DataAccess.Mongodb.Models.Tag.WellKnownTag, AnimalRescue.DataAccess.Mongodb").Name;
+
+            var propertiesDbo = Type.GetType("AnimalRescue.DataAccess.Mongodb.Models.Animal, AnimalRescue.DataAccess.Mongodb").GetProperties();
+            var propertiesDto = Type.GetType("AnimalRescue.Contracts.BusinessLogic.Models.AnimalDto, AnimalRescue.Contracts.BusinessLogic").GetProperties();
+
+            var wellKnownTagPropertiesDbo = propertiesDbo.Where(x => x.PropertyType.GetTypeInfo().Name == wellKnownTagTypeName);
+
+            foreach (var wellKnownTagPropertyDbo in wellKnownTagPropertiesDbo)
+            {
+                var propertyDto = propertiesDto.FirstOrDefault(x => x.Name == wellKnownTagPropertyDbo.Name);
+                var propertyDtoValue = propertyDto.GetValue(animalDto, null);
+
+                WellKnownTag tag = null;
+                if (propertyDtoValue != null)
+                {
+                    tag = await _wellKnownTagRepository.GetAsync(GetObjectIdString(propertyDtoValue.ToString()));
+                }
+
+                wellKnownTagPropertyDbo.SetValue(animalDbo, tag);
+            }
         }
 
         private static string GetObjectIdString(string guidString)
