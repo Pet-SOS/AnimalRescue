@@ -9,5 +9,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
         string CreatedBy { get; set; }
         string ModifiedBy { get; set; }
         bool IsDeleted { get; set; }
+        bool IsDeletable { get; set; }
     }
 }

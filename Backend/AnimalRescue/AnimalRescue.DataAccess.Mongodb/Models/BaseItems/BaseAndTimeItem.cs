@@ -30,6 +30,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
         [BsonElement("isDeleted")]
         public bool IsDeleted { get; set; }
 
+        [CouplingPropertyName(baseItem.IsDeletable)]
+        [BsonElement("isDeletable")]
+        public bool IsDeletable { get; set; }
+
         public BaseAndTimeItem()
         {
             CreatedAt = DateHelper.GetUtc();
