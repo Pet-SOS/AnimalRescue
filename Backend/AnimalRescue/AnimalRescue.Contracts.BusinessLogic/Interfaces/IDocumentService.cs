@@ -4,7 +4,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IDocumentService :
-        IBlOneItemQueryAsyncy<BucketItemDto>,
+        IBlOneItemQueryAsync<BucketItemDto>,
         IBlUploadFileAsync
     {
     }

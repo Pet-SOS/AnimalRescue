@@ -4,8 +4,8 @@ using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IStoryService :
-        IBlCollectinQueryAsyncy<StoryDto>,
-        IBlOneItemQueryAsyncy<StoryDto>,
+        IBlCollectinQueryAsync<StoryDto>,
+        IBlOneItemQueryAsync<StoryDto>,
         IBlCreateAsync<StoryDto, StoryDto>,
         IBlUpdateAsync<StoryDto>,
         IBlDeleteAsync

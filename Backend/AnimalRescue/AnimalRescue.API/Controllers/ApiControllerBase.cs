@@ -24,7 +24,7 @@ namespace AnimalRescue.API.Controllers
         private const string GetItemByIdMethodName = "Get";
 
         protected async Task<ActionResult<CollectionSegmentApiResponse<TResponse>>> GetCollectionAsync<TCollectin, TResponse>(
-            IBlCollectinQueryAsyncy<TCollectin> service,
+            IBlCollectinQueryAsync<TCollectin> service,
             ApiQueryRequest queryRequest,
             IMapper mapper)
             where TResponse : class
@@ -152,7 +152,7 @@ namespace AnimalRescue.API.Controllers
             await service.UpdateAsync(dto);
         }
         protected async Task<ActionResult<TModel>> GetItemAsync<TDto, TModel>(
-            IBlOneItemQueryAsyncy<TDto> service,
+            IBlOneItemQueryAsync<TDto> service,
             Guid id,
             IMapper mapper)
         {

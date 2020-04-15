@@ -7,7 +7,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IOrganizationDocumentService :
         IBlDeleteAsync,
-        IBlCollectinQueryAsyncy<GetDocumentsOrganizationViewItem>
+        IBlCollectinQueryAsync<GetDocumentsOrganizationViewItem>
     {
         Task<GetDocumentsOrganizationViewItem> CreateAsync(UploadDocumentModel model, Guid userId);
     }

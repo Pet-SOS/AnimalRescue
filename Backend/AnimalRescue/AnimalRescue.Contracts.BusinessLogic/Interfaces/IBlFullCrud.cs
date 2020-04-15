@@ -3,8 +3,8 @@
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IBlFullCrud<TOut, TIn> :
-         IBlCollectinQueryAsyncy<TOut>,
-         IBlOneItemQueryAsyncy<TOut>,
+         IBlCollectinQueryAsync<TOut>,
+         IBlOneItemQueryAsync<TOut>,
          IBlCreateAsync<TOut, TIn>,
          IBlUpdateAsync<TOut>,
          IBlDeleteAsync,
