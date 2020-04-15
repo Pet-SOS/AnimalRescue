@@ -38,6 +38,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(baseItem.IsDeleted)]
         //[BsonElement("isDeleted")]
         public bool IsDeleted { get; set; }
+        
+        [CouplingPropertyName(baseItem.IsDeletable)]
+        //[BsonElement("isDeletable")]
+        public bool IsDeletable { get; set; }
+
         #endregion
 
         public ApplicationRole() : base()
