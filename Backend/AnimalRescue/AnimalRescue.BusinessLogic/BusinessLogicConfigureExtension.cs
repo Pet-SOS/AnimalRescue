@@ -35,6 +35,7 @@ namespace AnimalRescue.BusinessLogic
 
             profiles.AddRange(new Profile[] {
                 new AnimalMappingProfile(),
+                new AnimalMappingProfile(),
                 new StoryMappingProfile(),
                 new BlogMappingProfile(),
                 new ArticleMappingProfile(),
@@ -51,6 +52,8 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();
+            services.AddScoped<IAnimalLocationService, AnimalLocationService>();
+
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
             services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto>, EmployeeService>();
