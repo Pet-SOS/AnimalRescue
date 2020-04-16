@@ -17,8 +17,8 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class BaseService<TEntityDto, TEntityDbo> : IBlFullCrud<TEntityDto, TEntityDto>
-        where TEntityDto : BaseAndTimeDto
+    internal class BaseService<TEntityDto, TEntityDbo, TId> : IBlFullCrud<TEntityDto, TEntityDto, TId>
+        where TEntityDto : BaseAndTimeDto<TId>
         where TEntityDbo : IBaseAuditItem
     {
         protected readonly IBaseRepository<TEntityDbo> _repository;
@@ -35,8 +35,6 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public virtual async Task<TEntityDto> CreateAsync(TEntityDto itemDto)
         {
-            itemDto.Id = Guid.Empty;
-
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
             itemDbo = await _repository.CreateAsync(itemDbo);
             itemDto = _mapper.Map<TEntityDbo, TEntityDto>(itemDbo);
@@ -69,12 +67,34 @@ namespace AnimalRescue.BusinessLogic.Services
             return itemDtos;
         }
 
-        public async Task<TEntityDto> GetAsync(Guid id)
+        public async Task<TEntityDto> GetAsync(TId id)
         {
-            var itemDbo = await _repository.GetAsync(id.AsObjectIdString());
+            string itemId = GetStringId(id);
+
+            var itemDbo = await _repository.GetAsync(itemId);
             var itemDto = _mapper.Map<TEntityDbo, TEntityDto>(itemDbo);
 
             return itemDto;
+        }
+
+        private static string GetStringId(TId id)
+        {
+            string itemId = string.Empty;
+
+            if (id is Guid guid)
+            {
+                itemId = guid.AsObjectIdString();
+            }
+            if (Guid.TryParse(id.ToString(), out Guid guid2))
+            {
+                itemId = guid2.AsObjectIdString();
+            }
+            else
+            {
+                itemId = id.ToString();
+            }
+
+            return itemId;
         }
 
         public virtual async Task UpdateAsync(TEntityDto itemDto)
@@ -84,9 +104,12 @@ namespace AnimalRescue.BusinessLogic.Services
             await _repository.UpdateAsync(itemDbo);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(TId id)
         {
-            var item = await _repository.GetAsync(id.AsObjectIdString());
+            string itemId = GetStringId(id);
+
+            var item = await _repository.GetAsync(itemId);
+
             Require.Objects.NotNull<NotFoundException>(item, () => $"Record with id: {id} does not exist");
             Require.Booleans.IsTrue<ForbiddenOperationRequestException>(item.IsDeletable, $"This record shoul not be removed");
 

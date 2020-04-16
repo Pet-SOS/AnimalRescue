@@ -46,9 +46,20 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             Require.Objects.NotNull(wellKnownTag, nameof(wellKnownTag));
 
             wellKnownTag.CreatedAt = DateTime.UtcNow;
-            wellKnownTag.Id = string.Empty;
 
-            return await _baseCollection.CreateAsync(wellKnownTag);
+            if (string.IsNullOrWhiteSpace(wellKnownTag.Id))
+            {
+                wellKnownTag.Id = Guid.NewGuid().AsObjectIdString();
+            }
+
+            try
+            {
+                return await _baseCollection.CreateAsync(wellKnownTag);
+            }
+            catch (MongoWriteException)
+            {
+                throw new ForbiddenOperationRequestException($"The tag with the same id: '{wellKnownTag.Id}' exists already");
+            }
         }
 
         public async Task CreateAsync(IEnumerable<WellKnownTag> wellKnownTag)
@@ -58,7 +69,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
                 return;
             }
 
-            wellKnownTag =  wellKnownTag.Select(x=> { x.Id = null; x.CreatedAt = DateTime.UtcNow; return x; });
+            wellKnownTag = wellKnownTag.Select(x => { x.Id = null; x.CreatedAt = DateTime.UtcNow; return x; });
             await _baseCollection.CreateAsync(wellKnownTag);
         }
 
@@ -93,8 +104,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         public async Task<List<WellKnownTag>> WhereAsync(List<WellKnownTag> tags)
         {
             List<BsonDocument> items = new List<BsonDocument>();
-            FilterDefinition<BsonDocument> filter = condition.OR( 
-                tags 
+            FilterDefinition<BsonDocument> filter = condition.OR(
+                tags
                 .Select(x => condition.AND(common.Type.EQ(x.KindOfAnimal), common.Title.EQ(x.Code)))
                 .ToArray());
 

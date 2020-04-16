@@ -7,13 +7,14 @@ using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class FinancialReportService : BaseService<FinancialReportDto, FinancialReport>, IFinancialReportService
+    internal class FinancialReportService : BaseService<FinancialReportDto, FinancialReport, Guid>, IFinancialReportService
     {
         private readonly IFinancialReportRepository _financialReportRepository;
         private readonly IMapper _mapper;
