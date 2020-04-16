@@ -3,11 +3,12 @@
 using Newtonsoft.Json;
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.Tags
 {
-    public class WellKnownTagCreateUpdateModel : DeletableCreateUpdateModel
+    public class WellKnownTagCreateUpdateModel
     {
         [JsonPropertyName(PropertyConstants.BaseItem.Id)]
         [JsonProperty(PropertyConstants.BaseItem.Id)]
@@ -28,5 +29,10 @@ namespace AnimalRescue.API.Models.Tags
         [JsonPropertyName(PropertyConstants.Common.Values)]
         [JsonProperty(PropertyConstants.Common.Values)]
         public List<LanguageValueModel> Values { get; set; }
+
+        [Required]
+        [JsonPropertyName(PropertyConstants.BaseItem.IsDeletable)]
+        [JsonProperty(PropertyConstants.BaseItem.IsDeletable)]
+        public bool IsDeletable { get; set; }
     }
 }

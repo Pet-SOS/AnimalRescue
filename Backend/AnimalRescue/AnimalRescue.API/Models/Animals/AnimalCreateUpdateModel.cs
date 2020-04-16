@@ -11,7 +11,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Animals
 {
-    public class AnimalCreateUpdateModel : DeletableCreateUpdateModel
+    public class AnimalCreateUpdateModel
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]

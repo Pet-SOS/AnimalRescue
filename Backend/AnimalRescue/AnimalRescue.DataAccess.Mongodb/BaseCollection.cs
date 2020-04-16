@@ -1,4 +1,6 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+﻿using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
@@ -9,6 +11,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -41,21 +44,46 @@ namespace AnimalRescue.DataAccess.Mongodb
             this.queryBuilder = queryBuilder;
         }
 
-        public async Task UpdateAsync(T instance) => await collection.ReplaceOneAsync(t => t.Id == instance.Id, instance);
-
-        public virtual async Task<bool> DeleteAsync(string id)
+        public async Task UpdateAsync(T instance)
         {
-            var result = await collection.DeleteOneAsync(t => t.Id == id);
-            return result.DeletedCount > 0;
+            Require.Objects.NotNull(instance, nameof(instance));
+
+            var oldItem = await GetAsync(instance.Id);
+
+            Require.Objects.NotNull<NotFoundException>(oldItem,
+                () => $"Instance with id: {instance.Id} not found");
+
+            oldItem = oldItem.UpdateFrom(instance);
+
+            await collection.ReplaceOneAsync(t => t.Id == instance.Id, oldItem);
         }
 
-        public async Task<T> CreateAsync(T instance)
+        public virtual async Task DeleteAsync(string id)
+        {
+            Require.Strings.NotNullOrWhiteSpace<BadRequestException>(
+                id, 
+                "Id should not be null or white space");
+
+            var result = await collection.DeleteOneAsync(t => t.Id == id);
+
+            Require.Booleans.IsTrue<NotFoundException>(
+                result.DeletedCount > 0, 
+                "Failed to delete document. Probably document is not found.");
+        }
+
+        public virtual async Task<T> CreateAsync(T instance)
         {
             await collection.InsertOneAsync(instance);
+            
             return instance;
         }
-        public async Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances)
+        public virtual async Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances)
         {
+            if (instances?.Count() == 0)
+            {
+                return Enumerable.Empty<T>();
+            }
+
             await collection.InsertManyAsync(instances);
             return instances;
         }

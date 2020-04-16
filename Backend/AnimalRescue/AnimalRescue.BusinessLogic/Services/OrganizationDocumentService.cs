@@ -9,6 +9,7 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,11 +65,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task DeleteAsync(Guid bucketId)
         {
-            var deletedResult = await _orgDocRepository.DeleteAsync(bucketId.ToString());
-
-            Require.Booleans.IsTrue<NotFoundException>(deletedResult,
-                "Failed to delete document. Probably document is not found.");
-
+            await _orgDocRepository.DeleteAsync(bucketId.ToString());
             await _bucket.RemoveFile(bucketId.AsObjectId());
         }
     }

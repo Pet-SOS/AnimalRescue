@@ -24,5 +24,10 @@ namespace AnimalRescue.API.Models.Tags
         [JsonPropertyName(PropertyConstants.Common.Values)]
         [JsonProperty(PropertyConstants.Common.Values)]
         public List<LanguageValueModel> Values { get; set; }
+
+
+        [JsonPropertyName(PropertyConstants.BaseItem.IsDeletable)]
+        [JsonProperty(PropertyConstants.BaseItem.IsDeletable)]
+        public bool IsDeletable { get; set; }
     }
 }

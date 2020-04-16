@@ -12,13 +12,13 @@ namespace AnimalRescue.API.Models
         [JsonPropertyName(baseItem.CreatedAt)]
         [JsonProperty(baseItem.CreatedAt)]
         public DateTime CreatedAt { get; set; }
+        
+        [JsonPropertyName(baseItem.ModifiedAt)]
+        [JsonProperty(baseItem.ModifiedAt)]
+        public DateTime? ModifiedAt { get; set; }
 
         [JsonPropertyName(baseItem.IsDeleted)]
         [JsonProperty(baseItem.IsDeleted)]
         public bool IsDeleted { get; set; }
-
-        [JsonPropertyName(baseItem.IsDeletable)]
-        [JsonProperty(baseItem.IsDeletable)]
-        public bool IsDeletable { get; set; }
     }
 }

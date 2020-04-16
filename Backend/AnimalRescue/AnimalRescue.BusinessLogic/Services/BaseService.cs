@@ -36,6 +36,12 @@ namespace AnimalRescue.BusinessLogic.Services
         public virtual async Task<TEntityDto> CreateAsync(TEntityDto itemDto)
         {
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
+
+            if (!IsHasDeletableInterface(itemDbo))
+            {
+                itemDbo.IsDeletable = true;
+            }
+
             itemDbo = await _repository.CreateAsync(itemDbo);
             itemDto = _mapper.Map<TEntityDbo, TEntityDto>(itemDbo);
 
@@ -77,6 +83,48 @@ namespace AnimalRescue.BusinessLogic.Services
             return itemDto;
         }
 
+        public virtual async Task UpdateAsync(TEntityDto itemDto)
+        {
+            var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
+
+            await _repository.UpdateAsync(itemDbo);
+        }
+
+        public async Task DeleteAsync(TId id)
+        {
+            string itemId = GetStringId(id);
+
+            var itemDbo = await _repository.GetAsync(itemId);
+
+            Require.Objects.NotNull<NotFoundException>(
+                itemDbo, 
+                () => $"Record with id: {id} does not exist");
+
+            Require.Booleans.IsFalse<ForbiddenOperationRequestException>(
+                itemDbo.IsDeleted,
+                $"You try remove the record that was already removed");
+
+            if (IsHasDeletableInterface(itemDbo))
+            {
+                Require.Booleans.IsTrue<ForbiddenOperationRequestException>(
+                    itemDbo.IsDeletable, 
+                    $"This record shoul not be removed");
+            }
+
+            itemDbo.IsDeleted = true;
+            await _repository.UpdateAsync(itemDbo);
+        }
+
+        public async Task<int> GetCountAsync(ApiQueryRequest query)
+        {
+            var dbQuery = query.ToDbQuery();
+
+            return await _repository.GetCountAsync(dbQuery);
+        }
+
+        private static bool IsHasDeletableInterface<T>(T itemDbo) 
+            => typeof(IDeletableItem).IsAssignableFrom(itemDbo.GetType());
+
         private static string GetStringId(TId id)
         {
             string itemId = string.Empty;
@@ -95,33 +143,6 @@ namespace AnimalRescue.BusinessLogic.Services
             }
 
             return itemId;
-        }
-
-        public virtual async Task UpdateAsync(TEntityDto itemDto)
-        {
-            var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
-
-            await _repository.UpdateAsync(itemDbo);
-        }
-
-        public async Task DeleteAsync(TId id)
-        {
-            string itemId = GetStringId(id);
-
-            var item = await _repository.GetAsync(itemId);
-
-            Require.Objects.NotNull<NotFoundException>(item, () => $"Record with id: {id} does not exist");
-            Require.Booleans.IsTrue<ForbiddenOperationRequestException>(item.IsDeletable, $"This record shoul not be removed");
-
-            item.IsDeleted = true;
-            await _repository.UpdateAsync(item);
-        }
-
-        public async Task<int> GetCountAsync(ApiQueryRequest query)
-        {
-            var dbQuery = query.ToDbQuery();
-
-            return await _repository.GetCountAsync(dbQuery);
         }
     }
 }

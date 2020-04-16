@@ -6,7 +6,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Employees
 {
-    public class EmployeeCreateUpdateModel : DeletableCreateUpdateModel
+    public class EmployeeCreateUpdateModel
     {
         [JsonPropertyName(common.Name)]
         [JsonProperty(common.Name)]

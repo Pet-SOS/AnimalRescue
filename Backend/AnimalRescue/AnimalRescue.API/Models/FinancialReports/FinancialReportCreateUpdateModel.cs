@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.FinancialReports
 {
-    public class FinancialReportCreateUpdateModel : DeletableCreateUpdateModel
+    public class FinancialReportCreateUpdateModel
     {
         [JsonPropertyName(PropertyConstants.Common.Title)]
         [JsonProperty(PropertyConstants.Common.Title)]
