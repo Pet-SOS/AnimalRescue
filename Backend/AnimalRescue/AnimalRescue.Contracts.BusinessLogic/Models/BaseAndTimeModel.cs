@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
-    public class BaseAndTimeDto : BaseDto
+    public class BaseAndTimeDto<TId> : BaseDto<TId>
     {
         public DateTime CreatedAt { get; set; }
 

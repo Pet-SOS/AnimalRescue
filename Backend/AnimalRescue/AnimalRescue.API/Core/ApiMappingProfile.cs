@@ -5,20 +5,19 @@ using AnimalRescue.API.Models.Blogs.Blogs;
 using AnimalRescue.API.Models.Blogs.Stories;
 using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
+using AnimalRescue.API.Models.Employees;
 using AnimalRescue.API.Models.FinancialReports;
 using AnimalRescue.API.Models.Tags;
-using AnimalRescue.API.Models.Employees;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 
 using AutoMapper;
 
 using System.Collections.Generic;
 using System.Linq;
-using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
-using System;
 
 namespace AnimalRescue.API.Core
 {
@@ -78,7 +77,7 @@ namespace AnimalRescue.API.Core
             CreateMapFor<ArticleCreateModel, ArticleUpdateModel, ArticleInfoModel, ArticleDto>();
         }
         private WellKnownTagModel GetWellKnownTagModel(string value) 
-            => value == null ? null : new WellKnownTagModel { Id = Guid.Parse(value) };
+            => value == null ? null : new WellKnownTagModel { Id =value };
 
         private void CreateMapFor<TCreate, TUpdate, TInfo, TDto>()
             where TCreate : BaseCreateModel

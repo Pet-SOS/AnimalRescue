@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.API.Models.Tags;
+
 using Newtonsoft.Json;
 
 using System;
@@ -10,7 +11,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Animals
 {
-    public class AnimalModel : BaseAndTimeModel
+    public class AnimalModel : BaseAndTimeModel<Guid>
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]

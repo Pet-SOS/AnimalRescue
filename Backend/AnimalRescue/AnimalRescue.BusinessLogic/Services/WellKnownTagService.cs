@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class WellKnownTagService : BaseService<WellKnownTagDto, WellKnownTag>, IWellKnownTagService
+    internal class WellKnownTagService : BaseService<WellKnownTagDto, WellKnownTag, string>, IWellKnownTagService
     {
         private readonly IWellKnownTagRepository _wellKnownTagRepository;
 

@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
-using System;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -45,9 +44,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<WellKnownTagModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
+        public async Task<ActionResult<WellKnownTagModel>> GetItemByIdAsync([BindRequired, FromRoute] string id)
         {
-            return await GetItemAsync<WellKnownTagDto, WellKnownTagModel>(_tagService, id, _mapper);
+            return await GetItemAsync<WellKnownTagDto, WellKnownTagModel, string>(_tagService, id, _mapper);
         }
 
         [HttpGet]
@@ -65,14 +64,14 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<WellKnownTagModel>> CreateItemAsync([FromBody] WellKnownTagCreateUpdateModel tagCreateModel)
         {
-            return await CreatedItemAsync<WellKnownTagDto, WellKnownTagCreateUpdateModel, WellKnownTagModel>(_tagService, tagCreateModel, _mapper);
+            return await CreatedItemAsync<WellKnownTagDto, WellKnownTagCreateUpdateModel, WellKnownTagModel, string>(_tagService, tagCreateModel, _mapper);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromBody] WellKnownTagCreateUpdateModel tagUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] string id, [FromBody] WellKnownTagCreateUpdateModel tagUpdateModel)
         {
             await UpdateDataAsync(_tagService, id, tagUpdateModel, _mapper);
         }
@@ -81,7 +80,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
+        public async Task DeleteAsync([BindRequired, FromRoute] string id)
         {
             await _tagService.DeleteAsync(id);
         }

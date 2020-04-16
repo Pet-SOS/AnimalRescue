@@ -1,11 +1,13 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
-using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
-using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
+
 using System.Collections.Generic;
+
+using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
+using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Tag
 {
-    public class WellKnownTagDto : BaseAndTimeDto
+    public class WellKnownTagDto : BaseAndTimeDto<string>
     {
         [CouplingPropertyDto(common.Category)]
         public string Category { get; set; }

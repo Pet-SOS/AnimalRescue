@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace AnimalRescue.Contracts.BusinessLogic.Models
+﻿namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
-    public class BaseDto
+    public class BaseDto<TId>
     {
-        public Guid Id { get; set; }
+        public TId Id { get; set; }
     }
 }

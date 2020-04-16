@@ -3,7 +3,6 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Attributes;
-using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
@@ -17,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class AnimalService : BaseService<AnimalDto, Animal>, IBlFullCrud<AnimalDto, AnimalDto>
+    internal class AnimalService : BaseService<AnimalDto, Animal, Guid>, IBlFullCrud<AnimalDto, AnimalDto, Guid>
     {
         private IWellKnownTagRepository _wellKnownTagRepository;
 
@@ -65,7 +64,7 @@ namespace AnimalRescue.BusinessLogic.Services
                         && wellKnownTagPropertyDbo.GetCustomAttribute<CouplingPropertyNameAttribute>() is CouplingPropertyNameAttribute attributeDbo
                         && attributeDto.AliasName == attributeDbo.AliasName
                         && propertyDto.GetValue(animalDto, null) is WellKnownTagDto propertyDtoValue
-                        && (await _wellKnownTagRepository.GetAsync(propertyDtoValue.Id.AsObjectIdString().ToString())) is WellKnownTag tag)
+                        && (await _wellKnownTagRepository.GetAsync(propertyDtoValue.Id)) is WellKnownTag tag)
                     {
                         wellKnownTagPropertyDbo.SetValue(animalDbo, tag);
                     }

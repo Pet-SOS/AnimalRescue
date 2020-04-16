@@ -1,11 +1,13 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
+
 using Newtonsoft.Json;
+
 using System;
 using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.FinancialReports
 {
-    public class FinancialReportModel : BaseAndTimeModel
+    public class FinancialReportModel : BaseAndTimeModel<Guid>
     {
         [JsonPropertyName(PropertyConstants.Common.Title)]
         [JsonProperty(PropertyConstants.Common.Title)]

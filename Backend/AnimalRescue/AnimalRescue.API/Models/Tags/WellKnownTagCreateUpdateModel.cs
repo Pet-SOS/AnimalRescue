@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using AnimalRescue.Contracts.Common.Constants;
+﻿using AnimalRescue.Contracts.Common.Constants;
+
 using Newtonsoft.Json;
+
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.Tags
 {
     public class WellKnownTagCreateUpdateModel
     {
+        [JsonPropertyName(PropertyConstants.BaseItem.Id)]
+        [JsonProperty(PropertyConstants.BaseItem.Id)]
+        public string Id { get; set; }
+
         [JsonPropertyName(PropertyConstants.Common.Category)]
         [JsonProperty(PropertyConstants.Common.Category)]
         public string Category { get; set; }
