@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+
 using System.Text.Json.Serialization;
+
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Employees
 {
-    public class EmployeeCreateUpdateModel
+    public class EmployeeCreateUpdateModel : DeletableCreateUpdateModel
     {
         [JsonPropertyName(common.Name)]
         [JsonProperty(common.Name)]

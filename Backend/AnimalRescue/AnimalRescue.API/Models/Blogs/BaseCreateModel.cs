@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+
 using Newtonsoft.Json;
 
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Blogs
 {
-    public class BaseCreateModel
+    public class BaseCreateModel : DeletableCreateUpdateModel
     {
         [JsonPropertyName(common.Type)]
         [JsonProperty(common.Type)]

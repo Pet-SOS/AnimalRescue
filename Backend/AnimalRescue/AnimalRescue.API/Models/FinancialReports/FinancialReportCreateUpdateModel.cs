@@ -1,13 +1,16 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
+
 using Microsoft.AspNetCore.Http;
+
+using Newtonsoft.Json;
+
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.FinancialReports
 {
-    public class FinancialReportCreateUpdateModel
+    public class FinancialReportCreateUpdateModel : DeletableCreateUpdateModel
     {
         [JsonPropertyName(PropertyConstants.Common.Title)]
         [JsonProperty(PropertyConstants.Common.Title)]

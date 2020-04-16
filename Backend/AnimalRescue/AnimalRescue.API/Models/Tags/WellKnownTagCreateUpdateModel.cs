@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.Tags
 {
-    public class WellKnownTagCreateUpdateModel
+    public class WellKnownTagCreateUpdateModel : DeletableCreateUpdateModel
     {
         [JsonPropertyName(PropertyConstants.BaseItem.Id)]
         [JsonProperty(PropertyConstants.BaseItem.Id)]
@@ -24,10 +24,6 @@ namespace AnimalRescue.API.Models.Tags
         [JsonPropertyName(PropertyConstants.Common.Code)]
         [JsonProperty(PropertyConstants.Common.Code)]
         public string Code { get; set; }
-
-        [JsonPropertyName(PropertyConstants.Common.Title)]
-        [JsonProperty(PropertyConstants.Common.Title)]
-        public string Title { get; set; }
 
         [JsonPropertyName(PropertyConstants.Common.Values)]
         [JsonProperty(PropertyConstants.Common.Values)]

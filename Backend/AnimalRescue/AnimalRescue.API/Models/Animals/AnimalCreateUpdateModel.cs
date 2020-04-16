@@ -1,5 +1,5 @@
-﻿using AnimalRescue.API.Models.Tags;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+
 using Newtonsoft.Json;
 
 using System;
@@ -11,7 +11,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Animals
 {
-    public class AnimalCreateUpdateModel
+    public class AnimalCreateUpdateModel : DeletableCreateUpdateModel
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]
