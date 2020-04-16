@@ -1,11 +1,15 @@
 ﻿using AnimalRescue.BusinessLogic.Extensions;
+using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.Contracts.Common.Query;
+using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
+using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
@@ -13,6 +17,8 @@ using AutoMapper;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -22,19 +28,26 @@ namespace AnimalRescue.BusinessLogic.Services
         where TEntityDbo : IBaseAuditItem
     {
         protected readonly IBaseRepository<TEntityDbo> _repository;
+        private readonly IWellKnownTagRepository wellKnownTagRepository;
         protected readonly IMapper _mapper;
 
-        public BaseService(IBaseRepository<TEntityDbo> repository, IMapper mapper)
+
+        public BaseService(
+            IBaseRepository<TEntityDbo> repository,
+            IWellKnownTagRepository wellKnownTagRepository, 
+            IMapper mapper)
         {
             Require.Objects.NotNull(repository, nameof(repository));
             Require.Objects.NotNull(mapper, nameof(mapper));
 
             _repository = repository;
+            this.wellKnownTagRepository = wellKnownTagRepository;
             _mapper = mapper;
         }
 
         public virtual async Task<TEntityDto> CreateAsync(TEntityDto itemDto)
         {
+            await RecoverWellKnownTagsAsync(itemDto);
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
 
             if (!IsHasDeletableInterface(itemDbo))
@@ -85,6 +98,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public virtual async Task UpdateAsync(TEntityDto itemDto)
         {
+            await RecoverWellKnownTagsAsync(itemDto);
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
 
             await _repository.UpdateAsync(itemDbo);
@@ -143,6 +157,29 @@ namespace AnimalRescue.BusinessLogic.Services
             }
 
             return itemId;
+        }
+
+        private async Task RecoverWellKnownTagsAsync(TEntityDto animalDto)
+        {
+            var propertiesDto = animalDto.GetType().GetProperties();
+
+            foreach (var wellKnownTagPropertyDbo in typeof(TEntityDbo)
+                .GetProperties()
+                .Where(x => x.PropertyType == typeof(WellKnownTag)))
+            {
+                foreach (PropertyInfo propertyDto in propertiesDto)
+                {
+                    if (propertyDto.GetCustomAttribute<CouplingPropertyDtoAttribute>() is CouplingPropertyDtoAttribute attributeDto
+                        && wellKnownTagPropertyDbo.GetCustomAttribute<CouplingPropertyNameAttribute>() is CouplingPropertyNameAttribute attributeDbo
+                        && attributeDto.AliasName == attributeDbo.AliasName
+                        && propertyDto.GetValue(animalDto, null) is WellKnownTagDto propertyDtoValue
+                        && (await wellKnownTagRepository.GetAsync(propertyDtoValue.Id)) is WellKnownTag tag)
+                    {
+                        var tagDto = _mapper.Map<WellKnownTag, WellKnownTagDto>(tag);
+                        propertyDto.SetValue(animalDto, tagDto);
+                    }
+                }
+            }
         }
     }
 }

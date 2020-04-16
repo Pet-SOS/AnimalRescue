@@ -16,7 +16,8 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    class OrganizationDocumentService : IOrganizationDocumentService
+    class OrganizationDocumentService : 
+        IOrganizationDocumentService
     {
         private readonly IOrganizationDocumentRepository _orgDocRepository;
         private readonly IBucket _bucket;

@@ -14,16 +14,19 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class FinancialReportService : BaseService<FinancialReportDto, FinancialReport, Guid>, IFinancialReportService
+    internal class FinancialReportService : 
+        BaseService<FinancialReportDto, FinancialReport, Guid>, 
+        IFinancialReportService
     {
         private readonly IFinancialReportRepository _financialReportRepository;
-        private readonly IMapper _mapper;
 
-        public FinancialReportService(IFinancialReportRepository repository, IMapper mapper)
-            : base(repository, mapper)
+        public FinancialReportService(
+            IFinancialReportRepository repository,
+            IWellKnownTagRepository wellKnownTagRepository,
+            IMapper mapper)
+            : base(repository, wellKnownTagRepository, mapper)
         {
             _financialReportRepository = repository;
-            _mapper = mapper;
         }
 
         public async Task<List<FinancialReportByYearDto>> GetReportsByYearsAsync()

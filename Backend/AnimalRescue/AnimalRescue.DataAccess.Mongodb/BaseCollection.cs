@@ -4,6 +4,7 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
+using AnimalRescue.Infrastructure.Helpers;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Bson;
@@ -44,7 +45,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             this.queryBuilder = queryBuilder;
         }
 
-        public async Task UpdateAsync(T instance)
+        public virtual async Task UpdateAsync(T instance)
         {
             Require.Objects.NotNull(instance, nameof(instance));
 
@@ -52,7 +53,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             Require.Objects.NotNull<NotFoundException>(oldItem,
                 () => $"Instance with id: {instance.Id} not found");
-
+            RecoverImages(instance, oldItem);
             oldItem = oldItem.UpdateFrom(instance);
 
             await collection.ReplaceOneAsync(t => t.Id == instance.Id, oldItem);
@@ -73,6 +74,12 @@ namespace AnimalRescue.DataAccess.Mongodb
 
         public virtual async Task<T> CreateAsync(T instance)
         {
+            Require.Objects.NotNull(instance, nameof(instance));
+            if (instance.Id.Equals("000000000000000000000000"))
+                instance.Id = string.Empty;
+
+            instance.CreatedAt = DateHelper.GetUtc();
+
             await collection.InsertOneAsync(instance);
             
             return instance;
@@ -117,6 +124,14 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .SingleOrDefaultAsync();
 
             return item;
+        }
+
+        private static void RecoverImages(T instance, T oldItem)
+        {
+            if (instance is IImageIds)
+            {
+                ((IImageIds)instance).ImageIds.AddRange(((IImageIds)oldItem).ImageIds);
+            }
         }
     }
 }

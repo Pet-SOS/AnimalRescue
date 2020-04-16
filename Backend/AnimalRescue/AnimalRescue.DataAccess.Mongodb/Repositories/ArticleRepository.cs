@@ -1,84 +1,47 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.Contracts.Common.Exceptions;
-using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.Query;
+using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
-using System;
-using System.Collections.Generic;
+using MongoDB.Driver;
+
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-	internal class ArticleRepository : IArticleRepository
-	{
-        private readonly IBaseCollection<Article> _baseCollection;
-
-        public ArticleRepository(IBaseCollection<Article> baseCollection)
+    internal class ArticleRepository : 
+        BaseCollection<Article>, 
+        IArticleRepository
+    {
+        public ArticleRepository(IMongoDatabase database, IQueryBuilder<Article> builder) : base(database, builder)
         {
-            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
-
-			_baseCollection = baseCollection;
         }
 
-		public async Task<Article> CreateAsync(Article blog)
-		{
-			Require.Objects.NotNull(blog, nameof(blog));
-			Require.Booleans.IsTrue(
-				PropertyConstants.ArticleTypes().Any(x => x.Equals(blog.Type)),
-				nameof(blog.Type));
+        public override async Task<Article> CreateAsync(Article blog)
+        {
+            Require.Booleans.IsTrue(
+                PropertyConstants.ArticleTypes().Any(x => x.Equals(blog.Type)),
+                nameof(blog.Type));
 
-			blog.CreatedAt = DateTime.Now;
-			blog.Id = string.Empty;
+            return await base.CreateAsync(blog);
+        }
 
-			return await _baseCollection.CreateAsync(blog);
-		}
+        public override async Task UpdateAsync(Article article)
+        {
+            Require.Objects.NotNull(article, nameof(article));
 
-		public async Task DeleteAsync(string id)
-		{
-			Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
+            var oldArticle = await base.GetAsync(article.Id);
 
-			await _baseCollection.DeleteAsync(id);
-		}
+            Require.Objects.NotNull<NotFoundException>(oldArticle,
+                () => $"{article.Type} with id: {article.Id} not found");
 
-		public async Task<List<Article>> GetAsync(DbQuery query)
-		{
-			return await _baseCollection.GetAsync(query);
-		}
+            Require.Booleans.IsTrue<NotFoundException>(oldArticle.Type.Equals(article.Type),
+                () => $"{article.Type} with id: {article.Id} not found");
 
-		public async Task<Article> GetAsync(string id)
-		{
-			return await _baseCollection.GetAsync(id);
-		}
-
-		public async Task<int> GetCountAsync(DbQuery query)
-		{
-			return await _baseCollection.GetCountAsync(query);
-		}
-
-		public async Task UpdateAsync(Article article)
-		{
-			Require.Objects.NotNull(article, nameof(article));
-
-			var oldArticle = await _baseCollection.GetAsync(article.Id);
-
-			Require.Objects.NotNull<NotFoundException>(oldArticle, 
-				() => $"{article.Type} with id: {article.Id} not found");
-
-			Require.Booleans.IsTrue<NotFoundException>(oldArticle.Type.Equals(article.Type), 
-				() => $"{article.Type} with id: {article.Id} not found");
-
-			oldArticle.Body = article.Body;
-			oldArticle.Title = article.Title;
-			oldArticle.ImageIds.AddRange(article.ImageIds);
-			oldArticle.Tags = article.Tags;
-			oldArticle.IsRescued = article.IsRescued;
-			oldArticle.ModifiedAt = DateTime.Now;
-
-			await _baseCollection.UpdateAsync(oldArticle);
-		}
-	}
+            await base.UpdateAsync(article);
+        }
+    }
 }

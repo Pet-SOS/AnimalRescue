@@ -19,7 +19,9 @@ using condition = AnimalRescue.DataAccess.Mongodb.Extensions.FilterDefinitionExt
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class WellKnownTagRepository : BaseCollection<WellKnownTag>, IWellKnownTagRepository
+    internal class WellKnownTagRepository :
+        BaseCollection<WellKnownTag>, 
+        IWellKnownTagRepository
     {
         public WellKnownTagRepository(IMongoDatabase database, IQueryBuilder<WellKnownTag> builder) : base(database, builder)
         {
