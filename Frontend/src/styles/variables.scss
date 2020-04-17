@@ -1,18 +1,21 @@
 //main colors
-$white:    #fff;
-$orange:   #E2A811;
-$red:      #F67670;
-$green:    #409275;
-$yellow-light: #F6E6C6;
+$white:           #fff;
+$orange:          #E2A811;
+$red:             #F67670;
+$green:           #409275;
+$green-dark:      #317E63;
+$blue:            #3E5B9D;  // rgb 62, 91, 157
+$yellow-light:    #F6E6C6;
+$gray-light:      #F9F6F7;
 
 $main-bg-color: $white;
 $menu-border-color: #F1F7FE;
 $error-color: #f44336;
 $error-color-text: $red;
-$bg-lite-box: #F9F6F7;
+$bg-lite-box: $gray-light;
 $bg-orange: #ECBB3B;
 $bg-lite:#E6EAEF;
-$bg-lite-gray:#F9F6F7;
+$bg-lite-gray: $gray-light;
 $bg-lite-lite: #E9E6E7;
 $bg-da: #DADADA;
 $bg-warning: $yellow-light;
@@ -23,9 +26,9 @@ $text-color:#0D2B4B;
 $text-color-active: $orange;
 $text-lite-color:#62738D; 
 
-$btn-blue: #3E5B9D;
+$btn-blue: $blue;
 $btn-hover: $green;
-$btn-press: #317E63;
+$btn-press: $green-dark;
 $btn-story:#F2DEB5;
 $btn-border: #DBDADB;
 $btn-shadow: rgba($btn-blue, 0.5);

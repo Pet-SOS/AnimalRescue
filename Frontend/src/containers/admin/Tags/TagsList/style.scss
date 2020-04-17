@@ -13,6 +13,25 @@
   .back-link {
     margin-bottom: 36px;
   }
+
+  i[class^="icon-"] {
+    @include animate(color);
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    cursor: pointer;
+    color: $text-lite-color;
+
+    &:hover {
+      color: $yellow;
+    }
+
+    &:before {
+      @extend %icomoon;
+      color: inherit;
+      font-size: 24px;
+    }
+  }
 }
 
 .section-table {
@@ -79,21 +98,3 @@
   display: none;
 }
 
-i[class^="icon-"] {
-  @include animate(color);
-  display: inline-block;
-  vertical-align: top;
-  font-size: 0;
-  cursor: pointer;
-  color: $text-lite-color;
-
-  &:hover {
-    color: $yellow;
-  }
-
-  &:before {
-    @extend %icomoon;
-    color: inherit;
-    font-size: 24px;
-  }
-}

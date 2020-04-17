@@ -9,9 +9,7 @@
       align-items: center;
       margin-bottom: 24px;
 
-      .button {
-        display: inline-block;
-        vertical-align: top;
+      .btn {
         position: relative;
         margin-right: 16px;
 
@@ -63,7 +61,7 @@
     display: none;
   }
 
-  &.button {
+  &.btn {
     padding: 0.3rem;
     border: 1px solid #0D2B4B;
   }
