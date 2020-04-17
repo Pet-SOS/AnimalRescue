@@ -1,4 +1,5 @@
-﻿using AnimalRescue.API.Models.Animals;
+﻿using AnimalRescue.API.Core.Extensions;
+using AnimalRescue.API.Models.Animals;
 using AnimalRescue.API.Models.Blogs;
 using AnimalRescue.API.Models.Blogs.Articles;
 using AnimalRescue.API.Models.Blogs.Blogs;
@@ -43,9 +44,9 @@ namespace AnimalRescue.API.Core
 
             CreateMap<AnimalCreateUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)))
-                .ForMember(x=>x.Status, opt => opt.MapFrom(m=> GetWellKnownTagModel(m.Status)))
-                .ForMember(x=>x.LocationType, opt => opt.MapFrom(m=> GetWellKnownTagModel(m.LocationType)))
-                .ForMember(x=>x.LocationName, opt => opt.MapFrom(m=> GetWellKnownTagModel(m.LocationName)));
+                .ForMember(x=>x.Status, opt => opt.MapFrom(m=> MappingProfileExtensions.GetWellKnownTagModel(m.Status)))
+                .ForMember(x=>x.LocationType, opt => opt.MapFrom(m=> MappingProfileExtensions.GetWellKnownTagModel(m.LocationType)))
+                .ForMember(x=>x.LocationName, opt => opt.MapFrom(m=> MappingProfileExtensions.GetWellKnownTagModel(m.LocationName)));
 
             CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
@@ -76,8 +77,6 @@ namespace AnimalRescue.API.Core
             CreateMapFor<StoryCreateModel, StoryUpdateModel, StoryInfoModel, StoryDto>();
             CreateMapFor<ArticleCreateModel, ArticleUpdateModel, ArticleInfoModel, ArticleDto>();
         }
-        private WellKnownTagModel GetWellKnownTagModel(string value) 
-            => value == null ? null : new WellKnownTagModel { Id =value };
 
         private void CreateMapFor<TCreate, TUpdate, TInfo, TDto>()
             where TCreate : BaseCreateModel

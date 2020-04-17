@@ -1,15 +1,15 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
-using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
+
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
-    public class AnimalLocationDto : BaseCommonDto
+    public class LocationDto : BaseCommonDto
     {
-        [CouplingPropertyDto(common.Name)]
-        public string Name { get; set; }
+        [CouplingPropertyDto(common.Title)]
+        public string Title { get; set; }
 
         [CouplingPropertyDto(person.Phone)]
         public string Phone { get; set; }
@@ -20,7 +20,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(common.Price)]
         public string Price { get; set; }
 
-        [CouplingPropertyDto(animal.LocationType)]
-        public WellKnownTagDto LocationType { get; set; }
+        [CouplingPropertyDto(common.Type)]
+        public WellKnownTagDto Type { get; set; }
     }
 }

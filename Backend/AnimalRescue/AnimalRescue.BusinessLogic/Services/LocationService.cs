@@ -9,12 +9,12 @@ using System;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class AnimalLocationService : 
-        BaseService<AnimalLocationDto, AnimalLocation, Guid>, 
-        IAnimalLocationService
+    internal class LocationService : 
+        BaseService<LocationDto, Location, Guid>, 
+        ILocationService
     {
-        public AnimalLocationService(
-            IAnimalLocationRepository repository,
+        public LocationService(
+            ILocationRepository repository,
             IWellKnownTagRepository wellKnownTagRepository,
             IMapper mapper)
             : base(repository, wellKnownTagRepository, mapper)

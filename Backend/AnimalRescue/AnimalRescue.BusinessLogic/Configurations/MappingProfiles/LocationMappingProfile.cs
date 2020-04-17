@@ -1,18 +1,18 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Models;
+
 using AutoMapper;
-using System.Linq;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 {
-    internal class AnimalLocationMappingProfile : Profile
+    internal class LocationMappingProfile : Profile
     {
-        public AnimalLocationMappingProfile()
+        public LocationMappingProfile()
         {
-            CreateMap<AnimalLocation, AnimalLocationDto>()
+            CreateMap<Location, LocationDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()));
-            CreateMap<AnimalLocationDto, AnimalLocation>()
+            CreateMap<LocationDto, Location>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()));
         }
     }

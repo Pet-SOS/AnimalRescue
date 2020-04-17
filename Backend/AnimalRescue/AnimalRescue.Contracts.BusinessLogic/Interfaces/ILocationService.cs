@@ -4,8 +4,8 @@ using System;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-    public interface IAnimalLocationService :
-        IBlFullCrud<AnimalLocationDto, AnimalLocationDto, Guid>
+    public interface ILocationService :
+        IBlFullCrud<LocationDto, LocationDto, Guid>
     {
     }
 }

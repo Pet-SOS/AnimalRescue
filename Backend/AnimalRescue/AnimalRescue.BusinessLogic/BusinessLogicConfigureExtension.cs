@@ -37,7 +37,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddConfigureMongoDb(configuration);
 
             profiles.AddRange(new Profile[] {
-                new AnimalMappingProfile(),
+                new LocationMappingProfile(),
                 new AnimalMappingProfile(),
                 new StoryMappingProfile(),
                 new BlogMappingProfile(),
@@ -53,7 +53,7 @@ namespace AnimalRescue.BusinessLogic
                 new ApplicationUserMappingProfile()
             });
 
-            services.AddScoped<IAnimalLocationService, AnimalLocationService>();
+            services.AddScoped<ILocationService, LocationService>();
             
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto, Guid>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, TagDecorator<AnimalDto, AnimalDto, Guid>>();
