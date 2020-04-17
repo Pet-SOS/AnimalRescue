@@ -49,11 +49,6 @@ namespace AnimalRescue.API.Controllers
             return await GetCollectionAsync<LocationDto, LocationModel>(_locationService, queryRequest, _mapper);
         }
 
-        /// <summary>
-        /// Create an animal
-        /// </summary>
-        /// <param name="createModel"></param>
-        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

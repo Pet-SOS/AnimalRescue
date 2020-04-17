@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
@@ -61,6 +62,7 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(animal.Status)]
         public string Status { get; set; }
 
+        [Required]
         [JsonPropertyName(animal.LocationType)]
         [JsonProperty(animal.LocationType)]
         public Guid LocationType { get; set; }
