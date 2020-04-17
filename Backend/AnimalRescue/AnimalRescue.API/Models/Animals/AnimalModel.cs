@@ -1,4 +1,5 @@
-﻿using AnimalRescue.API.Models.Tags;
+﻿using AnimalRescue.API.Models.Locations;
+using AnimalRescue.API.Models.Tags;
 
 using Newtonsoft.Json;
 
@@ -63,7 +64,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(animal.LocationType)]
         [JsonProperty(animal.LocationType)]
-        public WellKnownTagModel LocationType { get; set; }
+        public LocationModel LocationType { get; set; }
 
         [JsonPropertyName(animal.LocationName)]
         [JsonProperty(animal.LocationName)]

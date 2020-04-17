@@ -15,9 +15,9 @@ namespace AnimalRescue.BusinessLogic.Services
     {
         public LocationService(
             ILocationRepository repository,
-            IWellKnownTagRepository wellKnownTagRepository,
+            IRecoverDataService recoverDataService,
             IMapper mapper)
-            : base(repository, wellKnownTagRepository, mapper)
+            : base(repository, recoverDataService, mapper)
         {
         }
     }

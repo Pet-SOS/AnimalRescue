@@ -53,6 +53,7 @@ namespace AnimalRescue.BusinessLogic
                 new ApplicationUserMappingProfile()
             });
 
+            services.AddScoped<IRecoverDataService, RecoverDataService>();
             services.AddScoped<ILocationService, LocationService>();
             
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto, Guid>, AnimalService>()

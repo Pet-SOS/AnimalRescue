@@ -4,10 +4,12 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.Contracts.Common.Interfaces.CRUD;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Query;
@@ -28,26 +30,28 @@ namespace AnimalRescue.BusinessLogic.Services
         where TEntityDbo : IBaseAuditItem
     {
         protected readonly IBaseRepository<TEntityDbo> _repository;
-        private readonly IWellKnownTagRepository wellKnownTagRepository;
+        private readonly IRecoverDataService _recoverDataService;
         protected readonly IMapper _mapper;
 
 
         public BaseService(
             IBaseRepository<TEntityDbo> repository,
-            IWellKnownTagRepository wellKnownTagRepository, 
+            IRecoverDataService recoverDataService,
             IMapper mapper)
         {
             Require.Objects.NotNull(repository, nameof(repository));
+            Require.Objects.NotNull(recoverDataService, nameof(recoverDataService));
             Require.Objects.NotNull(mapper, nameof(mapper));
 
             _repository = repository;
-            this.wellKnownTagRepository = wellKnownTagRepository;
+            this._recoverDataService = recoverDataService;
             _mapper = mapper;
         }
 
         public virtual async Task<TEntityDto> CreateAsync(TEntityDto itemDto)
         {
-            await RecoverWellKnownTagsAsync(itemDto);
+            await _recoverDataService.RecoverDataAsync<TEntityDto, TEntityDbo>(itemDto);
+
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
 
             if (!IsHasDeletableInterface(itemDbo))
@@ -88,7 +92,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<TEntityDto> GetAsync(TId id)
         {
-            string itemId = GetStringId(id);
+            string itemId = IdExtensions.GetStringId(id);
 
             var itemDbo = await _repository.GetAsync(itemId);
             var itemDto = _mapper.Map<TEntityDbo, TEntityDto>(itemDbo);
@@ -98,7 +102,8 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public virtual async Task UpdateAsync(TEntityDto itemDto)
         {
-            await RecoverWellKnownTagsAsync(itemDto);
+            await _recoverDataService.RecoverDataAsync<TEntityDto, TEntityDbo>(itemDto);
+
             var itemDbo = _mapper.Map<TEntityDto, TEntityDbo>(itemDto);
 
             await _repository.UpdateAsync(itemDbo);
@@ -106,12 +111,12 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task DeleteAsync(TId id)
         {
-            string itemId = GetStringId(id);
+            string itemId = IdExtensions.GetStringId(id);
 
             var itemDbo = await _repository.GetAsync(itemId);
 
             Require.Objects.NotNull<NotFoundException>(
-                itemDbo, 
+                itemDbo,
                 () => $"Record with id: {id} does not exist");
 
             Require.Booleans.IsFalse<ForbiddenOperationRequestException>(
@@ -121,7 +126,7 @@ namespace AnimalRescue.BusinessLogic.Services
             if (IsHasDeletableInterface(itemDbo))
             {
                 Require.Booleans.IsTrue<ForbiddenOperationRequestException>(
-                    itemDbo.IsDeletable, 
+                    itemDbo.IsDeletable,
                     $"This record shoul not be removed");
             }
 
@@ -136,50 +141,7 @@ namespace AnimalRescue.BusinessLogic.Services
             return await _repository.GetCountAsync(dbQuery);
         }
 
-        private static bool IsHasDeletableInterface<T>(T itemDbo) 
+        private static bool IsHasDeletableInterface<T>(T itemDbo)
             => typeof(IDeletableItem).IsAssignableFrom(itemDbo.GetType());
-
-        private static string GetStringId(TId id)
-        {
-            string itemId = string.Empty;
-
-            if (id is Guid guid)
-            {
-                itemId = guid.AsObjectIdString();
-            }
-            if (Guid.TryParse(id.ToString(), out Guid guid2))
-            {
-                itemId = guid2.AsObjectIdString();
-            }
-            else
-            {
-                itemId = id.ToString();
-            }
-
-            return itemId;
-        }
-
-        private async Task RecoverWellKnownTagsAsync(TEntityDto animalDto)
-        {
-            var propertiesDto = animalDto.GetType().GetProperties();
-
-            foreach (var wellKnownTagPropertyDbo in typeof(TEntityDbo)
-                .GetProperties()
-                .Where(x => x.PropertyType == typeof(WellKnownTag)))
-            {
-                foreach (PropertyInfo propertyDto in propertiesDto)
-                {
-                    if (propertyDto.GetCustomAttribute<CouplingPropertyDtoAttribute>() is CouplingPropertyDtoAttribute attributeDto
-                        && wellKnownTagPropertyDbo.GetCustomAttribute<CouplingPropertyNameAttribute>() is CouplingPropertyNameAttribute attributeDbo
-                        && attributeDto.AliasName == attributeDbo.AliasName
-                        && propertyDto.GetValue(animalDto, null) is WellKnownTagDto propertyDtoValue
-                        && (await wellKnownTagRepository.GetAsync(propertyDtoValue.Id)) is WellKnownTag tag)
-                    {
-                        var tagDto = _mapper.Map<WellKnownTag, WellKnownTagDto>(tag);
-                        propertyDto.SetValue(animalDto, tagDto);
-                    }
-                }
-            }
-        }
     }
 }

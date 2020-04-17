@@ -63,7 +63,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(animal.LocationType)]
         [JsonProperty(animal.LocationType)]
-        public string LocationType { get; set; }
+        public Guid LocationType { get; set; }
 
         [JsonPropertyName(animal.LocationName)]
         [JsonProperty(animal.LocationName)]

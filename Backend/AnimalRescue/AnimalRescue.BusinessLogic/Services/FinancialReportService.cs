@@ -22,9 +22,9 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public FinancialReportService(
             IFinancialReportRepository repository,
-            IWellKnownTagRepository wellKnownTagRepository,
+            IRecoverDataService recoverDataService,
             IMapper mapper)
-            : base(repository, wellKnownTagRepository, mapper)
+            : base(repository, recoverDataService, mapper)
         {
             _financialReportRepository = repository;
         }
