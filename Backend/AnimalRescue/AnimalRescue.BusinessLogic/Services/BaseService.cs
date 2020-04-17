@@ -1,26 +1,16 @@
 ﻿using AnimalRescue.BusinessLogic.Extensions;
-using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
-using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using AnimalRescue.Contracts.Common.Exceptions;
-using AnimalRescue.Contracts.Common.Interfaces.CRUD;
 using AnimalRescue.Contracts.Common.Query;
-using AnimalRescue.DataAccess.Mongodb.Attributes;
-using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
-using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
-using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -44,7 +34,7 @@ namespace AnimalRescue.BusinessLogic.Services
             Require.Objects.NotNull(mapper, nameof(mapper));
 
             _repository = repository;
-            this._recoverDataService = recoverDataService;
+            _recoverDataService = recoverDataService;
             _mapper = mapper;
         }
 

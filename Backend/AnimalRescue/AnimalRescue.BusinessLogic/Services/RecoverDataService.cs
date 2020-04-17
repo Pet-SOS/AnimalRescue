@@ -8,7 +8,7 @@ using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
-
+using AnimalRescue.Infrastructure.Validation;
 using AutoMapper;
 
 using System;
@@ -29,6 +29,10 @@ namespace AnimalRescue.BusinessLogic.Services
             ILocationRepository locationRepository,
             IMapper mapper)
         {
+            Require.Objects.NotNull(wellKnownTagRepository, nameof(wellKnownTagRepository));
+            Require.Objects.NotNull(locationRepository, nameof(locationRepository));
+            Require.Objects.NotNull(mapper, nameof(mapper));
+
             this._wellKnownTagRepository = wellKnownTagRepository;
             this._locationRepository = locationRepository;
             this._mapper = mapper;
@@ -40,19 +44,19 @@ namespace AnimalRescue.BusinessLogic.Services
             await RecoverWellKnownTagsAsync2<TEntityDto, TEntityDbo, Location, LocationDto, Guid>(itemDto, _locationRepository);
         }
 
-        private static (PropertyInfo propertyInfo, string aliasName) GetDtoData(PropertyInfo propertyInfo) =>
-            (propertyInfo, (propertyInfo.GetCustomAttribute<CouplingPropertyDtoAttribute>() as CouplingPropertyDtoAttribute)?.AliasName);
+        private static (PropertyInfo propertyInfo, string aliasName) GetDtoData(PropertyInfo propertyInfo)
+            => (propertyInfo, (propertyInfo.GetCustomAttribute<CouplingPropertyDtoAttribute>() as CouplingPropertyDtoAttribute)?.AliasName);
 
-        private static (PropertyInfo propertyInfo, string aliasName) GetDboData(PropertyInfo propertyInfo) =>
-            (propertyInfo, (propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>() as CouplingPropertyNameAttribute)?.AliasName);
+        private static (PropertyInfo propertyInfo, string aliasName) GetDboData(PropertyInfo propertyInfo)
+            => (propertyInfo, (propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>() as CouplingPropertyNameAttribute)?.AliasName);
 
         private static (PropertyInfo propertyInfo, string aliasName, TFindDtoEntity dataWithId) GetIdData<TDto, TFindDtoEntity, TFindDtoEntityId>(
             TDto dto,
             (PropertyInfo propertyInfo, string aliasName) data)
-            where TFindDtoEntity : class, IBaseDto<TFindDtoEntityId> =>
-            (data.propertyInfo, data.aliasName, data.propertyInfo.GetValue(dto, null) as TFindDtoEntity);
+            where TFindDtoEntity : class, IBaseDto<TFindDtoEntityId>
+            => (data.propertyInfo, data.aliasName, data.propertyInfo.GetValue(dto, null) as TFindDtoEntity);
 
-        private static async Task<(PropertyInfo propertyInfo, TRepositoryEntity repositoryEntity)> GetData<TFindDtoEntity, TFindDtoEntityId, TRepositoryEntity>(
+        private static async Task<(PropertyInfo propertyInfo, TRepositoryEntity repositoryEntity)> GetDataFromRepository<TFindDtoEntity, TFindDtoEntityId, TRepositoryEntity>(
             (PropertyInfo propertyInfo, string aliasName, TFindDtoEntity dataWithId) data,
             IBaseQueryAsync<TRepositoryEntity, string> repository)
             where TFindDtoEntity : class, IBaseDto<TFindDtoEntityId>
@@ -75,7 +79,7 @@ namespace AnimalRescue.BusinessLogic.Services
                 .Where(x => propertiesOfDataBase.Any(dbo => dbo.aliasName == x.aliasName))
                 .Select(x => GetIdData<TEntityDto, TFindDtoEntity, TFindDtoEntityId>(instanseDto, x))
                 .Where(x => x.dataWithId != null && !string.IsNullOrWhiteSpace(x.dataWithId.Id.ToString()))
-                .Select(x => GetData<TFindDtoEntity, TFindDtoEntityId, TRepositoryEntity>(x, repository))
+                .Select(x => GetDataFromRepository<TFindDtoEntity, TFindDtoEntityId, TRepositoryEntity>(x, repository))
                 .ToArray();
 
             await Task.WhenAll(taskCollection);
@@ -83,11 +87,11 @@ namespace AnimalRescue.BusinessLogic.Services
             taskCollection.Select(x => x.Result)
                 .Where(x => x.repositoryEntity != null)
                 .ToList()
-                .ForEach(x => {
-                    var tagDto = _mapper.Map<TRepositoryEntity, TFindDtoEntity>(x.repositoryEntity);
-                    x.propertyInfo.SetValue(instanseDto, tagDto);
+                .ForEach(x =>
+                {
+                    var value = _mapper.Map<TRepositoryEntity, TFindDtoEntity>(x.repositoryEntity);
+                    x.propertyInfo.SetValue(instanseDto, value);
                 });
         }
-
     }
 }
