@@ -62,26 +62,26 @@ namespace AnimalRescue.DataAccess.Mongodb
         public virtual async Task DeleteAsync(string id)
         {
             Require.Strings.NotNullOrWhiteSpace<BadRequestException>(
-                id, 
+                id,
                 "Id should not be null or white space");
 
             var result = await collection.DeleteOneAsync(t => t.Id == id);
 
             Require.Booleans.IsTrue<NotFoundException>(
-                result.DeletedCount > 0, 
+                result.DeletedCount > 0,
                 "Failed to delete document. Probably document is not found.");
         }
 
         public virtual async Task<T> CreateAsync(T instance)
         {
             Require.Objects.NotNull(instance, nameof(instance));
-            if (instance.Id.Equals("000000000000000000000000"))
+            if (instance.Id == "000000000000000000000000")
                 instance.Id = string.Empty;
 
             instance.CreatedAt = DateHelper.GetUtc();
 
             await collection.InsertOneAsync(instance);
-            
+
             return instance;
         }
         public virtual async Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances)
