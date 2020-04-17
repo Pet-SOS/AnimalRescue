@@ -21,9 +21,9 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public TagService(
             ITagRepository repository,
-            IWellKnownTagRepository wellKnownTagRepository,
+            IRecoverDataService recoverDataService,
             IMapper mapper)
-            : base(repository, wellKnownTagRepository, mapper)
+            : base(repository, recoverDataService, mapper)
         {
             _tagRepository = repository;
         }

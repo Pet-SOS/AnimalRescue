@@ -15,9 +15,9 @@ namespace AnimalRescue.BusinessLogic.Services
 	{
 		public BlogService(
 			IArticleRepository repository,
-			IWellKnownTagRepository wellKnownTagRepository,
+			IRecoverDataService recoverDataService,
 			IMapper mapper)
-			: base(repository, wellKnownTagRepository, mapper)
+			: base(repository, recoverDataService, mapper)
 		{
 		}  
 	}

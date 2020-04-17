@@ -38,6 +38,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Phone = "phoneNumber";
             public const string Email = "email";
             public const string Emails = "emails";
+            public const string Address = "address";
             public const string Addresses = "addresses";
             public const string Birthday = "birthday";
             public const string ProfilePhoto = "profilePhoto";
@@ -84,6 +85,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Type = "type";
             public const string BlogType = "blogType";
             public const string ContentType = "contentType";
+            public const string Price = "price";
         }
 
         public static class BaseItem

@@ -2,18 +2,21 @@
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
+using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.DataAccess.Mongodb.Repositories;
 using AnimalRescue.Infrastructure.Configuration;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using MongoDB.Driver;
+
 using MongoDbGenericRepository;
+
 using System;
 
 namespace AnimalRescue.DataAccess.Mongodb
@@ -75,6 +78,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>()
                 .AddSingleton<IQueryBuilder<SecurityToken>, QueryBuilder<SecurityToken>>()
                 .AddSingleton<IQueryBuilder<OrganizationDocument>, QueryBuilder<OrganizationDocument>>()
+                .AddSingleton<IQueryBuilder<Location>, QueryBuilder<Location>>()
                 .AddSingleton<IQueryBuilder<ApplicationUser>, QueryBuilder<ApplicationUser>>();
 
             services
@@ -85,6 +89,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IBaseCollection<Employee>, BaseCollection<Employee>>()
                 .AddScoped<IBaseCollection<Article>, BaseCollection<Article>>()
                 .AddScoped<IBaseCollection<FinancialReport>, BaseCollection<FinancialReport>>()
+                .AddScoped<IBaseCollection<Location>, BaseCollection<Location>>()
 
                 .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
                 .AddScoped<IBaseCollection<WellKnownTag>, BaseCollection<WellKnownTag>>()
@@ -99,6 +104,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                .AddScoped<ILocationRepository, LocationRepository>()
                 .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();
 
             services.AddScoped<IBaseCollection<SecurityToken>, BaseCollection<SecurityToken>>()

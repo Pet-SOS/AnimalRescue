@@ -13,10 +13,11 @@ namespace AnimalRescue.BusinessLogic.Services
         BaseService<AnimalDto, Animal, Guid>, 
         IBlFullCrud<AnimalDto, AnimalDto, Guid>
     {
-        public AnimalService(IAnimalRepository repository,
-            IWellKnownTagRepository wellKnownTagRepository,
+        public AnimalService(
+            IAnimalRepository repository,
+            IRecoverDataService recoverDataService,
             IMapper mapper)
-            : base(repository, wellKnownTagRepository, mapper)
+            : base(repository, recoverDataService, mapper)
         {
         }
     }

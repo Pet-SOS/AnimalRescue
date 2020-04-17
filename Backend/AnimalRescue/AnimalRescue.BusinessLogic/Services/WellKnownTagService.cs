@@ -19,11 +19,12 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly IWellKnownTagRepository _wellKnownTagRepository;
 
         public WellKnownTagService(
-            IWellKnownTagRepository repository,
+            IWellKnownTagRepository wellKnownTagRepository,
+            IRecoverDataService recoverDataService,
             IMapper mapper)
-            : base(repository, repository, mapper)
+            : base(wellKnownTagRepository, recoverDataService, mapper)
         {
-            _wellKnownTagRepository = repository;
+            _wellKnownTagRepository = wellKnownTagRepository;
         }
 
         public async Task<List<WellKnownTagDto>> WhereAsync(List<WellKnownTagDto> value)
