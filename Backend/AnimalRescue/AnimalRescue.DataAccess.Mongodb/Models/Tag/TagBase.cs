@@ -41,6 +41,5 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.Tag
         public bool IsDeletable { get; set; }
 
         #endregion
-
     }
 }

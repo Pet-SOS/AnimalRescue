@@ -13,15 +13,19 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class TagService : BaseService<TagDto, Tags, Guid>, ITagService
+    internal class TagService :
+        BaseService<TagDto, Tags, Guid>, 
+        ITagService
     {
         private readonly ITagRepository _tagRepository;
-        private readonly IMapper _mapper;
 
-        public TagService(ITagRepository repository, IMapper mapper) : base(repository, mapper)
+        public TagService(
+            ITagRepository repository,
+            IWellKnownTagRepository wellKnownTagRepository,
+            IMapper mapper)
+            : base(repository, wellKnownTagRepository, mapper)
         {
             _tagRepository = repository;
-            _mapper = mapper;
         }
 
         public async Task CreateAsync(IEnumerable<TagDto> tagDto)

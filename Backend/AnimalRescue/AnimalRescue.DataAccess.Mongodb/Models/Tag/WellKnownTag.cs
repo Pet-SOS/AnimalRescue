@@ -13,7 +13,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.Tag
     [BsonDiscriminator("well_known_tags")]
     public class WellKnownTag : 
         TagBase,
-        IBaseAuditItem//BaseAndTimeItem, IWellKnownTag
+        IDeletableItem,
+        IBaseAuditItem
     {
         [CouplingPropertyName(common.Category)]
         [BsonElement("category")]
