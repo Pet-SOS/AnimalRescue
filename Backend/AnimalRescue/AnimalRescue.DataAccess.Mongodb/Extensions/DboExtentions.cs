@@ -36,5 +36,21 @@ namespace AnimalRescue.DataAccess.Mongodb.Extensions
                 currentProperty.SetValue(to, currentPropertyValue);
             }
         }
+        public static void RecoverImages<TDbo>(this TDbo to, TDbo from)
+            where TDbo : IBaseAuditItem
+        {
+            if (to is IImageIds target)
+            {
+                target.ImageIds = Enumerable
+                    .Union(
+                        NormalizeCollection(target?.ImageIds), 
+                        NormalizeCollection(((IImageIds)from)?.ImageIds))
+                    .ToList();
+            }
+        }
+        private static IEnumerable<T> NormalizeCollection<T>(this IEnumerable<T> collection)
+        {
+            return collection ?? Enumerable.Empty<T>();
+        }
     }
 }
