@@ -6,6 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -20,13 +21,13 @@ namespace AnimalRescue.API.Controllers
     public class EmployeesController : ApiControllerBase
     {
         private readonly ILogger<EmployeesController> _logger;
-        private readonly IBlFullCrud<EmployeeDto, EmployeeDto> _employeeService;
+        private readonly IBlFullCrud<EmployeeDto, EmployeeDto, Guid> _employeeService;
         public readonly IMapper _mapper;
 
         public EmployeesController(
             ILogger<EmployeesController> logger,
             IMapper mapper,
-            IBlFullCrud<EmployeeDto, EmployeeDto> employeeService)
+            IBlFullCrud<EmployeeDto, EmployeeDto, Guid> employeeService)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));
@@ -43,7 +44,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<EmployeeModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<EmployeeDto, EmployeeModel>(_employeeService, id, _mapper);
+            return await GetItemAsync<EmployeeDto, EmployeeModel, Guid>(_employeeService, id, _mapper);
         }
 
         [HttpGet]
@@ -60,7 +61,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<EmployeeModel>> CreateItemAsync([FromForm] EmployeeCreateUpdateModel employeeCreateUpdateModel)
         {
-            return await CreatedItemAsync<EmployeeDto, EmployeeCreateUpdateModel, EmployeeModel>(_employeeService, employeeCreateUpdateModel, _mapper);
+            return await CreatedItemAsync<EmployeeDto, EmployeeCreateUpdateModel, EmployeeModel, Guid>(_employeeService, employeeCreateUpdateModel, _mapper);
         }
 
         [HttpPut("{id}")]
@@ -79,6 +80,6 @@ namespace AnimalRescue.API.Controllers
         public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
             await _employeeService.DeleteAsync(id);
-        } 
+        }
     }
 }

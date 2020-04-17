@@ -3,12 +3,14 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
+
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class SequenceRepository : ISequenceRepository
+    internal class SequenceRepository : 
+        ISequenceRepository
     {
         private readonly IBaseCollection<Sequence> _baseCollection;
 

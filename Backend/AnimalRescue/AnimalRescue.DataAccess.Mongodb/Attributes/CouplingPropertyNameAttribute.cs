@@ -6,9 +6,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Attributes
     public class CouplingPropertyNameAttribute : Attribute
     {
         public string AliasName { get; set; }
-        public CouplingPropertyNameAttribute(string name)
+        public bool IsMutable { get; set; }
+        public CouplingPropertyNameAttribute(string name, bool isMutable = true)
         {
             AliasName = name;
+            IsMutable = isMutable;
         }
     }
 }

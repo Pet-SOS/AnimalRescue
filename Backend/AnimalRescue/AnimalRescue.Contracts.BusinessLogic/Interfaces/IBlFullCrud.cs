@@ -2,12 +2,12 @@
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-    public interface IBlFullCrud<TOut, TIn> :
-         IBlCollectinQueryAsyncy<TOut>,
-         IBlOneItemQueryAsyncy<TOut>,
+    public interface IBlFullCrud<TOut, TIn, TId> :
+         IBlCollectinQueryAsync<TOut>,
+         IBlOneItemQueryAsync<TOut, TId>,
          IBlCreateAsync<TOut, TIn>,
          IBlUpdateAsync<TOut>,
-         IBlDeleteAsync,
+         IBlDeleteAsync<TId>,
          IBlCountQueryAsync
     {
     }

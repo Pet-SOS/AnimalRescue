@@ -1,5 +1,5 @@
-﻿using AnimalRescue.API.Models.Tags;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+
 using Newtonsoft.Json;
 
 using System;

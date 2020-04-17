@@ -4,19 +4,18 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Queries
 {
-    internal class TagDecorator<TOut, TIn> : IBlFullCrud<TOut, TIn>
+    internal class TagDecorator<TOut, TIn, TId> : IBlFullCrud<TOut, TIn, TId>
     {
-        private readonly IBlFullCrud<TOut, TIn> fullCrudService;
+        private readonly IBlFullCrud<TOut, TIn, TId> fullCrudService;
         private readonly ITagService tagService;
 
-        public TagDecorator(IBlFullCrud<TOut, TIn> fullCrudService, ITagService tagService)
+        public TagDecorator(IBlFullCrud<TOut, TIn, TId> fullCrudService, ITagService tagService)
         {
             Require.Objects.NotNull(fullCrudService, nameof(fullCrudService));
             Require.Objects.NotNull(tagService, nameof(tagService));
@@ -37,8 +36,8 @@ namespace AnimalRescue.BusinessLogic.Queries
             await fullCrudService.UpdateAsync(item);
         }
 
-        public async Task DeleteAsync(Guid id) => await fullCrudService.DeleteAsync(id);
-        public async Task<TOut> GetAsync(Guid query) => await fullCrudService.GetAsync(query);
+        public async Task DeleteAsync(TId id) => await fullCrudService.DeleteAsync(id);
+        public async Task<TOut> GetAsync(TId query) => await fullCrudService.GetAsync(query);
         public async Task<BlCollectonResponse<TOut>> GetAsync(ApiQueryRequest query) => await fullCrudService.GetAsync(query);
         public async Task<int> GetCountAsync(ApiQueryRequest query) => await fullCrudService.GetCountAsync(query);
 

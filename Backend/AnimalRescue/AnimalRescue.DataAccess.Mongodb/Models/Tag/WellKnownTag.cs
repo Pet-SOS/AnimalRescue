@@ -1,5 +1,4 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 
 using MongoDB.Bson.Serialization.Attributes;
@@ -12,7 +11,10 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 namespace AnimalRescue.DataAccess.Mongodb.Models.Tag
 {
     [BsonDiscriminator("well_known_tags")]
-    public class WellKnownTag : BaseAndTimeItem, IWellKnownTag
+    public class WellKnownTag : 
+        TagBase,
+        IDeletableItem,
+        IBaseAuditItem
     {
         [CouplingPropertyName(common.Category)]
         [BsonElement("category")]

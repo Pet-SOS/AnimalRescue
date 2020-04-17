@@ -11,10 +11,13 @@ using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.DataAccess.Mongodb.Enums;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Configuration;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,13 +53,13 @@ namespace AnimalRescue.BusinessLogic
                 new ApplicationUserMappingProfile()
             });
 
-            services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
-                .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();
             services.AddScoped<IAnimalLocationService, AnimalLocationService>();
-
-            services.AddScoped<IBlFullCrud<BlogDto, BlogDto>, BlogService>()
-               .Decorate<IBlFullCrud<BlogDto, BlogDto>, TagDecorator<BlogDto, BlogDto>>();
-            services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto>, EmployeeService>();
+            
+            services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto, Guid>, AnimalService>()
+                .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, TagDecorator<AnimalDto, AnimalDto, Guid>>();
+            services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
+               .Decorate<IBlFullCrud<BlogDto, BlogDto, Guid>, TagDecorator<BlogDto, BlogDto, Guid>>();
+            services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto, Guid>, EmployeeService>();
 
             services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
             services.AddScoped<IImageService, ImageService>();

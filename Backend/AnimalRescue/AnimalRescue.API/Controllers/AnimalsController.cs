@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
@@ -23,14 +22,14 @@ namespace AnimalRescue.API.Controllers
     //[ApiVersion("1")]
     public class AnimalsController : ApiControllerBase
     {
-        private readonly IBlFullCrud<AnimalDto, AnimalDto> _animalService;
+        private readonly IBlFullCrud<AnimalDto, AnimalDto, Guid> _animalService;
         private readonly IImageService _imageService;
         private readonly ISequenceService _sequenceService;
         private readonly IMapper _mapper;
 
         public AnimalsController(
             IMapper mapper,
-            IBlFullCrud<AnimalDto, AnimalDto> animalService,
+            IBlFullCrud<AnimalDto, AnimalDto, Guid> animalService,
             IImageService imageService,
             ISequenceService sequenceService
             )
@@ -51,7 +50,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<AnimalDto, AnimalModel>(_animalService, id, _mapper);
+            return await GetItemAsync<AnimalDto, AnimalModel, Guid>(_animalService, id, _mapper);
         }
 
         [HttpPost("bunch")]
@@ -113,7 +112,7 @@ namespace AnimalRescue.API.Controllers
             var sequenceDto = _sequenceService.GetNextAsync();
             animalModel.Number = sequenceDto.Result.Number;
 
-            return await CreatedItemAsync(_animalService, animalModel, _mapper);
+            return await CreatedItemAsync<AnimalDto, AnimalModel, Guid>(_animalService, animalModel, _mapper);
         }
 
         [HttpPut("{id}")]

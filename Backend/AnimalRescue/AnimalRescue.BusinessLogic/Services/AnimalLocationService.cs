@@ -2,25 +2,23 @@
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.Infrastructure.Utilities;
 
 using AutoMapper;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class AnimalLocationService : BaseService<AnimalLocationDto, AnimalLocation>, IAnimalLocationService
+    internal class AnimalLocationService : 
+        BaseService<AnimalLocationDto, AnimalLocation, Guid>, 
+        IAnimalLocationService
     {
-        private readonly IAnimalLocationRepository _animalLocationRepository;
-        private readonly IMapper _mapper;
-
-        public AnimalLocationService(IAnimalLocationRepository repository, IMapper mapper) : base(repository, mapper)
+        public AnimalLocationService(
+            IAnimalLocationRepository repository,
+            IWellKnownTagRepository wellKnownTagRepository,
+            IMapper mapper)
+            : base(repository, wellKnownTagRepository, mapper)
         {
-            _animalLocationRepository = repository;
-            _mapper = mapper;
         }
     }
 }

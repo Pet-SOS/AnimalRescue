@@ -7,7 +7,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models
 {
-    public class BaseCommonDto : BaseAndTimeDto
+    public class BaseCommonDto : BaseAndTimeDto<Guid>
     {
         public List<Guid> ImageIds { get; set; } = new List<Guid>();
 

@@ -6,6 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -47,7 +48,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<FinancialReportModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<FinancialReportDto, FinancialReportModel>(_financialReportService, id, _mapper);
+            return await GetItemAsync<FinancialReportDto, FinancialReportModel, Guid>(_financialReportService, id, _mapper);
         }
 
         [HttpGet]
@@ -84,7 +85,7 @@ namespace AnimalRescue.API.Controllers
             var financialReportModel = _mapper.Map<FinancialReportCreateUpdateModel, FinancialReportModel>(financialReportCreateModel);
             financialReportModel.FileId = document.Id;
 
-            return await CreatedItemAsync(_financialReportService, financialReportModel, _mapper);
+            return await CreatedItemAsync<FinancialReportDto, FinancialReportModel, Guid>(_financialReportService, financialReportModel, _mapper);
         }
 
         [HttpPut("{id}")]
