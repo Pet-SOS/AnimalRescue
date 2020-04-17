@@ -10,17 +10,10 @@
   }
 
   .blog-item-content {
-    max-width: 54.375rem;
+    max-width: 870px;
     width: 100%;
-    margin: 0 auto;
-
-    .story-body {
-      margin: 0 0 80px;
-
-      @include media('≤phone') {
-        margin-bottom: 60px;
-      }
-    }
+    margin-left: auto;
+    margin-right: auto;
 
     //.warning strong,
     //.warning strong a {

@@ -91,8 +91,8 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
         {!isLoaded && !isLoading && status === ERequestStatus.FAILURE && <div>Not found</div>}
         {isLoaded && !isLoading && <React.Fragment>
           <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={`${baseUrl}documents/${blogItem.data.imageIds[0]}/type/large`}/>
-          <div className='blog-item-content'>
-            <div className='story-body'>{blogItem.data.body}</div>
+          <div className='blog-item-content section-margin'>
+            <div className='story-body section-margin'>{blogItem.data.body}</div>
             {blogItem.data.type === BlogTypes.ARTICLE && (
               <div className='warning'>
                 <p>

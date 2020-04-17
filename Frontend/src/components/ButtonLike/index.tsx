@@ -21,5 +21,5 @@ export const ButtonLike: React.FC<IPropTypes> = ({ id }: IPropTypes) => {
   const isActive = (): boolean => {
     return !!id && favoriteAnimalsIds.includes(id);
   }
-  return <Button className={cn('like', { active: isActive()})} onClick={onLikeClick} />
+  return <Button className={cn('btn-circle like', { active: isActive()})} onClick={onLikeClick} />
 }

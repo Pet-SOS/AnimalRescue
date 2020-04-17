@@ -102,9 +102,7 @@
     }
   }
 
-  .button {
-    line-height: 23px;
-
+  .btn {
     @include media('≤tablet') {
       margin: 0;
     }

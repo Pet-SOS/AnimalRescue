@@ -2,6 +2,7 @@
 @import '../../styles/base/variables';
 @import '../../styles/variables';
 @import '../../styles/base/mixins';
+@import '../../styles/base/helpers';
 
 .breadcrumbs {
   display: flex;
@@ -45,10 +46,8 @@
   align-items: center;
 
   &:hover {
-    //color: $btn-hover;
-
-    .button {
-      background-color: $btn-blue; 
+    .btn {
+      background-color: $btn-blue;
     }
   }
 
@@ -56,8 +55,14 @@
     padding-right: 28px;
   }
 
-  .button {
+  .btn {
     flex-shrink: 0;
     margin-left: auto;
+
+    &:before {
+      @extend %icomoon;
+      content: "\e90c";
+      font-size: 14px;
+    }
   }
 }

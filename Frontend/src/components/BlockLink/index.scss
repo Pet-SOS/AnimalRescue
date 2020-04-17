@@ -1,4 +1,8 @@
-@import './../../styles/variables.scss';
+@import './../../styles/include-media';
+@import './../../styles/base/variables';
+@import './../../styles/variables';
+@import './../../styles/base/mixins';
+@import './../../styles/base/helpers';
 
 .default-block-link {
   font-size: 20px;
@@ -9,24 +13,31 @@
   justify-content: space-between;
   align-items: center;
 
-  .button {
+  .btn {
     margin-left: 16px;
+
+    &:before {
+      @extend %icomoon;
+      content: "\e90c";
+      font-size: 14px;
+    }
   }
+
   &:hover {
     //color: $btn-hover;
 
-    .button.white-circle {
-      background-color: $btn-blue;
+    .btn.btn-circle {
+      background-color: $blue;
     }
   }
   &.back-link {
     flex-direction: row-reverse;
 
-    .button {
+    .btn {
       margin: 0 16px 0 0;
 
-      &:after {
-        transform: rotate(180deg);
+      &:before {
+        content: '\e90b';
       }
     }
   }     

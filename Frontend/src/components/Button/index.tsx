@@ -4,11 +4,11 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 export enum ButtonTypes {
-  Blue = 'blue',
-  Yellow ='yellow',
-  BlueCircle = 'blue-circle',
-  WhiteCircle = 'white-circle',
-  Close = 'close'
+  Blue = 'btn-blue',
+  Yellow ='btn-yellow',
+  BlueOutline = 'btn-blue-outline',
+  WhiteCircle = 'btn-circle btn-white',
+  Close = 'btn-circle btn-close'
 }
 
 interface IPropTypes {
@@ -27,13 +27,13 @@ export const Button: React.FC<IPropTypes> = ({
   children
 }) => (!!href ?
     (
-      <Link to={href} className={cn(className, 'button', {[styleType as string]: [!!styleType]})}>
+      <Link to={href} className={cn(className, 'btn', {[styleType as string]: [!!styleType]})}>
         { children || null}
       </Link>
     ) :
     (
       <button
-        className={cn(className, 'button', {[styleType as string]: [!!styleType]})}
+        className={cn(className, 'btn', {[styleType as string]: [!!styleType]})}
         onClick={onClick}
         type='button'
       >
