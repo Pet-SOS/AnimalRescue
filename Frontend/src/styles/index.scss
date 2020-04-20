@@ -402,4 +402,22 @@ input, textarea, ::placeholder {
   }
 }
 
+.form-row {
+  padding:0 0 24px;
+
+  &.field-phone-size {
+    @include media('>=xs-phone') {
+      max-width:195px;
+    }
+  }
+
+  label {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 0 4px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 @import "media";
