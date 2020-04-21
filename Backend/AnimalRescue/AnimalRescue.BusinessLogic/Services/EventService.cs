@@ -9,8 +9,8 @@ namespace AnimalRescue.BusinessLogic.Services
 {
     internal class EventService
     {
-        readonly string _exchange = "topic_logs";
-        readonly string _routingKey = "anonymous.info";
+        readonly string _exchange;
+        readonly string _routingKey;
 
         ConnectionFactory _factory;
         IConnection _connection;
