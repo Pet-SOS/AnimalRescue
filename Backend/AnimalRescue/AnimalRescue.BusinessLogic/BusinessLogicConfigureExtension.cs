@@ -11,10 +11,13 @@ using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.DataAccess.Mongodb.Enums;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Configuration;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
