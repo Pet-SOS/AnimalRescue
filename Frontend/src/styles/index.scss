@@ -395,11 +395,21 @@ input, textarea, ::placeholder {
     outline: none;
     color: inherit;
     position: relative;
+    transition:border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 
     &::placeholder {
       background-color: transparent;
     }
+
+    &:focus {
+      border-color: lighten($brand-color-primary, 10%);
+      box-shadow: 0 0 0 1px lighten($brand-color-primary, 10%);
+    }
   }
+}
+
+.editing-form {
+  padding-bottom:28px;
 }
 
 .form-row {

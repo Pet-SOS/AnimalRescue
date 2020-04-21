@@ -117,7 +117,7 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
 
     render(){ 
         return(
-            <form onSubmit={(e)=>this.handleSubmit(e)}>
+            <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
                 <h3>Контактна інформація</h3>
                 <div className="form-row field-phone-size">
                     <label htmlFor="phone1">Телефон гарячої лінії</label>
@@ -181,7 +181,7 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
                     <label htmlFor="social-youtube">Youtube</label>
                     <input id="social-youtube" onChange={(e)=>this.handleChangeSocialNetworks(e,'youtube')}  value={this.state.socialLinks.youtube||''}/>
                 </div>
-                <button type="submit" onSubmit={(e)=>this.handleSubmit(e)}>Login</button>
+                <button type="submit" className="btn btn-blue" onSubmit={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
             </form>
         )
     }
