@@ -49,6 +49,7 @@ namespace AnimalRescue.BusinessLogic
 
             IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
             services.AddSingleton<IPublisherSettings>(p => publisherSettings);
+            services.AddScoped<IEventService, EventService>();
 
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto>, TagDecorator<AnimalDto, AnimalDto>>();            

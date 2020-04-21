@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Infrastructure.Validation;
 
 using RabbitMQ.Client;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class EventService
+    internal class EventService : IEventService
     {
         readonly string _exchange;
         readonly string _routingKey;
