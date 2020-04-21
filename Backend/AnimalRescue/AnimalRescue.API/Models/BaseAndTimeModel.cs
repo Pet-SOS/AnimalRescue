@@ -16,9 +16,5 @@ namespace AnimalRescue.API.Models
         [JsonPropertyName(baseItem.ModifiedAt)]
         [JsonProperty(baseItem.ModifiedAt)]
         public DateTime? ModifiedAt { get; set; }
-
-        [JsonPropertyName(baseItem.IsDeleted)]
-        [JsonProperty(baseItem.IsDeleted)]
-        public bool IsDeleted { get; set; }
     }
 }
