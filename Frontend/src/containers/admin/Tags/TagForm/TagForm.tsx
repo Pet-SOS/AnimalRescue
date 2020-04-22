@@ -58,7 +58,7 @@ export const TagForm: React.FC<IPropTypes> = ({ onSubmit, onCancel }) => {
                   />
               </div>
             <div className="col col-num">...</div>
-              <div className="col col-edit"><button type="submit">Save</button></div>
+              <div className="col col-edit"><button className="btn-checked" type="submit">Save</button></div>
               <div className="col col-del"><button className="cancel" type="button" onClick={onCancel}>Cancel</button></div>
           </div>
         </div>

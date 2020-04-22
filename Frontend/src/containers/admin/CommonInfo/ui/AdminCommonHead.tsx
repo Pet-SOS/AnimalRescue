@@ -117,77 +117,71 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
 
     render(){ 
         return(
-            <form onSubmit={(e)=>this.handleSubmit(e)}>
-            <h3>Контактна інформація</h3>
-            <div>
-                <label>Телефон гарячої лінії
-                <input onChange={(e)=>this.handleContactInfo(e,'phone1')} type="text"  value={this.state.phones.phone1||''}/>
-                </label>
+            <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
+                <h3>Контактна інформація</h3>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone1">Телефон гарячої лінії</label>
+                    <input id="phone1" onChange={(e)=>this.handleContactInfo(e,'phone1')} type="text"  value={this.state.phones.phone1||''}/>
                 </div>
-            <div>
-                <label>Телефон адопції
-                <input onChange={(e)=>this.handleContactInfo(e,'phone2')} type="text"  value={this.state.phones.phone2||''} />
-                </label>
-            </div>
-            <div>
-                <label>Телефон адопції</label>
-                <input
-                    onChange={(e)=>this.handleContactInfo(e,'phone3')} type="text" value={this.state.phones.phone3||''} />
-            </div>
-            <div>
-                <label>Телефон адопції</label>
-                <input onChange={(e)=>this.handleContactInfo(e,'phone4')} type="text" value={this.state.phones.phone4||''}/>
-            </div>
-            <div>
-                <label>Електрона адреса</label>
-                <input onChange={(e)=>this.handleEmailInfo(e)} type="text" value={this.state.emails.animalRescue1||''}/>
-            </div>
-            <h4>Адреса</h4>
-            <div>
-                <label>Країна</label>
-                <input onChange={(e)=>this.handleAddress(e,'country')} type="text" value={`${this.state.addresses.country}` ||''}/>
-            </div>
-            <div>
-                <label>Місто</label>
-                <input onChange={(e)=>this.handleAddress(e,'town')} type="text" value={this.state.addresses.town||''}/>
-            </div>
-            <div>
-                <label>Вулиця</label>
-                <input onChange={(e)=>this.handleAddress(e,'street')} type="text" value={this.state.addresses.street||''}/>
-            </div>
-            <div>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone2">Телефон адопції</label>
+                    <input id="phone2" onChange={(e)=>this.handleContactInfo(e,'phone2')} type="text"  value={this.state.phones.phone2||''} />
+                </div>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone3">Телефон адопції</label>
+                    <input id="phone3"
+                        onChange={(e)=>this.handleContactInfo(e,'phone3')}
+                        type="text"
+                        value={this.state.phones.phone3||''} />
+                </div>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone4">Телефон адопції</label>
+                    <input id="phone4" onChange={(e)=>this.handleContactInfo(e,'phone4')} type="text" value={this.state.phones.phone4||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="email-info">Електрона адреса</label>
+                    <input id="email-info" onChange={(e)=>this.handleEmailInfo(e)} type="text" value={this.state.emails.animalRescue1||''}/>
+                </div>
+                <h4>Адреса</h4>
+                <div className="form-row">
+                    <label htmlFor="address-country">Країна</label>
+                    <input id="address-country" onChange={(e)=>this.handleAddress(e,'country')} type="text" value={`${this.state.addresses.country}` ||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="address-city">Місто</label>
+                    <input id="address-city" onChange={(e)=>this.handleAddress(e,'town')} type="text" value={this.state.addresses.town||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="address-street">Вулиця</label>
+                    <input id="address-street" onChange={(e)=>this.handleAddress(e,'street')} type="text" value={this.state.addresses.street||''}/>
+                </div>
                 <h4>Банківська картка</h4>
-                <div>
-                    <label>Номер картки</label>
-                    <input onChange={(e)=>this.handleCard(e,'cardNumber')} type="text" value={this.state.infoCard.cardNumber||''}/>
+                <div className="form-row">
+                    <label htmlFor="card-fnumber">Номер картки</label>
+                    <input id="card-fnumber" onChange={(e)=>this.handleCard(e,'cardNumber')} type="text" value={this.state.infoCard.cardNumber||''}/>
                 </div>
-                <div>
-                    <label>Iм'я</label>
-                    <input onChange={(e)=>this.handleCard(e,'firstName')} type="text" value={`${this.state.infoCard.firstName}`||''}/>
+                <div className="form-row">
+                    <label htmlFor="card-name">Iм'я</label>
+                    <input id="card-name" onChange={(e)=>this.handleCard(e,'firstName')} type="text" value={`${this.state.infoCard.firstName}`||''}/>
                 </div>
-                <div>
-                    <label>Прізвище</label>
-                    <input onChange={(e)=>this.handleCard(e,'lastName')} type="text" value={`${this.state.infoCard.lastName}`||''}/>
+                <div className="form-row">
+                    <label htmlFor="card-sname">Прізвище</label>
+                    <input id="card-sname" onChange={(e)=>this.handleCard(e,'lastName')} type="text" value={`${this.state.infoCard.lastName}`||''}/>
                 </div>
-            </div>
-            <h4>Соц.мережі</h4>
-            <div>
-                <label>Facebook
-                <input onChange={(e)=>this.handleChangeSocialNetworks(e,'facebook')}  value={this.state.socialLinks.facebook||''}/>
-                </label>
-           </div>
-            <div>
-                <label>Instagram
-                <input onChange={(e)=>this.handleChangeSocialNetworks(e,'instagram')}  value={this.state.socialLinks.instagram||''}/>
-                </label>
-             </div>
-            <div>
-                <label>Youtube
-                <input onChange={(e)=>this.handleChangeSocialNetworks(e,'youtube')}  value={this.state.socialLinks.youtube||''}/>
-                </label>
-            </div>
-            
-                <button type="submit" onSubmit={(e)=>this.handleSubmit(e)}>Login</button>
+                <h4>Соц.мережі</h4>
+                <div className="form-row">
+                    <label htmlFor="social-facebook">Facebook</label>
+                    <input id="social-facebook" onChange={(e)=>this.handleChangeSocialNetworks(e,'facebook')}  value={this.state.socialLinks.facebook||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="social-instagram">Instagram</label>
+                    <input id="social-instagram" onChange={(e)=>this.handleChangeSocialNetworks(e,'instagram')}  value={this.state.socialLinks.instagram||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="social-youtube">Youtube</label>
+                    <input id="social-youtube" onChange={(e)=>this.handleChangeSocialNetworks(e,'youtube')}  value={this.state.socialLinks.youtube||''}/>
+                </div>
+                <button type="submit" className="btn btn-blue" onSubmit={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
             </form>
         )
     }
