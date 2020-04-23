@@ -99,7 +99,8 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 value:Tags.THELOSS,
                 key:'THELOSS',
                 check: false
-            }
+            },
+            isFilterVisible: false
         };
         this.initialState = this.state;
     }
@@ -261,8 +262,10 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
             <div className='looking-friend-block'>
                 <div className='container'>
                     <h2><TI18n keyStr="lookingForAFriendPageTitle" default={defaultText.lookingForAFriendPageTitle}/></h2>
-                    <div className="holder-filters">
-                        <button className="opener"><i className="icon-step">icon</i><span>Фільтри</span></button>
+                    <div className={ this.state.isFilterVisible && "filters-active-mobile" }>
+                        <button onClick={ () => this.setState({isFilterVisible: !this.state.isFilterVisible}) } className="opener">
+                            <i className="icon-step">icon</i><span>Фільтри</span>
+                        </button>
                         <div className="slide">
                             <ul className='list-selects'>
                                 <li className="item-select">
