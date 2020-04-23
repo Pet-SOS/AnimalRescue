@@ -5,7 +5,7 @@
 @import '../../../../styles/base/helpers';
 
 .cancel,
-[type="submit"] {
+.btn-checked {
   @include animate(color);
   font-size: 0;
   border: 0;

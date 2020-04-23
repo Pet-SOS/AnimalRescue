@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal class StrictTerm<TEntity>
+    public class StrictTerm<TEntity>
     {
         private readonly string rowTermData;
         public readonly IAliasStore AliasStore;

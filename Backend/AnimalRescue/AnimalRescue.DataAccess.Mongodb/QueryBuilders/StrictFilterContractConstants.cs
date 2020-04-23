@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
-    internal static class StrictFilterContractConstants
+    public static class StrictFilterContractConstants
     {
         public const string ElementMatch = "elementmatch";
         public const string All = "all";

@@ -395,10 +395,38 @@ input, textarea, ::placeholder {
     outline: none;
     color: inherit;
     position: relative;
+    transition:border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 
     &::placeholder {
       background-color: transparent;
     }
+
+    &:focus {
+      border-color: lighten($brand-color-primary, 10%);
+      box-shadow: 0 0 0 1px lighten($brand-color-primary, 10%);
+    }
+  }
+}
+
+.editing-form {
+  padding-bottom:28px;
+}
+
+.form-row {
+  padding:0 0 24px;
+
+  &.field-phone-size {
+    @include media('>=xs-phone') {
+      max-width:195px;
+    }
+  }
+
+  label {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 0 4px;
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 
