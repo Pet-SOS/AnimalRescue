@@ -365,6 +365,7 @@ input, textarea, ::placeholder {
     background-color: $white;
     flex-grow: 1;
     padding-top: 24px;
+    overflow: hidden;
 
     @include media('≤phone') {
       padding-top: 16px;
