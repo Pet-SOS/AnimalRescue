@@ -11,6 +11,8 @@ import { DatePicker } from 'antd';
 import { AdminMenu } from '../../AdminMenu';
 
 const { TabPane } = Tabs;
+const { RangePicker } = DatePicker;
+
 interface IState {
  [key:string]: any;
 }
@@ -87,62 +89,125 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
           selectedKey={'reports'}
           openKeys={['sub2', 'sub1']}
         />
-        <main className='main-report'>
-          <div className='title'> Завантажити новий звiт</div>
-          <form onSubmit={(e) => this.handleSubmit(e)} >
-            <div className='field'>
-              <label>Додати файл:</label><br></br>
-              <input
-                className="custom-file-input"
-                type="file"
-                onChange={(e) => this.uploadFile(e)} />
-            </div>
-            <div className='field'>
-              <label>Додати ім'я:</label><br></br>
-              <input className="fileInput"
-                type="text"
-                placeholder=''
-                onChange={(e) => this.handleFileInfo('title', e)} />
-            </div>
-            <div className='field'>
-              <label>Додати опис:</label><br></br>
-              <input className="fileInput"
-                type="text"
-                placeholder=''
-                onChange={(e) => this.handleFileInfo('body', e)} />
-            </div>
-            <div className='field'>
-              <label>Додати дату:</label><br></br>
-              <DatePicker
-              defaultValue={moment('YYYY-MM-DD')}
-                onChange={(e) => this.handleFileInfo('date', e)}
-              />
-            </div>
-          </form>
-          <Button
-            onClick={(e) => this.handleSubmit(e)}
-            styleType={ButtonTypes.Blue}>
-            <TI18n keyStr="addReport" />
-          </Button>
-          <div className='title'>Список звітів за всi роки</div>
-          {this.props.financeReports.length > 0 &&
-            <div>
-              <Tabs defaultActiveKey="1" tabPosition='top'>
-                {this.props.financeReports.map((report: IFinancialReport, i: number) => (
-                  <TabPane tab={report.date} key={report.date + 1} >
-                    <div>
-                      {report.reports.map((list) => (
-                        <p key={list.fileId} className='report' >
-                          <Pdf className='pdf-icon' /><TI18n keyStr={`dateText${moment(list.date).month()}`} /> <span className='year-report'>{moment(list.date).year()}</span>
-                          <span onClick={() => { this.deleteReport(list.fileId, list.title) }} className='delete'></span>
-                        </p>
-                      ))}
-                    </div>
+        <main>
+          <div className="container">
+            <section className="section-reports">
+              <header>
+                <h3>Фінансові звіти</h3>
+              </header>
+              <div className="page-content">
+                <Tabs defaultActiveKey="1">
+                  <TabPane tab="Укр" key="1">
+                     <div className="inner-top section-margin">
+                       <form action="#">
+                         <p>
+                           <label>Заголовок</label>
+                           <input className="input-h2" type="text"/>
+                         </p>
+                         <p>
+                           <label>Передмова</label>
+                           <textarea name="page-description"/>
+                         </p>
+                         <p>
+                           <Button
+                               styleType={ButtonTypes.BlueSmall}>
+                             Зберегти зміни
+                           </Button>
+                         </p>
+                       </form>
+                     </div>
+                    <section className="section-new-report">
+                      <h4> Завантажити новий звiт</h4>
+                      <form onSubmit={(e) => this.handleSubmit(e)} >
+                        <div className='field'>
+                          <label>Виберіть документ у pdf форматі</label><br/>
+                          <input
+                              id="downloadReport"
+                              className="custom-file-input"
+                              type="file"
+                              onChange={(e) => this.uploadFile(e)} />
+                          <label htmlFor="downloadReport"><span/></label>
+                        </div>
+                        {/*<div className='field'>*/}
+                        {/*  <label>Додати ім'я:</label><br/>*/}
+                        {/*  <input className="fileInput"*/}
+                        {/*         type="text"*/}
+                        {/*         placeholder=''*/}
+                        {/*         onChange={(e) => this.handleFileInfo('title', e)} />*/}
+                        {/*</div>*/}
+                        {/*<div className='field'>*/}
+                        {/*  <label>Додати опис:</label><br/>*/}
+                        {/*  <input className="fileInput"*/}
+                        {/*         type="text"*/}
+                        {/*         placeholder=''*/}
+                        {/*         onChange={(e) => this.handleFileInfo('body', e)} />*/}
+                        {/*</div>*/}
+                        <div className='field'>
+                          <label>Виберіть період звіту</label><br/>
+                          <RangePicker
+                              placeholder={["Початок", "Кінець"]}
+                              // defaultValue={moment('YYYY-MM-DD')}
+                              // onChange={(e) => this.handleFileInfo('date', e)}
+                          />
+                        </div>
+                      </form>
+                      <Button
+                          onClick={(e) => this.handleSubmit(e)}
+                          styleType={ButtonTypes.BlueOutlineSmall}>
+                        <TI18n keyStr="addReport" />
+                      </Button>
+                    </section>
+                    <section className="section-all-reports">
+                      <h4>Звiти за всi роки</h4>
+                      {this.props.financeReports.length > 0 &&
+                      <div className="inner-all-reports">
+                        <Tabs defaultActiveKey="1" tabPosition='top'>
+                          {this.props.financeReports.map((report: IFinancialReport, i: number) => (
+                              <TabPane tab={report.date} key={report.date + 1} >
+                                <form action="#">
+                                  <p>
+                                    <label>Заголовок</label>
+                                    <input className="input-h2" type="text"/>
+                                  </p>
+                                  <p>
+                                    <label>Передмова</label>
+                                    <textarea name="page-description"/>
+                                  </p>
+                                  <p>
+                                    <Button
+                                        styleType={ButtonTypes.BlueSmall}>
+                                      Зберегти зміни
+                                    </Button>
+                                  </p>
+                                </form>
+                                <div className="list-reports">
+                                  {report.reports.map((list) => (
+                                      <p key={list.fileId} className='report' >
+                                        <i className="icon-pdf"/><a href="#" className="title-item"><TI18n keyStr={`dateText${moment(list.date).month()}`} /> <span className='year-report'>{moment(list.date).year()}</span></a>
+                                        <span onClick={() => { this.deleteReport(list.fileId, list.title) }} className='delete icon-close' />
+                                      </p>
+                                  ))}
+                                </div>
+                              </TabPane>
+                          ))}
+                        </Tabs>
+                      </div>
+                      }
+                    </section>
                   </TabPane>
-                ))}
-              </Tabs>
-            </div>
-          }
+                  <TabPane tab="Eng" key="2">
+                    Content of Tab Pane 2
+                  </TabPane>
+                  <TabPane tab="Deu" key="3">
+                    Content of Tab Pane 3
+                  </TabPane>
+                  <TabPane tab="Рус" key="4">
+                    Content of Tab Pane 3
+                  </TabPane>
+                </Tabs>
+              </div>
+            </section>
+          </div>
         </main>
       </div>
     );
