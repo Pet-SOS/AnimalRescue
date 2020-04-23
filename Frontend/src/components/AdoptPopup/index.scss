@@ -1,83 +1,120 @@
-@import './../../styles/variables.scss';
+@import './../../styles/include-media';
+@import './../../styles/base/variables';
+@import './../../styles/variables';
+@import './../../styles/base/mixins';
+
 .adopt-popup-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+
+
   .adopt-popup-holder {
     max-width: 45rem;
     width: 100%;
-    background: #ffffff;
+    background: $white;
     border-radius: 1.5rem;
     overflow: hidden;
+
     .popup-head {
-      background: $bg-orange;
-      padding: 4rem 6.125rem 3rem 3rem;
+      padding: 40px 48px;
       position: relative;
+      height: 250px;
+      background: $bg-orange;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      box-sizing: border-box;
       display: flex;
-      justify-content: space-between;
       align-items: flex-end;
-      .title {
-        font-size: 3rem;
-        line-height: 3rem;
-        margin: 0;
-        span { display: block; }
+      overflow: hidden;
+
+      @include media('≤phone') {
+        height: auto;
+        display: block;
+        text-align: center;
+        padding: 40px 24px 24px;
       }
-      .close {
+
+      h2 {
+        margin-bottom: 0;
+        padding: 0 40px;
+
+        @include media('≤phone') {
+          margin-bottom: 24px;
+        }
+      }
+
+      img {
+        padding-bottom: 8px;
+        margin-right: 50px;
+
+        @include media('≤phone') {
+          margin-right: 0;
+        }
+      }
+
+      .btn-close {
         position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
+        top: 24px;
+        right: 24px;
+
+        @include media('≤xs-phone') {
+          right: 16px;
+          top: 16px;
+        }
       }
     }
+
     .popup-content {
-      padding: 1.5rem 2rem 3rem 3rem;
-      p { margin: 0 0 1rem; }
+      padding: 24px 24% 48px 48px;
+      
+      @include media('≤phone') {
+        padding: 24px 24px 48px;
+      }
+
+      @include media('≤xs-phone') {
+        padding: 24px 16px 40px;
+      }
+
+      p {
+        margin: 0 0 1rem;
+      }
+
       .phone {
         color: $text-color;
         display: inline-block;
       }
     }
+
     form {
-      max-width: 24rem;
+      max-width: 385px;
       width: 100%;
+
+      @include media('≤phone') {
+        max-width: none;
+        text-align: center;
+      }
+
       input {
         display: block;
         border-radius: 1.9375rem;
         border: none;
         outline: none;
-        padding: 1.125rem 1.5rem;
-        margin: 0 0 1rem;
+        padding: 18px 24px;
+        margin: 0 0 16px;
         width: 100%;
-        &:last-of-type { margin: 0 0 1.5rem; }
-      }
-      button { box-shadow: 0px 8px 24px rgba(62, 91, 157, 0.5); }
-    }
-  }
-}
 
-@media (max-width: $medium-device-width) {
-  .adopt-popup-wrapper .adopt-popup-holder {
-    .popup-head {
-      display: block;
-      text-align: center;
-      padding: 2.5rem 2.5rem 1.5rem;
-      .title { margin: 0 0 1.5rem; }
-      .close {
-        top: .5rem;
-        right: .5rem;
+        &:last-of-type {
+          margin: 0 0 24px;
+        }
       }
-    }
-    .popup-content { padding: 1.5rem 2rem 3rem 2rem; }
-    form {
-      max-width: 100%;
-      text-align: center;
     }
   }
 }

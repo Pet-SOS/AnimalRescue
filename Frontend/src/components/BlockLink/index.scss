@@ -1,28 +1,43 @@
-@import './../../styles/variables.scss';
+@import './../../styles/include-media';
+@import './../../styles/base/variables';
+@import './../../styles/variables';
+@import './../../styles/base/mixins';
+@import './../../styles/base/helpers';
+
 .default-block-link {
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  color: $text-color-active;
+  font-size: 20px;
+  line-height: 1.2;
+  //color: $text-color-active;
   font-weight: bold;
-  text-decoration: none;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  .button {
-    margin-left: 1rem;
+
+  .btn {
+    margin-left: 16px;
+
+    &:before {
+      @extend %icomoon;
+      content: "\e90c";
+      font-size: 14px;
+    }
   }
+
   &:hover {
-    color: $btn-hover;
-    .button.white-circle {
-      background-color: $btn-blue;
+    //color: $btn-hover;
+
+    .btn.btn-circle {
+      background-color: $blue;
     }
   }
   &.back-link {
     flex-direction: row-reverse;
-    .button {
-      margin: 0 1rem 0 0;
-      &:after {
-        transform: rotate(180deg);
+
+    .btn {
+      margin: 0 16px 0 0;
+
+      &:before {
+        content: '\e90b';
       }
     }
   }     

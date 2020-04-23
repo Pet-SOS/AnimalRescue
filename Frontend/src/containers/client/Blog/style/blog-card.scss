@@ -1,38 +1,66 @@
-@import './../../../../styles/variables.scss';
-.blog-card-holder{
-    margin-bottom: 1rem;
+@import './../../../../styles/include-media';
+@import './../../../../styles/base/variables';
+@import './../../../../styles/variables';
+@import './../../../../styles/base/mixins';
+
+.blog-card-holder {
     position: relative;
+
     .blog-card-link {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .blog-card-image{
-        height: 12.25rem;
-        border-radius: 0.75rem;
-        margin-bottom: 1rem;
-        background-size: cover;
-        background-position: center;
-    }
-    .blog-card-title{
-        font-size: 1.25rem;
-        line-height: 28px;
-        margin: 0.5rem 0 0.5rem;;
-        color: $text-color;
-        overflow: hidden;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+
+        &:hover {
+            ~ .blog-card-image {
+                box-shadow: 0 8px 24px rgba(62, 91, 157, 0.5);
+            }
+
+            ~ .blog-card-title,
+            ~ span {
+                color: $btn-blue;
+            }
+        }
+    }
+
+    .blog-card-image {
+        @include animate(box-shadow);
+        padding-top: 56.16%;
+        border-radius: 12px;
+        margin-bottom: 16px;
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+
+    .blog-card-title {
+        @include animate(color);
+        font-size: 20px;
+        line-height: 1.4;
+        //color: $text-color;
+        //width: 100%;
+        overflow: hidden;
         overflow-wrap: break-word;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
         display: -webkit-box;
         -webkit-line-clamp: 3;
+
+        p {
+            margin-bottom: 0;
+        }
     }
-    .blog-grey-text{
+
+    span {
+        @include animate(color);
+        display: inline-block;
+        vertical-align: top;
         font-size: 1rem;
-        line-height: 1.25rem;
-        margin: 0;
+        line-height: 1.25;
         color: $text-lite-color;
+        margin: 0 0 8px 0;
     }
 }

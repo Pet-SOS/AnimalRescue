@@ -140,6 +140,7 @@ export default {
   /*     FinancialReportsPage      */
   financialReportsPageTitle: 'Jahresabschluss',
   financialReportsPageText: 'Bis zum 20. Tag erstellen wir jeden Monat einen Finanzbericht, in dem wir alle von Gratulanten erhaltenen Beträge und deren Verteilung angeben.',
+  financialReportsListPageText: 'Im Jahr 2019 gaben wir 772.000 UAH aus und sammelten 871.000 UAH. Der Großteil dieser Mittel floss in die Behandlung, Pflege und Durchführung eines Sterilisationsprogramms, um das Wachstum der Population von Straßentieren zu stoppen.',
 
   photographer: 'Fotograf',
   photographerVacationText1: 'Damit ein Haustier seine Familie schnell finden kann, braucht es gute Fotos. Deshalb ist die Hilfe von professionellen Fotografen in diesem Fall äußerst wünschenswert und wichtig.',
@@ -332,4 +333,7 @@ addReport: 'Bericht herunterladen',
   healthTagCategory: 'Gesundheit',
 
   backToAllTags: 'Zurück zu den Tags',
+
+  confirmTitle: 'Bestätigen',
+  cancelTitle: 'Stornieren',
 }

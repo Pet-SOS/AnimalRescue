@@ -1,5 +1,9 @@
-@import'../../../../styles/variables.scss';
-.box-popup{
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.box-popup {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -9,166 +13,137 @@
     bottom: 0;
     background-color: rgba(0,0,0, 0.5);
     z-index: 999;
-    .popup{
+
+    .popup {
         position: absolute;
-        max-width: 54.375rem;
-        max-height: 38.625rem;
+        max-width: 870px;
         width: 100%;
-        height: 100%;
-        border-radius: 1.5rem;
+        border-radius: 24px;
         top: 50%;
-        left:50%;
+        left: 50%;
         transform: translate(-50%, -50%);
         background: $main-bg-color;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+
+        @include media('≤tablet') {
+            max-width: 720px;
+        }
+    }
+
+    .btn-close {
+        position: absolute;
+        right: 24px;
+        top: 24px;
+
+        @include media('≤xs-phone') {
+            right: 16px;
+            top: 16px;
+        }
+    }
+
+    .first-block {
+        position: relative;
+        height: 250px;
+        background: $bg-orange;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
         box-sizing: border-box;
-        .first-block {
-            position: relative;
-            height: 40%;
-            width:100%;
-            background: $bg-orange;
-            border-top-left-radius: 1.5rem;
-            border-top-right-radius: 1.5rem;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            overflow: hidden;
-            .pets{
-                display: flex;
-                flex-wrap: nowrap;
-                align-items: flex-end;
-                padding: 0 1rem;
-                .pet{
-                    display: inline-block;
-                    width: 100%;
-                    height: auto;
-                    max-width: 8.5625rem;
-                    margin-left: -1.5rem;
-                    &.bg-image2{
-                        margin-left: -2rem;
-                    }
-                    &.bg-image3{
-                        margin-left: -2.5rem;
-                    }
-                }
-            }
-            .close {
-                position: absolute;
-                right: 1.5rem;
-                top: 1.5rem;
-            }
-            .title{
-                font-weight: 900;
-                padding: 6.625rem  3.6875rem  3rem;
-                width: 20%;
-                font-size: 3rem;
-                line-height: 3rem;
-            }
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+
+        @include media('≤phone') {
+            height: 180px;
         }
-        .second-block{
-            height: 60%;
-            width: 100%;
-            padding: 1.5rem 4.125rem 1.5rem 3.75rem;
-            box-sizing: border-box;
-            font-size: 1.125rem;
-            line-height: 1.625rem;
-            ul{
-                margin-top: 1rem;
-                li{
-                    margin-bottom: 1.5rem;
-                    position: relative;
-                    span {
-                        display: inline-block;
-                        width: 1rem;
-                    }
-                    &::before{
-                        position: absolute;
-                        font-family: FontAwesome;
-                        content: '\f111';
-                        font-size: 0.5rem;
-                    }
-                    &:last-child{
-                        margin-bottom: 0;
-                    }
-                }
+
+        h2 {
+            padding: 16px 16px 4px 60px;
+
+            @include media('≤phone') {
+                max-width: 50%;
+                position: relative;
             }
-            .bank-card{
-                display: flex;
-                justify-content: flex-start; 
-                flex-wrap: nowrap;
-                align-items: center;
-                align-content: center;          
-            }
-            .copy-to-clipboard{
-                margin-left: 1.5rem;
-                align-self: center;
+
+            @include media('≤xs-phone') {
+                padding: 0 0 6px 16px;
             }
         }
     }
-}
-@media all and (max-width: 929px) {
-    .box-popup .popup{
-        max-width: 45rem;
-    }
-    .box-popup .popup .first-block .pets .pet.bg-image3{
-        display: none;
-    }
-}
-@media all and (max-width: 761px) {
-    .box-popup {
-        .popup{
-            max-width: 40rem;
-            max-height: 100%;
-            height: auto;
-            .second-block{
-                padding: 1.5rem 1rem 1.5rem 1.70rem;
-            }
-            .first-block{
-                .pets{
-                    padding: 0;
-                }
-                .title{
-                    padding: 6.625rem 3.6875rem 1.75rem 1.70rem;
-                }
-            }
+
+    .pets {
+        display: flex;
+        flex-wrap: nowrap;
+        padding: 0 16px;
+        flex-shrink: 0;
+        align-items: flex-end;
+        margin-left: auto;
+
+        @include media('≤tablet') {
+            padding-right: 0;
+            margin-right: -6px;
         }
     }
-}
-@media all and (max-width: 615px) {
-    .box-popup .popup .first-block .pets .pet.bg-image2{
-        display: none;
-    }
-}
-@media all and (max-width: 557px) {
-    .box-popup {
-        .popup{
-            max-width: 23.4375rem;
-            .second-block{
-                padding: 1.5rem 1.75rem 1.5rem 1.75rem;
-                .bank-card{
-                    flex-direction: column;
-                    .copy-to-clipboard{
-                        margin: 0.125rem 0 2rem;
-                        align-self: flex-start;
-                    }
-                }
-            }
-            .first-block{
-                .pets .pet.bg-image1{
-                    max-width: 6.9rem;
-                }
-                .close{
-                    top: 1rem;
-                    right: 1rem;
-                }
-                .title{
-                    padding: 6.625rem 3.6875rem 1.75rem 1rem;
-                    font-size: 1.5rem;
-                    line-height: 1.5rem;
-                }
-            }
+
+    .second-block {
+        padding: 24px 60px 40px;
+
+        @include media('≤xs-phone') {
+            padding: 24px 16px 40px;
         }
+    }
+
+    .bank-card {
+        margin: 0 0 32px 0;
+    }
+
+    ul:not([class]) {
+
+        li:not(:last-child) {
+            margin-bottom: 16px;
+        }
+
+        span:before {
+            @include size(6px);
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            border-radius: 100%;
+            background-color: $text-color;
+            margin-right: 16px;
+        }
+    }
+
+    .pet {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+        max-width: 137px;
+        margin-left: -24px;
+
+        &.bg-image2 {
+            margin-left: -40px;
+        }
+        &.bg-image3 {
+            margin-left: -58px;
+        }
+    }
+
+    .bg-image1 {
+        margin-bottom: -24px;
+    }
+
+    .bg-image2 {
+        @include media('≤xs-phone') {
+            display: none;
+        }
+    }
+    .bg-image3 {
+        @include media('≤tablet') {
+            display: none;
+        }
+    }
+
+    .bank-card-info,
+    .copy-to-clipboard {
+        background-color: $bg-lite-box;
     }
 }

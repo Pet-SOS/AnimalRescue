@@ -141,7 +141,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
             channelLink={youTubeChannelLink}
           />
         )}
-        <div className="animals-slider-wrapper">
+        <section className="animals-slider-wrapper section-padding">
           {!!dogsList.data && !!dogsList.data.length && <AnimalsSlider
             data={dogsList.data}
             title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
@@ -158,7 +158,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
               href: '/animals/page/1?kindOfAnimal=CAT/'
             }}
           />}
-        </div>
+        </section>
         {!!articleList.data && !!articleList.data.length && (
           <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}

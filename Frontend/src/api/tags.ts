@@ -4,7 +4,7 @@ import { ELocales } from '../i18n/store/state';
 import { AnimalKind } from './animals';
 
 export enum TagCategory {
-  size = 'size',
+  dogSize = 'dogSize',
   health = 'health',
 }
 
@@ -38,5 +38,15 @@ export interface ITagsResponse {
 
 export async function fetchTags(requestParams?: IRequestParams): Promise<ITagsResponse> {
   const res = await API.get('/WellKnownTag', { params: prepareRequestParams(requestParams) });
+  return res.data
+}
+
+export async function addTagRequest(tag: ITag): Promise<{data: ITag; self: string}> {
+  const res = await API.post('/WellKnownTag', tag);
+  return res.data
+}
+
+export async function deleteTagRequest(tagId: string): Promise<void> {
+  const res = await API.delete(`/WellKnownTag/${tagId}`);
   return res.data
 }

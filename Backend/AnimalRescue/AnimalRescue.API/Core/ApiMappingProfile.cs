@@ -1,23 +1,24 @@
-﻿using AnimalRescue.API.Models.Animals;
+﻿using AnimalRescue.API.Core.Extensions;
+using AnimalRescue.API.Models.Animals;
 using AnimalRescue.API.Models.Blogs;
 using AnimalRescue.API.Models.Blogs.Articles;
 using AnimalRescue.API.Models.Blogs.Blogs;
 using AnimalRescue.API.Models.Blogs.Stories;
 using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
+using AnimalRescue.API.Models.Employees;
 using AnimalRescue.API.Models.FinancialReports;
 using AnimalRescue.API.Models.Tags;
-using AnimalRescue.API.Models.Employees;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 
 using AutoMapper;
 
 using System.Collections.Generic;
 using System.Linq;
-using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 
 namespace AnimalRescue.API.Core
 {
@@ -40,8 +41,13 @@ namespace AnimalRescue.API.Core
             CreateMap<FinancialReportDto, FinancialReportModel>();
             CreateMap<FinancialReportCreateUpdateModel, FinancialReportModel>();
 
+
             CreateMap<AnimalCreateUpdateModel, AnimalModel>()
-                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
+                .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)))
+                .ForMember(x=>x.Status, opt => opt.MapFrom(m=> MappingProfileExtensions.GetWellKnownTagModel(m.Status)))
+                .ForMember(x=>x.LocationType, opt => opt.MapFrom(m=> MappingProfileExtensions.GetLocationModel(m.LocationType)))
+                .ForMember(x=>x.LocationName, opt => opt.MapFrom(m=> MappingProfileExtensions.GetWellKnownTagModel(m.LocationName)));
+
             CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => StringSeparatedSemicolomnToList(m.Tags)));
 

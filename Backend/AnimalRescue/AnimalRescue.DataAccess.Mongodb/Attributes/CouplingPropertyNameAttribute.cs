@@ -1,14 +1,18 @@
-﻿using System;
+﻿using AnimalRescue.Contracts.Common.Interfaces.Attributes;
+
+using System;
 
 namespace AnimalRescue.DataAccess.Mongodb.Attributes
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    internal class CouplingPropertyNameAttribute : Attribute
+    public class CouplingPropertyNameAttribute : Attribute, IAliasName
     {
         public string AliasName { get; set; }
-        public CouplingPropertyNameAttribute(string name)
+        public bool IsMutable { get; set; }
+        public CouplingPropertyNameAttribute(string name, bool isMutable = true)
         {
             AliasName = name;
+            IsMutable = isMutable;
         }
     }
 }

@@ -1,107 +1,101 @@
-@import '../../styles/variables.scss';
-.button {
-  padding: 0;
-  border: none;
-  font: inherit;
-  color: inherit;
-  background-color: transparent;
-  cursor: pointer;
-  transition: $defaultHoverTransition;
-  &:active, &:focus {
-    outline: none;
+@import '../../styles/include-media';
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+@import '../../styles/base/mixins';
+@import '../../styles/base/helpers';
+
+// Button kinds color
+@mixin button-color($btn-background, $btn-color, $btn-border-color, $btn-hover-background, $btn-hover-color, $btn-hover-border-color) {
+  background: $btn-background;
+  color: $btn-color;
+  border-color: $btn-border-color;
+
+  &:hover {
+    background: $btn-hover-background;
+    color: $btn-hover-color;
+    border-color: $btn-hover-border-color;
   }
-  &::-moz-focus-inner {
-    border: 0;
+}
+
+.btn {
+  @include animate(color background-color border-color box-shadow);
+  display: inline-block;
+  vertical-align: top;
+  font-weight: 700;
+  border: 2px solid;
+  padding: 19px 40px;
+  box-shadow: 0 8px 24px rgba($blue, .5);
+  cursor: pointer;
+  border-radius: 37px;
+  letter-spacing: 0.1em;
+  line-height: 25px;
+
+  &:active,
+  &:focus {
+    outline: none;
+
   }
 
-  &.blue{
-    background: $btn-blue;
-    color: $main-bg-color;
-    border-radius: 4.81rem;
-    text-align: center;
-    padding: 1rem 1.5rem;
-    letter-spacing: 0.1em;
-    min-width: 9.75rem;
-    box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
-    &:focus, &:hover{
-      background: $btn-hover!important;
-    }
-    &:active{
-      background: $btn-press!important;
-    }
-    &.btn-give{
-      box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
-      &:focus, &:hover{
-        box-shadow: 0 0.75rem 1.5rem rgba(62, 91, 157, 0.5);
-      }
-      &:active{
-        box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
-      }
-    }
+  &:hover {
+    box-shadow: 0 12px 24px rgba($blue, .5);
   }
-  &.yellow{
-    background:$text-color-active;
-    color: $main-bg-color;
-    border-radius: 4.81rem;
-    width: 11.25rem;
-    text-align: center;
-    padding: 1rem 0;
-    letter-spacing: 0.1em;
-    box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
-    &:focus, &:hover{
-      background: $btn-hover!important;
-      box-shadow: 0 0.75rem 1.5rem rgba(62, 91, 157, 0.5);
-    }
-    &:active{
-      background: $btn-press!important;
-      box-shadow: 0 0.5rem 1.5rem rgba(62, 91, 157, 0.5);
-    }
-  }
-  &.blue-circle, &.white-circle {
-    background-color: $btn-blue;
-    box-shadow: 0px 4px 16px rgba(62, 91, 157, 0.5);
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &:after {
-      content: '';
-      background: url("../../assets/header/vector.svg") no-repeat center;
-      width: 17px;
-      height: 13.75px;
-    }
-    &:hover, &:focus {
-      background-color: $text-color-active;
-    }
-  }
-  &.white-circle {
-    background-color: $bg-lite-box;
-    &:after {
-      background-image: url("../../img/icons/arrow-yellow.png");
-    }
-    &:hover, &:focus {
-      background-color: $btn-blue;
-    }
-  }
-  &.close {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background: $main-bg-color;
-    &:before, &:after {
-      position: absolute;
-      content: '';
-      width: 0.1rem;
-      height: 1.1rem;
-      background:$text-lite-color;
-      transform:  translate(-50%, -50%) rotate(45deg);
-      left: 50%;
-      top:50%;
-    }
-    &:after {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
 }
+
+.btn-blue {
+  @include button-color($blue, $gray-light, $blue, $green, $gray-light, $green);
+
+  &:active,
+  &:focus {
+    background-color: $green-dark;
+    border-color: $green-dark;
+  }
+
+  &-outline {
+    @include button-color($white, $blue, $blue, $blue, $gray-light, $blue);
+  }
+}
+
+.btn-yellow {
+  @include button-color($yellow, $gray-light, $yellow, $green, $gray-light, $green);
+
+  &:active,
+  &:focus {
+    background-color: $green-dark;
+    border-color: $green-dark;
+  }
+
+  &-outline {
+    @include button-color($white, $yellow, $yellow, $yellow, $gray-light, $yellow);
+  }
+}
+
+.btn-white {
+  @include button-color($gray-light, $yellow, $gray-light, $blue, $yellow, $blue);
+}
+
+.btn-circle {
+  @include size(40px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  padding: 0;
+  border: 0;
+  box-shadow: 0 4px 16px rgba($blue, .5);
+
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 0 4px 16px rgba($blue, .5);
+  }
+}
+
+.btn-close {
+  &:before {
+    @include size(14px);
+    @extend %icomoon;
+    content: "\e90e";
+    font-size: 14px;
+    color: $text-lite-color;
+  }
 }

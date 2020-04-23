@@ -9,6 +9,7 @@ import { sickAnimalsCheckAndLoadDefault } from '../Animals/store/selectors';
 import { IAnimalsListState } from '../Animals/store/state';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 import { Breadcrumbs } from '../../../components/Breadcrumbs';
+import Banner from  "../../../img/bg-banner-01.jpg";
 
 interface IPropTypes {
   clearAnimalsState: () => void;
@@ -40,14 +41,14 @@ export const ServiceWorkRules: React.FC<IPropTypes> = ({
   return (
     <React.Fragment>
       <div className='rules-page-holder'>
-        <div className='content'>
+        <div className='container'>
           <h1 className='title'>
             <TI18n keyStr='rulesPageTitle' default='Правила работы службы' />
           </h1>
-          <div className='banner'/>
+          <div className='banner' style={{backgroundImage: `URL(${Banner})`}} />
           <div className='rules-content'>
-            <div className='block-holder'>
-              <p className='description'>
+            <div className='page-description section-margin'>
+              <p>
                 <TI18n
                   keyStr='rulesMainText'
                   default='Мы никогда не знаем, когда животным может понадобиться срочная помощь, но знаем, что всегда должны быть готовы оказать ее. Команда службы спасения отвечает на вызовы в ситуациях, когда животным требуется защита.' />
@@ -98,11 +99,11 @@ export const ServiceWorkRules: React.FC<IPropTypes> = ({
                 </li>
               </ul>
               <div className='warning'>
-                <strong>
+                <h4>
                   <TI18n
                     keyStr='important'
                     default='Важно' />!
-              </strong>
+              </h4>
                 <p>
                   <TI18n
                     keyStr='rulesWarningText'

@@ -13,46 +13,46 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
     [BsonDiscriminator("animals")]
-    public class Animal : BaseAndTimeItem
+    public class Animal : BaseAndTimeItem, IImageIds
     {
         [CouplingPropertyName(animal.Number)]
-        [BsonElement("number")] 
-        public int Number { get; set; } 
-        
+        [BsonElement("number")]
+        public int Number { get; set; }
+
         [CouplingPropertyName(common.Name)]
-        [BsonElement("name")]     
+        [BsonElement("name")]
         public string Name { get; set; }
 
         [CouplingPropertyName(animal.KindOfAnimal)]
-        [BsonElement("kindOfAnimal")] 
+        [BsonElement("kindOfAnimal")]
         public string KindOfAnimal { get; set; }
 
         [CouplingPropertyName(animal.Gender)]
-        [BsonElement("gender")] 
+        [BsonElement("gender")]
         public string Gender { get; set; }
 
         [CouplingPropertyName(common.Description)]
-        [BsonElement("description")] 
+        [BsonElement("description")]
         public string Description { get; set; }
 
         [CouplingPropertyName(animal.Age)]
-        [BsonElement("age")] 
+        [BsonElement("age")]
         public int Age { get; set; }
 
         [CouplingPropertyName(animal.DateOfFound)]
-        [BsonElement("dateOfFound")] 
+        [BsonElement("dateOfFound")]
         public DateTime DateOfFound { get; set; }
 
         [CouplingPropertyName(animal.DateOfAdopted)]
-        [BsonElement("dateOfAdopted")] 
-        public DateTime? DateOfAdopted { get; set; } 
+        [BsonElement("dateOfAdopted")]
+        public DateTime? DateOfAdopted { get; set; }
 
         [CouplingPropertyName(common.ImageIds)]
-        [BsonElement("imageLinks")] 
+        [BsonElement("imageLinks")]
         public List<string> ImageIds { get; set; }
 
         [CouplingPropertyName(common.Tags)]
-        [BsonElement("tags")] 
+        [BsonElement("tags")]
         public List<string> Tags { get; set; }
 
 
@@ -71,5 +71,25 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(common.NewTags)]
         [BsonElement("newTags")]
         public List<NestedTag> NewTags { get; set; }
+
+        [CouplingPropertyName(animal.Status)]
+        [BsonElement("status")]
+        public WellKnownTag Status { get; set; }
+
+        [CouplingPropertyName(animal.LocationType)]
+        [BsonElement("locationType")]
+        public Location LocationType { get; set; }
+
+        [CouplingPropertyName(animal.LocationName)]
+        [BsonElement("locationName")]
+        public WellKnownTag LocationName { get; set; }
+
+        [CouplingPropertyName(animal.IsDonationActive)]
+        [BsonElement("isDonationActive")]
+        public bool IsDonationActive { get; set; }
+
+        [CouplingPropertyName(animal.BannerText)]
+        [BsonElement("bannerText")]
+        public string BannerText { get; set; }
     }
 }

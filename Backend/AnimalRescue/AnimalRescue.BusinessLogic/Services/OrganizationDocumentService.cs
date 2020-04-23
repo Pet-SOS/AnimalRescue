@@ -9,13 +9,15 @@ using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    class OrganizationDocumentService : IOrganizationDocumentService
+    class OrganizationDocumentService : 
+        IOrganizationDocumentService
     {
         private readonly IOrganizationDocumentRepository _orgDocRepository;
         private readonly IBucket _bucket;
@@ -46,7 +48,7 @@ namespace AnimalRescue.BusinessLogic.Services
             { Collection = result, TotalCount = totalNumberOf };
         }
 
-        public async Task<GetDocumentsOrganizationViewItem> CreateAsync(UploadDocumentModel model, string userId)
+        public async Task<GetDocumentsOrganizationViewItem> CreateAsync(UploadDocumentModel model, Guid userId)
         {
             Require.Objects.NotNull<BadRequestException>(model, "Failed to save document. Probably document is not uploaded.");
 
@@ -54,7 +56,7 @@ namespace AnimalRescue.BusinessLogic.Services
             {
                 BucketId = model.Id.ToString(),
                 Name = model.FileName,
-                CreatedBy = userId,
+                CreatedBy = userId.ToString(),
             };
 
             await _orgDocRepository.CreateAsync(orgDoc);
@@ -64,11 +66,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task DeleteAsync(Guid bucketId)
         {
-            var deletedResult = await _orgDocRepository.DeleteAsync(bucketId.ToString());
-
-            Require.Booleans.IsTrue<NotFoundException>(deletedResult,
-                "Failed to delete document. Probably document is not found.");
-
+            await _orgDocRepository.DeleteAsync(bucketId.ToString());
             await _bucket.RemoveFile(bucketId.AsObjectId());
         }
     }

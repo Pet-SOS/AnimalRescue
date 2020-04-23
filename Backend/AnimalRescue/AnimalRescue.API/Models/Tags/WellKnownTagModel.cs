@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using AnimalRescue.Contracts.Common.Constants;
+﻿using AnimalRescue.Contracts.Common.Constants;
+
 using Newtonsoft.Json;
+
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnimalRescue.API.Models.Tags
 {
-    public class WellKnownTagModel : BaseAndTimeModel
+    public class WellKnownTagModel : BaseAndTimeModel<string>
     {
         [JsonPropertyName(PropertyConstants.Common.Category)]
         [JsonProperty(PropertyConstants.Common.Category)]
@@ -22,5 +24,10 @@ namespace AnimalRescue.API.Models.Tags
         [JsonPropertyName(PropertyConstants.Common.Values)]
         [JsonProperty(PropertyConstants.Common.Values)]
         public List<LanguageValueModel> Values { get; set; }
+
+
+        [JsonPropertyName(PropertyConstants.BaseItem.IsDeletable)]
+        [JsonProperty(PropertyConstants.BaseItem.IsDeletable)]
+        public bool IsDeletable { get; set; }
     }
 }

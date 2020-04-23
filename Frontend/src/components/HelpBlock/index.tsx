@@ -52,12 +52,13 @@ export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, isLightMode, titl
                     </Button>
                   </div>
                 </div>
-
-              <BlockLink
-                  title={<TI18n keyStr="whereMoneyGo" default="Посмотреть, куда уйдут деньги" />}
-                  href={'/about/financial-reports'}
-                  isButtonHidden
-              />
+              <div className="wrap-link">
+                <BlockLink
+                    title={<TI18n keyStr="whereMoneyGo" default="Посмотреть, куда уйдут деньги" />}
+                    href={'/about/financial-reports'}
+                    isButtonHidden
+                />
+              </div>
             </div>
           </div>
         </div>

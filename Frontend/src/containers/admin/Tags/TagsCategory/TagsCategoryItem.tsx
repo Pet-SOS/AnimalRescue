@@ -21,20 +21,20 @@ export const TagsCategoryItem: React.FC<IPropTypes> = ({category, tags}) => {
       : '';
   }
   return (
-    <tr>
-      <td>{<TI18n keyStr={`${category}TagCategory`} default={category} locale={ELocales.ua}/>}</td>
-      <td>
-        {tags.map((tag, index) => (
-          <span key={index}>
-            {getTagName(tag.values, index === tags.length - 1)}
-          </span>
-        ))}
-      </td>
-      <td className='button-cell'>
-        <NavLink to={`/admin/tags/${category.toLowerCase()}`}>
-          Edit
-        </NavLink>
-      </td>
-    </tr>
+      <div className="с-item">
+          <div className="row">
+              <div className="col col-category">{<TI18n keyStr={`${category}TagCategory`} default={category} locale={ELocales.ua}/>}</div>
+              <div className="col col-value">
+                  {tags.map((tag, index) => (
+                      <span key={index}>{getTagName(tag.values, index === tags.length - 1)}</span>
+                  ))}
+              </div>
+              <div className="col col-edit">
+                  <NavLink to={`/admin/tags/${category.toLowerCase()}`}>
+                      Edit
+                  </NavLink>
+              </div>
+          </div>
+      </div>
   )
 }

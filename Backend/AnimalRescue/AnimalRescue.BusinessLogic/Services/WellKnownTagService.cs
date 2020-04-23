@@ -12,15 +12,19 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class WellKnownTagService : BaseService<WellKnownTagDto, WellKnownTag>, IWellKnownTagService
+    internal class WellKnownTagService : 
+        BaseService<WellKnownTagDto, WellKnownTag, string>, 
+        IWellKnownTagService
     {
         private readonly IWellKnownTagRepository _wellKnownTagRepository;
-        private readonly IMapper _mapper;
 
-        public WellKnownTagService(IWellKnownTagRepository repository, IMapper mapper) : base(repository, mapper)
+        public WellKnownTagService(
+            IWellKnownTagRepository wellKnownTagRepository,
+            IRecoverDataService recoverDataService,
+            IMapper mapper)
+            : base(wellKnownTagRepository, recoverDataService, mapper)
         {
-            _wellKnownTagRepository = repository;
-            _mapper = mapper;
+            _wellKnownTagRepository = wellKnownTagRepository;
         }
 
         public async Task<List<WellKnownTagDto>> WhereAsync(List<WellKnownTagDto> value)

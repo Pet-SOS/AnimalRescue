@@ -4,7 +4,8 @@ namespace AnimalRescue.Contracts.Common.Constants
 {
     public static class PropertyConstants
     {
-        public static IEnumerable<string> ArticleTypes(){
+        public static IEnumerable<string> ArticleTypes()
+        {
             yield return EntityType.Article;
             yield return EntityType.Blog;
             yield return EntityType.Story;
@@ -34,11 +35,15 @@ namespace AnimalRescue.Contracts.Common.Constants
         {
             public const string FirstName = "firstName";
             public const string LastName = "lastName";
-            public const string Phone = "phone";
+            public const string Phone = "phoneNumber";
             public const string Email = "email";
             public const string Emails = "emails";
+            public const string Address = "address";
             public const string Addresses = "addresses";
-       }
+            public const string Birthday = "birthday";
+            public const string ProfilePhoto = "profilePhoto";
+            public const string LastPasswordChange = "lastPasswordChange";
+        }
 
         public static class Animal
         {
@@ -51,6 +56,11 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string CoverImage = "coverImage";
             public const string Birthday = "birthday";
             public const string Character = "character";
+            public const string Status = "status";
+            public const string LocationType = "locationType";
+            public const string LocationName = "locationName";
+            public const string IsDonationActive = "isDonationActive";
+            public const string BannerText = "bannerText";
         }
 
         public static class Common
@@ -75,6 +85,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Type = "type";
             public const string BlogType = "blogType";
             public const string ContentType = "contentType";
+            public const string Price = "price";
         }
 
         public static class BaseItem
@@ -85,6 +96,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string CreatedBy = "createdBy";
             public const string ModifiedBy = "modifiedBy";
             public const string IsDeleted = "isDeleted";
+            public const string IsDeletable = "isDeletable";
         }
 
         public static class FinancialReport
@@ -92,6 +104,14 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string File = "file";
             public const string FileId = "fileId";
             public const string Date = "date";
+        }
+
+        public static class UserRole
+        {
+            public const string Admin = "Admin";
+            public const string Operator = "Operator";
+            public const string Rescuer = "Rescuer";
+            public const string Media = "Media";
         }
     }
 }

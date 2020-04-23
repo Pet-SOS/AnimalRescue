@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using AnimalRescue.API.Models.Locations;
+using AnimalRescue.API.Models.Tags;
+
+using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Animals
 {
-    public class AnimalModel : BaseAndTimeModel
+    public class AnimalModel : BaseAndTimeModel<Guid>
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]
@@ -54,5 +57,25 @@ namespace AnimalRescue.API.Models.Animals
         [JsonPropertyName(animal.Character)]
         [JsonProperty(animal.Character)]
         public string Character { get; set; }
+
+        [JsonPropertyName(animal.Status)]
+        [JsonProperty(animal.Status)]
+        public WellKnownTagModel Status { get; set; }
+
+        [JsonPropertyName(animal.LocationType)]
+        [JsonProperty(animal.LocationType)]
+        public LocationModel LocationType { get; set; }
+
+        [JsonPropertyName(animal.LocationName)]
+        [JsonProperty(animal.LocationName)]
+        public WellKnownTagModel LocationName { get; set; }
+
+        [JsonPropertyName(animal.IsDonationActive)]
+        [JsonProperty(animal.IsDonationActive)]
+        public bool IsDonationActive { get; set; }
+
+        [JsonPropertyName(animal.BannerText)]
+        [JsonProperty(animal.BannerText)]
+        public string BannerText { get; set; }
     }
 }

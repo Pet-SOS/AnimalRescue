@@ -3,7 +3,7 @@ import './index.scss';
 import { Button } from '../Button';
 import { store } from './../../store/index'
 import cn from 'classnames';
-import { onAnimalFavoriteButtonClicked, actionFetchFavoriteAnimalsRequest } from '../../containers/client/Animals/store/actions';
+import { onAnimalFavoriteButtonClicked } from '../../containers/client/Animals/store/actions';
 import { useSelector, shallowEqual } from 'react-redux';
 import { selectFavoriteAnimalsIds } from '../../containers/client/Animals/store/selectors';
 
@@ -21,5 +21,5 @@ export const ButtonLike: React.FC<IPropTypes> = ({ id }: IPropTypes) => {
   const isActive = (): boolean => {
     return !!id && favoriteAnimalsIds.includes(id);
   }
-  return <Button className={cn('like', { active: isActive()})} onClick={onLikeClick} />
+  return <Button className={cn('btn-circle like', { active: isActive()})} onClick={onLikeClick} />
 }

@@ -16,26 +16,35 @@ export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, text
                       styleType={ButtonTypes.Close}
                       onClick={() => store.dispatch(actionIsActivePopup(false)) }
                     />
-                    <div className="title">{title}</div>
+                    <h2>{title}</h2>
                     <div className='pets'>
                     {boxImages.map((item: string, index: number)=> <img src={item} className={`bg-image${index} pet`} key={index} alt='pets'/>)}
                     </div>
                 </div>
                 <div className="second-block">
                     <p>{textFirst}</p>
+                    {!!card &&
                     <div className="bank-card">
                         <div className="bank-card-info">
                             <p className='card'>{card}</p>
                             <p>{cardName}</p>
                         </div>
                         <CopyToClipboard text={card} className="copy-to-clipboard">
-                            <img src={copyImage} alt="copy"/>
+                            <button>
+                                <i className="icon-copy">
+                                    <span className="path1">icon</span>
+                                    <span className="path2">icon</span>
+                                    <span className="path3">icon</span>
+                                    <span className="path4">icon</span>
+                                </i>
+                            </button>
                         </CopyToClipboard>
                     </div>
+                    }
                     <p>{textSecond}</p>
                     <ul>
-                        <li><span></span>{textThird}</li>
-                        <li><span></span>{textThirdTwo}</li>
+                        <li><span>{textThird}</span></li>
+                        <li><span>{textThirdTwo}</span></li>
                     </ul>
                 </div>
                 

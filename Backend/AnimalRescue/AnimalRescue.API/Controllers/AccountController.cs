@@ -28,7 +28,7 @@ namespace AnimalRescue.API.Controllers
         [Route("signIn")]
         public async Task<IActionResult> SignIn([FromBody] SignInAccountAuthorizationViewModel model)
         {
-            var authData = await _accountService.SignIn(model);
+            var authData = await _accountService.SignInAsync(model);
             if (authData is null)
             {
                 return BadRequest("Authorization failed");

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using AnimalRescue.Contracts.BusinessLogic.Models;
+﻿using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Models;
-
 using AutoMapper;
-
 using System.Linq;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles

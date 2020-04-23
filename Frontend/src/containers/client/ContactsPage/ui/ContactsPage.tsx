@@ -9,6 +9,9 @@ import  defaultText  from '../../../../i18n/translations/ru';
 import '../styles/contactsPage.scss';
 import { IInfoCard, IInfoContacts } from '../../Home/store/state';
 import { IAnimalsListState } from '../../Animals/store/state';
+import Icon from "../../../../components/Icon";
+import {ReactComponent as InstagramLogo} from "../../../../assets/header/instagram.svg";
+import {SocialLinks} from "../../../../components/SocialLinks";
 
 interface IPropTypes {
   sickAnimalsList: IAnimalsListState,
@@ -29,46 +32,47 @@ export class ContactsPage extends React.Component<IPropTypes> {
     }
     render(){
         return (
-            <div className='contacts'>
-                <div className="content">
-                        <div className="title"><TI18n keyStr="contactsTitle" default={defaultText.contactsTitle} /></div>
-                        <div className='info'>
-                            <div className='box-info'>
-                                <p className='contacts-box'>{this.props.infoContacts.data.phones[0]}</p>
-                                <p className='contacts-tex'><TI18n keyStr="contactsHelp" default={defaultText.contactsHelp} /></p>
-                                <p className='contacts-tex'><TI18n keyStr="contactsRoundTheClock" default={defaultText.contactsRoundTheClock} /></p>
+            <div className='contacts-page'>
+                <div className="container">
+                        <h2 className="title"><TI18n keyStr="contactsTitle" default={defaultText.contactsTitle} /></h2>
+                        <div className='list-contacts'>
+                            <div className='item-contacts'>
+                                <address>
+                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[0]}</p>
+                                </address>
+                                <span className="descriptions-contacts">
+                                    <TI18n keyStr="contactsHelp" default={defaultText.contactsHelp} /><br />
+                                    <TI18n keyStr="contactsRoundTheClock" default={defaultText.contactsRoundTheClock} />
+                                </span>
                             </div>
-                            <div className='box-info'>
-                                <p className='contacts-box'>{this.props.infoContacts.data.phones[1]}</p>
-                                <p className='contacts-box'>{this.props.infoContacts.data.phones[2]}</p>
-                                <p className='contacts-tex'><TI18n keyStr="contactsAdoptionIssues" default={defaultText.contactsAdoptionIssues} /></p>
+                            <div className='item-contacts'>
+                                <address>
+                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[1]}</p>
+                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[2]}</p>
+                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[3]}</p>
+                                </address>
+                                <span className="descriptions-contacts"><TI18n keyStr="contactsAdoptionIssues" default={defaultText.contactsAdoptionIssues} /></span>
                             </div>
-                            <div className='box-info'>   
-                                <p className='contacts-box'>{this.props.infoContacts.data.emails.animalRescue1}</p>
-                                <p className='contacts-tex'><TI18n keyStr="contactsemail" default={defaultText.contactsemail} /></p>
+                            <div className='item-contacts'>
+                                <address>
+                                    <p className='contacts-box'>{this.props.infoContacts.data.emails.animalRescue1}</p>
+                                </address>
+                                <span className="descriptions-contacts"><TI18n keyStr="contactsemail" default={defaultText.contactsemail} /></span>
                             </div>
                         </div>
-                        <div className="title smaller"> <TI18n keyStr="contactsOffice" default={defaultText.contactsOffice}/></div>
-                        <div className="box-social-link">
-                            <div className='box-info'>
-                                <p className='contacts-box smaller'>{
+                        <div className="hold-address">
+                            <div className="box-address">
+                                <h4> <TI18n keyStr="contactsOffice" default={defaultText.contactsOffice}/></h4>
+                                <p>{
                                     `${this.props.infoContacts.data.addresses.country}, 
                                     ${this.props.infoContacts.data.addresses.town}, 
                                     ${this.props.infoContacts.data.addresses.street}
                                     `}</p>
-                                <p className='contacts-tex'><TI18n keyStr="contactsWarning" default={defaultText.contactsWarning} /></p>
+                                <span className="descriptions-contacts"><TI18n keyStr="contactsWarning" default={defaultText.contactsWarning} /></span>
                             </div>
-                           <div className='main-social-link'>
-                                <div className='social-link'>
-                                <a href={this.props.infoContacts.data.socialLinks.facebook} target="_blank" rel="noopener noreferrer"><Facebook/><p>Facebook</p></a>
-                                </div>
-                                <div className='social-link'>
-                                <a href={this.props.infoContacts.data.socialLinks.instagram} target="_blank" rel="noopener noreferrer"><Instagram/><p>Instagram</p></a>
-                                </div>
-                                <div className='social-link'>
-                                <a href={this.props.infoContacts.data.socialLinks.youtube} target="_blank" rel="noopener noreferrer"><Youtube/><p>Youtube</p></a>
-                                </div>
-                           </div>
+                            <div className='main-social-link'>
+                                <SocialLinks />
+                            </div>
                         </div>
                         <div className="map">
                             <iframe

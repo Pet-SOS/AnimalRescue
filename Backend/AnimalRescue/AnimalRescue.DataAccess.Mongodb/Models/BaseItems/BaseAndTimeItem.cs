@@ -10,7 +10,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
 {
     public class BaseAndTimeItem  : BaseItem, IBaseAuditItem
     {
-        [CouplingPropertyName(baseItem.CreatedAt)]
+        [CouplingPropertyName(baseItem.CreatedAt, false)]
         [BsonElement("createdAt")]
         public DateTime CreatedAt { get; set; }
 
@@ -18,7 +18,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
         [BsonElement("modifiedAt")]
         public DateTime? ModifiedAt { get; set; }
 
-        [CouplingPropertyName(baseItem.CreatedBy)]
+        [CouplingPropertyName(baseItem.CreatedBy, false)]
         [BsonElement("createdBy")]
         public string CreatedBy { get; set; }
 
@@ -29,6 +29,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.BaseItems
         [CouplingPropertyName(baseItem.IsDeleted)]
         [BsonElement("isDeleted")]
         public bool IsDeleted { get; set; }
+
+        [CouplingPropertyName(baseItem.IsDeletable)]
+        [BsonElement("isDeletable")]
+        public bool IsDeletable { get; set; }
 
         public BaseAndTimeItem()
         {

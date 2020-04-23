@@ -1,0 +1,274 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.section-table {
+    header {
+        margin: 0;
+        background-color: $bg-lite-box;
+        border: 1px solid #DBDADB;
+        border-radius: 4px;
+        padding: 11px 16px;
+        color: $text-lite-color;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -8px;
+
+        @include media('≤phone') {
+            margin: 0 -4px;
+        }
+    }
+
+    .col {
+        width: 100%;
+        min-height: 1px;
+        padding: 0 8px;
+
+        @include media('≤phone') {
+            padding: 0 4px;
+        }
+    }
+}
+
+.section-animals {
+    > header {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .search-animals {
+        max-width: 340px;
+        position: relative;
+        padding: 16px 0;
+
+        @include media('≤phone') {
+            padding: 8px 0 16px;
+        }
+
+        @include media('≤xs-phone') {
+            max-width: none;
+        }
+
+        input {
+            width: 100%;
+            padding-right: 48px;
+        }
+
+        button {
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            font-size: 0;
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            &:before {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        @include media('≤phone') {
+            position: static;
+            margin-bottom: 16px;
+        }
+    }
+
+    .box-pagination {
+        justify-content: flex-end;
+    }
+}
+
+.a-list {
+
+    .a-item {
+        border: 1px solid $btn-border;
+        border-radius: 4px;
+        padding: 10px 16px;
+        border-top: 0;
+
+        @include media('≤phone') {
+            font-size: 16px;
+            line-height: 18px;
+            padding: 10px 8px;
+        }
+
+        &:first-child {
+            @include media('≤phone') {
+                border: 1px solid $btn-border;
+            }
+        }
+
+        .name {
+            @include media('≤phone') {
+                font-size: 18px;
+                line-height: 1.33333;
+            }
+        }
+        
+        .num {
+            color: $text-lite-color;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    }
+
+    .row {
+        align-items: center;
+
+        @include media('≤phone') {
+            align-items: stretch;
+        }
+    }
+
+    .visual {
+        padding-top: 75%;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+
+    i {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 0;
+        cursor: pointer;
+
+        &:before {
+            font-size: 24px;
+        }
+    }
+}
+
+.animals-table {
+    line-height: 1.33;
+
+    header {
+        @include media('≤phone') {
+            display: none;
+        }
+    }
+
+    .col {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+    }
+
+    .col-btn {
+        font-size: 0;
+    }
+
+    .col-image {
+        flex-basis: 10.19%;
+        max-width: 10.19%;
+
+        @include media('≤phone') {
+            flex-basis: 96px;
+            max-width: 96px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .col-name {
+        flex-basis: 13.38%;
+        max-width: 13.38%;
+
+        @include media('≤phone') {
+            flex-basis: auto;
+            max-width: none;
+            width: calc(100% - 96px);
+            flex-grow: 1;
+            margin-bottom: 12px;
+        }
+    }
+
+    .col-type {
+        flex-basis: 10.72%;
+        max-width: 10.72%;
+
+        @include media('≤phone') {
+            display: none;
+        }
+    }
+
+    .col-gender {
+        flex-basis: 12.85%;
+        max-width: 12.85%;
+
+        @include media('≤phone') {
+            display: none;
+        }
+    }
+
+    .col-age {
+        flex-basis: 13.9%;
+        max-width: 13.9%;
+
+        @include media('≤phone') {
+            display: none;
+        }
+    }
+
+    .col-location {
+        flex-basis: 18.15%;
+        max-width: 18.15%;
+
+        @include media('≤phone') {
+            display: none;
+        }
+    }
+
+    .col-status {
+        flex-basis: 16.56%;
+        max-width: 16.56%;
+
+        @include media('≤phone') {
+            flex-basis: auto;
+            max-width: none;
+            width: auto;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: top;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #DFECFE;
+            color: #3E5B9D;
+        }
+    }
+
+    .col-btn {
+        flex-basis: 4.25%;
+        max-width: 4.25%;
+
+        @include media('≤phone') {
+            flex-basis: auto;
+            max-width: none;
+            width: auto;
+            margin-left: auto;
+        }
+    }
+
+    .add-info {
+        display: none;
+
+        @include media('≤phone') {
+            display: block;
+            color: $text-lite-color;
+        }
+    }
+}

@@ -6,6 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -45,7 +46,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<TagModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<TagDto, TagModel>(_tagService, id, _mapper);
+            return await GetItemAsync<TagDto, TagModel, Guid>(_tagService, id, _mapper);
         }
 
         [HttpGet]
@@ -62,7 +63,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<TagModel>> CreateItemAsync([FromForm] TagCreateUpdateModel tagCreateModel)
         {
-            return await CreatedItemAsync<TagDto,TagCreateUpdateModel,TagModel>(_tagService, tagCreateModel, _mapper);
+            return await CreatedItemAsync<TagDto,TagCreateUpdateModel,TagModel, Guid>(_tagService, tagCreateModel, _mapper);
         }
 
         [HttpPut("{id}")]

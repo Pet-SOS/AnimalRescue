@@ -13,6 +13,8 @@ import { watchYouTubeVideosActions } from './youtube-videos.saga';
 import { watchLoginRequestHomePage } from '../../containers/admin/Login/store/saga';
 import { watchConfig } from './config.saga';
 import { watchTags } from './tags.saga';
+import { watchSnackbar } from './snackbar.saga';
+import { watchOrganizationDocuments } from './organizationDocuments.saga';
 
 export function* appSaga() {
     try {
@@ -27,9 +29,11 @@ export function* appSaga() {
           watchVacancies(),
           watchAnimalItem(),
           watchFinancialReport(),
+          watchOrganizationDocuments(),
           watchYouTubeVideosActions(),
           watchLoginRequestHomePage(),
           watchTags(),
+          watchSnackbar(),
         ]);
     } catch (e) {
         logger.error(e);

@@ -5,8 +5,6 @@ import { ICustomAppState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { actionFetchSickAnimals, actionFetchAnimalsRequest } from '../Animals/store/actions';
 import { actionFetchInfoCard, actionFetchInfoContacts } from '../Home/store/actions';
-import { IRequestParams } from '../../../api/requestOptions';
-import { selectAnimalsList } from '../Animals/store/selectors';
 
 
 

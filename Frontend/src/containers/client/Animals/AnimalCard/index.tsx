@@ -16,6 +16,7 @@ interface IPropTypes {
 
 export const AnimalCard: React.FC<IPropTypes> = ({ animal }) => {
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
+  console.log(baseUrl,'baseUrl');
   return (
     <div className="animal-card">
       <ButtonLike id={animal.id} />

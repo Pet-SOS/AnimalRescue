@@ -72,11 +72,14 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
                 .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
                 .AddSingleton<IQueryBuilder<WellKnownTag>, QueryBuilder<WellKnownTag>>()
+                .AddSingleton<IQueryBuilder<Sequence>, QueryBuilder<Sequence>>()
                 .AddSingleton<IQueryBuilder<Employee>, QueryBuilder<Employee>>()
                 .AddSingleton<IQueryBuilder<FinancialReport>, QueryBuilder<FinancialReport>>()
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>()
                 .AddSingleton<IQueryBuilder<SecurityToken>, QueryBuilder<SecurityToken>>()
-                .AddSingleton<IQueryBuilder<OrganizationDocument>, QueryBuilder<OrganizationDocument>>();
+                .AddSingleton<IQueryBuilder<OrganizationDocument>, QueryBuilder<OrganizationDocument>>()
+                .AddSingleton<IQueryBuilder<Location>, QueryBuilder<Location>>()
+                .AddSingleton<IQueryBuilder<ApplicationUser>, QueryBuilder<ApplicationUser>>();
 
             services
                 .AddScoped<IMongoDatabase>(x => database)
@@ -86,9 +89,11 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IBaseCollection<Employee>, BaseCollection<Employee>>()
                 .AddScoped<IBaseCollection<Article>, BaseCollection<Article>>()
                 .AddScoped<IBaseCollection<FinancialReport>, BaseCollection<FinancialReport>>()
+                .AddScoped<IBaseCollection<Location>, BaseCollection<Location>>()
 
                 .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
                 .AddScoped<IBaseCollection<WellKnownTag>, BaseCollection<WellKnownTag>>()
+                .AddScoped<IBaseCollection<Sequence>, BaseCollection<Sequence>>()
 
                 .AddScoped<IBaseCollection<Configuration<Contacts>>, BaseCollection<Configuration<Contacts>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
@@ -96,8 +101,10 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<IArticleRepository, ArticleRepository>()
                 .AddScoped<ITagRepository, TagRepository>()
+                .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                .AddScoped<ILocationRepository, LocationRepository>()
                 .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();
 
             services.AddScoped<IBaseCollection<SecurityToken>, BaseCollection<SecurityToken>>()
@@ -105,6 +112,8 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             services.AddScoped<IBaseCollection<OrganizationDocument>, BaseCollection<OrganizationDocument>>()
                 .AddScoped<IOrganizationDocumentRepository, OrganizationDocumentRepository>();
+            services.AddScoped<IBaseCollection<ApplicationUser>, BaseCollection<ApplicationUser>>()
+                .AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

@@ -82,7 +82,7 @@ export class LoginComponent extends React.Component <IPropTypes, IState>{
                                         Введені електронна адреса або пароль невірні. Будь ласка, спробуйте ще раз.
                                     </span>
                                 </div>
-                                <div className="form-row wrap-button"><button className="button blue" type="submit" onSubmit={(e)=>this.handleSubmit(e)}>Увійти</button></div>
+                                <div className="form-row wrap-button"><button className="btn btn-blue" type="submit" onSubmit={(e)=>this.handleSubmit(e)}>Увійти</button></div>
                                 <a href="#" className="recover-psw">Відновити пароль</a>
                             </form>
                         </div>

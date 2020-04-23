@@ -6,21 +6,26 @@ using AnimalRescue.Infrastructure.Utilities;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class TagService : BaseService<TagDto, Tags>, ITagService
+    internal class TagService :
+        BaseService<TagDto, Tags, Guid>, 
+        ITagService
     {
         private readonly ITagRepository _tagRepository;
-        private readonly IMapper _mapper;
 
-        public TagService(ITagRepository repository, IMapper mapper) : base(repository, mapper)
+        public TagService(
+            ITagRepository repository,
+            IRecoverDataService recoverDataService,
+            IMapper mapper)
+            : base(repository, recoverDataService, mapper)
         {
             _tagRepository = repository;
-            _mapper = mapper;
         }
 
         public async Task CreateAsync(IEnumerable<TagDto> tagDto)

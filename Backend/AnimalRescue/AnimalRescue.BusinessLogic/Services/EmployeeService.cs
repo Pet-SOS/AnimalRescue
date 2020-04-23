@@ -5,12 +5,19 @@ using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
 
+using System;
+
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class EmployeeService : BaseService<EmployeeDto, Employee>, IBlFullCrud<EmployeeDto, EmployeeDto>
+    internal class EmployeeService :
+        BaseService<EmployeeDto, Employee, Guid>, 
+        IBlFullCrud<EmployeeDto, EmployeeDto, Guid>
     {
-        public EmployeeService(IEmployeeRepository repository, IMapper mapper) 
-            : base(repository, mapper)
+        public EmployeeService(
+            IEmployeeRepository repository,
+            IRecoverDataService recoverDataService,
+            IMapper mapper)
+            : base(repository, recoverDataService, mapper)
         {
         }  
     }

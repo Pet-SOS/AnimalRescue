@@ -17,8 +17,8 @@ export const BtnPagination: React.FC<any> = ({pageCount, setProps, goToPaginatio
     }
     const startPagination = arrForPage[0];
     const endPagination = arrForPage[arrForPage.length -1]
+    
     const { match } = setProps;
-
     const goToStepPrev=()=> {
         if((match.params && match.params.page) > startPagination){
             const urlPage = +match.params.page-1;

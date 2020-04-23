@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces
 {
     public interface IBaseCollection<T>
-        where T : BaseItem
+        where T : IBaseAuditItem
     {
         IMongoCollection<T> Collection { get; }
         IMongoCollection<BsonDocument> NativeCollection { get; }
@@ -21,6 +21,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces
         Task<IEnumerable<T>> CreateAsync(IEnumerable<T> instances);
         Task CreateAsync(BsonDocument instance);
         Task UpdateAsync(T instance);
-        Task<bool> DeleteAsync(string id);
+        Task DeleteAsync(string id);
     }
 }

@@ -7,5 +7,6 @@
         public const string InvalidParameter = "invalid_parameter";
         public const string InvalidAuthorization = "invalid_authorization";
         public const string NotFound = "not_found";
+        public const string ForbiddenOperation = "forbidden_operation";
     }
 }

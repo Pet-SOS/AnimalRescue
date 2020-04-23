@@ -4,7 +4,6 @@
 @import './../../styles/base/mixins';
 
 .section-help {
-  background: $bg-lite-gray;
   padding: 0 0 5rem;
 
   @include media('≤tablet') {
@@ -72,6 +71,7 @@
       @include media('≤tablet') {
         display: block;
         text-align: center;
+        margin-bottom: 24px;
       }
 
       @include media('≤phone') {
@@ -86,7 +86,7 @@
     height: 100%;
 
     @include media('≤tablet') {
-      width: 412px;
+      width: 552px;
       margin: 67px auto 0;
       display: block;
       text-align: center;
@@ -98,6 +98,8 @@
     }
 
     h2 {
+      margin-bottom: 54px;
+
       @include media('≤tablet') {
         display: none;
       }
@@ -181,12 +183,7 @@
       }
     }
 
-    .button {
-      font-size: 18px;
-      line-height: 25px;
-      padding: 21px 40px;
-      width: auto;
-      font-style: normal;
+    .btn {
       position: absolute;
       top: 100%;
       right: 40px;
@@ -199,14 +196,19 @@
     }
   }
 
-  .default-block-link {
-    justify-content: flex-end;
-    margin-top: auto;
+  .wrap-link {
+    text-align: right;
 
     @include media('≤tablet') {
       text-align: center;
-      display: inline-block;
-      vertical-align: top;
+    }
+  }
+
+  .default-block-link {
+    display: inline-block;
+    vertical-align: top;
+
+    @include media('≤tablet') {
       margin-bottom: 8px;
     }
   }
