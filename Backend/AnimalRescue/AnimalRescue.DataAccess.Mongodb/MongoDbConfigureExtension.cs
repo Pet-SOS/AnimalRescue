@@ -1,6 +1,7 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Migrations;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
@@ -18,6 +19,7 @@ using MongoDB.Driver;
 using MongoDbGenericRepository;
 
 using System;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
 {
@@ -115,5 +117,9 @@ namespace AnimalRescue.DataAccess.Mongodb
             services.AddScoped<IBaseCollection<ApplicationUser>, BaseCollection<ApplicationUser>>()
                 .AddScoped<IUserRepository, UserRepository>();
         }
+
+        public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider) =>
+            await MigrationConfiguration.ConfigureMigrationsAsync(serviceProvider);
+
     }
 }
