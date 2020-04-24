@@ -21,6 +21,7 @@ import './index.scss';
 import { Age } from '../../../../components/Age';
 import { selectApiUrl } from '../../../../store/selectors/config.selector';
 import { BlockLink } from '../../../../components/BlockLink';
+import { TagTranslation } from '../../../../components/TagTranslation';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -66,7 +67,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
         {
           filter: {
             fieldName: 'kindOfAnimal',
-            opeartor: RequestFilterOperators.ALL,
+            opeartor: RequestFilterOperators.EQ,
             value: animalItem.data.kindOfAnimal
           }
         } :
@@ -93,11 +94,6 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       text: <TI18n keyStr="rulesHowToAdoptListItemText4" default="Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно." />
     }
   ];
-
-  const capitalizedString = (str: string): string => {
-    const newStr: string = str.trim().toLowerCase();
-    return !!newStr ? `${newStr[0].toUpperCase()}${newStr.slice(1)}` : newStr;
-  }
 
   const getCurrentTags = (tagType?: TagTypes): string[] => {
     const arrToFilter: string[] = tagType === TagTypes.MEDICAL ? defaultMedicalTags : tagType === TagTypes.ADDITIONAL ? defaultAdditionalTags : [];
@@ -141,15 +137,15 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                       &nbsp;{animalItem.data.number}
                     </span>
                     <div className='gender-age'>
-                      {!!animalItem.data.gender && (
-                          <span className='gender'><TI18n keyStr={animalItem.data.gender} default={animalItem.data.gender} /></span>
+                      {!!animalItem.data.gender && (                          
+                          <span className='gender'><TagTranslation tagId={animalItem.data.gender} /></span>
                       )}
                       <Age birthday={animalItem.data.birthday} />
                     </div>
                     <ul className='tags-list'>
-                      {getCurrentTags().map((tag, index) => <li key={index}><span>{capitalizedString(tag)}</span></li>)}
-                      {getCurrentTags(TagTypes.MEDICAL).map((tag, index) => <li className='medical' key={index}><span><TI18n keyStr={tag} default={capitalizedString(tag)} /></span></li>)}
-                      {getCurrentTags(TagTypes.ADDITIONAL).map((tag, index) => <li className='additional' key={index}><span><i className="icon-footprint">icon</i><TI18n keyStr={tag} default={capitalizedString(tag)} /></span></li>)}
+                      {getCurrentTags().map((tag, index) => <li key={index}><TagTranslation tagId={tag} /></li>)}
+                      {getCurrentTags(TagTypes.MEDICAL).map((tag, index) => <li className='medical' key={index}><TagTranslation tagId={tag} /></li>)}
+                      {getCurrentTags(TagTypes.ADDITIONAL).map((tag, index) => <li className='additional' key={index}><span><i className="icon-footprint">icon</i><TagTranslation tagId={tag} /></span></li>)}
                     </ul>
                     <h4><TI18n keyStr='someHistory' default='Немного истории' /></h4>
                     <p>{animalItem.data.description}</p>
