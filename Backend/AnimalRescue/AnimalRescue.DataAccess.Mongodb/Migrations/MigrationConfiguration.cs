@@ -10,13 +10,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Migrations
 {
     public static class MigrationConfiguration
     {
-        private const string DataFolder = "Data";
+        public static string ResourceDataFolder { get; } = "Data";
+
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider)
         {
             await SetUpDataBase<IWellKnownTagRepository, WellKnownTag>(
@@ -35,19 +38,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
             Func<TEntity, TEntity, bool> compareFunc)
 
         {
-            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
-            var directory = Path.GetDirectoryName(location);
-            string fullPath = Path.Combine(directory, DataFolder, fileName);
+            string content = GetResourceTextFile(fileName);
 
-            if (!File.Exists(fullPath))
+            if (string.IsNullOrWhiteSpace(content))
             {
                 return;
             }
 
-            string content = await File.ReadAllTextAsync(fullPath);
-
             List<TEntity> collection = JsonConvert.DeserializeObject<List<TEntity>>(content);
-            
+
             TRepository repository = serviceProvider.GetRequiredService<TRepository>();
             List<TEntity> existingCollection = await searchFunc(repository, collection);
             collection = collection
@@ -58,6 +57,32 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
             {
                 await createFunc(repository, collection);
             }
+        }
+        private static string GetResourceTextFile(string filename)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            try
+            {
+                using (Stream stream = typeof(MigrationConfiguration).Assembly
+                    .GetManifestResourceStream($"{Assembly.GetCallingAssembly().GetName().Name}.{ResourceDataFolder}.{filename}"))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            stringBuilder.Append(line);
+                        }
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.Message);
+                return null;
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
