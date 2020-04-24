@@ -11,15 +11,30 @@ services:
     ports:
       - "9595:80"
     environment:
+      - AdminDetail__Email=admin@animalrescue.com
+      - AdminDetail__Password=TestPassword123#
+      - AppSettings__JwtExpireHours=1
+      - AppSettings__JwtExpireDays=30
+      - AppSettings__JwtIssuer=http://localhost:9595/
+      - AppSettings__JwtAudience=localhost
+      - AppSettings__JwtKey=SOME_RANDOM_KEY_DO_NOT_SHARE
+      - AppSettings__FrontEndUrl=http://localhost:9090/
+      - Smtp__Host=smtp.gmail.com
+      - Smtp__Port=587
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=Animal Rescue
+      - Smtp__Email=anuitexmail@gmail.com
+      - Smtp__Username=anuitexmail@gmail.com
+      - Smtp__Password=Qwe123!2020
       - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
-      - MongoDbSettings__DatabaseName=AnimalRescue
+      - MongoDbSettings__DatabaseName=animal_rescue
+      - MongoDbSettings__BucketName=file_records
       - Logging__LogLevel__Default=Debug
       - Logging__LogLevel__Microsoft=Debug
       - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
-    links:
-      - mongodb
     depends_on:
       - mongodb
+      - rabbitmq
     networks:
       - frontend
       - backend
@@ -56,6 +71,11 @@ services:
       - mongodbdata:/data/db
     ports:
       - 27017:27017
+    networks:
+      - backend
+
+  rabbitmq:
+    image: 'bitnami/rabbitmq:3.8.3'
     networks:
       - backend
 

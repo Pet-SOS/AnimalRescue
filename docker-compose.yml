@@ -14,13 +14,29 @@ services:
       - frontend
       - backend
     environment:
+      - AdminDetail__Email=${admin_email}
+      - AdminDetail__Password=${admin_password}
+      - AppSettings__JwtExpireHours=1
+      - AppSettings__JwtExpireDays=30
+      - AppSettings__JwtIssuer=https://${api.hostname}/
+      - AppSettings__JwtAudience=${api.hostname}
+      - AppSettings__JwtKey=${JwtKey}
+      - AppSettings__FrontEndUrl=https://${portal.hostname}/
+      - Smtp__Host=${smtp_host}
+      - Smtp__Port=${smtp_port}
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=${smtp_displayname}
+      - Smtp__Email=${smtp_email}
+      - Smtp__Username=${smtp_username}
+      - Smtp__Password=${smtp_password}
       - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
       - MongoDbSettings__DatabaseName=${MongoDB_database}
-      - Logging__LogLevel__Default=Debug
-      - Logging__LogLevel__Microsoft=Debug
-      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft=Information
+      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
     depends_on:
       - mongodb
+      - rabbitmq
 
   portal:
     build:
@@ -54,9 +70,12 @@ services:
     ports:
       - 27017:27017
     networks:
-      backend:
-        aliases:
-          - mongdb.synapse.com
+      - backend
+
+  rabbitmq:
+    image: 'bitnami/rabbitmq:3.8.3'
+    networks:
+      - backend
 
 volumes:
   mongodbdata:
