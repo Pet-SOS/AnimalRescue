@@ -51,7 +51,12 @@
   }
 
   &-outline {
-    @include button-color($white, $blue, $blue, $blue, $gray-light, $blue);
+    @include button-color(transparent, $blue, $blue, $blue, $gray-light, $blue);
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 }
 
@@ -98,4 +103,11 @@
     font-size: 14px;
     color: $text-lite-color;
   }
+}
+
+.btn-sm {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 18px;
+  line-height: 24px;
 }

@@ -22,7 +22,6 @@ export const TagTranslation: React.FC<IPropTypes> = ({ tagId }: IPropTypes) => {
         const newLocal = !!currentTag && !!currentTag.length ? currentTag[0] : undefined;
         const translations = !!newLocal && newLocal.values.filter(t => t.lang === useLocale);
         const currentTranslation = !!translations && !!translations.length ? translations[0].value : '';
-        debugger
         return currentTranslation;
       }
     

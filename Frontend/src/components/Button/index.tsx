@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 
 export enum ButtonTypes {
   Blue = 'btn-blue',
+  BlueSmall = 'btn-blue btn-sm',
   Yellow ='btn-yellow',
   BlueOutline = 'btn-blue-outline',
+  BlueOutlineSmall = 'btn-blue-outline btn-sm',
   WhiteCircle = 'btn-circle btn-white',
   Close = 'btn-circle btn-close'
 }
