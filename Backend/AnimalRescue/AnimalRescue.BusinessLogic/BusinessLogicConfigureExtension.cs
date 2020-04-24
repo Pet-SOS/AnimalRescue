@@ -85,6 +85,7 @@ namespace AnimalRescue.BusinessLogic
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             CreateRolesAsync(serviceProvider, configuration).GetAwaiter().GetResult();
+            MongoDbConfigureExtension.ConfigureMigrationsAsync(serviceProvider).GetAwaiter().GetResult();
         }
 
         private static async Task CreateRolesAsync(IServiceProvider serviceProvider, IConfiguration configuration)

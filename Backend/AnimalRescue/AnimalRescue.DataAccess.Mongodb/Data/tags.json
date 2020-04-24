@@ -1,0 +1,577 @@
+﻿[
+  {
+    "category": "wildBreed",
+    "kindOfAnimal": "WILD",
+    "code": "WOLF",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "волк"
+      },
+      {
+        "lang": "ru",
+        "value": "волк"
+      },
+      {
+        "lang": "en",
+        "value": "wolf"
+      },
+      {
+        "lang": "de",
+        "value": "Wolf"
+      }
+    ],
+    "isDeletable": false,
+    "id": "WOLF"
+  },
+  {
+    "category": "kindOfAnimal",
+    "kindOfAnimal": "",
+    "code": "WILD",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Дика тварина"
+      },
+      {
+        "lang": "ru",
+        "value": "Дикое животное"
+      },
+      {
+        "lang": "en",
+        "value": "Wild animal"
+      },
+      {
+        "lang": "de",
+        "value": "Wildes Tier"
+      }
+    ],
+    "isDeletable": false,
+    "id": "WILD"
+  },
+  {
+    "category": "birdBreed",
+    "kindOfAnimal": "BIRD",
+    "code": "DOVE",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Голуб"
+      },
+      {
+        "lang": "en",
+        "value": "Dove"
+      },
+      {
+        "lang": "de",
+        "value": "Taube"
+      },
+      {
+        "lang": "ru",
+        "value": "Голубь"
+      }
+    ],
+    "isDeletable": false,
+    "id": "DOVE"
+  },
+  {
+    "category": "catBreed",
+    "kindOfAnimal": "CAT",
+    "code": "METIS",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Метис"
+      },
+      {
+        "lang": "en",
+        "value": "Metis"
+      },
+      {
+        "lang": "de",
+        "value": "Metis"
+      },
+      {
+        "lang": "ru",
+        "value": "Метис"
+      }
+    ],
+    "isDeletable": false,
+    "id": "CATMETIS"
+  },
+  {
+    "category": "dogBreed",
+    "kindOfAnimal": "dog",
+    "code": "METIS",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Метис"
+      },
+      {
+        "lang": "en",
+        "value": "Metis"
+      },
+      {
+        "lang": "de",
+        "value": "Metis"
+      },
+      {
+        "lang": "ru",
+        "value": "Метис"
+      }
+    ],
+    "isDeletable": false,
+    "id": "DOGMETIS"
+  },
+  {
+    "category": "location",
+    "kindOfAnimal": "",
+    "code": "SHELTER",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Притулок"
+      },
+      {
+        "lang": "en",
+        "value": "Shelter"
+      },
+      {
+        "lang": "de",
+        "value": "Schutz"
+      },
+      {
+        "lang": "ru",
+        "value": "Приют"
+      }
+    ],
+    "isDeletable": false,
+    "id": "SHELTER"
+  },
+  {
+    "category": "location",
+    "kindOfAnimal": "",
+    "code": "CLINIC",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Клініка"
+      },
+      {
+        "lang": "en",
+        "value": "Clinic"
+      },
+      {
+        "lang": "de",
+        "value": "Klinikum"
+      },
+      {
+        "lang": "ru",
+        "value": "Клиника"
+      }
+    ],
+    "isDeletable": false,
+    "id": "CLINIC"
+  },
+  {
+    "category": "gender",
+    "kindOfAnimal": "",
+    "code": "GIRL",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "дівчинка"
+      },
+      {
+        "lang": "en",
+        "value": "girl"
+      },
+      {
+        "lang": "de",
+        "value": "Mädchen"
+      },
+      {
+        "lang": "ru",
+        "value": "девочка"
+      }
+    ],
+    "isDeletable": false,
+    "id": "FEMALE"
+  },
+  {
+    "category": "gender",
+    "kindOfAnimal": "",
+    "code": "BOY",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "хлопчик"
+      },
+      {
+        "lang": "en",
+        "value": "boy"
+      },
+      {
+        "lang": "de",
+        "value": "Junge"
+      },
+      {
+        "lang": "ru",
+        "value": "мальчик"
+      }
+    ],
+    "isDeletable": false,
+    "id": "MALE"
+  },
+  {
+    "category": "status",
+    "kindOfAnimal": "",
+    "code": "DIED",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Помер"
+      },
+      {
+        "lang": "ru",
+        "value": "Умер"
+      },
+      {
+        "lang": "en",
+        "value": "Died"
+      },
+      {
+        "lang": "de",
+        "value": "Gestorbene"
+      }
+    ],
+    "isDeletable": false,
+    "id": "DIED"
+  },
+  {
+    "category": "status",
+    "kindOfAnimal": "",
+    "code": "ADOPTED",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Усиновлен"
+      },
+      {
+        "lang": "ru",
+        "value": "Усыновлен"
+      },
+      {
+        "lang": "en",
+        "value": "Adopted"
+      },
+      {
+        "lang": "de",
+        "value": "Angenommen"
+      }
+    ],
+    "isDeletable": false,
+    "id": "ADOPTED"
+  },
+  {
+    "category": "status",
+    "kindOfAnimal": "",
+    "code": "TREATMENT",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Лікування"
+      },
+      {
+        "lang": "ru",
+        "value": "Лечение"
+      },
+      {
+        "lang": "en",
+        "value": "Treatment"
+      },
+      {
+        "lang": "de",
+        "value": "Behandlung"
+      }
+    ],
+    "isDeletable": false,
+    "id": "TREATMENT"
+  },
+  {
+    "category": "status",
+    "kindOfAnimal": "",
+    "code": "SOCIALIZATION",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Соціалізація"
+      },
+      {
+        "lang": "ru",
+        "value": "Социализация"
+      },
+      {
+        "lang": "en",
+        "value": "Socialization"
+      },
+      {
+        "lang": "de",
+        "value": "Sozialisation"
+      }
+    ],
+    "isDeletable": false,
+    "id": "SOCIALIZATION"
+  },
+  {
+    "category": "kindOfAnimal",
+    "kindOfAnimal": "",
+    "code": "BIRD",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "птах"
+      },
+      {
+        "lang": "en",
+        "value": "bird"
+      },
+      {
+        "lang": "de",
+        "value": "Vogel"
+      },
+      {
+        "lang": "ru",
+        "value": "птица"
+      }
+    ],
+    "isDeletable": false,
+    "id": "BIRD"
+  },
+  {
+    "category": "kindOfAnimal",
+    "kindOfAnimal": "",
+    "code": "CAT",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "кіт"
+      },
+      {
+        "lang": "ru",
+        "value": "кот"
+      },
+      {
+        "lang": "en",
+        "value": "cat"
+      },
+      {
+        "lang": "de",
+        "value": "Kater"
+      }
+    ],
+    "isDeletable": false,
+    "id": "CAT"
+  },
+  {
+    "category": "kindOfAnimal",
+    "kindOfAnimal": "",
+    "code": "DOG",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "собака"
+      },
+      {
+        "lang": "ru",
+        "value": "собака"
+      },
+      {
+        "lang": "en",
+        "value": "dog"
+      },
+      {
+        "lang": "de",
+        "value": "Hund"
+      }
+    ],
+    "isDeletable": false,
+    "id": "DOG"
+  },
+  {
+    "category": "health",
+    "kindOfAnimal": "",
+    "code": null,
+    "values": [
+      {
+        "lang": "ru",
+        "value": "Готов к выезду заграницу"
+      },
+      {
+        "lang": "ua",
+        "value": "Готовий до виїзду закордон"
+      },
+      {
+        "lang": "en",
+        "value": "Ready to travel abroad"
+      },
+      {
+        "lang": "de",
+        "value": "Bereit ins Ausland zu reisen"
+      }
+    ],
+    "isDeletable": false,
+    "id": "READYTOABROAD"
+  },
+  {
+    "category": "dogsize",
+    "kindOfAnimal": "DOG",
+    "code": "MEDIUM",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Середній"
+      },
+      {
+        "lang": "en",
+        "value": "Medium"
+      },
+      {
+        "lang": "de",
+        "value": "Mittel"
+      },
+      {
+        "lang": "ru",
+        "value": "Средний"
+      }
+    ],
+    "isDeletable": false,
+    "id": "MEDIUM_DOG"
+  },
+  {
+    "category": "dogsize",
+    "kindOfAnimal": "DOG",
+    "code": "SMALL",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Маленький"
+      },
+      {
+        "lang": "en",
+        "value": "Small"
+      },
+      {
+        "lang": "de",
+        "value": "Klein"
+      },
+      {
+        "lang": "ru",
+        "value": "Маленький"
+      }
+    ],
+    "isDeletable": false,
+    "id": "SMALL_DOG"
+  },
+  {
+    "category": "dogsize",
+    "kindOfAnimal": "DOG",
+    "code": "LARGE",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Великий"
+      },
+      {
+        "lang": "en",
+        "value": "Large"
+      },
+      {
+        "lang": "de",
+        "value": "Groß"
+      },
+      {
+        "lang": "ru",
+        "value": "Большой"
+      }
+    ],
+    "isDeletable": false,
+    "id": "LARGE_DOG"
+  },
+  {
+    "category": "health",
+    "kindOfAnimal": null,
+    "code": "STERILIZED",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Стерилізован"
+      },
+      {
+        "lang": "ru",
+        "value": "Стерилизован"
+      },
+      {
+        "lang": "en",
+        "value": "Sterilized"
+      },
+      {
+        "lang": "de",
+        "value": "Sterilisiert"
+      }
+    ],
+    "isDeletable": false,
+    "id": "STERILIZED"
+  },
+  {
+    "category": "health",
+    "kindOfAnimal": null,
+    "code": "VACCINATED",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Щеплений"
+      },
+      {
+        "lang": "ru",
+        "value": "Привит"
+      },
+      {
+        "lang": "en",
+        "value": "Vaccinated"
+      },
+      {
+        "lang": "de",
+        "value": "Geimpft"
+      }
+    ],
+    "isDeletable": false,
+    "id": "VACCINATED"
+  },
+  {
+    "category": "location",
+    "kindOfAnimal": "",
+    "code": "OVEREXPOSURE",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Перетримка"
+      },
+      {
+        "lang": "en",
+        "value": "Overexposure"
+      },
+      {
+        "lang": "de",
+        "value": "Überbelichtung"
+      },
+      {
+        "lang": "ru",
+        "value": "Передержка"
+      }
+    ],
+    "isDeletable": false,
+    "id": "Overexposure"
+  }
+]

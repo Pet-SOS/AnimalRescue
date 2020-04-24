@@ -23,7 +23,7 @@ namespace AnimalRescue.DataAccess.Mongodb
     {
         public IMongoCollection<T> Collection => collection;
         public IMongoCollection<BsonDocument> NativeCollection =>
-            nativeCollection ?? (nativeCollection = database.GetCollection<BsonDocument>(collectionName));
+            nativeCollection ??= database.GetCollection<BsonDocument>(collectionName);
         protected readonly IMongoDatabase database;
         protected readonly IMongoCollection<T> collection;
         protected IMongoCollection<BsonDocument> nativeCollection;
