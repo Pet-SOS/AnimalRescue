@@ -18,10 +18,10 @@ services:
       - AdminDetail__Password=${admin_password}
       - AppSettings__JwtExpireHours=1
       - AppSettings__JwtExpireDays=30
-      - AppSettings__JwtIssuer=https://${api.hostname}/
-      - AppSettings__JwtAudience=${api.hostname}
+      - AppSettings__JwtIssuer=https://${api_hostname}/
+      - AppSettings__JwtAudience=${api_hostname}
       - AppSettings__JwtKey=${JwtKey}
-      - AppSettings__FrontEndUrl=https://${portal.hostname}/
+      - AppSettings__FrontEndUrl=https://${portal_hostname}/
       - Smtp__Host=${smtp_host}
       - Smtp__Port=${smtp_port}
       - Smtp__UseSsl=true
@@ -74,6 +74,9 @@ services:
 
   rabbitmq:
     image: 'bitnami/rabbitmq:3.8.3'
+    environment:
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
     networks:
       - backend
 

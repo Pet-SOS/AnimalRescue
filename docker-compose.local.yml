@@ -76,6 +76,9 @@ services:
 
   rabbitmq:
     image: 'bitnami/rabbitmq:3.8.3'
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=bitnami
     networks:
       - backend
 
