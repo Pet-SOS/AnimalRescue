@@ -25,6 +25,10 @@
             display: flex;
         }
 
+        &:hover {
+            background-color: lighten($bg-lite-lite, 3%);
+        }
+
         i {
             @include size(48px);
             display: flex;
@@ -61,7 +65,15 @@
         }
     }
 
-    .filters-active-mobile {
+    .slide {
+        @include media('≤tablet') {
+            max-height: 1500px;
+            overflow: hidden;
+            transition: max-height .4s ease-out;
+        }
+    }
+
+    .filters-hidden-mobile {
        .opener {
          span {
             &:after {
@@ -70,9 +82,11 @@
          }
        }
 
-       > .slide {
+       .slide {
             @include media('≤tablet') {
-                display: none;
+                max-height: 0;
+                transition-timing-function: ease-in;
+                pointer-events: none;
             }
        }
     }
