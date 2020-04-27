@@ -10,5 +10,8 @@ namespace AnimalRescue.BusinessLogic.Configurations
         public string Exchange { get; set; }
         public string ExchangeType { get; set; }
         public string RoutingKey { get; set; }
+        public string UserName { get; set; }
+        public string UserPassword { get; set; }
+        public int HostPort { get; set; }
     }
 }

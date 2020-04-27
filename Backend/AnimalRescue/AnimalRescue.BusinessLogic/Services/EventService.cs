@@ -24,8 +24,17 @@ namespace AnimalRescue.BusinessLogic.Services
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.HostName, nameof(publisherSettings.HostName));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.RoutingKey, nameof(publisherSettings.RoutingKey));
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserPassword, nameof(publisherSettings.UserPassword));
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserName, nameof(publisherSettings.UserName));
 
-            _factory = new ConnectionFactory() { HostName = publisherSettings.HostName };
+            _factory = new ConnectionFactory() 
+            { 
+                HostName = publisherSettings.HostName, 
+                Port = publisherSettings.HostPort ,
+                Password = publisherSettings.UserPassword,
+                UserName = publisherSettings.UserName
+            };
+
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 
