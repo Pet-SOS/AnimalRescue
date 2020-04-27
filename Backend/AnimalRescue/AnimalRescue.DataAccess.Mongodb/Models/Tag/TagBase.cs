@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using AnimalRescue.Infrastructure.Helpers;
 
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -16,9 +17,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.Tag
         [BsonId]
         //[BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
         [CouplingPropertyName(baseItem.CreatedAt)]
         [BsonElement("createdAt")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateHelper.GetUtc();
 
         [CouplingPropertyName(baseItem.ModifiedAt)]
         [BsonElement("modifiedAt")]
