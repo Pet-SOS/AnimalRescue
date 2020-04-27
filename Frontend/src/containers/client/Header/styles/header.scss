@@ -139,7 +139,6 @@ header {
   &:before,
   &:after,
   span {
-    @include animate(transform);
     background: $text-lite-color;
     position: absolute;
     top: 24px;
@@ -147,6 +146,7 @@ header {
     right: 30.5%;
     height: 2px;
     margin-top: -2px;
+    transition: top 0.15s 0.15s, transform 0.15s, opacity 0.15s 0.15s;
   }
 
   &:before,
@@ -164,6 +164,12 @@ header {
   }
 
   .nav-active & {
+    span,
+    &:after,
+    &:before {
+      transition: top 0.15s, transform 0.15s 0.15s, opacity 0.15s;
+    }
+
     span {
       opacity: 0;
     }
@@ -171,12 +177,9 @@ header {
     &:after,
     &:before {
       transform: rotate(45deg);
-      width: 18px;
-      margin-left: auto;
-      margin-right: auto;
-      top: 24px;
-      left: 0;
-      right: 0;
+      right: 30%;
+      left: 30%;
+      top: 50%;
     }
 
     &:after {
