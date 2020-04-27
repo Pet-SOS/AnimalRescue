@@ -31,6 +31,9 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             imageIds: props.animal.imageIds,
             tags: props.animal.tags || '',
             character: props.animal.character || '',
+            status: props.animal.status || '',
+            bannerText: props.animal.bannerText || '',
+            isDonationActive: props.animal.isDonationActive || false,
             birthday: props.animal.birthday || '',
             coverImage: props.animal.coverImage,
             id: props.animal.id,
@@ -73,7 +76,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
 
     render() {
         const {
-            number, name, kindOfAnimal, gender, description, character, coverImage, birthday, age, imageIds, tags, id
+            number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
         } = this.state
         return (
             <>
@@ -123,7 +126,13 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                       </TabPane>
                       <TabPane tab="Здоров’я" key="2">
                           <ul>
-                              <li><label><span>Вiдкрити Cбір коштів</span><input type="checkbox"/><span>checkbox</span></label></li>
+                              <li><label><span>Вiдкрити Cбір коштів</span><input type="checkbox" onChange={(e) => this.changeValue(e, 'isDonationActive')}/><span>{isDonationActive}</span></label></li>
+                              {!!this.state.isDonationActive && (      
+                                <li>                    
+                                    <label><span>Текст на банері</span></label><br />
+                                    <input value={bannerText} onChange={(e) => this.changeValue(e, 'bannerText')}/>
+                                </li>
+                              )}
                               <li><label><span>Стерилізован</span><input type="checkbox"/><span>checkbox</span></label></li>
                               <li><label><span>Щеплен</span><input type="checkbox"/><span>checkbox</span></label></li>
                               <li><label><span>Готов до виїзду за кордон</span><input type="checkbox"/><span>checkbox</span></label></li>

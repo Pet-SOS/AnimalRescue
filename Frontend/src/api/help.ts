@@ -1,6 +1,5 @@
 import { API } from './index';
 import {IAnimal} from './animals';
-import { AllTag } from './requestOptions';
 
 export interface ISickAnimalsResponse {
     data: IAnimal[]
@@ -11,7 +10,7 @@ export interface ISickAnimalsResponse {
     totalCount: number;
 }
 const params = {
-    Filter: `tags~all~('${AllTag.TREATMENT}')`
+    Filter: `isDonationActive~eq~true`
 }
 export async function fetchSickAnimals(): Promise< ISickAnimalsResponse[]> {
     const res = await API.get(`animals`, {params});
