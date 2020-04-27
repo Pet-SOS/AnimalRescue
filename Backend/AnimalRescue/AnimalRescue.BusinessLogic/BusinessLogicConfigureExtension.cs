@@ -56,7 +56,7 @@ namespace AnimalRescue.BusinessLogic
 
             IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
             services.AddSingleton<IPublisherSettings>(p => publisherSettings);
-            services.AddScoped<IEventService, EventService>();
+            services.AddSingleton<IEventEmittingService, EventEmittingService>();
 
             services.AddScoped<IRecoverDataService, RecoverDataService>();
             services.AddScoped<ILocationService, LocationService>();

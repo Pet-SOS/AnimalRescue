@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramMessenger", "TelegramMessenger\TelegramMessenger.csproj", "{5749F215-36B7-4E1C-918D-BFBC288DFF86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramMessenger", "TelegramMessenger\TelegramMessenger.csproj", "{5749F215-36B7-4E1C-918D-BFBC288DFF86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.BusinessLogic", "..\AnimalRescue\AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj", "{225443D0-7524-4976-9B3A-CE2192FF64BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts.BusinessLogic", "..\AnimalRescue\AnimalRescue.Contracts.BusinessLogic\AnimalRescue.Contracts.BusinessLogic.csproj", "{07791905-098F-4DA0-86E9-5646FFB3A3F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{5749F215-36B7-4E1C-918D-BFBC288DFF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5749F215-36B7-4E1C-918D-BFBC288DFF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5749F215-36B7-4E1C-918D-BFBC288DFF86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{225443D0-7524-4976-9B3A-CE2192FF64BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{225443D0-7524-4976-9B3A-CE2192FF64BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{225443D0-7524-4976-9B3A-CE2192FF64BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{225443D0-7524-4976-9B3A-CE2192FF64BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

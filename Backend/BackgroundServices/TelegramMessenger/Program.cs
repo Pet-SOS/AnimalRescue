@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AnimalRescue.BusinessLogic.Services;
+using AnimalRescue.Contracts.BusinessLogic.Models.EvemtMessages;
+
+using System;
+
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -13,6 +17,8 @@ namespace TelegramMessenger
 
         static void Main(string[] args)
         {
+           using EventReceivingService eventReceivingService = new EventReceivingService(null);
+
             Console.WriteLine("Hello World!");
 
             bot.OnMessage += Bot_OnMessage;
@@ -21,6 +27,8 @@ namespace TelegramMessenger
 
             bot.StartReceiving();
 
+            eventReceivingService.Run<EmergencyMessage>((message) => bot.SendTextMessageAsync(1232, message.Address));
+            
             Console.ReadLine();
 
             bot.StopReceiving();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AnimalRescue.BusinessLogic.Configurations
 {
-    internal class PublisherSettings : IPublisherSettings
+    public class PublisherSettings : IPublisherSettings
     {
         public string HostName { get; set; }
         public string Exchange { get; set; }

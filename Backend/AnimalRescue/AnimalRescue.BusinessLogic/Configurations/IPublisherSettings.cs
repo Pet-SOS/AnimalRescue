@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AnimalRescue.BusinessLogic.Configurations
 {
-    internal interface IPublisherSettings
+    public interface IPublisherSettings
     {
         string UserName { get; set; }
         string UserPassword { get; set; }

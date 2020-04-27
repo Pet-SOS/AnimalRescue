@@ -5,10 +5,11 @@ using AnimalRescue.Infrastructure.Validation;
 using RabbitMQ.Client;
 
 using System.Text;
+using Newtonsoft.Json;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class EventService : IEventService
+    internal class EventEmittingService : IEventEmittingService
     {
         readonly string _exchange;
         readonly string _routingKey;
@@ -17,7 +18,7 @@ namespace AnimalRescue.BusinessLogic.Services
         IConnection _connection;
         IModel _channel;
 
-        public EventService(IPublisherSettings publisherSettings)
+        public EventEmittingService(IPublisherSettings publisherSettings)
         {
             Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
@@ -44,6 +45,13 @@ namespace AnimalRescue.BusinessLogic.Services
             _channel.ExchangeDeclare(
                 exchange: _exchange,
                 type: publisherSettings.ExchangeType);
+        }
+
+        public void PublishMessage<TMessage>(TMessage message)
+        {
+            string data = JsonConvert.SerializeObject(message);
+
+            PublishMessage(data);
         }
 
         public void PublishMessage(string message)
