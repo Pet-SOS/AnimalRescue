@@ -9,6 +9,11 @@ aside {
   flex: 0 0 312px;
   padding-top: 16px;
 
+  @include media('≤tablet') {
+    width: auto;
+    flex-basis: auto;
+  }
+
   @include media('≤phone') {
     width: 100%;
     flex-basis: 100%;
@@ -38,7 +43,12 @@ aside {
   }
 
   nav {
+    @include media('≤tablet') {
+      width: 93px;
+    }
+
     @include media('≤phone') {
+      width: auto;
       position: relative;
       background-color: #f9f6f7;
       box-shadow: 0px -2px 12px rgba(88, 113, 172, 0.2);
@@ -49,6 +59,10 @@ aside {
     padding: 0 24px;
     margin-bottom: 16px;
 
+    @include media('≤tablet') {
+      padding: 0;
+    }
+
     @include media('≤phone') {
       display: none;
     }
@@ -56,17 +70,30 @@ aside {
     .logo {
       @include size(48px);
       margin-right: 8px;
+
+      @include media('≤tablet') {
+        margin: 0 auto;
+      }
     }
 
     .logo-text {
       font-size: 20px;
       line-height: 1;
+
+      @include media('≤tablet') {
+        display: none;
+      }
     }
   }
 
   .wrap-btn {
     text-align: center;
     margin-bottom: 16px;
+
+    @include media('≤tablet') {
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     @include media('≤phone') {
       @include size(68px);
@@ -86,7 +113,7 @@ aside {
     .btn {
       min-width: 225px;
 
-      @include media('≤phone') {
+      @include media('≤tablet') {
         @include size(48px)
         display: flex;
         align-items: center;
@@ -95,10 +122,15 @@ aside {
         min-width: 0;
         padding: 10px;
         border-radius: 100%;
+        margin: 0 auto;
+      }
+
+      @include media('≤phone') {
+        margin: 0;
       }
 
       span {
-        @include media('≤phone') {
+        @include media('≤tablet') {
           display: none;
         }
       }
@@ -107,11 +139,10 @@ aside {
         display: none;
         font-size: 0;
 
-        @include media('≤phone') {
+        @include media('≤tablet') {
           @include size(14px);
           display: block;
           transform: rotate(45deg);
-
         }
 
         &:before {
@@ -129,7 +160,7 @@ aside {
     color: $text-color;
     border: 0;
 
-    @include media('≤phone') {
+    @include media('≤tablet') {
       font-size: 14px;
     }
 
@@ -144,10 +175,15 @@ aside {
       }
 
       > li {
+        @include media('≤tablet') {
+          //width: 93px;
+        }
+
         @include media('≤phone') {
           width: 20%;
           margin: 0 !important;
           border-right: 0;
+          padding-bottom: 0;
         }
 
         &:nth-child(3) {
@@ -156,6 +192,13 @@ aside {
             padding-left: 20%;
           }
         }
+      }
+    }
+
+    .ant-menu-item {
+      @include media('≤tablet') {
+        text-align: center;
+        white-space: normal;
       }
     }
 
@@ -184,7 +227,7 @@ aside {
         @include media('≤phone') {
           padding: 16px 16px 16px 0 !important;
           font-size: 18px;
-          line-height: 23px !important;
+          line-height: 33px !important;
           text-align: left;
           font-weight: 700;
           color: #62738D;
@@ -207,7 +250,22 @@ aside {
     }
 
     .ant-menu-submenu-open {
+      position: relative;
+
+      @include media('≤phone') {
+        position: static;
+      }
+
       .ant-menu-sub {
+        //@include media('≤tablet') {
+        //  background-color: burlywood;
+        //  position: absolute;
+        //  top: 0;
+        //  left: 100%;
+        //  z-index: 1;
+        //  width: 300px;
+        //}
+
         @include media('≤phone') {
           transform: translateY(-100%);
           box-shadow: 0px -6px 12px rgba(233, 230, 231, 0.8);
@@ -230,7 +288,7 @@ aside {
         display: flex;
         align-items: center;
 
-        @include media('≤phone') {
+        @include media('≤tablet') {
           flex-direction: column;
         }
       }
@@ -257,14 +315,21 @@ aside {
         font-size: 24px;
         margin-right: 8px;
 
+        @include media('≤tablet') {
+          display: inline-block;
+          vertical-align: top;
+          line-height: 24px;
+          margin: 0 0 8px;
+        }
+
         @include media('≤phone') {
-          margin: 0;
+          margin: 0 0 2px;
         }
       }
     }
 
     .ant-menu-submenu-arrow {
-      @include media('≤phone') {
+      @include media('≤tablet') {
         display: none;
       }
     }
@@ -276,7 +341,7 @@ aside {
       @include media('≤phone') {
         display: inline-block;
         vertical-align: top;
-        padding: 5px;
+        //padding: 5px;
       }
     }
   }
@@ -318,19 +383,21 @@ aside {
   .ant-menu-inline .ant-menu-item::after {
     border-right: 4px solid $orange;
 
-    @include media('≤phone') {
+    @include media('≤tablet') {
       border: 0;
     }
   }
 
-  .ant-menu-vertical .ant-menu-item:not(:last-child),
-  .ant-menu-vertical-left .ant-menu-item:not(:last-child),
-  .ant-menu-vertical-right .ant-menu-item:not(:last-child),
-  .ant-menu-inline .ant-menu-item:not(:last-child) {
-    margin: 0 0 4px;
-    
-    @include media('≤phone') {
-      margin-bottom: 0;
+  .ant-menu-vertical,
+  .ant-menu-vertical-left,
+  .ant-menu-vertical-right,
+  .ant-menu-inline  {
+    .ant-menu-item:not(:last-child) {
+      margin: 0 0 4px;
+
+      @include media('≤phone') {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -376,16 +443,12 @@ aside {
   .ant-menu-vertical-right .ant-menu-submenu-title,
   .ant-menu-inline .ant-menu-submenu-title {
     font-size: inherit;
-    
-    @include media('≤phone') {
-      //font-size: 0;
-    }
 
     > span {
       display: flex;
       align-items: center;
 
-      @include media('≤phone') {
+      @include media('≤tablet') {
         flex-direction: column;
       }
     }
@@ -407,9 +470,13 @@ aside {
     padding-bottom: 10px;
     height: auto;
 
-    @include media('≤phone') {
-      height: auto;
+    @include media('≤tablet') {
       line-height: 20px;
+      padding: 10px 5px !important;
+    }
+
+    @include media('≤phone') {
+      padding: 11px 24px !important;
     }
   }
 

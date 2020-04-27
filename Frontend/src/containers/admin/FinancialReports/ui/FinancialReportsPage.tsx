@@ -180,11 +180,12 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState>{
                                     </Button>
                                   </p>
                                 </form>
+                                <span className="title-uploaded-reports">Завантажені документи</span>
                                 <div className="list-reports">
                                   {report.reports.map((list) => (
                                       <p key={list.fileId} className='report' >
                                         <i className="icon-pdf"/><a href="#" className="title-item"><TI18n keyStr={`dateText${moment(list.date).month()}`} /> <span className='year-report'>{moment(list.date).year()}</span></a>
-                                        <span onClick={() => { this.deleteReport(list.fileId, list.title) }} className='delete icon-close' />
+                                        <button onClick={() => { this.deleteReport(list.fileId, list.title) }} className='delete icon-close' />
                                       </p>
                                   ))}
                                 </div>

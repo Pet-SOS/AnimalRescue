@@ -121,9 +121,23 @@
         }
     }
 
+    .title-uploaded-reports {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 8px;
+        color: $text-lite-color;
+        margin-bottom: 16px;
+    }
+
     .list-reports {
         grid-template-rows: repeat(6, 1fr);
-        padding: 52px 0 48px;
+        //padding: 52px 0 48px;
+        padding: 0;
+        margin-bottom: 16px;
+
+        @include media('≤xs-phone') {
+            display: block;
+        }
 
         .report {
             display: flex;
@@ -134,17 +148,6 @@
         .title-item {
             padding: 0 8px 0 4px;
         }
-    }
-
-    .delete {
-        @include size(24px);
-        background-color: $gray-light;
-        border-radius: 100%;
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
     }
 }
 
@@ -158,14 +161,26 @@
         display: flex;
         margin: 0 -8px;
         margin-bottom: 24px;
+
+        @include media('≤phone') {
+            display: block;
+        }
     }
 
     .field {
         width: 43%;
         padding: 0 8px;
 
+        @include media('≤phone') {
+            width: 100%;
+        }
+
         + .field {
             width: 57%;
+
+            @include media('≤phone') {
+                width: 100%;
+            }
         }
 
         label:last-child {
@@ -177,101 +192,3 @@
 .inner-all-reports {
     padding-top: 8px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//.main-report{
-//    padding: 1rem 1.5rem;
-//    button{
-//        margin-bottom: 2.5rem;
-//    }
-//    .delete{
-//        position: relative;
-//        display: inline-block;
-//        &:after{
-//            position: absolute;
-//            content:'х';
-//            width: 1rem;
-//            height: 1.5rem;
-//            color: $text-lite-color;
-//            font-size:0.9rem;
-//            top:-1.5rem;
-//        }
-//    }
-//    .report{
-//        color: $text-lite-color;
-//    }
-//    .title{
-//        margin-bottom: 0.8rem;
-//        font-size:2rem;
-//    }
-//    form{
-//        display:flex;
-//        justify-content: space-between;
-//        .ant-picker{
-//            padding: 0 1rem;
-//            box-sizing: border-box;
-//            input{
-//                margin: 0;
-//            }
-//        }
-//        .field{
-//            max-width: 24%;
-//            input{
-//                width:100%;
-//                background: $main-bg-color;
-//                margin-bottom: 0.8rem;
-//
-//            }
-//            .fileInput{
-//                padding: 5px 8px;
-//                box-sizing:border-box;
-//                border-radius: 3px;
-//                &::placeholder{
-//                    font-size:0.7rem!important;
-//                }
-//            }
-//            label{
-//                font-weight:400;
-//                margin-bottom: 0.4rem;
-//                font-size:0.7rem;
-//                display:inline-block;
-//            }
-//        }
-//        .custom-file-input::-webkit-file-upload-button {
-//            visibility: hidden;
-//            display:none!important;
-//        }
-//        .custom-file-input::before {
-//            content: 'Вибрати новий звiт';
-//            display: inline-block;
-//            background: linear-gradient(top, #f9f9f9, #e3e3e3);
-//            border: 1px solid #999;
-//            border-radius: 3px;
-//            padding: 5px 8px;
-//            outline: none;
-//            white-space: nowrap;
-//            -webkit-user-select: none;
-//            cursor: pointer;
-//            text-shadow: 1px 1px #fff;
-//            font-weight: 700;
-//            font-size: 0.7rem;
-//            width:100%;
-//        }
-//        .custom-file-input:hover::before {
-//            border-color: black;
-//        }
-//        .custom-file-input:active::before {
-//            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-//        }
-//    }
-//}
