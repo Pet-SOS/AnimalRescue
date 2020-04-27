@@ -365,9 +365,11 @@ input, textarea, ::placeholder {
     background-color: $white;
     flex-grow: 1;
     padding-top: 24px;
+    overflow: hidden;
 
     @include media('≤phone') {
       padding-top: 16px;
+      padding-bottom: 92px;
     }
   }
 
@@ -404,6 +406,34 @@ input, textarea, ::placeholder {
     &:focus {
       border-color: lighten($brand-color-primary, 10%);
       box-shadow: 0 0 0 1px lighten($brand-color-primary, 10%);
+    }
+  }
+
+  .delete {
+    @include animate(background-color);
+    @include size(24px);
+    border: 0;
+    background-color: $gray-light;
+    border-radius: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+
+    &:hover,
+    &:active {
+      background-color: $text-lite-color;
+      color: $white;
+
+      &:before {
+        color: inherit;
+      }
+    }
+
+    &:before {
+      @include animate(color);
     }
   }
 }

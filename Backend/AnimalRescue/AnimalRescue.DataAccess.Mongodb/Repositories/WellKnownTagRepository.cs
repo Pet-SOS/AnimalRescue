@@ -20,7 +20,7 @@ using condition = AnimalRescue.DataAccess.Mongodb.Extensions.FilterDefinitionExt
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
     internal class WellKnownTagRepository :
-        BaseCollection<WellKnownTag>, 
+        BaseCollection<WellKnownTag>,
         IWellKnownTagRepository
     {
         public WellKnownTagRepository(IMongoDatabase database, IQueryBuilder<WellKnownTag> builder) : base(database, builder)
@@ -59,6 +59,18 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             IAsyncCursor<BsonDocument> cursor = await base.NativeCollection.FindAsync(filter);
             List<WellKnownTag> result = cursor.ToList().Select(x => x.Deserialize<WellKnownTag>()).ToList();
 
+            return result;
+        }
+
+        public async Task<List<WellKnownTag>> WhereByIdAsync(List<WellKnownTag> tags)
+        {
+            var tasks = tags
+                .Select(async x => await base.GetAsync(x.Id))
+                .ToArray();
+
+            await Task.WhenAll(tasks);
+            var result = tasks.Select(x => x.Result).Where(x => x != null).ToList();
+            
             return result;
         }
     }

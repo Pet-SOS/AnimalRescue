@@ -63,7 +63,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
               </div>
           </div>
           <div className="wrap-btn">
-              <Button styleType={ButtonTypes.Blue}>
+              <Button styleType={ButtonTypes.BlueSmall}>
                   <span>Нова заявка</span><i className="icon-close">icon</i>
               </Button>
           </div>

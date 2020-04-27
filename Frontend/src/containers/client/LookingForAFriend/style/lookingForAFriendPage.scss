@@ -25,6 +25,10 @@
             display: flex;
         }
 
+        &:hover {
+            background-color: lighten($bg-lite-lite, 3%);
+        }
+
         i {
             @include size(48px);
             display: flex;
@@ -42,23 +46,49 @@
         }
 
         span {
-            display: flex;
-            flex-basis: 100%;
-            align-items: center;
-            justify-content: space-between;
-        }
+            flex-grow: 1;
+            display: block;
+            position: relative;
+            text-align: left;
 
-        span:after {
-            display: inline-block;
-            vertical-align: top;
-            content: '';
-            width: .5rem;
-            height: .5rem;
-            border-top: .125rem solid #62738d;
-            border-right: .125rem solid #62738d;
-            transform: rotate(135deg) skew(7deg, 7deg) rotate3d(1, 1, 0, 0deg);
-            transition: all .2s ease-in-out;
+            &:after {
+                position: absolute;
+                right: -8px;
+                top: 12px;
+                content: "";
+                width: 12px;
+                height: 6px;
+                transform: translateY(-50%);
+                background: url(/static/media/arrow_down.64024591.svg) no-repeat center;
+                transition: all 0.2s ease-in-out;
+            }
         }
+    }
+
+    .slide {
+        @include media('≤tablet') {
+            max-height: 1500px;
+            overflow: hidden;
+            transition: max-height .4s ease-out;
+        }
+    }
+
+    .filters-hidden-mobile {
+       .opener {
+         span {
+            &:after {
+                transform: translateY(-50%) scale(1, -1);
+            }
+         }
+       }
+
+       .slide {
+            @include media('≤tablet') {
+                max-height: 0;
+                transition-timing-function: ease-in;
+                pointer-events: none;
+            }
+       }
     }
 
     .box-all-animals {
