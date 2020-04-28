@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.BusinessLogic"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts.BusinessLogic", "..\AnimalRescue\AnimalRescue.Contracts.BusinessLogic\AnimalRescue.Contracts.BusinessLogic.csproj", "{07791905-098F-4DA0-86E9-5646FFB3A3F9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Infrastructure", "..\AnimalRescue\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj", "{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07791905-098F-4DA0-86E9-5646FFB3A3F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

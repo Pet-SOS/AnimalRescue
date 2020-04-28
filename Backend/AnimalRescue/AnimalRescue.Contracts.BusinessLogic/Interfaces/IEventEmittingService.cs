@@ -1,8 +1,10 @@
-﻿namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
+﻿using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
+
+namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IEventEmittingService
     {
-        void PublishMessage(string message);
-        void PublishMessage<TMessage>(TMessage message);
+        void PublishMessage<TMessage>(TMessage message) 
+            where TMessage : IEventMessage;
     }
 }

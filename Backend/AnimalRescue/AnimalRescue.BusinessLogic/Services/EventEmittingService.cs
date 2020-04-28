@@ -5,6 +5,7 @@ using AnimalRescue.Infrastructure.Validation;
 using RabbitMQ.Client;
 
 using System.Text;
+using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using Newtonsoft.Json;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -48,6 +49,7 @@ namespace AnimalRescue.BusinessLogic.Services
         }
 
         public void PublishMessage<TMessage>(TMessage message)
+            where TMessage : IEventMessage
         {
             string data = JsonConvert.SerializeObject(message);
 

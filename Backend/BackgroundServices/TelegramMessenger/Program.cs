@@ -1,6 +1,8 @@
 ﻿using System;
+using AnimalRescue.BusinessLogic.Configurations;
 using AnimalRescue.BusinessLogic.Services;
-using AnimalRescue.Contracts.BusinessLogic.Models.EvemtMessages;
+using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
+using AnimalRescue.Infrastructure.Configuration;
 using TelegramMessenger.Services.Interfaces;
 
 namespace TelegramMessenger
@@ -11,13 +13,17 @@ namespace TelegramMessenger
 
         static void Main(string[] args)
         {
-            //using EventReceivingService eventReceivingService = new EventReceivingService(null);
+            IPublisherSettings publisherSettings = ConfigurationUtil
+                .GetConfiguration()
+                .GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+
+            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings);
 
             _messenger = new Services.TelegramMessenger();
 
             _messenger.Init();
 
-            //eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync("1232"));
+            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync(message.Address));
 
             bool isContinue = true;
 

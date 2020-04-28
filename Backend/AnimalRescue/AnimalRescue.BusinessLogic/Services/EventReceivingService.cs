@@ -9,6 +9,7 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Linq;
 using System.Text;
+using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -48,6 +49,7 @@ namespace AnimalRescue.BusinessLogic.Services
         }
 
         public void Run<TMessage>(Action<TMessage> action)
+            where TMessage : IEventMessage
         {
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();

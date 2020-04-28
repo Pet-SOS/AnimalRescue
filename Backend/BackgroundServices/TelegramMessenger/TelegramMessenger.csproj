@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AnimalRescue\AnimalRescue.BusinessLogic\AnimalRescue.BusinessLogic.csproj" />
+    <ProjectReference Include="..\..\AnimalRescue\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
