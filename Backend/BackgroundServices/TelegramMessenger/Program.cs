@@ -1,47 +1,38 @@
-﻿using AnimalRescue.BusinessLogic.Services;
+﻿using System;
+using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Models.EvemtMessages;
-
-using System;
-
-using Telegram.Bot;
-using Telegram.Bot.Args;
-using Telegram.Bot.Types.Enums;
+using TelegramMessenger.Services.Interfaces;
 
 namespace TelegramMessenger
 {
     class Program
     {
-        private static readonly string token = "1152281063:AAFJyTDTMn2eXZk_YMYFUYRrrv46QB7HU9s";
-
-        private static readonly TelegramBotClient bot = new TelegramBotClient(token);
+        private static IMessenger _messenger;
 
         static void Main(string[] args)
         {
-           using EventReceivingService eventReceivingService = new EventReceivingService(null);
+            //using EventReceivingService eventReceivingService = new EventReceivingService(null);
 
-            Console.WriteLine("Hello World!");
+            _messenger = new Services.TelegramMessenger();
 
-            bot.OnMessage += Bot_OnMessage;
+            _messenger.Init();
 
-           // bot.SendTextMessageAsync(-473998265, "BotStarted!");
+            //eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync("1232"));
 
-            bot.StartReceiving();
+            bool isContinue = true;
 
-            eventReceivingService.Run<EmergencyMessage>((message) => bot.SendTextMessageAsync(1232, message.Address));
-            
-            Console.ReadLine();
-
-            bot.StopReceiving();
-        }
-
-        private static void Bot_OnMessage(object? sender, MessageEventArgs e)
-        {
-            if (e.Message.Type == MessageType.Text)
+            while (isContinue)
             {
-                bot.SendTextMessageAsync(e.Message.Chat.Id, "Hello World!");
+               var text = Console.ReadLine();
 
-                //bot.SendTextMessageAsync(-473998265, $"{e.Message.From.Username} sended: {e.Message.Text}");
-
+               if (text == "stop")
+               {
+                   isContinue = false;
+               }
+               else
+               {
+                   _messenger.SendTextMessageAsync(text);
+               }
             }
         }
     }
