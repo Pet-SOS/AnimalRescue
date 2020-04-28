@@ -74,6 +74,9 @@ export interface IAnimal {
   coverImage: number
   birthday?: string;
   character: string
+  status: string
+  bannerText: string
+  isDonationActive: boolean
   id?: string 
   readonly?: boolean;
   images: []
@@ -95,6 +98,9 @@ export const DEFAULT_ANIMAL: IAnimal = {
     imageIds: [],
     tags: [],
     character: '',
+    status: '',
+    bannerText: '',
+    isDonationActive: false,
     birthday: '',
     coverImage: 0,
     images: []

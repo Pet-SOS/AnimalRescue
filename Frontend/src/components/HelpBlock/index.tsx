@@ -41,7 +41,7 @@ export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, isLightMode, titl
                 </span>
                   )}
                   <p>
-                    {!!animalsList[indexPost] && !!animalsList[indexPost].description ? animalsList[indexPost].description : 'need some description for this animal'}
+                    {!!animalsList[indexPost] && !!animalsList[indexPost].bannerText ? animalsList[indexPost].bannerText : 'need some text for this animal'}
                   </p>
                   <div className="wrap-btn">
                     <Button
