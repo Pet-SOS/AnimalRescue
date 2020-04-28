@@ -107,7 +107,8 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
         private static Alias ConvertToAlias(PropertyInfo propertyInfo, Type entityType)
         {
-            var aliasName = propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>()?.AliasName;
+            var attr = propertyInfo.GetCustomAttribute<CouplingPropertyNameAttribute>();
+            var aliasName = attr?.AliasName;
             if (aliasName == null)
             {
                 return null;
@@ -119,6 +120,10 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 if(entityType.GetInterface(nameof(IApplicationExceptionFilterItem))!= null)
                 {
                     elementName = propertyInfo.Name;
+                }
+                else if(attr?.IsPersistentName == true)
+                {
+                    elementName = attr.PersistentDataBaseName;
                 }
                 else
                 {
