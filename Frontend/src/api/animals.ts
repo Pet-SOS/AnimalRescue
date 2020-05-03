@@ -63,23 +63,23 @@ export enum Tags{
     THELOSS ='потеряшка'
 }
 export interface IAnimal {
-  number: number
-  name: string
-  kindOfAnimal: string | AnimalKind
-  gender: string | Gender
-  description: string
-  age: number
-  imageIds: string[]
-  tags: string[]
-  coverImage: number
+  number: number;
+  name: string;
+  kindOfAnimal: string | AnimalKind;
+  gender: string | Gender;
+  description: string;
+  age: number;
+  imageIds: string[];
+  tags: string[];
+  coverImage: number;
   birthday?: string;
-  character: string
-  status: string
-  bannerText: string
-  isDonationActive: boolean
-  id?: string 
+  character: string;
+  status: any;
+  bannerText: string;
+  isDonationActive: boolean;
+  id?: string;
   readonly?: boolean;
-  images: []
+  images: [];
   createdAt?: string;
 }
 
