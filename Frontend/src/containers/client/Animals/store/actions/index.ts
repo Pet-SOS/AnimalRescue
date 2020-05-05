@@ -20,7 +20,7 @@ export const actionFetchDogsRequest = createAction(
     ...requestParams,
     filter: {
       fieldName: 'kindOfAnimal',
-      opeartor: RequestFilterOperators.EQ,
+      operator: RequestFilterOperators.EQ,
       value: AnimalKind.DOG
     }
   })
@@ -45,7 +45,7 @@ export const actionFetchCatsRequest = createAction(
     ...requestParams,
     filter: {
       fieldName: 'kindOfAnimal',
-      opeartor: RequestFilterOperators.EQ,
+      operator: RequestFilterOperators.EQ,
       value: AnimalKind.CAT
     }
   })

@@ -1,36 +1,39 @@
 import React from "react";
 import {AdminMenuWrapper} from "../../AdminMenu";
 import {Tabs} from "antd";
-import {Button, ButtonTypes} from "../../../../components/Button";
 import '../style/locations.scss';
+import {ClinicList} from "./ClinicList";
+import {ShelterList} from "./ShelterList";
+import {OverdueList} from "./OverdueList";
+import {IRequestParams} from "../../../../api/requestOptions";
+import {LocationsCode} from "../../../../api/admin";
 
 const {TabPane} = Tabs;
 
+interface ILocationTabsProps {
+    loadLocations: (code : LocationsCode, p ?: IRequestParams) => void;
+}
 
-export class LocationTabs extends React.Component {
 
-    handleAddAnimalClick = () => {
-        window.console.log("Add location clicked")
-    };
+export class LocationTabs extends React.Component<ILocationTabsProps> {
+
+    componentDidMount(): void {
+        this.props.loadLocations(LocationsCode.CLINIC);
+    }
 
     render() {
         return (
             <AdminMenuWrapper selectedKey="locations" openKeys={[]}>
                 <header><h3> Локація </h3></header>
-                <div className="locations-header">
-                    <Button
-                        className="add-location-btn"
-                        onClick={this.handleAddAnimalClick}
-                        styleType={ButtonTypes.BlueOutlineSmall}>
-                        Додати нову локацію
-                    </Button>
-                </div>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab="Перетримка" key="1">
+                        <OverdueList/>
                     </TabPane>
                     <TabPane tab="Приют" key="2">
+                        <ShelterList/>
                     </TabPane>
                     <TabPane tab="Клініка" key="3">
+                        <ClinicList/>
                     </TabPane>
                 </Tabs>
             </AdminMenuWrapper>

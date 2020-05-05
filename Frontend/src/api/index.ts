@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {IAnimal} from "./animals";
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
 // export const BASE_URL = 'https://localhost:5001/api/';
@@ -39,3 +40,5 @@ export default API;
 export * from './requestState/defaultRequestState';
 export * from './requestState/enumRequestState';
 export * from './requestState/genericReducerRequestState';
+export * from './admin';
+export * from './common';
