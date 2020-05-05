@@ -1,212 +1,235 @@
 import React from 'react';
-import { TI18n } from '../../../../i18n';
+import {TI18n} from '../../../../i18n';
 import i18n from 'i18n-js';
 import '../style/lookingForAFriendPage.scss';
-import { IAnimalsListState } from '../../Animals/store/state';
-import { IInfoCard, IInfoContacts } from '../../Home/store/state';
-import { Select, SelectExpandDirections } from '../../../../components/Select';
-import { AnimalGender, AnimalBreed, AnimalFilterKind, AnimalSize, AnimalAge, Tags } from '../../../../api/animals';
+import {IAnimalsListState} from '../../Animals/store/state';
+import {IInfoCard, IInfoContacts} from '../../Home/store/state';
+import {Select, SelectExpandDirections} from '../../../../components/Select';
+import {
+    AnimalGender,
+    AnimalBreed,
+    AnimalFilterKind,
+    AnimalSize,
+    AnimalAge,
+    Tags, FilterType, AnimalKind,
+} from '../../../../api/animals';
 import tranlateText from '../../../../i18n/translations/ru';
-import { store } from '../../../../store';
-import { HelpBlock } from '../../../../components/HelpBlock';
-import { AnimalCard } from '../../Animals/AnimalCard';
-import { BtnPagination } from '../../Blog/ui/BtnPagination';
-import { IRequestParams } from '../../../../api/requestOptions';
+import {store} from '../../../../store';
+import {HelpBlock} from '../../../../components/HelpBlock';
+import {AnimalCard} from '../../Animals/AnimalCard';
+import {BtnPagination} from '../../Blog/ui/BtnPagination';
+import {IRequestParams} from '../../../../api/requestOptions';
 import defaultText from '../../../../i18n/translations/ru';
-import { CheckBoks } from '../../../../components/CheckBoks';
+import {CheckBoks} from '../../../../components/CheckBoks';
+import {ITagsState} from "../../../../store/state/tags.state";
+import {ITag} from "../../../../api/tags";
 
 interface Enum {
     [id: string]: string
 }
+
 interface IPropTypes {
     match: any,
     history: any,
-    location:any,
+    location: any,
     sickAnimalsList: IAnimalsListState,
     infoCard: IInfoCard,
     infoContacts: IInfoContacts,
     animalsList: IAnimalsListState,
-    fetchSickAnimals:() => void;
-    fetchAnimalsRequest:(params?: IRequestParams) => void;
-    fetchInfoCard:() => void;
-    fetchInfoContacts:() => void;
+    fetchSickAnimals: () => void;
+    fetchAnimalsRequest: (params?: IRequestParams) => void;
+    fetchInfoCard: () => void;
+    fetchInfoContacts: () => void;
+    tags: ITagsState;
+    appLang: string;
 }
+
 interface ISelect {
-    value:string;
-    key?:string;
+    value: string;
+    key?: string;
     check?: boolean;
 }
+
 interface ITagsCheckbox {
-    [name: string]:ISelect;
+    [name: string]: ISelect;
 }
+
 interface IState {
     [name: string]: ISelect;
 }
+
+interface ILocale {
+    [key: string]: string;
+}
+
+const defaultFilterState = {
+    kindOfAnimal: {
+        value: Object.values(AnimalFilterKind)[0].toUpperCase(),
+        key: Object.keys(AnimalFilterKind)[0],
+    },
+    breed: {
+        value: Object.values(AnimalBreed)[0].toUpperCase(),
+        key: Object.keys(AnimalBreed)[0],
+    },
+    gender: {
+        value: Object.values(AnimalGender)[0],
+        key: Object.keys(AnimalGender)[0],
+    },
+    // TODO: Left for the future discussion
+    // age: {
+    //     value: Object.values(AnimalAge)[0],
+    //     key: Object.keys(AnimalAge)[0],
+    // },
+    size: {
+        value: Object.values(AnimalSize)[0],
+        key: Object.keys(AnimalSize)[0],
+    },
+    STERILIZED: {
+        value: Tags.STERILIZED,
+        key: FilterType.STERILIZED,
+        check: false
+    },
+    VACCINATED: {
+        value: Tags.VACCINATED,
+        key: FilterType.VACCINATED,
+        check: false
+    },
+    READYTOTRAVEL: {
+        value: Tags.READYTOTRAVEL,
+        key: FilterType.VACCINATED,
+        check: false
+    }
+};
+
 export class LookingForAFriendPage extends React.Component<IPropTypes> {
-    public state: any; 
+    public state: any;
     public toPage: number = 1;
-    public sizeAnimalToPage:number = 3;
-    public allFilterRequestString: string ='';
-    public tagsAll='tags~all~';
+    public sizeAnimalToPage: number = 3;
+    public allFilterRequestString: string = '';
+    public tagsAll = 'tags~all~';
     public initialState: any;
-    public filterUrl:any;
+    public filterUrl: any;
 
-
-    constructor(props:IPropTypes) {
+    constructor(props: IPropTypes) {
         super(props);
         this.state = {
-            kindOfAnimal:{
-                value: Object.values(AnimalFilterKind)[0],
-                key:Object.keys(AnimalFilterKind)[0],
-            },
-            breed:{
-                value:Object.values(AnimalBreed)[0],
-                key:Object.keys(AnimalBreed)[0],
-            },
-            gender:{
-                value:Object.values(AnimalGender)[0],
-                key:Object.keys(AnimalGender)[0],
-            },
-            age:{
-                value:Object.values(AnimalAge)[0],
-                key:Object.keys(AnimalAge)[0],
-            },
-            size:{
-                value:Object.values(AnimalSize)[0],
-                key:Object.keys(AnimalSize)[0],
-            },
-            STERILIZED: {
-                value:Tags.STERILIZED,
-                key:'STERILIZED',
-                check: false
-            },
-            VACCINATED: {
-                value:Tags.VACCINATED,
-                key: 'VACCINATED',
-                check: false
-            },
-            SPECIAL: {
-                value:Tags.SPECIAL,
-                key:'SPECIAL',
-                check: false
-            },
-            READYTOTRAVEL: {
-                value:Tags.READYTOTRAVEL,
-                key:'READYTOTRAVEL',
-                check: false
-            },
-            THELOSS:{
-                value:Tags.THELOSS,
-                key:'THELOSS',
-                check: false
-            },
+            ...defaultFilterState,
             isFilterVisible: false
         };
         this.initialState = this.state;
     }
 
-    getCindOfAnimal(type: string): any{
-       switch (type) {
-            case 'kindOfAnimal':return AnimalFilterKind;
-            case 'breed' :return AnimalBreed;
-            case 'gender':return AnimalGender;
-            case 'age':return AnimalAge;
-            case 'size':return AnimalSize;
+    getCindOfAnimal(type: string): any {
+        switch (type) {
+            case FilterType.KIND_OF_ANIMAL:
+                return AnimalFilterKind;
+            case FilterType.BREED :
+                return AnimalBreed;
+            case FilterType.GENDER:
+                return AnimalGender;
+            case FilterType.AGE:
+                return AnimalAge;
+            case FilterType.SIZE:
+                return AnimalSize;
         }
     }
 
-    getAllQueryParamsToState(str: string){
-        let paramsArr = str.slice(0, str.length-1).replace('?','').split('/');
-        paramsArr.forEach(param =>{
+    getAllQueryParamsToState(str: string) {
+        let paramsArr = str.slice(0, str.length - 1).replace('?', '').split('/');
+        paramsArr.forEach(param => {
             const arrKeys = param.split('=');
             const keyStr = arrKeys[0];
             const value = arrKeys[1];
-            if((keyStr === 'STERILIZED'|| keyStr === 'VACCINATED'|| keyStr === 'SPECIAL'|| keyStr === 'READYTOTRAVEL' || keyStr ==='THELOSS')){
-                this.setState({ [keyStr]:{
-                     ...this.state[keyStr],
-                    check:  (/true/i).test(value)
-                }},()=> this.sendFilterRequest())
-            }else{
-                this.setState({ [keyStr]:{
-                    ...this.state[keyStr],
-                    key: value,
-                    value: this.getCindOfAnimal(keyStr)[value]
-                }}, ()=> this.sendFilterRequest())
+            if (this.expectTheFilterIsEqualTo(keyStr)) {
+                this.setState({
+                    [keyStr]: {
+                        ...this.state[keyStr],
+                        check: (/true/i).test(value)
+                    }
+                }, () => this.sendFilterRequest())
+            } else {
+                this.setState({
+                    [keyStr]: {
+                        ...this.state[keyStr],
+                        key: value,
+                        value: this.getCindOfAnimal(keyStr)[value]
+                    }
+                }, () => this.sendFilterRequest())
             }
         })
     }
 
-    componentDidMount(){
-        if(this.props.location.search){
+    componentDidMount() {
+        if (this.props.location.search) {
             this.getAllQueryParamsToState(this.props.location.search);
         }
-        if(store.getState().animals.sickAnimalsList.totalCount === 0){
+        if (store.getState().animals.sickAnimalsList.totalCount === 0) {
             this.props.fetchAnimalsRequest({
                 page: +this.props.match.params.page,
                 size: this.sizeAnimalToPage,
-            })
+            });
             this.props.fetchInfoCard();
             this.props.fetchInfoContacts();
             this.props.fetchSickAnimals();
         }
     }
 
-    convertToRoutingParams(){
+    expectTheFilterIsEqualTo(filterKey: string) {
+        return filterKey === FilterType.STERILIZED || filterKey === FilterType.VACCINATED || filterKey === FilterType.READY_TO_TRAVEL;
+    }
+
+    convertToRoutingParams() {
         let strParams = '';
-        for(let key in this.state){
-            if(this.state[key].key !== 'ANY'){
-                if(key ==='age'){
+        for (let key in this.state) {
+            if (this.state[key].key !== undefined && this.state[key].key !== FilterType.ANY) {
+                if (key === 'age') {
                     continue;
-                } else if((key === 'STERILIZED'|| key === 'VACCINATED'|| key === 'SPECIAL'|| key === 'READYTOTRAVEL'|| key==='THELOSS') ){
-                    strParams= this.state[key].check ? `${strParams}${key}=${this.state[key].check}/`: strParams;
+                } else if (this.expectTheFilterIsEqualTo(key)) {
+                    strParams = this.state[key].check ? `${strParams}${key}=${this.state[key].check}/` : strParams;
                     continue;
-                }
-                else{
-                    strParams= `${strParams}${key}=${this.state[key].key}/`;
+                } else {
+                    strParams = `${strParams}${key}=${this.state[key].key}/`;
                 }
             }
         }
         return strParams;
     }
 
-    sendFilterRequest(){
-        let strTags=''
-        let filterParams =''
-        this.toPage=1;
-        for(let key in this.state){
-            if(this.state[key].key !== 'ANY'){
-                if(key ==='age'){
+    sendFilterRequest() {
+        let strTags = '';
+        let filterParams = '';
+        this.toPage = 1;
+        for (let key in this.state) {
+            if (this.state[key].key !== undefined && this.state[key].key !== FilterType.ANY) {
+                if (key === 'age') {
                     continue;
                 }
-                if(key === 'size' || key === 'breed'){
-                    strTags= `${strTags}'${this.state[key].key}'`;
-                }else if(key === 'STERILIZED'|| key === 'VACCINATED'||key === 'SPECIAL'|| key === 'READYTOTRAVEL'|| key ==='THELOSS'){
-                    strTags = (!!this.state[key].check)? `${strTags}'${this.state[key].key}'`: strTags;
-                }
-                else{
+                if (key === 'size' || key === 'breed') {
+                    strTags = `${strTags}'${this.state[key].key}'`;
+                } else if (this.expectTheFilterIsEqualTo(key)) {
+                    strTags = (!!this.state[key].check) ? `${strTags}'${this.state[key].key}'` : strTags;
+                } else {
                     let partFilter = `${key}~eq~'${this.state[key].key}'`;
-                    filterParams= (filterParams ==='') ? `${filterParams}${partFilter}` : `${filterParams};${partFilter}`;
+                    filterParams = (filterParams === '') ? `${filterParams}${partFilter}` : `${filterParams};${partFilter}`;
                 }
             }
         }
-        let tags =`${this.tagsAll}${strTags}`;
-        
-        if(strTags!=='' && filterParams !== ''){
-            this.allFilterRequestString = `${tags};${filterParams}`;
-        } else if(filterParams === '' && strTags==='' ){
-            this.allFilterRequestString = '';
-        }
-        else if(filterParams === ''){
-            this.allFilterRequestString = tags;
-        }else {
-            this.allFilterRequestString =filterParams;
-        }
+        let tags = `${this.tagsAll}${strTags}`;
 
+        if (strTags !== '' && filterParams !== '') {
+            this.allFilterRequestString = `${tags};${filterParams}`;
+        } else if (filterParams === '' && strTags === '') {
+            this.allFilterRequestString = '';
+        } else if (filterParams === '') {
+            this.allFilterRequestString = tags;
+        } else {
+            this.allFilterRequestString = filterParams;
+        }
         this.props.fetchAnimalsRequest({
-            page:+this.props.match.params.page,
+            page: Number(this.props.match.params.page),
             size: this.sizeAnimalToPage,
             filter: this.allFilterRequestString,
-        })
+        });
         this.props.history.push({
             pathname: `/animals/page/${+this.props.match.params.page}`,
             search: this.convertToRoutingParams(),
@@ -215,34 +238,46 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
 
     }
 
-    setLocale(value:string, objLocale:{[key: string]: string}, type:string){
-        const keyObj = Object.keys(objLocale)[Object.values(objLocale).indexOf(value)]
-         this.props.history.push({
+    setLocale(value: string, objLocale: ILocale | null, type: string) {
+        const keyObj = objLocale ? Object.keys(objLocale)[Object.values(objLocale).indexOf(value)] : '';
+        this.props.history.push({
             pathname: `/animals/page/1`,
             search: this.convertToRoutingParams(),
             state: this.state
+        });
+        this.setState({
+            [type]: {
+                ...this.state[type],
+                value: value,
+                key: objLocale ? keyObj : value
+            }
+        }, () => {
+            if (type === FilterType.KIND_OF_ANIMAL && value === FilterType.ANY) {
+                this.clearFilter();
+            } else {
+                this.sendFilterRequest()
+            }
         })
-        this.setState ({ [type]:{
-            ...this.state[type],
-            value:value,
-            key:keyObj
-        }} ,()=>{ this.sendFilterRequest()})
     }
 
-    setCheckboxCheck(name:string){
-        this.setState({ [name]:{
-            ...this.state[name],
-            check:!this.state[name].check
-        }},()=>{this.sendFilterRequest()})
+    setCheckboxCheck(name: string) {
+        this.setState({
+            [name]: {
+                ...this.state[name],
+                check: !this.state[name].check
+            }
+        }, () => {
+            this.sendFilterRequest()
+        })
     }
-  
-    goToPagination(toPage:string| number){
-       this.toPage =+toPage;
-       this.props.fetchAnimalsRequest({
+
+    goToPagination(toPage: string | number) {
+        this.toPage = +toPage;
+        this.props.fetchAnimalsRequest({
             page: this.toPage,
             size: this.sizeAnimalToPage,
             filter: this.allFilterRequestString,
-        })
+        });
         this.props.history.push({
             pathname: `/animals/page/${this.toPage}`,
             search: this.convertToRoutingParams(),
@@ -250,69 +285,119 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         })
     }
 
-    clearFilter(){
+    clearFilter() {
         this.props.history.push({
             pathname: `/animals/page/1`,
+        });
+        this.setState(this.initialState, () => {
+            this.sendFilterRequest()
         })
-        this.setState (this.initialState ,()=>{ this.sendFilterRequest()})
     }
 
-    render(){
+    getTagsByCategory = (type: string) => {
+        const {data} = this.props.tags;
+        const {appLang} = this.props;
+        const categories = data.filter((tag: ITag) => {
+            return tag.category === type
+        });
+        let optionList = [{
+            label: i18n.t(`AnimalFilterKind${Object.values(AnimalFilterKind)[0]}`),
+            value: Object.keys(AnimalFilterKind)[0]
+        }];
+        if (categories.length) {
+            const categoriesByAppLang = categories.map((tag: ITag) => {
+                const labelLang = tag.values.find((item: any) => item.lang === appLang);
+                return {
+                    label: labelLang !== undefined ? labelLang.value : '',
+                    value: tag.code
+                }
+            });
+            optionList = optionList.concat(categoriesByAppLang)
+        }
+        return optionList;
+    };
+
+    get breedOfSelectedAnimal() {
+        const { kindOfAnimal } = this.state;
+        if (kindOfAnimal.value !== undefined && kindOfAnimal.value !== FilterType.ANY) {
+            return `${this.state.kindOfAnimal.value.toLowerCase()}Breed`;
+        }
+        return FilterType.ANY;
+    }
+
+    render() {
         return (
             <div className='looking-friend-block'>
                 <div className='container'>
-                    <h2><TI18n keyStr="lookingForAFriendPageTitle" default={defaultText.lookingForAFriendPageTitle}/></h2>
-                    <div className={ this.state.isFilterVisible && "filters-hidden-mobile" }>
-                        <button onClick={ () => this.setState({isFilterVisible: !this.state.isFilterVisible}) } className="opener">
+                    <h2><TI18n keyStr="lookingForAFriendPageTitle" default={defaultText.lookingForAFriendPageTitle}/>
+                    </h2>
+                    <div className={this.state.isFilterVisible && "filters-hidden-mobile"}>
+                        <button onClick={() => this.setState({isFilterVisible: !this.state.isFilterVisible})}
+                                className="opener">
                             <i className="icon-step">icon</i><span>Фільтри</span>
                         </button>
                         <div className="slide">
                             <ul className='list-selects'>
                                 <li className="item-select">
                                     <Select
-                                        data={Object.values(AnimalFilterKind).map((value:string)=>({label: i18n.t('AnimalFilterKind'+value), value: value}))}
+                                        data={this.getTagsByCategory(FilterType.KIND_OF_ANIMAL)}
                                         selected={this.state.kindOfAnimal.value}
-                                        onChange={(value: string) => this.setLocale(value,AnimalFilterKind, 'kindOfAnimal' )}
+                                        onChange={(value: string) => this.setLocale(value, null, FilterType.KIND_OF_ANIMAL)}
                                         expandDirection={SelectExpandDirections.BOTTOM}
-                                        title={<TI18n keyStr="lookingForAFriendPageSelectKind" default={tranlateText.lookingForAFriendPageSelectKind} />}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectKind"
+                                                      default={tranlateText.lookingForAFriendPageSelectKind}/>}
                                     />
                                 </li>
                                 <li className="item-select">
                                     <Select
-                                        data={Object.values(AnimalBreed).map((value)=>({label: i18n.t('AnimalBreed'+value), value: value}))}
+                                        data={this.getTagsByCategory(this.breedOfSelectedAnimal)}
                                         selected={this.state.breed.value}
-                                        onChange={(value: string) => this.setLocale(value,AnimalBreed,'breed')}
+                                        onChange={(value: string) => this.setLocale(value, null, FilterType.BREED)}
                                         expandDirection={SelectExpandDirections.BOTTOM}
-                                        title={<TI18n keyStr="lookingForAFriendPageSelectBreed" default={tranlateText.lookingForAFriendPageSelectBreed} />}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectBreed"
+                                                      default={tranlateText.lookingForAFriendPageSelectBreed}/>}
                                     />
                                 </li>
                                 <li className="item-select">
                                     <Select
                                         data={Object.values(AnimalGender).map((value)=>({label: i18n.t('AnimalGender'+value), value: value}))}
                                         selected={this.state.gender.value}
-                                        onChange={(value: string) => this.setLocale(value,AnimalGender, 'gender')}
+                                        onChange={(value: string) => this.setLocale(value,AnimalGender, FilterType.GENDER)}
                                         expandDirection={SelectExpandDirections.BOTTOM}
-                                        title={<TI18n keyStr="lookingForAFriendPageSelectGender" default={tranlateText.lookingForAFriendPageSelectGender} />}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectGender"
+                                                      default={tranlateText.lookingForAFriendPageSelectGender}/>}
                                     />
                                 </li>
-                                <li className="item-select">
-                                    <Select
-                                        data={Object.values(AnimalAge).map((value)=>({label: i18n.t('AnimalAge'+value), value: value}))}
-                                        selected={this.state.age.value}
-                                        onChange={(value: string) => this.setLocale(value, AnimalAge, 'age')}
-                                        expandDirection={SelectExpandDirections.BOTTOM}
-                                        title={<TI18n keyStr="lookingForAFriendPageSelectAge" default={tranlateText.lookingForAFriendPageSelectAge} />}
-                                    />
-                                </li>
-                                <li className="item-select">
-                                    <Select
-                                        data={Object.values(AnimalSize).map((value)=>({label: i18n.t('AnimalSize'+value), value: value}))}
-                                        selected={this.state.size.value}
-                                        onChange={(value: string) => this.setLocale(value, AnimalSize,'size')}
-                                        expandDirection={SelectExpandDirections.BOTTOM}
-                                        title={<TI18n keyStr="lookingForAFriendPageSelectSize" default={tranlateText.lookingForAFriendPageSelectSize} />}
-                                    />
-                                </li>
+                                {/*<li className="item-select">*/}
+                                {/*TODO: Left for the future discussion*/}
+                                {/*    <Select*/}
+                                {/*        data={Object.values(AnimalAge).map((value) => ({*/}
+                                {/*            label: i18n.t('AnimalAge' + value),*/}
+                                {/*            value: value*/}
+                                {/*        }))}*/}
+                                {/*        selected={this.state.age.value}*/}
+                                {/*        onChange={(value: string) => this.setLocale(value, AnimalAge, 'age')}*/}
+                                {/*        expandDirection={SelectExpandDirections.BOTTOM}*/}
+                                {/*        title={<TI18n keyStr="lookingForAFriendPageSelectAge"*/}
+                                {/*                      default={tranlateText.lookingForAFriendPageSelectAge}/>}*/}
+                                {/*    />*/}
+                                {/*</li>*/}
+
+                                { this.state.kindOfAnimal.value !== AnimalKind.CAT && (
+                                    <li className="item-select">
+                                        <Select
+                                            data={Object.values(AnimalSize).map((value) => ({
+                                                label: i18n.t('AnimalSize' + value),
+                                                value: value
+                                            }))}
+                                            selected={this.state.size.value}
+                                            onChange={(value: string) => this.setLocale(value, AnimalSize, FilterType.SIZE)}
+                                            expandDirection={SelectExpandDirections.BOTTOM}
+                                            title={<TI18n keyStr="lookingForAFriendPageSelectSize"
+                                                          default={tranlateText.lookingForAFriendPageSelectSize}/>}
+                                        />
+                                    </li>
+                                )}
                             </ul>
                             <div className='second-filter'>
                                 <ul className='list-checkboxes'>
@@ -334,45 +419,31 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                     </li>
                                     <li className="item-checkbox">
                                         <CheckBoks
-                                            name={<TI18n keyStr='special'/>}
-                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                            state={this.state.SPECIAL.check}
-                                            tag={this.state.SPECIAL.key}
-                                        />
-                                    </li>
-                                    <li className="item-checkbox">
-                                        <CheckBoks
                                             name={<TI18n keyStr='readytoabroad'/>}
                                             setCheckboxCheck={this.setCheckboxCheck.bind(this)}
                                             state={this.state.READYTOTRAVEL.check}
                                             tag={this.state.READYTOTRAVEL.key}
                                         />
                                     </li>
-                                    <li className="item-checkbox">
-                                        <CheckBoks
-                                            name={<TI18n keyStr='theLoss'/>}
-                                            setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                            state={this.state.THELOSS.check}
-                                            tag={this.state.THELOSS.key}
-                                        />
-                                    </li>
                                 </ul>
-                                <button className='clear-filter' onClick={()=>this.clearFilter()}>
-                                    <i className="icon-filter"></i><TI18n keyStr="lookingForAFriendPageClearFilter" default={defaultText.lookingForAFriendPageClearFilter} />
+                                <button className='clear-filter' onClick={() => this.clearFilter()}>
+                                    <i className="icon-filter"></i><TI18n keyStr="lookingForAFriendPageClearFilter"
+                                                                          default={defaultText.lookingForAFriendPageClearFilter}/>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div className='box-all-animals'>
-                        <TI18n keyStr="countAnimalsFirstPart" default={defaultText.countAnimalsFirstPart} />
+                        <TI18n keyStr="countAnimalsFirstPart" default={defaultText.countAnimalsFirstPart}/>
                         <span>{this.props.animalsList.totalCount}</span>
-                        <TI18n keyStr="countAnimalsSecondPart" default={defaultText.countAnimalsSecondPart} />
+                        <TI18n keyStr="countAnimalsSecondPart" default={defaultText.countAnimalsSecondPart}/>
                     </div>
                     <div className="hold-content-items section-margin">
                         <div className='content-block-animals'>
                             {
                                 this.props.animalsList.data.length &&
-                                this.props.animalsList.data.map(animal => <div className='animal' key={animal.id}><AnimalCard animal={animal}/></div>)
+                                this.props.animalsList.data.map(animal => <div className='animal' key={animal.id}>
+                                    <AnimalCard animal={animal}/></div>)
                             }
                         </div>
                         <BtnPagination
@@ -384,7 +455,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 </div>
                 <HelpBlock
                     animalsList={this.props.sickAnimalsList.data}
-                    title={<TI18n keyStr="canHelpBlockTitle" default={defaultText.canHelpBlockTitle} />}
+                    title={<TI18n keyStr="canHelpBlockTitle" default={defaultText.canHelpBlockTitle}/>}
                 />
             </div>
         )
