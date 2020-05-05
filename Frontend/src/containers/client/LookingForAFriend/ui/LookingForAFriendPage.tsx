@@ -317,6 +317,14 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         return optionList;
     };
 
+    get breedOfSelectedAnimal() {
+        const { kindOfAnimal } = this.state;
+        if (kindOfAnimal.value !== undefined && kindOfAnimal.value !== FilterType.ANY) {
+            return `${this.state.kindOfAnimal.value.toLowerCase()}Breed`;
+        }
+        return FilterType.ANY;
+    }
+
     render() {
         return (
             <div className='looking-friend-block'>
@@ -342,7 +350,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                 </li>
                                 <li className="item-select">
                                     <Select
-                                        data={this.getTagsByCategory(`${this.state.kindOfAnimal.value.toLowerCase()}Breed`)}
+                                        data={this.getTagsByCategory(this.breedOfSelectedAnimal)}
                                         selected={this.state.breed.value}
                                         onChange={(value: string) => this.setLocale(value, null, FilterType.BREED)}
                                         expandDirection={SelectExpandDirections.BOTTOM}
