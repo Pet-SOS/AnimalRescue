@@ -21,9 +21,9 @@ export enum AnimalKind { CAT = 'CAT', DOG = 'DOG', ANY='ANY'}
 export enum AnimalGender{
     ANY='any',
     MALE = 'male',
-    FEMALE = 'female', 
+    FEMALE = 'female',
 }
-export enum AnimalFilterKind { 
+export enum AnimalFilterKind {
     ANY='any',
     DOG = 'dog',
     CAT = 'cat',
@@ -41,7 +41,7 @@ export enum AnimalBreed {
 export enum AnimalAge{
     ANY='any',
     TOONE = 'toOne',
-    TOTHREE = 'toThree', 
+    TOTHREE = 'toThree',
     TOFIVE= 'toFive',
     FROMFIVE= 'fromFive'
 }
@@ -51,6 +51,18 @@ export enum AnimalSize {
     SMALL='small',
     MEDIUM='medium',
     LARGE='large'
+}
+
+export enum FilterType {
+    ANY= 'ANY',
+    KIND_OF_ANIMAL = 'kindOfAnimal',
+    BREED = 'bred',
+    GENDER = 'gender',
+    AGE = 'age',
+    SIZE = 'size',
+    STERILIZED = 'STERILIZED',
+    VACCINATED = 'VACCINATED',
+    READY_TO_TRAVEL = 'READYTOTRAVEL'
 }
 
 export enum Tags{
@@ -77,7 +89,7 @@ export interface IAnimal {
   status: string
   bannerText: string
   isDonationActive: boolean
-  id?: string 
+  id?: string
   readonly?: boolean;
   images: []
   createdAt?: string;
