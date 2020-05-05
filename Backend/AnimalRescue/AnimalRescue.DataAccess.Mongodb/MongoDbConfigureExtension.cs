@@ -76,6 +76,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<WellKnownTag>, QueryBuilder<WellKnownTag>>()
                 .AddSingleton<IQueryBuilder<Sequence>, QueryBuilder<Sequence>>()
                 .AddSingleton<IQueryBuilder<Employee>, QueryBuilder<Employee>>()
+                .AddSingleton<IQueryBuilder<Request>, QueryBuilder<Request>>()
                 .AddSingleton<IQueryBuilder<FinancialReport>, QueryBuilder<FinancialReport>>()
                 .AddSingleton<IQueryBuilder<Configuration<Contacts>>, QueryBuilder<Configuration<Contacts>>>()
                 .AddSingleton<IQueryBuilder<SecurityToken>, QueryBuilder<SecurityToken>>()
@@ -96,6 +97,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
                 .AddScoped<IBaseCollection<WellKnownTag>, BaseCollection<WellKnownTag>>()
                 .AddScoped<IBaseCollection<Sequence>, BaseCollection<Sequence>>()
+                .AddScoped<IBaseCollection<Request>, BaseCollection<Request>>()
 
                 .AddScoped<IBaseCollection<Configuration<Contacts>>, BaseCollection<Configuration<Contacts>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
@@ -106,6 +108,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                .AddScoped<IRequestRepository, RequestRepository>()
                 .AddScoped<ILocationRepository, LocationRepository>()
                 .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>();
 

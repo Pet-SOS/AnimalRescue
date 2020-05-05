@@ -86,6 +86,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string BlogType = "blogType";
             public const string ContentType = "contentType";
             public const string Price = "price";
+            public const string Case = "case";
         }
 
         public static class BaseItem
