@@ -15,7 +15,7 @@ import TagsListItem from './TagsListItem';
 import { BlockLink } from '../../../../components/BlockLink';
 import './style.scss';
 import { TagForm, ITagForm } from '../TagForm/TagForm';
-import {TagsCategoryItem} from "../TagsCategory/TagsCategoryItem";
+import { prepareTagValues } from '../tags.helper';
 
 interface IPropTypes {
   fetchTagsList: (categoryName: string) => void;
@@ -46,10 +46,7 @@ const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, addTag, clearTagsList, 
       category: tagCategoryName || '',
       kindOfAnimal: '',
       code: `#${tagCategoryName}`,
-      values: Object.keys(tagForm).map(key => ({
-        lang: key as ELocales,
-        value: tagForm[key as ELocales] || ''
-      }))
+      values: prepareTagValues(tagForm)
     }
     addTag(newTag);
   }
@@ -122,7 +119,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchTagsList: (categoryName: string) => dispatch(actionGetTagsList({
     filter: {
       fieldName: 'category',
-      opeartor: RequestFilterOperators.ALL,
+      opeartor: RequestFilterOperators.EQ,
       value: categoryName
     }
   })),
