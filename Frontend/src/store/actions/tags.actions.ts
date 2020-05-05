@@ -48,6 +48,21 @@ export const actionAddTagError = createAction(
   (resolve) => (error: Error) => resolve(error)
 );
 
+export const actionUpdateTag = createAction(
+  'UPDATE_TAG_REQUEST',
+  (resolve) => (tag: ITag) => resolve(tag)
+);
+
+export const actionUpdateTagSuccess = createAction(
+  'UPDATE_TAG_SUCCESS',
+  (resolve) => (tag: ITag) => resolve(tag)
+);
+
+export const actionUpdateTagError = createAction(
+  'UPDATE_TAG_ERROR',
+  (resolve) => (error: Error) => resolve(error)
+);
+
 export const actionGetAllTags = createAction(
   'GET_ALL_TAGS_REQUEST',
   (resolve) => (requestParams?: IRequestParams) => resolve(requestParams)
