@@ -309,7 +309,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 const labelLang = tag.values.find((item: any) => item.lang === appLang);
                 return {
                     label: labelLang !== undefined ? labelLang.value : '',
-                    value: tag.code
+                    value: String(tag.id)
                 }
             });
             optionList = optionList.concat(categoriesByAppLang)

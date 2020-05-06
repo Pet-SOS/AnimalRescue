@@ -133,7 +133,6 @@ export interface ISavedAnimalsCountResponse {
 }
 
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-    console.log('prepareRequestParams(requestParams)', prepareRequestParams(requestParams))
   const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
   return res.data
 }
