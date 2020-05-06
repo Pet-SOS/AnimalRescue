@@ -182,7 +182,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         let strParams = '';
         for (let key in this.state) {
             if (this.state[key].key !== undefined && this.state[key].key !== FilterType.ANY) {
-                if (key === 'age') {
+                if (key === FilterType.AGE) {
                     continue;
                 } else if (this.expectTheFilterIsEqualTo(key)) {
                     strParams = this.state[key].check ? `${strParams}${key}=${this.state[key].check}/` : strParams;
@@ -204,7 +204,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 if (key === 'age') {
                     continue;
                 }
-                if (key === 'size' || key === 'breed') {
+                if (key === FilterType.SIZE || key === FilterType.BREED) {
                     strTags = `${strTags}'${this.state[key].key}'`;
                 } else if (this.expectTheFilterIsEqualTo(key)) {
                     strTags = (!!this.state[key].check) ? `${strTags}'${this.state[key].key}'` : strTags;
@@ -298,7 +298,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         const {data} = this.props.tags;
         const {appLang} = this.props;
         const categories = data.filter((tag: ITag) => {
-            return tag.category === type
+            return tag.category.toLowerCase() === type.toLowerCase();
         });
         let optionList = [{
             label: i18n.t(`AnimalFilterKind${Object.values(AnimalFilterKind)[0]}`),
@@ -320,7 +320,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
     get breedOfSelectedAnimal() {
         const { kindOfAnimal } = this.state;
         if (kindOfAnimal.value !== undefined && kindOfAnimal.value !== FilterType.ANY) {
-            return `${this.state.kindOfAnimal.value.toLowerCase()}Breed`;
+            return `${this.state.kindOfAnimal.value.toLowerCase()}breed`;
         }
         return FilterType.ANY;
     }
