@@ -416,6 +416,17 @@ input, textarea, ::placeholder {
     }
   }
 
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    background: url(/static/media/arrow_down.64024591.svg) no-repeat 96% 50%;
+
+    .default-val {
+      display: none;
+    }
+  }
+
   .delete {
     @include animate(background-color);
     @include size(24px);

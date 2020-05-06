@@ -25,7 +25,7 @@ export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
                         <div className="container">
                             <section className="section-edit">
                                 <header>
-                                    <Button styleType={ButtonTypes.WhiteCircle}/>
+                                    <Button className="icon-arrow-left" styleType={ButtonTypes.WhiteCircle}/>
                                     <h3>Картка тварини</h3>
                                 </header>
                                 <section className="page-content">

@@ -7,7 +7,6 @@ import {Tabs} from "antd";
 import {Button, ButtonTypes} from "../../../../components/Button";
 const { TabPane } = Tabs;
 
-
 interface IAnimalCardProps {
     animal: IAnimal,
     deleteAnimal: (id: string) => void
@@ -15,42 +14,162 @@ interface IAnimalCardProps {
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void
 }
 interface IAnimalCardPropsDescription {
-    lang: string,
-    value: string
+    lang: string;
+    value: string;
 }
 interface IAvailableStatuses {
-    id: string,
-    values: IAnimalCardPropsDescription[]
+    id: string;
+    category: string;
+    kindOfAnimal: string;
+    code: string;
+    isDeletable: boolean;
+    createdAt: string;
+    modifiedAt: string | null;
+    values: IAnimalCardPropsDescription[];
 }
 
 export class AnimalEditCard extends React.Component<IAnimalCardProps> {
     public baseUrl: string = '';
     public state: IAnimal;
+    public currentLang: string = 'ua';
     public availableStatuses: IAvailableStatuses[] = [
         {
-            id: '1as',
-            values: [
-                {
-                    lang: 'ua',
-                    value: 'Лікування'
-                }, {
-                    lang: 'en',
-                    value: 'Treatment'
-                }
-            ]
-        }, {
-            id: '2as',
-            values: [
-                {
-                    lang: 'ua',
-                    value: 'На соціалізації'
-                }, {
-                    lang: 'en',
-                    value: 'On socialization'
-                }
-            ]
+          category: "status",
+          kindOfAnimal: "",
+          code: "READYFORADOPTION",
+          values: [
+            {
+              lang: "ua",
+              value: "Готовий до всиновлення"
+            },
+            {
+              lang: "ru",
+              value: "Готов к усыновлению"
+            },
+            {
+              lang: "en",
+              value: "Ready for adoption"
+            },
+            {
+              lang: "de",
+              value: "Bereit zur Adoption"
+            }
+          ],
+          isDeletable: false,
+          createdAt: "2020-04-24T19:15:51.52Z",
+          modifiedAt: null,
+          id: "READYFORADOPTION"
+        },
+        {
+          category: "status",
+          kindOfAnimal: "",
+          code: "DIED",
+          values: [
+            {
+              lang: "ua",
+              value: "Помер"
+            },
+            {
+              lang: "ru",
+              value: "Умер"
+            },
+            {
+              lang: "en",
+              value: "Died"
+            },
+            {
+              lang: "de",
+              value: "Gestorbene"
+            }
+          ],
+          isDeletable: false,
+          createdAt: "2020-04-21T08:55:49.7Z",
+          modifiedAt: null,
+          id: "DIED"
+        },
+        {
+          category: "status",
+          kindOfAnimal: "",
+          code: "ADOPTED",
+          values: [
+            {
+              lang: "ua",
+              value: "Усиновлен"
+            },
+            {
+              lang: "ru",
+              value: "Усыновлен"
+            },
+            {
+              lang: "en",
+              value: "Adopted"
+            },
+            {
+              lang: "de",
+              value: "Angenommen"
+            }
+          ],
+          isDeletable: false,
+          createdAt: "2020-04-21T08:48:41.79Z",
+          modifiedAt: null,
+          id: "ADOPTED"
+        },
+        {
+          category: "status",
+          kindOfAnimal: "",
+          code: "TREATMENT",
+          values: [
+            {
+              lang: "ua",
+              value: "Лікування"
+            },
+            {
+              lang: "ru",
+              value: "Лечение"
+            },
+            {
+              lang: "en",
+              value: "Treatment"
+            },
+            {
+              lang: "de",
+              value: "Behandlung"
+            }
+          ],
+          isDeletable: false,
+          createdAt: "2020-04-21T08:42:07.99Z",
+          modifiedAt: null,
+          id: "TREATMENT"
+        },
+        {
+          category: "status",
+          kindOfAnimal: "",
+          code: "SOCIALIZATION",
+          values: [
+            {
+              lang: "ua",
+              value: "Соціалізація"
+            },
+            {
+              lang: "ru",
+              value: "Социализация"
+            },
+            {
+              lang: "en",
+              value: "Socialization"
+            },
+            {
+              lang: "de",
+              value: "Sozialisation"
+            }
+          ],
+          isDeletable: false,
+          createdAt: "2020-04-21T08:40:07.51Z",
+          modifiedAt: null,
+          id: "SOCIALIZATION"
         }
-    ];
+      ];
+
     constructor(props: IAnimalCardProps) {
         super(props);
         this.state = {
@@ -72,32 +191,32 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             images: [],
         }
     }
+    findLocaleStatusValue(statuses: IAnimalCardPropsDescription[]): string {
+        return statuses.filter(val => val.lang === this.currentLang)[0].value;
+    }
     componentWillMount() {
       this.baseUrl = selectApiUrl(store.getState());
     }
 
     changeValue = (e: any, key: any) => {
-        this.setState({[key]: e.target.value})
+        this.setState({[key]: e.target.value});
     };
 
     compileDate(targetDate: any, period: string): string {
-        let result: any;
+        let result: any = '0';
         const dateDelta = new Date().getTime() - new Date(targetDate).getTime();
 
         switch (period) {
             case 'year':
-                result = Math.floor(dateDelta / 31536000000);
+                result = Math.floor(dateDelta / 31536000000).toString();
                 break;
             case 'month':
-                result = Math.floor(new Date(dateDelta % 31536000000).getMonth());
+                result = Math.floor(new Date(dateDelta % 31536000000).getMonth()).toString();
                 break;
             case 'week':
                 result = '0';
-                break;
-            default:
-                result = '0';
         }
-        return isNaN(result) ? '0' : result.toString();
+        return isNaN(result) ? '0' : result;
     }
 
     addImage = (e: any) => {
@@ -135,16 +254,17 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                 <div className="data-edit">
                     <div className="form-row small-row">
                         <label>Номер</label>
-                        <input disabled value={number} onChange={(e) => this.changeValue(e, 'number')} />
+                        <input disabled value={number} />
                     </div>
                     <div className="form-row small-row">
                         <label>Статус</label>
                         <select>
+                            <option className="default-val">Оберіть статус</option>
                             {this.availableStatuses.map(stat => {
                                 return (
                                     <option key={stat.id}
-                                            selected={status && status.values[0].value === stat.values[0].value}>
-                                        {stat.values[0].value || 'Unknown'}
+                                            selected={status && this.findLocaleStatusValue(status.values) === this.findLocaleStatusValue(stat.values)}>
+                                        {this.findLocaleStatusValue(stat.values) || 'Unknown'}
                                     </option>
                                 );
                             })}
@@ -190,7 +310,6 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                                 </select>
                             </div>
                         </div>
-
 
                     </div>
                     <div className="form-row small-row">
