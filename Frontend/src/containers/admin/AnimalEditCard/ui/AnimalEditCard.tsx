@@ -259,7 +259,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                     <div className="form-row small-row">
                         <label>Статус</label>
                         <select>
-                            <option className="default-val">Оберіть статус</option>
+                            <option className="default-val">&ndash;</option>
                             {this.availableStatuses.map(stat => {
                                 return (
                                     <option key={stat.id}
