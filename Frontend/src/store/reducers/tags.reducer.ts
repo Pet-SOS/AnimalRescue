@@ -14,7 +14,10 @@ import {
   actionAddTagError,
   actionGetAllTags,
   actionGetAllTagsSuccess,
-  actionGetAllTagsError
+  actionGetAllTagsError,
+  actionUpdateTag,
+  actionUpdateTagSuccess,
+  actionUpdateTagError
 } from './../actions/tags.actions';
 import { genericRequestReducer } from "../../api";
 import { DEFAULT_TAGS_STATE, ITagsState } from '../state/tags.state';
@@ -94,6 +97,30 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
       }
     }
     case getType(actionAddTagError): {
+      return {
+        ...state,
+        isLoading: false,
+        isLoaded: false,
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
+    }
+    case getType(actionUpdateTag): {
+      return {
+        ...state,
+        isLoading: true,
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
+    }
+    case getType(actionUpdateTagSuccess): {
+      return {
+        ...state,
+        isLoaded: true,
+        isLoading: false,
+        data: state.data.map(tag => tag.id === action.payload.id ? action.payload : tag),
+        requestState: tagsListStateReducer(state.requestState, action)
+      }
+    }
+    case getType(actionUpdateTagError): {
       return {
         ...state,
         isLoading: false,

@@ -46,6 +46,10 @@ export async function addTagRequest(tag: ITag): Promise<{data: ITag; self: strin
   return res.data
 }
 
+export async function updateTagRequest(tag: ITag): Promise<void> {
+  await API.put(`/WellKnownTag/${tag.id}`, tag);
+}
+
 export async function deleteTagRequest(tagId: string): Promise<void> {
   const res = await API.delete(`/WellKnownTag/${tagId}`);
   return res.data

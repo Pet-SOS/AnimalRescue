@@ -30,7 +30,7 @@ const TagsCategoryList: React.FC<IPropTypes> = ({ fetchTagsList, clearTagsList, 
   }
 
   useEffect(() => {
-    fetchTagsList();
+    fetchTagsList({size: 100});
     return () => {
       clearTagsList();
     }
