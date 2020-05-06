@@ -31,7 +31,7 @@ interface IAvailableStatuses {
 export class AnimalEditCard extends React.Component<IAnimalCardProps> {
     public baseUrl: string = '';
     public state: IAnimal;
-    public currentLang: string = 'ua';
+    public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
     public availableStatuses: IAvailableStatuses[] = [
         {
           category: "status",
@@ -169,6 +169,9 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
           id: "SOCIALIZATION"
         }
       ];
+    public yearsPeriod = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+    public monthsPeriod = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+    public weeksPeriod = ['0', '1', '2', '3', '4'];
 
     constructor(props: IAnimalCardProps) {
         super(props);
@@ -189,10 +192,12 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             coverImage: props.animal.coverImage,
             id: props.animal.id,
             images: [],
+            tagsList: props.animal.tagsList || []
         }
     }
-    findLocaleStatusValue(statuses: IAnimalCardPropsDescription[]): string {
-        return statuses.filter(val => val.lang === this.currentLang)[0].value;
+    findLocaleStatusValue(statuses: IAnimalCardPropsDescription[] = []): string {
+        const resultStatuses = statuses.filter(val => val.lang === this.currentLang);
+        return resultStatuses.length ? resultStatuses[0].value : '';
     }
     componentWillMount() {
       this.baseUrl = selectApiUrl(store.getState());
@@ -202,7 +207,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
         this.setState({[key]: e.target.value});
     };
 
-    compileDate(targetDate: any, period: string): string {
+    parseData(targetDate: any, period: string): string {
         let result: any = '0';
         const dateDelta = new Date().getTime() - new Date(targetDate).getTime();
 
@@ -217,6 +222,10 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                 result = '0';
         }
         return isNaN(result) ? '0' : result;
+    }
+
+    compileData(event: any, period: string, context: any) {
+      this.setState({[period]: event.target.value});
     }
 
     addImage = (e: any) => {
@@ -247,7 +256,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
 
     render() {
         const {
-            number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
+            number, name, kindOfAnimal, gender, description, character, tagsList, status, bannerText, isDonationActive, coverImage, birthday, week, month, year, age, imageIds, tags, id
         } = this.state;
         return (
             <div>
@@ -258,7 +267,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                     </div>
                     <div className="form-row small-row">
                         <label>Статус</label>
-                        <select>
+                        <select onChange={(e) => this.changeValue(e, 'status')}>
                             <option className="default-val">&ndash;</option>
                             {this.availableStatuses.map(stat => {
                                 return (
@@ -288,29 +297,38 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                         <input value={age} onChange={(e) => this.changeValue(e, 'age')} />
                     </div>
                     <div className="form-row small-row">
-                        {/* <input value={birthday} onChange={(e) => this.changeValue(e, 'birthday')} /> */}
-
                         <div className="form-cols-group">
                             <div className="form-col">
                                 <label htmlFor="birthday-weeks">Неділя</label>
-                                <select id="birthday-weeks">
-                                    <option>{this.compileDate(birthday, 'week')}</option>
+                                <select id="birthday-weeks" onChange={(e) => this.compileData(e, 'week', this)}>
+                                    {this.weeksPeriod.map(currWeek => {
+                                      return (
+                                        <option value={currWeek} selected={this.parseData(birthday, 'week') === currWeek ? true : false}>{currWeek}</option>
+                                      );
+                                    })}
                                 </select>
                             </div>
                             <div className="form-col">
                                 <label htmlFor="birthday-months">Місяць</label>
-                                <select id="birthday-months">
-                                    <option>{this.compileDate(birthday, 'month')}</option>
+                                <select id="birthday-months" onChange={(e) => this.compileData(e, 'month', this)}>
+                                    {this.monthsPeriod.map(currMonth => {
+                                      return (
+                                        <option value={currMonth} selected={this.parseData(birthday, 'month') === currMonth ? true : false}>{currMonth}</option>
+                                      );
+                                    })}
                                 </select>
                             </div>
                             <div className="form-col">
                                 <label htmlFor="birthday-years">Рік</label>
-                                <select id="birthday-years">
-                                    <option>{this.compileDate(birthday, 'year')}</option>
+                                <select id="birthday-years" onChange={(e) => this.compileData(e, 'year', this)}>
+                                    {this.yearsPeriod.map(currYear => {
+                                      return (
+                                        <option value={currYear} selected={this.parseData(birthday, 'year') === currYear ? true : false}>{currYear}</option>
+                                      );
+                                    })}
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div className="form-row small-row">
                         <label>tags</label>

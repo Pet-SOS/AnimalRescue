@@ -412,7 +412,7 @@ input, textarea, ::placeholder {
     &.disabled {
       color: #62738d;
       border-color: #dbdadb;
-      background: #f7f7f7;
+      background-color: #f7f7f7;
     }
   }
 
@@ -420,7 +420,9 @@ input, textarea, ::placeholder {
     -webkit-appearance: none;
     appearance: none;
     position: relative;
-    background: url(/static/media/arrow_down.64024591.svg) no-repeat 96% 50%;
+    background-image: url(/static/media/arrow_down.64024591.svg);
+    background-repeat: no-repeat;
+    background-position: 96% 50%;
 
     .default-val {
       display: none;
