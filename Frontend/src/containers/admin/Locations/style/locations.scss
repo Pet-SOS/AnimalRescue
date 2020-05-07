@@ -14,7 +14,6 @@
 }
 
 
-
 .location-table {
   line-height: 1.33;
 
@@ -30,7 +29,7 @@
   }
 
 
-  .shelter{
+  .shelter {
 
     .col-title {
       flex-basis: 34%;
@@ -42,8 +41,8 @@
     }
 
     .col-address {
-      flex-basis: 66%;
-      max-width: 66%;
+      flex-basis: calc(66% - 6rem);
+      max-width: calc(66% - 6rem);
 
       @include media('≤phone') {
         display: none;
@@ -71,8 +70,8 @@
     }
 
     .col-address {
-      flex-basis: 61%;
-      max-width: 61%;
+      flex-basis: calc(61% - 6rem);
+      max-width: calc(61% - 6rem);
 
       @include media('≤phone') {
         display: none;
@@ -109,8 +108,8 @@
     }
 
     .col-price {
-      flex-basis: 24%;
-      max-width: 24%;
+      flex-basis: calc(24% - 6rem);
+      max-width: calc(24% - 6rem);
 
       @include media('≤phone') {
         display: none;
@@ -203,8 +202,8 @@
   }
 
   .col-btn {
-    flex-basis: 4.25%;
-    max-width: 4.25%;
+    flex-basis: 3rem;
+    max-width: 3rem;
 
     @include media('≤phone') {
       flex-basis: auto;

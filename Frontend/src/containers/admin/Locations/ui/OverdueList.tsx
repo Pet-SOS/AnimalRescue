@@ -1,6 +1,7 @@
 import React from "react";
 import {LocationListContainer} from "./LocationList";
 import {ILocation, LocationsCode} from "../../../../api/admin";
+import {LocationListCell} from "./LocationListCell";
 
 export class OverdueList extends React.PureComponent {
 
@@ -18,16 +19,15 @@ export class OverdueList extends React.PureComponent {
         );
     };
 
-
     renderListItem = (key: string, location: ILocation) => {
         const {title, address, phoneNumber, price} = location;
         return (
-            <div key={key} className={`location-item ${this.CLASS_NAME}`}>
+            <LocationListCell className={this.CLASS_NAME} key={key}>
                 <div className="col col-contact">{title}</div>
                 <div className="col col-phone">{phoneNumber}</div>
                 <div className="col col-address">{address}</div>
                 <div className="col col-price">{price}</div>
-            </div>
+            </LocationListCell>
         )
     };
 

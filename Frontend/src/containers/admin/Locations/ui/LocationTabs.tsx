@@ -5,8 +5,6 @@ import '../style/locations.scss';
 import {ClinicList} from "./ClinicList";
 import {ShelterList} from "./ShelterList";
 import {OverdueList} from "./OverdueList";
-import {IRequestParams} from "../../../../api/requestOptions";
-import {LocationsCode} from "../../../../api/admin";
 
 const {TabPane} = Tabs;
 
@@ -16,10 +14,6 @@ interface ILocationTabsProps {
 
 
 export class LocationTabs extends React.Component<ILocationTabsProps> {
-
-    componentDidMount(): void {
-
-    }
 
     render() {
         return (

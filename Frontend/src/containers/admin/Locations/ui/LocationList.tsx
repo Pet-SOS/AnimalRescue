@@ -43,6 +43,7 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
         )
     };
 
+
     render() {
         return (
             <div>
