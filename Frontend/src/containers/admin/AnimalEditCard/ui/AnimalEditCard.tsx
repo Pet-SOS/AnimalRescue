@@ -194,6 +194,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             images: []
         }
     }
+
     findLocaleStatusValue(statuses: IAnimalCardPropsDescription[] = []): string {
         const resultStatuses = statuses.filter(val => val.lang === this.currentLang);
         return resultStatuses.length ? resultStatuses[0].value : '';
@@ -272,7 +273,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                             {this.availableStatuses.map(stat => {
                                 return (
                                     <option key={stat.id}
-                                            selected={status && this.findLocaleStatusValue(status.values) === this.findLocaleStatusValue(stat.values)}>
+                                            selected={status === this.findLocaleStatusValue(stat.values) ? true : false}>
                                         {this.findLocaleStatusValue(stat.values) || 'Unknown'}
                                     </option>
                                 );
