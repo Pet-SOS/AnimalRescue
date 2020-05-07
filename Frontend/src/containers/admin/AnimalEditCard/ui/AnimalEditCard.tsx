@@ -171,7 +171,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
       ];
     public yearsPeriod = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
     public monthsPeriod = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
-    public weeksPeriod = ['0', '1', '2', '3', '4'];
+    public weeksPeriod = ['0', '1', '2', '3'];
 
     constructor(props: IAnimalCardProps) {
         super(props);
@@ -262,12 +262,12 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             <div>
                 <div className="data-edit">
                     <div className="form-row small-row">
-                        <label>Номер</label>
-                        <input disabled value={number} />
+                        <label htmlFor="acard-number">Номер</label>
+                        <input id="acard-number" disabled value={number} />
                     </div>
                     <div className="form-row small-row">
-                        <label>Статус</label>
-                        <select onChange={(e) => this.changeValue(e, 'status')}>
+                        <label htmlFor="acard-status">Статус</label>
+                        <select id="acard-status" onChange={(e) => this.changeValue(e, 'status')}>
                             <option className="default-val">&ndash;</option>
                             {this.availableStatuses.map(stat => {
                                 return (
@@ -280,21 +280,21 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                         </select>
                     </div>
                     <div className="form-row small-row">
-                        <label>Кличка</label>
-                        <input value={name} onChange={(e) => this.changeValue(e, 'name')} />
+                        <label htmlFor="acard-name">Кличка</label>
+                        <input id="acard-name" value={name} onChange={(e) => this.changeValue(e, 'name')} />
                     </div>
                     <div className="form-row small-row">
-                        <label>Вид</label>
-                        <input value={kindOfAnimal}
+                        <label htmlFor="acard-kind">Вид</label>
+                        <input id="acard-kind" value={kindOfAnimal}
                                onChange={(e) => this.changeValue(e, 'kindOfAnimal')} />
                     </div>
                     <div className="form-row small-row">
-                        <label>Стать</label>
-                        <input value={gender} onChange={(e) => this.changeValue(e, 'gender')} />
+                        <label htmlFor="acard-gender">Стать</label>
+                        <input id="acard-gender" value={gender} onChange={(e) => this.changeValue(e, 'gender')} />
                     </div>
                     <div className="form-row small-row">
-                        <label>age</label>
-                        <input value={age} onChange={(e) => this.changeValue(e, 'age')} />
+                        <label htmlFor="acard-age">age</label>
+                        <input id="acard-age" value={age} onChange={(e) => this.changeValue(e, 'age')} />
                     </div>
                     <div className="form-row small-row">
                         <div className="form-cols-group">
@@ -331,8 +331,8 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                         </div>
                     </div>
                     <div className="form-row small-row">
-                        <label>tags</label>
-                        <input value={tags} onChange={(e) => this.changeValue(e, 'tags')} />
+                        <label htmlFor="acard-tags">tags</label>
+                        <input id="acard-tags" value={tags} onChange={(e) => this.changeValue(e, 'tags')} />
                     </div>
                     <div>id {id}</div>
                 </div>
@@ -360,8 +360,8 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                               <li><label><span>Вiдкрити Cбір коштів</span><input type="checkbox" onChange={(e) => this.changeValue(e, 'isDonationActive')} /><span>{isDonationActive}</span></label></li>
                               {!!this.state.isDonationActive && (
                                 <li>
-                                    <label><span>Текст на банері</span></label><br />
-                                    <input value={bannerText} onChange={(e) => this.changeValue(e, 'bannerText')} />
+                                    <label htmlFor="acard-banner-text"><span>Текст на банері</span></label><br />
+                                    <input id="acard-banner-text" value={bannerText} onChange={(e) => this.changeValue(e, 'bannerText')} />
                                 </li>
                               )}
                               <li><label><span>Стерилізован</span><input type="checkbox"/><span>checkbox</span></label></li>
@@ -374,10 +374,10 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
                           </Button>
                       </TabPane>
                       <TabPane tab="Опис" key="3">
-                          <label>Трохи історії</label>
-                          <textarea value={description} onChange={(e) => this.changeValue(e, 'description')} />
-                          <label>Характер</label>
-                          <textarea value={character} onChange={(e) => this.changeValue(e, 'character')} />
+                          <label htmlFor="acard-description">Трохи історії</label>
+                          <textarea id="acard-description" value={description} onChange={(e) => this.changeValue(e, 'description')} />
+                          <label htmlFor="acard-character">Характер</label>
+                          <textarea id="acard-character" value={character} onChange={(e) => this.changeValue(e, 'character')} />
                       </TabPane>
                       <TabPane tab="Історія змін" key="4">
                           Content of Tab Pane 3
