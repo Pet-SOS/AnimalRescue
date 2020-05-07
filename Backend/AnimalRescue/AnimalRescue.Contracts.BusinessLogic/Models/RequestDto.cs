@@ -13,8 +13,14 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(common.Case)]
         public WellKnownTagDto Case { get; set; }
 
+        [CouplingPropertyDto(common.CaseDescription)]
+        public string CaseDescription { get; set; }
+
         [CouplingPropertyDto(animal.KindOfAnimal)]
-        public string KindOfAnimal { get; set; }
+        public WellKnownTagDto KindOfAnimal { get; set; }
+
+        [CouplingPropertyDto(animal.AnimalState)]
+        public WellKnownTagDto AnimalState { get; set; }
 
         [CouplingPropertyDto(animal.Status)]
         public WellKnownTagDto Status { get; set; }
@@ -24,6 +30,9 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
 
         [CouplingPropertyDto(person.Address)]
         public string Address { get; set; }
+
+        [CouplingPropertyDto(person.PersonState)]
+        public WellKnownTagDto PersonState { get; set; }
 
         [CouplingPropertyDto(person.FirstName)]
         public string FirstName { get; set; }

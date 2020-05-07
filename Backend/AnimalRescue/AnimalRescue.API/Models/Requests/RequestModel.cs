@@ -15,9 +15,17 @@ namespace AnimalRescue.API.Models.Requests
         [JsonProperty(common.Case)]
         public WellKnownTagModel Case { get; set; }
 
+        [JsonPropertyName(common.CaseDescription)]
+        [JsonProperty(common.CaseDescription)]
+        public string CaseDescription { get; set; }
+
         [JsonPropertyName(animal.KindOfAnimal)]
         [JsonProperty(animal.KindOfAnimal)]
         public string KindOfAnimal { get; set; }
+
+        [JsonPropertyName(animal.AnimalState)]
+        [JsonProperty(animal.AnimalState)]
+        public WellKnownTagModel AnimalState { get; set; }
 
         [JsonPropertyName(animal.Status)]
         [JsonProperty(animal.Status)]
@@ -30,6 +38,10 @@ namespace AnimalRescue.API.Models.Requests
         [JsonPropertyName(person.Address)]
         [JsonProperty(person.Address)]
         public string Address { get; set; }
+
+        [JsonPropertyName(person.PersonState)]
+        [JsonProperty(person.PersonState)]
+        public WellKnownTagModel PersonState { get; set; }
 
         [JsonPropertyName(person.FirstName)]
         [JsonProperty(person.FirstName)]

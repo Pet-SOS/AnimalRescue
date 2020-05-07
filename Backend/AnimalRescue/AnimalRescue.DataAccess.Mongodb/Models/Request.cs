@@ -11,16 +11,24 @@ using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
-    [BsonDiscriminator("request")]
+    [BsonDiscriminator("requests")]
     public class Request : BaseAndTimeItem
     {
         [CouplingPropertyName(common.Case)]
         [BsonElement("case")]
         public WellKnownTag Case { get; set; }
 
+        [CouplingPropertyName(common.CaseDescription)]
+        [BsonElement("caseDescription")]
+        public string CaseDescription { get; set; }
+
         [CouplingPropertyName(animal.KindOfAnimal)]
         [BsonElement("kindOfAnimal")]
-        public string KindOfAnimal { get; set; }
+        public WellKnownTag KindOfAnimal { get; set; }
+
+        [CouplingPropertyName(animal.AnimalState)]
+        [BsonElement("animalState")]
+        public WellKnownTag AnimalState { get; set; }
 
         [CouplingPropertyName(animal.Status)]
         [BsonElement("status")]
@@ -33,6 +41,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(person.Address)]
         [BsonElement("address")]
         public string Address { get; set; }
+
+        [CouplingPropertyName(person.PersonState)]
+        [BsonElement("personState")]
+        public WellKnownTag PersonState { get; set; }
 
         [CouplingPropertyName(person.FirstName)]
         [BsonElement("firstName")]
