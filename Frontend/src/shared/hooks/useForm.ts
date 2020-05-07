@@ -12,7 +12,11 @@ export default (callback: () => any) => {
     event.persist();
     setFields(fields => ({ ...fields, [event.target.name]: event.target.value }));
   }
+  const initFields = (fieldValues: {[key: string]: string}) => {
+    setFields(fieldValues)
+  }
   return {
+    initFields,
     handleSubmit,
     handleFieldChange,
     fields

@@ -14,7 +14,8 @@ const mapStateToProps = (state: ICustomAppState) => {
         sickAnimalsList: state.animals.sickAnimalsList,
         infoCard: state.homePage.infoCard,
         infoContacts: state.homePage.infoContacts,
-
+        tags: state.tags,
+        appLang: state.appLanguage
     };
   };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
         {
             fetchSickAnimals: actionFetchSickAnimals,
             fetchInfoCard: actionFetchInfoCard,
-            fetchInfoContacts: actionFetchInfoContacts, 
+            fetchInfoContacts: actionFetchInfoContacts,
             fetchAnimalsRequest: actionFetchAnimalsRequest,
         },
         dispatch
