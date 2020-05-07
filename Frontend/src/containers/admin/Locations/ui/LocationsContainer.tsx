@@ -2,19 +2,14 @@ import {connect} from "react-redux";
 import {LocationTabs} from "./LocationTabs";
 import {ICustomAppState} from "../../../../store/state";
 import {bindActionCreators, Dispatch} from "redux";
-import {actionAdminFetchLocationsRequest} from "../store/actions";
 
 
-const mapStateToProps =  (state : ICustomAppState) => {
-    return {
-
-    }
+const mapStateToProps = (state: ICustomAppState) => {
+    return {}
 };
 
-const mapDispatchToProps = (dispatch : Dispatch) => {
-    return bindActionCreators({
-            loadLocations : actionAdminFetchLocationsRequest
-        },
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return bindActionCreators({},
         dispatch
     )
 };

@@ -11,14 +11,14 @@ import {LocationsCode} from "../../../../api/admin";
 const {TabPane} = Tabs;
 
 interface ILocationTabsProps {
-    loadLocations: (code : LocationsCode, p ?: IRequestParams) => void;
+
 }
 
 
 export class LocationTabs extends React.Component<ILocationTabsProps> {
 
     componentDidMount(): void {
-        this.props.loadLocations(LocationsCode.CLINIC);
+
     }
 
     render() {

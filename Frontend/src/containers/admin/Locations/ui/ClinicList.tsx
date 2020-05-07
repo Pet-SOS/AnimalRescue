@@ -1,7 +1,12 @@
 import React from "react";
-import {LocationList} from "./LocationList";
+import {LocationListContainer} from "./LocationList";
+import {ILocation, LocationsCode} from "../../../../api/admin";
 
 export class ClinicList extends React.PureComponent {
+
+    private CLASS_NAME= 'clinic';
+    private TYPE = LocationsCode.CLINIC;
+
 
     renderHeader = () => {
         return (
@@ -12,12 +17,22 @@ export class ClinicList extends React.PureComponent {
         );
     };
 
+    renderListItem = (key: string, location: ILocation) => {
+        return (
+            <div key={key} className={`location-item ${this.CLASS_NAME}`}>
+                <div className="col col-title">${location.title}</div>
+                <div className="col col-address">{location.address}</div>
+            </div>
+        )
+    };
 
     render() {
         return (
-            <LocationList
-                className="clinic"
+            <LocationListContainer
+                type={this.TYPE}
+                className={this.CLASS_NAME}
                 renderHeader={this.renderHeader}
+                renderItem={this.renderListItem}
             />
         )
     }

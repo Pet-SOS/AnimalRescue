@@ -6,3 +6,12 @@ export interface IListResponse<T> {
     self: string;
     totalCount: number;
 }
+
+export const DEFAULT_LIST_RESPONSE: IListResponse<any> = {
+    data: [],
+    pageCount: -1,
+    pageNumber: -1,
+    pageSize: -1,
+    self: '',
+    totalCount: -1,
+};

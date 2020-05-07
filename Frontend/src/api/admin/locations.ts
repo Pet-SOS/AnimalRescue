@@ -16,7 +16,7 @@ export interface ILocation {
     id: string;
 }
 
-export interface ILocationsResponse extends IListResponse<Location> {
+export interface ILocationsResponse extends IListResponse<ILocation> {
 }
 
 

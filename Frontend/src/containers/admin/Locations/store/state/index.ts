@@ -1,5 +1,5 @@
 import {ILocationsResponse} from "../../../../../api/admin";
-import {IRequestState} from "../../../../../api";
+import {DEFAULT_LIST_RESPONSE, DEFAULT_REQUEST_STATE, IRequestState} from "../../../../../api";
 
 export interface ILocationState {
     list: ILocationsResponse;
@@ -14,6 +14,10 @@ export interface IAdminLocationsSate {
     locations: ILocationsMap
 }
 
+export const DEFAULT_LOCATION_STATE : ILocationState = {
+    list: {...DEFAULT_LIST_RESPONSE},
+    requestState : {...DEFAULT_REQUEST_STATE}
+}
 
 export const DEFAULT_ADMIN_LOCATIONS_STATE: IAdminLocationsSate = {
     locations: {}
