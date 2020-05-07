@@ -85,7 +85,7 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
-  tagsList: ITag[];
+  tagsList?: ITag[];
 }
 
 export interface IAnimalResponse {

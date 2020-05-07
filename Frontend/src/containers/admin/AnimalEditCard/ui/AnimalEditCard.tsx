@@ -191,8 +191,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             birthday: props.animal.birthday || '',
             coverImage: props.animal.coverImage,
             id: props.animal.id,
-            images: [],
-            tagsList: props.animal.tagsList || []
+            images: []
         }
     }
     findLocaleStatusValue(statuses: IAnimalCardPropsDescription[] = []): string {
@@ -205,6 +204,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
 
     changeValue = (e: any, key: any) => {
         this.setState({[key]: e.target.value});
+        debugger
     };
 
     parseData(targetDate: any, period: string): string {
@@ -233,8 +233,8 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
     }
 
     renderImgs = (imageIds: string[]) => imageIds.map(imageId => 
-        <img key={imageId} style={{width: 100, height: 100}}
-        src={`${this.baseUrl}documents/${imageId}/type/small`} />)
+        <img key={imageId} style={{width: 100, height: 100}} alt="description"
+             src={`${this.baseUrl}documents/${imageId}/type/small`} />)
 
     submit = () => {
         const animal = {...this.state as IAnimal}
@@ -256,7 +256,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
 
     render() {
         const {
-            number, name, kindOfAnimal, gender, description, character, tagsList, status, bannerText, isDonationActive, coverImage, birthday, week, month, year, age, imageIds, tags, id
+            number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, week, month, year, age, imageIds, tags, id
         } = this.state;
         return (
             <div>
