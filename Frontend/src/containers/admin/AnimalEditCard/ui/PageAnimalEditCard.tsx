@@ -1,7 +1,7 @@
 import React from "react";
 import { AdminMenu } from "../../AdminMenu";
 import { IAnimal } from "../../../../api/animals";
-import { AnimalEditCard } from "./AnimalEditCard";
+import AnimalEditCard from "./AnimalEditCard";
 import {Button, ButtonTypes} from "../../../../components/Button";
 
 interface IAnimalCardProps {
@@ -9,7 +9,7 @@ interface IAnimalCardProps {
     deleteAnimal: (id: string) => void
     postAnimal: (animal: IAnimal) => void
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void
-
+    fetchAnimalItem: (id:string) => any;
 }
 
 export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
@@ -17,7 +17,7 @@ export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
         return(
             <>
                 <div className='boxAdmin'>
-                    <AdminMenu 
+                    <AdminMenu
                         selectedKey={'animals-list'}
                         openKeys={['']}
                     />
@@ -34,6 +34,7 @@ export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
                                         deleteAnimal={this.props.deleteAnimal}
                                         postAnimal={this.props.postAnimal}
                                         updateAnimal={this.props.updateAnimal}
+                                        fetchAnimalItem={this.props.fetchAnimalItem}
                                     />
                                 </section>
                             </section>

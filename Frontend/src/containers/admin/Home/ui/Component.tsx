@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/home.scss';
 import {DEFAULT_ANIMAL, IAnimal, IAnimalsResponse} from "../../../../api/animals";
-import {AnimalEditCard} from "../../AnimalEditCard/ui/AnimalEditCard";
+import AnimalEditCard from "../../AnimalEditCard/ui/AnimalEditCard";
 import { AdminMenu } from '../../AdminMenu';
 
 interface AdminHomeProps {
@@ -10,6 +10,7 @@ interface AdminHomeProps {
     deleteAnimal: (id: string) => void
     postAnimal: (animal: IAnimal) => void
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void
+    fetchAnimalItem: (id:string) => any;
 }
 
 export class AdminHomePage extends React.Component<AdminHomeProps> {
@@ -36,7 +37,9 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
             {<AnimalEditCard animal={animal}
                              deleteAnimal={this.deleteAnimal}
                              postAnimal={this.postAnimal}
-                             updateAnimal={this.updateAnimal}/>}
+                             updateAnimal={this.updateAnimal}
+                             fetchAnimalItem={this.props.fetchAnimalItem}
+            />}
         </div>)
     }
 
@@ -58,7 +61,7 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
                     </div>
                 </main>
             </div>
-           
+
         )
     }
 };

@@ -4,43 +4,55 @@ import '../style/animalEditCard.scss'
 import {store} from "../../../../store";
 import {selectApiUrl} from "../../../../store/selectors/config.selector";
 import {Tabs} from "antd";
-import {Button, ButtonTypes} from "../../../../components/Button";
 import {HealthTabContent} from "./HealthTabContent";
+import {RouteComponentProps, withRouter} from "react-router";
+import _ from "lodash";
+import {connect} from "react-redux";
+import {ICustomAppState} from "../../../../store/state";
+import {Loader} from "../../../../components/Loader";
+import {ERequestStatus} from "../../../../api";
 
 const {TabPane} = Tabs;
 
-
-interface IAnimalCardProps {
-  animal: IAnimal,
-  deleteAnimal: (id: string) => void
-  postAnimal: (animal: IAnimal) => void
-  updateAnimal: (params: { animal: IAnimal, id?: string }) => void
-
+interface IOwnPropTypes extends RouteComponentProps<any> {
+  animal: IAnimal;
+  deleteAnimal: (id: string) => void;
+  postAnimal: (animal: IAnimal) => void;
+  updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
+  fetchAnimalItem: (id: string) => any;
 }
 
-export class AnimalEditCard extends React.Component<IAnimalCardProps> {
+interface IPropTypes extends IOwnPropTypes {
+  status: ERequestStatus;
+}
+
+class AnimalEditCard extends React.Component<IPropTypes> {
   public baseUrl: string = '';
   public state: IAnimal;
 
-  constructor(props: IAnimalCardProps) {
+  constructor(props: IPropTypes) {
     super(props);
-    this.state = {
-      number: props.animal.number,
-      name: props.animal.name || '',
-      kindOfAnimal: props.animal.kindOfAnimal || '',
-      gender: props.animal.gender || '',
-      description: props.animal.description || '',
-      age: props.animal.age,
-      imageIds: props.animal.imageIds,
-      tags: props.animal.tags || '',
-      character: props.animal.character || '',
-      status: props.animal.status || '',
-      bannerText: props.animal.bannerText || '',
-      isDonationActive: props.animal.isDonationActive || false,
-      birthday: props.animal.birthday || '',
-      coverImage: props.animal.coverImage,
-      id: props.animal.id,
-      images: [],
+    this.state = DEFAULT_ANIMAL;
+  }
+
+  componentDidMount() {
+    const {match: {params: {id}}} = this.props;
+    this.props.fetchAnimalItem(String(id));
+  }
+
+  componentDidUpdate(prevProps: Readonly<IPropTypes>) {
+    const newState = {
+      ...DEFAULT_ANIMAL
+    };
+    Object.keys(this.props.animal).forEach((key: string) => {
+      // @ts-ignore
+      if (key in newState && this.props.animal[key]) {
+        // @ts-ignore
+        newState[key] = this.props.animal[key];
+      }
+    });
+    if (!_.isEqual(this.state, newState)) {
+      this.setState(newState)
     }
   }
 
@@ -53,8 +65,7 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
   };
 
   onChangeTagList = (tags: string[]) => {
-    this.setState({tags}, () => console.log('add tags', this.state.tags));
-
+    this.setState({tags});
   }
 
   addImage = (e: any) => {
@@ -83,10 +94,23 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
       #{i + 1} {image.name}</div>)
   }
 
+  onUpdateHealthInfo = (
+    tags: string[],
+    isDonationActive: boolean,
+    bannerText: string
+  ) => {
+    const animal = {...this.state as IAnimal}
+    const updaedAnimal = {...animal, tags, isDonationActive, bannerText};
+    this.props.updateAnimal({animal: updaedAnimal, id: this.state.id})
+  }
+
   render() {
     const {
       number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
     } = this.state
+    if (this.props.status === ERequestStatus.REQUEST) {
+      return <Loader/>
+    }
     return (
       <>
         <div className="data-edit">
@@ -136,9 +160,11 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             <TabPane tab="Здоров’я" key="2">
               <HealthTabContent
                 onChangeTagList={this.onChangeTagList}
-                healthInfo={{isDonationActive, tags}}
+                donationActive={isDonationActive}
+                tags={tags}
                 bannerText={bannerText}
                 onChange={this.changeValue}
+                onUpdateHealthInfo={this.onUpdateHealthInfo}
               />
             </TabPane>
 
@@ -151,9 +177,17 @@ export class AnimalEditCard extends React.Component<IAnimalCardProps> {
             <TabPane tab="Історія змін" key="4">
               Content of Tab Pane 3
             </TabPane>
+
           </Tabs>
         </div>
 
       </>)
   }
 }
+
+export default withRouter(connect((state: ICustomAppState, ownProps: IOwnPropTypes) => {
+  return {
+    status: state.animalItem.requestState.status,
+    ...ownProps
+  }
+})(AnimalEditCard));
