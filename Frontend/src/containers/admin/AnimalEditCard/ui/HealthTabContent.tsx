@@ -61,7 +61,7 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
           {this.renderBannerBlock()}
           {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізован')}
           {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплен')}
-          {this.renderTagSelection(EditableTags.READY_TO_TRAVEL, 'Готов до виїзду за кордон')}
+          {this.renderTagSelection(EditableTags.READYTOABROAD, 'Готов до виїзду за кордон')}
         </ul>
       </div>
     );

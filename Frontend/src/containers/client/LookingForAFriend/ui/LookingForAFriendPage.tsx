@@ -94,9 +94,9 @@ const defaultFilterState = {
         key: FilterType.VACCINATED,
         check: false
     },
-    READYTOTRAVEL: {
-        value: Tags.READYTOTRAVEL,
-        key: FilterType.VACCINATED,
+    READYTOABROAD: {
+        value: Tags.READYTOABROAD,
+        key: FilterType.READYTOABROAD,
         check: false
     }
 };
@@ -163,7 +163,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         if (this.props.location.search) {
             this.getAllQueryParamsToState(this.props.location.search);
         }
-        if (store.getState().animals.sickAnimalsList.totalCount === 0) {
+        if (store.getState().animals.animalsList.totalCount === 0) {
             this.props.fetchAnimalsRequest({
                 page: +this.props.match.params.page,
                 size: this.sizeAnimalToPage,
@@ -175,7 +175,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
     }
 
     expectTheFilterIsEqualTo(filterKey: string) {
-        return filterKey === FilterType.STERILIZED || filterKey === FilterType.VACCINATED || filterKey === FilterType.READY_TO_TRAVEL;
+        return filterKey === FilterType.STERILIZED || filterKey === FilterType.VACCINATED || filterKey === FilterType.READYTOABROAD;
     }
 
     convertToRoutingParams() {
@@ -225,10 +225,12 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         } else {
             this.allFilterRequestString = filterParams;
         }
+        this.allFilterRequestString += '';
+
         this.props.fetchAnimalsRequest({
             page: Number(this.props.match.params.page),
             size: this.sizeAnimalToPage,
-            filter: this.allFilterRequestString,
+            filter: this.allFilterRequestString ,
         });
         this.props.history.push({
             pathname: `/animals/page/${+this.props.match.params.page}`,
@@ -261,6 +263,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
     }
 
     setCheckboxCheck(name: string) {
+        console.log('setCheckboxCheck', name)
         this.setState({
             [name]: {
                 ...this.state[name],
@@ -421,8 +424,8 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                         <CheckBoks
                                             name={<TI18n keyStr='readytoabroad'/>}
                                             setCheckboxCheck={this.setCheckboxCheck.bind(this)}
-                                            state={this.state.READYTOTRAVEL.check}
-                                            tag={this.state.READYTOTRAVEL.key}
+                                            state={this.state.READYTOABROAD.check}
+                                            tag={this.state.READYTOABROAD.key}
                                         />
                                     </li>
                                 </ul>
