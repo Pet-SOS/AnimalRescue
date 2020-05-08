@@ -119,7 +119,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchTagsList: (categoryName: string) => dispatch(actionGetTagsList({
     filter: {
       fieldName: 'category',
-      opeartor: RequestFilterOperators.EQ,
+      operator: RequestFilterOperators.EQ,
       value: categoryName
     }
   })),
