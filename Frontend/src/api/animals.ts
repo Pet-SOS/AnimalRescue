@@ -62,18 +62,18 @@ export enum FilterType {
     SIZE = 'size',
     STERILIZED = 'STERILIZED',
     VACCINATED = 'VACCINATED',
-    READY_TO_TRAVEL = 'READYTOTRAVEL'
+    READYTOABROAD = 'READYTOABROAD'
 }
 
 export enum EditableTags {
   STERILIZED = 'STERILIZED',
   VACCINATED = 'VACCINATED',
-  READY_TO_TRAVEL = 'READYTOTRAVEL'
+  READYTOABROAD = 'READYTOABROAD'
 }
 
 export enum Tags{
     VACCINATED='привит',
-    READYTOTRAVEL='доступен для выезда заграницу',
+    READYTOABROAD='доступен для выезда заграницу',
     TREATMENT='на лечении',
     SPECIAL='особенный',
     STERILIZED='стерилизован',

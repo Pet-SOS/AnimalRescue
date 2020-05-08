@@ -119,7 +119,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                             {this.props.animalsList.data.length && this.props.animalsList.data.map((animal)=>
                                             <div className="a-item" key={animal.id}>
                                                 <div className="row">
-                                                    <div className="col col-image 999">
+                                                    <div className="col col-image">
                                                         <div className="visual"
                                                              style={{
                                                                  backgroundSize:'cover',
