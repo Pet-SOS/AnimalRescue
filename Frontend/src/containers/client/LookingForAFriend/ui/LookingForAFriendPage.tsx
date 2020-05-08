@@ -104,7 +104,7 @@ const defaultFilterState = {
 export class LookingForAFriendPage extends React.Component<IPropTypes> {
     public state: any;
     public toPage: number = 1;
-    public sizeAnimalToPage: number = 3;
+    public sizeAnimalToPage: number = 15;
     public allFilterRequestString: string = '';
     public tagsAll = 'tags~all~';
     public initialState: any;
@@ -205,16 +205,17 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                     continue;
                 }
                 if (key === FilterType.SIZE || key === FilterType.BREED) {
-                    strTags = `${strTags}'${this.state[key].key}'`;
+                    strTags = `${strTags}'${this.state[key].key}'^`;
                 } else if (this.expectTheFilterIsEqualTo(key)) {
-                    strTags = (!!this.state[key].check) ? `${strTags}'${this.state[key].key}'` : strTags;
+                    strTags = (!!this.state[key].check) ? `${strTags}'${this.state[key].key}'^` : strTags;
                 } else {
                     let partFilter = `${key}~eq~'${this.state[key].key}'`;
                     filterParams = (filterParams === '') ? `${filterParams}${partFilter}` : `${filterParams};${partFilter}`;
                 }
             }
         }
-        let tags = `${this.tagsAll}${strTags}`;
+        const patt = /^/g;
+        let tags = (strTags !== '' && patt.test(strTags)) ? `${this.tagsAll}(${strTags.slice(0, -1)})` : `${this.tagsAll}${strTags}`;
 
         if (strTags !== '' && filterParams !== '') {
             this.allFilterRequestString = `${tags};${filterParams}`;
@@ -224,8 +225,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
             this.allFilterRequestString = tags;
         } else {
             this.allFilterRequestString = filterParams;
-        }
-        this.allFilterRequestString += '';
+        }        
 
         this.props.fetchAnimalsRequest({
             page: Number(this.props.match.params.page),
