@@ -65,6 +65,12 @@ export enum FilterType {
     READY_TO_TRAVEL = 'READYTOTRAVEL'
 }
 
+export enum EditableTags {
+  STERILIZED = 'STERILIZED',
+  VACCINATED = 'VACCINATED',
+  READY_TO_TRAVEL = 'READYTOTRAVEL'
+}
+
 export enum Tags{
     VACCINATED='привит',
     READYTOTRAVEL='доступен для выезда заграницу',
@@ -91,7 +97,7 @@ export interface IAnimal {
   isDonationActive: boolean;
   id?: string;
   readonly?: boolean;
-  images: []
+  images: [];
   createdAt?: string;
 }
 
@@ -115,7 +121,8 @@ export const DEFAULT_ANIMAL: IAnimal = {
     isDonationActive: false,
     birthday: '',
     coverImage: 0,
-    images: []
+    images: [],
+    id: ''
 }
 
 export interface IAnimalsResponse {
