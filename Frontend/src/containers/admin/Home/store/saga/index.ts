@@ -17,6 +17,7 @@ import {
     actionAdminUpdateAnimalSuccess
 } from "../actions";
 import { IRequestParams } from '../../../../../api/requestOptions';
+import {actionFetchAnimalItemRequest} from "../../../../client/Animals/store/actions/animal.actions";
 
 function* fetchHomePageAnimalsListSaga(action: { type: string, payload?: IRequestParams }) {
     try {
@@ -52,6 +53,9 @@ function* postAnimalSaga(action: ReturnType<typeof actionAdminPostAnimalRequest>
 function* updateAnimalSaga(action: ReturnType<typeof actionAdminUpdateAnimalRequest>) {
     try {
         yield call(updateAnimal, action.payload);
+        if (action.payload.id) {
+            yield put(actionFetchAnimalItemRequest(action.payload.id));
+        }
         yield put(actionAdminUpdateAnimalSuccess())
         yield put(actionAdminHomeFetchAnimalsRequest())
     } catch (e) {

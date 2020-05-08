@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {ICustomAppState} from "../../../../store/state";
 import {Loader} from "../../../../components/Loader";
 import {ERequestStatus} from "../../../../api";
+import {Button, ButtonTypes} from "../../../../components/Button";
 
 const {TabPane} = Tabs;
 
@@ -29,10 +30,11 @@ interface IPropTypes extends IOwnPropTypes {
 class AnimalEditCard extends React.Component<IPropTypes> {
   public baseUrl: string = '';
   public state: IAnimal;
+  public currentTab: string = '1';
 
   constructor(props: IPropTypes) {
     super(props);
-    this.state = DEFAULT_ANIMAL;
+    this.state = {...DEFAULT_ANIMAL};
   }
 
   componentDidMount() {
@@ -41,17 +43,16 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   }
 
   componentDidUpdate(prevProps: Readonly<IPropTypes>) {
-    const newState = {
-      ...DEFAULT_ANIMAL
-    };
-    Object.keys(this.props.animal).forEach((key: string) => {
-      // @ts-ignore
-      if (key in newState && this.props.animal[key]) {
+    const newState = {...DEFAULT_ANIMAL};
+    const { animal } = this.props;
+    if (!_.isEqual(prevProps, this.props)) {
+      for (let key in animal) {
         // @ts-ignore
-        newState[key] = this.props.animal[key];
+        if (newState.hasOwnProperty(key) && animal[key]) {
+          // @ts-ignore
+          newState[key] = animal[key];
+        }
       }
-    });
-    if (!_.isEqual(this.state, newState)) {
       this.setState(newState)
     }
   }
@@ -63,10 +64,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   changeValue = (e: any, key: any) => {
     this.setState({[key]: e.target.value})
   };
-
-  onChangeTagList = (tags: string[]) => {
-    this.setState({tags});
-  }
 
   addImage = (e: any) => {
     this.setState({images: [...this.state.images, ...e.target.files]})
@@ -94,14 +91,23 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       #{i + 1} {image.name}</div>)
   }
 
-  onUpdateHealthInfo = (
-    tags: string[],
-    isDonationActive: boolean,
-    bannerText: string
-  ) => {
-    const animal = {...this.state as IAnimal}
-    const updaedAnimal = {...animal, tags, isDonationActive, bannerText};
-    this.props.updateAnimal({animal: updaedAnimal, id: this.state.id})
+  onUpdateTag = (tagName: string) => {
+    const index = this.state.tags.indexOf(tagName);
+    const isTagExist = index !== -1;
+    const tags = this.state.tags.slice();
+    if (isTagExist) {
+      tags.splice(index, 1);
+      this.setState({tags})
+    } else {
+      tags.push(tagName);
+      this.setState({tags})
+    }
+  }
+
+  onToggleDonation = () => {
+    this.setState({
+      isDonationActive: !this.state.isDonationActive
+    })
   }
 
   render() {
@@ -139,7 +145,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
           <p>id {id}</p>
         </div>
         <div className="tabs-edit">
-          <Tabs defaultActiveKey="1">
+          <Tabs
+            defaultActiveKey={this.currentTab}
+            onChange={(key: string) => this.currentTab = key}
+          >
             <TabPane tab="Зображення" key="1">
               <p>
                 <span>Головне зображення</span><br/>
@@ -159,12 +168,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             </TabPane>
             <TabPane tab="Здоров’я" key="2">
               <HealthTabContent
-                onChangeTagList={this.onChangeTagList}
                 donationActive={isDonationActive}
                 tags={tags}
                 bannerText={bannerText}
                 onChange={this.changeValue}
-                onUpdateHealthInfo={this.onUpdateHealthInfo}
+                onUpdateTag={this.onUpdateTag}
+                onToggleDonation={this.onToggleDonation}
               />
             </TabPane>
 
@@ -177,8 +186,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             <TabPane tab="Історія змін" key="4">
               Content of Tab Pane 3
             </TabPane>
-
           </Tabs>
+          <Button
+            onClick={this.submit}
+            styleType={ButtonTypes.Blue}>
+            Зберегти зміни
+          </Button>
         </div>
 
       </>)
@@ -187,7 +200,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
 export default withRouter(connect((state: ICustomAppState, ownProps: IOwnPropTypes) => {
   return {
-    status: state.animalItem.requestState.status,
+    status: state.AdminHomePage.animalUpdateRequestState.status,
     ...ownProps
   }
 })(AnimalEditCard));
