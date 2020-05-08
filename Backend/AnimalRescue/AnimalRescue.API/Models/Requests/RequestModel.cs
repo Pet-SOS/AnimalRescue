@@ -21,7 +21,7 @@ namespace AnimalRescue.API.Models.Requests
 
         [JsonPropertyName(animal.KindOfAnimal)]
         [JsonProperty(animal.KindOfAnimal)]
-        public string KindOfAnimal { get; set; }
+        public WellKnownTagModel KindOfAnimal { get; set; }
 
         [JsonPropertyName(animal.AnimalState)]
         [JsonProperty(animal.AnimalState)]

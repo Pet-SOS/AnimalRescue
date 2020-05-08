@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
-//    [Authorize("Bearer")]
+    [Authorize("Bearer")]
     public class RequestsController : ApiControllerBase
     {
         private readonly ILogger<RequestsController> _logger;
