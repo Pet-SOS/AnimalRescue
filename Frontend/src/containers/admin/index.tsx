@@ -13,6 +13,7 @@ import TagsCategoryList from './Tags/TagsCategory/TagsCategoryList';
 import { CommonInfo } from './CommonInfo';
 import { AnimalsList } from './AnimalsList';
 import { AnimalAdminCard } from './AnimalEditCard';
+import LocationContainer from "./Locations/ui/LocationsContainer";
 
 const history = createBrowserHistory();
 interface IPropTypes extends RouteComponentProps {
@@ -42,6 +43,7 @@ const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
               <GuardedRoute path={`${props.match.path}/animals-list/:id`} component={AnimalAdminCard} exact/>
               <GuardedRoute path={`${props.match.path}/reports`} component={FinancialReports} exact/>
               <GuardedRoute path={`${props.match.path}/common`} component={CommonInfo} exact/>
+              <GuardedRoute path={`${props.match.path}/locations`} component={LocationContainer} exact/>
         </GuardProvider>
       </GuardProvider>
   </Router>

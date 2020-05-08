@@ -58,7 +58,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
       const requsetParams: IRequestParams = {
         filter: {
           fieldName: 'type',
-          opeartor: RequestFilterOperators.ALL,
+          operator: RequestFilterOperators.ALL,
           value: blogItem.data.type === BlogTypes.STORY ? BlogTypes.STORY : BlogTypes.ARTICLE
         }
       }
@@ -77,7 +77,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
     const itemTypeSubtitle = blogItem.data.type === BlogTypes.ARTICLE ? <TI18n keyStr='blogarticle' default='Полезные советы' /> : <TI18n keyStr='blogstory' default='Истории успеха' />
     return <React.Fragment>{!!dateString ? <span className='item-date'>{dateString}</span> : ''}{itemTypeSubtitle}</React.Fragment>
   }
-  
+
   return (
     <div className='blog-item-page-holder'>
       <div className='container'>
