@@ -8,6 +8,7 @@ using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
+using System;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
@@ -34,9 +35,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("status")]
         public WellKnownTag Status { get; set; }
 
-        [CouplingPropertyName(animal.Age)]
-        [BsonElement("age")]
-        public int Age { get; set; }
+        [CouplingPropertyName(animal.Birthday)]
+        [BsonElement("birthday")]
+        public DateTime Birthday { get; set; }
 
         [CouplingPropertyName(person.Address)]
         [BsonElement("address")]

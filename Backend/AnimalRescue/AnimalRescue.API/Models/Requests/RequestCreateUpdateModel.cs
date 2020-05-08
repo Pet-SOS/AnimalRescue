@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
+using System;
 
 namespace AnimalRescue.API.Models.Requests
 {
@@ -31,9 +32,9 @@ namespace AnimalRescue.API.Models.Requests
         [JsonProperty(animal.Status)]
         public string Status { get; set; }
 
-        [JsonPropertyName(animal.Age)]
-        [JsonProperty(animal.Age)]
-        public int Age { get; set; }
+        [JsonPropertyName(animal.Birthday)]
+        [JsonProperty(animal.Birthday)]
+        public DateTime Birthday { get; set; }
 
         [JsonPropertyName(person.Address)]
         [JsonProperty(person.Address)]

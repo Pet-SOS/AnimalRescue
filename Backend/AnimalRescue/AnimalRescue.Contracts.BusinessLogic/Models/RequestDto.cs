@@ -25,8 +25,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(animal.Status)]
         public WellKnownTagDto Status { get; set; }
 
-        [CouplingPropertyDto(animal.Age)]
-        public int Age { get; set; }
+        [CouplingPropertyDto(animal.Birthday)]
+        public DateTime Birthday { get; set; }
 
         [CouplingPropertyDto(person.Address)]
         public string Address { get; set; }

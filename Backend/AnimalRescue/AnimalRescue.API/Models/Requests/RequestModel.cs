@@ -31,9 +31,9 @@ namespace AnimalRescue.API.Models.Requests
         [JsonProperty(animal.Status)]
         public WellKnownTagModel Status { get; set; }
 
-        [JsonPropertyName(animal.Age)]
-        [JsonProperty(animal.Age)]
-        public int Age { get; set; }
+        [JsonPropertyName(animal.Birthday)]
+        [JsonProperty(animal.Birthday)]
+        public DateTime Birthday { get; set; }
 
         [JsonPropertyName(person.Address)]
         [JsonProperty(person.Address)]
