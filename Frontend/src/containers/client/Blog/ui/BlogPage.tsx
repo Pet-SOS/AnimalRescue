@@ -24,7 +24,7 @@ interface IPropTypes {
 type MyState = { activeBtn: string };
 
 export class BlogPage extends React.Component<IPropTypes , MyState> {
-    contantSize = 6;
+    contantSize = 15;
     blogFilter : {[key: string]: React.ReactNode}= {
         story: <TI18n keyStr='blogstory'/>,
         article:<TI18n keyStr='blogarticle'/>

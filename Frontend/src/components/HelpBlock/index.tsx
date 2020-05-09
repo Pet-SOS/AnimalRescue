@@ -25,7 +25,7 @@ export const HelpBlock: React.FC<IPropTypes> = ({ animalsList, isLightMode, titl
             <div className="visual">
               <h2>{title}</h2>
                 <PhotoSlider
-                    sliders={animalsList.slice(0, 3)}
+                    sliders={animalsList}
                     updatePostInfo={setIndexPost}
                     slideIndex={indexPost}
                 />
