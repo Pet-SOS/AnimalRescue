@@ -43,6 +43,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Birthday = "birthday";
             public const string ProfilePhoto = "profilePhoto";
             public const string LastPasswordChange = "lastPasswordChange";
+            public const string PersonState = "personState";
         }
 
         public static class Animal
@@ -61,6 +62,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string LocationName = "locationName";
             public const string IsDonationActive = "isDonationActive";
             public const string BannerText = "bannerText";
+            public const string AnimalState = "animalState";
         }
 
         public static class Common
@@ -86,6 +88,8 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string BlogType = "blogType";
             public const string ContentType = "contentType";
             public const string Price = "price";
+            public const string Case = "case";
+            public const string CaseDescription = "caseDescription";
         }
 
         public static class BaseItem

@@ -50,7 +50,8 @@ namespace AnimalRescue.BusinessLogic
                 new SequenceMappingProfile(),
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile(),
-                new ApplicationUserMappingProfile()
+                new ApplicationUserMappingProfile(),
+                new RequestMappingProfile()
             });
 
             services.AddScoped<IRecoverDataService, RecoverDataService>();
@@ -61,6 +62,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto, Guid>, TagDecorator<BlogDto, BlogDto, Guid>>();
             services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto, Guid>, EmployeeService>();
+            services.AddScoped<IBlFullCrud<RequestDto, RequestDto, Guid>, RequestService>();
 
             services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
             services.AddScoped<IImageService, ImageService>();
