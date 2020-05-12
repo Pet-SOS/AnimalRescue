@@ -20,24 +20,24 @@ interface IPropTypes {
     fetchBlogList:(params?:any) => any;
     fetchInfoCard:() => void;
     fetchInfoContacts:() => void;
-} 
+}
 type MyState = { activeBtn: string };
 
 export class BlogPage extends React.Component<IPropTypes , MyState> {
-    contantSize = 6;
+    contantSize = 15;
     blogFilter : {[key: string]: React.ReactNode}= {
         story: <TI18n keyStr='blogstory'/>,
         article:<TI18n keyStr='blogarticle'/>
     }
     blogType:any = new Object();
- 
+
     constructor(props:IPropTypes) {
         super(props);
         this.state = {activeBtn: 'all'};
     }
     filterParams = {
         fieldName: 'type',
-        opeartor: RequestFilterOperators.EQ,
+        operator: RequestFilterOperators.EQ,
         value: ''
     }
     componentDidMount(){
@@ -59,7 +59,7 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
                     size:this.contantSize
                 });
             }
-           
+
             this.props.fetchInfoCard();
             this.props.fetchInfoContacts();
         }
@@ -70,7 +70,7 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
         }))
         if (+this.props.match.params.page > 1){
             this.props.history.push(`/blog/page/1`);
-           
+
         }
         if(typeBtn!=='all'){
             this.props.history.push({
@@ -80,15 +80,15 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
         }else{
             this.props.history.push({
                 pathname: '/blog/page/1'
-            }) 
+            })
         }
-       
+
         this.filterParams.value = typeBtn
         const params  = {
             size: this.contantSize,
             filter: typeBtn === 'all'? null : this.filterParams,
         }
-  
+
         this.props.fetchBlogList({...params})
     }
     goToPagination(toPage:string| number){
@@ -112,18 +112,18 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
             })
             this.props.history.push({
                 pathname: `/blog/page/${toPage}`
-            }) 
+            })
         }
-       
+
     }
- 
+
     render(){
         return (
             <div className="blog-page">
                 <div className='container'>
                     <h2 className="title"> <TI18n keyStr='blogPageTitle' default={defaultText.blogPageTitle}/></h2>
                     <ul className='box-btn'>
-                       <li 
+                       <li
                         className={this.state.activeBtn === 'all' ? `active all`: 'all'}
                         onClick={(e) => this.filterItemInBlog('all')}><TI18n keyStr='blogBtnAll' default={defaultText.blogBtnAll}/></li>
                         {

@@ -67,7 +67,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
         {
           filter: {
             fieldName: 'kindOfAnimal',
-            opeartor: RequestFilterOperators.EQ,
+            operator: RequestFilterOperators.EQ,
             value: animalItem.data.kindOfAnimal
           }
         } :
@@ -137,7 +137,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                       &nbsp;{animalItem.data.number}
                     </span>
                     <div className='gender-age'>
-                      {!!animalItem.data.gender && (                          
+                      {!!animalItem.data.gender && (
                           <span className='gender'><TagTranslation tagId={animalItem.data.gender} /></span>
                       )}
                       <Age birthday={animalItem.data.birthday} />

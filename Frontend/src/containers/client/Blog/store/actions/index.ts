@@ -21,7 +21,7 @@ export const actionFetchBlogListSavedRequest = createAction(
     ...requestParams,
     filter: {
       fieldName: 'tags',
-      opeartor: RequestFilterOperators.ALL,
+      operator: RequestFilterOperators.ALL,
       value: AllTag.SAVED
     }
   })

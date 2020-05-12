@@ -7,6 +7,7 @@ import {
     actionAdminPostAnimalRequest, actionAdminUpdateAnimalRequest
 } from "./store/actions";
 import {selectAnimalsList} from "./store/selectors";
+import {actionFetchAnimalItemRequest} from "../../client/Animals/store/actions/animal.actions";
 
 const mapStateToProps = (state: ICustomAppState) => ({
     animalsList: selectAnimalsList(state),
@@ -17,5 +18,6 @@ export const HomePage = connect(mapStateToProps, {
     fetchAnimalsRequest: actionAdminHomeFetchAnimalsRequest,
     deleteAnimal: actionAdminDeleteAnimalRequest,
     postAnimal: actionAdminPostAnimalRequest,
-    updateAnimal: actionAdminUpdateAnimalRequest
+    updateAnimal: actionAdminUpdateAnimalRequest,
+    fetchAnimalItem: actionFetchAnimalItemRequest
 })(AdminHomePage);

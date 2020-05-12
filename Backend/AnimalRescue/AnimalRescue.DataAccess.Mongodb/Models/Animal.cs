@@ -35,10 +35,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("description")]
         public string Description { get; set; }
 
-        [CouplingPropertyName(animal.Age)]
-        [BsonElement("age")]
-        public int Age { get; set; }
-
         [CouplingPropertyName(animal.DateOfFound)]
         [BsonElement("dateOfFound")]
         public DateTime DateOfFound { get; set; }
@@ -54,7 +50,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(common.Tags)]
         [BsonElement("tags")]
         public List<string> Tags { get; set; }
-
 
         [CouplingPropertyName(animal.CoverImage)]
         [BsonElement("coverImage")]

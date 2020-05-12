@@ -15,6 +15,7 @@ import { watchConfig } from './config.saga';
 import { watchTags } from './tags.saga';
 import { watchSnackbar } from './snackbar.saga';
 import { watchOrganizationDocuments } from './organizationDocuments.saga';
+import {watchAdminLocationSaga} from "../../containers/admin/Locations/store/saga";
 
 export function* appSaga() {
     try {
@@ -34,6 +35,7 @@ export function* appSaga() {
           watchLoginRequestHomePage(),
           watchTags(),
           watchSnackbar(),
+          watchAdminLocationSaga()
         ]);
     } catch (e) {
         logger.error(e);

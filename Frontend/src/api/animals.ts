@@ -63,12 +63,18 @@ export enum FilterType {
     SIZE = 'size',
     STERILIZED = 'STERILIZED',
     VACCINATED = 'VACCINATED',
-    READY_TO_TRAVEL = 'READYTOTRAVEL'
+    READYTOABROAD = 'READYTOABROAD'
+}
+
+export enum EditableTags {
+  STERILIZED = 'STERILIZED',
+  VACCINATED = 'VACCINATED',
+  READYTOABROAD = 'READYTOABROAD'
 }
 
 export enum Tags{
     VACCINATED='привит',
-    READYTOTRAVEL='доступен для выезда заграницу',
+    READYTOABROAD='доступен для выезда заграницу',
     TREATMENT='на лечении',
     SPECIAL='особенный',
     STERILIZED='стерилизован',
@@ -118,7 +124,8 @@ export const DEFAULT_ANIMAL: IAnimal = {
     birthday: '',
     coverImage: 0,
     images: [],
-    availableStatuses: []
+    availableStatuses: [],
+    id: ''
 }
 
 export interface IAnimalsResponse {
@@ -135,8 +142,13 @@ export interface ISavedAnimalsCountResponse {
     self: string;
 }
 
+export async function fetchAdminAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
+    const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+    return res.data
+}
+
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-  const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+  const res = await API.get('animals', {params: prepareReadyForAdoptionRequestParams(requestParams)});
   return res.data
 }
 

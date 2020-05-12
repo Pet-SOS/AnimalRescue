@@ -1,6 +1,6 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import {getType} from 'typesafe-actions';
-import {fetchAnimals, deleteAnimal, postAnimal, updateAnimal} from "../../../../../api/animals";
+import {deleteAnimal, postAnimal, updateAnimal, fetchAdminAnimals} from "../../../../../api/animals";
 
 import {
     actionAdminHomeFetchAnimalsRequest,
@@ -17,10 +17,11 @@ import {
     actionAdminUpdateAnimalSuccess
 } from "../actions";
 import { IRequestParams } from '../../../../../api/requestOptions';
+import {actionFetchAnimalItemRequest} from "../../../../client/Animals/store/actions/animal.actions";
 
 function* fetchHomePageAnimalsListSaga(action: { type: string, payload?: IRequestParams }) {
     try {
-        const response = yield call(fetchAnimals,action.payload);
+        const response = yield call(fetchAdminAnimals,action.payload);
         yield put(actionAdminHomeFetchAnimalsSuccess(response))
     } catch (e) {
         yield put(actionAdminHomeFetchAnimalsFailure(e))
@@ -52,6 +53,9 @@ function* postAnimalSaga(action: ReturnType<typeof actionAdminPostAnimalRequest>
 function* updateAnimalSaga(action: ReturnType<typeof actionAdminUpdateAnimalRequest>) {
     try {
         yield call(updateAnimal, action.payload);
+        if (action.payload.id) {
+            yield put(actionFetchAnimalItemRequest(action.payload.id));
+        }
         yield put(actionAdminUpdateAnimalSuccess())
         yield put(actionAdminHomeFetchAnimalsRequest())
     } catch (e) {

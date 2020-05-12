@@ -78,7 +78,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchYouTubeVideos(2);
     fetchArticlesList({filter:{
       fieldName: 'type',
-      opeartor: RequestFilterOperators.EQ,
+      operator: RequestFilterOperators.EQ,
       value: 'article'
     }});
     return () => {
