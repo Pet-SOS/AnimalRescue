@@ -1,0 +1,44 @@
+.main-image-wrapper {
+  margin-bottom: 10px;
+}
+
+.image-tab-header {
+  padding-bottom: 10px;
+}
+
+.add-image-wrapper {
+  border: 2px dashed #DBDADB;
+  width: 160px;
+  height: 120px;
+  background: #F9F6F7;
+  box-sizing: border-box;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  .add-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .add-image-title {
+      padding-top: 10px;
+      margin: 0;
+    }
+  }
+}
+
+.animal-image {
+  width: 160px;
+  height: 120px;
+  padding-left: 10px;
+}
+
+.images-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
