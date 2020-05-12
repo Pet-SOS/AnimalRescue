@@ -3,17 +3,6 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/base/mixins';
 
-.locations-header {
-  display: flex;
-  padding-bottom: 1rem;
-
-  .add-location-btn {
-    margin-left: auto;
-    margin-right: 0;
-  }
-}
-
-
 .location-table {
   line-height: 1.33;
 

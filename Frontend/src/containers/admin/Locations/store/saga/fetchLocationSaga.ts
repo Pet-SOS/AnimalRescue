@@ -5,7 +5,7 @@ import {
 } from "../actions";
 import {call, put} from 'redux-saga/effects';
 import {fetchLocations} from "../../../../../api/admin";
-import {IRequestFilterParams, IRequestParams, RequestFilterOperators} from "../../../../../api/requestOptions";
+import { IRequestParams, RequestFilterOperators} from "../../../../../api/requestOptions";
 
 export function* fetchLocationsSaga(action: ReturnType<typeof actionAdminFetchLocationsRequest>) {
     const type = action.payload.type;

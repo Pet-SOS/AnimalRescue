@@ -4,8 +4,12 @@ import {getType} from "typesafe-actions";
 import {
     actionAdminFetchLocationsFailure,
     actionAdminFetchLocationsRequest,
-    actionAdminFetchLocationsSuccess
+    actionAdminFetchLocationsSuccess,
+    actionAdminUpdateLocationFailure,
+    actionAdminUpdateLocationRequest,
+    actionAdminUpdateLocationSuccess
 } from "../actions";
+import {genericRequestReducer} from "../../../../../api";
 
 const defaultState = {...DEFAULT_ADMIN_LOCATIONS_STATE};
 
@@ -15,12 +19,23 @@ export const adminLocationsReducer = (state: IAdminLocationsSate = defaultState,
         case getType(actionAdminFetchLocationsRequest):
         case getType(actionAdminFetchLocationsSuccess):
         case getType(actionAdminFetchLocationsFailure):
-            const type = action.payload.type;
+            const loadListType = action.payload.type;
             return {
                 ...state,
                 locations: {
                     ...state.locations,
-                    [type]: singleLocationReducer(state.locations[type], action)
+                    [loadListType]: singleLocationReducer(state.locations[loadListType], action)
+                }
+            };
+        case getType(actionAdminUpdateLocationRequest):
+        case getType(actionAdminUpdateLocationSuccess):
+        case getType(actionAdminUpdateLocationFailure):
+            const updateType = action.payload.location.typeId;
+            return {
+                ...state,
+                locations: {
+                    ...state.locations,
+                    [updateType]: locationUpdate(state.locations[updateType], action)
                 }
             };
         default :
@@ -29,19 +44,50 @@ export const adminLocationsReducer = (state: IAdminLocationsSate = defaultState,
     }
 };
 
+const fetchAdminLocationRequestStateReducer = genericRequestReducer(
+    actionAdminFetchLocationsRequest,
+    actionAdminFetchLocationsSuccess,
+    actionAdminFetchLocationsFailure
+);
 
 const singleLocationReducer = (state: ILocationState = {...DEFAULT_LOCATION_STATE}, action: AnyAction) => {
     switch (action.type) {
         case getType(actionAdminFetchLocationsRequest):
-        // TODO add request state
+            return {
+                ...state,
+                requestState: fetchAdminLocationRequestStateReducer(state.requestState, action)
+            };
         case getType(actionAdminFetchLocationsFailure):
-        // TODO add request state
+            return {
+                ...state,
+                requestState: fetchAdminLocationRequestStateReducer(state.requestState, action)
+            };
         case getType(actionAdminFetchLocationsSuccess): {
             return {
                 ...state,
-                list: action.payload.list
+                list: action.payload.list,
+                requestState: fetchAdminLocationRequestStateReducer(state.requestState, action)
             }
         }
+        default :
+            return state;
+    }
+};
+
+
+const locationUpdate = (state: ILocationState = {...DEFAULT_LOCATION_STATE}, action: AnyAction) => {
+    switch (action.type) {
+        case getType(actionAdminUpdateLocationSuccess):
+            const list = [...state.list.data || []].map(location => action.payload.location.id == location.id ? action.payload.location : location);
+            return {
+                ...state,
+                list: {
+                    ...state.list,
+                    data: list,
+                }
+            };
+        case getType(actionAdminUpdateLocationRequest):
+        case getType(actionAdminUpdateLocationFailure):
         default :
             return state;
     }
