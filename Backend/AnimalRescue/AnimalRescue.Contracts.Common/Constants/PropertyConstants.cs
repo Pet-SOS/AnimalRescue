@@ -51,7 +51,6 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Number = "number";
             public const string KindOfAnimal = "kindOfAnimal";
             public const string Gender = "gender";
-            public const string Age = "age";
             public const string DateOfFound = "dateOfFound";
             public const string DateOfAdopted = "dateOfAdopted";
             public const string CoverImage = "coverImage";
