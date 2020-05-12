@@ -9,7 +9,8 @@ import {
 import {selectAnimalsList} from "./store/selectors";
 
 const mapStateToProps = (state: ICustomAppState) => ({
-    animalsList: selectAnimalsList(state)
+    animalsList: selectAnimalsList(state),
+    tagsList: state.tags.data
 });
 
 export const HomePage = connect(mapStateToProps, {

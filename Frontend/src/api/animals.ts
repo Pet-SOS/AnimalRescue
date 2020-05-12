@@ -86,9 +86,6 @@ export interface IAnimal {
   tags: string[];
   coverImage: number;
   birthday?: string;
-  week?: string;
-  month?: string;
-  year?: string;
   character: string;
   status: string;
   bannerText: string;
@@ -97,7 +94,7 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
-  tagsList?: ITag[];
+  availableStatuses?: ITag[];
 }
 
 export interface IAnimalResponse {
@@ -121,7 +118,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     birthday: '',
     coverImage: 0,
     images: [],
-    tagsList: []
+    availableStatuses: []
 }
 
 export interface IAnimalsResponse {

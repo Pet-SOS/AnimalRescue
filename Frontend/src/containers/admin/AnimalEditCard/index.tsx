@@ -4,7 +4,8 @@ import { actionAdminHomeFetchAnimalsRequest, actionAdminDeleteAnimalRequest, act
 import { PageAnimalEditCard } from "./ui/PageAnimalEditCard";
 
 const mapStateToProps = (state: ICustomAppState) => ({
-    animal: state.animalItem.data
+    animal: state.animalItem.data,
+    tagsList: state.tags.data
 });
 
 export const AnimalAdminCard = connect(mapStateToProps, {
