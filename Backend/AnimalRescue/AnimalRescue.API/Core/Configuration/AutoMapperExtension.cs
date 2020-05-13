@@ -13,7 +13,6 @@ namespace AnimalRescue.API.Core.Configuration
         {
             profiles.AddRange(new List<Profile> { 
                 new LocationMappingProfile(), 
-                new BankCardMappingProfile(),
                 new DonationConfigurationMappingProfile(),
                 new CmsConfigurationMappingProfile(),
                 new AnimalMappingProfile(),
