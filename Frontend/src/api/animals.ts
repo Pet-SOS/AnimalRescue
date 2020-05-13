@@ -1,5 +1,5 @@
 import { API } from './index';
-import {IRequestParams, prepareRequestParams} from './requestOptions';
+import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
 import { ITag } from './tags';
 
 const crateFormData = (data: Object) => {

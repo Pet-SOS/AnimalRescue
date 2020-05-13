@@ -12,12 +12,14 @@ import {ICustomAppState} from "../../../../store/state";
 import {Loader} from "../../../../components/Loader";
 import {ERequestStatus} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
-import { DateParser } from './DateParser';
 import { ITag } from '../../../../api/tags';
-const { TabPane } = Tabs;
+import { DateParser } from './DateParser';
+
+const {TabPane} = Tabs;
 
 interface IOwnPropTypes extends RouteComponentProps<any> {
   animal: IAnimal;
+  tagsList: ITag[];
   deleteAnimal: (id: string) => void;
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
@@ -36,8 +38,16 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   constructor(props: IPropTypes) {
     super(props);
-    this.state = {...DEFAULT_ANIMAL};
-    this.state.availableStatuses = props.tagsList.filter(tag => tag.category === 'status') || [];
+    this.state = {
+      ...DEFAULT_ANIMAL,
+      availableStatuses: props.tagsList.filter(tag => tag.category === 'status') || []
+    };
+    this.handleDateChange = this.handleDateChange.bind(this);
+  }
+
+  findLocaleStatusValue(status: ITag): string {
+      const resultStatus = status.values.filter(val => val.lang === this.currentLang);
+      return resultStatus.length ? resultStatus[0].value : '';
   }
 
   componentDidMount() {
@@ -54,9 +64,9 @@ class AnimalEditCard extends React.Component<IPropTypes> {
         if (newState.hasOwnProperty(key) && animal[key]) {
           // @ts-ignore
           newState[key] = animal[key];
-            availableStatuses: props.tagsList.filter(tag => tag.category === 'status') || []
         }
-        this.handleDateChange = this.handleDateChange.bind(this);
+      }
+      this.setState(newState)
     }
   }
 
@@ -68,14 +78,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({[key]: e.target.value})
   };
 
-             alt="description"
-             src={`${this.baseUrl}documents/${imageId}/type/small`}/>);
   addImage = (e: any) => {
     this.setState({images: [...this.state.images, ...e.target.files]})
   }
 
   renderImgs = (imageIds: string[]) => imageIds.map(imageId =>
-    <img key={imageId} style={{width: 100, height: 100}}
+    <img key={imageId} style={{width: 100, height: 100}} alt="description"
          src={`${this.baseUrl}documents/${imageId}/type/small`}/>)
 
   submit = () => {
@@ -115,68 +123,83 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     })
   }
 
+  handleDateChange(date: string) {
+      this.setState({date: date});
+  }
+
   render() {
     const {
-      number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
+      availableStatuses, number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
     } = this.state
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
     }
-
-    handleDateChange(date: string) {
-        this.setState({date: date});
-    }
-
-    render() {
-        const {
-            availableStatuses, number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
-        } = this.state;
-        return (
-            <div>
-                <div className="data-edit">
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-number">Номер</label>
-                        <input id="acard-number" disabled value={number} />
-                    </div>
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-status">Статус</label>
-                        <select id="acard-status" onChange={(e) => this.changeValue(e, 'status')}>
-                            <option className="default-val">&ndash;</option>
-                            {availableStatuses ? availableStatuses.map(stat => {
-                                return (
-                                    <option key={stat.id}
-                                            selected={this.findLocaleStatusValue(stat) === status ? true : false}>
-                                        {this.findLocaleStatusValue(stat) || 'Unknown'}
-                                    </option>
-                                );
-                            }) : null}
-                        </select>
-                    </div>
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-name">Кличка</label>
-                        <input id="acard-name" value={name} onChange={(e) => this.changeValue(e, 'name')} />
-                    </div>
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-kind">Вид</label>
-                        <input id="acard-kind" value={kindOfAnimal}
-                               onChange={(e) => this.changeValue(e, 'kindOfAnimal')} />
-                    </div>
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-gender">Стать</label>
-                        <input id="acard-gender" value={gender} onChange={(e) => this.changeValue(e, 'gender')} />
-                    </div>
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-age">age</label>
-                        <input id="acard-age" value={age} onChange={(e) => this.changeValue(e, 'age')}/></p>
-                    </div>
-                    <div className="form-row small-row">
-                        <DateParser date={birthday} onDateChange={this.handleDateChange} />
-                    </div>
-                    <div className="form-row small-row">
-                        <label htmlFor="acard-tags">tags</label>
-                        <input id="acard-tags" value={tags} onChange={(e) => this.changeValue(e, 'tags')} />
-                    </div>
-                    <div>id {id}</div>
+    return (
+      <>
+        <div className="data-edit">
+          <div className="form-row small-row">
+            <label htmlFor="acard-number">Номер</label>
+            <input id="acard-number" disabled value={number} onChange={(e) => this.changeValue(e, 'number')}/>
+          </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-status">Статус</label>
+            <select id="acard-status" onChange={(e) => this.changeValue(e, 'status')}>
+              <option className="default-val">&ndash;</option>
+              {availableStatuses ? availableStatuses.map(stat => {
+                return (
+                  <option key={stat.id}
+                      selected={this.findLocaleStatusValue(stat) === status ? true : false}>
+                    {this.findLocaleStatusValue(stat) || 'Unknown'}
+                  </option>
+                );
+              }) : null}
+            </select>
+          </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-name">Кличка</label>
+            <input id="acard-name" value={name} onChange={(e) => this.changeValue(e, 'name')}/>
+          </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-kind">Вид</label>
+            <input id="acard-kind" value={kindOfAnimal}
+                   onChange={(e) => this.changeValue(e, 'kindOfAnimal')}/>
+                  </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-gender">Стать</label>
+            <input id="acard-gender" value={gender} onChange={(e) => this.changeValue(e, 'gender')}/>
+          </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-age">age</label>
+            <input id="acard-age" value={age} onChange={(e) => this.changeValue(e, 'age')}/>
+          </div>
+          <div className="form-row small-row">
+            <DateParser date={birthday} onDateChange={this.handleDateChange} />
+          </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-tags">tags</label>
+            <input id="acard-tags" value={tags} onChange={(e) => this.changeValue(e, 'tags')}/>
+          </div>
+          <p>id {id}</p>
+        </div>
+        <div className="tabs-edit">
+          <Tabs
+            defaultActiveKey={this.currentTab}
+            onChange={(key: string) => this.currentTab = key}
+          >
+            <TabPane tab="Зображення" key="1">
+              <p>
+                <span>Головне зображення</span><br/>
+                {this.renderImgs(imageIds)}
+              </p>
+              <p>
+                <span>Додаткові зображення</span>
+                <input value={coverImage} onChange={(e) => this.changeValue(e, 'coverImage')}/></p>
+              <p>
+                {!!this.state.images.length && this.renderFileNames()}
+                <div className={'add-button'}>
+                  <input type={'file'} id={id || 'newFile'} onChange={(e) => this.addImage(e)}
+                         className={"add-button hidden"}/>
+                  <label htmlFor={id || 'newFile'} className={'add-button button'}>Add file</label>
                 </div>
               </p>
             </TabPane>
