@@ -3,7 +3,7 @@ import {LocationCellForm} from "./LocationForm";
 import {ILocation, LocationsCode} from "../../../../../api/admin";
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
-import {actionAdminUpdateLocationRequest} from "../../store/actions";
+import {actionAdminCreateLocationRequest, actionAdminUpdateLocationRequest} from "../../store/actions";
 
 
 interface ILocationCellProps {
@@ -15,13 +15,14 @@ interface ILocationCellProps {
 
 interface ILocationCellOwnProps {
     updateLocation: (location: ILocation) => void;
+    createLocation: (location: ILocation) => void;
 }
 
 interface ILocationCellState {
     inEdit: boolean
 }
 
-class LocationListCell extends React.PureComponent<ILocationCellProps & ILocationCellOwnProps, ILocationCellState> {
+class LocationListCell extends React.Component<ILocationCellProps & ILocationCellOwnProps, ILocationCellState> {
 
     constructor(props: ILocationCellProps & ILocationCellOwnProps) {
         super(props);
@@ -33,9 +34,8 @@ class LocationListCell extends React.PureComponent<ILocationCellProps & ILocatio
     shouldComponentUpdate(nextProps: Readonly<ILocationCellProps & ILocationCellOwnProps>, nextState: Readonly<ILocationCellState>, nextContext: any): boolean {
         if (this.props.location !== nextProps.location && this.state.inEdit) {
             this.setState({inEdit: false});
-            return true;
         }
-        return super.shouldComponentUpdate ? super.shouldComponentUpdate(nextProps, nextState, nextContext) : true;
+        return true;
     }
 
 
@@ -52,36 +52,58 @@ class LocationListCell extends React.PureComponent<ILocationCellProps & ILocatio
     };
 
     onSubmitForm = (location: ILocation) => {
-        this.props.updateLocation(location);
+        if (location && location.id) {
+            this.props.updateLocation(location);
+        } else {
+            this.props.createLocation(location);
+        }
     };
 
     renderEditForm = () => {
+        let {location} = this.props;
+        if (location && !location.id) {
+            location = undefined;
+        }
         return (
             <>
                 <LocationCellForm
-                    type={this.props.type}
+                    locationType={this.props.type}
                     onCancel={this.onCancelForm}
                     onSubmit={this.onSubmitForm}
-                    location={this.props.location}
+                    location={location}
                 />
             </>
         )
     };
 
+    renderButton = () => this.props.location && !!this.props.location.id;
+
     renderView = () => {
         return (
             <>
                 {this.props.children && this.props.children}
-                <div className="col col-btn"><i onClick={this.onEditClick} className="icon-edit">Edit</i></div>
-                <div className="col col-btn"><i onClick={this.onDeleteClick} className="icon-delete">Delete</i></div>
+                <div className="col col-btn">
+                    {this.renderButton() && (
+                        <i onClick={this.onEditClick} className="icon-edit">Edit</i>)}
+                </div>
+                <div className="col col-btn">
+                    {this.renderButton() && (
+                        <i onClick={this.onDeleteClick} className="icon-delete">Delete</i>)}
+                </div>
             </>
         )
+    };
+
+    handleCellClick = () => {
+        if (!this.state.inEdit && (!this.props.location || !this.props.location.id)) {
+            this.onEditClick();
+        }
     };
 
     render() {
         const {className} = this.props;
         return (
-            <div className={`location-item ${className || ''}`}>
+            <div className={`location-item ${className || ''}`} onClick={this.handleCellClick}>
                 {this.state.inEdit ? this.renderEditForm() : this.renderView()}
             </div>
         );
@@ -91,7 +113,8 @@ class LocationListCell extends React.PureComponent<ILocationCellProps & ILocatio
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
-        updateLocation: (location) => dispatch(actionAdminUpdateLocationRequest(location))
+        updateLocation: actionAdminUpdateLocationRequest,
+        createLocation: actionAdminCreateLocationRequest
     }, dispatch);
 };
 

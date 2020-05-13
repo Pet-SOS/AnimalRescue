@@ -4,12 +4,14 @@ import {LocationsCode} from "../../../../../api/admin";
 interface ILocationFormProps {
     onInput: (field: string, event: any) => any;
     values: any;
+    type: LocationsCode;
 }
 
 export const LocationFormPart: React.FC<ILocationFormProps> =
     ({
          values,
          onInput,
+         type,
      }) => {
 
 
@@ -63,8 +65,6 @@ export const LocationFormPart: React.FC<ILocationFormProps> =
             );
         };
 
-
-        const type = values['typeId'];
         return (
             <>
                 {type === LocationsCode.CLINIC && renderClinicPart()}

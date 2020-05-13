@@ -215,6 +215,19 @@
 
 .location-list {
 
+  .location-new {
+
+    .col-title {
+      color: $yellow;;
+      font-weight: 900;
+    }
+
+    .col-contact {
+      color: $yellow;;
+      font-weight: 900;
+    }
+  }
+
   .location-item {
     display: flex;
     flex-wrap: wrap;

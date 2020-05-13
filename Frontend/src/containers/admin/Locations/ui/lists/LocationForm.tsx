@@ -9,11 +9,11 @@ interface IPropTypes {
     location?: ILocation;
     onSubmit: (location: ILocation) => void;
     onCancel: () => void;
-    type: LocationsCode;
+    locationType: LocationsCode;
 }
 
 
-const initValues = (location ?: any) => {
+const initValues = (location ?: any, locationType ?: LocationsCode) => {
     const getValue = (name: string) => (location && location[name]) || '';
     return {
         ['title']: getValue('title'),
@@ -21,14 +21,14 @@ const initValues = (location ?: any) => {
         ['address']: getValue('address'),
         ['price']: getValue('price'),
         ['id']: getValue('id'),
-        ['typeId']: getValue('typeId'),
+        ['typeId']: getValue('typeId') || locationType || '',
     }
 };
 
-export const LocationCellForm: React.FC<IPropTypes> = ({onSubmit, onCancel, location, type}) => {
+export const LocationCellForm: React.FC<IPropTypes> = ({onSubmit, onCancel, location, locationType}) => {
 
     const [locationValues, setLocationValues] = useState({
-        ...initValues(location)
+        ...initValues(location, locationType)
     });
     useEffect(() => {
         if (!!location) {
@@ -36,10 +36,13 @@ export const LocationCellForm: React.FC<IPropTypes> = ({onSubmit, onCancel, loca
         }
     }, []);
     const {fields, handleFieldChange, handleSubmit, initFields} = useForm(() => {
-        onSubmit({
-            ...DEFAULT_LOCATION,
-            ...fields
-        })
+        if (fields) {
+            onSubmit({
+                ...DEFAULT_LOCATION,
+                ...fields,
+                typeId: locationType
+            })
+        }
     });
     const onInput = (fieldName: string, event: any) => {
         handleFieldChange(event);
@@ -52,8 +55,10 @@ export const LocationCellForm: React.FC<IPropTypes> = ({onSubmit, onCancel, loca
     return (
         <form onSubmit={handleSubmit}>
             <div className="row">
-                <LocationFormPart onInput={onInput}
-                                  values={locationValues}
+                <LocationFormPart
+                    onInput={onInput}
+                    values={locationValues}
+                    type={locationType}
                 />
                 <div className="col col-btn">
                     <button className="btn-checked" type="submit">Save</button>

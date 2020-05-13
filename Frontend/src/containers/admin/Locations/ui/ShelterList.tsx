@@ -23,7 +23,7 @@ export class ShelterList extends React.PureComponent {
                 key={key}
                 type={this.TYPE}
                 location={location}>
-                <div className="col col-title">${location.title}</div>
+                <div className="col col-title">{location.title}</div>
                 <div className="col col-address">{location.address}</div>
             </LocationListCell>
         )

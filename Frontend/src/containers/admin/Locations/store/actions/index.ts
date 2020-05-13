@@ -16,6 +16,7 @@ export const actionAdminFetchLocationsFailure = createAction(
     (resolve) => (type: LocationsCode, error: Error) => resolve({error, type})
 );
 
+
 // Update / Edit
 export const actionAdminUpdateLocationRequest = createAction(
     'ADMIN_UPDATE_LOCATION_REQUEST',
@@ -27,5 +28,19 @@ export const actionAdminUpdateLocationSuccess = createAction(
 );
 export const actionAdminUpdateLocationFailure = createAction(
     'ADMIN_UPDATE_LOCATION_FAILURE',
+    (resolve) => (location: ILocation, error: Error) => resolve({location, error})
+);
+
+// Create
+export const actionAdminCreateLocationRequest = createAction(
+    'ADMIN_CREATE_LOCATION_REQUEST',
+    (resolve) => (location: ILocation) => resolve({location})
+);
+export const actionAdminCreateLocationSuccess = createAction(
+    'ADMIN_CREATE_LOCATION_SUCCESS',
+    resolve => (location: ILocation) => resolve({location})
+);
+export const actionAdminCreateLocationFailure = createAction(
+    'ADMIN_CREATE_LOCATION_FAILURE',
     (resolve) => (location: ILocation, error: Error) => resolve({location, error})
 );

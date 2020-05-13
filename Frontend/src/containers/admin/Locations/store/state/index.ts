@@ -14,7 +14,6 @@ export interface IAdminLocationsSate {
     locations: ILocationsMap
 }
 
-
 export const DEFAULT_LOCATION: ILocation = {
     title: '',
     phoneNumber: '',

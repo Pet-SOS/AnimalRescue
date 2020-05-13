@@ -2,6 +2,7 @@ import React from "react";
 import {LocationListContainer} from "./lists/LocationList";
 import {ILocation, LocationsCode} from "../../../../api/admin";
 import LocationListCell from "./lists/LocationListCell";
+import {DEFAULT_LOCATION} from "../store/state";
 
 export class ClinicList extends React.PureComponent {
 
@@ -19,6 +20,16 @@ export class ClinicList extends React.PureComponent {
         );
     };
 
+    renderFields = (title: string, address: string, phoneNumber: string) => {
+        return (
+            <>
+                <div className="col col-contact">{title}</div>
+                <div className="col col-phone">{phoneNumber}</div>
+                <div className="col col-address">{address}</div>
+            </>
+        );
+    };
+
     renderListItem = (key: string, location: ILocation) => {
         const {title, address, phoneNumber} = location;
         return (
@@ -27,9 +38,7 @@ export class ClinicList extends React.PureComponent {
                 className={this.CLASS_NAME}
                 type={this.TYPE}
                 location={location}>
-                <div className="col col-contact">{title}</div>
-                <div className="col col-phone">{phoneNumber}</div>
-                <div className="col col-address">{address}</div>
+                {this.renderFields(title, address, phoneNumber)}
             </LocationListCell>
         )
     };

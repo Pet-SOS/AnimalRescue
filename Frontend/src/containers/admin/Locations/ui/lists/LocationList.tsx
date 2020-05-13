@@ -6,6 +6,7 @@ import {actionAdminFetchLocationsRequest} from "../../store/actions";
 import {ILocation, ILocationsResponse, LocationsCode} from "../../../../../api/admin";
 import {IRequestParams} from "../../../../../api/requestOptions";
 import {isLoadingAdminLocations, selectAdminLocationsList} from "../../store/selectors";
+import {DEFAULT_LOCATION} from "../../store/state";
 
 
 interface ILocationListProps {
@@ -21,6 +22,8 @@ interface ILocationListOwnProps {
     isLoading: boolean;
 }
 
+const EMPTY_LIST_VALUE = '...';
+
 export class LocationList extends React.PureComponent<ILocationListProps & ILocationListOwnProps> {
 
     componentDidMount(): void {
@@ -29,11 +32,31 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
         }
     }
 
+    renderNewItem = () => {
+        const {renderItem} = this.props;
+        if (renderItem) {
+            return (
+                <div className={'location-new '}>
+                    {renderItem('new', {
+                        ...DEFAULT_LOCATION,
+                        typeId: String(this.props.type),
+                        title: '+ Нова Локація',
+                        phoneNumber: EMPTY_LIST_VALUE,
+                        address: EMPTY_LIST_VALUE,
+                        price: EMPTY_LIST_VALUE
+                    })}
+                </div>
+            );
+
+        }
+    };
+
     renderList = () => {
         const {listResponse, renderItem} = this.props;
         const list = (listResponse || {}).data;
         return (
             <div className="location-list">
+                {this.renderNewItem()}
                 {renderItem && list && list.map((item, index) => renderItem(String(index), item))}
             </div>
         )
