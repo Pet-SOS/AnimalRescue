@@ -1,10 +1,11 @@
 import {API} from '../index'
 import {IRequestParams, prepareRequestParams} from '../requestOptions'
 import {IListResponse} from "../common";
+import { ITag } from '../tags';
 
 export enum LocationsCode {
     SHELTER = 'SHELTER',
-    CLINIC = 'CLINIK',
+    CLINIC = 'CLINIC',
     OVEREXPOSURE = 'OVEREXPOSURE'
 }
 
@@ -14,6 +15,10 @@ export interface ILocation {
     address: string;
     price: string;
     id: string;
+}
+
+export interface ILocationType extends ILocation {
+    type: ITag
 }
 
 export interface ILocationsResponse extends IListResponse<ILocation> {
