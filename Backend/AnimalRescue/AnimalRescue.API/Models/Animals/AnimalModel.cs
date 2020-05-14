@@ -34,10 +34,6 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(common.Description)]
         public string Description { get; set; }
 
-        [JsonPropertyName(animal.Age)]
-        [JsonProperty(animal.Age)]
-        public int Age { get; set; }
-
         [JsonPropertyName(common.ImageIds)]
         [JsonProperty(common.ImageIds)]
         public List<Guid> ImageIds { get; set; } = new List<Guid>();

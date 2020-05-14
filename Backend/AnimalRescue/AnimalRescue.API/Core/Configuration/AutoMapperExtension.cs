@@ -13,7 +13,6 @@ namespace AnimalRescue.API.Core.Configuration
         {
             profiles.AddRange(new List<Profile> { 
                 new LocationMappingProfile(), 
-                new BankCardMappingProfile(),
                 new DonationConfigurationMappingProfile(),
                 new CmsConfigurationMappingProfile(),
                 new AnimalMappingProfile(),
@@ -24,7 +23,8 @@ namespace AnimalRescue.API.Core.Configuration
                 new EmployeeMappingProfile(),
                 new BlogMappingProfile(),
                 new StoryMappingProfile(),
-                new ArticleMappingProfile()
+                new ArticleMappingProfile(),
+                new RequestMappingProfile()
             });
 
             var mappingConfig = new MapperConfiguration(mc => profiles.ForEach(x => mc.AddProfile(x)));

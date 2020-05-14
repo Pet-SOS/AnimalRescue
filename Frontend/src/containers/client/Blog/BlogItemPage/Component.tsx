@@ -58,7 +58,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
       const requsetParams: IRequestParams = {
         filter: {
           fieldName: 'type',
-          operator: RequestFilterOperators.ALL,
+          operator: RequestFilterOperators.EQ,
           value: blogItem.data.type === BlogTypes.STORY ? BlogTypes.STORY : BlogTypes.ARTICLE
         }
       }

@@ -25,7 +25,6 @@ interface AnimalsListPageProps {
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void
 }
 
-
 export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
     public toPage: number = 1;
     public sizeAnimalToPage:number = 10;
@@ -35,11 +34,12 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
         }
     }
     updateAnimalCard(id:any){
-        this.props.fetchAnimalItem(id);
-        const stateItem=store.getState();
-        if(stateItem.animalItem.data.name){
-            this.props.history.push(`/admin/animals-list/${id}`);
-        }
+        // this.props.fetchAnimalItem(id);
+        // const stateItem=store.getState();
+        // if(stateItem.animalItem.data.name){
+        //
+        // }
+        this.props.history.push(`/admin/animals-list/${id}`);
     }
 
     componentDidMount(){
