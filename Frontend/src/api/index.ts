@@ -1,8 +1,6 @@
 import axios from 'axios';
-import {IAnimal} from "./animals";
 
 export const BASE_URL = process.env.REACT_APP_API_URL;
-// export const BASE_URL = 'https://localhost:5001/api/';
 export const BASE_YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/';
 
 export const API_YOTUBE = axios.create();
