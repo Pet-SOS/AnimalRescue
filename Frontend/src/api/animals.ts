@@ -19,9 +19,9 @@ export enum Gender {MALE = 'male', FEMALE = 'female', ANY='any'}
 
 export enum AnimalKind { CAT = 'CAT', DOG = 'DOG', ANY='ANY'}
 export enum AnimalGender{
-    ANY='any',
-    MALE = 'male',
-    FEMALE = 'female',
+    ANY='ANY',
+    MALE = 'MALE',
+    FEMALE = 'FEMALE',
 }
 export enum AnimalFilterKind {
     ANY='any',
@@ -39,7 +39,7 @@ export enum AnimalBreed {
 }
 
 export enum AnimalAge{
-    ANY='any',
+    ANY='ANY',
     TOONE = 'toOne',
     TOTHREE = 'toThree',
     TOFIVE= 'toFive',
@@ -47,10 +47,10 @@ export enum AnimalAge{
 }
 
 export enum AnimalSize {
-    ANY='any',
-    SMALL='small',
-    MEDIUM='medium',
-    LARGE='large'
+    ANY='ANY',
+    SMALL_DOG = 'SMALL_DOG',
+    MEDIUM_DOG = 'MEDIUM_DOG',
+    LARGE_DOG = 'LARGE_DOG'
 }
 
 export enum FilterType {
@@ -59,7 +59,7 @@ export enum FilterType {
     BREED = 'breed',
     GENDER = 'gender',
     AGE = 'age',
-    SIZE = 'size',
+    SIZE = 'dogsize',
     STERILIZED = 'STERILIZED',
     VACCINATED = 'VACCINATED',
     READYTOABROAD = 'READYTOABROAD'
