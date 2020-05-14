@@ -24,9 +24,6 @@ import {CheckBoks} from '../../../../components/CheckBoks';
 import {ITagsState} from "../../../../store/state/tags.state";
 import {ITag} from "../../../../api/tags";
 
-interface Enum {
-    [id: string]: string
-}
 
 interface IPropTypes {
     match: any,
@@ -80,7 +77,7 @@ const defaultFilterState = {
     //     value: Object.values(AnimalAge)[0],
     //     key: Object.keys(AnimalAge)[0],
     // },
-    size: {
+    dogsize: {
         value: Object.values(AnimalSize)[0],
         key: Object.keys(AnimalSize)[0],
     },
@@ -247,6 +244,12 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
             search: this.convertToRoutingParams(),
             state: this.state
         });
+        if (type === FilterType.KIND_OF_ANIMAL) {
+            this.resetBreed();
+        }
+        if (type === FilterType.KIND_OF_ANIMAL && value !== "DOG") {
+            this.resetSize();
+        }
         this.setState({
             [type]: {
                 ...this.state[type],
@@ -260,6 +263,26 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 this.sendFilterRequest()
             }
         })
+    }
+
+    resetSize() {
+        this.setState({
+            [FilterType.SIZE]: {
+                ...this.state[FilterType.SIZE],
+                value: Object.values(AnimalSize)[0],
+                key: Object.keys(AnimalSize)[0],
+            }
+        });
+    }
+
+    resetBreed() {
+        this.setState({
+            [FilterType.BREED]: {
+                ...this.state[FilterType.BREED],
+                value: Object.values(AnimalBreed)[0].toUpperCase(),
+                key: Object.keys(AnimalBreed)[0],
+            }
+        });        
     }
 
     setCheckboxCheck(name: string) {
@@ -362,10 +385,10 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                     />
                                 </li>
                                 <li className="item-select">
-                                    <Select
-                                        data={Object.values(AnimalGender).map((value)=>({label: i18n.t('AnimalGender'+value), value: value}))}
+                                    <Select                                        
+                                        data={this.getTagsByCategory(FilterType.GENDER)}
                                         selected={this.state.gender.value}
-                                        onChange={(value: string) => this.setLocale(value,AnimalGender, FilterType.GENDER)}
+                                        onChange={(value: string) => this.setLocale(value, AnimalGender, FilterType.GENDER)}
                                         expandDirection={SelectExpandDirections.BOTTOM}
                                         title={<TI18n keyStr="lookingForAFriendPageSelectGender"
                                                       default={tranlateText.lookingForAFriendPageSelectGender}/>}
@@ -386,14 +409,11 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                 {/*    />*/}
                                 {/*</li>*/}
 
-                                { this.state.kindOfAnimal.value !== AnimalKind.CAT && (
+                                { this.state.kindOfAnimal.value === AnimalKind.DOG && (
                                     <li className="item-select">
                                         <Select
-                                            data={Object.values(AnimalSize).map((value) => ({
-                                                label: i18n.t('AnimalSize' + value),
-                                                value: value
-                                            }))}
-                                            selected={this.state.size.value}
+                                            data={this.getTagsByCategory(FilterType.SIZE)}
+                                            selected={this.state.dogsize.value}
                                             onChange={(value: string) => this.setLocale(value, AnimalSize, FilterType.SIZE)}
                                             expandDirection={SelectExpandDirections.BOTTOM}
                                             title={<TI18n keyStr="lookingForAFriendPageSelectSize"
