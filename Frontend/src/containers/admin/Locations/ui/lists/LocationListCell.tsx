@@ -3,7 +3,13 @@ import {LocationCellForm} from "./LocationForm";
 import {ILocation, LocationsCode} from "../../../../../api/admin";
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
-import {actionAdminCreateLocationRequest, actionAdminUpdateLocationRequest} from "../../store/actions";
+import {
+    actionAdminCreateLocationRequest,
+    actionAdminDeleteLocationRequest,
+    actionAdminUpdateLocationRequest
+} from "../../store/actions";
+import customConfirm from "../../../../../components/Confirm";
+import {ELocales} from "../../../../../i18n/store/state";
 
 
 interface ILocationCellProps {
@@ -16,6 +22,7 @@ interface ILocationCellProps {
 interface ILocationCellOwnProps {
     updateLocation: (location: ILocation) => void;
     createLocation: (location: ILocation) => void;
+    deleteLocation: (location: ILocation) => void;
 }
 
 interface ILocationCellState {
@@ -39,7 +46,15 @@ class LocationListCell extends React.Component<ILocationCellProps & ILocationCel
     }
 
 
-    onDeleteClick = () => {
+    onDeleteClick = async () => {
+        const confirm = await customConfirm(
+            `Видалити локацію '${this.props.location!.title}'?`,
+            'Видалити',
+            'Скасувати'
+        );
+        if (confirm) {
+            this.props.deleteLocation(this.props.location!)
+        }
 
     };
 
@@ -114,7 +129,8 @@ class LocationListCell extends React.Component<ILocationCellProps & ILocationCel
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
         updateLocation: actionAdminUpdateLocationRequest,
-        createLocation: actionAdminCreateLocationRequest
+        createLocation: actionAdminCreateLocationRequest,
+        deleteLocation: actionAdminDeleteLocationRequest
     }, dispatch);
 };
 

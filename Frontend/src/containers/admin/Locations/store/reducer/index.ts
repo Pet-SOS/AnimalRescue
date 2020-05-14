@@ -2,6 +2,8 @@ import {AnyAction} from "redux";
 import {DEFAULT_ADMIN_LOCATIONS_STATE, DEFAULT_LOCATION_STATE, IAdminLocationsSate, ILocationState} from "../state";
 import {getType} from "typesafe-actions";
 import {
+    actionAdminDeleteLocationFailure,
+    actionAdminDeleteLocationRequest, actionAdminDeleteLocationSuccess,
     actionAdminFetchLocationsFailure,
     actionAdminFetchLocationsRequest,
     actionAdminFetchLocationsSuccess,
@@ -36,6 +38,17 @@ export const adminLocationsReducer = (state: IAdminLocationsSate = defaultState,
                 locations: {
                     ...state.locations,
                     [updateType]: locationUpdate(state.locations[updateType], action)
+                }
+            };
+        case getType(actionAdminDeleteLocationRequest):
+        case getType(actionAdminDeleteLocationSuccess):
+        case getType(actionAdminDeleteLocationFailure):
+            const deleteType = action.payload.location.typeId;
+            return {
+                ...state,
+                locations: {
+                    ...state.locations,
+                    [deleteType]: locationDelete(state.locations[deleteType], action)
                 }
             };
         default :
@@ -78,7 +91,7 @@ const singleLocationReducer = (state: ILocationState = {...DEFAULT_LOCATION_STAT
 const locationUpdate = (state: ILocationState = {...DEFAULT_LOCATION_STATE}, action: AnyAction) => {
     switch (action.type) {
         case getType(actionAdminUpdateLocationSuccess):
-            const list = [...state.list.data || []].map(location => action.payload.location.id == location.id ? action.payload.location : location);
+            const list = [...state.list.data || []].map(location => action.payload.location.id === location.id ? action.payload.location : location);
             return {
                 ...state,
                 list: {
@@ -88,6 +101,24 @@ const locationUpdate = (state: ILocationState = {...DEFAULT_LOCATION_STATE}, act
             };
         case getType(actionAdminUpdateLocationRequest):
         case getType(actionAdminUpdateLocationFailure):
+        default :
+            return state;
+    }
+};
+
+const locationDelete = (state: ILocationState = {...DEFAULT_LOCATION_STATE}, action: AnyAction) => {
+    switch (action.type) {
+        case getType(actionAdminDeleteLocationSuccess):
+            const list = (state.list.data || []).filter(location => action.payload.location.id !== location.id);
+            return {
+                ...state,
+                list: {
+                    ...state.list,
+                    data: list,
+                }
+            };
+        case getType(actionAdminDeleteLocationRequest):
+        case getType(actionAdminDeleteLocationFailure):
         default :
             return state;
     }

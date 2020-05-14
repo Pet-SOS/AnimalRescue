@@ -44,3 +44,18 @@ export const actionAdminCreateLocationFailure = createAction(
     'ADMIN_CREATE_LOCATION_FAILURE',
     (resolve) => (location: ILocation, error: Error) => resolve({location, error})
 );
+
+// Delete
+// Create
+export const actionAdminDeleteLocationRequest = createAction(
+    'ADMIN_DELETE_LOCATION_REQUEST',
+    (resolve) => (location: ILocation) => resolve({location})
+);
+export const actionAdminDeleteLocationSuccess = createAction(
+    'ADMIN_DELETE_LOCATION_SUCCESS',
+    resolve => (location: ILocation) => resolve({location})
+);
+export const actionAdminDeleteLocationFailure = createAction(
+    'ADMIN_DELETE_LOCATION_FAILURE',
+    (resolve) => (location: ILocation, error: Error) => resolve({location, error})
+);

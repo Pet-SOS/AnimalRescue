@@ -69,3 +69,7 @@ export async function updateLocation(location: ILocation): Promise<void> {
 export async function createLocation(location: ILocation): Promise<void> {
     await API.post(locationById(''), mapLocationToBody(location));
 }
+
+export async function deleteLocation(location: ILocation): Promise<void> {
+    await API.delete(locationById(location.id));
+}
