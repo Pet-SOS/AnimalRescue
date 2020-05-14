@@ -1,7 +1,7 @@
 import React from "react";
-import {LocationListContainer} from "./LocationList";
+import {LocationListContainer} from "./lists/LocationList";
 import {ILocation, LocationsCode} from "../../../../api/admin";
-import {LocationListCell} from "./LocationListCell";
+import LocationListCell from "./lists/LocationListCell";
 
 export class ShelterList extends React.PureComponent {
     private CLASS_NAME = 'shelter';
@@ -18,8 +18,12 @@ export class ShelterList extends React.PureComponent {
 
     renderListItem = (key: string, location: ILocation) => {
         return (
-            <LocationListCell className={this.CLASS_NAME} key={key}>
-                <div className="col col-title">${location.title}</div>
+            <LocationListCell
+                className={this.CLASS_NAME}
+                key={key}
+                type={this.TYPE}
+                location={location}>
+                <div className="col col-title">{location.title}</div>
                 <div className="col col-address">{location.address}</div>
             </LocationListCell>
         )

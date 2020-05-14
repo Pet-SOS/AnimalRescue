@@ -21,8 +21,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
 
         public string Description { get; set; }
 
-        public int Age { get; set; }
-
         public int CoverImage { get; set; }
 
         public DateTime Birthday { get; set; }
