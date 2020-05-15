@@ -1,12 +1,12 @@
 import React from "react";
-import {Button, ButtonTypes} from "../../../../components/Button";
-import {ICustomAppState} from "../../../../store/state";
+import {ICustomAppState} from "../../../../../store/state";
 import {connect} from "react-redux";
 import {bindActionCreators, Dispatch} from "redux";
-import {actionAdminFetchLocationsRequest} from "../store/actions";
-import {ILocation, ILocationsResponse, LocationsCode} from "../../../../api/admin";
-import {IRequestParams} from "../../../../api/requestOptions";
-import {selectAdminLocationsList} from "../store/selectors";
+import {actionAdminFetchLocationsRequest} from "../../store/actions";
+import {ILocation, ILocationsResponse, LocationsCode} from "../../../../../api/admin";
+import {IRequestParams} from "../../../../../api/requestOptions";
+import {isLoadingAdminLocations, selectAdminLocationsList} from "../../store/selectors";
+import {DEFAULT_LOCATION} from "../../store/state";
 
 
 interface ILocationListProps {
@@ -19,13 +19,12 @@ interface ILocationListProps {
 interface ILocationListOwnProps {
     loadLocations: (code: LocationsCode, p ?: IRequestParams) => void;
     listResponse?: ILocationsResponse;
+    isLoading: boolean;
 }
 
-export class LocationList extends React.PureComponent<ILocationListProps & ILocationListOwnProps> {
+const EMPTY_LIST_VALUE = '...';
 
-    handleAddAnimalClick = () => {
-        window.console.log("Add location clicked")
-    };
+export class LocationList extends React.PureComponent<ILocationListProps & ILocationListOwnProps> {
 
     componentDidMount(): void {
         if (!this.props.listResponse?.data) {
@@ -33,11 +32,31 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
         }
     }
 
+    renderNewItem = () => {
+        const {renderItem} = this.props;
+        if (renderItem) {
+            return (
+                <div className={'location-new '}>
+                    {renderItem('new', {
+                        ...DEFAULT_LOCATION,
+                        typeId: String(this.props.type),
+                        title: '+ Нова Локація',
+                        phoneNumber: EMPTY_LIST_VALUE,
+                        address: EMPTY_LIST_VALUE,
+                        price: EMPTY_LIST_VALUE
+                    })}
+                </div>
+            );
+
+        }
+    };
+
     renderList = () => {
         const {listResponse, renderItem} = this.props;
         const list = (listResponse || {}).data;
         return (
             <div className="location-list">
+                {this.renderNewItem()}
                 {renderItem && list && list.map((item, index) => renderItem(String(index), item))}
             </div>
         )
@@ -47,21 +66,13 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
     render() {
         return (
             <div>
-                <div className="locations-header">
-                    <Button
-                        className="add-location-btn"
-                        onClick={this.handleAddAnimalClick}
-                        styleType={ButtonTypes.BlueOutlineSmall}>
-                        Додати нову локацію
-                    </Button>
-                </div>
                 <section className='section-table location-table'>
                     <header>
                         <div className={`row ${this.props.className}`}>
                             {this.props.renderHeader()}
                         </div>
                     </header>
-                    {this.renderList()}
+                    {!this.props.isLoading && this.renderList()}
                 </section>
             </div>
         );
@@ -70,8 +81,10 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
 
 
 const mapStateToProps = (state: ICustomAppState, ownProps ?: ILocationListProps) => {
+    const type = ownProps && ownProps.type;
     return {
-        listResponse: selectAdminLocationsList(state, ownProps && ownProps.type),
+        listResponse: selectAdminLocationsList(state, type),
+        isLoading: isLoadingAdminLocations(state, type)
     }
 };
 

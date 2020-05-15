@@ -1,5 +1,5 @@
 import { API } from './index'
-import {IRequestParams, prepareRequestParams} from './requestOptions'
+import {IRequestParams, prepareReadyForAdoptionRequestParams, prepareRequestParams} from './requestOptions'
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -19,9 +19,9 @@ export enum Gender {MALE = 'male', FEMALE = 'female', ANY='any'}
 
 export enum AnimalKind { CAT = 'CAT', DOG = 'DOG', ANY='ANY'}
 export enum AnimalGender{
-    ANY='any',
-    MALE = 'male',
-    FEMALE = 'female',
+    ANY='ANY',
+    MALE = 'MALE',
+    FEMALE = 'FEMALE',
 }
 export enum AnimalFilterKind {
     ANY='any',
@@ -39,7 +39,7 @@ export enum AnimalBreed {
 }
 
 export enum AnimalAge{
-    ANY='any',
+    ANY='ANY',
     TOONE = 'toOne',
     TOTHREE = 'toThree',
     TOFIVE= 'toFive',
@@ -47,10 +47,10 @@ export enum AnimalAge{
 }
 
 export enum AnimalSize {
-    ANY='any',
-    SMALL='small',
-    MEDIUM='medium',
-    LARGE='large'
+    ANY='ANY',
+    SMALL_DOG = 'SMALL_DOG',
+    MEDIUM_DOG = 'MEDIUM_DOG',
+    LARGE_DOG = 'LARGE_DOG'
 }
 
 export enum FilterType {
@@ -59,7 +59,7 @@ export enum FilterType {
     BREED = 'breed',
     GENDER = 'gender',
     AGE = 'age',
-    SIZE = 'size',
+    SIZE = 'dogsize',
     STERILIZED = 'STERILIZED',
     VACCINATED = 'VACCINATED',
     READYTOABROAD = 'READYTOABROAD'
@@ -139,8 +139,13 @@ export interface ISavedAnimalsCountResponse {
     self: string;
 }
 
+export async function fetchAdminAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
+    const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+    return res.data
+}
+
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-  const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+  const res = await API.get('animals', {params: prepareReadyForAdoptionRequestParams(requestParams)});
   return res.data
 }
 

@@ -1,6 +1,6 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import {getType} from 'typesafe-actions';
-import {fetchAnimals, deleteAnimal, postAnimal, updateAnimal} from "../../../../../api/animals";
+import {deleteAnimal, postAnimal, updateAnimal, fetchAdminAnimals} from "../../../../../api/animals";
 
 import {
     actionAdminHomeFetchAnimalsRequest,
@@ -21,7 +21,7 @@ import {actionFetchAnimalItemRequest} from "../../../../client/Animals/store/act
 
 function* fetchHomePageAnimalsListSaga(action: { type: string, payload?: IRequestParams }) {
     try {
-        const response = yield call(fetchAnimals,action.payload);
+        const response = yield call(fetchAdminAnimals,action.payload);
         yield put(actionAdminHomeFetchAnimalsSuccess(response))
     } catch (e) {
         yield put(actionAdminHomeFetchAnimalsFailure(e))

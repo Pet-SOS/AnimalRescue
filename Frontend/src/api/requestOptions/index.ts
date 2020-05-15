@@ -27,7 +27,7 @@ export interface IRequestParams {
 export const prepareRequestParams = (requestParams?: IRequestParams) => {
   const params: any = {
     ...requestParams
-  };
+  };  
   if ((typeof requestParams?.filter != 'string') &&!!requestParams?.filter && !!requestParams?.filter?.fieldName && !!requestParams?.filter?.operator) {
     params.filter = `${requestParams?.filter?.fieldName}~${requestParams?.filter?.operator}~'${requestParams?.filter?.value}'`
   }
@@ -36,3 +36,14 @@ export const prepareRequestParams = (requestParams?: IRequestParams) => {
   }
   return params;
 }
+
+export const prepareReadyForAdoptionRequestParams = (requestParams?: IRequestParams) => {
+  const params: any = prepareRequestParams(requestParams);
+  if (params.filter !== undefined && params.filter !== "") {
+    params.filter += `;status.id~eq~'READYFORADOPTION'`
+  } else {
+    params.filter = `status.id~eq~'READYFORADOPTION'`
+  }
+  return params;
+}
+
