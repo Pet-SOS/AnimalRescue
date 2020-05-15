@@ -64,6 +64,9 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
   }
 
   renderMainImage = () => {
+    if (!this.props.uploadedImageIds.length) {
+      return null;
+    }
     const mainImageId = this.props.uploadedImageIds[0];
     return (
       <div className='main-image-wrapper'>
@@ -74,6 +77,7 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
         </div>
       </div>
     )
+
   }
 
   renderAdditionalImages = () => {
