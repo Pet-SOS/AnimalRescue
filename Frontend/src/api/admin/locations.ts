@@ -34,7 +34,7 @@ const mapListResponseToLocations = (response: any) => {
 
 export enum LocationsCode {
     SHELTER = 'SHELTER',
-    CLINIC = 'CLINIK',
+    CLINIC = 'CLINIC',
     OVEREXPOSURE = 'OVEREXPOSURE'
 }
 
