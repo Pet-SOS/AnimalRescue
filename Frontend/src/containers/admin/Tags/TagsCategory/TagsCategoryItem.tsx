@@ -19,7 +19,7 @@ export const TagsCategoryItem: React.FC<IPropTypes> = ({category, tags}) => {
         ? ''
         : `${!!divider ? divider : ', '}`}`
       : '';
-  }
+  };
   return (
       <div className="с-item">
           <div className="row">
