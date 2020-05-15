@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {Dispatch, useEffect} from 'react';
 import {connect} from "react-redux";
-import {Dispatch} from "react";
 import {AnyAction} from "redux";
 
 import {ICustomAppState} from "../../../../store/state";
-import {actionGetTagsList, actionClearTagsList, actionSelectTagsCategory} from '../../../../store/actions/tags.actions';
+import {actionClearTagsList, actionGetTagsList, actionSelectTagsCategory} from '../../../../store/actions/tags.actions';
 import {IRequestParams} from '../../../../api/requestOptions';
 import {AdminMenu} from '../../AdminMenu';
-import {selectTagsListData} from '../../../../store/selectors/tags.selector';
+import {selectTagsCategoryListData} from '../../../../store/selectors/tags.selector';
 import {ITag} from '../../../../api/tags';
 import './style.scss';
 import {TagsCategoryItem} from './TagsCategoryItem';
@@ -15,30 +14,17 @@ import {TagsCategoryItem} from './TagsCategoryItem';
 interface IPropTypes {
     fetchTagsList: (requestParams?: IRequestParams) => void;
     clearTagsList: () => void;
-    tagsList: Array<ITag>;
+    categoryList: { [key: string]: Array<ITag> };
     selectCategory: (category: string) => void;
 }
 
-const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, tagsList, selectCategory}) => {
-    const [sortedTagsList, setSortedTagsList] = useState<{ [key: string]: Array<ITag> }>({});
-    const sortTagsList = (): { [key: string]: Array<ITag> } => {
-        const sortedTags: { [key: string]: Array<ITag> } = {};
-        tagsList.forEach(tag => {
-            sortedTags[tag.category] = !!sortedTags[tag.category] ? [...sortedTags[tag.category], tag] : [tag]
-        });
-        return sortedTags;
-    };
-
+const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, categoryList, selectCategory}) => {
     useEffect(() => {
         fetchTagsList({size: 100});
         return () => {
             clearTagsList();
         }
     }, []);
-
-    useEffect(() => {
-        setSortedTagsList(sortTagsList());
-    }, [tagsList]);
 
     const onListItemSelected = (category: string) => {
         selectCategory(category);
@@ -47,11 +33,11 @@ const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, t
     const renderList = () => {
         return (
             <>
-                {!!sortedTagsList && !!Object.keys(sortedTagsList).length && Object.keys(sortedTagsList).map((categoryName, index) => (
+                {!!categoryList && !!Object.keys(categoryList).length && Object.keys(categoryList).map((categoryName, index) => (
                     <TagsCategoryItem
                         key={index}
                         category={categoryName}
-                        tags={sortedTagsList[categoryName]}
+                        tags={categoryList[categoryName]}
                         onEditClick={onListItemSelected}
                     />
                 ))}
@@ -88,12 +74,12 @@ const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, t
 };
 
 const mapStateToProps = (state: ICustomAppState) => ({
-    tagsList: selectTagsListData(state),
+    categoryList: selectTagsCategoryListData(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     fetchTagsList: (requestParams?: IRequestParams) => dispatch(actionGetTagsList(requestParams)),
     clearTagsList: () => dispatch(actionClearTagsList()),
-    selectCategory: (category : string) => dispatch(actionSelectTagsCategory(category))
+    selectCategory: (category: string) => dispatch(actionSelectTagsCategory(category))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TagsCategoryList);
