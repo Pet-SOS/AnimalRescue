@@ -29,32 +29,6 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
     );
   }
 
-  renderAdditionalImageList = () => {
-    return (
-      <>
-        {this.renderAddImage()}
-        {this.props.uploadedImageIds.map(imageId => (
-          <div key={imageId}>
-            {this.renderImage(
-              this.getSourceOfUploadedImage(imageId),
-              imageId,
-              this.props.onDeleteImage
-            )}
-          </div>
-        ))}
-        {this.props.newImages.map((image: any) => (
-          <div key={image.lastModified}>
-            {this.renderImage(
-              URL.createObjectURL(image),
-              image.lastModified,
-              this.props.onDeleteNewImage
-            )}
-          </div>
-        ))}
-      </>
-    )
-  }
-
   renderTitle(title: string) {
     return (
       <div className="image-tab-header">
@@ -85,7 +59,27 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
       <div>
         {this.renderTitle('Додаткові зображення')}
         <div className="images-wrapper">
-          {this.renderAdditionalImageList()}
+          <>
+            {this.renderAddImage()}
+            {this.props.uploadedImageIds.map(imageId => (
+              <div key={imageId}>
+                {this.renderImage(
+                  this.getSourceOfUploadedImage(imageId),
+                  imageId,
+                  this.props.onDeleteImage
+                )}
+              </div>
+            ))}
+            {this.props.newImages.map((image: any) => (
+              <div key={image.lastModified}>
+                {this.renderImage(
+                  URL.createObjectURL(image),
+                  image.lastModified,
+                  this.props.onDeleteNewImage
+                )}
+              </div>
+            ))}
+          </>
         </div>
       </div>
     );
