@@ -1,41 +1,76 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import "../style/ImageTabContent.scss";
 import AddFileIcon from "../../../../img/icons/add-request.svg";
+import CloseIcon from "../../../../img/icons/close-icon.svg";
 
 interface IPropTypes {
   imageIds: string[];
-  coverImage: number;
-  onChange: (e: ChangeEvent<HTMLInputElement>, key: string) => any;
   addImage: (e: any) => any;
   animalId?: string;
   baseUrl: string;
   images: [];
+  onDeleteImage: (id: string) => any;
+  onDeleteNewImage: (id: string) => any;
 }
 
 export class ImageTabContent extends React.PureComponent<IPropTypes> {
-  renderImgs = () => {
+  getSourceOfUploadedImage(imageId: string) {
+    return `${this.props.baseUrl}documents/${imageId}/type/small`;
+  }
+
+  renderImage(imageSource: string, id: string, onDeleteImage: (id: string) => void) {
+    return (
+      <div className="image-container">
+        <div className="delete-image" onClick={() => onDeleteImage(id)}>
+          <img src={CloseIcon} alt="delete"/>
+        </div>
+        <img className="animal-image" src={imageSource} alt="animal-image"/>
+      </div>
+    );
+  }
+
+  renderAdditionalImageList = () => {
     return (
       <>
         {this.renderAddImage()}
         {this.props.imageIds.map(imageId => (
-          <img key={imageId} className="animal-image"
-               src={`${this.props.baseUrl}documents/${imageId}/type/small`}/>
+          <div key={imageId}>
+            {this.renderImage(
+              this.getSourceOfUploadedImage(imageId),
+              imageId,
+              this.props.onDeleteImage
+            )}
+          </div>
+        ))}
+        {this.props.images.map((image: any) => (
+          <div key={image.lastModified}>
+            {this.renderImage(
+              URL.createObjectURL(image),
+              image.lastModified,
+              this.props.onDeleteNewImage
+            )}
+          </div>
         ))}
       </>
     )
   }
 
+  renderTitle(title: string) {
+    return (
+      <div className="image-tab-header">
+        <span>{title}</span>
+      </div>
+    );
+  }
+
   renderMainImage = () => {
+    const mainImageId = this.props.imageIds[0];
     return (
       <div className='main-image-wrapper'>
-        <div className="image-tab-header">
-          <span>Головне зображення</span>
-        </div>
-
+        {this.renderTitle('Головне зображення')}
         <div className="images-wrapper">
           {this.renderAddImage()}
-          <img className="animal-image"
-               src={`${this.props.baseUrl}documents/${this.props.imageIds[0]}/type/small`}/>
+          {this.renderImage(this.getSourceOfUploadedImage(mainImageId), mainImageId, this.props.onDeleteImage)}
         </div>
       </div>
     )
@@ -44,31 +79,25 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
   renderAdditionalImages = () => {
     return (
       <div>
-        <div className="image-tab-header">
-          <span>Додаткові зображення</span>
-        </div>
-        {/*<input value={this.props.coverImage} onChange={(e) => this.props.onChange(e, 'coverImage')}/>*/}
+        {this.renderTitle('Додаткові зображення')}
         <div className="images-wrapper">
-          {this.renderImgs()}
+          {this.renderAdditionalImageList()}
         </div>
       </div>
     );
   }
 
-  renderFileNames() {
-    if (this.props.images.length) {
-      return this.props.images.map((image: File, i: number) => <div key={image.name + i}>File
-        #{i + 1} {image.name}</div>)
-    }
-    return null;
-  }
-
   renderAddImage() {
     let addFileRef: any = React.createRef();
     return (
-      <div className="add-image-wrapper" onClick={() => addFileRef?.click()}>
-        <input ref={ref => addFileRef = ref} type={'file'} id={this.props.animalId || 'newFile'} onChange={(e) => this.props.addImage(e)}
-               className={"add-button hidden"}/>
+      <div className="add-image-wrapper" onClick={() => addFileRef.click()}>
+        <input
+          ref={ref => addFileRef = ref}
+          type={'file'}
+          id={this.props.animalId || 'newFile'}
+          onChange={(e) => this.props.addImage(e)}
+          className={"add-button hidden"}
+        />
         <div className="add-image">
           <img src={AddFileIcon} alt="add-image"/>
           <p className="add-image-title">Вибрати фото</p>
@@ -82,26 +111,7 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
       <div className="main-image-wrapper">
         {this.renderMainImage()}
         {this.renderAdditionalImages()}
-        <div>
-          {this.renderFileNames()}
-        </div>
       </div>
     );
   }
 }
-
-{/*<p>*/}
-{/*  <span>Головне зображення</span><br/>*/}
-{/*  {this.renderImgs(imageIds)}*/}
-{/*</p>*/}
-{/*<p>*/}
-{/*  <span>Додаткові зображення</span>*/}
-{/*  <input value={coverImage} onChange={(e) => this.changeValue(e, 'coverImage')}/></p>*/}
-{/*<p>*/}
-{/*  {!!this.state.images.length && this.renderFileNames()}*/}
-{/*  <div className={'add-button'}>*/}
-{/*    <input type={'file'} id={id || 'newFile'} onChange={(e) => this.addImage(e)}*/}
-{/*           className={"add-button hidden"}/>*/}
-{/*    <label htmlFor={id || 'newFile'} className={'add-button button'}>Add file</label>*/}
-{/*  </div>*/}
-{/*</p>*/}

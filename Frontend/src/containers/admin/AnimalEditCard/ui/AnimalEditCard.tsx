@@ -70,10 +70,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({images: [...this.state.images, ...e.target.files]})
   }
 
-  // renderImgs = (imageIds: string[]) => imageIds.map(imageId =>
-  //   <img key={imageId} style={{width: 100, height: 100}}
-  //        src={`${this.baseUrl}documents/${imageId}/type/small`}/>)
-
   submit = () => {
     const animal = {...this.state as IAnimal}
     this.props.updateAnimal({animal, id: this.state.id})
@@ -81,16 +77,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   delete = () => {
     this.props.deleteAnimal(this.state.id || '')
   }
+
   post = () => {
     const animal = {...this.state as IAnimal}
     this.props.postAnimal(animal)
     this.setState({...DEFAULT_ANIMAL})
   }
-
-  // renderFileNames() {
-  //   return this.state.images.map((image: File, i: number) => <div key={image.name + i}>File
-  //     #{i + 1} {image.name}</div>)
-  // }
 
   onUpdateTag = (tagName: string) => {
     const index = this.state.tags.indexOf(tagName);
@@ -108,6 +100,18 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   onToggleDonation = () => {
     this.setState({
       isDonationActive: !this.state.isDonationActive
+    })
+  }
+
+  onDeleteUploadedImage = (id: string) => {
+    this.setState({
+      imageIds: this.state.imageIds.filter(imageId => imageId !== id)
+    })
+  }
+
+  onDeleteNewImage = (id: string) => {
+    this.setState({
+      images: this.state.images.filter((image: any) => image.lastModified !== Number(id))
     })
   }
 
@@ -152,9 +156,9 @@ class AnimalEditCard extends React.Component<IPropTypes> {
           >
             <TabPane tab="Зображення" key="1">
               <ImageTabContent
+                onDeleteImage={this.onDeleteUploadedImage}
+                onDeleteNewImage={this.onDeleteNewImage}
                 imageIds={imageIds}
-                coverImage={coverImage}
-                onChange={this.changeValue}
                 addImage={this.addImage}
                 animalId={id}
                 baseUrl={this.baseUrl}

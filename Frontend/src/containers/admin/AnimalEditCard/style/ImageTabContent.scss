@@ -7,6 +7,7 @@
 }
 
 .add-image-wrapper {
+  margin: 0 12px 12px 0;
   border: 2px dashed #DBDADB;
   width: 160px;
   height: 120px;
@@ -35,10 +36,20 @@
 .animal-image {
   width: 160px;
   height: 120px;
-  padding-left: 10px;
 }
 
 .images-wrapper {
   display: flex;
   flex-wrap: wrap;
+}
+
+.image-container {
+  position: relative;
+  margin: 0 12px 12px 0;
+
+  .delete-image {
+    padding: 5px;
+    position: absolute;
+    right: 0;
+  }
 }
