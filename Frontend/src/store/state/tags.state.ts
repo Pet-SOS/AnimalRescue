@@ -4,6 +4,7 @@ import { ITagsResponse } from '../../api/tags';
 export interface ITagsState extends ITagsResponse {
   isLoading: boolean;
   isLoaded: boolean;
+  selectedCategory : string;
   requestState: IRequestState;
 }
 
@@ -16,5 +17,6 @@ export const DEFAULT_TAGS_STATE: ITagsState = {
   self: '',
   isLoaded: false,
   isLoading: false,
+  selectedCategory : '',
   requestState: { ...DEFAULT_REQUEST_STATE }
 }

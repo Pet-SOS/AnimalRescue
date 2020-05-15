@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {Dispatch} from "react";
 import {AnyAction} from "redux";
 
 import {ICustomAppState} from "../../../../store/state";
-import {actionGetTagsList, actionClearTagsList} from '../../../../store/actions/tags.actions';
+import {actionGetTagsList, actionClearTagsList, actionSelectTagsCategory} from '../../../../store/actions/tags.actions';
 import {IRequestParams} from '../../../../api/requestOptions';
 import {AdminMenu} from '../../AdminMenu';
-import {selectTagsCategoryListData, selectTagsListData} from '../../../../store/selectors/tags.selector';
+import {selectTagsListData} from '../../../../store/selectors/tags.selector';
 import {ITag} from '../../../../api/tags';
 import './style.scss';
 import {TagsCategoryItem} from './TagsCategoryItem';
@@ -15,16 +15,49 @@ import {TagsCategoryItem} from './TagsCategoryItem';
 interface IPropTypes {
     fetchTagsList: (requestParams?: IRequestParams) => void;
     clearTagsList: () => void;
-    categories: { [key: string]: Array<ITag> };
+    tagsList: Array<ITag>;
+    selectCategory: (category: string) => void;
 }
 
-const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, categories}) => {
+const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, tagsList, selectCategory}) => {
+    const [sortedTagsList, setSortedTagsList] = useState<{ [key: string]: Array<ITag> }>({});
+    const sortTagsList = (): { [key: string]: Array<ITag> } => {
+        const sortedTags: { [key: string]: Array<ITag> } = {};
+        tagsList.forEach(tag => {
+            sortedTags[tag.category] = !!sortedTags[tag.category] ? [...sortedTags[tag.category], tag] : [tag]
+        });
+        return sortedTags;
+    };
+
     useEffect(() => {
         fetchTagsList({size: 100});
         return () => {
             clearTagsList();
         }
     }, []);
+
+    useEffect(() => {
+        setSortedTagsList(sortTagsList());
+    }, [tagsList]);
+
+    const onListItemSelected = (category: string) => {
+        selectCategory(category);
+    };
+
+    const renderList = () => {
+        return (
+            <>
+                {!!sortedTagsList && !!Object.keys(sortedTagsList).length && Object.keys(sortedTagsList).map((categoryName, index) => (
+                    <TagsCategoryItem
+                        key={index}
+                        category={categoryName}
+                        tags={sortedTagsList[categoryName]}
+                        onEditClick={onListItemSelected}
+                    />
+                ))}
+            </>
+        )
+    };
 
     return (
         <div className='boxAdmin'>
@@ -43,10 +76,7 @@ const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, c
                                     </div>
                                 </header>
                                 <div className="с-list">
-                                    {!!Object.keys(categories).length && Object.keys(categories).map((categoryName, index) => (
-                                        <TagsCategoryItem key={index} category={categoryName}
-                                                          tags={categories[categoryName]}/>
-                                    ))}
+                                    {renderList()}
                                 </div>
                             </section>
                         </div>
@@ -58,11 +88,12 @@ const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, c
 };
 
 const mapStateToProps = (state: ICustomAppState) => ({
-    categories: selectTagsCategoryListData(state),
+    tagsList: selectTagsListData(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     fetchTagsList: (requestParams?: IRequestParams) => dispatch(actionGetTagsList(requestParams)),
     clearTagsList: () => dispatch(actionClearTagsList()),
+    selectCategory: (category : string) => dispatch(actionSelectTagsCategory(category))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TagsCategoryList);
