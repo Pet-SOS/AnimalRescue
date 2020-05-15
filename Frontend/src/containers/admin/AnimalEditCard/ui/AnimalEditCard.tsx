@@ -158,11 +158,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
               <ImageTabContent
                 onDeleteImage={this.onDeleteUploadedImage}
                 onDeleteNewImage={this.onDeleteNewImage}
-                imageIds={imageIds}
+                uploadedImageIds={imageIds}
                 addImage={this.addImage}
                 animalId={id}
                 baseUrl={this.baseUrl}
-                images={this.state.images}
+                newImages={this.state.images}
               />
             </TabPane>
             <TabPane tab="Здоров’я" key="2">

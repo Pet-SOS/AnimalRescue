@@ -4,11 +4,11 @@ import AddFileIcon from "../../../../img/icons/add-request.svg";
 import CloseIcon from "../../../../img/icons/close-icon.svg";
 
 interface IPropTypes {
-  imageIds: string[];
+  uploadedImageIds: string[];
   addImage: (e: any) => any;
   animalId?: string;
   baseUrl: string;
-  images: [];
+  newImages: [];
   onDeleteImage: (id: string) => any;
   onDeleteNewImage: (id: string) => any;
 }
@@ -33,7 +33,7 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
     return (
       <>
         {this.renderAddImage()}
-        {this.props.imageIds.map(imageId => (
+        {this.props.uploadedImageIds.map(imageId => (
           <div key={imageId}>
             {this.renderImage(
               this.getSourceOfUploadedImage(imageId),
@@ -42,7 +42,7 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
             )}
           </div>
         ))}
-        {this.props.images.map((image: any) => (
+        {this.props.newImages.map((image: any) => (
           <div key={image.lastModified}>
             {this.renderImage(
               URL.createObjectURL(image),
@@ -64,7 +64,7 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
   }
 
   renderMainImage = () => {
-    const mainImageId = this.props.imageIds[0];
+    const mainImageId = this.props.uploadedImageIds[0];
     return (
       <div className='main-image-wrapper'>
         {this.renderTitle('Головне зображення')}
