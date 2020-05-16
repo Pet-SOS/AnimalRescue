@@ -1,4 +1,5 @@
-﻿using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
+﻿using AnimalRescue.BusinessLogic.BackgroundServices;
+using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
 using AnimalRescue.BusinessLogic.Queries;
 using AnimalRescue.BusinessLogic.Services;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
@@ -82,6 +83,9 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ISequenceService, SequenceService>();
             services.AddScoped<IUsersManagementService, UsersManagementService>();
+            
+            services.AddTransient<UnlinkedFileSearchService>();
+            services.AddHostedService<UnlinkedFileSearchWorker>();
         }
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
