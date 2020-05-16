@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.BusinessLogic.BackgroundServices;
+using AnimalRescue.BusinessLogic.Configurations;
 using AnimalRescue.BusinessLogic.Configurations.MappingProfiles;
 using AnimalRescue.BusinessLogic.Queries;
 using AnimalRescue.BusinessLogic.Services;
@@ -83,7 +84,13 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ISequenceService, SequenceService>();
             services.AddScoped<IUsersManagementService, UsersManagementService>();
-            
+
+            BackgroundServices(services, configuration);
+        }
+
+        private static void BackgroundServices(IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<UnlinkedFileSearchSettings>(configuration.GetSection(nameof(UnlinkedFileSearchSettings)));
             services.AddTransient<UnlinkedFileSearchService>();
             services.AddHostedService<UnlinkedFileSearchWorker>();
         }
