@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AnimalRescue.Infrastructure.Validation;
 
 namespace AnimalRescue.BusinessLogic.BackgroundServices
 {
@@ -22,7 +23,11 @@ namespace AnimalRescue.BusinessLogic.BackgroundServices
             ILogger<UnlinkedFileSearchWorker> logger, 
             IServiceScopeFactory serviceScopeFactory)
         {
+            Require.Objects.NotNull(logger, nameof(logger));
+            Require.Objects.NotNull(serviceScopeFactory, nameof(serviceScopeFactory));
+            Require.Objects.NotNull(options, nameof(options));
             _options = options.Value;
+            Require.Objects.NotNull(_options, nameof(_options));
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
         }
