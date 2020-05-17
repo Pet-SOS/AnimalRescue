@@ -116,7 +116,7 @@ namespace AnimalRescue.DataAccess.Mongodb
             return counter;
         }
 
-        public async IAsyncEnumerable<GridFSFileInfo> GetFileIdsAsync()
+        public async IAsyncEnumerable<GridFSFileInfo> GetAllFileInfoAsync()
         {
             var filter = Builders<GridFSFileInfo>.Filter.Empty;
             var options = new GridFSFindOptions { };

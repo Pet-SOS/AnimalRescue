@@ -13,7 +13,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
@@ -108,11 +107,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             List<Tags> result = cursor.ToList().Select(x => x.Deserialize<Tags>()).ToList();
 
             return result;
-        }
-
-        public IAsyncEnumerator<Tags> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
-        {
-            throw new NotImplementedException();
         }
     }
 }

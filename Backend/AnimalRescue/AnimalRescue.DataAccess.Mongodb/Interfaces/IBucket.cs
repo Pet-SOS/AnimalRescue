@@ -17,6 +17,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces
         Task<bool> RemoveFileAsync(ObjectId id);
         Task<bool> RemoveFileAsync(string id);
         Task<long> GetFilesCountAsync();
-        IAsyncEnumerable<GridFSFileInfo> GetFileIdsAsync();
+        IAsyncEnumerable<GridFSFileInfo> GetAllFileInfoAsync();
     }
 }
