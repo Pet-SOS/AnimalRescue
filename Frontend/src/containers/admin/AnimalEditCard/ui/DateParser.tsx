@@ -10,9 +10,11 @@ interface IDateProps{
 
 export class DateParser extends React.Component<IDateProps> {
     public state: IDateProps;
-    public yearsPeriod: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-    public monthsPeriod: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
-    public weeksPeriod: string[] = ['0', '1', '2', '3'];
+    public limitOfAnimalAge = {
+        years: 21,
+        months: 12,
+        weeks: 4
+    }
     public currDate: Date = new Date();
 
     constructor(props: IDateProps) {
@@ -42,6 +44,8 @@ export class DateParser extends React.Component<IDateProps> {
         const year = Math.floor(dateDelta / 31536000000).toString();
         const month = Math.floor(new Date(dateDelta % 31536000000).getMonth()).toString();
         const week = '0'; // TODO
+        console.log(Array(this.limitOfAnimalAge.months));
+        
 
         if (!this.state.years || !this.state.months || !this.state.weeks) {
             this.setState({
@@ -56,9 +60,9 @@ export class DateParser extends React.Component<IDateProps> {
                 <div className="form-col">
                     <label htmlFor="birthday-years">Неділя</label>
                     <select id="birthday-weeks" onChange={(e) => this.compileData(e, 'weeks')}>
-                        {this.weeksPeriod.map(currWeek => {
+                        {[...Array(this.limitOfAnimalAge.weeks)].map((curr, currWeek) => {
                             return (
-                            <option value={currWeek} selected={week === currWeek ? true : false}>{currWeek}</option>
+                            <option key={currWeek} value={currWeek} selected={week === currWeek.toString() ? true : false}>{currWeek}</option>
                             );
                         })}
                     </select>
@@ -66,9 +70,9 @@ export class DateParser extends React.Component<IDateProps> {
                 <div className="form-col">
                     <label htmlFor="birthday-months">Місяць</label>
                     <select id="birthday-months" onChange={(e) => this.compileData(e, 'months')}>
-                        {this.monthsPeriod.map(currMonth => {
+                        {[...Array(this.limitOfAnimalAge.months)].map((curr, currMonth) => {
                             return (
-                            <option value={currMonth} selected={month === currMonth ? true : false}>{currMonth}</option>
+                            <option key={currMonth} value={currMonth} selected={month === currMonth.toString() ? true : false}>{currMonth}</option>
                             );
                         })}
                     </select>
@@ -76,9 +80,9 @@ export class DateParser extends React.Component<IDateProps> {
                 <div className="form-col">
                     <label htmlFor="birthday-years">Рік</label>
                     <select id="birthday-years" onChange={(e) => this.compileData(e, 'years')}>
-                        {this.yearsPeriod.map(currYear => {
+                        {[...Array(this.limitOfAnimalAge.years)].map((curr, currYear) => {
                             return (
-                                <option value={currYear} selected={year === currYear ? true : false}>{currYear}</option>
+                                <option key={currYear} value={currYear} selected={year === currYear.toString() ? true : false}>{currYear}</option>
                             );
                         })}
                     </select>
