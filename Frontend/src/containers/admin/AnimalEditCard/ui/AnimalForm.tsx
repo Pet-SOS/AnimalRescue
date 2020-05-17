@@ -36,7 +36,6 @@ export class AnimalForm extends React.Component<IAnimalData> {
       availableStatuses: props.animaldata.availableStatuses,
       tags: props.animaldata.tags
     };
-    debugger
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 

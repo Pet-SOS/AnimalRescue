@@ -80,4 +80,9 @@ export const actionGetAllTagsError = createAction(
 
 export const actionClearTagsList = createAction(
   'CLEAR_TAGS_LIST'
-)
+);
+
+export const actionSelectTagsCategory = createAction(
+    'SELECT_TAGS_CATEGORY',
+    (resolve) => (category : string) => resolve(category)
+);

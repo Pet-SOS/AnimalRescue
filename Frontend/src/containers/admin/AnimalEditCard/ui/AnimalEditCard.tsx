@@ -12,6 +12,7 @@ import {ICustomAppState} from "../../../../store/state";
 import {Loader} from "../../../../components/Loader";
 import {ERequestStatus} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
+import {ImageTabContent} from "./ImageTabContent";
 import { ITag } from '../../../../api/tags';
 import { AnimalForm } from './AnimalForm';
 
@@ -76,10 +77,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({images: [...this.state.images, ...e.target.files]})
   }
 
-  renderImgs = (imageIds: string[]) => imageIds.map(imageId =>
-    <img key={imageId} style={{width: 100, height: 100}} alt="description"
-         src={`${this.baseUrl}documents/${imageId}/type/small`}/>)
-
   submit = () => {
     const animal = {...this.state as IAnimal}
     this.props.updateAnimal({animal, id: this.state.id})
@@ -87,15 +84,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   delete = () => {
     this.props.deleteAnimal(this.state.id || '')
   }
+
   post = () => {
     const animal = {...this.state as IAnimal}
     this.props.postAnimal(animal)
     this.setState({...DEFAULT_ANIMAL})
-  }
-
-  renderFileNames() {
-    return this.state.images.map((image: File, i: number) => <div key={image.name + i}>File
-      #{i + 1} {image.name}</div>)
   }
 
   onUpdateTag = (tagName: string) => {
@@ -114,6 +107,18 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   onToggleDonation = () => {
     this.setState({
       isDonationActive: !this.state.isDonationActive
+    })
+  }
+
+  onDeleteUploadedImage = (id: string) => {
+    this.setState({
+      imageIds: this.state.imageIds.filter(imageId => imageId !== id)
+    })
+  }
+
+  onDeleteNewImage = (id: string) => {
+    this.setState({
+      images: this.state.images.filter((image: any) => image.lastModified !== Number(id))
     })
   }
 
@@ -146,21 +151,15 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             onChange={(key: string) => this.currentTab = key}
           >
             <TabPane tab="Зображення" key="1">
-              <p>
-                <span>Головне зображення</span><br/>
-                {this.renderImgs(imageIds)}
-              </p>
-              <p>
-                <span>Додаткові зображення</span>
-                <input value={coverImage} onChange={(e) => this.changeValue(e, 'coverImage')}/></p>
-              <p>
-                {!!this.state.images.length && this.renderFileNames()}
-                <div className={'add-button'}>
-                  <input type={'file'} id={id || 'newFile'} onChange={(e) => this.addImage(e)}
-                         className={"add-button hidden"}/>
-                  <label htmlFor={id || 'newFile'} className={'add-button button'}>Add file</label>
-                </div>
-              </p>
+              <ImageTabContent
+                onDeleteImage={this.onDeleteUploadedImage}
+                onDeleteNewImage={this.onDeleteNewImage}
+                uploadedImageIds={imageIds}
+                addImage={this.addImage}
+                animalId={id}
+                baseUrl={this.baseUrl}
+                newImages={this.state.images}
+              />
             </TabPane>
             <TabPane tab="Здоров’я" key="2">
               <HealthTabContent
