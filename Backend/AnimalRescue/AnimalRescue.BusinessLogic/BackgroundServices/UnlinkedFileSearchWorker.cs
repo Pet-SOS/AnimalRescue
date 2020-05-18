@@ -39,8 +39,16 @@ namespace AnimalRescue.BusinessLogic.BackgroundServices
                 using var scope = _serviceScopeFactory.CreateScope();
                 var scanner = scope.ServiceProvider.GetRequiredService<UnlinkedFileSearchService>();
                 _logger.LogInformation("Unlinked File Search Worker running at: {time}", DateTimeOffset.Now);
-                
-                await scanner.RunAsync();
+
+                try
+                {
+                    await scanner.RunAsync();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical(ex.Message);
+                }
+
                 _logger.LogInformation("Unlinked File Search Worker finishing at: {time}", DateTimeOffset.Now);
                 
                 await Task.Delay(TimeSpan.FromDays(_options.Day), stoppingToken);
