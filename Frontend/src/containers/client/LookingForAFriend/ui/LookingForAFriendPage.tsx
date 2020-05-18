@@ -319,7 +319,6 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
   }
 
   setCheckboxCheck(name: string) {
-    console.log('setCheckboxCheck', name)
     this.setState({
       [name]: {
         ...this.state[name],
