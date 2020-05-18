@@ -23,6 +23,7 @@ import defaultText from '../../../../i18n/translations/ru';
 import {CheckBoks} from '../../../../components/CheckBoks';
 import {ITagsState} from "../../../../store/state/tags.state";
 import {ITag} from "../../../../api/tags";
+import {ESubtractPeriod, getSubtractDate} from "../../../../shared/getSubtractDate";
 
 
 interface IPropTypes {
@@ -72,11 +73,10 @@ const defaultFilterState = {
         value: Object.values(AnimalGender)[0],
         key: Object.keys(AnimalGender)[0],
     },
-    // TODO: Left for the future discussion
-    // age: {
-    //     value: Object.values(AnimalAge)[0],
-    //     key: Object.keys(AnimalAge)[0],
-    // },
+    age: {
+        value: Object.values(AnimalAge)[0],
+        key: Object.keys(AnimalAge)[0],
+    },
     dogsize: {
         value: Object.values(AnimalSize)[0],
         key: Object.keys(AnimalSize)[0],
@@ -192,6 +192,33 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         return strParams;
     }
 
+    getAgePeriod(from: string, to: string) {
+        return `birthday~gte~${from};birthday~lt~${to}`;
+    }
+
+    getAgeFilterRequestString(query: string) {
+        // export enum AnimalAge {
+        //     ANY='any',
+        //     TOONE = 'toOne',
+        //     TOTHREE = 'toThree',
+        //     TOFIVE= 'toFive',
+        //     FROMFIVE= 'fromFive'
+        // }
+        // 'birthday~gte~2018-07-18T00:00:00Z;birthday~lt~2020-01-18T00:00:00Z'
+        query = query.toLowerCase();
+        switch (query) {
+            case AnimalAge.ANY.toLowerCase(): {
+                return '';
+            }
+            case AnimalAge.TOONE.toLowerCase(): {
+                return this.getAgePeriod(getSubtractDate(6, ESubtractPeriod.Month), getSubtractDate(1, ESubtractPeriod.Years))
+            }
+            default: {
+                return query;
+            }
+        }
+    }
+
     sendFilterRequest() {
         let strTags = '';
         let filterParams = '';
@@ -222,12 +249,14 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
             this.allFilterRequestString = tags;
         } else {
             this.allFilterRequestString = filterParams;
-        }        
+        }
+
+        console.log('this.allFilterRequestString', this.allFilterRequestString);
 
         this.props.fetchAnimalsRequest({
             page: Number(this.props.match.params.page),
             size: this.sizeAnimalToPage,
-            filter: this.allFilterRequestString ,
+            filter: 'tags~all~birthday~gte~2019-11-17T00:00:00.000Z;birthday~lt~2020-05-17T00:00:00.000Z',
         });
         this.props.history.push({
             pathname: `/animals/page/${+this.props.match.params.page}`,
@@ -282,7 +311,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                 value: Object.values(AnimalBreed)[0].toUpperCase(),
                 key: Object.keys(AnimalBreed)[0],
             }
-        });        
+        });
     }
 
     setCheckboxCheck(name: string) {
@@ -385,7 +414,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                     />
                                 </li>
                                 <li className="item-select">
-                                    <Select                                        
+                                    <Select
                                         data={this.getTagsByCategory(FilterType.GENDER)}
                                         selected={this.state.gender.value}
                                         onChange={(value: string) => this.setLocale(value, AnimalGender, FilterType.GENDER)}
@@ -394,20 +423,19 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
                                                       default={tranlateText.lookingForAFriendPageSelectGender}/>}
                                     />
                                 </li>
-                                {/*<li className="item-select">*/}
-                                {/*TODO: Left for the future discussion*/}
-                                {/*    <Select*/}
-                                {/*        data={Object.values(AnimalAge).map((value) => ({*/}
-                                {/*            label: i18n.t('AnimalAge' + value),*/}
-                                {/*            value: value*/}
-                                {/*        }))}*/}
-                                {/*        selected={this.state.age.value}*/}
-                                {/*        onChange={(value: string) => this.setLocale(value, AnimalAge, 'age')}*/}
-                                {/*        expandDirection={SelectExpandDirections.BOTTOM}*/}
-                                {/*        title={<TI18n keyStr="lookingForAFriendPageSelectAge"*/}
-                                {/*                      default={tranlateText.lookingForAFriendPageSelectAge}/>}*/}
-                                {/*    />*/}
-                                {/*</li>*/}
+                                <li className="item-select">
+                                    <Select
+                                        data={Object.values(AnimalAge).map((value) => ({
+                                            label: i18n.t('AnimalAge' + value),
+                                            value: value
+                                        }))}
+                                        selected={this.state.age.value}
+                                        onChange={(value: string) => this.setLocale(value, AnimalAge, 'age')}
+                                        expandDirection={SelectExpandDirections.BOTTOM}
+                                        title={<TI18n keyStr="lookingForAFriendPageSelectAge"
+                                                      default={tranlateText.lookingForAFriendPageSelectAge}/>}
+                                    />
+                                </li>
 
                                 { this.state.kindOfAnimal.value === AnimalKind.DOG && (
                                     <li className="item-select">
