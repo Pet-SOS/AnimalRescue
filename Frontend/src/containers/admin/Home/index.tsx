@@ -11,6 +11,7 @@ import {actionFetchAnimalItemRequest} from "../../client/Animals/store/actions/a
 
 const mapStateToProps = (state: ICustomAppState) => ({
     animalsList: selectAnimalsList(state),
+    tagsList: state.tags.data
 });
 
 export const HomePage = connect(mapStateToProps, {

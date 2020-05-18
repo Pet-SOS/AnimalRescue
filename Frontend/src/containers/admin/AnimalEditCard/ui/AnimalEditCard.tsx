@@ -13,11 +13,14 @@ import {Loader} from "../../../../components/Loader";
 import {ERequestStatus} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ImageTabContent} from "./ImageTabContent";
+import { ITag } from '../../../../api/tags';
+import { AnimalForm } from './AnimalForm';
 
 const {TabPane} = Tabs;
 
 interface IOwnPropTypes extends RouteComponentProps<any> {
   animal: IAnimal;
+  tagsList: ITag[];
   deleteAnimal: (id: string) => void;
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
@@ -32,10 +35,14 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   public baseUrl: string = '';
   public state: IAnimal;
   public currentTab: string = '1';
+  public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
 
   constructor(props: IPropTypes) {
     super(props);
-    this.state = {...DEFAULT_ANIMAL};
+    this.state = {
+      ...DEFAULT_ANIMAL,
+      availableStatuses: props.tagsList.filter(tag => tag.category === 'status') || []
+    };
   }
 
   componentDidMount() {
@@ -117,7 +124,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   render() {
     const {
-      number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
+      availableStatuses, number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
     } = this.state
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
@@ -125,28 +132,17 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     return (
       <>
         <div className="data-edit">
-          <p>
-            <label>Номер</label><br/>
-            <input disabled value={number} onChange={(e) => this.changeValue(e, 'number')}/></p>
-          <p>
-            <label>Кличка</label><br/>
-            <input value={name} onChange={(e) => this.changeValue(e, 'name')}/></p>
-          <p>
-            <label>Вид</label><br/>
-            <input value={kindOfAnimal}
-                   onChange={(e) => this.changeValue(e, 'kindOfAnimal')}/></p>
-          <p>
-            <label>Стать</label><br/>
-            <input value={gender} onChange={(e) => this.changeValue(e, 'gender')}/></p>
-          <p>
-            <label>age</label><br/>
-            <input value={age} onChange={(e) => this.changeValue(e, 'age')}/></p>
-          <p>
-            <label>birthday</label><br/>
-            <input value={birthday} onChange={(e) => this.changeValue(e, 'birthday')}/></p>
-          <p>
-            <label>tags</label><br/>
-            <input value={tags} onChange={(e) => this.changeValue(e, 'tags')}/></p>
+          <AnimalForm animaldata={{
+            availableStatuses: availableStatuses, 
+            number: number, 
+            name: name, 
+            kindOfAnimal: kindOfAnimal, 
+            gender: gender, 
+            status: status, 
+            birthday: birthday, 
+            age: age,
+            tags: tags
+          }} />
           <p>id {id}</p>
         </div>
         <div className="tabs-edit">

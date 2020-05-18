@@ -36,6 +36,10 @@
     @include media('≤phone') {
       display: block;
     }
+
+    > div {
+      width: 100%;
+    }
   }
 
   .tabs-edit,

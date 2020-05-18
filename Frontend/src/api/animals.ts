@@ -1,5 +1,6 @@
-import { API } from './index'
-import {IRequestParams, prepareReadyForAdoptionRequestParams, prepareRequestParams} from './requestOptions'
+import { API } from './index';
+import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
+import { ITag } from './tags';
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -99,6 +100,7 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
+  availableStatuses?: ITag[];
 }
 
 export interface IAnimalResponse {
@@ -122,6 +124,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     birthday: '',
     coverImage: 0,
     images: [],
+    availableStatuses: [],
     id: ''
 }
 
