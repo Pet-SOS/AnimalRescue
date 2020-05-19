@@ -39,7 +39,7 @@ export const TagsCategoryItem: React.FC<IPropTypes> = ({category, tags, onEditCl
                     ))}
                 </div>
                 <div className="col col-edit" onClick={handleEditClick}>
-                    <NavLink to={`/admin/tags/${category.toLowerCase()}`}>
+                    <NavLink to={`/admin/tags/${category}`}>
                         Edit
                     </NavLink>
                 </div>
