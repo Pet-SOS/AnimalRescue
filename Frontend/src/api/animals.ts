@@ -39,8 +39,8 @@ export enum AnimalBreed {
     DACHSHUND='dachshund'
 }
 
-export enum AnimalAge{
-    ANY='ANY',
+export enum AnimalAge {
+    ANY='any',
     TOONE = 'toOne',
     TOTHREE = 'toThree',
     TOFIVE= 'toFive',
