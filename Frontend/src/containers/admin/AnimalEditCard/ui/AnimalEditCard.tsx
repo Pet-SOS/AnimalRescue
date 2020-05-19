@@ -91,6 +91,15 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({...DEFAULT_ANIMAL})
   }
 
+  onSave = () => {
+    const {match: {params: {id}}} = this.props;
+    if (id) {
+      this.submit();
+    } else {
+      this.post();
+    }
+  }
+
   onUpdateTag = (tagName: string) => {
     const index = this.state.tags.indexOf(tagName);
     const isTagExist = index !== -1;
@@ -133,13 +142,13 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       <>
         <div className="data-edit">
           <AnimalForm animaldata={{
-            availableStatuses: availableStatuses, 
-            number: number, 
-            name: name, 
-            kindOfAnimal: kindOfAnimal, 
-            gender: gender, 
-            status: status, 
-            birthday: birthday, 
+            availableStatuses: availableStatuses,
+            number: number,
+            name: name,
+            kindOfAnimal: kindOfAnimal,
+            gender: gender,
+            status: status,
+            birthday: birthday,
             age: age,
             tags: tags
           }} />
@@ -183,7 +192,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             </TabPane>
           </Tabs>
           <Button
-            onClick={this.submit}
+            onClick={this.onSave}
             styleType={ButtonTypes.Blue}>
             Зберегти зміни
           </Button>
