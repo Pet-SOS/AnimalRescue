@@ -65,6 +65,11 @@
       align-items: center;
       justify-content: center;
       line-height: 1;
+
+      .disabled {
+        pointer-events: none;
+        color: #AAAAAA;
+      }
     }
   }
 }

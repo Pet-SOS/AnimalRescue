@@ -7,6 +7,7 @@ export const selectTagsListState = (state: ICustomAppState): ITagsState => state
 export const selectTagsListData = (state: ICustomAppState): Array<ITag> => state[TAGS_KEY].data;
 export const selectIsTagsListLoaded = (state: ICustomAppState): boolean => state[TAGS_KEY].isLoaded;
 export const selectIsTagsListLoading = (state: ICustomAppState): boolean => state[TAGS_KEY].isLoading;
+export const selectCategory = (state: ICustomAppState): string => selectTagsListState(state).selectedCategory;
 
 const IGNORED_CATEGORY = 'breed';
 const isIgnoredCategory = (tag: ITag) => {

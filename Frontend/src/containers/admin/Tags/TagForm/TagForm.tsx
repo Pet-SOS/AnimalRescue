@@ -31,7 +31,7 @@ export const TagForm: React.FC<IPropTypes> = ({ onSubmit, onCancel, tag }) => {
     if (!!tag) {
       initFields(tagValues);
     }
-  }, [])
+  }, []);
   const { fields, handleFieldChange, handleSubmit, initFields } = useForm(() => { onSubmit(fields) });
   const onInput = (fieldName: ELocales, event: any) => {
     handleFieldChange(event);
@@ -39,7 +39,7 @@ export const TagForm: React.FC<IPropTypes> = ({ onSubmit, onCancel, tag }) => {
       ...tagValues,
       [fieldName]: event.target.value
     })
-  }
+  };
   return (
     <form onSubmit={handleSubmit}>
         <div className="t-item">

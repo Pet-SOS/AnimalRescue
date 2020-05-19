@@ -1,74 +1,104 @@
-import React, { useEffect, Dispatch, useState } from 'react';
-import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
-import { useParams } from 'react-router-dom';
+import React, {Dispatch, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {AnyAction} from 'redux';
+import {useHistory, useParams} from 'react-router-dom';
 
-import { ITag } from '../../../../api/tags';
-import { ICustomAppState } from '../../../../store/state';
-import { selectTagsListData } from '../../../../store/selectors/tags.selector';
-import { actionGetTagsList, actionClearTagsList, actionAddTag } from '../../../../store/actions/tags.actions';
-import { RequestFilterOperators } from '../../../../api/requestOptions';
-import { AdminMenu } from '../../AdminMenu';
-import { TI18n } from '../../../../i18n';
-import { ELocales } from '../../../../i18n/store/state';
+import {EKindOfAnimal, ITag, TagCategory} from '../../../../api/tags';
+import {ICustomAppState} from '../../../../store/state';
+import {selectCategory, selectTagsListData} from '../../../../store/selectors/tags.selector';
+import {actionAddTag, actionClearTagsList, actionGetTagsList,} from '../../../../store/actions/tags.actions';
+import {IRequestFilterParams, RequestFilterOperators} from '../../../../api/requestOptions';
 import TagsListItem from './TagsListItem';
-import { BlockLink } from '../../../../components/BlockLink';
 import './style.scss';
-import { TagForm, ITagForm } from '../TagForm/TagForm';
-import { prepareTagValues } from '../tags.helper';
+import {NewTagListItem} from "./NewTagListItem";
+import {FilterType} from "../../../../api/animals";
+import {useRouteMatch} from "react-router";
 
 interface IPropTypes {
-  fetchTagsList: (categoryName: string) => void;
-  addTag: (tag: ITag) => void;
-  clearTagsList: () => void;
-  tagsList: Array<ITag>;
+    fetchTagsList: (categoryName: string, kindOfAnimal?: string) => void;
+    addTag: (tag: ITag) => void;
+    clearTagsList: () => void;
+    tagsList: Array<ITag>;
 }
 
-const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, addTag, clearTagsList, tagsList }) => {
-  const { tagCategoryName } = useParams();
-  const [isTagFormActive, setIsTagFormActive] = useState(false);
-  useEffect(() => {
-    if (!!tagCategoryName) {
-      fetchTagsList(tagCategoryName.toLowerCase().trim());
+const getLastCategory = (fullName?: string) => {
+    if (fullName) {
+        let names = fullName.split('/');
+        if (!!names && !!names.length) {
+            return names[names.length - 1];
+        }
     }
-    return () => {
-      clearTagsList();
-    }
-  }, [tagCategoryName]);
-  useEffect(() => {
-    if (isTagFormActive) {
-      setIsTagFormActive(false)
-    }
-  }, [tagsList.length])
+    return '';
+};
 
-  const onTagFormSubmit = (tagForm: ITagForm) => {
-    const newTag: ITag = {
-      category: tagCategoryName || '',
-      kindOfAnimal: '',
-      code: `#${tagCategoryName}`,
-      values: prepareTagValues(tagForm)
+const buildKindOfAnimal = (category: string, originKindOfAnimal: string) => {
+    let targetKindOfAnimal = originKindOfAnimal;
+    if (TagCategory.dogSize.toLocaleLowerCase() === category.toLocaleLowerCase()) {
+        targetKindOfAnimal = EKindOfAnimal.dog;
     }
-    addTag(newTag);
-  };
+    if (TagCategory.kindOfAnimal.toLocaleLowerCase() === category.toLocaleLowerCase() && originKindOfAnimal) {
+        targetKindOfAnimal = originKindOfAnimal.toUpperCase();
+    }
+    return targetKindOfAnimal;
+};
 
-  return (
-    <div className='boxAdmin'>
-      <AdminMenu selectedKey={'tags'} openKeys={['sub2', 'sub1']}/>
-      <main>
-        <div className="container">
-          <section className="section-tags-list">
+
+const buildCategory = (category: string, kindOfAnimal: string) => {
+    let targetCategory = category;
+    if (TagCategory.kindOfAnimal.toLocaleLowerCase() === category.toLocaleLowerCase() && kindOfAnimal) {
+        targetCategory = kindOfAnimal.toLocaleLowerCase() + 'Breed';
+    }
+    return targetCategory;
+};
+
+const buildFilter = (categoryName: string, kindOfAnimal ?: string): IRequestFilterParams | string => {
+    if (!kindOfAnimal) {
+        return {
+            fieldName: 'category',
+            operator: RequestFilterOperators.EQ,
+            value: categoryName
+        }
+    } else {
+        return `category~eq~'${buildCategory(categoryName, kindOfAnimal)}';kindOfAnimal~eq~'${buildKindOfAnimal(categoryName, kindOfAnimal)}'`;
+    }
+};
+
+const ignoreAdd = [TagCategory.dogSize.toLocaleLowerCase(), TagCategory.kindOfAnimal.toLocaleLowerCase()];
+
+const isSupportAdd = (tagCategory: string, kindOfAnimal?: string) =>
+    !ignoreAdd.find(v => v === tagCategory.toLocaleLowerCase()) || !!kindOfAnimal;
+
+const isEditSupport = (targetCategory: string, kindOfAnimal?: string) =>
+    !(FilterType.KIND_OF_ANIMAL.toLocaleLowerCase() === targetCategory.toLocaleLowerCase() && !kindOfAnimal);
+
+const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTagsList, tagsList}) => {
+    const {tagCategoryName, nested} = useParams();
+    const history = useHistory();
+    let match = useRouteMatch();
+    const category = (tagCategoryName || '').trim();
+    const kindOfAnimal = getLastCategory(nested);
+    useEffect(() => {
+        if (!!category) {
+            fetchTagsList(category, kindOfAnimal);
+        }
+        return () => {
+            clearTagsList();
+        }
+    }, [category]);
+
+    const onTagFormSubmit = (tagForm: ITag) => {
+        addTag(tagForm);
+    };
+
+    const tagRedirect = (tag: ITag) => {
+        history.push(`${match.url}/${tag.id}`)
+    };
+    const getTagEditClick = () => isEditSupport(category, kindOfAnimal) ? undefined : tagRedirect;
+
+    return (
+        <section className='section-table tags-table'>
             <header>
-              <BlockLink
-                  title={'Повернутися до тегів'}
-                  href={'/admin/tags'}
-                  isBack
-              />
-              <h4>{<TI18n keyStr={`${tagCategoryName}TagCategory`} default={tagCategoryName} locale={ELocales.ua}/>}</h4>
-            </header>
-            <div className="page-content">
-              <section className='section-table tags-table'>
-                <header>
-                  <div className="row">
+                <div className="row">
                     <div className="col col-ua">Українська</div>
                     <div className="col col-en">Англійська</div>
                     <div className="col col-de">Німецька</div>
@@ -76,55 +106,40 @@ const TagsList: React.FC<IPropTypes> = ({ fetchTagsList, addTag, clearTagsList, 
                     <div className="col col-num"></div>
                     <div className="col col-edit"></div>
                     <div className="col col-del"></div>
-                  </div>
-                </header>
-                <div className="t-list">
-                  {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
-                      <TagsListItem key={index} tag={tag}/>
-                  ))}
-                  {!isTagFormActive && (
-                  <div className="t-item">
-                    <div className="row">
-                          <React.Fragment>
-                            <div className="col col-ua">
-                              <a onClick={() => setIsTagFormActive(true)}>+ новый тег</a>
-                            </div>
-                            <div className="col col-en">...</div>
-                            <div className="col col-de">...</div>
-                            <div className="col col-ru">...</div>
-                            <div className="col col-num"></div>
-                            <div className="col col-edit"></div>
-                            <div className="col col-del"></div>
-                          </React.Fragment>
-
-                    </div>
-                  </div>
-                  )
-                  }
-                  {isTagFormActive && (<TagForm onSubmit={onTagFormSubmit} onCancel={() => {setIsTagFormActive(false)}}/>)}
                 </div>
-              </section>
+            </header>
+            <div className="t-list">
+                {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
+                    <TagsListItem
+                        key={index}
+                        tag={tag}
+                        onEditClick={getTagEditClick()}
+                    />
+                ))}
+                {isSupportAdd(category, kindOfAnimal) && (
+                    <NewTagListItem
+                        key={'_0'}
+                        onTagFormSubmit={onTagFormSubmit}
+                        category={buildCategory(category, kindOfAnimal)}
+                        kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
+                    />
+                )}
             </div>
-          </section>
-        </div>
-      </main>
-    </div>
-  )
-}
+        </section>
+    )
+};
 
 const mapStateToProps = (state: ICustomAppState) => ({
-  tagsList: selectTagsListData(state),
-});
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
-  fetchTagsList: (categoryName: string) => dispatch(actionGetTagsList({
-    filter: {
-      fieldName: 'category',
-      operator: RequestFilterOperators.EQ,
-      value: categoryName
-    }
-  })),
-  addTag: (tag: ITag) => dispatch(actionAddTag(tag)),
-  clearTagsList: () => dispatch(actionClearTagsList()),
+    tagsList: selectTagsListData(state),
+    category: selectCategory(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TagsList);
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
+    fetchTagsList: (categoryName: string, kindOfAnimal ?: string) => dispatch(actionGetTagsList({
+        filter: buildFilter(categoryName, kindOfAnimal)
+    })),
+    addTag: (tag: ITag) => dispatch(actionAddTag(tag)),
+    clearTagsList: () => dispatch(actionClearTagsList()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MutableTagsList);
