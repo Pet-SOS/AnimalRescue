@@ -67,7 +67,7 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task DeleteAsync(Guid bucketId)
         {
             await _orgDocRepository.DeleteAsync(bucketId.ToString());
-            await _bucket.RemoveFile(bucketId.AsObjectId());
+            await _bucket.RemoveFileAsync(bucketId.AsObjectId());
         }
     }
 }
