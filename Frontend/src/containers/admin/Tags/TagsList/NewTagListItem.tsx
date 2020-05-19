@@ -16,7 +16,7 @@ export const NewTagListItem: React.FC<INewTagListItemProps> = ({category, kindOf
         if (isTagFormActive) {
             setIsTagFormActive(false)
         }
-    });
+    }, [category, kindOfAnimal, onTagFormSubmit]);
 
     const onSubmit = (tagForm: ITagForm) => {
         const newTag: ITag = {

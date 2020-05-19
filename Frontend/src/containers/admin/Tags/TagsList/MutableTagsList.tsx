@@ -3,16 +3,15 @@ import {connect} from 'react-redux';
 import {AnyAction} from 'redux';
 import {useHistory, useParams} from 'react-router-dom';
 
-import {EKindOfAnimal, ITag, TagCategory} from '../../../../api/tags';
+import {ITag} from '../../../../api/tags';
 import {ICustomAppState} from '../../../../store/state';
 import {selectCategory, selectTagsListData} from '../../../../store/selectors/tags.selector';
 import {actionAddTag, actionClearTagsList, actionGetTagsList,} from '../../../../store/actions/tags.actions';
-import {IRequestFilterParams, RequestFilterOperators} from '../../../../api/requestOptions';
 import TagsListItem from './TagsListItem';
 import './style.scss';
 import {NewTagListItem} from "./NewTagListItem";
-import {FilterType} from "../../../../api/animals";
 import {useRouteMatch} from "react-router";
+import {buildCategory, buildFilter, buildKindOfAnimal, getLastCategory, isEditSupport, isSupportAdd} from "../helpers";
 
 interface IPropTypes {
     fetchTagsList: (categoryName: string, kindOfAnimal?: string) => void;
@@ -21,55 +20,6 @@ interface IPropTypes {
     tagsList: Array<ITag>;
 }
 
-const getLastCategory = (fullName?: string) => {
-    if (fullName) {
-        let names = fullName.split('/');
-        if (!!names && !!names.length) {
-            return names[names.length - 1];
-        }
-    }
-    return '';
-};
-
-const buildKindOfAnimal = (category: string, originKindOfAnimal: string) => {
-    let targetKindOfAnimal = originKindOfAnimal;
-    if (TagCategory.dogSize.toLocaleLowerCase() === category.toLocaleLowerCase()) {
-        targetKindOfAnimal = EKindOfAnimal.dog;
-    }
-    if (TagCategory.kindOfAnimal.toLocaleLowerCase() === category.toLocaleLowerCase() && originKindOfAnimal) {
-        targetKindOfAnimal = originKindOfAnimal.toUpperCase();
-    }
-    return targetKindOfAnimal;
-};
-
-
-const buildCategory = (category: string, kindOfAnimal: string) => {
-    let targetCategory = category;
-    if (TagCategory.kindOfAnimal.toLocaleLowerCase() === category.toLocaleLowerCase() && kindOfAnimal) {
-        targetCategory = kindOfAnimal.toLocaleLowerCase() + 'Breed';
-    }
-    return targetCategory;
-};
-
-const buildFilter = (categoryName: string, kindOfAnimal ?: string): IRequestFilterParams | string => {
-    if (!kindOfAnimal) {
-        return {
-            fieldName: 'category',
-            operator: RequestFilterOperators.EQ,
-            value: categoryName
-        }
-    } else {
-        return `category~eq~'${buildCategory(categoryName, kindOfAnimal)}';kindOfAnimal~eq~'${buildKindOfAnimal(categoryName, kindOfAnimal)}'`;
-    }
-};
-
-const ignoreAdd = [TagCategory.dogSize.toLocaleLowerCase(), TagCategory.kindOfAnimal.toLocaleLowerCase()];
-
-const isSupportAdd = (tagCategory: string, kindOfAnimal?: string) =>
-    !ignoreAdd.find(v => v === tagCategory.toLocaleLowerCase()) || !!kindOfAnimal;
-
-const isEditSupport = (targetCategory: string, kindOfAnimal?: string) =>
-    !(FilterType.KIND_OF_ANIMAL.toLocaleLowerCase() === targetCategory.toLocaleLowerCase() && !kindOfAnimal);
 
 const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTagsList, tagsList}) => {
     const {tagCategoryName, nested} = useParams();
@@ -118,7 +68,6 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
                 ))}
                 {isSupportAdd(category, kindOfAnimal) && (
                     <NewTagListItem
-                        key={'_0'}
                         onTagFormSubmit={onTagFormSubmit}
                         category={buildCategory(category, kindOfAnimal)}
                         kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
