@@ -85,6 +85,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             await _baseCollection.DeleteAsync(id);
         }
 
+        public IAsyncEnumerable<Tags> GetAllItemsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> GetCountAsync(DbQuery query)
         {
             return await _baseCollection.GetCountAsync(query);
