@@ -41,8 +41,8 @@ export enum AnimalBreed {
     DACHSHUND='dachshund'
 }
 
-export enum AnimalAge{
-    ANY='ANY',
+export enum AnimalAge {
+    ANY='any',
     TOONE = 'toOne',
     TOTHREE = 'toThree',
     TOFIVE= 'toFive',
@@ -112,6 +112,7 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
+  availableStatuses?: ITag[];
 }
 
 export interface IAnimalResponse {
@@ -136,6 +137,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     birthday: '',
     coverImage: 0,
     images: [],
+    availableStatuses: [],
     id: ''
 }
 

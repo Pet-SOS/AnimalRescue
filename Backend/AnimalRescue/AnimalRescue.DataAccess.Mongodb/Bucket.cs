@@ -8,6 +8,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,14 +41,14 @@ namespace AnimalRescue.DataAccess.Mongodb
         public async Task<string> UploadFileStreamAsync(Stream fileStream, string fileName, string contentType)
         {
             string result = await UploadAsync(gridFSBucket.UploadFromStreamAsync, fileStream, fileName, contentType);
-            
+
             return result;
         }
 
         private async Task<string> UploadAsync<T>(
-            Func<string, T, GridFSUploadOptions, CancellationToken, Task<ObjectId>> operation, 
-            T fileData, 
-            string fileName, 
+            Func<string, T, GridFSUploadOptions, CancellationToken, Task<ObjectId>> operation,
+            T fileData,
+            string fileName,
             string contentType)
         {
             Require.Objects.NotNull(fileData, nameof(fileData));
@@ -78,16 +79,57 @@ namespace AnimalRescue.DataAccess.Mongodb
 
                 contentType = stream.FileInfo?.Metadata?.GetValue(ContentTypeName)?.AsString;
 
-                await stream.CloseAsync(); 
+                await stream.CloseAsync();
             }
 
             BucketItem bucketItem = new BucketItem() { Data = bytes, ContentType = contentType };
             return bucketItem;
         }
 
-        public async Task RemoveFile(ObjectId id)
+        public async Task<bool> RemoveFileAsync(string id)
         {
-            await gridFSBucket.DeleteAsync(id);
+            ObjectId objectId = ObjectId.Parse(id);
+
+            return await RemoveFileAsync(objectId);
+        }
+        public async Task<bool> RemoveFileAsync(ObjectId id)
+        {
+            try
+            {
+                await gridFSBucket.DeleteAsync(id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<long> GetFilesCountAsync()
+        {
+            var filter = Builders<GridFSFileInfo>.Filter.Empty;
+            var options = new GridFSFindOptions { };
+            long counter = 0;
+
+            using IAsyncCursor<GridFSFileInfo> cursor = await gridFSBucket.FindAsync(filter, options);
+            await cursor.ForEachAsync(x => counter++);
+            return counter;
+        }
+
+        public async IAsyncEnumerable<GridFSFileInfo> GetAllFileInfoAsync()
+        {
+            var filter = Builders<GridFSFileInfo>.Filter.Empty;
+            var options = new GridFSFindOptions { };
+
+            using IAsyncCursor<GridFSFileInfo> cursor = await gridFSBucket.FindAsync(filter, options);
+
+            while (await cursor.MoveNextAsync())
+            {
+                foreach (GridFSFileInfo current in cursor.Current)
+                {
+                    yield return current;
+                }
+            }
         }
     }
 }
