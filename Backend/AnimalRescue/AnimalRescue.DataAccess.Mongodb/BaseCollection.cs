@@ -125,5 +125,19 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             return item;
         }
+        public async IAsyncEnumerable<T> GetAllItemsAsync()
+        {
+            var filter = Builders<T>.Filter.Empty;
+
+            using IAsyncCursor<T> cursor = await collection.FindAsync(filter);
+
+            while (await cursor.MoveNextAsync())
+            {
+                foreach (T current in cursor.Current)
+                {
+                    yield return current;
+                }
+            }
+        }
     }
 }

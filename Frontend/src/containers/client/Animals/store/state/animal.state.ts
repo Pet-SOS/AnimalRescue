@@ -24,7 +24,8 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     birthday: '',
     coverImage: 0,
     createdAt: '',
-    images: []
+    images: [],
+    availableStatuses: []
   },
   self: '',
   isLoaded: false,
