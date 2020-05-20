@@ -8,7 +8,8 @@ import noPhotoImage from './../../../../img/nophoto.jpg';
 import { store } from '../../../../store';
 import { BtnPagination } from '../../../client/Blog/ui/BtnPagination';
 import { IRequestParams } from '../../../../api/requestOptions';
-import moment from 'moment';
+import { TagTranslation } from '../../../../components/TagTranslation';
+import { Age } from '../../../../components/Age';
 
 const { Search } = Input;
 
@@ -64,19 +65,8 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
              pathname: `/admin/animals-list/page/${this.toPage}`,
              state: this.state
          })
-    }
+    }    
 
-    countAgeAnimal(date:any){
-        const animalDate=moment(date);
-        const today=moment();
-        const year = animalDate.diff(today,'years');
-        const month = animalDate.diff(today,'month');
-        if(year < 0){
-            const restMonth = month-(year*12);
-            return restMonth!==0? `${-year}рокiв ${-restMonth}мiс`:`${-year}рокiв`;
-        }
-        return `${-(month-(year*12))}мiс`;
-    }
     render(){
         return(
             <>
@@ -130,14 +120,45 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                         <span className="name">{animal.name}</span><br />
                                                         <span className="num">номер <span>{animal.number}</span></span>
                                                         <div className="add-info">
-                                                            <span>{animal.kindOfAnimal}, {animal.gender}, {this.countAgeAnimal(animal.birthday)}</span>
+                                                            <span>
+                                                                {!!animal.kindOfAnimal && (
+                                                                    <span className='kindOfAnimal'><TagTranslation tagId={animal.kindOfAnimal} />, </span>
+                                                                )}                           
+                                                                {!!animal.gender && (
+                                                                    <span className='gender'><TagTranslation tagId={animal.gender} />, </span>
+                                                                )}                                                                
+                                                                <Age birthday={animal.birthday} />
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                    <div className="col col-type">{animal.kindOfAnimal}</div>
-                                                    <div className="col col-gender">{animal.gender}</div>
-                                                    <div className="col col-age">{this.countAgeAnimal(animal.birthday)}</div>
-                                                    <div className="col col-location">Локація</div>
-                                                    <div className="col col-status"><span>Статус</span></div>
+                                                    <div className="col col-type">
+                                                        {!!animal.kindOfAnimal && (
+                                                            <TagTranslation tagId={animal.kindOfAnimal} />
+                                                        )} 
+                                                    </div>
+                                                    <div className="col col-gender">
+                                                        {!!animal.gender && (
+                                                            <TagTranslation tagId={animal.gender} />
+                                                        )}
+                                                    </div>
+                                                    <div className="col col-age"><Age birthday={animal.birthday} /></div>
+                                                    <div className="col col-location">                                                        
+                                                        <div className="LocationType">
+                                                            {!!animal.locationType && !!animal.locationType.type && !!animal.locationType.type.id && (
+                                                                <TagTranslation tagId={animal.locationType.type.id} />
+                                                            )}
+                                                        </div>
+                                                        <div className="LocationTitle">
+                                                            {!!animal.locationType && (
+                                                                animal.locationType.title
+                                                            )}
+                                                        </div>                                              
+                                                    </div>
+                                                    <div className="col col-status">
+                                                        {!!animal.status && !!animal.status.id && (
+                                                            <TagTranslation tagId={animal.status.id} />
+                                                        )}                                                        
+                                                    </div>
                                                     <div className="col col-btn"><i onClick={()=>this.updateAnimalCard(animal.id)} className="icon-edit">Edit</i></div>
                                                 </div>
                                             </div>

@@ -10,7 +10,7 @@ interface IAnimalProps {
   gender: string | Gender;
   age: number;
   birthday?: string;
-  status: string;
+  status: ITag;
   availableStatuses?: ITag[];
   tags: string[];
 }
@@ -69,8 +69,8 @@ export class AnimalForm extends React.Component<IAnimalData> {
             <option className="default-val">&ndash;</option>
             {availableStatuses ? availableStatuses.map((stat: ITag) => {
               return (
-                <option key={stat.id}
-                    selected={this.findLocaleStatusValue(stat) === status ? true : false}>
+                <option key={stat.id} 
+                    selected={this.findLocaleStatusValue(stat) === status.id ? true : false}> 
                   {this.findLocaleStatusValue(stat) || 'Unknown'}
                 </option>
               );
