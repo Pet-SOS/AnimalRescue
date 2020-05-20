@@ -104,7 +104,6 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
-  availableStatuses?: ITag[];
 }
 
 export interface IAnimalResponse {
@@ -129,7 +128,6 @@ export const DEFAULT_ANIMAL: IAnimal = {
     birthday: '',
     coverImage: 0,
     images: [],
-    availableStatuses: [],
     id: ''
 }
 

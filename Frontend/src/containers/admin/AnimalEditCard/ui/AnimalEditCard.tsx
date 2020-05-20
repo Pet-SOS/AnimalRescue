@@ -35,14 +35,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   public baseUrl: string = '';
   public state: IAnimal;
   public currentTab: string = '1';
-  public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
 
   constructor(props: IPropTypes) {
     super(props);
-    this.state = {
-      ...DEFAULT_ANIMAL,
-      availableStatuses: []
-    };
+    this.state = { ...DEFAULT_ANIMAL };
   }
 
   componentDidMount() {
@@ -55,6 +51,9 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     const {animal} = this.props;
     if (!_.isEqual(prevProps, this.props)) {
       for (let key in animal) {
+        if (key === 'locationType') {
+          continue;
+        }
         // @ts-ignore
         if (newState.hasOwnProperty(key) && animal[key]) {
           // @ts-ignore
@@ -62,11 +61,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
         }
       }
       this.setState(newState)
-    }
-    if (!_.isEqual(prevProps.tagsList, this.props.tagsList)) {
-      this.setState({
-        tagsList: this.props.tagsList
-      })
     }
   }
 
@@ -84,6 +78,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   submit = () => {
     const animal = {...this.state as IAnimal}
+    delete animal.locationType;
     this.props.updateAnimal({animal, id: this.state.id})
   }
   delete = () => {
@@ -92,6 +87,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   post = () => {
     const animal = {...this.state as IAnimal}
+    delete animal.locationType;
     this.props.postAnimal(animal)
     this.setState({...DEFAULT_ANIMAL})
   }

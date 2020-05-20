@@ -40,17 +40,17 @@ export class AnimalForm extends React.Component<IPropTypes> {
   }
 
   renderStatusSelect = () => {
-    const { availableStatuses, status } = this.props;
+    const { availableStatuses, status: defaultValue } = this.props;
     return (
       <div className="form-row small-row">
         <label htmlFor="acard-status">Статус</label>
-        <select id="acard-status" onChange={(e) => this.props.onChange(e, 'status')}>
-          <option className="default-val">&ndash;</option>
-          {availableStatuses?.map((stat: ITag) => {
+        <select value={defaultValue.id} id="acard-status" onChange={(e) => this.props.onChange(e, 'status')}>
+          {availableStatuses?.map((status: ITag) => {
             return (
-              <option key={stat.id}
-                      selected={this.findLocaleStatusValue(stat) === status.id}>
-                {this.findLocaleStatusValue(stat) || 'Unknown'}
+              <option
+                value={status.id}
+                key={status.id}>
+                {this.findLocaleStatusValue(status) || 'Unknown'}
               </option>
             );
           })}
@@ -68,6 +68,7 @@ export class AnimalForm extends React.Component<IPropTypes> {
         {this.renderField('Вид', 'kindOfAnimal')}
         {this.renderField('Стать', 'gender')}
 
+        {/*TODO: !!!!!!!*/}
         <div className="form-row small-row">
           <DateParser date={this.props.birthday} onDateChange={this.handleDateChange} />
         </div>

@@ -28,7 +28,6 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     coverImage: 0,
     createdAt: '',
     images: [],
-    availableStatuses: []
   },
   self: '',
   isLoaded: false,
