@@ -30,8 +30,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(animal.Status)]
         public WellKnownTagDto Status { get; set; }
 
-        [CouplingPropertyDto(animal.LocationType)]
-        public Guid LocationType { get; set; }
+        [CouplingPropertyDto(animal.LocationTypeId)]
+        public Guid LocationTypeId { get; set; }
 
         [CouplingPropertyDto(animal.LocationName)]
         public string LocationName { get; set; }

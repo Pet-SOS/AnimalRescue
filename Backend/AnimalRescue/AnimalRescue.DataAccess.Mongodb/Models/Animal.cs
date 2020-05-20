@@ -71,9 +71,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("status")]
         public WellKnownTag Status { get; set; }
 
-        [CouplingPropertyName(animal.LocationType)]
-        [BsonElement("locationType")]
-        public Guid LocationType { get; set; }
+        [CouplingPropertyName(animal.LocationTypeId)]
+        [BsonElement("locationTypeId")]
+        public string LocationTypeId { get; set; }
 
         [CouplingPropertyName(animal.LocationName)]
         [BsonElement("locationName")]
