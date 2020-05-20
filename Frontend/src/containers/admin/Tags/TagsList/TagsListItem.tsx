@@ -15,9 +15,10 @@ interface IPropTypes {
     updateTag: (tag: ITag) => void;
     deleteTag: (tagId: string) => void;
     onEditClick?: (tag: ITag) => void;
+    onValidationFailure?: () => void;
 }
 
-const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onEditClick}) => {
+const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onEditClick, onValidationFailure}) => {
     const [isEdit, setIsEdit] = useState(false);
     useEffect(() => {
         if (isEdit) {
@@ -61,7 +62,7 @@ const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onEditCl
     };
 
     return isEdit
-        ? <TagForm onSubmit={onEditSubmit} onCancel={onCancelEdit} tag={tag}/>
+        ? <TagForm onSubmit={onEditSubmit} onCancel={onCancelEdit} tag={tag} onValidationFailure={onValidationFailure}/>
         : (
             <div className="t-item">
                 <div className="row">

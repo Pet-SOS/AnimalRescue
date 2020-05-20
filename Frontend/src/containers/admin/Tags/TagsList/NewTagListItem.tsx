@@ -2,15 +2,18 @@ import React, {useEffect, useState} from "react";
 import {ITagForm, TagForm} from "../TagForm/TagForm";
 import {ITag} from "../../../../api/tags";
 import {prepareTagValues} from "../tags.helper";
+import {TI18n} from "../../../../i18n";
+import {ELocales} from "../../../../i18n/store/state";
 
 
 interface INewTagListItemProps {
     onTagFormSubmit: (tagForm: ITag) => void;
     category: string;
     kindOfAnimal?: string;
+    onValidationFailure?: () => void;
 }
 
-export const NewTagListItem: React.FC<INewTagListItemProps> = ({category, kindOfAnimal, onTagFormSubmit}) => {
+export const NewTagListItem: React.FC<INewTagListItemProps> = ({category, kindOfAnimal, onTagFormSubmit, onValidationFailure}) => {
     const [isTagFormActive, setIsTagFormActive] = useState(false);
     useEffect(() => {
         if (isTagFormActive) {
@@ -36,12 +39,19 @@ export const NewTagListItem: React.FC<INewTagListItemProps> = ({category, kindOf
         setIsTagFormActive(true)
     };
 
-    return isTagFormActive ? (<TagForm onSubmit={onSubmit} onCancel={onCancel}/>) : (
+    return isTagFormActive ? (
+        <TagForm
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+            onValidationFailure={onValidationFailure}
+        />) : (
         <div className="t-item">
             <div className="row">
                 <React.Fragment>
                     <div className="col col-ua">
-                        <a onClick={onNewClick}>+ новый тег</a>
+                        <a onClick={onNewClick}>
+                            {<TI18n keyStr="newTag" default={'+ New Tag'}
+                                    locale={ELocales.ua}/>}</a>
                     </div>
                     <div className="col col-en">...</div>
                     <div className="col col-de">...</div>
