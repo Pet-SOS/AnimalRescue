@@ -31,10 +31,10 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         public WellKnownTagDto Status { get; set; }
 
         [CouplingPropertyDto(animal.LocationType)]
-        public LocationDto LocationType { get; set; }
+        public Guid LocationType { get; set; }
 
         [CouplingPropertyDto(animal.LocationName)]
-        public WellKnownTagDto LocationName { get; set; }
+        public string LocationName { get; set; }
 
         [CouplingPropertyDto(animal.IsDonationActive)]
         public bool IsDonationActive { get; set; }

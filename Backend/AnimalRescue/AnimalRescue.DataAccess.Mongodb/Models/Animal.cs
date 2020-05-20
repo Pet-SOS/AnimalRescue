@@ -73,11 +73,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.LocationType)]
         [BsonElement("locationType")]
-        public Location LocationType { get; set; }
+        public Guid LocationType { get; set; }
 
         [CouplingPropertyName(animal.LocationName)]
         [BsonElement("locationName")]
-        public WellKnownTag LocationName { get; set; }
+        public string LocationName { get; set; }
 
         [CouplingPropertyName(animal.IsDonationActive)]
         [BsonElement("isDonationActive")]
