@@ -29,7 +29,7 @@ export class DateParser extends React.Component<IDateProps> {
 
     compileData(event: any, period: string) {
         this.setState({[period]: event.target.value});
-        
+
         const weeksToMs: number = (period === 'weeks' ? event.target.value : parseInt(this.state.weeks || '0')) * 7 * 24 * 60 * 60 * 1000;
         const monthsToMs: number = (period === 'months' ? event.target.value : parseInt(this.state.months || '0')) * 30 * 24 * 60 * 60 * 1000
         const yearsToMs: number = (period === 'years' ? event.target.value : parseInt(this.state.years || '0')) * 365 * 24 * 60 * 60 * 1000;
@@ -45,7 +45,7 @@ export class DateParser extends React.Component<IDateProps> {
         const month = Math.floor(new Date(dateDelta % 31536000000).getMonth()).toString();
         const week = '0'; // TODO
         console.log(Array(this.limitOfAnimalAge.months));
-        
+
 
         if (!this.state.years || !this.state.months || !this.state.weeks) {
             this.setState({
@@ -67,6 +67,7 @@ export class DateParser extends React.Component<IDateProps> {
                         })}
                     </select>
                 </div>
+
                 <div className="form-col">
                     <label htmlFor="birthday-months">Місяць</label>
                     <select id="birthday-months" onChange={(e) => this.compileData(e, 'months')}>
@@ -77,6 +78,7 @@ export class DateParser extends React.Component<IDateProps> {
                         })}
                     </select>
                 </div>
+
                 <div className="form-col">
                     <label htmlFor="birthday-years">Рік</label>
                     <select id="birthday-years" onChange={(e) => this.compileData(e, 'years')}>

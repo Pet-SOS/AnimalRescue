@@ -13,14 +13,14 @@ import {Loader} from "../../../../components/Loader";
 import {ERequestStatus} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ImageTabContent} from "./ImageTabContent";
-import { ITag } from '../../../../api/tags';
-import { AnimalForm } from './AnimalForm';
+import {ITag} from '../../../../api/tags';
+import {AnimalForm} from './AnimalForm';
 
 const {TabPane} = Tabs;
 
 interface IOwnPropTypes extends RouteComponentProps<any> {
   animal: IAnimal;
-  tagsList: ITag[];
+  tagsList: { [key: string]: Array<ITag> };
   deleteAnimal: (id: string) => void;
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
@@ -41,7 +41,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     super(props);
     this.state = {
       ...DEFAULT_ANIMAL,
-      availableStatuses: props.tagsList.filter(tag => tag.category === 'status') || []
+      availableStatuses: []
     };
   }
 
@@ -52,7 +52,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   componentDidUpdate(prevProps: Readonly<IPropTypes>) {
     const newState = {...DEFAULT_ANIMAL};
-    const { animal } = this.props;
+    const {animal} = this.props;
     if (!_.isEqual(prevProps, this.props)) {
       for (let key in animal) {
         // @ts-ignore
@@ -62,6 +62,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
         }
       }
       this.setState(newState)
+    }
+    if (!_.isEqual(prevProps.tagsList, this.props.tagsList)) {
+      this.setState({
+        tagsList: this.props.tagsList
+      })
     }
   }
 
@@ -133,7 +138,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   render() {
     const {
-      availableStatuses, number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
+     description, character, bannerText, isDonationActive, imageIds, tags, id
     } = this.state
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
@@ -141,17 +146,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     return (
       <>
         <div className="data-edit">
-          <AnimalForm animaldata={{
-            availableStatuses: availableStatuses,
-            number: number,
-            name: name,
-            kindOfAnimal: kindOfAnimal,
-            gender: gender,
-            status: status,
-            birthday: birthday,
-            age: age,
-            tags: tags
-          }} />
+          <AnimalForm
+            {...this.state}
+            availableStatuses={this.props.tagsList.status}
+            onChange={this.changeValue}
+          />
           <p>id {id}</p>
         </div>
         <div className="tabs-edit">
@@ -180,7 +179,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 onToggleDonation={this.onToggleDonation}
               />
             </TabPane>
-
             <TabPane tab="Опис" key="3">
               <label>Трохи історії</label>
               <textarea value={description} onChange={(e) => this.changeValue(e, 'description')}/>
