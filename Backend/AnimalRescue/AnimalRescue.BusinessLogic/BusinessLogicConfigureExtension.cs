@@ -80,7 +80,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IOrganizationDocumentService, OrganizationDocumentService>();
-            services.AddScoped<IBlFullCrud<HistoryDto, HistoryDto, string>, HistoryService>();
+            services.AddScoped<IBlFullCrud<HistoryDto, HistoryDto, Guid>, HistoryService>();
 
             services.AddSingleton<ILanguageConfiguration, LanguageConfiguration>();
             services.AddScoped<ILanguageService, LanguageService>();

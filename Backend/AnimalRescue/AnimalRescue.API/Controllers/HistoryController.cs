@@ -1,4 +1,5 @@
-﻿using AnimalRescue.API.Core.Responses;
+﻿using System;
+using AnimalRescue.API.Core.Responses;
 using AnimalRescue.API.Models.History;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.History;
@@ -8,15 +9,17 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AnimalRescue.API.Controllers
 {
+    [Authorize("Bearer")]
     public class HistoryController : ApiControllerBase
     {
-        private readonly IBlFullCrud<HistoryDto, HistoryDto, string> service;
+        private readonly IBlFullCrud<HistoryDto, HistoryDto, Guid> service;
         private readonly IMapper mapper;
 
-        public HistoryController(IMapper mapper, IBlFullCrud<HistoryDto, HistoryDto, string> service)
+        public HistoryController(IMapper mapper, IBlFullCrud<HistoryDto, HistoryDto, Guid> service)
         {
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(service, nameof(service));
@@ -28,9 +31,9 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<HistoryModel>> GetItemByIdAsync([BindRequired, FromRoute] string id)
+        public async Task<ActionResult<HistoryModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<HistoryDto, HistoryModel, string>(service, id, mapper);
+            return await GetItemAsync<HistoryDto, HistoryModel, Guid>(service, id, mapper);
         }
 
         [HttpGet]

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AnimalRescue.DataAccess.Mongodb.Attributes;
 using history = AnimalRescue.Contracts.Common.Constants.PropertyConstants.History;
 
 namespace AnimalRescue.API.Models.History
 {
-    public class HistoryModel : BaseAndTimeModel<string>
+    public class HistoryModel : BaseAndTimeModel<Guid>
     {
         [CouplingPropertyName(history.EntityName)]
         public string EntityName { get; set; }
