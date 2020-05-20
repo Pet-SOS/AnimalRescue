@@ -1,17 +1,22 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+using MongoDB.Bson.Serialization.Attributes;
+
 using history = AnimalRescue.Contracts.Common.Constants.PropertyConstants.History;
 
-namespace AnimalRescue.API.Models.History
+namespace AnimalRescue.DataAccess.Mongodb.Models.History
 {
-    public class PropertyValueModel
+    public class DifferenceValue
     {
         [CouplingPropertyName(history.PropertyName)]
+        [BsonElement("propertyName")]
         public string PropertyName { get; set; }
 
         [CouplingPropertyName(history.LastValue)]
+        [BsonElement("lastValue")]
         public string LastValue { get; set; }
 
         [CouplingPropertyName(history.NewValue)]
+        [BsonElement("newValue")]
         public string NewValue { get; set; }
     }
 }

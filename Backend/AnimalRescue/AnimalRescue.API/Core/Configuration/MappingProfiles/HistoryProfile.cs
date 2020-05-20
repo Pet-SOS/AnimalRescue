@@ -8,9 +8,7 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
     {
         public HistoryProfile()
         {
-            CreateMap<PropertyValueModel, PropertyValueDto>();
-            CreateMap<PropertyValueDto, PropertyValueModel>();
-            CreateMap<HistoryModel, HistoryDto>();
+            CreateMap<DifferenceValueDto, DifferenceValueModel>();
             CreateMap<HistoryDto, HistoryModel>();
         }
     }

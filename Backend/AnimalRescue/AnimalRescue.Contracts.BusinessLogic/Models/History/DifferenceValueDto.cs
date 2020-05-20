@@ -3,7 +3,7 @@ using history = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Histor
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.History
 {
-    public class PropertyValueDto
+    public class DifferenceValueDto
     {
         [CouplingPropertyDto(history.PropertyName)]
         public string PropertyName { get; set; }

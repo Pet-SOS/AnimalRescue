@@ -17,7 +17,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.History
         [CouplingPropertyDto(history.IsEntityDeleted)]
         public bool IsEntityDeleted { get; set; }
 
-        [CouplingPropertyDto(history.Properties)]
-        public ICollection<PropertyValueDto> Properties { get; set; }
+        [CouplingPropertyDto(history.Differences)]
+        public ICollection<DifferenceValueDto> Differences { get; set; }
     }
 }

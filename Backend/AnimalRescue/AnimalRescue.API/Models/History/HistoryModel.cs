@@ -16,7 +16,7 @@ namespace AnimalRescue.API.Models.History
         [CouplingPropertyName(history.IsEntityDeleted)]
         public bool IsEntityDeleted { get; set; }
 
-        [CouplingPropertyName(history.Properties)]
-        public ICollection<PropertyValueModel> Properties { get; set; }
+        [CouplingPropertyName(history.Differences)]
+        public ICollection<DifferenceValueModel> Differences { get; set; }
     }
 }

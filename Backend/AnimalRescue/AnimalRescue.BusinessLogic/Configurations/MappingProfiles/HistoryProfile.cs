@@ -8,8 +8,8 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
     {
         public HistoryProfile()
         {
-            CreateMap<PropertyValue, PropertyValueDto>();
-            CreateMap<PropertyValueDto, PropertyValue>();
+            CreateMap<DifferenceValue, DifferenceValueDto>();
+            CreateMap<DifferenceValueDto, DifferenceValue>();
             CreateMap<History, HistoryDto>();
             CreateMap<HistoryDto, History>();
         }

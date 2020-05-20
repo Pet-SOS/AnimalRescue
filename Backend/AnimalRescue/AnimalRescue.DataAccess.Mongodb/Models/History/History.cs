@@ -22,8 +22,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.History
         [BsonElement("isEntityDeleted")]
         public bool IsEntityDeleted { get; set; }
 
-        [CouplingPropertyName(history.Properties)]
-        [BsonElement("properties")]
-        public ICollection<PropertyValue> Properties { get; set; }
+        [CouplingPropertyName(history.Differences)]
+        [BsonElement("differences")]
+        public ICollection<DifferenceValue> Differences { get; set; }
     }
 }
