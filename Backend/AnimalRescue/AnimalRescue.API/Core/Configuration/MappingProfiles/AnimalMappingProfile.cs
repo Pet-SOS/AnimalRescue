@@ -14,7 +14,8 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
 
             CreateMap<AnimalCreateUpdateModel, AnimalModel>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => MappingProfileExtensions.StringSeparatedSemicolomnToList(m.Tags)))
-                .ForMember(x => x.Status, opt => opt.MapFrom(m => MappingProfileExtensions.GetWellKnownTagModel(m.Status)));
+                .ForMember(x => x.Status, opt => opt.MapFrom(m => MappingProfileExtensions.GetWellKnownTagModel(m.Status)))
+                .ForMember(x => x.ImageIds, opt => opt.MapFrom(m => MappingProfileExtensions.StringSeparatedSemicolomnToList(m.PreviousImageIds)));
 
             CreateMap<AnimalCreateUpdateModel, AnimalDto>()
                 .ForMember(x => x.Tags, opt => opt.MapFrom(m => MappingProfileExtensions.StringSeparatedSemicolomnToList(m.Tags)));

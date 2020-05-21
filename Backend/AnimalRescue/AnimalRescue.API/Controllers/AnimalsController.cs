@@ -125,7 +125,6 @@ namespace AnimalRescue.API.Controllers
 
             var animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalUpdateModel);
             animalModel.Id = id;
-            animalModel.ImageIds = (await _animalService.GetAsync(animalModel.Id)).ImageIds;
 
             if (imageIds?.Count > 0)
             {
