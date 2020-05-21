@@ -72,6 +72,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({[key]: e.target.value})
   };
 
+  onUpdateBirthday = (value: string) => {
+    this.setState({
+      birthday: value
+    })
+  }
+
   addImage = (e: any) => {
     this.setState({images: [...this.state.images, ...e.target.files]})
   }
@@ -146,6 +152,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             {...this.state}
             availableStatuses={this.props.tagsList.status}
             onChange={this.changeValue}
+            onUpdateBirthday={this.onUpdateBirthday}
           />
           <p>id {id}</p>
         </div>

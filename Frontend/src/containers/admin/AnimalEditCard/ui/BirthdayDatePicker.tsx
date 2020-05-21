@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-interface IDateOfBirthday {
+interface IDateUnits {
   years: number;
   months: number;
   weeks: number;
@@ -9,10 +9,14 @@ interface IDateOfBirthday {
 
 interface IPropTypes {
   birthday?: string;
+  onUpdateBirthday: (date: string) => any;
 }
 
-export class BirthdayDatePicker extends React.Component<IPropTypes> {
-  public limitOfDateUnits: IDateOfBirthday = {
+interface IStateTypes extends IDateUnits {
+}
+
+export class BirthdayDatePicker extends React.Component<IPropTypes, IStateTypes> {
+  public limitOfDateUnits: IDateUnits = {
     years: 21,
     months: 12,
     weeks: 4
@@ -20,19 +24,29 @@ export class BirthdayDatePicker extends React.Component<IPropTypes> {
 
   constructor(props: IPropTypes) {
     super(props);
+    this.state = {
+      years: 0,
+      months: 0,
+      weeks: 0
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<IPropTypes>) {
+    if (prevProps.birthday !== this.props.birthday) {
+      this.setState({...this.calculateAge()})
+    }
   }
 
   renderDateSelect(key: string, label: string) {
     // @ts-ignore
     const selectCollection = [...Array(this.limitOfDateUnits[key])];
     // @ts-ignore
-    const defaultValue = this.calculateAge()[key];
-    console.log('selectCollection defaultValue', defaultValue)
-
+    const defaultValue = this.state[key];
     return (
       <div className="form-col">
         <label htmlFor={`birthday-${key}`}>{label}</label>
         <select
+          onChange={(e) => this.updateDate(e, key)}
           value={defaultValue}
           id="birthday-weeks"
         >
@@ -46,8 +60,25 @@ export class BirthdayDatePicker extends React.Component<IPropTypes> {
     );
   }
 
-  calculateAge(): IDateOfBirthday {
-    const { birthday } = this.props;
+  getUpdatedDate(): string {
+    let now = moment();
+    // @ts-ignore
+    Object.keys(this.state).forEach((unit: string) => now = now.subtract(unit, this.state[unit]))
+    return now.toISOString();
+  }
+
+  updateDate(e: any, key: string) {
+    const value = Number(e.target.value)
+    this.setState(state => {
+      return {
+        ...state,
+        [key]: value
+      }
+    }, () => this.props.onUpdateBirthday(this.getUpdatedDate()))
+  }
+
+  calculateAge(): IDateUnits {
+    const {birthday} = this.props;
     const a = moment(moment().toArray().slice(0, 3));
     const b = moment(moment(birthday).toArray().slice(0, 3));
     const years = a.diff(b, 'year');
@@ -55,7 +86,7 @@ export class BirthdayDatePicker extends React.Component<IPropTypes> {
     const months = a.diff(b, 'months');
     b.add(months, 'months');
     const weeks = a.diff(b, 'weeks');
-    return { years, months, weeks }
+    return {years, months, weeks}
   }
 
   render() {
