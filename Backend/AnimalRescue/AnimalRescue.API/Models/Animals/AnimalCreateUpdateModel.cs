@@ -38,6 +38,10 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(common.Images)]
         public List<IFormFile> Images { get; set; } = new List<IFormFile>();
 
+        [JsonPropertyName(common.ImageIds)]
+        [JsonProperty(common.ImageIds)]
+        public string PreviousImageIds { get; set; }
+
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
         public string Tags { get; set; }

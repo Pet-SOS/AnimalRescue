@@ -53,7 +53,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             Require.Objects.NotNull<NotFoundException>(oldItem,
                 () => $"Instance with id: {instance.Id} not found");
-            instance.RecoverImages(oldItem);
+           
             oldItem = oldItem.UpdateFrom(instance);
 
             await collection.ReplaceOneAsync(t => t.Id == instance.Id, oldItem);
