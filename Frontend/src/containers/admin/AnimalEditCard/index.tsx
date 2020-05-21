@@ -7,7 +7,6 @@ import {selectTagsCategoryListData} from "../../../store/selectors/tags.selector
 
 const mapStateToProps = (state: ICustomAppState) => ({
     animal: state.animalItem.data,
-    // tagsList: state.tags.data
     tagsList: selectTagsCategoryListData(state)
 });
 

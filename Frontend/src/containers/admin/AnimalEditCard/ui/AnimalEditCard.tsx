@@ -43,8 +43,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   componentDidMount() {
     const {match: {params: {id}}, animal} = this.props;
-    this.props.fetchAnimalItem(String(id));
-    this.setState(animal);
+    if (id) {
+      this.props.fetchAnimalItem(String(id));
+      this.setState(animal);
+    }
   }
 
   componentDidUpdate(prevProps: Readonly<IPropTypes>) {
@@ -105,6 +107,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       this.submit();
     } else {
       this.post();
+      this.props.history.goBack();
     }
   }
 
