@@ -67,10 +67,8 @@ export class AnimalForm extends React.Component<IPropTypes> {
         {this.renderField('Кличка', 'name')}
         {this.renderField('Вид', 'kindOfAnimal')}
         {this.renderField('Стать', 'gender')}
-
-        {/*TODO: !!!!!!!*/}
         <div className="form-row small-row">
-          <BirthdayDatePicker birthday={this.props.birthday} onDateChange={this.handleDateChange} />
+          <BirthdayDatePicker birthday={this.props.birthday} />
         </div>
 
         {this.renderField('tags', 'tags')}
