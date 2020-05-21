@@ -116,5 +116,16 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Rescuer = "Rescuer";
             public const string Media = "Media";
         }
+
+        public static class History
+        {
+            public const string EntityName = "entityName";
+            public const string EntityId = "entityId";
+            public const string IsEntityDeleted = "isEntityDeleted";
+            public const string Differences = "differences";
+            public const string PropertyName = "propertyName";
+            public const string LastValue = "lastValue";
+            public const string NewValue = "newValue";
+        }
     }
 }

@@ -24,7 +24,8 @@ namespace AnimalRescue.API.Core.Configuration
                 new BlogMappingProfile(),
                 new StoryMappingProfile(),
                 new ArticleMappingProfile(),
-                new RequestMappingProfile()
+                new RequestMappingProfile(),
+                new HistoryProfile()
             });
 
             var mappingConfig = new MapperConfiguration(mc => profiles.ForEach(x => mc.AddProfile(x)));
