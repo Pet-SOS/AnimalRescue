@@ -13,8 +13,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
-    //[Authorize(Policy = "Bearer", Roles = "Admin")]
-    [Authorize("Bearer")]
+    [Authorize(Policy = "Bearer", Roles = "Admin")]
     public class ConfigurationsController : ApiControllerBase
     {
         private readonly IMapper _mapper;
