@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import { DateParser } from './DateParser';
+import { BirthdayDatePicker } from './BirthdayDatePicker';
 import { ITag } from '../../../../api/tags';
 import { AnimalKind, Gender } from '../../../../api/animals';
 
@@ -70,7 +70,7 @@ export class AnimalForm extends React.Component<IPropTypes> {
 
         {/*TODO: !!!!!!!*/}
         <div className="form-row small-row">
-          <DateParser date={this.props.birthday} onDateChange={this.handleDateChange} />
+          <BirthdayDatePicker birthday={this.props.birthday} onDateChange={this.handleDateChange} />
         </div>
 
         {this.renderField('tags', 'tags')}
