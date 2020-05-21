@@ -4,14 +4,16 @@ import { ELocales } from '../i18n/store/state';
 import { AnimalKind } from './animals';
 
 export enum TagCategory {
-  dogSize = 'dogSize',
+  dogSize = 'dogsize',
   health = 'health',
+  kindOfAnimal = 'kindOfAnimal',
 }
 
-export enum TagCode {
-  dogSize = '#dogSize',
-  health = '#health',
+export enum EKindOfAnimal {
+  dog= "DOG",
 }
+
+
 
 export interface ITagValue {
   lang: ELocales;
@@ -21,9 +23,9 @@ export interface ITagValue {
 export interface ITag {
   category: TagCategory | string;
   kindOfAnimal: AnimalKind | string;
-  code: TagCode | string;
   values: Array<ITagValue>;
   createdAt?: Date | string;
+  isDeletable ?: boolean;
   id?: string;
 }
 

@@ -1,11 +1,11 @@
-import {Switch, useRouteMatch, withRouter} from "react-router";
+import {Switch, useRouteMatch} from "react-router";
 import {GuardedRoute, GuardProvider} from "react-router-guards";
 import TagsCategoryList from "./TagsCategory/TagsCategoryList";
 import TagsList from "./TagsList/TagsList";
 import React from "react";
 import {guardLogin} from "../guards/guardLogin";
 
-const AdminTag: React.FC = () => {
+export const AdminTagsRouter: React.FC = () => {
     let match = useRouteMatch();
     return (
         <Switch>
@@ -13,13 +13,13 @@ const AdminTag: React.FC = () => {
                 <GuardedRoute path={`${match.path}`} exact>
                     <TagsCategoryList/>
                 </GuardedRoute>
-                <GuardedRoute path={`${match.path}/:tagCategoryName`} exact>
+                <GuardedRoute path={[
+                    `${match.url}/:tagCategoryName/:nested(.{0,})`,
+                    `${match.url}/:tagCategoryName`
+                ]}>
                     <TagsList/>
                 </GuardedRoute>
             </GuardProvider>
         </Switch>
     )
 };
-
-
-export const AdminTagRouter = withRouter(AdminTag);
