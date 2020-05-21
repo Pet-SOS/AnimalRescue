@@ -18,14 +18,13 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
         }
 
-        public override async Task UpdateAsync(Animal instanse)
+        public override async Task UpdateAsync(Animal instance)
         {
-            var newData = instanse;
-            var oldData = await base.GetAsync(instanse.Id);
-            Require.Objects.NotNull<NotFoundException>(oldData, () => $"Animal with id: {instanse.Id} not found");
-            instanse.ImageIds.AddRange(oldData.ImageIds);
-
-            await base.UpdateAsync(instanse);
+            var newData = instance;
+            var oldData = await base.GetAsync(instance.Id);
+            Require.Objects.NotNull<NotFoundException>(oldData, () => $"Animal with id: {instance.Id} not found");
+            
+            await base.UpdateAsync(instance);
         }
     }
 }

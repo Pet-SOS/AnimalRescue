@@ -12,16 +12,19 @@ import './style.scss';
 import {NewTagListItem} from "./NewTagListItem";
 import {useRouteMatch} from "react-router";
 import {buildCategory, buildFilter, buildKindOfAnimal, getLastCategory, isEditSupport, isSupportAdd} from "../helpers";
+import {actionShowSnackbar} from "../../../../store/actions/snackbar.actions";
+import i18n from "i18n-js";
 
 interface IPropTypes {
     fetchTagsList: (categoryName: string, kindOfAnimal?: string) => void;
     addTag: (tag: ITag) => void;
     clearTagsList: () => void;
     tagsList: Array<ITag>;
+    showSnackBar: (message: string) => void;
 }
 
 
-const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTagsList, tagsList}) => {
+const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTagsList, tagsList, showSnackBar}) => {
     const {tagCategoryName, nested} = useParams();
     const history = useHistory();
     let match = useRouteMatch();
@@ -45,6 +48,10 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
     };
     const getTagEditClick = () => isEditSupport(category, kindOfAnimal) ? undefined : tagRedirect;
 
+    const showValidationError = () => {
+        showSnackBar(i18n.t('errorTagValidation', {defaultValue: 'At least one field must be filled'}));
+    };
+
     return (
         <section className='section-table tags-table'>
             <header>
@@ -64,6 +71,7 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
                         key={index}
                         tag={tag}
                         onEditClick={getTagEditClick()}
+                        onValidationFailure={showValidationError}
                     />
                 ))}
                 {isSupportAdd(category, kindOfAnimal) && (
@@ -71,6 +79,7 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
                         onTagFormSubmit={onTagFormSubmit}
                         category={buildCategory(category, kindOfAnimal)}
                         kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
+                        onValidationFailure={showValidationError}
                     />
                 )}
             </div>
@@ -89,6 +98,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     })),
     addTag: (tag: ITag) => dispatch(actionAddTag(tag)),
     clearTagsList: () => dispatch(actionClearTagsList()),
+    showSnackBar: (message: string) => dispatch(actionShowSnackbar(message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MutableTagsList);
