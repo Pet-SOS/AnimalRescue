@@ -1,0 +1,49 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+
+.blog-table {
+  line-height: 1.33;
+
+
+  .col-title {
+    flex-basis: 45%;
+    max-width: 45%;
+
+    @include media('≤phone') {
+      display: none;
+    }
+  }
+
+  .col-type {
+    flex-basis: 20%;
+    max-width: 20%;
+
+    @include media('≤phone') {
+      display: none;
+    }
+  }
+
+  .col-modified {
+    flex-basis: calc(35% - 6rem);
+    max-width: calc(35% - 6rem);
+
+    @include media('≤phone') {
+      display: none;
+    }
+  }
+
+  .col-btn {
+    flex-basis: 3rem;
+    max-width: 3rem;
+
+    @include media('≤phone') {
+      flex-basis: auto;
+      max-width: none;
+      width: auto;
+      margin-left: auto;
+    }
+  }
+}
