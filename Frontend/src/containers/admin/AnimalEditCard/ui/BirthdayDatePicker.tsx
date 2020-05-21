@@ -15,7 +15,7 @@ interface IPropTypes {
 interface IStateTypes extends IDateUnits {
 }
 
-export class BirthdayDatePicker extends React.Component<IPropTypes, IStateTypes> {
+export class BirthdayDatePicker extends React.PureComponent<IPropTypes, IStateTypes> {
   public limitOfDateUnits: IDateUnits = {
     years: 21,
     months: 12,
@@ -29,6 +29,10 @@ export class BirthdayDatePicker extends React.Component<IPropTypes, IStateTypes>
       months: 0,
       weeks: 0
     }
+  }
+
+  componentDidMount() {
+    this.setState({...this.calculateAge()})
   }
 
   componentDidUpdate(prevProps: Readonly<IPropTypes>) {
@@ -47,7 +51,7 @@ export class BirthdayDatePicker extends React.Component<IPropTypes, IStateTypes>
         <label htmlFor={`birthday-${key}`}>{label}</label>
         <select
           onChange={(e) => this.updateDate(e, key)}
-          value={defaultValue}
+          value={defaultValue || ''}
           id="birthday-weeks"
         >
           {selectCollection.map((unit, i) => {

@@ -10,13 +10,15 @@ interface IPropTypes {
   gender: string | Gender;
   birthday?: string;
   status: ITag;
-  availableStatuses?: ITag[];
+  statusOptions?: ITag[];
+  genderOptions?: ITag[];
+  kindOfAnimalOptions?: ITag[];
   tags: string[];
   onChange: (e: any, key: string) => any;
   onUpdateBirthday: (date: string) => any;
 }
 
-export class AnimalForm extends React.Component<IPropTypes> {
+export class AnimalForm extends React.PureComponent<IPropTypes> {
   public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
 
   findLocaleStatusValue(status: ITag): string {
@@ -31,23 +33,27 @@ export class AnimalForm extends React.Component<IPropTypes> {
     return (
       <div className="form-row small-row">
         <label htmlFor={id}>{label}</label>
-        <input  id={id} disabled={readOnly} defaultValue={value} onChange={(e) => this.props.onChange(e, key)}/>
+        <input type="text"  id={id} disabled={readOnly} value={value} onChange={(e) => this.props.onChange(e, key)}/>
       </div>
     );
   }
 
-  renderStatusSelect = () => {
-    const { availableStatuses, status: defaultValue } = this.props;
+  renderSelect = (label: string, key: string, optionsKey: string) => {
+    // @ts-ignore
+    const optionList = this.props[optionsKey];
+    // @ts-ignore
+    const option = this.props[key];
+    const defaultValue = typeof option === "object" ? option.id : option;
     return (
       <div className="form-row small-row">
-        <label htmlFor="acard-status">Статус</label>
-        <select value={defaultValue.id} id="acard-status" onChange={(e) => this.props.onChange(e, 'status')}>
-          {availableStatuses?.map((status: ITag) => {
+        <label htmlFor="acard-status">{label}</label>
+        <select value={defaultValue.id || defaultValue} id="acard-status" onChange={(e) => this.props.onChange(e, key)}>
+          {optionList?.map((option: ITag) => {
             return (
               <option
-                value={status.id}
-                key={status.id}>
-                {this.findLocaleStatusValue(status) || 'Unknown'}
+                value={option.id}
+                key={option.id}>
+                {this.findLocaleStatusValue(option) || 'Unknown'}
               </option>
             );
           })}
@@ -60,10 +66,10 @@ export class AnimalForm extends React.Component<IPropTypes> {
     return (
       <>
         {this.renderField('Номер', 'number', true)}
-        {this.renderStatusSelect()}
+        {this.renderSelect('Статус', 'status', 'statusOptions')}
         {this.renderField('Кличка', 'name')}
-        {this.renderField('Вид', 'kindOfAnimal')}
-        {this.renderField('Стать', 'gender')}
+        {this.renderSelect('Вид', 'kindOfAnimal', 'kindOfAnimalOptions')}
+        {this.renderSelect('Стать', 'gender', 'genderOptions')}
         <div className="form-row small-row">
           <BirthdayDatePicker
             birthday={this.props.birthday}

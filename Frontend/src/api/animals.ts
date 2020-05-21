@@ -92,6 +92,7 @@ export interface IAnimal {
   description: string;
   age: number;
   imageIds: string[];
+  previousImageIds?: string[];
   tags: string[];
   coverImage: number;
   birthday?: string;
@@ -119,6 +120,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     description: ' ',
     age: 0,
     imageIds: [],
+    previousImageIds: [],
     tags: [],
     character: '',
     status: DEFAULT_SINGLE_TAG,

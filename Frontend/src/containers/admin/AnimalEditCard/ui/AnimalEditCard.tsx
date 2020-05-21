@@ -42,14 +42,15 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   }
 
   componentDidMount() {
-    const {match: {params: {id}}} = this.props;
+    const {match: {params: {id}}, animal} = this.props;
     this.props.fetchAnimalItem(String(id));
+    this.setState(animal);
   }
 
   componentDidUpdate(prevProps: Readonly<IPropTypes>) {
     const newState = {...DEFAULT_ANIMAL};
     const {animal} = this.props;
-    if (!_.isEqual(prevProps, this.props)) {
+    if (!_.isEqual(prevProps.animal, animal)) {
       for (let key in animal) {
         if (key === 'locationType') {
           continue;
@@ -140,8 +141,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   render() {
     const {
-     description, character, bannerText, isDonationActive, imageIds, tags, id
-    } = this.state
+     description, character, bannerText, isDonationActive, tags, id, imageIds
+    } = this.state;
+    const { tagsList } = this.props;
+
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
     }
@@ -150,7 +153,9 @@ class AnimalEditCard extends React.Component<IPropTypes> {
         <div className="data-edit">
           <AnimalForm
             {...this.state}
-            availableStatuses={this.props.tagsList.status}
+            statusOptions={tagsList.status}
+            genderOptions={tagsList.gender}
+            kindOfAnimalOptions={tagsList.kindOfAnimal}
             onChange={this.changeValue}
             onUpdateBirthday={this.onUpdateBirthday}
           />
