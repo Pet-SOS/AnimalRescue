@@ -7,7 +7,7 @@ import { ITag } from '../../../../api/tags';
 
 interface AdminHomeProps {
     animalsList: IAnimalsResponse;
-    tagsList: ITag[];
+    tagsList: { [key: string]: Array<ITag> };
     fetchAnimalsRequest: () => void;
     deleteAnimal: (id: string) => void;
     postAnimal: (animal: IAnimal) => void;

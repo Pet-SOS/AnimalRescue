@@ -1,106 +1,82 @@
 import React from "react";
-import { DateParser } from './DateParser';
+import { BirthdayDatePicker } from './BirthdayDatePicker';
 import { ITag } from '../../../../api/tags';
 import { AnimalKind, Gender } from '../../../../api/animals';
 
-interface IAnimalProps {
+interface IPropTypes {
   number: number;
   name: string;
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
-  age: number;
   birthday?: string;
-  status: string;
-  availableStatuses?: ITag[];
+  status: ITag;
+  statusOptions?: ITag[];
+  genderOptions?: ITag[];
+  kindOfAnimalOptions?: ITag[];
   tags: string[];
+  onChange: (e: any, key: string) => any;
+  onUpdateBirthday: (date: string) => any;
 }
 
-interface IAnimalData {
-  animaldata: IAnimalProps;
-}
-
-export class AnimalForm extends React.Component<IAnimalData> {
-  public state: IAnimalProps;
+export class AnimalForm extends React.PureComponent<IPropTypes> {
   public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
-
-  constructor(props: IAnimalData) {
-    super(props);
-    this.state = {
-      number: props.animaldata.number,
-      name: props.animaldata.name,
-      kindOfAnimal: props.animaldata.kindOfAnimal,
-      gender: props.animaldata.gender,
-      age: props.animaldata.age,
-      birthday: props.animaldata.birthday,
-      status: props.animaldata.status,
-      availableStatuses: props.animaldata.availableStatuses,
-      tags: props.animaldata.tags
-    };
-    this.handleDateChange = this.handleDateChange.bind(this);
-  }
 
   findLocaleStatusValue(status: ITag): string {
       const resultStatus = status.values.filter(val => val.lang === this.currentLang);
       return resultStatus.length ? resultStatus[0].value : '';
   }
 
-  handleDateChange(date: string) {
-      this.setState({date: date});
+  renderField = (label: string, key: string, readOnly?: boolean) => {
+    const id = `acard-${key}`;
+    // @ts-ignore
+    const value = this.props[key];
+    return (
+      <div className="form-row small-row">
+        <label htmlFor={id}>{label}</label>
+        <input type="text"  id={id} disabled={readOnly} value={value} onChange={(e) => this.props.onChange(e, key)}/>
+      </div>
+    );
   }
 
-  changeValue = (e: any, key: any) => {
-    this.setState({[key]: e.target.value})
-  };
+  renderSelect = (label: string, key: string, optionsKey: string) => {
+    // @ts-ignore
+    const optionList = this.props[optionsKey];
+    // @ts-ignore
+    const option = this.props[key];
+    const defaultValue = typeof option === "object" ? option.id : option;
+    return (
+      <div className="form-row small-row">
+        <label htmlFor="acard-status">{label}</label>
+        <select value={defaultValue.id || defaultValue} id="acard-status" onChange={(e) => this.props.onChange(e, key)}>
+          {optionList?.map((option: ITag) => {
+            return (
+              <option
+                value={option.id}
+                key={option.id}>
+                {this.findLocaleStatusValue(option) || 'Unknown'}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+    )
+  }
 
   render() {
-    const {
-      availableStatuses, number, name, kindOfAnimal, gender,  status, birthday, age, tags
-    } = this.state;
-
     return (
       <>
+        {this.renderField('Номер', 'number', true)}
+        {this.renderSelect('Статус', 'status', 'statusOptions')}
+        {this.renderField('Кличка', 'name')}
+        {this.renderSelect('Вид', 'kindOfAnimal', 'kindOfAnimalOptions')}
+        {this.renderSelect('Стать', 'gender', 'genderOptions')}
         <div className="form-row small-row">
-          <label htmlFor="acard-number">Номер</label>
-          <input id="acard-number" disabled value={number} onChange={(e) => this.changeValue(e, 'number')}/>
+          <BirthdayDatePicker
+            birthday={this.props.birthday}
+            onUpdateBirthday={this.props.onUpdateBirthday}
+          />
         </div>
-        <div className="form-row small-row">
-          <label htmlFor="acard-status">Статус</label>
-          <select id="acard-status" onChange={(e) => this.changeValue(e, 'status')}>
-            <option className="default-val">&ndash;</option>
-            {availableStatuses ? availableStatuses.map((stat: ITag) => {
-              return (
-                <option key={stat.id}
-                    selected={this.findLocaleStatusValue(stat) === status ? true : false}>
-                  {this.findLocaleStatusValue(stat) || 'Unknown'}
-                </option>
-              );
-            }) : null}
-          </select>
-        </div>
-        <div className="form-row small-row">
-          <label htmlFor="acard-name">Кличка</label>
-          <input id="acard-name" value={name} onChange={(e) => this.changeValue(e, 'name')}/>
-        </div>
-        <div className="form-row small-row">
-          <label htmlFor="acard-kind">Вид</label>
-          <input id="acard-kind" value={kindOfAnimal}
-                  onChange={(e) => this.changeValue(e, 'kindOfAnimal')}/>
-                </div>
-        <div className="form-row small-row">
-          <label htmlFor="acard-gender">Стать</label>
-          <input id="acard-gender" value={gender} onChange={(e) => this.changeValue(e, 'gender')}/>
-        </div>
-        <div className="form-row small-row">
-          <label htmlFor="acard-age">age</label>
-          <input id="acard-age" value={age} onChange={(e) => this.changeValue(e, 'age')}/>
-        </div>
-        <div className="form-row small-row">
-          <DateParser date={birthday} onDateChange={this.handleDateChange} />
-        </div>
-        <div className="form-row small-row">
-          <label htmlFor="acard-tags">tags</label>
-          <input id="acard-tags" value={tags} onChange={(e) => this.changeValue(e, 'tags')}/>
-        </div>
+        {this.renderField('tags', 'tags')}
       </>
     );
   }
