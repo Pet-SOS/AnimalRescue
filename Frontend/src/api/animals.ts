@@ -1,6 +1,9 @@
 import { API } from './index';
 import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
 import { ITag } from './tags';
+import { ILocationType } from './admin/locations';
+import { DEFAULT_SINGLE_TAG } from '../store/state/tags.state';
+import { DEFAULT_SINGLE_LOCATION } from '../containers/admin/Locations/store/state';
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -89,18 +92,19 @@ export interface IAnimal {
   description: string;
   age: number;
   imageIds: string[];
+  previousImageIds?: string[];
   tags: string[];
   coverImage: number;
   birthday?: string;
   character: string;
-  status: string;
+  status: ITag;
+  locationType: ILocationType;
   bannerText: string;
   isDonationActive: boolean;
   id?: string;
   readonly?: boolean;
   images: [];
   createdAt?: string;
-  availableStatuses?: ITag[];
 }
 
 export interface IAnimalResponse {
@@ -116,15 +120,16 @@ export const DEFAULT_ANIMAL: IAnimal = {
     description: ' ',
     age: 0,
     imageIds: [],
+    previousImageIds: [],
     tags: [],
     character: '',
-    status: '',
+    status: DEFAULT_SINGLE_TAG,
+    locationType: DEFAULT_SINGLE_LOCATION,
     bannerText: '',
     isDonationActive: false,
     birthday: '',
     coverImage: 0,
     images: [],
-    availableStatuses: [],
     id: ''
 }
 

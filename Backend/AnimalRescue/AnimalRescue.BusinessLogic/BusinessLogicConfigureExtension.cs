@@ -8,6 +8,7 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces.UsersManagement;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
+using AnimalRescue.Contracts.BusinessLogic.Models.History;
 using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.DataAccess.Mongodb.Enums;
@@ -53,12 +54,12 @@ namespace AnimalRescue.BusinessLogic
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile(),
                 new ApplicationUserMappingProfile(),
-                new RequestMappingProfile()
+                new RequestMappingProfile(),
+                new HistoryProfile()
             });
 
             services.AddScoped<IRecoverDataService, RecoverDataService>();
             services.AddScoped<ILocationService, LocationService>();
-            
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto, Guid>, AnimalService>()
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, TagDecorator<AnimalDto, AnimalDto, Guid>>();
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
@@ -79,6 +80,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IOrganizationDocumentService, OrganizationDocumentService>();
+            services.AddScoped<IBlFullCrud<HistoryDto, HistoryDto, Guid>, HistoryService>();
 
             services.AddSingleton<ILanguageConfiguration, LanguageConfiguration>();
             services.AddScoped<ILanguageService, LanguageService>();

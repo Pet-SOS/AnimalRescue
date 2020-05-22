@@ -15,7 +15,6 @@ import { RegularNeedsList } from './goods/RegularNeeds';
 import { MedicinesList } from './goods/MedicinesList';
 import { AntiparasiticNeedsList } from './goods/AntiparasiticList';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import copyImage from '../../../img/copy-pink.jpg';
 import { Breadcrumbs } from '../../../components/Breadcrumbs';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 import Banner from "../../../img/bg-banner-03.jpg";
@@ -121,13 +120,12 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default='Наша служба ежедневно заботится о сотнях животных. У нас есть автомобиль, благодаря которому мы можем выезжать на срочные вызовы, свой отдел лечения, адоптации и пристройства. Самый легкий способ помочь нам и нашим пушистикам - пожертвовать любую сумму на корм, лечение и обеспечение работы службы и приютов.'
                 />
               </p>
-              {!!infoCard?.data?.bankCard?.cardNumber && 
+              {!!infoCard?.data && 
               <div className="bank-card">
                 <div className="bank-card-info">
-                  <p className='card'>{infoCard.data.bankCard.cardNumber}</p>
-                  <p>{infoCard.data.bankCard.firstName} {infoCard.data.bankCard.lastName}</p>
+                  <p className='card' dangerouslySetInnerHTML={{__html: infoCard.data.body}}></p>
                 </div>
-                <CopyToClipboard text={infoCard.data.bankCard.cardNumber} className="copy-to-clipboard">
+                <CopyToClipboard text={infoCard.data.body} className="copy-to-clipboard">
                   <button>
                     <i className="icon-copy">
                       <span className="path1">icon</span>

@@ -1,15 +1,6 @@
 import { API } from './index';
 
-export interface IBankCard{
-    cardNumber: string;
-    edrpou: string;
-    bankName: string;
-    firstName: string;
-    lastName: string;
-}
 export interface IDataBankCard {
-  bankCard: IBankCard;
-  title: string;
   body: string;
 };
 export interface IInfoCardResponse {

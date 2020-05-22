@@ -57,7 +57,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Birthday = "birthday";
             public const string Character = "character";
             public const string Status = "status";
-            public const string LocationType = "locationType";
+            public const string LocationTypeId = "locationTypeId";
             public const string LocationName = "locationName";
             public const string IsDonationActive = "isDonationActive";
             public const string BannerText = "bannerText";
@@ -115,6 +115,17 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Operator = "Operator";
             public const string Rescuer = "Rescuer";
             public const string Media = "Media";
+        }
+
+        public static class History
+        {
+            public const string EntityName = "entityName";
+            public const string EntityId = "entityId";
+            public const string IsEntityDeleted = "isEntityDeleted";
+            public const string Differences = "differences";
+            public const string PropertyName = "propertyName";
+            public const string LastValue = "lastValue";
+            public const string NewValue = "newValue";
         }
     }
 }

@@ -1,6 +1,7 @@
 import {API} from '../index'
 import {IRequestParams, prepareRequestParams} from '../requestOptions'
 import {IListResponse} from "../common";
+import { ITag } from '../tags';
 
 const LOCATION_URL = 'Locations';
 
@@ -47,6 +48,9 @@ export interface ILocation {
     typeId: string;
 }
 
+export interface ILocationType extends ILocation {
+    type: ITag
+}
 
 export interface ILocationsResponse extends IListResponse<ILocation> {
 }

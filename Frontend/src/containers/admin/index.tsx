@@ -42,8 +42,10 @@ const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
                     <GuardedRoute path={`${props.match.path}/tags`}><AdminTagsRouter/></GuardedRoute>
                     <GuardedRoute path={`${props.match.path}/blog`}><AdminBlogRouter/></GuardedRoute>
                     <GuardedRoute path={`${props.match.path}/animals-list/page/:page`} component={AnimalsList} exact/>
-                    <GuardedRoute path={`${props.match.path}/animals-list/animal`} component={AnimalAdminCard} exact/>
-                    <GuardedRoute path={`${props.match.path}/animals-list/:id`} component={AnimalAdminCard} exact/>
+                    <GuardedRoute path={[
+                        `${props.match.path}/animals-list/animal`,
+                        `${props.match.path}/animals-list/:id`
+                    ]} component={AnimalAdminCard} exact/>
                     <GuardedRoute path={`${props.match.path}/reports`} component={FinancialReports} exact/>
                     <GuardedRoute path={`${props.match.path}/common`} component={CommonInfo} exact/>
                     <GuardedRoute path={`${props.match.path}/locations`} component={LocationContainer} exact/>

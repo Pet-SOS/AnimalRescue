@@ -7,7 +7,7 @@ import { ITag } from '../../../../api/tags';
 
 interface IAnimalCardProps {
     animal: IAnimal;
-    tagsList: ITag[];
+    tagsList: { [key: string]: Array<ITag> };
     deleteAnimal: (id: string) => void;
     postAnimal: (animal: IAnimal) => void;
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
