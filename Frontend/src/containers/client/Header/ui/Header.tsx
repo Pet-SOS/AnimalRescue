@@ -11,7 +11,6 @@ import counterImage5 from '../../../../img/counter-images/counter_5.png';
 import counterImage6 from '../../../../img/counter-images/counter_6.png';
 import counterImage9 from '../../../../img/counter-images/counter_9.png';
 import counterImage10 from '../../../../img/counter-images/counter_10.png';
-import { IBankCard } from '../../../../api/infoCard';
 import '../styles/header.scss'
 import { ICustomAppState } from '../../../../store/state';
 import { Link } from 'react-router-dom';
@@ -23,7 +22,7 @@ interface IPropTypes {
 export const AppHeader: React.FC<IPropTypes> = () => {
 
   const isActivePopup: boolean = useSelector((store: ICustomAppState) => (store.homePage.isActivePopup));
-  const infoCard: IBankCard = store.getState().homePage.infoCard.data.bankCard;   
+  const infoCard: string = store.getState().homePage.infoCard.data.body;   
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   useEffect(() => {
     infoContactsCheckAndLoad();
@@ -57,8 +56,7 @@ export const AppHeader: React.FC<IPropTypes> = () => {
         {isActivePopup ? <PopupInfo
             boxImages={[counterImage5,counterImage9,counterImage6,counterImage10]}
             title={<TI18n keyStr="popupInfoBlockTitle" default="Помощь животным" />}
-            card={infoCard.cardNumber}
-            cardName={`${infoCard.firstName} ${infoCard.lastName}`}
+            card={infoCard}            
             textFirst={<TI18n 
                 keyStr="popupBlockFirstText" 
                 default="Если Вы хотите помочь нам и нашим подопечным, переведите любую сумму на карту Приватбанка:" />}
