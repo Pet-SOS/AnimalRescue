@@ -13,6 +13,7 @@ import {AnimalsList} from './AnimalsList';
 import {AnimalAdminCard} from './AnimalEditCard';
 import LocationContainer from "./Locations/ui/LocationsContainer";
 import {AdminTagsRouter} from "./Tags/TagRouter";
+import {AdminBlogRouter} from "./Blog";
 
 
 const history = createBrowserHistory();
@@ -39,6 +40,7 @@ const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
                     <GuardedRoute path={`${props.match.path}`} component={AdminHomePage} exact/>
                     <GuardedRoute path={`${props.match.path}/animals`} component={HomePage} exact/>
                     <GuardedRoute path={`${props.match.path}/tags`}><AdminTagsRouter/></GuardedRoute>
+                    <GuardedRoute path={`${props.match.path}/blog`}><AdminBlogRouter/></GuardedRoute>
                     <GuardedRoute path={`${props.match.path}/animals-list/page/:page`} component={AnimalsList} exact/>
                     <GuardedRoute path={[
                         `${props.match.path}/animals-list/animal`,
