@@ -3,11 +3,21 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { store } from '../../../../store';
 import { actionIsActivePopup } from '../../Home/store/actions';
 import { ButtonTypes, Button } from '../../../../components/Button';
-import copyImage from '../../../../img/copy.jpg';
 import '../styles/popupInfo.scss';
+import queryString from 'query-string';
+import { RouteComponentProps } from 'react-router';
 
+interface IPropTypes {
+    card: string,
+    boxImages: any,
+    title: any,
+    textFirst: any, 
+    textSecond: any,
+    textThird: any,
+    textThirdTwo: any
+}
 
-export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, textFirst, textSecond, textThird, textThirdTwo}) => {
+export const PopupInfo: React.FC<IPropTypes> = ({boxImages, title, card, textFirst, textSecond, textThird, textThirdTwo}) => {
     return (
         <div className="box-popup">
             <div className="popup">
@@ -26,8 +36,7 @@ export const PopupInfo: React.FC<any> = ({boxImages, title, card, cardName, text
                     {!!card &&
                     <div className="bank-card">
                         <div className="bank-card-info">
-                            <p className='card'>{card}</p>
-                            <p>{cardName}</p>
+                            <p className='card' dangerouslySetInnerHTML={{__html: card}}></p>
                         </div>
                         <CopyToClipboard text={card} className="copy-to-clipboard">
                             <button>

@@ -1,8 +1,9 @@
-import { API, ILocationType } from './index'
-import {IRequestParams, prepareReadyForAdoptionRequestParams, prepareRequestParams} from './requestOptions'
-import { DEFAULT_SINGLE_LOCATION } from '../containers/admin/Locations/store/state'
+import { API } from './index';
+import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
 import { ITag } from './tags';
+import { ILocationType } from './admin/locations';
 import { DEFAULT_SINGLE_TAG } from '../store/state/tags.state';
+import { DEFAULT_SINGLE_LOCATION } from '../containers/admin/Locations/store/state';
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -83,15 +84,6 @@ export enum Tags{
     SAVED='спасен',
     THELOSS ='потеряшка'
 }
-
-export enum AnimalStatus{
-    TREATMENT='TREATMENT',
-    READYFORADOPTION='READYFORADOPTION',
-    DIED='DIED',
-    SOCIALIZATION='SOCIALIZATION',
-    ADOPTED ='ADOPTED'
-}
-
 export interface IAnimal {
   number: number;
   name: string;
@@ -100,6 +92,7 @@ export interface IAnimal {
   description: string;
   age: number;
   imageIds: string[];
+  previousImageIds?: string[];
   tags: string[];
   coverImage: number;
   birthday?: string;
@@ -112,7 +105,6 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
-  availableStatuses?: ITag[];
 }
 
 export interface IAnimalResponse {
@@ -128,6 +120,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     description: ' ',
     age: 0,
     imageIds: [],
+    previousImageIds: [],
     tags: [],
     character: '',
     status: DEFAULT_SINGLE_TAG,
@@ -137,7 +130,6 @@ export const DEFAULT_ANIMAL: IAnimal = {
     birthday: '',
     coverImage: 0,
     images: [],
-    availableStatuses: [],
     id: ''
 }
 

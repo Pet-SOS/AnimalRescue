@@ -52,7 +52,6 @@ export interface ILocationType extends ILocation {
     type: ITag
 }
 
-
 export interface ILocationsResponse extends IListResponse<ILocation> {
 }
 

@@ -1,4 +1,4 @@
-import { IBlogsState, DEFAULT_BLOGS_STATE } from './../state';
+import {IBlogsState, DEFAULT_BLOGS_STATE, DEFAULT_BLOGS} from './../state';
 import { AnyAction } from "redux";
 import { getType } from "typesafe-actions";
 import { genericRequestReducer } from "../../../../../api";
@@ -9,7 +9,7 @@ import {
   actionFetchBlogListSavedRequest,
   actionFetchBlogListSavedSuccess,
   actionFetchBlogListSavedFailure,
-  actionClearEntireBlogsState
+  actionClearEntireBlogsState, actionClearBlogListState
 } from "../actions";
 
 const fetchBlogListStateReducer = genericRequestReducer(
@@ -63,6 +63,12 @@ export const blogsReducer = (state: IBlogsState = DEFAULT_BLOGS_STATE, action: A
     case getType(actionClearEntireBlogsState): {
       return {
         ...DEFAULT_BLOGS_STATE
+      }
+    }
+    case getType(actionClearBlogListState): {
+      return {
+        ...state,
+        blogList : { ...DEFAULT_BLOGS }
       }
     }
     default:

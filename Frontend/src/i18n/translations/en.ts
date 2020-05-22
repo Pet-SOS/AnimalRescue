@@ -43,7 +43,7 @@ export default {
   canHelpBlockTitle:'Who can you help',
   canHelpBlockContent:'Masha is a modest and kind dog. Very patient and unobtrusive. Masha was hit by a car, survived stress. At first she was scared, then calmed down and began to trust people. To recover from an accident, you need to collect 3,500 UAH',
 
-  
+
   counterBlockTitle: 'Animals saved by us',
   counterBlockText: 'according to',
 
@@ -158,7 +158,7 @@ export default {
   helpPageVolunteeringTitle: 'Volunteering',
   helpPageVolunteeringText: 'If you want to help with your hands, we will always find work! You are an active person, you love animals, you have free time and a desire to do good and important things - you can become part of a team to help and save stray animals.',
   helpPageVolunteeringListTitle: 'What work can volunteers do?',
-   
+
    /*    ContactsPage             */
     contactsTitle: 'Contacts',
     contactsHelp: 'Rescue Services Hotline',
@@ -186,7 +186,7 @@ export default {
   howToTake: 'How to take?',
   instructionsListItemText1: 'Get to know the animal. This will help to understand whether it suits you in temperature.',
   instructionsListItemText2: 'The curator will tell you about the individual needs of the selected pet. Prepare for the animal everything you need.',
- 
+
   adoptPopupTitle: 'I want to take the animal home',
   adoptPopupText1: 'We are glad that you liked our puffy!',
   adoptPopupText2: 'To pick up this animal ',
@@ -327,9 +327,14 @@ export default {
 
   sizeTagCategory: 'Size',
   healthTagCategory: 'Health',
+  errorTagValidation : 'At least one field must be filled',
 
   backToAllTags: 'Back to tags',
-  
+
+  blogTitle: 'Title',
+  blogSection : 'Section',
+  blogLastModified : 'Last modified',
+
   confirmTitle: 'Confirm',
   cancelTitle: 'Cancel',
 }

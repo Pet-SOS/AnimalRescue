@@ -24,7 +24,6 @@ export const DEFAULT_TAGS_STATE: ITagsState = {
 export const DEFAULT_SINGLE_TAG: ITag = {
   category: '',
   kindOfAnimal: '',
-  code: '',
   values: [],
   id: ''
 }

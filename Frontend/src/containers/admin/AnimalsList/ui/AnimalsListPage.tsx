@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAnimalsResponse, IAnimal, AnimalStatus } from '../../../../api/animals';
+import { IAnimalsResponse, IAnimal } from '../../../../api/animals';
 import { AdminMenu } from '../../AdminMenu';
 import { Input } from 'antd';
 import { Button, ButtonTypes } from '../../../../components/Button';
@@ -35,11 +35,6 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
         }
     }
     updateAnimalCard(id:any){
-        // this.props.fetchAnimalItem(id);
-        // const stateItem=store.getState();
-        // if(stateItem.animalItem.data.name){
-        //
-        // }
         this.props.history.push(`/admin/animals-list/${id}`);
     }
 
@@ -65,7 +60,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
              pathname: `/admin/animals-list/page/${this.toPage}`,
              state: this.state
          })
-    }    
+    }
 
     render(){
         return(
@@ -123,10 +118,10 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                             <span>
                                                                 {!!animal.kindOfAnimal && (
                                                                     <span className='kindOfAnimal'><TagTranslation tagId={animal.kindOfAnimal} />, </span>
-                                                                )}                           
+                                                                )}
                                                                 {!!animal.gender && (
                                                                     <span className='gender'><TagTranslation tagId={animal.gender} />, </span>
-                                                                )}                                                                
+                                                                )}
                                                                 <Age birthday={animal.birthday} />
                                                             </span>
                                                         </div>
@@ -134,7 +129,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                     <div className="col col-type">
                                                         {!!animal.kindOfAnimal && (
                                                             <TagTranslation tagId={animal.kindOfAnimal} />
-                                                        )} 
+                                                        )}
                                                     </div>
                                                     <div className="col col-gender">
                                                         {!!animal.gender && (
@@ -142,7 +137,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                         )}
                                                     </div>
                                                     <div className="col col-age"><Age birthday={animal.birthday} /></div>
-                                                    <div className="col col-location">                                                        
+                                                    <div className="col col-location">
                                                         <div className="LocationType">
                                                             {!!animal.locationType && !!animal.locationType.type && !!animal.locationType.type.id && (
                                                                 <TagTranslation tagId={animal.locationType.type.id} />
@@ -152,12 +147,12 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                             {!!animal.locationType && (
                                                                 animal.locationType.title
                                                             )}
-                                                        </div>                                              
+                                                        </div>
                                                     </div>
                                                     <div className="col col-status">
                                                         {!!animal.status && !!animal.status.id && (
                                                             <TagTranslation tagId={animal.status.id} />
-                                                        )}                                                        
+                                                        )}
                                                     </div>
                                                     <div className="col col-btn"><i onClick={()=>this.updateAnimalCard(animal.id)} className="icon-edit">Edit</i></div>
                                                 </div>

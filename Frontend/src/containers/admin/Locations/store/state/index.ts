@@ -1,6 +1,7 @@
 import {ILocation, ILocationsResponse} from "../../../../../api/admin";
 import {DEFAULT_LIST_RESPONSE, DEFAULT_REQUEST_STATE, IRequestState} from "../../../../../api";
-import { DEFAULT_SINGLE_TAG } from "../../../../../store/state/tags.state";
+import { DEFAULT_SINGLE_TAG } from '../../../../../store/state/tags.state';
+import { ILocationType } from '../../../../../api/admin/locations';
 
 export interface ILocationState {
     list: ILocationsResponse;
@@ -39,5 +40,6 @@ export const DEFAULT_SINGLE_LOCATION: ILocationType = {
     address: '',
     price: '',
     id: '',
+    typeId: '',
     type: DEFAULT_SINGLE_TAG,
 }

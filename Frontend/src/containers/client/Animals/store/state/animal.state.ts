@@ -1,7 +1,7 @@
 import { IAnimalResponse } from './../../../../../api/animals';
 import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
-import { DEFAULT_SINGLE_LOCATION } from '../../../../admin/Locations/store/state';
 import { DEFAULT_SINGLE_TAG } from '../../../../../store/state/tags.state';
+import { DEFAULT_SINGLE_LOCATION } from '../../../../admin/Locations/store/state/index';
 
 export interface IAnimalItemState extends IAnimalResponse {
   isLoading: boolean;
@@ -28,7 +28,6 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     coverImage: 0,
     createdAt: '',
     images: [],
-    availableStatuses: []
   },
   self: '',
   isLoaded: false,
