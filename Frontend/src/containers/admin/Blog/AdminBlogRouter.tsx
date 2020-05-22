@@ -3,6 +3,7 @@ import React from "react";
 import {guardLogin} from "../guards/guardLogin";
 import {GuardedRoute, GuardProvider} from "react-router-guards";
 import {BlogListPage} from "./ui/BlogListPage";
+import {BlogEditPage} from "./ui/BlogEditPage";
 
 
 export const AdminBlogRouter: React.FC = () => {
@@ -16,7 +17,7 @@ export const AdminBlogRouter: React.FC = () => {
                 </GuardedRoute>
 
                 <GuardedRoute path={`${match.path}/:blogId`} exact>
-                    <BlogListPage/>
+                    <BlogEditPage/>
                 </GuardedRoute>
 
                 {/*<Route path='/blog/:blogId' component={BlogItemPage} exact />*/}

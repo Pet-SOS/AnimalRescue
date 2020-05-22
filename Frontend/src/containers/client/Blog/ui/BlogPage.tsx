@@ -29,7 +29,6 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
         story: <TI18n keyStr='blogstory'/>,
         article:<TI18n keyStr='blogarticle'/>
     }
-    blogType:any = new Object();
 
     constructor(props:IPropTypes) {
         super(props);

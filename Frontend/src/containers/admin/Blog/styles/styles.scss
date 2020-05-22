@@ -47,3 +47,49 @@
     }
   }
 }
+
+.box-btn {
+  display:flex;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+
+  li {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0.25rem 1rem;
+    color: $text-lite-color;
+    border-radius: 1rem;
+    margin: 0 24px 16px 0;
+    background: $bg-lite-lite;
+
+    &:hover{
+      cursor: pointer;
+    }
+    &.all{
+      background: $bg-lite-lite;
+    }
+    &.article{
+      background: $bg-lite-lite;
+    }
+    &.story{
+      position: relative;
+      background: $btn-story;
+      padding-left: 1.8rem;
+      &:before{
+        font-family: FontAwesome;
+        content:"\f005";
+        position: absolute;
+        color: $text-color-active;
+        font-size: 1rem;
+        left: 0.6rem;
+        top: 50%;
+        transform: translateY(-50%);
+
+      }
+    }
+    &.active{
+      background: $text-lite-color;
+      color: $main-bg-color;
+    }
+  }
+}
