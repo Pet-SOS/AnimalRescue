@@ -1,6 +1,6 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import {getType} from 'typesafe-actions';
-import {deleteAnimal, postAnimal, updateAnimal, fetchAdminAnimals} from "../../../../../api/animals";
+import {deleteAnimal, postAnimal, updateAnimal, fetchAdminAnimals, IAnimal} from "../../../../../api/animals";
 
 import {
     actionAdminHomeFetchAnimalsRequest,
@@ -51,10 +51,12 @@ function* postAnimalSaga(action: ReturnType<typeof actionAdminPostAnimalRequest>
 }
 
 function* updateAnimalSaga(action: ReturnType<typeof actionAdminUpdateAnimalRequest>) {
+    const requestData = {...action.payload};
+    requestData.animal.previousImageIds = requestData.animal.imageIds.slice();
     try {
-        yield call(updateAnimal, action.payload);
-        if (action.payload.id) {
-            yield put(actionFetchAnimalItemRequest(action.payload.id));
+        yield call(updateAnimal, requestData);
+        if (requestData.id) {
+            yield put(actionFetchAnimalItemRequest(requestData.id));
         }
         yield put(actionAdminUpdateAnimalSuccess())
         yield put(actionAdminHomeFetchAnimalsRequest())

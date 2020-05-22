@@ -13,14 +13,14 @@ import {Loader} from "../../../../components/Loader";
 import {ERequestStatus} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ImageTabContent} from "./ImageTabContent";
-import { ITag } from '../../../../api/tags';
-import { AnimalForm } from './AnimalForm';
+import {ITag} from '../../../../api/tags';
+import {AnimalForm} from './AnimalForm';
 
 const {TabPane} = Tabs;
 
 interface IOwnPropTypes extends RouteComponentProps<any> {
   animal: IAnimal;
-  tagsList: ITag[];
+  tagsList: { [key: string]: Array<ITag> };
   deleteAnimal: (id: string) => void;
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
@@ -35,26 +35,28 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   public baseUrl: string = '';
   public state: IAnimal;
   public currentTab: string = '1';
-  public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
 
   constructor(props: IPropTypes) {
     super(props);
-    this.state = {
-      ...DEFAULT_ANIMAL,
-      availableStatuses: props.tagsList.filter(tag => tag.category === 'status') || []
-    };
+    this.state = { ...DEFAULT_ANIMAL };
   }
 
   componentDidMount() {
-    const {match: {params: {id}}} = this.props;
-    this.props.fetchAnimalItem(String(id));
+    const {match: {params: {id}}, animal} = this.props;
+    if (id) {
+      this.props.fetchAnimalItem(String(id));
+      this.setState(animal);
+    }
   }
 
   componentDidUpdate(prevProps: Readonly<IPropTypes>) {
     const newState = {...DEFAULT_ANIMAL};
-    const { animal } = this.props;
-    if (!_.isEqual(prevProps, this.props)) {
+    const {animal} = this.props;
+    if (!_.isEqual(prevProps.animal, animal)) {
       for (let key in animal) {
+        if (key === 'locationType') {
+          continue;
+        }
         // @ts-ignore
         if (newState.hasOwnProperty(key) && animal[key]) {
           // @ts-ignore
@@ -73,12 +75,19 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({[key]: e.target.value})
   };
 
+  onUpdateBirthday = (value: string) => {
+    this.setState({
+      birthday: value
+    })
+  }
+
   addImage = (e: any) => {
     this.setState({images: [...this.state.images, ...e.target.files]})
   }
 
   submit = () => {
     const animal = {...this.state as IAnimal}
+    delete animal.locationType;
     this.props.updateAnimal({animal, id: this.state.id})
   }
   delete = () => {
@@ -87,6 +96,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   post = () => {
     const animal = {...this.state as IAnimal}
+    delete animal.locationType;
     this.props.postAnimal(animal)
     this.setState({...DEFAULT_ANIMAL})
   }
@@ -97,6 +107,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       this.submit();
     } else {
       this.post();
+      this.props.history.goBack();
     }
   }
 
@@ -133,25 +144,24 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   render() {
     const {
-      availableStatuses, number, name, kindOfAnimal, gender, description, character, status, bannerText, isDonationActive, coverImage, birthday, age, imageIds, tags, id
-    } = this.state
+     description, character, bannerText, isDonationActive, tags, id, imageIds
+    } = this.state;
+    const { tagsList } = this.props;
+
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
     }
     return (
       <>
         <div className="data-edit">
-          <AnimalForm animaldata={{
-            availableStatuses: availableStatuses,
-            number: number,
-            name: name,
-            kindOfAnimal: kindOfAnimal,
-            gender: gender,
-            status: status,
-            birthday: birthday,
-            age: age,
-            tags: tags
-          }} />
+          <AnimalForm
+            {...this.state}
+            statusOptions={tagsList.status}
+            genderOptions={tagsList.gender}
+            kindOfAnimalOptions={tagsList.kindOfAnimal}
+            onChange={this.changeValue}
+            onUpdateBirthday={this.onUpdateBirthday}
+          />
           <p>id {id}</p>
         </div>
         <div className="tabs-edit">
@@ -180,7 +190,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 onToggleDonation={this.onToggleDonation}
               />
             </TabPane>
-
             <TabPane tab="Опис" key="3">
               <label>Трохи історії</label>
               <textarea value={description} onChange={(e) => this.changeValue(e, 'description')}/>

@@ -1,5 +1,5 @@
 import { IRequestState, DEFAULT_REQUEST_STATE } from '../../api';
-import { ITagsResponse } from '../../api/tags';
+import { ITagsResponse, ITag } from '../../api/tags';
 
 export interface ITagsState extends ITagsResponse {
   isLoading: boolean;
@@ -19,4 +19,11 @@ export const DEFAULT_TAGS_STATE: ITagsState = {
   isLoading: false,
   selectedCategory : '',
   requestState: { ...DEFAULT_REQUEST_STATE }
+}
+
+export const DEFAULT_SINGLE_TAG: ITag = {
+  category: '',
+  kindOfAnimal: '',
+  values: [],
+  id: ''
 }
