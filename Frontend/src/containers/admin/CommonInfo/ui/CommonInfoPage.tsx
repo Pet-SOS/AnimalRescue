@@ -6,7 +6,6 @@ import {IInfoContactsResponse} from "../../../../api/contacts";
 import {IInfoCard} from "../../../client/Home/store/state";
 import {HtmlEditor} from "../../../../components/HtmlEditor";
 import {EditorState} from "draft-js";
-import {draftToHtmlHelper, htmlToDraftHelper} from "../../../../shared/htmlEditorHelper";
 
 const {TabPane} = Tabs;
 
@@ -22,7 +21,7 @@ const html = '<p>Hey this <strong>editor</strong> rocks</p>';
 export class CommonInfoPage extends React.Component<IPropTypes> {
   // TODO: #1
   state = {
-    editorState: htmlToDraftHelper(html)
+    editorState: html
   }
 
   componentDidMount() {
@@ -74,8 +73,8 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
                   />
                   <br/>
                   <br/>
-                  <button onClick={() => console.log('parse editorState to html',  draftToHtmlHelper(this.state.editorState))}>parse editorState to html</button>
-                  <button onClick={() => console.log('create editorState from html',  htmlToDraftHelper(html))}>create editorState from html</button>
+                  <button onClick={() => console.log('parse editorState to html',  this.state.editorState)}>parse editorState to html</button>
+                  <button onClick={() => console.log('create editorState from html',  html)}>create editorState from html</button>
                 </div>
               </TabPane>
               <TabPane tab="Eng" key="2">
