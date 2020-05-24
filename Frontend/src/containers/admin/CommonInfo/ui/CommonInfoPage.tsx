@@ -15,13 +15,9 @@ interface IPropTypes {
   infoContacts: IInfoContactsResponse;
   infoCard: IInfoCard;
 }
-// TODO: Using only for demo of working html editor, please delete later
-const html = '<p>Hey this <strong>editor</strong> rocks</p>';
-
 export class CommonInfoPage extends React.Component<IPropTypes> {
-  // TODO: #1
   state = {
-    editorState: html
+    editorState: '<p>Hey this <strong>editor</strong> rocks</p>'
   }
 
   componentDidMount() {
@@ -33,7 +29,6 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
     console.log(key);
   }
 
-  // TODO: #2
   onEditorStateChange = (editorState: EditorState) => {
     this.setState({
       editorState,
@@ -73,8 +68,6 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
                   />
                   <br/>
                   <br/>
-                  <button onClick={() => console.log('parse editorState to html',  this.state.editorState)}>parse editorState to html</button>
-                  <button onClick={() => console.log('create editorState from html',  html)}>create editorState from html</button>
                 </div>
               </TabPane>
               <TabPane tab="Eng" key="2">
