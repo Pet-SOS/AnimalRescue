@@ -331,6 +331,10 @@ export default {
 
   backToAllTags: 'Back to tags',
 
+  blogTitle: 'Title',
+  blogSection : 'Section',
+  blogLastModified : 'Last modified',
+
   confirmTitle: 'Confirm',
   cancelTitle: 'Cancel',
 }

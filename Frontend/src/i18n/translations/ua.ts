@@ -344,4 +344,8 @@ export default {
 
   confirmTitle: 'Підтвердити',
   cancelTitle: 'Відмінити',
+
+  blogTitle: 'Назва статті',
+  blogSection : 'Розділ',
+  blogLastModified : 'Остані зміни',
 }

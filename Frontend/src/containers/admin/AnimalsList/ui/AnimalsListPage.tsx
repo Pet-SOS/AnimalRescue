@@ -151,7 +151,9 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                     </div>
                                                     <div className="col col-status">
                                                         {!!animal.status && !!animal.status.id && (
-                                                            <TagTranslation tagId={animal.status.id} />
+                                                            <div className={`status-color-${animal.status.id.toLowerCase()}`}>
+                                                                <TagTranslation tagId={animal.status.id} />
+                                                            </div>
                                                         )}
                                                     </div>
                                                     <div className="col col-btn"><i onClick={()=>this.updateAnimalCard(animal.id)} className="icon-edit">Edit</i></div>

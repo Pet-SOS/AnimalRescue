@@ -241,13 +241,36 @@
             width: auto;
         }
 
-        span {
+        div {
             display: inline-block;
             vertical-align: top;
             padding: 4px 8px;
             border-radius: 4px;
+        }
+
+        .status-color-socialization {
             background-color: #DFECFE;
-            color: #3E5B9D;
+            color: #3E5B9D;        
+        }
+
+        .status-color-treatment {
+            background-color: #FEDFDF;
+            color: #F67670;        
+        }
+
+        .status-color-readyforadoption {
+            background-color: #E4F8E6;
+            color: #2D7A5F;        
+        }
+
+        .status-color-adopted {
+            background-color: #409275;
+            color: #F9F6F7;        
+        }
+
+        .status-color-died {
+            background-color: #62738D;
+            color: #F9F6F7;        
         }
     }
 

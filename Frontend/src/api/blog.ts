@@ -10,6 +10,7 @@ export interface IBlogItem {
   imageIds: string[];
   tags: AllTag[];
   createdAt?: string;
+  modifiedAt?: string;
   id?: string;
 }
 

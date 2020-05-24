@@ -28,7 +28,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         this.state ={
             collapsed: false,
             selectedKey: this.props.selectedKey,
-            openKeys: ['sub2']
+            openKeys: [... this.props.openKeys, 'sub2']
         }
     }
 
@@ -54,7 +54,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
     }
   };
   render() {
-    let {selectedKey} = this.state;
+    let {selectedKey, openKeys} = this.state;
     return (
       <aside>
           <div className="logo-main">
@@ -71,7 +71,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         <nav>
             <Menu
                 selectedKeys={[selectedKey]}
-                openKeys={this.state.openKeys}
+                openKeys={openKeys}
                 onOpenChange={this.onOpenChange}
                 mode="inline"
                 theme="light"
