@@ -35,11 +35,12 @@ namespace AnimalRescue.BusinessLogic.Services
             return wellKnownTagDtos;
         }
 
-        public async Task CreateIfNotExistAsync(IEnumerable<WellKnownTagDto> tags)
+        public async Task<IEnumerable<WellKnownTagDto>> CreateIfNotExistAsync(IEnumerable<WellKnownTagDto> tags)
         {
             IEnumerable<WellKnownTagDto> tagsFroSafe = await GetFilteredTags(tags.ToList());
-            var WellKnownTag = _mapper.Map<IEnumerable<WellKnownTagDto>, IEnumerable<WellKnownTag>>(tagsFroSafe);
-            await _wellKnownTagRepository.CreateAsync(WellKnownTag);
+            var wellKnownTag = _mapper.Map<IEnumerable<WellKnownTagDto>, IEnumerable<WellKnownTag>>(tagsFroSafe);
+            wellKnownTag = await _wellKnownTagRepository.CreateAsync(wellKnownTag);
+            return _mapper.Map<IEnumerable<WellKnownTag>, IEnumerable<WellKnownTagDto>>(wellKnownTag);
         }
 
         private async Task<List<WellKnownTagDto>> GetFilteredTags(List<WellKnownTagDto> wellKnownTagDtos) => wellKnownTagDtos
