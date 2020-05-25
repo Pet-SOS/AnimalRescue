@@ -1,8 +1,8 @@
 import React from "react";
 import { ISocialLinks, IEmails, IAddresses, addInfoContacts } from "../../../../api/contacts";
 import { addInfoCard, IDataBankCard } from "../../../../api/infoCard";
-import { HtmlEditor } from "../../../../components/HtmlEditor";
 import _ from "lodash";
+import {HtmlEditor, styleCard} from "../../../../components/HtmlEditor";
 
 interface IPropTypes {
     socialLinks: ISocialLinks;
@@ -160,6 +160,7 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
                 <HtmlEditor
                     editorState={this.state.editorCardState}
                     onChange={this.onEditorStateChange}
+                    classList={styleCard}
                   />
                 <h4>Соц.мережі</h4>
                 <div className="form-row">

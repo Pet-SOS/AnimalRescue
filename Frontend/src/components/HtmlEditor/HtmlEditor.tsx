@@ -23,26 +23,19 @@ import 'froala-editor/css/third_party/font_awesome.min.css';
 interface IPropTypes {
   editorState: any;
   onChange: (editorState: any) => any;
+  classList: {}
 }
 
 // Doc
-// https://froala.com/wysiwyg-editor/docs
+// https://froala.com/wysiwyg-editor/v2-0/examples/
 
-export const HtmlEditor: React.FC<IPropTypes> = ({editorState, onChange}) => (
+export const HtmlEditor: React.FC<IPropTypes> = ({editorState, onChange, classList}) => (
   <div className="html-editor-wrapper">
     <FroalaEditorComponent
       tag='textarea'
       config={{
-        toolbarButtons: ['bold', 'italic', 'underline', 'alignJustify', 'formatOL', 'formatUL', 'insertLink', '|', 'inlineClass','inlineStyle'],
-        inlineStyles: {
-          'Big Red': 'font-size: 20px; color: red;',
-          'Small Blue': 'font-size: 14px; color: blue;'
-        },
-        inlineClasses: {
-          'fr-class-code': 'Code',
-          'fr-class-highlighted': 'Highlighted',
-          'fr-class-transparency': 'Transparent'
-        }
+        toolbarButtons: ['bold', 'italic', 'underline', 'alignJustify', 'formatOL', 'formatUL', 'insertLink', '|', 'inlineClass'],
+        inlineClasses: {...classList}
       }}
       model={editorState}
       onModelChange={onChange}

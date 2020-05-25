@@ -4,8 +4,6 @@ import {Tabs} from "antd";
 import {AdminCommonHead} from "./AdminCommonHead";
 import {IInfoContactsResponse} from "../../../../api/contacts";
 import {IInfoCard} from "../../../client/Home/store/state";
-import {HtmlEditor} from "../../../../components/HtmlEditor";
-import {EditorState} from "draft-js";
 
 const {TabPane} = Tabs;
 
@@ -28,12 +26,6 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
   callback(key: any) {
     console.log(key);
   }
-
-  onEditorStateChange = (editorState: EditorState) => {
-    this.setState({
-      editorState,
-    });
-  };
 
   render() {
     return (
@@ -62,10 +54,6 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
               <TabPane tab="Укр" key="1">
                 <div>
                   <span>Content of Tab Pane 1</span>
-                  <HtmlEditor
-                    editorState={this.state.editorState}
-                    onChange={this.onEditorStateChange}
-                  />
                   <br/>
                   <br/>
                 </div>
