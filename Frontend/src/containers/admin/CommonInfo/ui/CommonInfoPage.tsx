@@ -4,9 +4,6 @@ import {Tabs} from "antd";
 import {AdminCommonHead} from "./AdminCommonHead";
 import {IInfoContactsResponse} from "../../../../api/contacts";
 import {IInfoCard} from "../../../client/Home/store/state";
-import {HtmlEditor} from "../../../../components/HtmlEditor";
-import {EditorState} from "draft-js";
-import {draftToHtmlHelper, htmlToDraftHelper} from "../../../../shared/htmlEditorHelper";
 
 const {TabPane} = Tabs;
 
@@ -16,13 +13,9 @@ interface IPropTypes {
   infoContacts: IInfoContactsResponse;
   infoCard: IInfoCard;
 }
-// TODO: Using only for demo of working html editor, please delete later
-const html = '<p>Hey this <strong>editor</strong> rocks</p>';
-
 export class CommonInfoPage extends React.Component<IPropTypes> {
-  // TODO: #1
   state = {
-    editorState: htmlToDraftHelper(html)
+    editorState: '<p>Hey this <strong>editor</strong> rocks</p>'
   }
 
   componentDidMount() {
@@ -33,13 +26,6 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
   callback(key: any) {
     console.log(key);
   }
-
-  // TODO: #2
-  onEditorStateChange = (editorState: EditorState) => {
-    this.setState({
-      editorState,
-    });
-  };
 
   render() {
     return (
@@ -68,14 +54,8 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
               <TabPane tab="Укр" key="1">
                 <div>
                   <span>Content of Tab Pane 1</span>
-                  <HtmlEditor
-                    editorState={this.state.editorState}
-                    onChange={this.onEditorStateChange}
-                  />
                   <br/>
                   <br/>
-                  <button onClick={() => console.log('parse editorState to html',  draftToHtmlHelper(this.state.editorState))}>parse editorState to html</button>
-                  <button onClick={() => console.log('create editorState from html',  htmlToDraftHelper(html))}>create editorState from html</button>
                 </div>
               </TabPane>
               <TabPane tab="Eng" key="2">

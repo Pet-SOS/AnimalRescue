@@ -8,9 +8,14 @@ interface IPropTypes {
   }
   
   export const Age: React.FC<IPropTypes> = ({ birthday }: IPropTypes) => {
-    let today = moment()
-    let duration = moment.duration(today.diff(birthday))
-    let years = duration.get('years')
+    let a = moment(moment().toArray().slice(0, 3));
+    let b = moment(moment(birthday).toArray().slice(0, 3));
+    let years = a.diff(b, 'year');
+    b.add(years, 'years');
+    let months = a.diff(b, 'months');
+    b.add(months, 'months');
+    let weeks = a.diff(b, 'weeks');
+
     let yearsWord = (x : number) : string => {
       switch(x) {
         case 1: {
@@ -43,7 +48,6 @@ interface IPropTypes {
     }
   }
 
-    let months = duration.get('months')
     let monthsWord = (x: number): string => {
       switch(x) {
         case 1: {
@@ -64,7 +68,6 @@ interface IPropTypes {
       }
     }
 
-    let weeks = duration.get('weeks')
     let weeksWord = (x: number): string => { return (x === 1) ? 'week' : 'fromTwoToFourWeeks'; }
 
     return (
