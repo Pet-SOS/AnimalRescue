@@ -55,7 +55,7 @@ namespace AnimalRescue.BusinessLogic.Services
             return itemDto;
         }
 
-        public async Task<BlCollectonResponse<TEntityDto>> GetAsync(ApiQueryRequest queryRequest)
+        public virtual async Task<BlCollectonResponse<TEntityDto>> GetAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
             var count = await _repository.GetCountAsync(dbQuery);

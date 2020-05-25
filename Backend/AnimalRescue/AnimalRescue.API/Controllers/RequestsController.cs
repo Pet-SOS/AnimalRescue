@@ -53,6 +53,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<CollectionSegmentApiResponse<RequestModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
+            queryRequest.Roles = GetUserRoles();
             return await GetCollectionAsync<RequestDto, RequestModel>(_requestService, queryRequest, _mapper);
         }
 

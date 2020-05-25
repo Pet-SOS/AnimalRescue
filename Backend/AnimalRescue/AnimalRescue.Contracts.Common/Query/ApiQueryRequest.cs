@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace AnimalRescue.Contracts.Common.Query
 {
@@ -17,10 +19,13 @@ namespace AnimalRescue.Contracts.Common.Query
 
         public string Sort { get; set; }
 
+        public ICollection<Claim> Roles { get; set; }
+
         public ApiQueryRequest()
         {
             Page = 1;
             Size = DefaultPageSize;
         }
+
     }
 }

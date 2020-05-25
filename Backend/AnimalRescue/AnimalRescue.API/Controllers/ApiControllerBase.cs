@@ -15,6 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using System.Security.Claims;
+using System.Linq;
+
 namespace AnimalRescue.API.Controllers
 {
     [ApiController]
@@ -212,6 +215,12 @@ namespace AnimalRescue.API.Controllers
         private string BuildSelf()
         {
             return Request.GetUri().ToString();
+        }
+
+        protected ICollection<Claim> GetUserRoles()
+        {
+            ICollection<Claim> claims = HttpContext.User.FindAll(ClaimTypes.Role).ToArray();
+            return claims;
         }
     }
 }
