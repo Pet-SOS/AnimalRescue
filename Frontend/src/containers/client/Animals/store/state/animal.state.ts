@@ -21,6 +21,8 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     character: '',
     status: DEFAULT_SINGLE_TAG,
     locationType: DEFAULT_SINGLE_LOCATION,
+    locationTypeId: '',
+    locationName: '',
     bannerText: '',
     isDonationActive: false,
     birthday: '',
