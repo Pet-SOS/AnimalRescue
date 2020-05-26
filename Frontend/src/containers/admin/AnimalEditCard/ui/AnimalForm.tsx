@@ -2,6 +2,7 @@ import React from "react";
 import { BirthdayDatePicker } from './BirthdayDatePicker';
 import { ITag } from '../../../../api/tags';
 import { AnimalKind, Gender } from '../../../../api/animals';
+import {ILocation} from "../../../../api/admin";
 
 interface IPropTypes {
   number: number;
@@ -13,6 +14,8 @@ interface IPropTypes {
   statusOptions?: ITag[];
   genderOptions?: ITag[];
   kindOfAnimalOptions?: ITag[];
+  locationOptions?: ITag[];
+  locationTypeOptions?: ILocation[];
   tags: string[];
   onChange: (e: any, key: string) => any;
   onUpdateBirthday: (date: string) => any;
@@ -22,8 +25,8 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
   public currentLang: string = localStorage.getItem('appLanguage') || 'ua';
 
   findLocaleStatusValue(status: ITag): string {
-      const resultStatus = status.values.filter(val => val.lang === this.currentLang);
-      return resultStatus.length ? resultStatus[0].value : '';
+      const resultStatus = status.values?.filter(val => val.lang === this.currentLang);
+      return resultStatus?.length ? resultStatus[0].value : '';
   }
 
   renderField = (label: string, key: string, readOnly?: boolean) => {
@@ -38,7 +41,7 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
     );
   }
 
-  renderSelect = (label: string, key: string, optionsKey: string) => {
+  renderSelect = (label: string, key: string, optionsKey: string, alternativeTitleKey?: string) => {
     // @ts-ignore
     const optionList = this.props[optionsKey];
     // @ts-ignore
@@ -48,12 +51,14 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
       <div className="form-row small-row">
         <label htmlFor="acard-status">{label}</label>
         <select value={defaultValue.id || defaultValue} id="acard-status" onChange={(e) => this.props.onChange(e, key)}>
-          {optionList?.map((option: ITag) => {
+          {optionList?.map((item: ITag) => {
+            // @ts-ignore
+            const alternativeLabel = alternativeTitleKey ? item[alternativeTitleKey] : '';
             return (
               <option
-                value={option.id}
-                key={option.id}>
-                {this.findLocaleStatusValue(option) || 'Unknown'}
+                value={item.id}
+                key={item.id}>
+                {this.findLocaleStatusValue(item) || alternativeLabel || 'Unknown'}
               </option>
             );
           })}
@@ -67,6 +72,8 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
       <>
         {this.renderField('Номер', 'number', true)}
         {this.renderSelect('Статус', 'status', 'statusOptions')}
+        {this.renderSelect('Тип локации', 'locationName', 'locationOptions')}
+        {this.renderSelect('Назва локации', 'locationTypeId', 'locationTypeOptions', 'title')}
         {this.renderField('Кличка', 'name')}
         {this.renderSelect('Вид', 'kindOfAnimal', 'kindOfAnimalOptions')}
         {this.renderSelect('Стать', 'gender', 'genderOptions')}
