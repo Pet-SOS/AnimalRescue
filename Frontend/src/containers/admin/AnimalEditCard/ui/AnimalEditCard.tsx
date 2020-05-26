@@ -10,11 +10,14 @@ import _ from "lodash";
 import {connect} from "react-redux";
 import {ICustomAppState} from "../../../../store/state";
 import {Loader} from "../../../../components/Loader";
-import {ERequestStatus} from "../../../../api";
+import {ERequestStatus, LocationsCode} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ImageTabContent} from "./ImageTabContent";
 import {ITag} from '../../../../api/tags';
 import {AnimalForm} from './AnimalForm';
+import {actionAdminFetchLocationsRequest} from "../../Locations/store/actions";
+import {bindActionCreators, Dispatch} from "redux";
+import {ILocationsMap} from "../../Locations/store/state";
 
 const {TabPane} = Tabs;
 
@@ -29,6 +32,8 @@ interface IOwnPropTypes extends RouteComponentProps<any> {
 
 interface IPropTypes extends IOwnPropTypes {
   status: ERequestStatus;
+  locations: ILocationsMap,
+  fetchLocationList: (type: LocationsCode) => any;
 }
 
 class AnimalEditCard extends React.Component<IPropTypes> {
@@ -49,10 +54,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     }
   }
 
-  componentDidUpdate(prevProps: Readonly<IPropTypes>) {
+  componentDidUpdate(prevProps: Readonly<IPropTypes>, prevState: Readonly<IAnimal>) {
     const newState = {...DEFAULT_ANIMAL};
-    const {animal} = this.props;
-    if (!_.isEqual(prevProps.animal, animal)) {
+    const {animal, fetchLocationList} = this.props;
+    const {animal: prevAnimal} = prevProps;
+    if (!_.isEqual(prevAnimal, animal)) {
       for (let key in animal) {
         if (key === 'locationType') {
           continue;
@@ -64,6 +70,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
         }
       }
       this.setState(newState)
+    }
+    if (this.state.locationName !== prevState.locationName) {
+      // @ts-ignore
+      fetchLocationList(LocationsCode[this.state.locationName.toUpperCase()])
     }
   }
 
@@ -87,7 +97,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   submit = () => {
     const animal = {...this.state as IAnimal}
-    delete animal.locationType;
     this.props.updateAnimal({animal, id: this.state.id})
   }
   delete = () => {
@@ -96,7 +105,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   post = () => {
     const animal = {...this.state as IAnimal}
-    delete animal.locationType;
     this.props.postAnimal(animal)
     this.setState({...DEFAULT_ANIMAL})
   }
@@ -142,11 +150,18 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     })
   }
 
+  onChangeCoverImage = (coverImage: number) => {
+    this.setState({
+      coverImage
+    })
+  }
+
   render() {
     const {
-     description, character, bannerText, isDonationActive, tags, id, imageIds
+     description, character, bannerText, isDonationActive, tags, id, imageIds, coverImage
     } = this.state;
-    const { tagsList } = this.props;
+    const { tagsList, locations } = this.props;
+    const locationTypeOptions = locations[this.state.locationName.toUpperCase()]?.list.data;
 
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
@@ -159,6 +174,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             statusOptions={tagsList.status}
             genderOptions={tagsList.gender}
             kindOfAnimalOptions={tagsList.kindOfAnimal}
+            locationOptions={tagsList.location}
+            locationTypeOptions={locationTypeOptions}
             onChange={this.changeValue}
             onUpdateBirthday={this.onUpdateBirthday}
           />
@@ -171,6 +188,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
           >
             <TabPane tab="Зображення" key="1">
               <ImageTabContent
+                mainImageIndex={coverImage}
                 onDeleteImage={this.onDeleteUploadedImage}
                 onDeleteNewImage={this.onDeleteNewImage}
                 uploadedImageIds={imageIds}
@@ -178,6 +196,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 animalId={id}
                 baseUrl={this.baseUrl}
                 newImages={this.state.images}
+                onChangeCoverImage={this.onChangeCoverImage}
+                onSaveChanges={this.onSave}
               />
             </TabPane>
             <TabPane tab="Здоров’я" key="2">
@@ -214,6 +234,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 export default withRouter(connect((state: ICustomAppState, ownProps: IOwnPropTypes) => {
   return {
     status: state.AdminHomePage.animalUpdateRequestState.status,
+    locations: state.adminLocations.locations,
     ...ownProps
   }
+}, (dispatch: Dispatch) => {
+  return bindActionCreators({
+    fetchLocationList: actionAdminFetchLocationsRequest,
+  }, dispatch)
 })(AnimalEditCard));

@@ -28,25 +28,20 @@ namespace AnimalRescue.BusinessLogic.Services
             _tagRepository = repository;
         }
 
-        public async Task CreateAsync(IEnumerable<TagDto> tagDto)
+        public async Task<IEnumerable<TagDto>> WhereAsync(IEnumerable<TagDto> value)
         {
-            var tag = _mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(tagDto);
-            await _tagRepository.CreateAsync(tag);
-        }
-
-        public async Task<List<TagDto>> WhereAsync(List<TagDto> value)
-        {
-            var tags = _mapper.Map<List<TagDto>, List<Tags>>(value);
-            var tagDtos = _mapper.Map<List<Tags>, List<TagDto>>(await _tagRepository.WhereAsync(tags));
+            var tags = _mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(value);
+            var tagDtos = _mapper.Map<IEnumerable<Tags>, IEnumerable<TagDto>>(await _tagRepository.WhereAsync(tags));
 
             return tagDtos;
         }
 
-        public async Task CreateIfNotExistAsync(IEnumerable<TagDto> tags)
+        public async Task<IEnumerable<TagDto>> CreateIfNotExistAsync(IEnumerable<TagDto> tags)
         {
-            IEnumerable<TagDto> tagsFroSafe = await GetFilteredTags(tags.ToList());
-            var tag = _mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(tagsFroSafe);
-            await _tagRepository.CreateAsync(tag);
+            IEnumerable<TagDto> tagsForSafe = await GetFilteredTags(tags.ToList());
+            var tag = _mapper.Map<IEnumerable<TagDto>, IEnumerable<Tags>>(tagsForSafe);
+            tag = await _tagRepository.CreateAsync(tag);
+            return _mapper.Map<IEnumerable<Tags>, IEnumerable<TagDto>>(tag);
         }
 
         private async Task<List<TagDto>> GetFilteredTags(List<TagDto> tags) => tags
