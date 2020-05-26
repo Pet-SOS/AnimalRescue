@@ -16,7 +16,6 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     kindOfAnimal: '',
     gender: '',
     description: '',
-    age: 0,
     imageIds: [],
     tags: [],
     character: '',

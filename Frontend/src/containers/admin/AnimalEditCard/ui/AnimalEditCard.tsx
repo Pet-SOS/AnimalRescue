@@ -142,9 +142,15 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     })
   }
 
+  onChangeCoverImage = (coverImage: number) => {
+    this.setState({
+      coverImage
+    })
+  }
+
   render() {
     const {
-     description, character, bannerText, isDonationActive, tags, id, imageIds
+     description, character, bannerText, isDonationActive, tags, id, imageIds, coverImage
     } = this.state;
     const { tagsList } = this.props;
 
@@ -171,6 +177,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
           >
             <TabPane tab="Зображення" key="1">
               <ImageTabContent
+                mainImageIndex={coverImage}
                 onDeleteImage={this.onDeleteUploadedImage}
                 onDeleteNewImage={this.onDeleteNewImage}
                 uploadedImageIds={imageIds}
@@ -178,6 +185,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 animalId={id}
                 baseUrl={this.baseUrl}
                 newImages={this.state.images}
+                onChangeCoverImage={this.onChangeCoverImage}
+                onSaveChanges={this.onSave}
               />
             </TabPane>
             <TabPane tab="Здоров’я" key="2">

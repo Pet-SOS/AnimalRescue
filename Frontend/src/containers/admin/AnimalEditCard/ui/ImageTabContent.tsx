@@ -11,6 +11,9 @@ interface IPropTypes {
   newImages: [];
   onDeleteImage: (id: string) => any;
   onDeleteNewImage: (id: string) => any;
+  mainImageIndex: number;
+  onChangeCoverImage: (coverImage: number) => any;
+  onSaveChanges: () => any;
 }
 
 export class ImageTabContent extends React.PureComponent<IPropTypes> {
@@ -18,14 +21,18 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
     return `${this.props.baseUrl}documents/${imageId}/type/small`;
   }
 
-  renderImage(imageSource: string, id: string, onDeleteImage: (id: string) => void) {
+  renderImage(imageSource: string, id: string, isSelected: boolean = false,  onDeleteImage?: (id: string) => void) {
     return (
-      <div className="image-container">
-        <div className="delete-image" onClick={() => onDeleteImage(id)}>
-          <img src={CloseIcon} alt="delete"/>
-        </div>
-        <img className="animal-image" src={imageSource} alt="animal-image"/>
-      </div>
+     <div className="image-wrapper">
+       <div className={`image-container ${isSelected ? 'selected' : ''}`}>
+         {onDeleteImage && !isSelected && (
+           <div className="delete-image" onClick={() => onDeleteImage(id)}>
+             <img src={CloseIcon} alt="delete"/>
+           </div>
+         )}
+         <img className="animal-image" src={imageSource} alt="animal-image"/>
+       </div>
+     </div>
     );
   }
 
@@ -41,41 +48,57 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
     if (!this.props.uploadedImageIds.length) {
       return null;
     }
-    const mainImageId = this.props.uploadedImageIds[0];
+    const {uploadedImageIds, mainImageIndex} = this.props;
+    const mainImageId = uploadedImageIds[mainImageIndex ? mainImageIndex : 0];
     return (
       <div className='main-image-wrapper'>
         {this.renderTitle('Головне зображення')}
         <div className="images-wrapper">
-          {this.renderAddImage()}
-          {this.renderImage(this.getSourceOfUploadedImage(mainImageId), mainImageId, this.props.onDeleteImage)}
+          {this.renderImage(this.getSourceOfUploadedImage(mainImageId), mainImageId)}
         </div>
       </div>
     )
+  }
 
+  onUploadAndChangeCoverImage = (imageIndex: number) => {
+    const { uploadedImageIds, onChangeCoverImage, onSaveChanges} = this.props;
+    const isUploadedImagesExist = !!uploadedImageIds.length;
+    const lastIndexOfUploadedImages = isUploadedImagesExist ? uploadedImageIds.length - 1 : 0;
+    const indentOfNewImageIndex = imageIndex === 0 ? imageIndex + 1 : imageIndex;
+    const newIndex = isUploadedImagesExist ? lastIndexOfUploadedImages + indentOfNewImageIndex : 0;
+    onChangeCoverImage(newIndex);
+    setTimeout(() => onSaveChanges(), 0);
   }
 
   renderAdditionalImages = () => {
+    const {mainImageIndex, onChangeCoverImage, uploadedImageIds, onDeleteNewImage, onDeleteImage, newImages, onSaveChanges} = this.props;
     return (
       <div>
         {this.renderTitle('Додаткові зображення')}
         <div className="images-wrapper">
           <>
             {this.renderAddImage()}
-            {this.props.uploadedImageIds.map(imageId => (
-              <div key={imageId}>
+            {uploadedImageIds.map((imageId, i) => (
+              <div
+                key={imageId}
+                onClick={() => onChangeCoverImage(i)}>
                 {this.renderImage(
                   this.getSourceOfUploadedImage(imageId),
                   imageId,
-                  this.props.onDeleteImage
+                  i === mainImageIndex,
+                  onDeleteImage
                 )}
               </div>
             ))}
-            {this.props.newImages.map((image: any) => (
-              <div key={image.lastModified}>
+            {newImages.map((image: any, i: number) => (
+              <div key={image.lastModified}
+                   onClick={() => this.onUploadAndChangeCoverImage(i)}
+              >
                 {this.renderImage(
                   URL.createObjectURL(image),
                   image.lastModified,
-                  this.props.onDeleteNewImage
+                  false,
+                  onDeleteNewImage
                 )}
               </div>
             ))}

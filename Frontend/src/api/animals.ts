@@ -90,7 +90,6 @@ export interface IAnimal {
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: string;
-  age: number;
   imageIds: string[];
   previousImageIds?: string[];
   tags: string[];
@@ -118,7 +117,6 @@ export const DEFAULT_ANIMAL: IAnimal = {
     kindOfAnimal: '',
     gender: '',
     description: ' ',
-    age: 0,
     imageIds: [],
     previousImageIds: [],
     tags: [],
