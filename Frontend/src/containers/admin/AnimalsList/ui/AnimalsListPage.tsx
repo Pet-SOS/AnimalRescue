@@ -62,6 +62,18 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
          })
     }
 
+    renderAnimalImage = (animal: IAnimal) => {
+        const coverImageId = animal.coverImage ? animal.coverImage : 0;
+        const coverImage = animal.imageIds[coverImageId];
+        return (
+          <div className="visual"
+            style={{
+               backgroundSize:'cover',
+                   backgroundImage: `url(${coverImage ? `${this.props.baseUrl}documents/${coverImage}/type/small` : `${noPhotoImage}`})` }}
+          />
+        )
+    }
+
     render(){
         return(
             <>
@@ -105,11 +117,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                             <div className="a-item" key={animal.id}>
                                                 <div className="row">
                                                     <div className="col col-image">
-                                                        <div className="visual"
-                                                             style={{
-                                                                 backgroundSize:'cover',
-                                                                 backgroundImage: `url(${animal.imageIds[0] ? `${this.props.baseUrl}documents/${animal.imageIds[0]}/type/small` : `${noPhotoImage}`})` }}
-                                                        ></div>
+                                                        {this.renderAnimalImage(animal)}
                                                     </div>
                                                     <div className="col col-name">
                                                         <span className="name">{animal.name}</span><br />
