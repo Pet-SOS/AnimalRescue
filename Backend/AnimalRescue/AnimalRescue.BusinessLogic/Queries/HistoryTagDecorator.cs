@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
@@ -24,6 +25,11 @@ namespace AnimalRescue.BusinessLogic.Queries
         public async Task<IEnumerable<TagDto>> CreateIfNotExistAsync(IEnumerable<TagDto> value)
         {
             var result = await tagService.CreateIfNotExistAsync(value);
+
+            if (!result.Any())
+            {
+                return result;
+            }
 
             result = await tagService.WhereAsync(result);
 

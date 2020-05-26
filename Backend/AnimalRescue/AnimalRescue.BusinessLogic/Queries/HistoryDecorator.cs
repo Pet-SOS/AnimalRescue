@@ -5,6 +5,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -55,15 +56,14 @@ namespace AnimalRescue.BusinessLogic.Queries
         {
             var history = new HistoryDto
             {
-                EntityName = typeof(TIn).ToString(),
+                EntityName = typeof(TIn).Name,
                 EntityId = id.ToString(),
                 IsEntityDeleted = true,
                 CreatedAt = DateTime.UtcNow
             };
 
-            await historyService.CreateAsync(history);
-
             await fullCrudService.DeleteAsync(id);
+            await historyService.CreateAsync(history);
         }
 
         public async Task<TOut> GetAsync(TId query) => await fullCrudService.GetAsync(query);
@@ -86,13 +86,20 @@ namespace AnimalRescue.BusinessLogic.Queries
 
         private async Task CreateUpdatedHistoryAsync(TOut newItem, TOut previousItem)
         {
+            var differences = GetUpdatedDifferenceValueList(newItem, previousItem);
+
+            if (!differences.Any())
+            {
+                return;
+            }
+
             var history = new HistoryDto
             {
                 EntityName = typeof(TIn).Name,
                 EntityId = newItem.Id.ToString(),
                 IsEntityDeleted = false,
                 CreatedAt = DateTime.UtcNow,
-                Differences = GetUpdatedDifferenceValueList(newItem, previousItem)
+                Differences = differences
             };
 
             await historyService.CreateAsync(history);
