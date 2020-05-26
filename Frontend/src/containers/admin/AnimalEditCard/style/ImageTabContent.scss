@@ -43,14 +43,25 @@
   flex-wrap: wrap;
 }
 
+.image-wrapper {
+  padding: 0 12px 12px 0;
+}
+
 .image-container {
   position: relative;
-  margin: 0 12px 12px 0;
 
+  &.selected {
+    opacity: .5;
+
+    img {
+      border: 4px solid #E2A811;
+    }
+  }
   .delete-image {
     cursor: pointer;
     padding: 5px;
     position: absolute;
     right: 0;
+    z-index: 2;
   }
 }
