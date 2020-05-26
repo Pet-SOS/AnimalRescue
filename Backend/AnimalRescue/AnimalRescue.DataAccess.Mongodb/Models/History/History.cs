@@ -7,7 +7,7 @@ using history = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Histor
 
 namespace AnimalRescue.DataAccess.Mongodb.Models.History
 {
-    [BsonDiscriminator("History")]
+    [BsonDiscriminator("history")]
     public class History : BaseAndTimeItem
     {
         [CouplingPropertyName(history.EntityName)]
