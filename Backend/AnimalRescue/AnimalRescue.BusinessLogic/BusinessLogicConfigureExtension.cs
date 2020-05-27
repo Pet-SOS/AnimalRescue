@@ -66,8 +66,8 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto, Guid>, TagDecorator<BlogDto, BlogDto, Guid>>();
             services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto, Guid>, EmployeeService>();
-            services.AddScoped<IBlFullCrud<RequestDto, RequestDto, Guid>, RequestService>()
-                .Decorate<IBlFullCrud<RequestDto, RequestDto, Guid>, HistoryDecorator<RequestDto, RequestDto, Guid>>();
+
+            services.AddScoped<IRequestService, RequestService>();
 
             services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
             services.AddScoped<IImageService, ImageService>();

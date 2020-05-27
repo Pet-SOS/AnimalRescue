@@ -14,7 +14,7 @@ using AnimalRescue.Contracts.Common.Constants;
 using System.Security.Claims;
 using System.Linq;
 using AnimalRescue.BusinessLogic.Extensions;
-using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
+using AnimalRescue.Contracts.Common.Exceptions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -42,32 +42,73 @@ namespace AnimalRescue.BusinessLogic.Services
             return isOperator || isAdmin;
         }
 
+        private bool IsRoleAdmin(ICollection<Claim> roles)
+        {
+            return DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
+        }
+
         private bool DoesRoleMatch(string role, ICollection<Claim> roles)
         {
             var roleMatched = roles.ToList().FirstOrDefault(x => string.Equals(x.Value, role, StringComparison.OrdinalIgnoreCase));
             return roleMatched != null;
         }
 
-        private List<RequestDto> GetOperatorItems(List<RequestDto> itemDtos)
+        private List<RequestDto> GetOperatorItems(List<RequestDto> itemDtos, List<string> requestStatuses)
         {
-            var filteredByRoleItems = itemDtos.Where(p => IsOperatorsItem(_wellKnownTagService, p, TagsConstants.RequestStatuses.RequestStatusForProcessing)).ToList();
+            var filteredByRoleItems = itemDtos.Where(p => requestStatuses.Contains(p.Status.Id)).ToList();
             return filteredByRoleItems;
         }
 
-        private static bool IsOperatorsItem(IWellKnownTagService wellKnownTagService, RequestDto itemDto, string tagId)
+        private static bool DoesItemMatchesStatus(RequestDto itemDto, List<string> requestStatuses)
         {
-            var tagStatus = wellKnownTagService.GetAsync(tagId);
-            return string.Equals(itemDto.Status.Id, tagStatus.Result.Id, StringComparison.OrdinalIgnoreCase);
+            return requestStatuses.Contains(itemDto.Status.Id);
         }
 
-        private static WellKnownTagDto GetRequestStatus(IWellKnownTagService wellKnownTagService, string tagId)
+        private bool CheckRole(ICollection<Claim> roles, string roleName)
         {
-            return wellKnownTagService.GetAsync(tagId).Result;
+            return DoesRoleMatch(roleName, roles);
         }
 
-        private bool IsRoleOperator(ICollection<Claim> roles)
+        private List<string> GetViewRequestStatuses(ICollection<Claim> roles)
         {
-            return DoesRoleMatch(PropertyConstants.UserRole.Operator, roles);
+            List<string> requestStatuses = new List<string>();
+            var isOperator = CheckRole(roles, PropertyConstants.UserRole.Operator);
+            if (isOperator)
+            {
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusForProcessing);
+            }
+
+            var isRescuer = CheckRole(roles, PropertyConstants.UserRole.Rescuer);
+            if (isRescuer)
+            {
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusUrgent);
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusWork);
+            }
+
+            return requestStatuses;
+        }
+
+        private List<string> GetUpdateRequestStatuses(ICollection<Claim> roles)
+        {
+            List<string> requestStatuses = new List<string>();
+            var isOperator = CheckRole(roles, PropertyConstants.UserRole.Operator);
+            if (isOperator)
+            {
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusUrgent);
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusWork);
+            }
+
+            var isRescuer = CheckRole(roles, PropertyConstants.UserRole.Rescuer);
+            if (isRescuer)
+            {
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalIsTakenToShelter);
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalIsSavedNoNeedShelter);
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalIsInVeryPoorCondition);
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalNotFound);
+                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalDied);
+            }
+
+            return requestStatuses;
         }
 
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
@@ -77,19 +118,23 @@ namespace AnimalRescue.BusinessLogic.Services
             List<RequestDto> itemDtos = await GetCollectionAsync(count, dbQuery);
 
             List<RequestDto> filteredByRoleItems;
-            filteredByRoleItems = GetOperatorItems(itemDtos);
-
-
-
-            //var isOperator = IsRoleOperator(roles);
-            //if (isOperator)
-            //{
-            //    filteredByRoleItems = GetOperatorItems(itemDtos);
-            //}
-            //else
-            //{
-            //    filteredByRoleItems = itemDtos;
-            //}
+            var isAdmin = IsRoleAdmin(roles);
+            if (isAdmin)
+            {
+                filteredByRoleItems = itemDtos;
+            }
+            else
+            {
+                List<string> requestStatuses = GetViewRequestStatuses(roles);
+                if (requestStatuses.Count > 0)
+                {
+                    filteredByRoleItems = GetOperatorItems(itemDtos, requestStatuses);
+                }
+                else
+                {
+                    throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
+                }
+            }
 
             return new BlCollectonResponse<RequestDto>
             {
@@ -104,22 +149,27 @@ namespace AnimalRescue.BusinessLogic.Services
             var itemDbo = await _repository.GetAsync(itemId);
             var itemDto = _mapper.Map<Request, RequestDto>(itemDbo);
 
-            var isOperator = IsRoleOperator(roles);
-            var isOperatorsItem = IsOperatorsItem(_wellKnownTagService, itemDto, TagsConstants.RequestStatuses.RequestStatusForProcessing);
-            if (isOperator)
+            var isAdmin = IsRoleAdmin(roles);
+            if (isAdmin)
             {
-                if (isOperatorsItem)
-                {
-                    return itemDto;
-                }
-                else
-                {
-                    return null;
-                }
+                return itemDto;
             }
             else
             {
-                return itemDto;
+                List<string> requestStatuses = GetViewRequestStatuses(roles);
+                if (requestStatuses.Count > 0)
+                {
+                    var isAllowedItem = DoesItemMatchesStatus(itemDto, requestStatuses);
+                    if (isAllowedItem)
+                    {
+                        return itemDto;
+                    }
+                    else
+                    {
+                        throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
+                    }
+                }
+                throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
             }
         }
 
@@ -136,28 +186,43 @@ namespace AnimalRescue.BusinessLogic.Services
                 }
                 else
                 {
-                    return null;
+                    throw new ForbiddenOperationRequestException("Request has wrong status for creation");
                 }
             }
             else
             {
-                return null;
+                throw new ForbiddenOperationRequestException("User does not have a role assinged to perform this operation");
             }
         }
 
 
         public async Task UpdateAsync(RequestDto itemDto, ICollection<Claim> roles)
         {
-            var isAllowed = IsRoleOperatorOrAdmin(roles);
-            if (isAllowed)
+            var isAdmin = IsRoleAdmin(roles);
+            if (isAdmin)
             {
-                await _recoverDataService.RecoverDataAsync<RequestDto, Request>(itemDto);
-
-                var itemDbo = _mapper.Map<RequestDto, Request>(itemDto);
-
-                await _repository.UpdateAsync(itemDbo);
+                await base.UpdateAsync(itemDto);
+            }
+            else
+            {
+                List<string> requestStatuses = GetUpdateRequestStatuses(roles);
+                if (requestStatuses.Count > 0)
+                {
+                    var doesStatusMatches = DoesItemMatchesStatus(itemDto, requestStatuses);
+                    if (doesStatusMatches)
+                    {
+                        await base.UpdateAsync(itemDto);
+                    }
+                    else
+                    {
+                        throw new ForbiddenOperationRequestException("The status of this Request cannot be changed to " + itemDto.Status.Id);
+                    }
+                }
+                else
+                {
+                    throw new ForbiddenOperationRequestException("User does not have a role to change the status of this Request");
+                }
             }
         }
-
     }
 }

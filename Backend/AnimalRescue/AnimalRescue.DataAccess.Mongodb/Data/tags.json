@@ -649,9 +649,155 @@
     ],
     "isDeletable": false,
     "id": "REQUEST_STATUS_WORK"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_ANIMAL_IS_TAKEN_TO_SHELTER",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Animal is taken to a shelter"
+      },
+      {
+        "lang": "en",
+        "value": "Animal is taken to a shelter"
+      },
+      {
+        "lang": "de",
+        "value": "Animal is taken to a shelter"
+      },
+      {
+        "lang": "ru",
+        "value": "Animal is taken to a shelter"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_ANIMAL_IS_TAKEN_TO_SHELTER"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_ANIMAL_IS_SAVED_NO_NEED_SHELTER",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Animal is saved and no need to be taken to the shelter"
+      },
+      {
+        "lang": "en",
+        "value": "Animal is saved and no need to be taken to the shelter"
+      },
+      {
+        "lang": "de",
+        "value": "Animal is saved and no need to be taken to the shelter"
+      },
+      {
+        "lang": "ru",
+        "value": "Animal is saved and no need to be taken to the shelter"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_ANIMAL_IS_SAVED_NO_NEED_SHELTER"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_ANIMAL_IS_IN_VERY_POOR_CONDITION",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Для обробки"
+      },
+      {
+        "lang": "en",
+        "value": "For processing"
+      },
+      {
+        "lang": "de",
+        "value": "For processing"
+      },
+      {
+        "lang": "ru",
+        "value": "Для обработки"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_ANIMAL_IS_IN_VERY_POOR_CONDITION"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_ANIMAL_NOT_FOUND",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Animal was not found"
+      },
+      {
+        "lang": "en",
+        "value": "Animal was not found"
+      },
+      {
+        "lang": "de",
+        "value": "Animal was not found"
+      },
+      {
+        "lang": "ru",
+        "value": "Animal was not found"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_ANIMAL_NOT_FOUND"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_ANIMAL_DIED",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Animal died"
+      },
+      {
+        "lang": "en",
+        "value": "Animal died"
+      },
+      {
+        "lang": "de",
+        "value": "Animal died"
+      },
+      {
+        "lang": "ru",
+        "value": "Animal died"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_ANIMAL_DIED"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_ANIMAL_IS_IN_SHELTER",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Animal is in the shelter"
+      },
+      {
+        "lang": "en",
+        "value": "Animal is in the shelter"
+      },
+      {
+        "lang": "de",
+        "value": "Animal is in the shelter"
+      },
+      {
+        "lang": "ru",
+        "value": "Animal is in the shelter"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_ANIMAL_IS_IN_SHELTER"
   }
-
-  
-
-
 ]
