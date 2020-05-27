@@ -1,10 +1,8 @@
 import React from "react";
 import { ISocialLinks, IEmails, IAddresses, addInfoContacts } from "../../../../api/contacts";
 import { addInfoCard, IDataBankCard } from "../../../../api/infoCard";
-import { HtmlEditor } from "../../../../components/HtmlEditor";
 import _ from "lodash";
-import { htmlToDraftHelper, draftToHtmlHelper } from '../../../../shared/htmlEditorHelper';
-import { EditorState } from "draft-js";
+import {HtmlEditor, styleCard} from "../../../../components/HtmlEditor";
 
 interface IPropTypes {
     socialLinks: ISocialLinks;
@@ -23,7 +21,7 @@ interface IState {
     infoCard:{
         body:string;
     };
-    editorCardState: EditorState;
+    editorCardState: string;
 }
 export class AdminCommonHead extends React.Component<IPropTypes, IState> {
 constructor(props: IPropTypes){
@@ -50,8 +48,8 @@ constructor(props: IPropTypes){
         },
         infoCard:{
             body: this.props.infoCard.body,
-        }, 
-        editorCardState: htmlToDraftHelper(this.props.infoCard.body),
+        },
+        editorCardState: this.props.infoCard.body,
     }
 }
 handleContactInfo = (e:React.ChangeEvent<HTMLInputElement>, key:string) => {
@@ -91,12 +89,12 @@ componentDidUpdate(prevProps: IPropTypes ) {
     const { infoCard } = this.props;
     if(!_.isEqual(infoCard, prevProps.infoCard)){
       this.setState({
-        editorCardState: htmlToDraftHelper(infoCard.body)
-      });      
+        editorCardState: infoCard.body
+      });
     }
   }
 
-  onEditorStateChange = (editorCardState: EditorState) => {
+  onEditorStateChange = (editorCardState: string) => {
     this.setState({
       editorCardState
     });
@@ -111,14 +109,14 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
         emails:{...this.state.emails},
         addresses: {...this.state.addresses}
     }
-    const card = {...this.state.infoCard}    
-    const htmlCard = draftToHtmlHelper(this.state.editorCardState);
-    card.body = htmlCard;
+    const card = {...this.state.infoCard}
+    // const htmlCard = draftToHtmlHelper();
+    card.body = this.state.editorCardState;
     addInfoContacts(contacts).then(resp=>console.log(resp));
     addInfoCard(card).then(resp=>console.log(resp));
 }
 
-    render(){ 
+    render(){
         return(
             <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
                 <h3>Контактна інформація</h3>
@@ -162,6 +160,7 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
                 <HtmlEditor
                     editorState={this.state.editorCardState}
                     onChange={this.onEditorStateChange}
+                    classList={styleCard}
                   />
                 <h4>Соц.мережі</h4>
                 <div className="form-row">

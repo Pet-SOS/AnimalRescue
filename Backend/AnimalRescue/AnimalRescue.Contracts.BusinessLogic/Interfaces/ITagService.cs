@@ -3,6 +3,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
@@ -10,5 +11,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlFullCrud<TagDto, TagDto, Guid>,
         IBlCreateIfNotExistAsync<IEnumerable<TagDto>>
     {
+        Task<IEnumerable<TagDto>> WhereAsync(IEnumerable<TagDto> value);
     }
 }

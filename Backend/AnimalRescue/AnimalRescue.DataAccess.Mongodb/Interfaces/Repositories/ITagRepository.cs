@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
     public interface ITagRepository : IBaseRepository<Tags>,
-        IBaseVoidCreateAsync<IEnumerable<Tags>>,
-        IBaseWhereAsync<List<Tags>, List<Tags>>
+        IBaseCreateAsync<IEnumerable<Tags>>,
+        IBaseWhereAsync<IEnumerable<Tags>, IEnumerable<Tags>>
     {
     }
 }

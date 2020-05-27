@@ -90,7 +90,6 @@ export interface IAnimal {
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: string;
-  age: number;
   imageIds: string[];
   previousImageIds?: string[];
   tags: string[];
@@ -99,6 +98,8 @@ export interface IAnimal {
   character: string;
   status: ITag;
   locationType: ILocationType;
+  locationTypeId: string;
+  locationName: string;
   bannerText: string;
   isDonationActive: boolean;
   id?: string;
@@ -118,13 +119,14 @@ export const DEFAULT_ANIMAL: IAnimal = {
     kindOfAnimal: '',
     gender: '',
     description: ' ',
-    age: 0,
     imageIds: [],
     previousImageIds: [],
     tags: [],
     character: '',
     status: DEFAULT_SINGLE_TAG,
     locationType: DEFAULT_SINGLE_LOCATION,
+    locationTypeId: '',
+    locationName: '',
     bannerText: '',
     isDonationActive: false,
     birthday: '',
