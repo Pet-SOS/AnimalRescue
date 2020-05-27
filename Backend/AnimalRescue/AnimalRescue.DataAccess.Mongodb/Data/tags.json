@@ -573,5 +573,85 @@
     ],
     "isDeletable": false,
     "id": "Overexposure"
+  },
+
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_FOR_PROCESSING",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Для обробки"
+      },
+      {
+        "lang": "en",
+        "value": "For processing"
+      },
+      {
+        "lang": "de",
+        "value": "For processing"
+      },
+      {
+        "lang": "ru",
+        "value": "Для обработки"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_FOR_PROCESSING"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_URGENT",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Терміново"
+      },
+      {
+        "lang": "en",
+        "value": "Urgent"
+      },
+      {
+        "lang": "de",
+        "value": "Urgent"
+      },
+      {
+        "lang": "ru",
+        "value": "Срочно"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_URGENT"
+  },
+  {
+    "category": "request",
+    "kindOfAnimal": "",
+    "code": "REQUEST_STATUS_WORK",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Обробляється"
+      },
+      {
+        "lang": "en",
+        "value": "Work"
+      },
+      {
+        "lang": "de",
+        "value": "Work"
+      },
+      {
+        "lang": "ru",
+        "value": "Обрабатывается"
+      }
+    ],
+    "isDeletable": false,
+    "id": "REQUEST_STATUS_WORK"
   }
+
+  
+
+
 ]
