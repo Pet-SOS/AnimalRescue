@@ -7,7 +7,6 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 using System;
@@ -51,15 +50,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             return await _baseCollection.CreateAsync(tags);
         }
 
-        public async Task CreateAsync(IEnumerable<Tags> tags)
+        public async Task<IEnumerable<Tags>> CreateAsync(IEnumerable<Tags> tags)
         {
-            if (tags?.Count() == 0)
+            if (tags == null || !tags.Any())
             {
-                return;
+                return new List<Tags>();
             }
 
             tags =  tags.Select(x=> { x.Id = null; x.CreatedAt = DateTime.UtcNow; return x; });
-            await _baseCollection.CreateAsync(tags);
+            return await _baseCollection.CreateAsync(tags);
         }
 
         public async Task UpdateAsync(Tags tags)
@@ -85,12 +84,17 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             await _baseCollection.DeleteAsync(id);
         }
 
+        public IAsyncEnumerable<Tags> GetAllItemsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> GetCountAsync(DbQuery query)
         {
             return await _baseCollection.GetCountAsync(query);
         }
 
-        public async Task<List<Tags>> WhereAsync(List<Tags> tags)
+        public async Task<IEnumerable<Tags>> WhereAsync(IEnumerable<Tags> tags)
         {
             List<BsonDocument> items = new List<BsonDocument>();
             FilterDefinition<BsonDocument> filter = condition.OR( 

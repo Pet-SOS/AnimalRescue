@@ -1,6 +1,8 @@
 import React from "react";
 import { ISocialLinks, IEmails, IAddresses, addInfoContacts } from "../../../../api/contacts";
 import { addInfoCard, IDataBankCard } from "../../../../api/infoCard";
+import _ from "lodash";
+import {HtmlEditor, styleCard} from "../../../../components/HtmlEditor";
 
 interface IPropTypes {
     socialLinks: ISocialLinks;
@@ -17,12 +19,9 @@ interface IState {
     emails: IEmails;
     addresses: IAddresses;
     infoCard:{
-        cardNumber:string;
-        edrpou: string;
-        bankName: string;
-        firstName: string;
-        lastName: string;
+        body:string;
     };
+    editorCardState: string;
 }
 export class AdminCommonHead extends React.Component<IPropTypes, IState> {
 constructor(props: IPropTypes){
@@ -48,12 +47,9 @@ constructor(props: IPropTypes){
             street: this.props.addresses.street
         },
         infoCard:{
-            cardNumber: this.props.infoCard.bankCard.cardNumber,
-            edrpou: this.props.infoCard.bankCard.edrpou,
-            bankName: this.props.infoCard.bankCard.bankName,
-            firstName: this.props.infoCard.bankCard.firstName,
-            lastName: this.props.infoCard.bankCard.lastName
-        }
+            body: this.props.infoCard.body,
+        },
+        editorCardState: this.props.infoCard.body,
     }
 }
 handleContactInfo = (e:React.ChangeEvent<HTMLInputElement>, key:string) => {
@@ -88,14 +84,21 @@ handleAddress = (e:React.ChangeEvent<HTMLInputElement>, key:string) => {
         }
     })
 }
-handleCard = (e:React.ChangeEvent<HTMLInputElement>, key:string) => {
+
+componentDidUpdate(prevProps: IPropTypes ) {
+    const { infoCard } = this.props;
+    if(!_.isEqual(infoCard, prevProps.infoCard)){
+      this.setState({
+        editorCardState: infoCard.body
+      });
+    }
+  }
+
+  onEditorStateChange = (editorCardState: string) => {
     this.setState({
-        infoCard: {
-            ...this.state.infoCard,
-            [key]: e.target.value
-        }
-    })
-}
+      editorCardState
+    });
+  };
 
 handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
@@ -106,16 +109,14 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
         emails:{...this.state.emails},
         addresses: {...this.state.addresses}
     }
-    const card = {
-        bankCard:{...this.state.infoCard},
-        title:'',
-        body:''
-    }
+    const card = {...this.state.infoCard}
+    // const htmlCard = draftToHtmlHelper();
+    card.body = this.state.editorCardState;
     addInfoContacts(contacts).then(resp=>console.log(resp));
     addInfoCard(card).then(resp=>console.log(resp));
 }
 
-    render(){ 
+    render(){
         return(
             <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
                 <h3>Контактна інформація</h3>
@@ -155,19 +156,12 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
                     <label htmlFor="address-street">Вулиця</label>
                     <input id="address-street" onChange={(e)=>this.handleAddress(e,'street')} type="text" value={this.state.addresses.street||''}/>
                 </div>
-                <h4>Банківська картка</h4>
-                <div className="form-row">
-                    <label htmlFor="card-fnumber">Номер картки</label>
-                    <input id="card-fnumber" onChange={(e)=>this.handleCard(e,'cardNumber')} type="text" value={this.state.infoCard.cardNumber||''}/>
-                </div>
-                <div className="form-row">
-                    <label htmlFor="card-name">Iм'я</label>
-                    <input id="card-name" onChange={(e)=>this.handleCard(e,'firstName')} type="text" value={`${this.state.infoCard.firstName}`||''}/>
-                </div>
-                <div className="form-row">
-                    <label htmlFor="card-sname">Прізвище</label>
-                    <input id="card-sname" onChange={(e)=>this.handleCard(e,'lastName')} type="text" value={`${this.state.infoCard.lastName}`||''}/>
-                </div>
+                <h4>Банківські картки</h4>
+                <HtmlEditor
+                    editorState={this.state.editorCardState}
+                    onChange={this.onEditorStateChange}
+                    classList={styleCard}
+                  />
                 <h4>Соц.мережі</h4>
                 <div className="form-row">
                     <label htmlFor="social-facebook">Facebook</label>

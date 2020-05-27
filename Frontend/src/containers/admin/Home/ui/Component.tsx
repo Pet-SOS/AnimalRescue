@@ -1,15 +1,18 @@
 import React from 'react';
 import '../styles/home.scss';
 import {DEFAULT_ANIMAL, IAnimal, IAnimalsResponse} from "../../../../api/animals";
-import {AnimalEditCard} from "../../AnimalEditCard/ui/AnimalEditCard";
+import AnimalEditCard from "../../AnimalEditCard/ui/AnimalEditCard";
 import { AdminMenu } from '../../AdminMenu';
+import { ITag } from '../../../../api/tags';
 
 interface AdminHomeProps {
-    animalsList: IAnimalsResponse
+    animalsList: IAnimalsResponse;
+    tagsList: { [key: string]: Array<ITag> };
     fetchAnimalsRequest: () => void;
-    deleteAnimal: (id: string) => void
-    postAnimal: (animal: IAnimal) => void
-    updateAnimal: (params: { animal: IAnimal, id?: string }) => void
+    deleteAnimal: (id: string) => void;
+    postAnimal: (animal: IAnimal) => void;
+    updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
+    fetchAnimalItem: (id:string) => any;
 }
 
 export class AdminHomePage extends React.Component<AdminHomeProps> {
@@ -34,9 +37,12 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
     renderAnimal = (animal: IAnimal) => {
         return (<div key={animal.id || 'newAnimal'} className={'animal-card'}>
             {<AnimalEditCard animal={animal}
+                             tagsList={this.props.tagsList}
                              deleteAnimal={this.deleteAnimal}
                              postAnimal={this.postAnimal}
-                             updateAnimal={this.updateAnimal}/>}
+                             updateAnimal={this.updateAnimal}
+                             fetchAnimalItem={this.props.fetchAnimalItem}
+            />}
         </div>)
     }
 
@@ -58,7 +64,7 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
                     </div>
                 </main>
             </div>
-           
+
         )
     }
 };

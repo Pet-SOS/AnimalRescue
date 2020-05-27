@@ -35,10 +35,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("description")]
         public string Description { get; set; }
 
-        [CouplingPropertyName(animal.Age)]
-        [BsonElement("age")]
-        public int Age { get; set; }
-
         [CouplingPropertyName(animal.DateOfFound)]
         [BsonElement("dateOfFound")]
         public DateTime DateOfFound { get; set; }
@@ -54,7 +50,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(common.Tags)]
         [BsonElement("tags")]
         public List<string> Tags { get; set; }
-
 
         [CouplingPropertyName(animal.CoverImage)]
         [BsonElement("coverImage")]
@@ -76,13 +71,13 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("status")]
         public WellKnownTag Status { get; set; }
 
-        [CouplingPropertyName(animal.LocationType)]
-        [BsonElement("locationType")]
-        public Location LocationType { get; set; }
+        [CouplingPropertyName(animal.LocationTypeId)]
+        [BsonElement("locationTypeId")]
+        public string LocationTypeId { get; set; }
 
         [CouplingPropertyName(animal.LocationName)]
         [BsonElement("locationName")]
-        public WellKnownTag LocationName { get; set; }
+        public string LocationName { get; set; }
 
         [CouplingPropertyName(animal.IsDonationActive)]
         [BsonElement("isDonationActive")]

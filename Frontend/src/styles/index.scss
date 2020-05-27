@@ -388,7 +388,7 @@ input, textarea, ::placeholder {
 
   }
 
-  input, textarea {
+  input, textarea, select {
     width: 100%;
     border: 1px solid #D9D9D9;
     border-radius: 4px;
@@ -406,6 +406,26 @@ input, textarea, ::placeholder {
     &:focus {
       border-color: lighten($brand-color-primary, 10%);
       box-shadow: 0 0 0 1px lighten($brand-color-primary, 10%);
+    }
+
+    &:disabled,
+    &.disabled {
+      color: #62738d;
+      border-color: #dbdadb;
+      background-color: #f7f7f7;
+    }
+  }
+
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    background-image: url(/static/media/arrow_down.64024591.svg);
+    background-repeat: no-repeat;
+    background-position: 96% 50%;
+
+    .default-val {
+      display: none;
     }
   }
 
@@ -445,6 +465,10 @@ input, textarea, ::placeholder {
 .form-row {
   padding:0 0 24px;
 
+  &.small-row {
+    padding-bottom: 16px;
+  }
+
   &.field-phone-size {
     @include media('>=xs-phone') {
       max-width:195px;
@@ -457,6 +481,16 @@ input, textarea, ::placeholder {
     padding: 0 0 4px;
     font-size: 16px;
     line-height: 24px;
+  }
+}
+
+.form-cols-group {
+  display: flex;
+  margin: 0 -4px;
+
+  .form-col {
+    flex: 1 0 0;
+    padding: 0 4px;
   }
 }
 

@@ -43,6 +43,7 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Birthday = "birthday";
             public const string ProfilePhoto = "profilePhoto";
             public const string LastPasswordChange = "lastPasswordChange";
+            public const string PersonState = "personState";
         }
 
         public static class Animal
@@ -50,17 +51,17 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Number = "number";
             public const string KindOfAnimal = "kindOfAnimal";
             public const string Gender = "gender";
-            public const string Age = "age";
             public const string DateOfFound = "dateOfFound";
             public const string DateOfAdopted = "dateOfAdopted";
             public const string CoverImage = "coverImage";
             public const string Birthday = "birthday";
             public const string Character = "character";
             public const string Status = "status";
-            public const string LocationType = "locationType";
+            public const string LocationTypeId = "locationTypeId";
             public const string LocationName = "locationName";
             public const string IsDonationActive = "isDonationActive";
             public const string BannerText = "bannerText";
+            public const string AnimalState = "animalState";
         }
 
         public static class Common
@@ -86,6 +87,8 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string BlogType = "blogType";
             public const string ContentType = "contentType";
             public const string Price = "price";
+            public const string Case = "case";
+            public const string CaseDescription = "caseDescription";
         }
 
         public static class BaseItem
@@ -112,6 +115,17 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Operator = "Operator";
             public const string Rescuer = "Rescuer";
             public const string Media = "Media";
+        }
+
+        public static class History
+        {
+            public const string EntityName = "entityName";
+            public const string EntityId = "entityId";
+            public const string IsEntityDeleted = "isEntityDeleted";
+            public const string Differences = "differences";
+            public const string PropertyName = "propertyName";
+            public const string LastValue = "lastValue";
+            public const string NewValue = "newValue";
         }
     }
 }

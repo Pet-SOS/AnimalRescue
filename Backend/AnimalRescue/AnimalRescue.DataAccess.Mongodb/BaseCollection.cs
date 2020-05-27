@@ -53,7 +53,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             Require.Objects.NotNull<NotFoundException>(oldItem,
                 () => $"Instance with id: {instance.Id} not found");
-            instance.RecoverImages(oldItem);
+           
             oldItem = oldItem.UpdateFrom(instance);
 
             await collection.ReplaceOneAsync(t => t.Id == instance.Id, oldItem);
@@ -124,6 +124,20 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .SingleOrDefaultAsync();
 
             return item;
+        }
+        public async IAsyncEnumerable<T> GetAllItemsAsync()
+        {
+            var filter = Builders<T>.Filter.Empty;
+
+            using IAsyncCursor<T> cursor = await collection.FindAsync(filter);
+
+            while (await cursor.MoveNextAsync())
+            {
+                foreach (T current in cursor.Current)
+                {
+                    yield return current;
+                }
+            }
         }
     }
 }

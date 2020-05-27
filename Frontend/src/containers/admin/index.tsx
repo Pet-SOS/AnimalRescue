@@ -1,23 +1,27 @@
 import React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {HomePage} from "./Home";
-import { FinancialReports } from './FinancialReports';
-import { Login } from './Login';
-import { AdminHomePage } from './AdminHomePage';
-import { GuardProvider, GuardedRoute } from 'react-router-guards';
-import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import { guardLogin } from './guards/guardLogin';
-import TagsList from './Tags/TagsList/TagsList';
-import TagsCategoryList from './Tags/TagsCategory/TagsCategoryList';
-import { CommonInfo } from './CommonInfo';
-import { AnimalsList } from './AnimalsList';
-import { AnimalAdminCard } from './AnimalEditCard';
+import {FinancialReports} from './FinancialReports';
+import {Login} from './Login';
+import {AdminHomePage} from './AdminHomePage';
+import {GuardedRoute, GuardProvider} from 'react-router-guards';
+import {Router} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import {guardLogin} from './guards/guardLogin';
+import {CommonInfo} from './CommonInfo';
+import {AnimalsList} from './AnimalsList';
+import {AnimalAdminCard} from './AnimalEditCard';
+import LocationContainer from "./Locations/ui/LocationsContainer";
+import {AdminTagsRouter} from "./Tags/TagRouter";
+import {AdminBlogRouter} from "./Blog";
+
 
 const history = createBrowserHistory();
+
 interface IPropTypes extends RouteComponentProps {
-  history:any
+    history: any
 }
+
 // To Do:
 // domain /account/signIn                     = done!
 // domain /account/singUp
@@ -27,24 +31,27 @@ interface IPropTypes extends RouteComponentProps {
 
 
 const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
-  history.location.state = props.match.path
-  return  (
-    <Router history={history}>
-      <GuardProvider >
-        <GuardedRoute path={`${props.match.path}/signIn`} exact component={Login} />
-        <GuardProvider guards={[guardLogin]}>
-              <GuardedRoute path={`${props.match.path}`} component={AdminHomePage} exact/>
-              <GuardedRoute path={`${props.match.path}/animals`} component={HomePage} exact/>
-              <GuardedRoute path={`${props.match.path}/tags`} component={TagsCategoryList} exact />
-              <GuardedRoute path={`${props.match.path}/tags/:tagCategoryName`} component={TagsList} exact />
-              <GuardedRoute path={`${props.match.path}/animals-list/page/:page`} component={AnimalsList} exact/>
-              <GuardedRoute path={`${props.match.path}/animals-list/animal`} component={AnimalAdminCard} exact/>
-              <GuardedRoute path={`${props.match.path}/animals-list/:id`} component={AnimalAdminCard} exact/>
-              <GuardedRoute path={`${props.match.path}/reports`} component={FinancialReports} exact/>
-              <GuardedRoute path={`${props.match.path}/common`} component={CommonInfo} exact/>
-        </GuardProvider>
-      </GuardProvider>
-  </Router>
-  )
-}
+    history.location.state = props.match.path;
+    return (
+        <Router history={history}>
+            <GuardProvider>
+                <GuardedRoute path={`${props.match.path}/signIn`} exact component={Login}/>
+                <GuardProvider guards={[guardLogin]}>
+                    <GuardedRoute path={`${props.match.path}`} component={AdminHomePage} exact/>
+                    <GuardedRoute path={`${props.match.path}/animals`} component={HomePage} exact/>
+                    <GuardedRoute path={`${props.match.path}/tags`}><AdminTagsRouter/></GuardedRoute>
+                    <GuardedRoute path={`${props.match.path}/blog`}><AdminBlogRouter/></GuardedRoute>
+                    <GuardedRoute path={`${props.match.path}/animals-list/page/:page`} component={AnimalsList} exact/>
+                    <GuardedRoute path={[
+                        `${props.match.path}/animals-list/animal`,
+                        `${props.match.path}/animals-list/:id`
+                    ]} component={AnimalAdminCard} exact/>
+                    <GuardedRoute path={`${props.match.path}/reports`} component={FinancialReports} exact/>
+                    <GuardedRoute path={`${props.match.path}/common`} component={CommonInfo} exact/>
+                    <GuardedRoute path={`${props.match.path}/locations`} component={LocationContainer} exact/>
+                </GuardProvider>
+            </GuardProvider>
+        </Router>
+    )
+};
 export default Admin

@@ -78,7 +78,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchYouTubeVideos(2);
     fetchArticlesList({filter:{
       fieldName: 'type',
-      opeartor: RequestFilterOperators.EQ,
+      operator: RequestFilterOperators.EQ,
       value: 'article'
     }});
     return () => {
@@ -96,7 +96,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   return (
     <React.Fragment>
       <HelpBlock
-        animalsList={animalsList.data}
+        animalsList={sickAnimalsList.data}
         title={<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде" />}
         isLightMode
       />

@@ -1,7 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.Infrastructure.Helpers;
 
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 using System;
@@ -16,6 +15,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models.Tag
         #region IBaseAuditItem
         [BsonId]
         //[BsonRepresentation(BsonType.ObjectId)]
+        [CouplingPropertyName(nameof(baseItem.Id), false, true, "_id")]
         public string Id { get; set; }
 
         [CouplingPropertyName(baseItem.CreatedAt)]

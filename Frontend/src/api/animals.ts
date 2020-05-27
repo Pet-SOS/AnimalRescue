@@ -1,5 +1,9 @@
-import { API } from './index'
-import {IRequestParams, prepareRequestParams} from './requestOptions'
+import { API } from './index';
+import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
+import { ITag } from './tags';
+import { ILocationType } from './admin/locations';
+import { DEFAULT_SINGLE_TAG } from '../store/state/tags.state';
+import { DEFAULT_SINGLE_LOCATION } from '../containers/admin/Locations/store/state';
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -19,11 +23,11 @@ export enum Gender {MALE = 'male', FEMALE = 'female', ANY='any'}
 
 export enum AnimalKind { CAT = 'CAT', DOG = 'DOG', ANY='ANY'}
 export enum AnimalGender{
-    ANY='any',
-    MALE = 'male',
-    FEMALE = 'female', 
+    ANY='ANY',
+    MALE = 'MALE',
+    FEMALE = 'FEMALE',
 }
-export enum AnimalFilterKind { 
+export enum AnimalFilterKind {
     ANY='any',
     DOG = 'dog',
     CAT = 'cat',
@@ -38,24 +42,42 @@ export enum AnimalBreed {
     DACHSHUND='dachshund'
 }
 
-export enum AnimalAge{
+export enum AnimalAge {
     ANY='any',
     TOONE = 'toOne',
-    TOTHREE = 'toThree', 
+    TOTHREE = 'toThree',
     TOFIVE= 'toFive',
     FROMFIVE= 'fromFive'
 }
 
 export enum AnimalSize {
-    ANY='any',
-    SMALL='small',
-    MEDIUM='medium',
-    LARGE='large'
+    ANY='ANY',
+    SMALL_DOG = 'SMALL_DOG',
+    MEDIUM_DOG = 'MEDIUM_DOG',
+    LARGE_DOG = 'LARGE_DOG'
+}
+
+export enum FilterType {
+    ANY= 'ANY',
+    KIND_OF_ANIMAL = 'kindOfAnimal',
+    BREED = 'breed',
+    GENDER = 'gender',
+    AGE = 'age',
+    SIZE = 'dogsize',
+    STERILIZED = 'STERILIZED',
+    VACCINATED = 'VACCINATED',
+    READYTOABROAD = 'READYTOABROAD'
+}
+
+export enum EditableTags {
+  STERILIZED = 'STERILIZED',
+  VACCINATED = 'VACCINATED',
+  READYTOABROAD = 'READYTOABROAD'
 }
 
 export enum Tags{
     VACCINATED='привит',
-    READYTOTRAVEL='доступен для выезда заграницу',
+    READYTOABROAD='доступен для выезда заграницу',
     TREATMENT='на лечении',
     SPECIAL='особенный',
     STERILIZED='стерилизован',
@@ -63,20 +85,26 @@ export enum Tags{
     THELOSS ='потеряшка'
 }
 export interface IAnimal {
-  number: number
-  name: string
-  kindOfAnimal: string | AnimalKind
-  gender: string | Gender
-  description: string
-  age: number
-  imageIds: string[]
-  tags: string[]
-  coverImage: number
+  number: number;
+  name: string;
+  kindOfAnimal: string | AnimalKind;
+  gender: string | Gender;
+  description: string;
+  imageIds: string[];
+  previousImageIds?: string[];
+  tags: string[];
+  coverImage: number;
   birthday?: string;
-  character: string
-  id?: string 
+  character: string;
+  status: ITag;
+  locationType: ILocationType;
+  locationTypeId: string;
+  locationName: string;
+  bannerText: string;
+  isDonationActive: boolean;
+  id?: string;
   readonly?: boolean;
-  images: []
+  images: [];
   createdAt?: string;
 }
 
@@ -91,13 +119,20 @@ export const DEFAULT_ANIMAL: IAnimal = {
     kindOfAnimal: '',
     gender: '',
     description: ' ',
-    age: 0,
     imageIds: [],
+    previousImageIds: [],
     tags: [],
     character: '',
+    status: DEFAULT_SINGLE_TAG,
+    locationType: DEFAULT_SINGLE_LOCATION,
+    locationTypeId: '',
+    locationName: '',
+    bannerText: '',
+    isDonationActive: false,
     birthday: '',
     coverImage: 0,
-    images: []
+    images: [],
+    id: ''
 }
 
 export interface IAnimalsResponse {
@@ -114,8 +149,13 @@ export interface ISavedAnimalsCountResponse {
     self: string;
 }
 
+export async function fetchAdminAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
+    const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+    return res.data
+}
+
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-  const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
+  const res = await API.get('animals', {params: prepareReadyForAdoptionRequestParams(requestParams)});
   return res.data
 }
 

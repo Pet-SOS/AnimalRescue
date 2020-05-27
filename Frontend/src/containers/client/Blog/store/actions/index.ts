@@ -21,7 +21,7 @@ export const actionFetchBlogListSavedRequest = createAction(
     ...requestParams,
     filter: {
       fieldName: 'tags',
-      opeartor: RequestFilterOperators.ALL,
+      operator: RequestFilterOperators.ALL,
       value: AllTag.SAVED
     }
   })
@@ -37,3 +37,7 @@ export const actionFetchBlogListSavedFailure = createAction(
 export const actionClearEntireBlogsState = createAction(
   'CLEAR_ENTIRE_BLOG_STATE'
 )
+
+export const actionClearBlogListState = createAction(
+    'CLEAR_BLOG_LIST_STATE'
+);

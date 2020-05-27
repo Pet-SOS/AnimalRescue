@@ -1,10 +1,6 @@
 ﻿using AnimalRescue.API.Core.Configuration.MappingProfiles;
-
 using AutoMapper;
-
 using Microsoft.Extensions.DependencyInjection;
-
-using System;
 using System.Collections.Generic;
 
 namespace AnimalRescue.API.Core.Configuration
@@ -16,8 +12,20 @@ namespace AnimalRescue.API.Core.Configuration
             List<Profile> profiles)
         {
             profiles.AddRange(new List<Profile> { 
-                new ApiMappingProfile(), 
                 new LocationMappingProfile(), 
+                new DonationConfigurationMappingProfile(),
+                new CmsConfigurationMappingProfile(),
+                new AnimalMappingProfile(),
+                new FinancialReportMappingProfile(),
+                new TagMappingProfile(),
+                new LanguageValueMappingProfile(),
+                new WellKnownTagMappingProfile(),
+                new EmployeeMappingProfile(),
+                new BlogMappingProfile(),
+                new StoryMappingProfile(),
+                new ArticleMappingProfile(),
+                new RequestMappingProfile(),
+                new HistoryProfile()
             });
 
             var mappingConfig = new MapperConfiguration(mc => profiles.ForEach(x => mc.AddProfile(x)));

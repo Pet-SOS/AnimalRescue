@@ -16,6 +16,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         public const string ElementMatch = "elementmatch";
         public const string All = "all";
         public const string Eq = "eq";
+        public const string Contains = "contains";
         public const string Gte = "gte";
         public const string Gt = "gt";
         public const string Lte = "lte";
@@ -32,6 +33,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                 yield return Lte;
                 yield return Lt;
                 yield return Ne;
+                yield return Contains;
                 yield return ElementMatch;
             }
         }
@@ -89,6 +91,11 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             if (propertyType == typeof(string))
             {
                 if (Eq == operationName)
+                {
+                    return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex($"^{content}$", RegexOptions.IgnoreCase)));
+                }
+
+                if (Contains == operationName)
                 {
                     return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
                 }

@@ -82,11 +82,11 @@ export default {
   aboutReason6: 'животным, которые подверглись жестокому обращению от человека',
   aboutServiceHowWeWorkTitle: 'Как мы работаем',
   aboutServiceHowWeWorkText: 'Круглосуточно. Все вызовы принимаются исключительно через горячую линию +38 095 478 88 78',
-  
+
   titleYouTubeBox:'Видео-истории',
   subTitleYouTubeBox: 'Истории о спасенных животных',
   youtubeTitleLink:'Смотреть все истории на нашем канале',
-  
+
   rulesPageTitle: 'Правила взаимодействия со службой',
   rulesMainText: 'Мы никогда не знаем, когда животным может понадобиться срочная помощь, но знаем, что всегда должны быть готовы оказать ее. Команда службы спасения отвечает на вызовы в ситуациях, когда животным требуется защита.',
   rulesWhatShouldIDoTitle: 'Что делать, если я вижу, что животному нужна помощь?',
@@ -196,7 +196,7 @@ export default {
   adoptPopupText4: ' или ',
   adoptPopupText5: 'оставьте нам свои контакты и мы сами вам перезвоним.',
   callBack: 'Перезвоните мне',
-  
+
   lookingForAFriendPageTitle: 'Ищу друга',
   lookingForAFriendPageSelectKind: 'Вид',
   lookingForAFriendPageSelectBreed: 'Порода',
@@ -243,7 +243,7 @@ export default {
   AnimalSizelarge:'Большой',
 
   pageNotFound: 'Страница не найдена',
-  
+
   favoritesPageTitle: 'Mне понравились',
   noneFavoriteAnimalsText: 'Вы пока не отметили никого из животных, присмотритесь, вдруг ваш друг ждет вас у нас.',
   itLikedYouText: 'Вам приглянулись ',

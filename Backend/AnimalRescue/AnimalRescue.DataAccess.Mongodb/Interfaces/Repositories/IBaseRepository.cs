@@ -13,5 +13,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
         IBaseUpdateAsync<TEntity>,
         IBaseDeleteAsync<string>
     {
+        IAsyncEnumerable<TEntity> GetAllItemsAsync();
     }
 }

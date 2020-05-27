@@ -34,13 +34,13 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(common.Description)]
         public string Description { get; set; }
 
-        [JsonPropertyName(animal.Age)]
-        [JsonProperty(animal.Age)]
-        public int Age { get; set; }
-
         [JsonPropertyName(common.Images)]
         [JsonProperty(common.Images)]
         public List<IFormFile> Images { get; set; } = new List<IFormFile>();
+
+        [JsonPropertyName(common.ImageIds)]
+        [JsonProperty(common.ImageIds)]
+        public string PreviousImageIds { get; set; }
 
         [JsonPropertyName(common.Tags)]
         [JsonProperty(common.Tags)]
@@ -63,9 +63,9 @@ namespace AnimalRescue.API.Models.Animals
         public string Status { get; set; }
 
         [Required]
-        [JsonPropertyName(animal.LocationType)]
-        [JsonProperty(animal.LocationType)]
-        public Guid LocationType { get; set; }
+        [JsonPropertyName(animal.LocationTypeId)]
+        [JsonProperty(animal.LocationTypeId)]
+        public Guid LocationTypeId { get; set; }
 
         [JsonPropertyName(animal.LocationName)]
         [JsonProperty(animal.LocationName)]

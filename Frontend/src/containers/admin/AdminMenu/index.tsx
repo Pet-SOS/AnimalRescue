@@ -7,8 +7,9 @@ import {Link, NavLink} from 'react-router-dom';
 import { Button, ButtonTypes} from "../../../components/Button";
 import {TI18n} from "../../../i18n";
 import {ReactComponent as Logo} from "../../../assets/header/logo.svg";
+export * from './AdminMenuWrapper'
 
-interface IPropTypes{
+export interface IPropTypes{
     selectedKey:string;
     openKeys:string[];
 }
@@ -27,7 +28,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         this.state ={
             collapsed: false,
             selectedKey: this.props.selectedKey,
-            openKeys: ['sub2']
+            openKeys: [... this.props.openKeys, 'sub2']
         }
     }
 
@@ -53,7 +54,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
     }
   };
   render() {
-    let {selectedKey} = this.state;
+    let {selectedKey, openKeys} = this.state;
     return (
       <aside>
           <div className="logo-main">
@@ -70,7 +71,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         <nav>
             <Menu
                 selectedKeys={[selectedKey]}
-                openKeys={this.state.openKeys}
+                openKeys={openKeys}
                 onOpenChange={this.onOpenChange}
                 mode="inline"
                 theme="light"
@@ -104,7 +105,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                     <Menu.Item><NavLink to={`/admin/animals`}><i className="icon-request">icon</i>Тварини old</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-people">icon</i>Працівники</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-date">icon</i>Графік чергувань</NavLink></Menu.Item>
-                    <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-location">icon</i>Перетримки</NavLink></Menu.Item>
+                    <Menu.Item key="locations"><NavLink to={`/admin/locations`}><i className="icon-location">icon</i>Локація</NavLink></Menu.Item>
                     <Menu.Item><NavLink to={`/admin`}><i className="icon-person">icon</i>Профіль</NavLink></Menu.Item>
                 </SubMenu>
             </Menu>
@@ -113,3 +114,4 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
     );
   }
 }
+
