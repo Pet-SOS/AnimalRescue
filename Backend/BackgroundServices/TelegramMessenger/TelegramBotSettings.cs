@@ -4,6 +4,6 @@
     {
         public static string Name => "AntonPetBot";
 
-        public static string Key => "1152281063:AAFJyTDTMn2eXZk_YMYFUYRrrv46QB7HU9s";
+        public static string Key => "1240836823:AAHIuV03-Kod7ZejejDbp_ziBEy1Jzm9dCQ";
     }
 }

@@ -19,7 +19,7 @@ namespace TelegramMessenger.Services
                 return _client;
             }
 
-            _commands = new List<ICommand> { new HelloCommand(), new RegisterCommand() };
+            _commands = new List<ICommand> { new HelloCommand(), new RegisterCommand(), new MessageCommand() };
 
             _client = new TelegramBotClient(TelegramBotSettings.Key);
 

@@ -31,6 +31,14 @@ namespace TelegramMessenger.Services
             return null;
         }
 
+        public async IAsyncEnumerable<ChatDto> GetAllItemsAsync()
+        {
+            foreach (var chat in _chats)
+            {
+                yield return chat;
+            }
+        }
+
         public async Task<int> GetCountAsync(DbQuery query)
         {
             return _chats.Count;

@@ -51,7 +51,7 @@ namespace TelegramMessenger.Services
         {
             foreach (var command in TelegramBot.Commands)
             {
-                if (!string.IsNullOrEmpty(e.Update.Message.Text) && e.Update.Message.Text.Contains(command.Name))
+                if (!string.IsNullOrEmpty(e.Update.Message?.Text) && e.Update.Message.Text.Contains(command.Name))
                 {
                     command.ExecuteAsync(e.Update.Message, _bot);
                 }
