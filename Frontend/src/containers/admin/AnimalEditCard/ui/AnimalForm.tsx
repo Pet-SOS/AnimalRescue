@@ -10,7 +10,7 @@ interface IPropTypes {
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   birthday?: string;
-  status: ITag;
+  status: string;
   statusOptions?: ITag[];
   genderOptions?: ITag[];
   kindOfAnimalOptions?: ITag[];
