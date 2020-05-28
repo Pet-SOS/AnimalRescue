@@ -1,7 +1,6 @@
 import { API } from './index';
 import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
-import { ITag } from './tags';
-import { DEFAULT_SINGLE_TAG } from '../store/state/tags.state';
+import {adminAnimalsAdapter, animalItemAdapter} from "../dto";
 
 const crateFormData = (data: Object) => {
     const formData = new FormData()
@@ -94,7 +93,7 @@ export interface IAnimal {
   coverImage: number;
   birthday?: string;
   character: string;
-  status: ITag;
+  status: string;
   locationTypeId: string;
   locationName: string;
   bannerText: string;
@@ -120,7 +119,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
     previousImageIds: [],
     tags: [],
     character: '',
-    status: DEFAULT_SINGLE_TAG,
+    status: '',
     locationTypeId: '',
     locationName: '',
     bannerText: '',
@@ -145,14 +144,14 @@ export interface ISavedAnimalsCountResponse {
     self: string;
 }
 
-export async function fetchAdminAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-    const res = await API.get('animals', {params: prepareRequestParams(requestParams)});
-    return res.data
+export async function fetchAdminAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse> {
+  const response = await API.get('animals', {params: prepareRequestParams(requestParams)});
+  return new adminAnimalsAdapter().toModel(response.data);
 }
 
 export async function fetchAnimals(requestParams?: IRequestParams): Promise<IAnimalsResponse[]> {
-  const res = await API.get('animals', {params: prepareReadyForAdoptionRequestParams(requestParams)});
-  return res.data
+  const response = await API.get('animals', {params: prepareReadyForAdoptionRequestParams(requestParams)});
+  return response.data
 }
 
 export async function updateAnimal(params: { animal: IAnimal, id?: string }): Promise<void> {
@@ -169,13 +168,13 @@ export async function deleteAnimal(id: string): Promise<void> {
 }
 
 export async function fetchSavedAnimalsCount(): Promise<ISavedAnimalsCountResponse> {
-  const res = await API.get('animals/counter');
-  return res.data
+  const response = await API.get('animals/counter');
+  return response.data
 }
 
 export async function fetchAnimalItem(id: string): Promise<IAnimalResponse> {
-  const res = await API.get(`animals/${id}`);
-  return res.data
+  const response = await API.get(`animals/${id}`);
+  return new animalItemAdapter().toModel(response.data);
 }
 
 export async function fetchFavoriteAnimals(animalIds: string[]): Promise<IAnimalsResponse[]> {
