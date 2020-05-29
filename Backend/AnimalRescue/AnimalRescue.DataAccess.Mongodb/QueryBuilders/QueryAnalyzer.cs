@@ -3,11 +3,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+
+using baseItem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseItem;
 
 namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 {
     public static class QueryAnalyzer
     {
+        static string notDeletedExpr = $"{baseItem.IsDeleted}~{StrictFilterContractConstants.Eq}~'false'";
+
+        static Regex orRegex = new Regex("{(.*?)}(or)?", RegexOptions.Compiled);
         const char tilda = '~';
         const char semicolon = ';';
         const char leftParentheses = '(';
@@ -77,6 +83,28 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
             string rowFilterParams,
             IAliasStore aliasStore)
         {
+            if (!string.IsNullOrWhiteSpace(rowFilterParams))
+            {
+                var orRules = orRegex.Matches(rowFilterParams)
+                    .Cast<Match>()
+                    .Select(m => m.Groups.Values?.ElementAt(1)?.Value)
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x=> $"{notDeletedExpr};{x}")
+                    .ToArray();
+
+                if (orRules.Length > 0)
+                {
+                    var filterDefinitionArray = orRules
+                        .Select(x => x.GetFilterDefinitions<T>(aliasStore))
+                        .Select(x => Builders<T>.Filter.And(x))
+                        .ToArray();
+
+                    var orResult = Builders<T>.Filter.Or(filterDefinitionArray);
+                    
+                    return orResult;
+                }
+            }
+
             var filterArrey = rowFilterParams?
                 .GetFilterDefinitions<T>(aliasStore);
 
