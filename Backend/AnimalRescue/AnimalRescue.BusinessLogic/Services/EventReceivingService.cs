@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using AnimalRescue.Infrastructure.Validation;
 
 using Newtonsoft.Json;
@@ -9,7 +10,6 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Linq;
 using System.Text;
-using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
