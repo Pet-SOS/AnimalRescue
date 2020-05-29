@@ -2,17 +2,15 @@ import { connect } from "react-redux";
 import { AnimalsListPage } from'./ui/AnimalsListPage';
 import { bindActionCreators, Dispatch, AnyAction } from "redux";
 import { actionAdminHomeFetchAnimalsRequest, actionAdminPostAnimalRequest, actionAdminUpdateAnimalRequest } from "../Home/store/actions";
-import { IAnimalsResponse } from "../../../api/animals";
 import { ICustomAppState } from "../../../store/state";
 import { actionFetchAnimalItemRequest, actionClearAnimalItemState } from "../../client/Animals/store/actions/animal.actions";
+import { actionAdminFetchAllLocationsRequest } from "../Locations/store";
 
 
-interface IAnimalsListPageState{
-    animalsList: IAnimalsResponse
-}
 const mapStateToProps = (state: ICustomAppState) => {
     return {
         animalsList: state.AdminHomePage.animalsList,
+        locations: state.AdminHomePage.animalsLocations,
         baseUrl: state.config.data.API_URL
         };
     };
@@ -20,6 +18,7 @@ const mapStateToProps = (state: ICustomAppState) => {
         return bindActionCreators(
             {
                 fetchAnimalsRequest: actionAdminHomeFetchAnimalsRequest,
+                fetchLocations: actionAdminFetchAllLocationsRequest,
                 fetchAnimalItem: actionFetchAnimalItemRequest,
                 clearFetchAnimalItem:actionClearAnimalItemState,
                 postAnimal: actionAdminPostAnimalRequest,
