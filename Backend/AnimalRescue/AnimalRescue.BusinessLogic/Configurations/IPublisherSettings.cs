@@ -13,5 +13,6 @@ namespace AnimalRescue.BusinessLogic.Configurations
         string Exchange { get; set; }
         string ExchangeType { get; set; }
         string RoutingKey { get; set; } 
+        string TelegramKey { get; set; } 
     }
 }

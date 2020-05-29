@@ -13,5 +13,6 @@ namespace AnimalRescue.BusinessLogic.Configurations
         public string UserName { get; set; }
         public string UserPassword { get; set; }
         public int HostPort { get; set; }
+        public string TelegramKey { get; set; }
     }
 }

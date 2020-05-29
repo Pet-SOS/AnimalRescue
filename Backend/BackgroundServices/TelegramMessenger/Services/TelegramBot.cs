@@ -12,7 +12,7 @@ namespace TelegramMessenger.Services
 
         public static IReadOnlyList<ICommand> Commands => _commands.AsReadOnly();
 
-        public static TelegramBotClient GetBot()
+        public static TelegramBotClient GetBot(string telegramToken)
         {
             if (_client != null)
             {
@@ -21,7 +21,7 @@ namespace TelegramMessenger.Services
 
             _commands = new List<ICommand> { new HelloCommand(), new RegisterCommand(), new MessageCommand() };
 
-            _client = new TelegramBotClient(TelegramBotSettings.Key);
+            _client = new TelegramBotClient(telegramToken);
 
             return _client;
         }

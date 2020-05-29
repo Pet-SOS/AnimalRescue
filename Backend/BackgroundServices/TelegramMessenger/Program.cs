@@ -19,7 +19,7 @@ namespace TelegramMessenger
 
             using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings);
 
-            _messenger = new Services.TelegramMessenger();
+            _messenger = new Services.TelegramMessenger(publisherSettings);
 
             _messenger.Init();
 

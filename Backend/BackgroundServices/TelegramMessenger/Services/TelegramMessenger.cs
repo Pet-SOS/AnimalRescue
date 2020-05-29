@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Query;
 using System.Threading.Tasks;
+using AnimalRescue.BusinessLogic.Configurations;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -10,12 +11,14 @@ namespace TelegramMessenger.Services
 {
     public class TelegramMessenger : IMessenger
     {
+        private readonly IPublisherSettings _settings;
         private static TelegramBotClient _bot;
 
         private static IChatRepository<ChatDto> _chatRepository;
 
-        public TelegramMessenger()
+        public TelegramMessenger(IPublisherSettings settings)
         {
+            _settings = settings;
             _chatRepository = new ChatRepository();
         }
 
@@ -23,7 +26,7 @@ namespace TelegramMessenger.Services
         {
             if (_bot == null)
             {
-                _bot = TelegramBot.GetBot();
+                _bot = TelegramBot.GetBot(_settings.TelegramKey);
 
                 _bot.StartReceiving();
 
