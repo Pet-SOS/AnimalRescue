@@ -16,6 +16,19 @@ export const actionAdminFetchLocationsFailure = createAction(
     (resolve) => (type: LocationsCode, error: Error) => resolve({error, type})
 );
 
+// Full list 
+export const actionAdminFetchAllLocationsRequest = createAction(
+    'ADMIN_FETCH_ALL_LOCATIONS_REQUEST',
+    (resolve) => (requestParams?: IRequestParams) => resolve({requestParams})
+);
+export const actionAdminFetchAllLocationsSuccess = createAction(
+    'ADMIN_FETCH_ALL_LOCATIONS_SUCCESS',
+    resolve => (list: any) => resolve({list})
+);
+export const actionAdminFetchAllLocationsFailure = createAction(
+    'ADMIN_FETCH_ALL_LOCATIONS_FAILURE',
+    (resolve) => (error: Error) => resolve({error})
+);
 
 // Update / Edit
 export const actionAdminUpdateLocationRequest = createAction(
@@ -46,7 +59,6 @@ export const actionAdminCreateLocationFailure = createAction(
 );
 
 // Delete
-// Create
 export const actionAdminDeleteLocationRequest = createAction(
     'ADMIN_DELETE_LOCATION_REQUEST',
     (resolve) => (location: ILocation) => resolve({location})

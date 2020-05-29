@@ -5,11 +5,11 @@ import { Input } from 'antd';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import '../style/animalListPage.scss';
 import noPhotoImage from './../../../../img/nophoto.jpg';
-import { store } from '../../../../store';
 import { BtnPagination } from '../../../client/Blog/ui/BtnPagination';
 import { IRequestParams } from '../../../../api/requestOptions';
 import { TagTranslation } from '../../../../components/TagTranslation';
 import { Age } from '../../../../components/Age';
+import { ILocationsResponse } from '../../../../api/admin/locations';
 
 const { Search } = Input;
 
@@ -19,7 +19,9 @@ interface AnimalsListPageProps {
     history: any;
     location:any;
     animalsList: IAnimalsResponse;
+    locations: ILocationsResponse;
     fetchAnimalsRequest: (params?: IRequestParams) => void;
+    fetchLocations: (params?: IRequestParams) => void;
     fetchAnimalItem: (id:string) => any;
     clearFetchAnimalItem:()=> void;
     postAnimal: (animal: IAnimal) => void
@@ -31,7 +33,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
     public sizeAnimalToPage:number = 10;
     constructor(props:AnimalsListPageProps){
         super(props);
-        this.state={
+        this.state={            
         }
     }
     updateAnimalCard(id:any){
@@ -43,6 +45,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
             page: this.props.match.params.page,
             size: this.sizeAnimalToPage,
         });
+        this.props.fetchLocations();
     }
 
     addAnimalSubmit(e:any){
@@ -74,7 +77,17 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
         )
     }
 
-    render(){
+    renderLocationTitle = (id: string) => {
+        return (
+            <div>
+                {this.props.locations?.data?.length && this.props.locations?.data?.filter((l) => l.id === id).map((loc) =>   
+                    <span key={loc.id}>{loc.title}</span>
+                    )}
+            </div>
+        ); 
+    }
+
+    render(){      
         return(
             <>
             <div className='boxAdmin'>
@@ -147,14 +160,14 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                           <div className="col col-age"><Age birthday={animal.birthday} /></div>
                                                           <div className="col col-location">
                                                               <div className="LocationType">
-                                                                  {!!animal.locationType && !!animal.locationType.type && !!animal.locationType.type.id && (
-                                                                    <TagTranslation tagId={animal.locationType.type.id} />
-                                                                  )}
+		                                                            {!!animal.locationName && animal.locationName !=='null' &&(
+		                                                                <TagTranslation tagId={animal.locationName} />
+		                                                            )}
                                                               </div>
                                                               <div className="LocationTitle">
-                                                                  {!!animal.locationType && (
-                                                                    animal.locationType.title
-                                                                  )}
+		                                                            {!!animal.locationTypeId && (
+		                                                                this.renderLocationTitle(animal.locationTypeId)
+		                                                            )}
                                                               </div>
                                                           </div>
                                                           <div className="col col-status">

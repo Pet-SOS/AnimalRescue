@@ -1,7 +1,6 @@
 import { BaseAdapter } from './base-adapter';
 import {AnimalKind, Gender, IAnimal, IAnimalResponse, IAnimalsResponse} from "../api/animals";
 import {ITag} from "../api/tags";
-import {ILocationType} from "../api/admin";
 
 export interface IAnimalDataDTO {
   number: number;
@@ -16,7 +15,6 @@ export interface IAnimalDataDTO {
   birthday?: string;
   character: string;
   status: ITag;
-  locationType: ILocationType;
   locationTypeId: string;
   locationName: string;
   bannerText: string;

@@ -230,7 +230,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
          continue;
         }
         if (key === FilterType.SIZE || key === FilterType.BREED) {
-          strTags = `${strTags}'${this.state[key].key}`;
+          strTags = `${strTags}'${this.state[key].key}'^`;
         } else if (this.expectTheFilterIsEqualTo(key)) {
           strTags = (!!this.state[key].check) ? `${strTags}'${this.state[key].key}'^` : strTags;
         } else {

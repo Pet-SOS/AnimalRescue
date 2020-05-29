@@ -18,6 +18,12 @@ import {
 } from "../actions";
 import { IRequestParams } from '../../../../../api/requestOptions';
 import {actionFetchAnimalItemRequest} from "../../../../client/Animals/store/actions/animal.actions";
+import { 
+    actionAdminFetchAllLocationsRequest, 
+    actionAdminFetchAllLocationsSuccess, 
+    actionAdminFetchAllLocationsFailure 
+} from '../../../Locations/store/actions/index';
+import { fetchLocations } from '../../../../../api/admin/locations';
 
 function* fetchHomePageAnimalsListSaga(action: { type: string, payload?: IRequestParams }) {
     try {
@@ -65,9 +71,22 @@ function* updateAnimalSaga(action: ReturnType<typeof actionAdminUpdateAnimalRequ
     }
 }
 
+export function* fetchAllLocationsSaga(action: ReturnType<typeof actionAdminFetchAllLocationsRequest>) {
+    try {
+        let params: IRequestParams = {...action.payload.requestParams};
+        // load special number of items until made paging
+        params.size = 100;
+        let list = yield call(fetchLocations, params);
+        yield put(actionAdminFetchAllLocationsSuccess(list));
+    } catch (e) {
+        yield put(actionAdminFetchAllLocationsFailure(e))
+    }
+}
+
 
 export function* watchAdminHomePage() {
     yield takeEvery(getType(actionAdminHomeFetchAnimalsRequest), fetchHomePageAnimalsListSaga)
+    yield takeEvery(getType(actionAdminFetchAllLocationsRequest), fetchAllLocationsSaga);
     yield takeEvery(getType(actionAdminDeleteAnimalRequest), deleteAnimalSaga)
     yield takeEvery(getType(actionAdminPostAnimalRequest), postAnimalSaga)
     yield takeEvery(getType(actionAdminUpdateAnimalRequest), updateAnimalSaga)
