@@ -143,6 +143,7 @@
             display: flex;
             align-items: center;
             margin-right: 20px;
+            cursor: pointer;
         }
 
         .title-item {
@@ -170,9 +171,12 @@
     .field {
         width: 43%;
         padding: 0 8px;
-
         @include media('≤phone') {
             width: 100%;
+        }
+
+        .ant-picker {
+            height: 48px;
         }
 
         + .field {
