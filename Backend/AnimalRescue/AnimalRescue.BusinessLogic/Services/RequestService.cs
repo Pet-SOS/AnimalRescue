@@ -12,7 +12,6 @@ using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -44,12 +43,6 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             return DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
         }
-
-        //private List<RequestDto> GetOperatorItems(List<RequestDto> itemDtos, List<string> requestStatuses)
-        //{
-        //    var filteredByRoleItems = itemDtos.Where(p => requestStatuses.Contains(p.Status.Id)).ToList();
-        //    return filteredByRoleItems;
-        //}
 
         private static bool DoesItemMatchesStatus(RequestDto itemDto, List<string> requestStatuses)
         {
@@ -106,37 +99,31 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
         {
             var dbQuery = queryRequest.ToDbQuery();
-            var count = await _repository.GetCountAsync(dbQuery);
-//            List<RequestDto> itemDtos = await GetCollectionAsync(count, dbQuery);
-            List<RequestDto> itemDtos;
 
-            List<RequestDto> filteredByRoleItems;
             var isAdmin = IsRoleAdmin(roles);
-            //if (isAdmin)
-            //{
-            //    filteredByRoleItems = await GetCollectionAsync(count, dbQuery);
-            //}
-            //else
-            //{
+            if (!isAdmin)
+            {
                 List<string> requestStatuses = GetViewRequestStatuses(roles);
+
+                string filterExpr = string.Empty;
                 if (requestStatuses.Count > 0)
                 {
-                    //                    filteredByRoleItems = GetOperatorItems(itemDtos, requestStatuses);
-                    var expr = $"Status~{StrictFilterContractConstants.Eq}~" + requestStatuses[0];
-                    var firstFilter = requestStatuses[0];
-                    dbQuery.Filter = expr;
-//                    var isNotDeletedExpr = $"{baseItem.IsDeleted}~{StrictFilterContractConstants.Eq}~'false'";
+                    foreach (var status in requestStatuses)
+                    {
+                        filterExpr += @"{status.id~" + StrictFilterContractConstants.Eq + "~'" + status + "'}OR";
+                    }
+                    filterExpr = filterExpr.Substring(0, filterExpr.Length - 2);
 
-
-
-                    filteredByRoleItems = await GetCollectionAsync(count, dbQuery);
+                    dbQuery.Filter += filterExpr;
                 }
                 else
                 {
                     throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
                 }
-//            }
+            }
 
+            var count = await _repository.GetCountAsync(dbQuery);
+            var filteredByRoleItems = await GetCollectionAsync(count, dbQuery);
             return new BlCollectonResponse<RequestDto>
             {
                 Collection = filteredByRoleItems,
