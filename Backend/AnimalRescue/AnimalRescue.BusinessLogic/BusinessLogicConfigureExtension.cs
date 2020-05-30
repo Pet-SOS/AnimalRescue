@@ -58,6 +58,10 @@ namespace AnimalRescue.BusinessLogic
                 new HistoryProfile()
             });
 
+            IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+            services.AddSingleton<IPublisherSettings>(p => publisherSettings);
+            services.AddSingleton<IEventEmittingService, EventEmittingService>();
+
             services.AddScoped<IRecoverDataService, RecoverDataService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto, Guid>, AnimalService>()

@@ -16,6 +16,11 @@ import {
     actionAdminUpdateAnimalFailure,
     actionAdminUpdateAnimalSuccess
 } from "../actions";
+import { 
+    actionAdminFetchAllLocationsRequest, 
+    actionAdminFetchAllLocationsSuccess, 
+    actionAdminFetchAllLocationsFailure 
+} from "../../../Locations/store";
 
 const fetchAnimalsRequestStateReducer = genericRequestReducer(
     actionAdminHomeFetchAnimalsRequest,
@@ -41,6 +46,11 @@ const deleteAnimalsRequestStateReducer = genericRequestReducer(
     actionAdminDeleteAnimalFailure
 );
 
+const fetchAdminHomePageLocationsRequestStateReducer = genericRequestReducer(
+    actionAdminFetchAllLocationsRequest,
+    actionAdminFetchAllLocationsSuccess,
+    actionAdminFetchAllLocationsFailure
+);
 
 export const AdminHomePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction) => {
     switch (action.type) {
@@ -112,6 +122,24 @@ export const AdminHomePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_S
                 animalDeleteRequestState: deleteAnimalsRequestStateReducer(state.animalDeleteRequestState, action)
             };
 
+
+            case getType(actionAdminFetchAllLocationsRequest):
+            return {
+                ...state,
+                requestState: fetchAdminHomePageLocationsRequestStateReducer(state.animalsLocations.requestState, action)
+            };
+        case getType(actionAdminFetchAllLocationsFailure):
+            return {
+                ...state,
+                requestState: fetchAdminHomePageLocationsRequestStateReducer(state.animalsLocations.requestState, action)
+            };
+        case getType(actionAdminFetchAllLocationsSuccess): {
+            return {
+                ...state,
+                animalsLocations: action.payload.list,
+                requestState: fetchAdminHomePageLocationsRequestStateReducer(state.animalsLocations.requestState, action)
+            }
+        }
 
         default:
             return state;

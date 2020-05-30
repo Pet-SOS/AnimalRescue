@@ -1,5 +1,6 @@
 import {IRequestState, DEFAULT_REQUEST_STATE} from "../../../../../api";
 import {IAnimalsResponse} from "../../../../../api/animals";
+import { DEFAULT_LOCATION_STATE, ILocationState } from '../../../Locations/store/state/index';
 
 export interface IHomePageState {
     animalsList: IAnimalsResponse;
@@ -7,6 +8,7 @@ export interface IHomePageState {
     animalDeleteRequestState: IRequestState;
     animalPostRequestState: IRequestState;
     animalUpdateRequestState: IRequestState;
+    animalsLocations: ILocationState
 }
 
 export const DEFAULT_ANIMALS = {
@@ -24,4 +26,5 @@ export const DEFAULT_HOME_PAGE_STATE = {
     animalDeleteRequestState: {...DEFAULT_REQUEST_STATE},
     animalPostRequestState: {...DEFAULT_REQUEST_STATE},
     animalUpdateRequestState: {...DEFAULT_REQUEST_STATE},
+    animalsLocations: {...DEFAULT_LOCATION_STATE}
 };

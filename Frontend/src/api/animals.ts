@@ -1,7 +1,5 @@
 import { API } from './index';
 import {IRequestParams, prepareRequestParams, prepareReadyForAdoptionRequestParams} from './requestOptions';
-import { ILocationType } from './admin/locations';
-import { DEFAULT_SINGLE_LOCATION } from '../containers/admin/Locations/store/state';
 import {adminAnimalsAdapter, animalItemAdapter} from "../dto";
 
 const crateFormData = (data: Object) => {
@@ -96,7 +94,6 @@ export interface IAnimal {
   birthday?: string;
   character: string;
   status: string;
-  locationType: ILocationType;
   locationTypeId: string;
   locationName: string;
   bannerText: string;
@@ -123,7 +120,6 @@ export const DEFAULT_ANIMAL: IAnimal = {
     tags: [],
     character: '',
     status: '',
-    locationType: DEFAULT_SINGLE_LOCATION,
     locationTypeId: '',
     locationName: '',
     bannerText: '',
