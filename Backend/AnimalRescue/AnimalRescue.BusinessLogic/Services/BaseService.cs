@@ -9,8 +9,10 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
-
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -55,7 +57,7 @@ namespace AnimalRescue.BusinessLogic.Services
             return itemDto;
         }
 
-        public virtual async Task<BlCollectonResponse<TEntityDto>> GetAsync(ApiQueryRequest queryRequest)
+        public async Task<BlCollectonResponse<TEntityDto>> GetAsync(ApiQueryRequest queryRequest)
         {
             var dbQuery = queryRequest.ToDbQuery();
             var count = await _repository.GetCountAsync(dbQuery);
@@ -133,5 +135,11 @@ namespace AnimalRescue.BusinessLogic.Services
 
         protected static bool IsHasDeletableInterface<T>(T itemDbo)
             => typeof(IDeletableItem).IsAssignableFrom(itemDbo.GetType());
+
+        protected bool DoesRoleMatch(string role, ICollection<Claim> roles)
+        {
+            var roleMatched = roles.ToList().FirstOrDefault(x => string.Equals(x.Value, role, StringComparison.OrdinalIgnoreCase));
+            return roleMatched != null;
+        }
     }
 }

@@ -1,38 +1,36 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+﻿using AnimalRescue.BusinessLogic.Extensions;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces.UsersManagement;
 using AnimalRescue.Contracts.BusinessLogic.Models;
+using AnimalRescue.Contracts.BusinessLogic.Services;
+using AnimalRescue.Contracts.Common.Constants;
+using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-
+using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AutoMapper;
-
 using System;
-
-using AnimalRescue.Contracts.Common.Query;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using AnimalRescue.Contracts.Common.Constants;
-using System.Security.Claims;
 using System.Linq;
-using AnimalRescue.BusinessLogic.Extensions;
-using AnimalRescue.Contracts.Common.Exceptions;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class RequestService :
         BaseService<RequestDto, Request, Guid>, 
-        IBlFullCrud<RequestDto, RequestDto, Guid>,
         IRequestService
     {
-        protected readonly IWellKnownTagService _wellKnownTagService;
-
         public RequestService(
             IRequestRepository repository,
             IRecoverDataService recoverDataService,
             IWellKnownTagService wellKnownTagService,
+            IEmailSender emailSender,
+            IUsersManagementService usersManagementService,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)
         {
-            _wellKnownTagService = wellKnownTagService;
         }
 
         private bool IsRoleOperatorOrAdmin(ICollection<Claim> roles)
@@ -47,17 +45,11 @@ namespace AnimalRescue.BusinessLogic.Services
             return DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
         }
 
-        private bool DoesRoleMatch(string role, ICollection<Claim> roles)
-        {
-            var roleMatched = roles.ToList().FirstOrDefault(x => string.Equals(x.Value, role, StringComparison.OrdinalIgnoreCase));
-            return roleMatched != null;
-        }
-
-        private List<RequestDto> GetOperatorItems(List<RequestDto> itemDtos, List<string> requestStatuses)
-        {
-            var filteredByRoleItems = itemDtos.Where(p => requestStatuses.Contains(p.Status.Id)).ToList();
-            return filteredByRoleItems;
-        }
+        //private List<RequestDto> GetOperatorItems(List<RequestDto> itemDtos, List<string> requestStatuses)
+        //{
+        //    var filteredByRoleItems = itemDtos.Where(p => requestStatuses.Contains(p.Status.Id)).ToList();
+        //    return filteredByRoleItems;
+        //}
 
         private static bool DoesItemMatchesStatus(RequestDto itemDto, List<string> requestStatuses)
         {
@@ -115,26 +107,35 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var dbQuery = queryRequest.ToDbQuery();
             var count = await _repository.GetCountAsync(dbQuery);
-            List<RequestDto> itemDtos = await GetCollectionAsync(count, dbQuery);
+//            List<RequestDto> itemDtos = await GetCollectionAsync(count, dbQuery);
+            List<RequestDto> itemDtos;
 
             List<RequestDto> filteredByRoleItems;
             var isAdmin = IsRoleAdmin(roles);
-            if (isAdmin)
-            {
-                filteredByRoleItems = itemDtos;
-            }
-            else
-            {
+            //if (isAdmin)
+            //{
+            //    filteredByRoleItems = await GetCollectionAsync(count, dbQuery);
+            //}
+            //else
+            //{
                 List<string> requestStatuses = GetViewRequestStatuses(roles);
                 if (requestStatuses.Count > 0)
                 {
-                    filteredByRoleItems = GetOperatorItems(itemDtos, requestStatuses);
+                    //                    filteredByRoleItems = GetOperatorItems(itemDtos, requestStatuses);
+                    var expr = $"Status~{StrictFilterContractConstants.Eq}~" + requestStatuses[0];
+                    var firstFilter = requestStatuses[0];
+                    dbQuery.Filter = expr;
+//                    var isNotDeletedExpr = $"{baseItem.IsDeleted}~{StrictFilterContractConstants.Eq}~'false'";
+
+
+
+                    filteredByRoleItems = await GetCollectionAsync(count, dbQuery);
                 }
                 else
                 {
                     throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
                 }
-            }
+//            }
 
             return new BlCollectonResponse<RequestDto>
             {

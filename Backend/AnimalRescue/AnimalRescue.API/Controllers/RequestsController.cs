@@ -45,15 +45,6 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<RequestModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            if (_requestService is null)
-            {
-                throw new ArgumentNullException(nameof(_requestService));
-            }
-            if (_mapper is null)
-            {
-                throw new ArgumentNullException(nameof(_mapper));
-            }
-
             var roles = GetUserRoles();
             var data = await _requestService.GetAsync(id, roles);
             var result = _mapper.Map<RequestModel>(data);
@@ -80,13 +71,8 @@ namespace AnimalRescue.API.Controllers
             var roles = GetUserRoles();
             RequestDto itemDto = _mapper.Map<RequestCreateUpdateModel, RequestDto>(requestCreateUpdateModel);
             itemDto = await _requestService.CreateAsync(itemDto, roles);
-
-            if (itemDto != null)
-            {
-                var itemModel = _mapper.Map<RequestDto, RequestModel>(itemDto);
-                return CreatedItem<RequestModel, Guid>(itemModel);
-            }
-            return null; 
+            var itemModel = _mapper.Map<RequestDto, RequestModel>(itemDto);
+            return CreatedItem<RequestModel, Guid>(itemModel);
         }
 
         [HttpPut("{id}")]
