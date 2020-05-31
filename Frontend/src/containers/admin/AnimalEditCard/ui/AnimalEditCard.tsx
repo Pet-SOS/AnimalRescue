@@ -19,6 +19,7 @@ import {actionAdminFetchLocationsRequest} from "../../Locations/store/actions";
 import {bindActionCreators, Dispatch} from "redux";
 import {ILocationsMap} from "../../Locations/store/state";
 import {selectTagsListData} from "../../../../store/selectors/tags.selector";
+import { DescriptionTabContent } from './DescriptionTabContent';
 
 const {TabPane} = Tabs;
 
@@ -250,10 +251,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
               />
             </TabPane>
             <TabPane tab="Опис" key="3">
-              <label>Трохи історії</label>
-              <textarea value={description} onChange={(e) => this.onChangeValue(e, 'description')}/>
-              <label>Характер</label>
-              <textarea value={character} onChange={(e) => this.onChangeValue(e, 'character')}/>
+              <DescriptionTabContent
+                description={description}
+                character={character}
+                onChange={this.onChangeValue}
+              />
             </TabPane>
             <TabPane tab="Історія змін" key="4">
               Content of Tab Pane 3

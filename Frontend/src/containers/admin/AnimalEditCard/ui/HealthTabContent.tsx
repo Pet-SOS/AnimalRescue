@@ -13,16 +13,17 @@ interface IPropTypes {
 export class HealthTabContent extends React.PureComponent<IPropTypes> {
   renderTagSelection = (tag: string, title: string) => {
     return (
-      <li>
-        <label>
-          <span>{title}</span>
-          <input
-            checked={this.props.tags.indexOf(tag) !== -1}
-            type="checkbox"
-            onChange={() => this.props.onUpdateTag(tag)}
-          />
-          <span>checkbox</span>
-        </label>
+      <li className="chk-label-item">
+          <label htmlFor={`chk-${tag}`}>{title}</label>
+          <span className="switcher-control">
+            <input
+              id={`chk-${tag}`}
+              type="checkbox"
+              checked={this.props.tags.indexOf(tag) !== -1}
+              onChange={() => this.props.onUpdateTag(tag)}
+            />
+            <span></span>
+          </span>
       </li>
     );
   }
@@ -31,23 +32,27 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
     const {donationActive, onToggleDonation, bannerText, onChange} = this.props;
     return (
       <>
-        <li>
-          <label>
-            <span>Вiдкрити Cбір коштів</span>
-            <input
-              type="checkbox"
-              checked={donationActive}
-              onChange={onToggleDonation}
-            />
-            <span>{donationActive}</span>
-          </label>
+        <li className="chk-label-item">
+            <label htmlFor="chk-charity">Вiдкрити Cбір коштів</label>
+            <span className="switcher-control">
+              <input
+                id="chk-charity"
+                type="checkbox"
+                checked={donationActive}
+                onChange={onToggleDonation}
+              />
+              <span></span>
+            </span>
         </li>
         {donationActive && (
           <li>
-            <label><span>Текст на банері</span></label><br/>
+            <label htmlFor="banner-text-field">Текст на банері</label>
             <input
+              id="banner-text-field"
+              type="text"
               value={bannerText}
-              onChange={(e) => onChange(e, 'bannerText')}/>
+              onChange={(e) => onChange(e, 'bannerText')} 
+            />
           </li>
         )}
       </>
@@ -56,14 +61,14 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
 
   render() {
     return (
-      <div>
-        <ul>
+      <>
+        <ul className="tabs-edit-list">
           {this.renderBannerBlock()}
           {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізован')}
           {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплен')}
           {this.renderTagSelection(EditableTags.READYTOABROAD, 'Готов до виїзду за кордон')}
         </ul>
-      </div>
+      </>
     );
   }
 }

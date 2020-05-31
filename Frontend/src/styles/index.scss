@@ -494,4 +494,57 @@ input, textarea, ::placeholder {
   }
 }
 
+.switcher-control {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  width: 54px;
+  height: 28px;
+  font-size: 0;
+  line-height: 0;
+
+  input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+
+    &:checked + span {
+      background: #3e5b9d;
+
+      &:after {
+        transform: translateX(26px);
+      }
+    }
+  }
+
+  span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    background: #dbdadb;
+    pointer-events: none;
+    transition: background-color 0.15s ease-in-out;
+
+    &:after {
+      position: absolute;
+      content: "";
+      left: 3px;
+      top: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      box-shadow: 0px 2px 4px rgba(13, 43, 75, 0.3);
+      background: #f9f6f7;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+}
+
 @import "media";
