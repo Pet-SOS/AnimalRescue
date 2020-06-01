@@ -67,7 +67,7 @@ services:
     environment:
       - PublisherSettings__UserName=${RABBITMQ_USERNAME}
       - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
-      - PublisherSettings__HostName=rabbitmq
+      - PublisherSettings__HostName=${RABBITMQ_HOST}
       - PublisherSettings__HostPort=5672
       - PublisherSettings__Exchange=${RABBITMQ_Exchange}
       - PublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
