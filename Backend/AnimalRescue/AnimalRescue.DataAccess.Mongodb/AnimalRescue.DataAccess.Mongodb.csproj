@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <None Remove="Data\tags.json" />
+    <None Remove="Data\UserRoleActions.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\UserRoleActions.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Data\tags.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

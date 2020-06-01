@@ -1,0 +1,17 @@
+﻿[
+  {
+    "userRole": "Operator",
+    "action": "CREATE",
+    "tagId": "REQUEST_STATUS_FOR_PROCESSING"
+  },
+  {
+    "userRole": "Operator",
+    "action": "GET",
+    "tagId": "REQUEST_STATUS_URGENT"
+  },
+  {
+    "userRole": "Operator",
+    "action": "GET",
+    "tagId": "REQUEST_STATUS_WORK"
+  }
+]

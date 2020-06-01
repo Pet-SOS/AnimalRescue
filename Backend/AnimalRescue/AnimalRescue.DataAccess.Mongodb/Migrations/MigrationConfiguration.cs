@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 using AnimalRescue.Infrastructure.Utilities;
 
@@ -25,6 +26,13 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
             await SetUpDataBase<IWellKnownTagRepository, WellKnownTag>(
                 serviceProvider,
                 "tags.json",
+                (repo, collection) => repo.WhereByIdAsync(collection),
+                (repo, collection) => repo.CreateAsync(collection),
+                (x, y) => x.Id == y.Id);
+
+            await SetUpDataBase<IUserRoleActionRepository, UserRoleAction>(
+                serviceProvider,
+                "UserRoleActions.json",
                 (repo, collection) => repo.WhereByIdAsync(collection),
                 (repo, collection) => repo.CreateAsync(collection),
                 (x, y) => x.Id == y.Id);
