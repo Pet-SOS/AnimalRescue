@@ -1,5 +1,6 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+
+using System.IO;
 
 namespace AnimalRescue.Infrastructure.Configuration
 {
@@ -17,7 +18,8 @@ namespace AnimalRescue.Infrastructure.Configuration
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(fileName, optional: true, reloadOnChange: true);
+                .AddJsonFile(fileName, optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
 
             IConfigurationRoot configuration = builder.Build();
 
