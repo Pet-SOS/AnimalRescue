@@ -1,6 +1,9 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.Infrastructure.Configurations;
+
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using System;
 using System.IO;
 using System.Net.Mail;
@@ -9,10 +12,14 @@ namespace AnimalRescue.BusinessLogic.Services
 {
     public class EmailSender : IEmailSender
     {
+        private readonly ILogger<EmailSender> _logger;
         private readonly SmtpOptions _smtpOptions;
 
-        public EmailSender(IOptions<SmtpOptions> smtpOptions)
+        public EmailSender(
+            ILogger<EmailSender> logger,
+            IOptions<SmtpOptions> smtpOptions)
         {
+            _logger = logger;
             _smtpOptions = smtpOptions.Value;
         }
 
@@ -39,9 +46,10 @@ namespace AnimalRescue.BusinessLogic.Services
                     smtpClient.Send(mailMessage);
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                //ignore
+                _logger.LogError(exception.Message);
+
                 return false;
             }
 

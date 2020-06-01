@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace AnimalRescue.Infrastructure.Configuration
 {
@@ -10,6 +11,18 @@ namespace AnimalRescue.Infrastructure.Configuration
             var section = new T();
             configuration.GetSection(name).Bind(section);
             return section;
-        }  
+        }
+        
+        public static IConfigurationRoot GetConfiguration(string fileName = "appsettings.json") 
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(fileName, optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            return configuration;
+        }
+        
     }
 }

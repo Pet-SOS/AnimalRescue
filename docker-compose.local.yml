@@ -55,6 +55,27 @@ services:
       - YOUTUBE_CHANNEL_ID=youtubechannelidhere
     networks:
       - frontend
+  
+  telegram-messenger:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/Dockerfile
+    container_name: animalrescue.telegram-messenger
+    image: animalrescue.telegram-messenger
+    restart: unless-stopped
+    ports:
+      - "9595:80"
+    environment:
+      - PublisherSettings__UserName=user
+      - PublisherSettings__UserPassword=bitnami
+      - PublisherSettings__HostName=localhost
+      - PublisherSettings__HostPort=5672
+      - PublisherSettings__Exchange=topic_telegram
+      - PublisherSettings__ExchangeType=topic
+      - PublisherSettings__RoutingKey=animal.rescue
+      - PublisherSettings__TelegramKey=1240836823:AAHIuV03-Kod7ZejejDbp_ziBEy1Jzm9dCQ
+    networks:
+      - backend
 
   mongodb:
     container_name: "mongodb"

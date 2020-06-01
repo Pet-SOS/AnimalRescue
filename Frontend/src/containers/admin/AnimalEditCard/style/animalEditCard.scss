@@ -76,62 +76,27 @@
   overflow: hidden;
 
   textarea {
-    min-height: 200px;
+    height: 200px;
+    min-height: 48px;
+    max-height: 450px;
   }
+}
 
-  ul {
-    max-width: 343px;
-    flex-basis: 343px;
-  }
+.tabs-edit-list {
+  max-width: 343px;
 
   li {
-    margin-bottom: 24px;
+    padding-bottom:24px;
   }
 
-  ul label {
-    display: flex;
-    align-items: center;
+  .chk-label-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-    span {
-      display: inline-block;
-      vertical-align: top;
-    }
-
-    input + span {
-      //display: block;
-      background: #DBDADB;
-      border-radius: 15px;
-      width: 54px;
-      height: 28px;
-      position: relative;
-      font-size: 0;
-      margin-left: auto;
-
-      &:after {
-        @include size(22px)
-        content: '';
-        display: block;
-        background: $white;
-        border-radius: 100%;
-        box-shadow: 0px 2px 4px rgba(13, 43, 75, 0.3);
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 3px;
-      }
-    }
-
-    input:checked + span {
-      background-color: $btn-blue;
-
-      &:after {
-        left: auto;
-        right: 3px;
-      }
-    }
-
-    input {
-      display: none;
+    label {
+      font-size:18px;
+      line-height:24px;
     }
   }
 }

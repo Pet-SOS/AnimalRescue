@@ -1,5 +1,5 @@
 import React from "react";
-import {DEFAULT_ANIMAL, IAnimal} from "../../../../api/animals";
+import {DEFAULT_ANIMAL, EditableTags, IAnimal} from "../../../../api/animals";
 import '../style/animalEditCard.scss'
 import {store} from "../../../../store";
 import {selectApiUrl} from "../../../../store/selectors/config.selector";
@@ -13,11 +13,13 @@ import {Loader} from "../../../../components/Loader";
 import {ERequestStatus, LocationsCode} from "../../../../api";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import {ImageTabContent} from "./ImageTabContent";
-import {ITag} from '../../../../api/tags';
+import {EKindOfAnimal, ITag} from '../../../../api/tags';
 import {AnimalForm} from './AnimalForm';
 import {actionAdminFetchLocationsRequest} from "../../Locations/store/actions";
 import {bindActionCreators, Dispatch} from "redux";
 import {ILocationsMap} from "../../Locations/store/state";
+import {selectTagsListData} from "../../../../store/selectors/tags.selector";
+import { DescriptionTabContent } from './DescriptionTabContent';
 
 const {TabPane} = Tabs;
 
@@ -32,14 +34,21 @@ interface IOwnPropTypes extends RouteComponentProps<any> {
 
 interface IPropTypes extends IOwnPropTypes {
   status: ERequestStatus;
-  locations: ILocationsMap,
+  locations: ILocationsMap;
+  allTags:  Array<ITag>;
   fetchLocationList: (type: LocationsCode) => any;
+}
+
+interface ITagsSizeAndBreed {
+  tagSize: string;
+  tagBreed: string;
 }
 
 class AnimalEditCard extends React.Component<IPropTypes> {
   public baseUrl: string = '';
   public state: IAnimal;
   public currentTab: string = '1';
+  public tagsSizeAndBreed: ITagsSizeAndBreed | {} = {};
 
   constructor(props: IPropTypes) {
     super(props);
@@ -81,8 +90,37 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.baseUrl = selectApiUrl(store.getState());
   }
 
-  changeValue = (e: any, key: any) => {
-    this.setState({[key]: e.target.value})
+  onChangeSizeAndBreedTags = (e: any, key: any) => {
+    // @ts-ignore
+    this.tagsSizeAndBreed[key] = e.target.value;
+    const mainTags = Object.keys(EditableTags).filter((defaultTagKey: any) => {
+      // @ts-ignore
+      return this.state.tags.slice().indexOf(EditableTags[defaultTagKey]) !== -1
+    });
+    if (this.state.kindOfAnimal !== EKindOfAnimal.dog) {
+      // @ts-ignore
+      this.tagsSizeAndBreed.tagSize = '';
+    }
+    // @ts-ignore
+    const sizeAndBreedTags = Object.keys(this.tagsSizeAndBreed)
+      .map((tagKey => {
+        // @ts-ignore
+        if (this.tagsSizeAndBreed[tagKey] !== '') {
+          // @ts-ignore
+          return this.tagsSizeAndBreed[tagKey];
+        }
+      }))
+    this.setState({
+      tags: [...mainTags, ...sizeAndBreedTags]
+    })
+  }
+
+  onChangeValue = (e: any, key: any) => {
+    if (key !== 'tagSize' && key !== 'tagBreed') {
+      this.setState({[key]: e.target.value})
+    } else {
+      this.onChangeSizeAndBreedTags(e, key);
+    }
   };
 
   onUpdateBirthday = (value: string) => {
@@ -158,11 +196,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   render() {
     const {
-     description, character, bannerText, isDonationActive, tags, id, imageIds, coverImage
+     description, character, bannerText, isDonationActive, tags, id, imageIds, coverImage, kindOfAnimal
     } = this.state;
-    const { tagsList, locations } = this.props;
+    const { tagsList, locations, allTags } = this.props;
     const locationTypeOptions = locations[this.state.locationName.toUpperCase()]?.list.data;
-
+    const breedOptions = allTags.filter((tag: ITag) => tag.category.toLowerCase() === `${kindOfAnimal}breed`.toLowerCase())
     if (this.props.status === ERequestStatus.REQUEST) {
       return <Loader/>
     }
@@ -175,8 +213,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             genderOptions={tagsList.gender}
             kindOfAnimalOptions={tagsList.kindOfAnimal}
             locationOptions={tagsList.location}
+            breedOptions={breedOptions}
+            dogSizeOptions={tagsList.dogsize}
             locationTypeOptions={locationTypeOptions}
-            onChange={this.changeValue}
+            onChange={this.onChangeValue}
             onUpdateBirthday={this.onUpdateBirthday}
           />
           <p>id {id}</p>
@@ -205,16 +245,17 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 donationActive={isDonationActive}
                 tags={tags}
                 bannerText={bannerText}
-                onChange={this.changeValue}
+                onChange={this.onChangeValue}
                 onUpdateTag={this.onUpdateTag}
                 onToggleDonation={this.onToggleDonation}
               />
             </TabPane>
             <TabPane tab="Опис" key="3">
-              <label>Трохи історії</label>
-              <textarea value={description} onChange={(e) => this.changeValue(e, 'description')}/>
-              <label>Характер</label>
-              <textarea value={character} onChange={(e) => this.changeValue(e, 'character')}/>
+              <DescriptionTabContent
+                description={description}
+                character={character}
+                onChange={this.onChangeValue}
+              />
             </TabPane>
             <TabPane tab="Історія змін" key="4">
               Content of Tab Pane 3
@@ -235,6 +276,7 @@ export default withRouter(connect((state: ICustomAppState, ownProps: IOwnPropTyp
   return {
     status: state.AdminHomePage.animalUpdateRequestState.status,
     locations: state.adminLocations.locations,
+    allTags: selectTagsListData(state),
     ...ownProps
   }
 }, (dispatch: Dispatch) => {
