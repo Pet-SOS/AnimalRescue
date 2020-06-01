@@ -56,6 +56,28 @@ services:
     networks:
       - frontend
 
+  telegram-messenger:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/Dockerfile
+    image: ${DockerRegistryURL}/telegram-messenger:${ImageTag}
+    deploy:
+      replicas: 1
+    restart: unless-stopped
+    environment:
+      - PublisherSettings__UserName=${RABBITMQ_USERNAME}
+      - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
+      - PublisherSettings__HostName=rabbitmq
+      - PublisherSettings__HostPort=5672
+      - PublisherSettings__Exchange=${RABBITMQ_Exchange}
+      - PublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - PublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
+      - PublisherSettings__TelegramKey=${TelegramKey}
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+
   mongodb:
     image: mongo:4.2
     command: mongod --auth
