@@ -31,6 +31,13 @@ services:
       - Smtp__Password=${smtp_password}
       - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
       - MongoDbSettings__DatabaseName=${MongoDB_database}
+      - PublisherSettings__UserName=${RABBITMQ_USERNAME}
+      - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
+      - PublisherSettings__HostName=${RABBITMQ_HOST}
+      - PublisherSettings__HostPort=5672
+      - PublisherSettings__Exchange=${RABBITMQ_Exchange}
+      - PublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - PublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
       - Logging__LogLevel__Default=Information
       - Logging__LogLevel__Microsoft=Information
       - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
@@ -100,6 +107,7 @@ services:
       - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
       - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
       - RABBITMQ_NODE_PORT_NUMBER=5672
+      - RABBITMQ_DISK_FREE_LIMIT=2000000000
     ports:
       - 5672:5672
     networks:

@@ -29,6 +29,13 @@ services:
       - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
       - MongoDbSettings__DatabaseName=animal_rescue
       - MongoDbSettings__BucketName=file_records
+      - PublisherSettings__UserName=user
+      - PublisherSettings__UserPassword=bitnami
+      - PublisherSettings__HostName=rabbitmq
+      - PublisherSettings__HostPort=5672
+      - PublisherSettings__Exchange=topic_telegram
+      - PublisherSettings__ExchangeType=topic
+      - PublisherSettings__RoutingKey=animal.rescue
       - Logging__LogLevel__Default=Debug
       - Logging__LogLevel__Microsoft=Debug
       - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
@@ -68,7 +75,7 @@ services:
     environment:
       - PublisherSettings__UserName=user
       - PublisherSettings__UserPassword=bitnami
-      - PublisherSettings__HostName=localhost
+      - PublisherSettings__HostName=rabbitmq
       - PublisherSettings__HostPort=5672
       - PublisherSettings__Exchange=topic_telegram
       - PublisherSettings__ExchangeType=topic
@@ -101,6 +108,7 @@ services:
       - RABBITMQ_USERNAME=user
       - RABBITMQ_PASSWORD=bitnami
       - RABBITMQ_NODE_PORT_NUMBER=5672
+      - RABBITMQ_DISK_FREE_LIMIT=2000000000
     ports:
       - 5672:5672
     networks:
