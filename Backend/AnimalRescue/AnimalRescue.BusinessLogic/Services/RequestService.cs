@@ -1,13 +1,12 @@
 ﻿using AnimalRescue.BusinessLogic.Extensions;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
-using AnimalRescue.Contracts.BusinessLogic.Interfaces.UsersManagement;
 using AnimalRescue.Contracts.BusinessLogic.Models;
-using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AutoMapper;
 using System;
@@ -15,21 +14,26 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
+using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
+using actions = AnimalRescue.Contracts.Common.Constants.TagsConstants.Actions;
+using System.Linq;
+
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class RequestService :
         BaseService<RequestDto, Request, Guid>, 
         IRequestService
     {
+        private readonly IUserRoleActionRepository _userRoleActionRepository;
+
         public RequestService(
             IRequestRepository repository,
             IRecoverDataService recoverDataService,
-            IWellKnownTagService wellKnownTagService,
-            IEmailSender emailSender,
-            IUsersManagementService usersManagementService,
+            IUserRoleActionRepository userRoleActionRepository,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)
         {
+            _userRoleActionRepository = userRoleActionRepository;
         }
 
         private bool IsRoleOperatorOrAdmin(ICollection<Claim> roles)
@@ -49,61 +53,40 @@ namespace AnimalRescue.BusinessLogic.Services
             return requestStatuses.Contains(itemDto.Status.Id);
         }
 
-        private bool CheckRole(ICollection<Claim> roles, string roleName)
+        private List<UserRoleAction> GetStatusesByRoleAndAction(string role, string action)
         {
-            return DoesRoleMatch(roleName, roles);
+            var filter = common.UserRole + "~" + StrictFilterContractConstants.Eq + "~'" + role + "';"
+                       + common.Action + "~" + StrictFilterContractConstants.Eq + "~'" + action + "'";
+            DbQuery dbQuery = new DbQuery
+            {
+                Filter = filter,
+                Page = 1,
+                Size = 100
+            };
+            return _userRoleActionRepository.GetAsync(dbQuery).Result.ToList();
         }
 
-        private List<string> GetViewRequestStatuses(ICollection<Claim> roles)
+        private List<string> GetRequestStatuses(ICollection<Claim> roles, string action)
         {
             List<string> requestStatuses = new List<string>();
-            var isOperator = CheckRole(roles, PropertyConstants.UserRole.Operator);
-            if (isOperator)
+            foreach(var role in roles)
             {
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusForProcessing);
+                if (role.Value != PropertyConstants.UserRole.Admin)
+                {
+                    requestStatuses.AddRange(GetStatusesByRoleAndAction(role.Value.ToUpper(), action).Select(status => status.TagId));
+                }
             }
-
-            var isRescuer = CheckRole(roles, PropertyConstants.UserRole.Rescuer);
-            if (isRescuer)
-            {
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusUrgent);
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusWork);
-            }
-
             return requestStatuses;
         }
 
-        private List<string> GetUpdateRequestStatuses(ICollection<Claim> roles)
-        {
-            List<string> requestStatuses = new List<string>();
-            var isOperator = CheckRole(roles, PropertyConstants.UserRole.Operator);
-            if (isOperator)
-            {
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusUrgent);
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusWork);
-            }
-
-            var isRescuer = CheckRole(roles, PropertyConstants.UserRole.Rescuer);
-            if (isRescuer)
-            {
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalIsTakenToShelter);
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalIsSavedNoNeedShelter);
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalIsInVeryPoorCondition);
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalNotFound);
-                requestStatuses.Add(TagsConstants.RequestStatuses.RequestStatusAnimalDied);
-            }
-
-            return requestStatuses;
-        }
 
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
         {
             var dbQuery = queryRequest.ToDbQuery();
-
             var isAdmin = IsRoleAdmin(roles);
             if (!isAdmin)
             {
-                List<string> requestStatuses = GetViewRequestStatuses(roles);
+                List<string> requestStatuses = GetRequestStatuses(roles, actions.Get);
 
                 string filterExpr = string.Empty;
                 if (requestStatuses.Count > 0)
@@ -113,8 +96,7 @@ namespace AnimalRescue.BusinessLogic.Services
                         filterExpr += @"{status.id~" + StrictFilterContractConstants.Eq + "~'" + status + "'}OR";
                     }
                     filterExpr = filterExpr.Substring(0, filterExpr.Length - 2);
-
-                    dbQuery.Filter += filterExpr;
+                    dbQuery.Filter = filterExpr;
                 }
                 else
                 {
@@ -144,7 +126,7 @@ namespace AnimalRescue.BusinessLogic.Services
             }
             else
             {
-                List<string> requestStatuses = GetViewRequestStatuses(roles);
+                List<string> requestStatuses = GetRequestStatuses(roles, actions.Get);
                 if (requestStatuses.Count > 0)
                 {
                     var isAllowedItem = DoesItemMatchesStatus(itemDto, requestStatuses);
@@ -167,7 +149,8 @@ namespace AnimalRescue.BusinessLogic.Services
             var isAllowed = IsRoleOperatorOrAdmin(roles);
             if (isAllowed)
             {
-                if (itemDto.Status.Id == TagsConstants.RequestStatuses.RequestStatusForProcessing)
+                var requestStatuses = GetStatusesByRoleAndAction(PropertyConstants.UserRole.Operator.ToUpper(), actions.Create).Select(status => status.TagId);
+                if (requestStatuses.Contains(itemDto.Status.Id))
                 {
                     itemDto = await base.CreateAsync(itemDto);
                     return itemDto;
@@ -193,7 +176,7 @@ namespace AnimalRescue.BusinessLogic.Services
             }
             else
             {
-                List<string> requestStatuses = GetUpdateRequestStatuses(roles);
+                List<string> requestStatuses = GetRequestStatuses(roles, actions.Update);
                 if (requestStatuses.Count > 0)
                 {
                     var doesStatusMatches = DoesItemMatchesStatus(itemDto, requestStatuses);

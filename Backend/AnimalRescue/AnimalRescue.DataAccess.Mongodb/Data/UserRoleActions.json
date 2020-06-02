@@ -1,17 +1,57 @@
 ﻿[
   {
-    "userRole": "Operator",
-    "action": "CREATE",
+    "userRole": "OPERATOR",
+    "action": "ACTION_CREATE",
     "tagId": "REQUEST_STATUS_FOR_PROCESSING"
   },
   {
-    "userRole": "Operator",
-    "action": "GET",
+    "userRole": "OPERATOR",
+    "action": "ACTION_GET",
+    "tagId": "REQUEST_STATUS_FOR_PROCESSING"
+  },
+  {
+    "userRole": "RESCUER",
+    "action": "ACTION_GET",
     "tagId": "REQUEST_STATUS_URGENT"
   },
   {
-    "userRole": "Operator",
-    "action": "GET",
+    "userRole": "RESCUER",
+    "action": "ACTION_GET",
     "tagId": "REQUEST_STATUS_WORK"
+  },
+  {
+    "userRole": "OPERATOR",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_URGENT"
+  },
+  {
+    "userRole": "OPERATOR",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_WORK"
+  },
+  {
+    "userRole": "RESCUER",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_ANIMAL_IS_TAKEN_TO_SHELTER"
+  },
+  {
+    "userRole": "RESCUER",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_ANIMAL_IS_SAVED_NO_NEED_SHELTER"
+  },
+  {
+    "userRole": "RESCUER",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_ANIMAL_IS_IN_VERY_POOR_CONDITION"
+  },
+  {
+    "userRole": "RESCUER",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_ANIMAL_NOT_FOUND"
+  },
+  {
+    "userRole": "RESCUER",
+    "action": "ACTION_UPDATE",
+    "tagId": "REQUEST_STATUS_ANIMAL_DIED"
   }
 ]
