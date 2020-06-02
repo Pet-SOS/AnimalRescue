@@ -15,16 +15,13 @@ export default class  SearchPanel extends Component<{onSearchChange: (searchStr:
 
     render() {
         return (
-            <>
-                <form className="search-animals" action="#">
-                    <input type="text" 
-                            placeholder="Пошук" 
-                            value={this.state.searchStr}
-                            onChange = {this.onSearchChange} />
-                    <button type="submit" className="icon-search">Summit</button>
-                </form>
-
-            </>
+            <form className="search-animals" action="#">
+                <input type="text" 
+                        placeholder="Пошук" 
+                        value={this.state.searchStr}
+                        onChange = {this.onSearchChange} />
+                <button type="submit" className="icon-search">Summit</button>
+            </form>
         );
     }
 }
