@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 using actions = AnimalRescue.Contracts.Common.Constants.TagsConstants.Actions;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -79,14 +80,58 @@ namespace AnimalRescue.BusinessLogic.Services
             return requestStatuses;
         }
 
+        private static List<string> GetQueryStatuses(string source, string matchString)
+        {
+            const int minExprLen = 8;
+            List<string> res = new List<string>();
+            source = Regex.Replace(source, @"\s+", "");
+            var splittedValues = source.Split('{', '}');
+            foreach (var singleExpr in splittedValues)
+            {
+                var splittedAnds = singleExpr.Split(';');
+                foreach (var itemAnd in splittedAnds)
+                {
+                    if (itemAnd.Length >= minExprLen)
+                    {
+                        if (itemAnd.Contains(matchString))
+                        {
+                            Regex regName = new Regex("'(.*)'");
+                            Match match = regName.Match(itemAnd);
+                            if (match.Success)
+                            {
+                                var status = match.Value.Substring(1, match.Value.Length - 2);
+                                res.Add(status);
+                            }
+                        }
+                        else
+                        {
+                            throw new ForbiddenOperationRequestException("Filter contains forbidden fields");
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
 
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
         {
+            var initStatuses = GetQueryStatuses(queryRequest.Filter, $"status.id~{StrictFilterContractConstants.Eq}~");
+
             var dbQuery = queryRequest.ToDbQuery();
             var isAdmin = IsRoleAdmin(roles);
             if (!isAdmin)
             {
                 List<string> requestStatuses = GetRequestStatuses(roles, actions.Get);
+
+                foreach (var initStatus in initStatuses)
+                {
+                    var isContain = requestStatuses.Contains(initStatus);
+                    if (!isContain)
+                    {
+                        throw new ForbiddenOperationRequestException("Filter contains forbidden fields");
+                    }
+                }
 
                 string filterExpr = string.Empty;
                 if (requestStatuses.Count > 0)
