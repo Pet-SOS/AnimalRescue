@@ -68,7 +68,7 @@ services:
     environment:
       - PublisherSettings__UserName=user
       - PublisherSettings__UserPassword=bitnami
-      - PublisherSettings__HostName=localhost
+      - PublisherSettings__HostName=rabbitmq
       - PublisherSettings__HostPort=5672
       - PublisherSettings__Exchange=topic_telegram
       - PublisherSettings__ExchangeType=topic
@@ -101,6 +101,7 @@ services:
       - RABBITMQ_USERNAME=user
       - RABBITMQ_PASSWORD=bitnami
       - RABBITMQ_NODE_PORT_NUMBER=5672
+      - RABBITMQ_DISK_FREE_LIMIT=2000000000
     ports:
       - 5672:5672
     networks:
