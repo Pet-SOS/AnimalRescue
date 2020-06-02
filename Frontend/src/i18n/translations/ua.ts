@@ -332,6 +332,7 @@ export default {
   kindOfAnimalTagCategory : 'Вид',
   statusTagCategory : 'Статус',
   ageTagCategory : 'Вік',
+  genderTagCategory : 'Стать',
   newTag : '+ новый тег',
 
   errorTagValidation : 'Хоча б одне поле повинно бути заповнено',

@@ -10,6 +10,8 @@ import { IRequestParams } from '../../../../api/requestOptions';
 import { TagTranslation } from '../../../../components/TagTranslation';
 import { Age } from '../../../../components/Age';
 import { ILocationsResponse } from '../../../../api/admin/locations';
+import SearchPanel from './SearchPanel';
+import { RequestFilterOperators } from '../../../../api/requestOptions/index';
 
 const { Search } = Input;
 
@@ -31,11 +33,9 @@ interface AnimalsListPageProps {
 export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
     public toPage: number = 1;
     public sizeAnimalToPage:number = 10;
-    constructor(props:AnimalsListPageProps){
-        super(props);
-        this.state={            
-        }
-    }
+    state = {
+        searchStr: ''
+    };
     updateAnimalCard(id:any){
         this.props.history.push(`/admin/animals-list/${id}`);
     }
@@ -53,11 +53,17 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
         this.props.history.push(`/admin/animals-list/animal`)
     }
 
-    goToPagination(toPage:string| number){
+    goToPagination(toPage:string| number){ 
+        const { searchStr } =  this.state;        
         this.toPage =+toPage;
         this.props.fetchAnimalsRequest({
              page: this.toPage,
              size: this.sizeAnimalToPage,
+             filter: {
+                fieldName: 'name',
+                operator: RequestFilterOperators.CONTAINS,
+                value: searchStr
+              }
          })
          this.props.history.push({
              pathname: `/admin/animals-list/page/${this.toPage}`,
@@ -87,7 +93,21 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
         ); 
     }
 
-    render(){      
+    onSearchChange = (searchStr: string) => {
+        this.setState({ searchStr });
+        this.toPage =1;
+        this.props.fetchAnimalsRequest({
+            page: this.toPage,
+            size: this.sizeAnimalToPage,
+            filter: {
+                fieldName: 'name',
+                operator: RequestFilterOperators.CONTAINS,
+                value: searchStr
+              }
+        })
+    }
+
+    render(){
         return(
             <>
             <div className='boxAdmin'>
@@ -105,10 +125,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                     styleType={ButtonTypes.Blue}>
                                     Додати тварину
                                 </Button>
-                                <form className="search-animals" action="#">
-                                    <input type="search" placeholder="Пошук"/>
-                                    <button type="submit" className="icon-search">Summit</button>
-                                </form>
+                                <SearchPanel onSearchChange={this.onSearchChange}/>
                             </header>
                             <section className="page-content">
                                 <div className="inner">
