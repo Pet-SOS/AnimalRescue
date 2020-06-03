@@ -84,7 +84,7 @@ namespace AnimalRescue.BusinessLogic.Queries
             await historyService.CreateAsync(history);
         }
 
-        private async Task CreateUpdatedHistoryAsync(TOut newItem, TOut previousItem)
+        protected async Task CreateUpdatedHistoryAsync(TOut newItem, TOut previousItem)
         {
             var differences = GetUpdatedDifferenceValueList(newItem, previousItem);
 
