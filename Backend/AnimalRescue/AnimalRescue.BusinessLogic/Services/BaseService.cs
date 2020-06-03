@@ -9,8 +9,10 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
-
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -20,7 +22,7 @@ namespace AnimalRescue.BusinessLogic.Services
         where TEntityDbo : IBaseAuditItem
     {
         protected readonly IBaseRepository<TEntityDbo> _repository;
-        private readonly IRecoverDataService _recoverDataService;
+        protected readonly IRecoverDataService _recoverDataService;
         protected readonly IMapper _mapper;
 
 
@@ -68,7 +70,7 @@ namespace AnimalRescue.BusinessLogic.Services
             };
         }
 
-        private async Task<List<TEntityDto>> GetCollectionAsync(int count, DbQuery dbQuery)
+        protected async Task<List<TEntityDto>> GetCollectionAsync(int count, DbQuery dbQuery)
         {
             if (count == 0)
             {
@@ -131,7 +133,13 @@ namespace AnimalRescue.BusinessLogic.Services
             return await _repository.GetCountAsync(dbQuery);
         }
 
-        private static bool IsHasDeletableInterface<T>(T itemDbo)
+        protected static bool IsHasDeletableInterface<T>(T itemDbo)
             => typeof(IDeletableItem).IsAssignableFrom(itemDbo.GetType());
+
+        protected bool DoesRoleMatch(string role, ICollection<Claim> roles)
+        {
+            var roleMatched = roles.ToList().FirstOrDefault(x => string.Equals(x.Value, role, StringComparison.OrdinalIgnoreCase));
+            return roleMatched != null;
+        }
     }
 }

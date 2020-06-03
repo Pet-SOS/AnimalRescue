@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AnimalRescue.API.Controllers
 {
@@ -21,13 +22,13 @@ namespace AnimalRescue.API.Controllers
     public class RequestsController : ApiControllerBase
     {
         private readonly ILogger<RequestsController> _logger;
-        private readonly IBlFullCrud<RequestDto, RequestDto, Guid> _requestService;
+        private readonly IRequestService _requestService;
         public readonly IMapper _mapper;
 
         public RequestsController(
             ILogger<RequestsController> logger,
             IMapper mapper,
-            IBlFullCrud<RequestDto, RequestDto, Guid> requestService)
+            IRequestService requestService)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));
@@ -44,7 +45,10 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<RequestModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<RequestDto, RequestModel, Guid>(_requestService, id, _mapper);
+            var roles = GetUserRoles();
+            var data = await _requestService.GetAsync(id, roles);
+            var result = _mapper.Map<RequestModel>(data);
+            return Item(result);
         }
 
         [HttpGet]
@@ -53,7 +57,10 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<CollectionSegmentApiResponse<RequestModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
-            return await GetCollectionAsync<RequestDto, RequestModel>(_requestService, queryRequest, _mapper);
+            var roles = GetUserRoles();
+            var serviceResponse = await _requestService.GetAsync(queryRequest, roles);
+            List<RequestModel> result = _mapper.Map<List<RequestDto>, List<RequestModel>>(serviceResponse.Collection);
+            return Collection(result, serviceResponse.TotalCount, queryRequest.Page, queryRequest.Size);
         }
 
         [HttpPost]
@@ -61,7 +68,11 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<RequestModel>> CreateItemAsync([FromForm] RequestCreateUpdateModel requestCreateUpdateModel)
         {
-            return await CreatedItemAsync<RequestDto, RequestCreateUpdateModel, RequestModel, Guid>(_requestService, requestCreateUpdateModel, _mapper);
+            var roles = GetUserRoles();
+            RequestDto itemDto = _mapper.Map<RequestCreateUpdateModel, RequestDto>(requestCreateUpdateModel);
+            itemDto = await _requestService.CreateAsync(itemDto, roles);
+            var itemModel = _mapper.Map<RequestDto, RequestModel>(itemDto);
+            return CreatedItem<RequestModel, Guid>(itemModel);
         }
 
         [HttpPut("{id}")]
@@ -70,7 +81,10 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] RequestCreateUpdateModel requestCreateUpdateModel)
         {
-            await UpdateDataAsync(_requestService, id, requestCreateUpdateModel, _mapper);
+            var roles = GetUserRoles();
+            var itemDto = _mapper.Map<RequestCreateUpdateModel, RequestDto>(requestCreateUpdateModel);
+            itemDto.Id = id;
+            await _requestService.UpdateAsync(itemDto, roles);
         }
 
         [HttpDelete("{id}")]

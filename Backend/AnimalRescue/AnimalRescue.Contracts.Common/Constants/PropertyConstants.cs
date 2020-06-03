@@ -89,6 +89,9 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Price = "price";
             public const string Case = "case";
             public const string CaseDescription = "caseDescription";
+            public const string UserRole = "userRole";
+            public const string Action = "action";
+            public const string TagId = "tag";
         }
 
         public static class BaseItem

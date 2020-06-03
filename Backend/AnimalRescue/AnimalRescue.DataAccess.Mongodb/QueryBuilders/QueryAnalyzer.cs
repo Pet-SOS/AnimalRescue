@@ -89,7 +89,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                     .Cast<Match>()
                     .Select(m => m.Groups.Values?.ElementAt(1)?.Value)
                     .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(x=> $"{notDeletedExpr};{x}")
+                    .Select(x => $"{notDeletedExpr};{x}")
                     .ToArray();
 
                 if (orRules.Length > 0)
@@ -100,7 +100,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
                         .ToArray();
 
                     var orResult = Builders<T>.Filter.Or(filterDefinitionArray);
-                    
+
                     return orResult;
                 }
             }
@@ -121,6 +121,7 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
         {
             var rawTerms = rowFilterParams
                 .GetRawTerms()
+                .Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToList();
 
             var filters = rawTerms
