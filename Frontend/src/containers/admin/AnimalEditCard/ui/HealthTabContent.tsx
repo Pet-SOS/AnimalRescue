@@ -5,7 +5,7 @@ interface IPropTypes {
   donationActive: boolean;
   tags: string[];
   bannerText: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>, key: string) => any;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>, key: string) => any;
   onUpdateTag: (tagName: string) => any;
   onToggleDonation: () => any;
 }
@@ -47,12 +47,14 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
         {donationActive && (
           <li>
             <label htmlFor="banner-text-field">Текст на банері</label>
-            <input
+            <textarea
+              className="alt"
               id="banner-text-field"
-              type="text"
+              maxLength={100}
               value={bannerText}
-              onChange={(e) => onChange(e, 'bannerText')} 
+              onChange={(e) => onChange(e, 'bannerText')}
             />
+            <span className="sub-notes">Максимальна кількість 100 символів</span>
           </li>
         )}
       </>
@@ -61,14 +63,12 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
 
   render() {
     return (
-      <>
-        <ul className="tabs-edit-list">
-          {this.renderBannerBlock()}
-          {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізован')}
-          {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплен')}
-          {this.renderTagSelection(EditableTags.READYTOABROAD, 'Готов до виїзду за кордон')}
-        </ul>
-      </>
+      <ul className="tabs-edit-list">
+        {this.renderBannerBlock()}
+        {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізован')}
+        {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплен')}
+        {this.renderTagSelection(EditableTags.READYTOABROAD, 'Готов до виїзду за кордон')}
+      </ul>
     );
   }
 }

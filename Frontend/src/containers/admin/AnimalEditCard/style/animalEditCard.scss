@@ -76,15 +76,18 @@
   overflow: hidden;
 
   textarea {
+    vertical-align: top;
     height: 200px;
     min-height: 48px;
     max-height: 450px;
+
+    &.alt {
+      height: 110px;
+    }
   }
 }
 
 .tabs-edit-list {
-  max-width: 343px;
-
   li {
     padding-bottom:24px;
   }
@@ -93,6 +96,7 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
+    max-width: 343px;
 
     label {
       font-size:18px;
