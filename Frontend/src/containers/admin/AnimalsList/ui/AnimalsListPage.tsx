@@ -13,8 +13,6 @@ import { ILocationsResponse } from '../../../../api/admin/locations';
 import SearchPanel from './SearchPanel';
 import { RequestFilterOperators } from '../../../../api/requestOptions/index';
 
-const { Search } = Input;
-
 interface AnimalsListPageProps {
     match:any;
     baseUrl:string;

@@ -8,6 +8,7 @@ import { ITag } from '../../../../api/tags';
 interface IAnimalCardProps {
     animal: IAnimal;
     tagsList: { [key: string]: Array<ITag> };
+    history: any;
     deleteAnimal: (id: string) => void;
     postAnimal: (animal: IAnimal) => void;
     updateAnimal: (params: { animal: IAnimal, id?: string }) => void;
@@ -15,6 +16,15 @@ interface IAnimalCardProps {
 }
 
 export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
+    constructor(props: IAnimalCardProps){
+        super(props);
+        this.goBack = this.goBack.bind(this); 
+     }
+    
+     goBack(){
+        this.props.history.goBack();
+    }
+
     render(){
         return(
             <>
@@ -27,7 +37,9 @@ export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
                         <div className="container">
                             <section className="section-edit">
                                 <header>
-                                    <Button className="icon-arrow-left" styleType={ButtonTypes.WhiteCircle}/>
+                                    <Button className="icon-arrow-left" 
+                                            styleType={ButtonTypes.WhiteCircle}
+                                            onClick={this.goBack} />
                                     <h3>Картка тварини</h3>
                                 </header>
                                 <section className="page-content">
