@@ -26,6 +26,8 @@ namespace AnimalRescue.BusinessLogic.Services
         IRequestService
     {
         private readonly IUserRoleActionRepository _userRoleActionRepository;
+        private readonly string _messageMissingRole = "User does not have a role to view this Request";
+        private readonly string _messageForbiddenFields = "Filter contains forbidden fields";
 
         public RequestService(
             IRequestRepository repository,
@@ -36,83 +38,6 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             _userRoleActionRepository = userRoleActionRepository;
         }
-
-        private bool IsRoleOperatorOrAdmin(ICollection<Claim> roles)
-        {
-            var isAdmin = DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
-            var isOperator = DoesRoleMatch(PropertyConstants.UserRole.Operator, roles);
-            return isOperator || isAdmin;
-        }
-
-        private bool IsRoleAdmin(ICollection<Claim> roles)
-        {
-            return DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
-        }
-
-        private static bool DoesItemMatchesStatus(RequestDto itemDto, List<string> requestStatuses)
-        {
-            return requestStatuses.Contains(itemDto.Status.Id);
-        }
-
-        private List<UserRoleAction> GetStatusesByRoleAndAction(string role, string action)
-        {
-            var filter = common.UserRole + "~" + StrictFilterContractConstants.Eq + "~'" + role + "';"
-                       + common.Action + "~" + StrictFilterContractConstants.Eq + "~'" + action + "'";
-            DbQuery dbQuery = new DbQuery
-            {
-                Filter = filter,
-                Page = 1,
-                Size = 100
-            };
-            return _userRoleActionRepository.GetAsync(dbQuery).Result.ToList();
-        }
-
-        private List<string> GetRequestStatuses(ICollection<Claim> roles, string action)
-        {
-            List<string> requestStatuses = new List<string>();
-            foreach(var role in roles)
-            {
-                if (role.Value != PropertyConstants.UserRole.Admin)
-                {
-                    requestStatuses.AddRange(GetStatusesByRoleAndAction(role.Value.ToUpper(), action).Select(status => status.TagId));
-                }
-            }
-            return requestStatuses;
-        }
-
-        private static List<string> GetQueryStatuses(string source, string matchString)
-        {
-            const int minExprLen = 8;
-            List<string> res = new List<string>();
-            source = Regex.Replace(source, @"\s+", "");
-            var splittedValues = source.Split('{', '}');
-            foreach (var singleExpr in splittedValues)
-            {
-                var splittedAnds = singleExpr.Split(';');
-                foreach (var itemAnd in splittedAnds)
-                {
-                    if (itemAnd.Length >= minExprLen)
-                    {
-                        if (itemAnd.Contains(matchString))
-                        {
-                            Regex regName = new Regex("'(.*)'");
-                            Match match = regName.Match(itemAnd);
-                            if (match.Success)
-                            {
-                                var status = match.Value.Substring(1, match.Value.Length - 2);
-                                res.Add(status);
-                            }
-                        }
-                        else
-                        {
-                            throw new ForbiddenOperationRequestException("Filter contains forbidden fields");
-                        }
-                    }
-                }
-            }
-            return res;
-        }
-
 
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
         {
@@ -129,23 +54,19 @@ namespace AnimalRescue.BusinessLogic.Services
                     var isContain = requestStatuses.Contains(initStatus);
                     if (!isContain)
                     {
-                        throw new ForbiddenOperationRequestException("Filter contains forbidden fields");
+                        throw new ForbiddenOperationRequestException(_messageForbiddenFields);
                     }
                 }
 
                 string filterExpr = string.Empty;
                 if (requestStatuses.Count > 0)
                 {
-                    foreach (var status in requestStatuses)
-                    {
-                        filterExpr += @"{status.id~" + StrictFilterContractConstants.Eq + "~'" + status + "'}OR";
-                    }
-                    filterExpr = filterExpr.Substring(0, filterExpr.Length - 2);
+                    filterExpr = string.Join("OR", requestStatuses.Select(x => @"{status.id~" + StrictFilterContractConstants.Eq + "~'" + x + "'}").ToList());
                     dbQuery.Filter = filterExpr;
                 }
                 else
                 {
-                    throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
+                    throw new ForbiddenOperationRequestException(_messageMissingRole);
                 }
             }
 
@@ -179,22 +100,17 @@ namespace AnimalRescue.BusinessLogic.Services
                     {
                         return itemDto;
                     }
-                    else
-                    {
-                        throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
-                    }
                 }
-                throw new ForbiddenOperationRequestException("User does not have a role to view this Request");
+                throw new ForbiddenOperationRequestException(_messageMissingRole);
             }
         }
-
 
         public async Task<RequestDto> CreateAsync(RequestDto itemDto, ICollection<Claim> roles)
         {
             var isAllowed = IsRoleOperatorOrAdmin(roles);
             if (isAllowed)
             {
-                var requestStatuses = GetStatusesByRoleAndAction(PropertyConstants.UserRole.Operator.ToUpper(), actions.Create).Select(status => status.TagId);
+                var requestStatuses = GetStatusesByRoleAndAction(PropertyConstants.UserRole.Operator.ToUpper(), actions.Create);
                 if (requestStatuses.Contains(itemDto.Status.Id))
                 {
                     itemDto = await base.CreateAsync(itemDto);
@@ -210,7 +126,6 @@ namespace AnimalRescue.BusinessLogic.Services
                 throw new ForbiddenOperationRequestException("User does not have a role assinged to perform this operation");
             }
         }
-
 
         public async Task UpdateAsync(RequestDto itemDto, ICollection<Claim> roles)
         {
@@ -239,6 +154,84 @@ namespace AnimalRescue.BusinessLogic.Services
                     throw new ForbiddenOperationRequestException("User does not have a role to change the status of this Request");
                 }
             }
+        }
+
+        private bool IsRoleOperatorOrAdmin(ICollection<Claim> roles)
+        {
+            var isAdmin = DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
+            var isOperator = DoesRoleMatch(PropertyConstants.UserRole.Operator, roles);
+            return isOperator || isAdmin;
+        }
+
+        private bool IsRoleAdmin(ICollection<Claim> roles)
+        {
+            return DoesRoleMatch(PropertyConstants.UserRole.Admin, roles);
+        }
+
+        private static bool DoesItemMatchesStatus(RequestDto itemDto, List<string> requestStatuses)
+        {
+            return requestStatuses.Contains(itemDto.Status.Id);
+        }
+
+        private List<string> GetStatusesByRoleAndAction(string role, string action)
+        {
+            var filter = common.UserRole + "~" + StrictFilterContractConstants.Eq + "~'" + role + "';"
+                       + common.Action + "~" + StrictFilterContractConstants.Eq + "~'" + action + "'";
+            DbQuery dbQuery = new DbQuery
+            {
+                Filter = filter,
+                Page = 1,
+                Size = 100
+            };
+            return _userRoleActionRepository.GetAsync(dbQuery).Result.ToList().Select(x => x.TagId).ToList();
+        }
+
+        private List<string> GetRequestStatuses(ICollection<Claim> roles, string action)
+        {
+            List<string> requestStatuses = new List<string>();
+            foreach (var role in roles.Where(role => role.Value != PropertyConstants.UserRole.Admin).Select(role => role))
+            {
+                requestStatuses.AddRange(GetStatusesByRoleAndAction(role.Value.ToUpper(), action));
+            }
+            return requestStatuses;
+        }
+
+        private List<string> GetQueryStatuses(string source, string matchString)
+        {
+            List<string> res = new List<string>();
+            if (source == null)
+            {
+                return res;
+            }
+
+            const int minExprLen = 8;
+            source = Regex.Replace(source, @"\s+", "");
+            var splittedValues = source.Split('{', '}');
+            foreach (var singleExpr in splittedValues)
+            {
+                var splittedAnds = singleExpr.Split(';');
+                foreach (var itemAnd in splittedAnds)
+                {
+                    if (itemAnd.Length >= minExprLen)
+                    {
+                        if (itemAnd.Contains(matchString))
+                        {
+                            Regex regName = new Regex("'(.*)'");
+                            Match match = regName.Match(itemAnd);
+                            if (match.Success)
+                            {
+                                var status = match.Value.Substring(1, match.Value.Length - 2);
+                                res.Add(status);
+                            }
+                        }
+                        else
+                        {
+                            throw new ForbiddenOperationRequestException(_messageForbiddenFields);
+                        }
+                    }
+                }
+            }
+            return res;
         }
     }
 }
