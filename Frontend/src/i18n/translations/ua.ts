@@ -197,7 +197,7 @@ export default {
   lookingForAFriendPageTitle: 'Шукаю друга',
   lookingForAFriendPageSelectKind: 'Вид',
   lookingForAFriendPageSelectBreed: 'Порода',
-  lookingForAFriendPageSelectGender: 'Пол',
+  lookingForAFriendPageSelectGender: 'Стать',
   lookingForAFriendPageSelectAge: "Вік",
   lookingForAFriendPageSelectSize: 'Розмір',
   countAnimalsFirstPart: 'Господаря чекають',
