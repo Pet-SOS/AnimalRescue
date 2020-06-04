@@ -18,6 +18,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 using actions = AnimalRescue.Contracts.Common.Constants.TagsConstants.Actions;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -26,17 +27,20 @@ namespace AnimalRescue.BusinessLogic.Services
         IRequestService
     {
         private readonly IUserRoleActionRepository _userRoleActionRepository;
+        private readonly IEventEmittingService _eventEmittingService;
         private readonly string _messageMissingRole = "User does not have a role to view this Request";
         private readonly string _messageForbiddenFields = "Filter contains forbidden fields";
 
         public RequestService(
             IRequestRepository repository,
             IRecoverDataService recoverDataService,
+            IEventEmittingService eventEmittingService,
             IUserRoleActionRepository userRoleActionRepository,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)
         {
             _userRoleActionRepository = userRoleActionRepository;
+            _eventEmittingService = eventEmittingService;
         }
 
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
@@ -133,6 +137,7 @@ namespace AnimalRescue.BusinessLogic.Services
             if (isAdmin)
             {
                 await base.UpdateAsync(itemDto);
+                SendMessage(itemDto);
             }
             else
             {
@@ -143,6 +148,7 @@ namespace AnimalRescue.BusinessLogic.Services
                     if (doesStatusMatches)
                     {
                         await base.UpdateAsync(itemDto);
+                        SendMessage(itemDto);
                     }
                     else
                     {
@@ -153,6 +159,22 @@ namespace AnimalRescue.BusinessLogic.Services
                 {
                     throw new ForbiddenOperationRequestException("User does not have a role to change the status of this Request");
                 }
+            }
+        }
+
+        private void SendMessage(RequestDto itemDto)
+        {
+            var operatorStatuses = GetStatusesByRoleAndAction(PropertyConstants.UserRole.Operator.ToUpper(), actions.Update);
+            if (operatorStatuses.Contains(itemDto.Status.Id))
+            {
+                EmergencyMessage emergencyMessage = new EmergencyMessage();
+                emergencyMessage.Title = "New Request (" + itemDto.Case + ")";
+                emergencyMessage.Message = "A " + itemDto.KindOfAnimal + " " + " has been found in " + itemDto.AnimalState.ToString() + " state." + Environment.NewLine;
+                emergencyMessage.Message += itemDto.CaseDescription + Environment.NewLine;
+                emergencyMessage.Message += "Contact info: " + itemDto.FirstName + " " + itemDto.LastName + ", phone: " + itemDto.Phone;
+                emergencyMessage.Address = itemDto.Address;
+
+                _eventEmittingService.PublishMessage(emergencyMessage);
             }
         }
 
