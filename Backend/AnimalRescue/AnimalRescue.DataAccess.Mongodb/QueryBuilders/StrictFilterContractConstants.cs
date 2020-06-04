@@ -102,8 +102,9 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
                 if (Ne == operationName)
                 {
-                    return Builders<TE>.Filter.Regex(fieldName, new BsonRegularExpression(new Regex(content, RegexOptions.IgnoreCase)));
+                    return LookFor<TE, string>(fieldName, content, (x) => x, operationName);
                 }
+
                 //return Builders<TE>.Filter.Text(content);
                 throw new BadRequestException($"this {nameof(operationName)}: '{operationName}' is not support for this property");
             }
