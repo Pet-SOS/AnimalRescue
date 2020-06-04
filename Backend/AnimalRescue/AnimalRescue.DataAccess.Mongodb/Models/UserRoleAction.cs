@@ -19,5 +19,13 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(common.TagId)]
         [BsonElement("tagId")]
         public string TagId { get; set; }
+
+        [CouplingPropertyName(common.IsMessageSent)]
+        [BsonElement("isMessageSent")]
+        public bool IsMessageSent { get; set; }
+
+        [CouplingPropertyName(common.ChatName)]
+        [BsonElement("chatName")]
+        public string ChatName { get; set; }
     }
 }
