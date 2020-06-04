@@ -1,5 +1,30 @@
 ﻿[
   {
+    "category": "status",
+    "kindOfAnimal": "",
+    "code": "READYFORADOPTION",
+    "values": [
+      {
+        "lang": "ua",
+        "value": "Готовий до всиновлення"
+      },
+      {
+        "lang": "ru",
+        "value": "Готов к усыновлению"
+      },
+      {
+        "lang": "en",
+        "value": "Ready for adoption"
+      },
+      {
+        "lang": "de",
+        "value": "Bereit zur Adoption"
+      }
+    ],
+    "isDeletable": false,
+    "id": "READYFORADOPTION"
+  },
+  {
     "category": "wildBreed",
     "kindOfAnimal": "WILD",
     "code": "WOLF",
