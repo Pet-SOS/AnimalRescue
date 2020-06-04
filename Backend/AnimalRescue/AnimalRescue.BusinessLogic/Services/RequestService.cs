@@ -164,7 +164,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         private void SendMessage(RequestDto itemDto)
         {
-            var operatorStatuses = GetStatusesByRoleAndAction(PropertyConstants.UserRole.Operator.ToUpper(), actions.Update);
+            var operatorStatuses = GetStatusesByRoleActionIsMessageSent(PropertyConstants.UserRole.Operator.ToUpper(), actions.Update, true);
             if (operatorStatuses.Contains(itemDto.Status.Id))
             {
                 EmergencyMessage emergencyMessage = new EmergencyMessage();
@@ -199,6 +199,20 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             var filter = common.UserRole + "~" + StrictFilterContractConstants.Eq + "~'" + role + "';"
                        + common.Action + "~" + StrictFilterContractConstants.Eq + "~'" + action + "'";
+            DbQuery dbQuery = new DbQuery
+            {
+                Filter = filter,
+                Page = 1,
+                Size = 100
+            };
+            return _userRoleActionRepository.GetAsync(dbQuery).Result.ToList().Select(x => x.TagId).ToList();
+        }
+
+        private List<string> GetStatusesByRoleActionIsMessageSent(string role, string action, bool isMessageSent)
+        {
+            var filter = common.UserRole + "~" + StrictFilterContractConstants.Eq + "~'" + role + "';"
+                       + common.Action + "~" + StrictFilterContractConstants.Eq + "~'" + action + "';"
+                       + common.IsMessageSent + "~" + StrictFilterContractConstants.Eq + "~'" + isMessageSent + "'";
             DbQuery dbQuery = new DbQuery
             {
                 Filter = filter,

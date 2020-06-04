@@ -92,6 +92,8 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string UserRole = "userRole";
             public const string Action = "action";
             public const string TagId = "tag";
+            public const string IsMessageSent = "isMessageSent";
+            public const string ChatName = "chatName";
         }
 
         public static class BaseItem
