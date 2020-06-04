@@ -16,12 +16,13 @@ interface IPropTypes {
 
 export const AnimalCard: React.FC<IPropTypes> = ({ animal }) => {
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
-  console.log(baseUrl,'baseUrl');
+  const coverImageId = animal.coverImage ? animal.coverImage : 0;
+  const coverImage = animal.imageIds[coverImageId];
   return (
     <div className="animal-card">
       <ButtonLike id={animal.id} />
       <Link to={`/animals/${animal.id}`}>
-        <div className="img-holder" style={{ backgroundImage: `url(${animal.imageIds[0] ? `${baseUrl}documents/${animal.imageIds[0]}/type/medium` : `${noPhotoImage}`})` }}>
+        <div className="img-holder" style={{ backgroundImage: `url(${coverImage ? `${baseUrl}documents/${coverImage}/type/medium` : `${noPhotoImage}`})` }}>
         </div>
         <strong className="animal-name">{animal.name}</strong>
         <div className="description">
