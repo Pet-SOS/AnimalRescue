@@ -30,7 +30,6 @@ aside {
     display: block;
     border-radius: 100%;
     box-shadow: 0px -2px 12px rgba(88, 113, 172, 0.2);
-    //background-color: #f9f6f7;
     position: absolute;
     top: -24px;
     left: 50%;
@@ -252,20 +251,19 @@ aside {
     .ant-menu-submenu-open {
       position: relative;
 
+      &:not(.ant-menu-submenu-active) {
+        > .ant-menu-sub {
+          @include media('≤tablet') {
+            display: none !important;
+          }
+        }
+      }
+
       @include media('≤phone') {
         position: static;
       }
 
       .ant-menu-sub {
-        //@include media('≤tablet') {
-        //  background-color: burlywood;
-        //  position: absolute;
-        //  top: 0;
-        //  left: 100%;
-        //  z-index: 1;
-        //  width: 300px;
-        //}
-
         @include media('≤phone') {
           transform: translateY(-100%);
           box-shadow: 0px -6px 12px rgba(233, 230, 231, 0.8);
@@ -276,7 +274,6 @@ aside {
 
     .ant-menu-item > a,
     .ant-menu-submenu-title {
-      //@include animate(color);
       transition-duration: 0s;
       color: inherit;
 

@@ -1,11 +1,8 @@
 import'./index.scss';
-
-
-import { Menu } from 'antd';
 import React from 'react';
+import {  Menu } from 'antd';
 import {Link, NavLink} from 'react-router-dom';
 import { Button, ButtonTypes} from "../../../components/Button";
-import {TI18n} from "../../../i18n";
 import {ReactComponent as Logo} from "../../../assets/header/logo.svg";
 export * from './AdminMenuWrapper'
 
@@ -15,9 +12,8 @@ export interface IPropTypes{
 }
 interface IState{
     collapsed: boolean;
-    selectedKey:string;
-    openKeys:string[];
-
+    selectedKey: string;
+    openKeys: string[];
 }
 const { SubMenu } = Menu;
 
@@ -28,18 +24,17 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
         this.state ={
             collapsed: false,
             selectedKey: this.props.selectedKey,
-            openKeys: [... this.props.openKeys, 'sub2']
+            openKeys: [...this.props.openKeys, 'sub2']
         }
     }
 
-
   toggleCollapsed = () => {
-    console.log()
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
-  handleClick = (e:any) => {
+
+  handleClick = (e: Event) => {
     console.log(e);
   }
 
@@ -53,8 +48,10 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
       });
     }
   };
+
   render() {
     let {selectedKey, openKeys} = this.state;
+
     return (
       <aside>
           <div className="logo-main">
@@ -64,7 +61,7 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
               </div>
           </div>
           <div className="wrap-btn">
-              <Button styleType={ButtonTypes.BlueSmall}>
+              <Button styleType={ButtonTypes.BlueSmall} onClick={(e) => this.handleClick}>
                   <span>Нова заявка</span><i className="icon-close">icon</i>
               </Button>
           </div>
@@ -78,8 +75,12 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                 inlineCollapsed={this.state.collapsed}
                 className="main-admin-nav"
             >
-                <Menu.Item key="animals-list"><NavLink to={`/admin/animals-list/page/1`}><i className="icon-step-1">icon</i>Тварини</NavLink></Menu.Item>
-                <Menu.Item key="tags"><NavLink to={`/admin/tags`}><i className="icon-tag">icon</i>Теги</NavLink></Menu.Item>
+                <Menu.Item key="animals-list">
+                  <NavLink to={`/admin/animals-list/page/1`}><i className="icon-step-1">icon</i>Тварини</NavLink>
+                </Menu.Item>
+                <Menu.Item key="tags">
+                  <NavLink to={`/admin/tags`}><i className="icon-tag">icon</i>Теги</NavLink>
+                </Menu.Item>
                 <SubMenu
                     key="sub1"
                     title={
@@ -102,7 +103,6 @@ export class AdminMenu extends React.Component <IPropTypes, IState>{
                     </span>
                     }>
                     <Menu.Item disabled><NavLink to={`/admin/`}><i className="icon-request">icon</i>Заявки</NavLink></Menu.Item>
-                    <Menu.Item><NavLink to={`/admin/animals`}><i className="icon-request">icon</i>Тварини old</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-people">icon</i>Працівники</NavLink></Menu.Item>
                     <Menu.Item disabled><NavLink to={`/admin`}><i className="icon-date">icon</i>Графік чергувань</NavLink></Menu.Item>
                     <Menu.Item key="locations"><NavLink to={`/admin/locations`}><i className="icon-location">icon</i>Локація</NavLink></Menu.Item>
