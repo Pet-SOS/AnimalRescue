@@ -63,10 +63,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("character")]
         public string Character { get; set; }
 
-        [CouplingPropertyName(common.NewTags)]
-        [BsonElement("newTags")]
-        public List<NestedTag> NewTags { get; set; }
-
         [CouplingPropertyName(animal.Status)]
         [BsonElement("status")]
         public WellKnownTag Status { get; set; }

@@ -89,6 +89,11 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<BsonValue> ExecuteScriptAsync(string javascript)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> GetCountAsync(DbQuery query)
         {
             return await _baseCollection.GetCountAsync(query);

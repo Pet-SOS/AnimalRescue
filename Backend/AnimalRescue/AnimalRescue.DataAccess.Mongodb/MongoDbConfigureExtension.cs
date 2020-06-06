@@ -85,6 +85,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<OrganizationDocument>, QueryBuilder<OrganizationDocument>>()
                 .AddSingleton<IQueryBuilder<Location>, QueryBuilder<Location>>()
                 .AddSingleton<IQueryBuilder<ApplicationUser>, QueryBuilder<ApplicationUser>>()
+                .AddSingleton<IQueryBuilder<MigrationHistory>, QueryBuilder<MigrationHistory>>()
                 .AddSingleton<IQueryBuilder<History>, QueryBuilder<History>>();
 
             services
@@ -103,6 +104,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IBaseCollection<Request>, BaseCollection<Request>>()
                 .AddScoped<IBaseCollection<UserRoleAction>, BaseCollection<UserRoleAction>>()
                 .AddScoped<IBaseCollection<History>, BaseCollection<History>>()
+                .AddScoped<IBaseCollection<MigrationHistory>, BaseCollection<MigrationHistory>>()
 
                 .AddScoped<IBaseCollection<Configuration<Contacts>>, BaseCollection<Configuration<Contacts>>>()
                 .AddScoped<IAnimalRepository, AnimalRepository>()
@@ -117,6 +119,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IUserRoleActionRepository, UserRoleActionRepository>()
                 .AddScoped<ILocationRepository, LocationRepository>()
                 .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>()
+                .AddScoped<IMigrationHistoryRepository, MigrationHistoryRepository>()
                 .AddScoped<IHistoryRepository, HistoryRepository>();
 
             services.AddScoped<IBaseCollection<SecurityToken>, BaseCollection<SecurityToken>>()

@@ -23,5 +23,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces
         Task UpdateAsync(T instance);
         Task DeleteAsync(string id);
         IAsyncEnumerable<T> GetAllItemsAsync();
+        Task<BsonValue> ExecuteScriptAsync(string javascript);
     }
 }

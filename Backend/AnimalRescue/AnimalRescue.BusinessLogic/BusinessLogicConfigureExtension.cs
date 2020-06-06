@@ -11,20 +11,15 @@ using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.History;
 using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.DataAccess.Mongodb;
-using AnimalRescue.DataAccess.Mongodb.Enums;
-using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Configuration;
 
 using AutoMapper;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic
 {
@@ -57,6 +52,8 @@ namespace AnimalRescue.BusinessLogic
                 new RequestMappingProfile(),
                 new HistoryProfile()
             });
+
+            services.Configure<AdminSettings>(configuration.GetSection("AdminDetail"));
 
             IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
             services.AddSingleton<IPublisherSettings>(p => publisherSettings);
@@ -107,46 +104,7 @@ namespace AnimalRescue.BusinessLogic
 
         public static void EnsureUpdate(IServiceProvider serviceProvider, IConfiguration configuration)
         {
-            CreateRolesAsync(serviceProvider, configuration).GetAwaiter().GetResult();
             MongoDbConfigureExtension.ConfigureMigrationsAsync(serviceProvider).GetAwaiter().GetResult();
-        }
-
-        private static async Task CreateRolesAsync(IServiceProvider serviceProvider, IConfiguration configuration)
-        {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var roleNames = Enum.GetValues(typeof(UserRole)).Cast<UserRole>().Select(x => x.ToString()).ToList();
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    await roleManager.CreateAsync(new ApplicationRole(roleName));
-                }
-            }
-
-            var adminSettings = configuration.GetTypedSection<AdminSettings>("AdminDetail");
-            var user = await userManager.FindByEmailAsync(adminSettings.Email);
-            if (user == null)
-            {
-                var admin = new ApplicationUser
-                {
-
-                    UserName = adminSettings.Email,
-                    Email = adminSettings.Email,
-                    FirstName = "Super",
-                    LastName = "User",
-                    ProfilePhoto = null,
-                    EmailConfirmed = true
-                };
-
-                var createPowerUser = await userManager.CreateAsync(admin, adminSettings.Password);
-                if (createPowerUser.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(admin, UserRole.Admin.ToString());
-                }
-            }
         }
     }
 }

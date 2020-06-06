@@ -1,7 +1,10 @@
 ﻿using AnimalRescue.Contracts.Common.Interfaces.CRUD;
 using AnimalRescue.DataAccess.Mongodb.Query;
 
+using MongoDB.Bson;
+
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
@@ -14,5 +17,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
         IBaseDeleteAsync<string>
     {
         IAsyncEnumerable<TEntity> GetAllItemsAsync();
+        Task<BsonValue> ExecuteScriptAsync(string javascript);
     }
 }

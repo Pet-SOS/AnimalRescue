@@ -10,10 +10,14 @@ using AnimalRescue.Infrastructure.Validation;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Bindings;
+using MongoDB.Driver.Core.Operations;
+using MongoDB.Driver.Core.WireProtocol.Messages.Encoders;
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb
@@ -53,7 +57,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             Require.Objects.NotNull<NotFoundException>(oldItem,
                 () => $"Instance with id: {instance.Id} not found");
-           
+
             oldItem = oldItem.UpdateFrom(instance);
 
             await collection.ReplaceOneAsync(t => t.Id == instance.Id, oldItem);
@@ -125,6 +129,19 @@ namespace AnimalRescue.DataAccess.Mongodb
 
             return item;
         }
+
+        public async Task<BsonValue> ExecuteScriptAsync(string javascript)
+        {
+            var function = new BsonJavaScript(javascript);
+            EvalOperation op = new EvalOperation(database.DatabaseNamespace, function, new MessageEncoderSettings{});
+
+            using (var writeBinding = new WritableServerBinding(database.Client.Cluster, new CoreSessionHandle(NoCoreSession.Instance)))
+            {
+                var result = await op.ExecuteAsync(writeBinding, CancellationToken.None);
+                return result;
+            }
+        }
+
         public async IAsyncEnumerable<T> GetAllItemsAsync()
         {
             var filter = Builders<T>.Filter.Empty;
