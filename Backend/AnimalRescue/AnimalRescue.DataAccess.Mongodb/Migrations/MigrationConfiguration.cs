@@ -2,8 +2,10 @@
 using AnimalRescue.DataAccess.Mongodb.Migrations.Engine;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
+using AnimalRescue.DataAccess.Mongodb.Repositories;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
@@ -20,12 +22,13 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider)
         {
             var migrationHistoryRepository = serviceProvider.GetRequiredService<IMigrationHistoryRepository>();
+            var logger = serviceProvider.GetRequiredService<ILogger<MigrationHistoryRepository>>();
             var migrationHistory = await migrationHistoryRepository.GetAsync(new DbQuery());
 
             GetAvailableMigrations()
                 .Where(x => IsNotAppliedMigration(x, migrationHistory))
                 .ToList()
-                .ForEach(async item => await ApplyMigration(serviceProvider, item, migrationHistoryRepository));
+                .ForEach(async item => await ApplyMigration(serviceProvider, item, migrationHistoryRepository, logger));
         }
 
         private static bool IsNotAppliedMigration(Type migrationType, List<MigrationHistory> histories)
@@ -39,7 +42,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
         private static async Task ApplyMigration(
             IServiceProvider serviceProvider,
             Type item,
-            IMigrationHistoryRepository migrationHistoryRepository)
+            IMigrationHistoryRepository migrationHistoryRepository,
+            ILogger<MigrationHistoryRepository> logger)
         {
             var ctor = item
                 .GetConstructors()
@@ -53,12 +57,19 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
 
             IAnimalRescueMigration instance = (IAnimalRescueMigration)Activator.CreateInstance(item, fullServices);
 
-            await instance?.Execute();
-
-            await migrationHistoryRepository.CreateAsync(new MigrationHistory
+            try
             {
-                MigrationId = item.GetCustomAttribute<MigrationAttribute>()?.Name
-            });
+                await instance.Execute();
+
+                await migrationHistoryRepository.CreateAsync(new MigrationHistory
+                {
+                    MigrationId = item.GetCustomAttribute<MigrationAttribute>()?.Name
+                });
+            }
+            catch (Exception exception)
+            {
+                logger.LogCritical(exception.Message);
+            }
         }
 
         private static ICollection<Type> GetAvailableMigrations()
