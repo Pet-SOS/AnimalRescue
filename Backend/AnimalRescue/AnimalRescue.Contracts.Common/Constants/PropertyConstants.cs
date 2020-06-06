@@ -122,6 +122,11 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string Media = "Media";
         }
 
+        public static class Migration
+        {
+            public const string MigrationId = "MigrationId";
+        }
+
         public static class History
         {
             public const string EntityName = "entityName";
