@@ -11,24 +11,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Migrations
 {
     public static class MigrationConfiguration
     {
-        public static string ResourceDataFolder { get; } = "Data";
-
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider)
         {
             var migrationHistoryRepository = serviceProvider.GetRequiredService<IMigrationHistoryRepository>();
             var logger = serviceProvider.GetRequiredService<ILogger<MigrationHistoryRepository>>();
             var migrationHistory = await migrationHistoryRepository.GetAsync(new DbQuery());
 
-            GetAvailableMigrations()
+            var migrations = GetAvailableMigrations()
                 .Where(x => IsNotAppliedMigration(x, migrationHistory))
-                .ToList()
-                .ForEach(async item => await ApplyMigration(serviceProvider, item, migrationHistoryRepository, logger));
+                .ToList();
+
+            foreach (Type migration in migrations)
+            {
+                await ApplyMigration(serviceProvider, migration, migrationHistoryRepository, logger);
+            }
         }
 
         private static bool IsNotAppliedMigration(Type migrationType, List<MigrationHistory> histories)
@@ -72,6 +75,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
             }
         }
 
+        static Regex datetimeRegex = new Regex(
+                "^(?<year>\\d{4})(?<month>\\d{2})(?<day>\\d{2})(?<hour>\\d{2})(?<minute>\\d{2})",
+                RegexOptions.Compiled);
+        class DateType
+        {
+            public DateTime Date { get; set; }
+            public Type Type { get; set; }
+        }
+
         private static ICollection<Type> GetAvailableMigrations()
         {
             Assembly asm = typeof(IAnimalRescueMigration).Assembly;
@@ -80,6 +92,26 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
                     typeof(IAnimalRescueMigration).IsAssignableFrom(type)
                     && type.GetCustomAttribute<MigrationAttribute>() != null)
                 .ToArray();
+            
+            migrationTypes.Select(
+                    type =>
+                    {
+                        string name = type.GetCustomAttribute<MigrationAttribute>()?.Name ?? string.Empty;
+                        Match match = datetimeRegex.Match(name);
+                        return new DateType
+                        {
+                            Date = new DateTime(
+                                int.Parse(match.Groups["year"].Value),
+                                int.Parse(match.Groups["month"].Value),
+                                int.Parse(match.Groups["day"].Value),
+                                int.Parse(match.Groups["hour"].Value),
+                                int.Parse(match.Groups["minute"].Value),
+                                0),
+                            Type = type
+                        };
+                    })
+                .ToList()
+                .Sort((left, right) => left.Date.CompareTo(right.Date));
 
             return migrationTypes;
         }
