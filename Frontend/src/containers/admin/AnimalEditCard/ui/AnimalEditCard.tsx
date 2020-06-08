@@ -219,7 +219,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
             onChange={this.onChangeValue}
             onUpdateBirthday={this.onUpdateBirthday}
           />
-          <p>id {id}</p>
         </div>
         <div className="tabs-edit">
           <Tabs
