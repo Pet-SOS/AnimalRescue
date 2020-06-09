@@ -121,10 +121,10 @@ spec:
                   name: animalrescue-rabbitmq
                   key: routingkey
             - name: Logging__LogLevel__Default
-              value: Information
+              value: Warning
             - name: Logging__LogLevel__Microsoft
-              value: Information
+              value: Warning
             - name: Logging__LogLevel__Microsoft.Hosting.Lifetime
-              value: Information
+              value: Warning
       imagePullSecrets:
         - name: #{imagePullSecret}#
