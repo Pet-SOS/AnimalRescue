@@ -45,6 +45,7 @@ namespace AnimalRescue.BusinessLogic
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
                 new WellKnownTagMappingProfile(),
+                new TagLargeMappingProfile(),
                 new SequenceMappingProfile(),
                 new BucketItemMappingProfile(),
                 new EmployeeMappingProfile(),
@@ -81,6 +82,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<ITagService, TagService>()
                 .Decorate<ITagService, HistoryTagDecorator>();
             services.AddScoped<IWellKnownTagService, WellKnownTagService>();
+            services.AddScoped<ITagLargeService, TagLargeService>();
             services.AddScoped<IJwtFactory, JwtFactory>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEmailSender, EmailSender>();
