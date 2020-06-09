@@ -7,16 +7,16 @@ trigger:
     - master
   paths:
     include:
-    - Frontend/*
+    - Backend/BackgroundServices/*
     exclude:
-    - Backend/*
+    - Frontend/*
 
 resources:
   - repo: self
 
 variables:
   - name: imageRepository
-    value: 'pet-sos/animalrescue/portal'
+    value: 'pet-sos/animalrescue/telegram-messenger'
   - name: containerRegistry
     value: 'docker.pkg.github.com'
   - name: vmImageName
@@ -28,7 +28,7 @@ variables:
   - name: kubernetesServiceConnection
     value: 'animalrescue-aks'
   - name: baseServiceName
-    value: 'animalrescue-portal'
+    value: 'animalrescue-telegram-messenger'
 
 stages:
   - stage: Build
@@ -44,18 +44,19 @@ stages:
             inputs:
               command: buildAndPush
               repository: $(imageRepository)
-              dockerfile: 'Frontend/Dockerfile'
+              dockerfile: 'Backend/BackgroundServices/Dockerfile'
               containerRegistry: $(dockerRegistryServiceConnection)
+              buildContext: '$(Build.Repository.LocalPath)/Backend'
               tags: |
                 $(Build.BuildNumber)
-          - upload: Frontend/deployment/manifests
+          - upload: Backend/BackgroundServices/deployment/manifests
             artifact: manifests
 
   - stage: PROD
     displayName: PROD
     dependsOn: Build
     jobs:
-      - deployment: Portal
+      - deployment: API
         displayName: "Deploy to PROD"
         pool:
           vmImage: $(vmImageName)
@@ -74,16 +75,28 @@ stages:
                     dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                 - task: KubernetesManifest@0
-                  displayName: Create mongodb secret
+                  displayName: Create rabbitmq secret
                   inputs: 
                     action: createSecret
                     secretType: generic
-                    secretName: animalrescue-portal
-                    secretArguments: --from-literal=api_url="https://$(api.hostname)/api/" 
-                                     --from-literal=youtube_url=$(youtube_url) 
-                                     --from-literal=youtube_api_key=$(youtube_api_key) 
-                                     --from-literal=youtube_channel_id=$(youtube_channel_id) 
-                    kubernetesServiceConnection: $(kubernetesServiceConnection) 
+                    secretName: animalrescue-rabbitmq
+                    secretArguments: --from-literal=username="$(rabbitmqUsername)" 
+                                     --from-literal=password="$(rabbitmqPassword)" 
+                                     --from-literal=hostname="rabbitmq" 
+                                     --from-literal=port="5672" 
+                                     --from-literal=exchange="$(rabbitmqExchange)" 
+                                     --from-literal=exchangetype="$(rabbitmqExchangeType)" 
+                                     --from-literal=routingkey="$(rabbitmqRoutingKey)"
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create telegram secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: telegram
+                    secretArguments: --from-literal=key="$(telegramKey)" 
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3
                   displayName: Replace tokens

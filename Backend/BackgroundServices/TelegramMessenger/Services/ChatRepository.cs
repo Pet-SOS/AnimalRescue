@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AnimalRescue.DataAccess.Mongodb.Query;
+using MongoDB.Bson;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AnimalRescue.DataAccess.Mongodb.Query;
 using TelegramMessenger.Models;
 using TelegramMessenger.Services.Interfaces;
 
@@ -74,6 +75,11 @@ namespace TelegramMessenger.Services
             {
                 _chats.RemoveAll(ch => ch.Id == idLong);
             }
+        }
+
+        public async Task<BsonValue> ExecuteScriptAsync(string javascript)
+        {
+            return BsonNull.Value;
         }
     }
 }

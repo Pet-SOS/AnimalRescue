@@ -4,10 +4,10 @@ pr: none
 trigger:
   branches:
     include:
-    - prod
+    - master
   paths:
     include:
-    - Backend/*
+    - Backend/AnimalRescue/*
     exclude:
     - Frontend/*
 
@@ -102,6 +102,21 @@ stages:
                     secretName: animalrescue-admin
                     secretArguments: --from-literal=email="$(admin_email)" 
                                      --from-literal=password="$(admin_password)" 
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create rabbitmq secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: animalrescue-rabbitmq
+                    secretArguments: --from-literal=username="$(rabbitmqUsername)" 
+                                     --from-literal=password="$(rabbitmqPassword)" 
+                                     --from-literal=hostname="rabbitmq" 
+                                     --from-literal=port="5672" 
+                                     --from-literal=exchange="$(rabbitmqExchange)" 
+                                     --from-literal=exchangetype="$(rabbitmqExchangeType)" 
+                                     --from-literal=routingkey="$(rabbitmqRoutingKey)"
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3

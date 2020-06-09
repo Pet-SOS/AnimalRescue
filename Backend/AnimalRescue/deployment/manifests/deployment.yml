@@ -85,6 +85,41 @@ spec:
                 secretKeyRef:
                   name: smtp
                   key: password
+            - name: PublisherSettings__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: username
+            - name: PublisherSettings__UserPassword
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: password
+            - name: PublisherSettings__HostName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: hostname
+            - name: PublisherSettings__HostPort
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: port
+            - name: PublisherSettings__Exchange
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchange
+            - name: PublisherSettings__ExchangeType
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchangetype
+            - name: PublisherSettings__RoutingKey
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: routingkey
             - name: Logging__LogLevel__Default
               value: Information
             - name: Logging__LogLevel__Microsoft
