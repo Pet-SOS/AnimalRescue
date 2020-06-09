@@ -43,27 +43,17 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
     );
   }
 
-  getTagDefaultValue = (optionList: ITag[], key: string) => {
-    const tagDefaultValue = optionList && (key === 'tagSize' || key === 'tagBreed') ? this.props.tags.map((tagItem: string) => {
-      let test = optionList.filter((option: ITag) => {
-        return option.id === tagItem && tagItem;
-      })
-      return test[0] && test[0].id !== undefined ? test[0].id : '';
-    }).filter((item) => item !== '') : [];
-
-    return tagDefaultValue[0] || '';
-  }
-
   renderSelect = (label: string, key: string, optionsKey: string, alternativeTitleKey?: string) => {
     // @ts-ignore
     const optionList: ITag[] = this.props[optionsKey];
     // @ts-ignore
     const selectionPropertyValue = this.props[key]; // tags === Array<string>
-    const defaultValue = selectionPropertyValue || this.getTagDefaultValue(optionList, key);
+    const defaultValue = selectionPropertyValue || '';
     return (
       <div className="form-row small-row">
         <label htmlFor="acard-status">{label}</label>
         <select value={defaultValue} id="acard-status" onChange={(e) => this.props.onChange(e, key)}>
+          <option value="" className="default-val"></option>
           {optionList?.map((item: ITag) => {
             // @ts-ignore
             const alternativeLabel = alternativeTitleKey ? item[alternativeTitleKey] : '';
@@ -98,7 +88,6 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
         {this.renderSelect('Вид', 'kindOfAnimal', 'kindOfAnimalOptions')}
         {this.renderSelect('Порода', 'tagBreed', 'breedOptions')}
         {this.props.kindOfAnimal === EKindOfAnimal.dog && this.renderSelect('Розмір', 'tagSize', 'dogSizeOptions')}
-        {this.renderField('tags', 'tags')}
       </>
     );
   }
