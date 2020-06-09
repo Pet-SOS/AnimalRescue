@@ -79,7 +79,7 @@ stages:
                   inputs: 
                     action: createSecret
                     secretType: generic
-                    secretName: rabbitmq
+                    secretName: animalrescue-rabbitmq
                     secretArguments: --from-literal=username="$(rabbitmqUsername)" 
                                      --from-literal=password="$(rabbitmqPassword)" 
                                      --from-literal=hostname="rabbitmq" 

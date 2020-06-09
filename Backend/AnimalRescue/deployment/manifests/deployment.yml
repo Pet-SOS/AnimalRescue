@@ -88,37 +88,37 @@ spec:
             - name: PublisherSettings__UserName
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: username
             - name: PublisherSettings__UserPassword
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: password
             - name: PublisherSettings__HostName
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: hostname
             - name: PublisherSettings__HostPort
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: port
             - name: PublisherSettings__Exchange
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: exchange
             - name: PublisherSettings__ExchangeType
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: exchangetype
             - name: PublisherSettings__RoutingKey
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq
+                  name: animalrescue-rabbitmq
                   key: routingkey
             - name: Logging__LogLevel__Default
               value: Information
