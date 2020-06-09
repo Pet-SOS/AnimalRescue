@@ -7,7 +7,7 @@ trigger:
     - master
   paths:
     include:
-    - Backend/AnimalRescue/*
+    - Backend/BackgroundServices/*
     exclude:
     - Frontend/*
 
@@ -16,7 +16,7 @@ resources:
 
 variables:
   - name: imageRepository
-    value: 'pet-sos/animalrescue/api'
+    value: 'pet-sos/animalrescue/telegram-messenger'
   - name: containerRegistry
     value: 'docker.pkg.github.com'
   - name: vmImageName
@@ -28,7 +28,7 @@ variables:
   - name: kubernetesServiceConnection
     value: 'animalrescue-aks'
   - name: baseServiceName
-    value: 'animalrescue-api'
+    value: 'animalrescue-telegram-messenger'
 
 stages:
   - stage: Build
@@ -44,11 +44,12 @@ stages:
             inputs:
               command: buildAndPush
               repository: $(imageRepository)
-              dockerfile: 'Backend/AnimalRescue/Dockerfile'
+              dockerfile: 'Backend/BackgroundServices/Dockerfile'
               containerRegistry: $(dockerRegistryServiceConnection)
+              buildContext: '$(Build.Repository.LocalPath)/Backend'
               tags: |
                 $(Build.BuildNumber)
-          - upload: Backend/AnimalRescue/deployment/manifests
+          - upload: Backend/BackgroundServices/deployment/manifests
             artifact: manifests
 
   - stage: PROD
@@ -74,37 +75,6 @@ stages:
                     dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                 - task: KubernetesManifest@0
-                  displayName: Create mongodb secret
-                  inputs: 
-                    action: createSecret
-                    secretType: generic
-                    secretName: animalrescue-api
-                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017" 
-                                     --from-literal=jwt_key="$(JwtKey)"
-                    kubernetesServiceConnection: $(kubernetesServiceConnection)
-                    namespace: default
-                - task: KubernetesManifest@0
-                  displayName: Create smtp secret
-                  inputs: 
-                    action: createSecret
-                    secretType: generic
-                    secretName: smtp
-                    secretArguments: --from-literal=host="$(smtp_host)" 
-                                     --from-literal=username="$(smtp_username)" 
-                                     --from-literal=password="$(smtp_password)"
-                    kubernetesServiceConnection: $(kubernetesServiceConnection)
-                    namespace: default
-                - task: KubernetesManifest@0
-                  displayName: Create admin secret
-                  inputs: 
-                    action: createSecret
-                    secretType: generic
-                    secretName: animalrescue-admin
-                    secretArguments: --from-literal=email="$(admin_email)" 
-                                     --from-literal=password="$(admin_password)" 
-                    kubernetesServiceConnection: $(kubernetesServiceConnection)
-                    namespace: default
-                - task: KubernetesManifest@0
                   displayName: Create rabbitmq secret
                   inputs: 
                     action: createSecret
@@ -117,6 +87,15 @@ stages:
                                      --from-literal=exchange="$(rabbitmqExchange)" 
                                      --from-literal=exchangetype="$(rabbitmqExchangeType)" 
                                      --from-literal=routingkey="$(rabbitmqRoutingKey)"
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create telegram secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: telegram
+                    secretArguments: --from-literal=key="$(telegramKey)" 
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3
