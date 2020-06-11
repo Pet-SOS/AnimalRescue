@@ -6,11 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\cms.json" />
+    <None Remove="Data\donation.json" />
     <None Remove="Data\tags.json" />
     <None Remove="Data\UserRoleActions.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\cms.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\donation.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Data\UserRoleActions.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
