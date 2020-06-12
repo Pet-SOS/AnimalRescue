@@ -74,6 +74,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddSingleton<IQueryBuilder<Animal>, QueryBuilder<Animal>>()
                 .AddSingleton<IQueryBuilder<Article>, QueryBuilder<Article>>()
                 .AddSingleton<IQueryBuilder<Tags>, QueryBuilder<Tags>>()
+                .AddSingleton<IQueryBuilder<TagLarge>, QueryBuilder<TagLarge>>()
                 .AddSingleton<IQueryBuilder<WellKnownTag>, QueryBuilder<WellKnownTag>>()
                 .AddSingleton<IQueryBuilder<Sequence>, QueryBuilder<Sequence>>()
                 .AddSingleton<IQueryBuilder<Vacancy>, QueryBuilder<Vacancy>>()
@@ -100,6 +101,7 @@ namespace AnimalRescue.DataAccess.Mongodb
 
                 .AddScoped<IBaseCollection<Tags>, BaseCollection<Tags>>()
                 .AddScoped<IBaseCollection<WellKnownTag>, BaseCollection<WellKnownTag>>()
+                .AddScoped<IBaseCollection<TagLarge>, BaseCollection<TagLarge>>()
                 .AddScoped<IBaseCollection<Sequence>, BaseCollection<Sequence>>()
                 .AddScoped<IBaseCollection<Request>, BaseCollection<Request>>()
                 .AddScoped<IBaseCollection<UserRoleAction>, BaseCollection<UserRoleAction>>()
@@ -114,6 +116,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<ITagRepository, TagRepository>()
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
+                .AddScoped<ITagLargeRepository, TagLargeRepository>()
                 .AddScoped<IVacancyRepository, VacancyRepository>()
                 .AddScoped<IRequestRepository, RequestRepository>()
                 .AddScoped<IUserRoleActionRepository, UserRoleActionRepository>()
