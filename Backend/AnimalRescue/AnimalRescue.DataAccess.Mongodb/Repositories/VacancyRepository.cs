@@ -6,11 +6,11 @@ using MongoDB.Driver;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-	internal class EmployeeRepository : 
-		BaseCollection<Employee>,	  
-		IEmployeeRepository
+	internal class VacancyRepository : 
+		BaseCollection<Vacancy>,
+		IVacancyRepository
 	{
-        public EmployeeRepository(IMongoDatabase database, IQueryBuilder<Employee> builder) : base(database, builder)
+        public VacancyRepository(IMongoDatabase database, IQueryBuilder<Vacancy> builder) : base(database, builder)
         {
         }
 	}
