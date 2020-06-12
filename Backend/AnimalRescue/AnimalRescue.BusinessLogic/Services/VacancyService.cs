@@ -9,12 +9,12 @@ using System;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class EmployeeService :
-        BaseService<EmployeeDto, Employee, Guid>, 
-        IBlFullCrud<EmployeeDto, EmployeeDto, Guid>
+    internal class VacancyService :
+        BaseService<VacancyDto, Vacancy, Guid>, 
+        IBlFullCrud<VacancyDto, VacancyDto, Guid>
     {
-        public EmployeeService(
-            IEmployeeRepository repository,
+        public VacancyService(
+            IVacancyRepository repository,
             IRecoverDataService recoverDataService,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)
