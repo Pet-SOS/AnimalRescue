@@ -1,0 +1,23 @@
+﻿{
+  "data": {
+    "phones": [
+      "+38 095 497 81 92",
+      "+38 095 497 81 95",
+      "+38 095 836 82 29",
+      "+38 099 041 67 03"
+    ],
+    "socialLinks": {
+      "instagram": "https://www.instagram.com/animal.rescue.kharkiv/",
+      "facebook": "https://www.facebook.com/spt.kh",
+      "youtube": "https://www.youtube.com/channel/UCBSJrFxTYAbu1sAGdeRg8cA"
+    },
+    "emails": {
+      "animalRescue1": "animal.rescue.kh@gmail.com"
+    },
+    "addresses": {
+      "country": "Україна",
+      "town": "м. Харків",
+      "street": "вул. Серпова 4 (м. Наукова)."
+    }
+  }
+}
