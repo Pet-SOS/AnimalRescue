@@ -148,7 +148,6 @@ namespace AnimalRescue.API
             app.UseCors("policy");
 
             app.UseMiddleware<UnhandledExceptionMiddleware>();
-            app.UseHttpsRedirection();
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()
                        .AllowAnyHeader()

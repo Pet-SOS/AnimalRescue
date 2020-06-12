@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{baseServiceName}#
+  labels:
+    app: #{baseServiceName}#
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: #{baseServiceName}#
+  template:
+    metadata:
+      labels:
+        app: #{baseServiceName}#
+    spec:
+      containers:
+        - name: #{baseServiceName}#
+          image: #{containerRegistry}#/#{imageRepository}#:#{Build.BuildNumber}#
+          resources:
+            requests:
+              memory: "#{telegram.memory.request}#"
+              cpu: "#{telegram.cpu.request}#"
+            limits:
+              memory: "#{telegram.memory.limit}#"
+              cpu: "#{telegram.cpu.limit}#"
+          env:
+            - name: PublisherSettings__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: username
+            - name: PublisherSettings__UserPassword
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: password
+            - name: PublisherSettings__HostName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: hostname
+            - name: PublisherSettings__HostPort
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: port
+            - name: PublisherSettings__Exchange
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchange
+            - name: PublisherSettings__ExchangeType
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchangetype
+            - name: PublisherSettings__RoutingKey
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: routingkey
+            - name: PublisherSettings__TelegramKey
+              valueFrom:
+                secretKeyRef:
+                  name: telegram
+                  key: key
+      imagePullSecrets:
+        - name: #{imagePullSecret}#

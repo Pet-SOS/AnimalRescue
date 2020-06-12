@@ -39,12 +39,13 @@ export const AppMenu: React.FC = () => {
             return {...prevState, ...nexState};
         })
     }
-    const stopFloatinUp =(e:any) :void => {
+
+    const stopFloatinUp = (e: any): void => {
         e.stopPropagation();
     }
 
     return (
-        <nav className="header-menu" onClick={(e)=> stopFloatinUp(e)}>
+        <>
             <ul className="nav-list">
                 <li className="nav-item">
                     <NavLink to='/'><TI18n keyStr="headerMenuItem0"/></NavLink>
@@ -110,6 +111,6 @@ export const AppMenu: React.FC = () => {
                    <div className="change-locale"><ChangeLocale/></div>
                </div>
            </div>
-        </nav>
+        </>
     )
 };

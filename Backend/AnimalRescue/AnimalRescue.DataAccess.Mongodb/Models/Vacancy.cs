@@ -7,7 +7,7 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
     [BsonDiscriminator("employee")]
-	public class Employee : BaseAndTimeItem
+	public class Vacancy : BaseAndTimeItem
 	{
         [CouplingPropertyName(common.Name)]
         [BsonElement("name")]

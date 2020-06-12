@@ -45,6 +45,27 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations.Engine
             }
         }
 
+        public static async Task SetUpDataBaseFromJsonFileAsync<TRepository, TEntity>(
+            this TRepository repository,
+            string fileName,
+            Func<TRepository, TEntity, Task> createFunc)
+
+        {
+            string content = GetResourceTextFile(fileName);
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                return;
+            }
+
+            TEntity item = JsonConvert.DeserializeObject<TEntity>(content);
+
+            if (item != null)
+            {
+                await createFunc(repository, item);
+            }
+        }
+
         private static string GetResourceTextFile(string filename)
         {
             StringBuilder stringBuilder = new StringBuilder();

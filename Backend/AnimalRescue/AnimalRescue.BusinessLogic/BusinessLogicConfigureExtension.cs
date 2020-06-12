@@ -48,7 +48,7 @@ namespace AnimalRescue.BusinessLogic
                 new TagLargeMappingProfile(),
                 new SequenceMappingProfile(),
                 new BucketItemMappingProfile(),
-                new EmployeeMappingProfile(),
+                new VacancyMappingProfile(),
                 new ApplicationUserMappingProfile(),
                 new RequestMappingProfile(),
                 new HistoryProfile()
@@ -67,7 +67,7 @@ namespace AnimalRescue.BusinessLogic
                 .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, HistoryDecorator<AnimalDto, AnimalDto, Guid>>();
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto, Guid>, TagDecorator<BlogDto, BlogDto, Guid>>();
-            services.AddScoped<IBlFullCrud<EmployeeDto, EmployeeDto, Guid>, EmployeeService>();
+            services.AddScoped<IBlFullCrud<VacancyDto, VacancyDto, Guid>, VacancyService>();
 
             services.AddScoped<IRequestService, RequestService>()
                 .Decorate<IRequestService, HistoryRequestDecorator>();
