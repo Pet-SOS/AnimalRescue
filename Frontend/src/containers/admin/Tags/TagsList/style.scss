@@ -42,8 +42,8 @@
     }
 
     .col {
-      flex: 0 0 22%;
-      max-width: 22%;
+      flex: 1 0 auto;
+      max-width: 20%;
       padding: 0 12px;
 
       @include media('≤tablet') {
@@ -51,6 +51,7 @@
         max-width: 20%;
       }
     }
+
 
     .col-edit {
       margin-left: auto;
@@ -72,10 +73,6 @@
       }
     }
   }
-}
-
-.t-list {
-
 }
 
 .t-item {
