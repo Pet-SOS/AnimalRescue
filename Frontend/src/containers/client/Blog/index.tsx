@@ -5,6 +5,7 @@ import { ICustomAppState } from '../../../store/state';
 import { connect } from 'react-redux';
 import { actionFetchInfoCard, actionFetchInfoContacts } from '../Home/store/actions';
 import { actionFetchBlogListRequest } from './store/actions';
+import { selectSickAnimals } from '../Animals/store/selectors';
 
 
 const mapStateToProps = (state: ICustomAppState) => {
@@ -12,6 +13,7 @@ const mapStateToProps = (state: ICustomAppState) => {
         blogList: state.blogs.blogList,
         infoCard: state.homePage.infoCard,
         infoContacts: state.homePage.infoContacts,
+        sickAnimalsList: selectSickAnimals(state),
     };
   };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
