@@ -69,9 +69,9 @@
   .с-item {
     border: 1px solid $btn-border;
     border-radius: 4px;
-    padding: 10px 16px;
+    padding: 22px 16px;
     border-top: 0;
-    line-height: 48px;
+    line-height: 24px;
 
     @include media('≤phone') {
       padding: 21px 24px;
