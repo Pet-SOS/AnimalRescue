@@ -61,7 +61,7 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
                     <div className="col col-en">Англійська</div>
                     <div className="col col-de">Німецька</div>
                     <div className="col col-ru">Російська</div>
-                    <div className="col col-level"></div>
+                    {getTagLevelClick() && <div className="col col-edit"></div>}
                     <div className="col col-edit"></div>
                     <div className="col col-del"></div>
                 </div>

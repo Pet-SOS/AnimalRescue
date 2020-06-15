@@ -73,10 +73,10 @@ const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onLevelC
                     <div className="col col-de">{getTagName(ELocales.de)}</div>
                     <div className="col col-ru">{getTagName(ELocales.ru)}</div>
                     {!!onLevelClick &&
-                    <div className="col col-edit"><i 
-                        className="icon-delete"
+                    <div className="col col-edit"><i
+                        className="icon-folder"
                         onClick={handleOnLevelClick}>icon</i>
-                    </div>                    
+                    </div>
                     } 
                     <div className="col col-del"><i className="icon-edit" onClick={handleOnEditClick}>icon</i>
                     </div>

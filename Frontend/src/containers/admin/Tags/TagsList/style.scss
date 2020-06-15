@@ -31,6 +31,12 @@
       color: inherit;
       font-size: 24px;
     }
+
+    &.icon-folder {
+      &:before {
+        font-size: 17px;
+      }
+    }
   }
 }
 
@@ -38,12 +44,10 @@
   &.tags-table {
     .row {
       margin: 0 -12px;
-      flex-wrap: nowrap;
     }
 
     .col {
-      flex: 1 0 auto;
-      max-width: 20%;
+      flex: 1 1 0;
       padding: 0 12px;
 
       @include media('≤tablet') {
@@ -69,7 +73,7 @@
 
       .disabled {
         pointer-events: none;
-        color: #AAAAAA;
+        color: #aaa;
       }
     }
   }
