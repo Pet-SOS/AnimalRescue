@@ -20,7 +20,7 @@ namespace AnimalRescue.API.Core.Configuration
                 new TagMappingProfile(),
                 new LanguageValueMappingProfile(),
                 new WellKnownTagMappingProfile(),
-                new EmployeeMappingProfile(),
+                new VacancyMappingProfile(),
                 new BlogMappingProfile(),
                 new StoryMappingProfile(),
                 new ArticleMappingProfile(),
