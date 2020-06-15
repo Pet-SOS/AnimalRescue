@@ -6,8 +6,6 @@ import {ELocales} from '../../../../i18n/store/state';
 import {BlockLink} from '../../../../components/BlockLink';
 import './style.scss';
 import MutableTagsList from "./MutableTagsList";
-import { ButtonTypes, Button } from '../../../../components/Button';
-
 
 const TagsList: React.FC = () => {
     const {tagCategoryName} = useParams();
