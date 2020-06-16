@@ -8,7 +8,8 @@ import { selectApiUrl } from '../../store/selectors/config.selector';
 
 export const PhotoSlider: React.FC<any> = ({ sliders, updatePostInfo, slideIndex }) => {
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
-  const imageUrl = sliders[0] ? `${baseUrl}documents/${sliders[slideIndex].imageIds[0]}/type/medium` : noPhoto;
+  const coverImageId = sliders[0] && sliders[slideIndex].coverImage ? sliders[slideIndex].coverImage : 0;
+  const imageUrl = sliders[0] && sliders[slideIndex].imageIds[coverImageId] ? `${baseUrl}documents/${sliders[slideIndex].imageIds[coverImageId]}/type/medium` : noPhoto;
   return (
     <>
       <div className='image-help-holder' onClick={() => { store.dispatch(actionIsActivePopup(true)) }} >
