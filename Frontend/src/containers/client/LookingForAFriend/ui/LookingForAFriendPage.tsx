@@ -389,7 +389,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
         <div className='container'>
           <h2><TI18n keyStr="lookingForAFriendPageTitle" default={defaultText.lookingForAFriendPageTitle}/>
           </h2>
-          <div className={this.state.isFilterVisible && "filters-hidden-mobile"}>
+          <div className={this.state.isFilterVisible ? "filters-hidden-mobile" : ""}>
             <button onClick={() => this.setState({isFilterVisible: !this.state.isFilterVisible})}
                     className="opener">
               <i className="icon-step">icon</i><span>Фільтри</span>
