@@ -110,8 +110,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
           return this.tagsSizeAndBreed[tagKey];
         }
       }))
+    console.log(mainTags, sizeAndBreedTags)
     this.setState({
-      tags: [...mainTags, ...sizeAndBreedTags]
+      tags: [...mainTags, ...sizeAndBreedTags],
+      [key]: e.target.value
     })
   }
 

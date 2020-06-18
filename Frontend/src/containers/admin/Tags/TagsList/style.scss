@@ -31,6 +31,12 @@
       color: inherit;
       font-size: 24px;
     }
+
+    &.icon-folder {
+      &:before {
+        font-size: 17px;
+      }
+    }
   }
 }
 
@@ -38,12 +44,10 @@
   &.tags-table {
     .row {
       margin: 0 -12px;
-      flex-wrap: nowrap;
     }
 
     .col {
-      flex: 0 0 22%;
-      max-width: 22%;
+      flex: 1 1 0;
       padding: 0 12px;
 
       @include media('≤tablet') {
@@ -51,6 +55,7 @@
         max-width: 20%;
       }
     }
+
 
     .col-edit {
       margin-left: auto;
@@ -68,14 +73,10 @@
 
       .disabled {
         pointer-events: none;
-        color: #AAAAAA;
+        color: #aaa;
       }
     }
   }
-}
-
-.t-list {
-
 }
 
 .t-item {

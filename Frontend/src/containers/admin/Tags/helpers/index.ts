@@ -44,5 +44,5 @@ const ignoreAdd = [TagCategory.dogSize.toLocaleLowerCase(), TagCategory.kindOfAn
 export const isSupportAdd = (tagCategory: string, kindOfAnimal?: string) =>
     !ignoreAdd.find(v => v === tagCategory.toLocaleLowerCase()) || !!kindOfAnimal;
 
-export const isEditSupport = (targetCategory: string, kindOfAnimal?: string) =>
+export const isLevelSupport = (targetCategory: string, kindOfAnimal?: string) =>
     !(FilterType.KIND_OF_ANIMAL.toLocaleLowerCase() === targetCategory.toLocaleLowerCase() && !kindOfAnimal);

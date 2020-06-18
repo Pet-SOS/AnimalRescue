@@ -22,7 +22,7 @@ interface IPropTypes {
 export const AppHeader: React.FC<IPropTypes> = () => {
 
   const isActivePopup: boolean = useSelector((store: ICustomAppState) => (store.homePage.isActivePopup));
-  const infoCard: string = store.getState().homePage.infoCard.data.body;   
+  const infoCard: string = store.getState().homePage.infoCard.data.body;
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   useEffect(() => {
     infoContactsCheckAndLoad();
@@ -46,17 +46,22 @@ export const AppHeader: React.FC<IPropTypes> = () => {
                     </div>
                     <div className='wrap-navigation' >
                         <div className='band nav-opener' onClick={(e)=> {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            setIsActiveMenu(!isActiveMenu);}} ><span>Open</span></div>
-                        <AppMenu/>
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setIsActiveMenu(!isActiveMenu);}}><span>Open</span></div>
+                        <nav className="header-menu" onClick={(e)=> {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setIsActiveMenu(!isActiveMenu);}}>
+                            <AppMenu />
+                        </nav>
                     </div>
                 </div>
             </div>
         {isActivePopup ? <PopupInfo
             boxImages={[counterImage5,counterImage9,counterImage6,counterImage10]}
             title={<TI18n keyStr="popupInfoBlockTitle" default="Помощь животным" />}
-            card={infoCard}            
+            card={infoCard}
             textFirst={<TI18n 
                 keyStr="popupBlockFirstText" 
                 default="Если Вы хотите помочь нам и нашим подопечным, переведите любую сумму на карту Приватбанка:" />}
