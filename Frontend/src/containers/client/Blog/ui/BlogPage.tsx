@@ -8,6 +8,8 @@ import { IBlogItem, IBlogListResponse } from "../../../../api/blog";
 import { BlogCard } from "./BlogCard";
 import { BtnPagination } from "./BtnPagination";
 import { RequestFilterOperators } from "../../../../api/requestOptions";
+import { HelpBlock } from "../../../../components/HelpBlock";
+import { IAnimalsListState } from "../../Animals/store/state";
 
 
 interface IPropTypes {
@@ -20,6 +22,7 @@ interface IPropTypes {
     fetchBlogList:(params?:any) => any;
     fetchInfoCard:() => void;
     fetchInfoContacts:() => void;
+    sickAnimalsList: IAnimalsListState;
 }
 type MyState = { activeBtn: string };
 
@@ -155,6 +158,10 @@ export class BlogPage extends React.Component<IPropTypes , MyState> {
                         />
                     </div>
                 </div>
+                <HelpBlock
+                    animalsList={this.props.sickAnimalsList.data}
+                    title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
+                />
             </div>
         )
     }

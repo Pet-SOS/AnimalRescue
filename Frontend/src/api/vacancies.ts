@@ -18,6 +18,6 @@ export interface IVacanciesResponse {
 }
 
 export async function fetchVacancies(requestParams?: IRequestParams): Promise<IVacanciesResponse> {
-  const res = await API.get('employees', { params: prepareRequestParams(requestParams) });
+  const res = await API.get('vacancies', { params: prepareRequestParams(requestParams) });
   return res.data
 }
