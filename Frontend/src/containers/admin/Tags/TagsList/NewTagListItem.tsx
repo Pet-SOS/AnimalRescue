@@ -45,22 +45,20 @@ export const NewTagListItem: React.FC<INewTagListItemProps> = ({category, kindOf
             onCancel={onCancel}
             onValidationFailure={onValidationFailure}
         />) : (
-        <div className="t-item">
-            <div className="row">
-                <React.Fragment>
-                    <div className="col col-ua">
-                        <a onClick={onNewClick}>
-                            {<TI18n keyStr="newTag" default={'+ New Tag'}
-                                    locale={ELocales.ua}/>}</a>
-                    </div>
-                    <div className="col col-en">...</div>
-                    <div className="col col-de">...</div>
-                    <div className="col col-ru">...</div>
-                    <div className="col col-num"></div>
-                    <div className="col col-edit"></div>
-                    <div className="col col-del"></div>
-                </React.Fragment>
-            </div>
+        <div className="row">
+            <React.Fragment>
+                <div className="col col-ua">
+                    <a onClick={onNewClick}>
+                        {<TI18n keyStr="newTag" default={'+ New Tag'}
+                                locale={ELocales.ua}/>}</a>
+                </div>
+                <div className="col col-en">...</div>
+                <div className="col col-de">...</div>
+                <div className="col col-ru">...</div>
+                <div className="col col-num"></div>
+                <div className="col col-edit"></div>
+                <div className="col col-del"></div>
+            </React.Fragment>
         </div>
     );
 };

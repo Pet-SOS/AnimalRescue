@@ -66,24 +66,22 @@ const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onLevelC
     return isEdit
         ? <TagForm onSubmit={onEditSubmit} onCancel={onCancelEdit} tag={tag} onValidationFailure={onValidationFailure}/>
         : (
-            <div className="t-item">
-                <div className="row">
-                    <div className="col col-ua">{getTagName(ELocales.ua)}</div>
-                    <div className="col col-en">{getTagName(ELocales.en)}</div>
-                    <div className="col col-de">{getTagName(ELocales.de)}</div>
-                    <div className="col col-ru">{getTagName(ELocales.ru)}</div>
-                    {!!onLevelClick &&
-                    <div className="col col-edit"><i
-                        className="icon-folder"
-                        onClick={handleOnLevelClick}>icon</i>
-                    </div>
-                    } 
-                    <div className="col col-del"><i className="icon-edit" onClick={handleOnEditClick}>icon</i>
-                    </div>
-                    <div className="col col-del"><i
-                        className={`icon-delete ${tag.isDeletable ? '' : 'disabled'}`}
-                        onClick={onTagDelete}>icon</i>
-                    </div>
+            <div className="row">
+                <div className="col col-ua">{getTagName(ELocales.ua)}</div>
+                <div className="col col-en">{getTagName(ELocales.en)}</div>
+                <div className="col col-de">{getTagName(ELocales.de)}</div>
+                <div className="col col-ru">{getTagName(ELocales.ru)}</div>
+                {!!onLevelClick &&
+                <div className="col col-edit"><i
+                    className="icon-folder"
+                    onClick={handleOnLevelClick}>icon</i>
+                </div>
+                } 
+                <div className="col col-del"><i className="icon-edit" onClick={handleOnEditClick}>icon</i>
+                </div>
+                <div className="col col-del"><i
+                    className={`icon-delete ${tag.isDeletable ? '' : 'disabled'}`}
+                    onClick={onTagDelete}>icon</i>
                 </div>
             </div>
         )

@@ -31,8 +31,9 @@ export const TagsCategoryItem: React.FC<IPropTypes> = ({category, tags, onEditCl
     return (
         <div className="с-item">
             <div className="row">
-                <div className="col col-category">{<TI18n keyStr={`${category}TagCategory`} default={category}
-                                                          locale={ELocales.ua}/>}</div>
+                <div className="col col-category">{<TI18n keyStr={`${category}TagCategory`}
+                        default={category}
+                        locale={ELocales.ua}/>}</div>
                 <div className="col col-value">
                     {tags.map((tag, index) => (
                         <span key={index}>{getTagName(tag.values, index === tags.length - 1)}</span>

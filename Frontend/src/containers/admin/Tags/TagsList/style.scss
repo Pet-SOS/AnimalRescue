@@ -42,8 +42,19 @@
 
 .section-table {
   &.tags-table {
+    .t-list {
+      .row {
+        border: solid $btn-border;
+        border-width: 0 1px 1px;
+        border-radius: 4px;
+        padding: 22px 8px;
+        margin: 0;
+      }
+    }
+
     .row {
-      margin: 0 -12px;
+      margin: 0 -8px;
+      line-height: 24px;
     }
 
     .col {
@@ -76,18 +87,6 @@
         color: #aaa;
       }
     }
-  }
-}
-
-.t-item {
-  border: 1px solid $btn-border;
-  border-radius: 4px;
-  padding: 10px 16px;
-  border-top: 0;
-  line-height: 48px;
-
-  @include media('≤phone') {
-    padding: 21px 24px;
   }
 }
 
