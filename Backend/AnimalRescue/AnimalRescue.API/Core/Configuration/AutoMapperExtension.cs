@@ -18,6 +18,7 @@ namespace AnimalRescue.API.Core.Configuration
                 new AnimalMappingProfile(),
                 new FinancialReportMappingProfile(),
                 new TagMappingProfile(),
+                new TagLargeMappingProfile(),
                 new LanguageValueMappingProfile(),
                 new WellKnownTagMappingProfile(),
                 new VacancyMappingProfile(),
