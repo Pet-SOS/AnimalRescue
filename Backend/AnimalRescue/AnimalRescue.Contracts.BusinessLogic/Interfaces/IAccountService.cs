@@ -10,5 +10,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 
         Task ForgotPassword(ForgotPasswordAccountViewModel model);
         Task<string> ResetPassword(ResetPasswordAccountViewModel model);
+        Task<SignInAccountModel> RefreshTokenAsync(string requestToken, string requestRefreshToken);
     }
 }
