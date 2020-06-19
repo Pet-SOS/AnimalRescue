@@ -128,13 +128,13 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                             <section className="page-content">
                                 <div className="inner">
                                     <section className='section-table animals-table'>
-                                        <header>
+                                        <header className="phone-hidden">
                                             <div className="row">
                                                 <div className="col col-image">Фото</div>
                                                 <div className="col col-name">Кличка</div>
-                                                <div className="col col-type">Вид</div>
+                                                <div className="col col-type phone-hidden">Вид</div>
                                                 <div className="col col-gender phone-hidden">Стать</div>
-                                                <div className="col col-age">Вiк</div>
+                                                <div className="col col-age phone-hidden">Вiк</div>
                                                 <div className="col col-location phone-hidden">Локація</div>
                                                 <div className="col col-status">Статус</div>
                                                 <div className="col col-edit">&nbsp;</div>
@@ -160,7 +160,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                 </span>
                                                     </div>
                                                 </div>
-                                                <div className="col col-type">
+                                                <div className="col col-type phone-hidden">
                                                     {!!animal.kindOfAnimal && (
                                                     <TagTranslation tagId={animal.kindOfAnimal} />
                                                     )}
@@ -170,7 +170,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                                                     <TagTranslation tagId={animal.gender} />
                                                     )}
                                                 </div>
-                                                <div className="col col-age"><Age birthday={animal.birthday} /></div>
+                                                <div className="col col-age phone-hidden"><Age birthday={animal.birthday} /></div>
                                                 <div className="col col-location phone-hidden">
                                                     <div className="LocationType">
                                                         {!!animal.locationName && animal.locationName !=='null' &&(

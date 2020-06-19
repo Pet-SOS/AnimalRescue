@@ -60,58 +60,45 @@
     }
 }
 
-.animals-table {
+.section-table.animals-table {
     line-height: 1.33;
 
-    header {
+    &,
+    .row,
+    .c-list,
+    .col {
         @include media('≤phone') {
-            display: none;
+            display: block;
         }
+    }
+
+    .row {
+        @include media('≤phone') {
+            overflow: hidden;
+            border-radius: 4px;
+            border: solid $btn-border-color;
+            border-width: 0 1px 1px;
+        }
+    }
+
+    header + .row {
+        border-width: 1px;
     }
 
     .col {
         padding-top: 9px !important;
         padding-bottom: 9px !important;
-    }
-
-    .col-image {
-        @include media('≤phone') {
-            flex-basis: 96px;
-            max-width: 96px;
-            margin-bottom: 12px;
-        }
-    }
-
-    .col-name {
-        flex-basis: 13.38%;
-        max-width: 13.38%;
 
         @include media('≤phone') {
-            flex-basis: auto;
-            max-width: none;
-            width: calc(100% - 96px);
-            flex-grow: 1;
-            margin-bottom: 12px;
-        }
-    }
-
-    .col-type {
-        flex-basis: 10.72%;
-        max-width: 10.72%;
-
-        @include media('≤phone') {
-            display: none;
+            float: left;
+            border: 0 !important;
         }
     }
 
     .col-status {
-        flex-basis: 16.56%;
-        max-width: 16.56%;
-
         @include media('≤phone') {
-            flex-basis: auto;
-            max-width: none;
-            width: auto;
+            clear: left;
+            padding-top: 0 !important;
         }
 
         div {
@@ -144,6 +131,13 @@
         .status-color-died {
             background-color: #62738d;
             color: #f9f6f7;
+        }
+    }
+
+    .col-icon {
+        @include media('≤phone') {
+            float: right;
+            padding-top: 0 !important;
         }
     }
 
