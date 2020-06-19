@@ -554,6 +554,38 @@ input, textarea, ::placeholder {
   margin: 0 0 20px;
   line-height: 24px;
 
+  &.location-table {
+    font-size: 18px;
+    line-height: 24px;
+    color: $text-color;
+
+    header {
+      .col {
+        height: auto;
+      }
+    }
+
+    .col {
+      height: 44px;
+      padding: 10px;
+
+      &:first-child {
+        padding-left: 16px;
+      }
+
+      &:first-child {
+        padding-right: 16px;
+      }
+    }
+
+    .location-new {
+      .col-title,
+      .col-contact {
+        color: $orange;
+      }
+    }
+  }
+
   header {
     display: table-header-group;
     margin: 0;
@@ -570,6 +602,10 @@ input, textarea, ::placeholder {
 
   .с-list {
     display: table-row-group;
+  }
+
+  .с-footer {
+    display: table-footer-group;
   }
 
   .row {
