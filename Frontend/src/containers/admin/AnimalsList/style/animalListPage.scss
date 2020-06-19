@@ -3,38 +3,6 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/base/mixins';
 
-.section-table {
-    header {
-        margin: 0;
-        background-color: $bg-lite-box;
-        border: 1px solid #DBDADB;
-        border-radius: 4px;
-        padding: 11px 16px;
-        color: $text-lite-color;
-        font-size: 16px;
-        line-height: 1.5;
-    }
-    
-    .row {
-        display: flex;
-        margin: 0 -8px;
-
-        @include media('≤phone') {
-            margin: 0 -4px;
-        }
-    }
-
-    .col {
-        width: 100%;
-        min-height: 1px;
-        padding: 0 8px;
-
-        @include media('≤phone') {
-            padding: 0 4px;
-        }
-    }
-}
-
 .section-animals {
     > header {
         position: relative;
@@ -92,66 +60,6 @@
     }
 }
 
-.a-list {
-
-    .a-item {
-        border: 1px solid $btn-border;
-        border-radius: 4px;
-        padding: 10px 16px;
-        border-top: 0;
-
-        @include media('≤phone') {
-            font-size: 16px;
-            line-height: 18px;
-            padding: 10px 8px;
-        }
-
-        &:first-child {
-            @include media('≤phone') {
-                border: 1px solid $btn-border;
-            }
-        }
-
-        .name {
-            @include media('≤phone') {
-                font-size: 18px;
-                line-height: 1.33333;
-            }
-        }
-        
-        .num {
-            color: $text-lite-color;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-    }
-
-    .row {
-        align-items: center;
-
-        @include media('≤phone') {
-            align-items: stretch;
-        }
-    }
-
-    .visual {
-        padding-top: 75%;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-    }
-
-    i {
-        display: inline-block;
-        vertical-align: top;
-        font-size: 0;
-        cursor: pointer;
-
-        &:before {
-            font-size: 24px;
-        }
-    }
-}
-
 .animals-table {
     line-height: 1.33;
 
@@ -162,18 +70,11 @@
     }
 
     .col {
-        flex: 0 0 12.5%;
-        max-width: 12.5%;
-    }
-
-    .col-btn {
-        font-size: 0;
+        padding-top: 9px !important;
+        padding-bottom: 9px !important;
     }
 
     .col-image {
-        flex-basis: 10.19%;
-        max-width: 10.19%;
-
         @include media('≤phone') {
             flex-basis: 96px;
             max-width: 96px;
@@ -203,33 +104,6 @@
         }
     }
 
-    .col-gender {
-        flex-basis: 12.85%;
-        max-width: 12.85%;
-
-        @include media('≤phone') {
-            display: none;
-        }
-    }
-
-    .col-age {
-        flex-basis: 13.9%;
-        max-width: 13.9%;
-
-        @include media('≤phone') {
-            display: none;
-        }
-    }
-
-    .col-location {
-        flex-basis: 18.15%;
-        max-width: 18.15%;
-
-        @include media('≤phone') {
-            display: none;
-        }
-    }
-
     .col-status {
         flex-basis: 16.56%;
         max-width: 16.56%;
@@ -248,41 +122,35 @@
         }
 
         .status-color-socialization {
-            background-color: #DFECFE;
-            color: #3E5B9D;        
+            background-color: #dfecfe;
+            color: #3e5b9d;
         }
 
         .status-color-treatment {
-            background-color: #FEDFDF;
-            color: #F67670;        
+            background-color: #fedfdf;
+            color: #f67670;
         }
 
         .status-color-readyforadoption {
-            background-color: #E4F8E6;
-            color: #2D7A5F;        
+            background-color: #e4f8e6;
+            color: #2d7a5f;
         }
 
         .status-color-adopted {
             background-color: #409275;
-            color: #F9F6F7;        
+            color: #f9f6f7;
         }
 
         .status-color-died {
-            background-color: #62738D;
-            color: #F9F6F7;        
+            background-color: #62738d;
+            color: #f9f6f7;
         }
     }
 
-    .col-btn {
-        flex-basis: 4.25%;
-        max-width: 4.25%;
-
-        @include media('≤phone') {
-            flex-basis: auto;
-            max-width: none;
-            width: auto;
-            margin-left: auto;
-        }
+    .visual {
+        padding-top: 75%;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
     }
 
     .add-info {

@@ -57,13 +57,11 @@ const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, c
                                 <header>
                                     <div className="row">
                                         <div className="col col-category">Категорія</div>
-                                        <div className="col col-value">Значення</div>
-                                        <div className="col col-btn">Edit</div>
+                                        <div className="col col-value xs-phone-hidden">Значення</div>
+                                        <div className="col col-icon">&nbsp;</div>
                                     </div>
                                 </header>
-                                <div className="с-list">
-                                    {renderList()}
-                                </div>
+                                {renderList()}
                             </section>
                         </div>
                     </section>

@@ -55,9 +55,9 @@ export const NewTagListItem: React.FC<INewTagListItemProps> = ({category, kindOf
                 <div className="col col-en">...</div>
                 <div className="col col-de">...</div>
                 <div className="col col-ru">...</div>
-                <div className="col col-num"></div>
-                <div className="col col-edit"></div>
-                <div className="col col-del"></div>
+                {/* <div className="col col-num"></div> */}
+                <div className="col col-icon"></div>
+                <div className="col col-icon"></div>
             </React.Fragment>
         </div>
     );

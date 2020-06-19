@@ -15,12 +15,13 @@ export interface ITagForm {
 
 interface IPropTypes {
     tag?: ITag;
+    hasExtraCol?: boolean;
     onSubmit: (tagForm: ITagForm) => void;
     onCancel: () => void;
     onValidationFailure?: () => void;
 }
 
-export const TagForm: React.FC<IPropTypes> = ({onSubmit, onCancel, tag, onValidationFailure}) => {
+export const TagForm: React.FC<IPropTypes> = ({onSubmit, onCancel, tag, hasExtraCol, onValidationFailure}) => {
     const getTagName = (lang: ELocales): string => !!tag ? getTagNameByLang(tag, lang) : '';
     const [tagValues, setTagValues] = useState({
         [ELocales.ua]: getTagName(ELocales.ua),
@@ -52,52 +53,51 @@ export const TagForm: React.FC<IPropTypes> = ({onSubmit, onCancel, tag, onValida
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="t-item">
-                <div className="row">
-                    <div className="col">
-                        <input
-                            type='text'
-                            name={ELocales.ua}
-                            placeholder='Українська'
-                            onChange={(e) => onInput(ELocales.ua, e)}
-                            value={tagValues[ELocales.ua]}
-                        />
-                    </div>
-                    <div className="col">
-                        <input
-                            type='text'
-                            name={ELocales.en}
-                            placeholder='Англійська'
-                            onChange={(e) => onInput(ELocales.en, e)}
-                            value={tagValues[ELocales.en]}
-                        />
-                    </div>
-                    <div className="col">
-                        <input
-                            type='text'
-                            name={ELocales.de}
-                            placeholder='Німецька'
-                            onChange={(e) => onInput(ELocales.de, e)}
-                            value={tagValues[ELocales.de]}
-                        />
-                    </div>
-                    <div className="col">
-                        <input
-                            type='text'
-                            name={ELocales.ru}
-                            placeholder='Російська'
-                            onChange={(e) => onInput(ELocales.ru, e)}
-                            value={tagValues[ELocales.ru]}
-                        />
-                    </div>
-                    <div className="col col-num">...</div>
-                    <div className="col col-edit">
-                        <button className="btn-checked" type="submit">Save</button>
-                    </div>
-                    <div className="col col-del">
-                        <button className="cancel" type="button" onClick={onCancel}>Cancel</button>
-                    </div>
+        <form className="с-list" onSubmit={handleSubmit}>
+            <div className="row">
+                <div className="col">
+                    <input
+                        type='text'
+                        name={ELocales.ua}
+                        placeholder='Українська'
+                        onChange={(e) => onInput(ELocales.ua, e)}
+                        value={tagValues[ELocales.ua]}
+                    />
+                </div>
+                <div className="col">
+                    <input
+                        type='text'
+                        name={ELocales.en}
+                        placeholder='Англійська'
+                        onChange={(e) => onInput(ELocales.en, e)}
+                        value={tagValues[ELocales.en]}
+                    />
+                </div>
+                <div className="col">
+                    <input
+                        type='text'
+                        name={ELocales.de}
+                        placeholder='Німецька'
+                        onChange={(e) => onInput(ELocales.de, e)}
+                        value={tagValues[ELocales.de]}
+                    />
+                </div>
+                <div className="col">
+                    <input
+                        type='text'
+                        name={ELocales.ru}
+                        placeholder='Російська'
+                        onChange={(e) => onInput(ELocales.ru, e)}
+                        value={tagValues[ELocales.ru]}
+                    />
+                </div>
+                {/* <div className="col col-num">...</div> */}
+                {hasExtraCol && <div className="col col-icon"></div>}
+                <div className="col col-icon">
+                    <button className="btn-checked" type="submit">Save</button>
+                </div>
+                <div className="col col-icon">
+                    <button className="cancel" type="button" onClick={onCancel}>Cancel</button>
                 </div>
             </div>
         </form>

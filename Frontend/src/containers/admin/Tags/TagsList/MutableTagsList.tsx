@@ -61,12 +61,12 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
                     <div className="col col-en">Англійська</div>
                     <div className="col col-de">Німецька</div>
                     <div className="col col-ru">Російська</div>
-                    {getTagLevelClick() && <div className="col col-edit"></div>}
-                    <div className="col col-edit"></div>
-                    <div className="col col-del"></div>
+                    {getTagLevelClick() && <div className="col col-icon"></div>}
+                    <div className="col col-icon"></div>
+                    <div className="col col-icon"></div>
                 </div>
             </header>
-            <div className="t-list">
+            <>
                 {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
                     <TagsListItem
                         key={index}
@@ -83,7 +83,7 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
                         onValidationFailure={showValidationError}
                     />
                 )}
-            </div>
+            </>
         </section>
     )
 };
