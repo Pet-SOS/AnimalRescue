@@ -118,9 +118,13 @@ class LocationListCell extends React.Component<ILocationCellProps & ILocationCel
     render() {
         const {className} = this.props;
         return (
-            <div className={`row ${className || ''}`} onClick={this.handleCellClick}>
-                {this.state.inEdit ? this.renderEditForm() : this.renderView()}
-            </div>
+            <>
+                {this.state.inEdit
+                    ? this.renderEditForm()
+                    : <div className={`row ${className || ''}`} onClick={this.handleCellClick}>
+                        {this.renderView()}
+                      </div>}
+            </>
         );
     }
 }

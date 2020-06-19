@@ -53,7 +53,7 @@ export const LocationCellForm: React.FC<IPropTypes> = ({onSubmit, onCancel, loca
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="c-list" onSubmit={handleSubmit}>
             <div className="row">
                 <LocationFormPart
                     onInput={onInput}

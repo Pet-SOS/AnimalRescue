@@ -53,7 +53,7 @@ export const TagForm: React.FC<IPropTypes> = ({onSubmit, onCancel, tag, hasExtra
     };
 
     return (
-        <form className="с-list" onSubmit={handleSubmit}>
+        <form className="c-list" onSubmit={handleSubmit}>
             <div className="row">
                 <div className="col">
                     <input
