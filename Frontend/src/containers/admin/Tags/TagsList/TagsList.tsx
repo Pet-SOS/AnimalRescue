@@ -34,7 +34,7 @@ const TagsList: React.FC = () => {
                                         locale={ELocales.ua}/>}</h4>
                         </header>
                         <div className="page-content">
-                            <MutableTagsList/>
+                            <MutableTagsList />
                         </div>
                     </section>
                 </div>

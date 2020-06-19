@@ -12,6 +12,8 @@ export class ShelterList extends React.PureComponent {
             <>
                 <div className="col col-title">Назва</div>
                 <div className="col col-address">Адреса</div>
+                <div className="col">&nbsp;</div>
+                <div className="col">&nbsp;</div>
             </>
         );
     };

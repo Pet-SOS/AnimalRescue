@@ -547,4 +547,153 @@ input, textarea, ::placeholder {
   }
 }
 
+.page-content {
+  @include media('≤phone') {
+    overflow-x: auto;
+  }
+}
+
+.section-table {
+  display: table;
+  table-layout: fixed;
+  min-width:100%;
+  margin: 0 0 20px;
+  line-height: 24px;
+
+  @include media('≤tablet-small') {
+      font-size: 16px;
+  }
+
+  header {
+    display: table-header-group;
+    margin: 0;
+    font-size: 16px;
+    color: $text-lite-color;
+
+    &.phone-hidden {
+      + .c-list .row:first-child,
+      + .row {
+        .col {
+          @include media('≤phone') {
+              border-top-width: 1px !important;
+          }
+        }
+      }
+    }
+
+    .col {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      border-top-width: 1px !important;
+      background: $base-background-body;
+    }
+  }
+
+  .c-list {
+    display: table-row-group;
+  }
+
+  .с-footer {
+    display: table-footer-group;
+  }
+
+  .row {
+    display: table-row;
+    
+  }
+
+  .col {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 22px 12px;
+    border: solid $btn-border-color;
+    border-width: 0 0 1px;
+    box-sizing: content-box;
+
+    @include media('≤tablet-small') {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    &:first-child {
+      padding-left: 16px;
+      border-width: 0 0 1px 1px;
+      border-radius: 4px 0 0 4px;
+
+      @include media('≤tablet-small') {
+          padding-left: 8px;
+      }
+    }
+
+    &:last-child {
+      padding-right: 16px;
+      border-width: 0 1px 1px 0;
+      border-radius: 0 4px 4px 0;
+
+      @include media('≤tablet-small') {
+          padding-right: 8px;
+      }
+    }
+
+    &.col-image {
+      width: 80px;
+    }
+
+    &.col-location {
+      width: 160px;
+    }
+
+    &.col-category {
+      width: 33.3%;
+
+      @include media('≤phone') {
+          width: auto;
+      }
+    }
+
+    &.col-icon {
+      width: 24px;
+
+      *[class^="icon-"] {
+        font-size: 24px;
+        line-height: 1;
+        color: $text-lite-color;
+        cursor: pointer;
+        transition: color .3s ease-in-out;
+
+        &:before {
+          color: inherit;
+        }
+
+        &:hover {
+          color: $yellow;
+        }
+
+        &.disabled {
+          color: #aaa !important;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .phone-hidden {
+    @include media('≤phone') {
+        display: none !important;
+    }
+  }
+
+  .xs-phone-hidden {
+    @include media('≤xs-phone') {
+        display: none !important;
+    }
+  }
+
+  .num {
+    color: $text-lite-color;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
 @import "media";

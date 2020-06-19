@@ -4,260 +4,33 @@
 @import '../../../../styles/base/mixins';
 
 .location-table {
-  line-height: 1.33;
+  font-size: 18px;
+  line-height: 24px;
+  color: $text-color;
 
   header {
-    @include media('≤phone') {
-      display: none;
+    .col {
+      height: auto;
     }
   }
 
   .col {
-    flex: 0 0 12.5%;
-    max-width: 12.5%;
-  }
+    height: 24px;
+    padding: 10px;
 
-
-  .shelter {
-
-    .col-title {
-      flex-basis: 34%;
-      max-width: 34%;
-
-      @include media('≤phone') {
-        display: none;
-      }
+    &:first-child {
+      padding-left: 16px;
     }
 
-    .col-address {
-      flex-basis: calc(66% - 6rem);
-      max-width: calc(66% - 6rem);
-
-      @include media('≤phone') {
-        display: none;
-      }
+    &:first-child {
+      padding-right: 16px;
     }
   }
-
-  .clinic {
-    .col-contact {
-      flex-basis: 23%;
-      max-width: 23%;
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-
-    .col-phone {
-      flex-basis: 16%;
-      max-width: 16%;
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-
-    .col-address {
-      flex-basis: calc(61% - 6rem);
-      max-width: calc(61% - 6rem);
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-  }
-
-  .overdue {
-    .col-contact {
-      flex-basis: 23%;
-      max-width: 23%;
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-
-    .col-phone {
-      flex-basis: 16%;
-      max-width: 16%;
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-
-    .col-address {
-      flex-basis: 37%;
-      max-width: 37%;
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-
-    .col-price {
-      flex-basis: calc(24% - 6rem);
-      max-width: calc(24% - 6rem);
-
-      @include media('≤phone') {
-        display: none;
-      }
-    }
-  }
-
-  .col-btn {
-    font-size: 0;
-  }
-
-  .col-image {
-    flex-basis: 10.19%;
-    max-width: 10.19%;
-
-    @include media('≤phone') {
-      flex-basis: 96px;
-      max-width: 96px;
-      margin-bottom: 12px;
-    }
-  }
-
-  .col-name {
-    flex-basis: 13.38%;
-    max-width: 13.38%;
-
-    @include media('≤phone') {
-      flex-basis: auto;
-      max-width: none;
-      width: calc(100% - 96px);
-      flex-grow: 1;
-      margin-bottom: 12px;
-    }
-  }
-
-  .col-type {
-    flex-basis: 10.72%;
-    max-width: 10.72%;
-
-    @include media('≤phone') {
-      display: none;
-    }
-  }
-
-  .col-gender {
-    flex-basis: 12.85%;
-    max-width: 12.85%;
-
-    @include media('≤phone') {
-      display: none;
-    }
-  }
-
-  .col-age {
-    flex-basis: 13.9%;
-    max-width: 13.9%;
-
-    @include media('≤phone') {
-      display: none;
-    }
-  }
-
-  .col-location {
-    flex-basis: 18.15%;
-    max-width: 18.15%;
-
-    @include media('≤phone') {
-      display: none;
-    }
-  }
-
-  .col-status {
-    flex-basis: 16.56%;
-    max-width: 16.56%;
-
-    @include media('≤phone') {
-      flex-basis: auto;
-      max-width: none;
-      width: auto;
-    }
-
-    span {
-      display: inline-block;
-      vertical-align: top;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background-color: #DFECFE;
-      color: #3E5B9D;
-    }
-  }
-
-  .col-btn {
-    flex-basis: 3rem;
-    max-width: 3rem;
-
-    @include media('≤phone') {
-      flex-basis: auto;
-      max-width: none;
-      width: auto;
-      margin-left: auto;
-    }
-  }
-
-  .add-info {
-    display: none;
-
-    @include media('≤phone') {
-      display: block;
-      color: $text-lite-color;
-    }
-  }
-}
-
-
-.location-list {
 
   .location-new {
-
-    .col-title {
-      color: $yellow;;
-      font-weight: 900;
-    }
-
+    .col-title,
     .col-contact {
-      color: $yellow;;
-      font-weight: 900;
-    }
-  }
-
-  .location-item {
-    display: flex;
-    flex-wrap: wrap;
-    border: 1px solid $btn-border;
-    border-radius: 4px;
-    padding: 10px 8px;
-    border-top: 0;
-
-
-    @include media('≤phone') {
-      font-size: 16px;
-      line-height: 18px;
-      padding: 10px 8px;
-    }
-  }
-
-  .visual {
-    padding-top: 75%;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-  }
-
-  i {
-    display: inline-block;
-    vertical-align: top;
-    font-size: 0;
-    cursor: pointer;
-
-    &:before {
-      font-size: 24px;
+      color: $orange;
     }
   }
 }

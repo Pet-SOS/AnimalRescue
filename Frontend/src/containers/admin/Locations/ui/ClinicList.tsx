@@ -14,6 +14,8 @@ export class ClinicList extends React.PureComponent {
                 <div className="col col-contact">Контакт</div>
                 <div className="col col-phone">Телефон</div>
                 <div className="col col-address">Адреса</div>
+                <div className="col">&nbsp;</div>
+                <div className="col">&nbsp;</div>
             </>
         );
     };
