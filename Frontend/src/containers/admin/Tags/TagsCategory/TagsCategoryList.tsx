@@ -53,16 +53,18 @@ const TagsCategoryList: React.FC<IPropTypes> = ({fetchTagsList, clearTagsList, c
                     <section className="section-categories">
                         <header><h3>Теги</h3></header>
                         <div className="page-content">
-                            <section className='section-table categories-table'>
-                                <header>
-                                    <div className="row">
-                                        <div className="col col-category">Категорія</div>
-                                        <div className="col col-value xs-phone-hidden">Значення</div>
-                                        <div className="col col-icon">&nbsp;</div>
-                                    </div>
-                                </header>
-                                {renderList()}
-                            </section>
+                            <div className="section-table-wrapper">
+                                <section className='section-table categories-table'>
+                                    <header>
+                                        <div className="row">
+                                            <div className="col col-category">Категорія</div>
+                                            <div className="col col-value xs-phone-hidden">Значення</div>
+                                            <div className="col col-icon">&nbsp;</div>
+                                        </div>
+                                    </header>
+                                    {renderList()}
+                                </section>
+                            </div>
                         </div>
                     </section>
                 </div>

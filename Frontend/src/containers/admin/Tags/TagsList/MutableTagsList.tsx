@@ -54,37 +54,39 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
     };
 
     return (
-        <section className='section-table tags-table'>
-            <header>
-                <div className="row">
-                    <div className="col col-ua">Українська</div>
-                    <div className="col col-en">Англійська</div>
-                    <div className="col col-de">Німецька</div>
-                    <div className="col col-ru">Російська</div>
-                    {getTagLevelClick() && <div className="col col-icon"></div>}
-                    <div className="col col-icon"></div>
-                    <div className="col col-icon"></div>
-                </div>
-            </header>
-            <>
-                {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
-                    <TagsListItem
-                        key={index}
-                        tag={tag}
-                        onLevelClick={getTagLevelClick()}
-                        onValidationFailure={showValidationError}
-                    />
-                ))}
-                {isSupportAdd(category, kindOfAnimal) && (
-                    <NewTagListItem
-                        onTagFormSubmit={onTagFormSubmit}
-                        category={buildCategory(category, kindOfAnimal)}
-                        kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
-                        onValidationFailure={showValidationError}
-                    />
-                )}
-            </>
-        </section>
+        <div className="section-table-wrapper">
+            <section className='section-table tags-table'>
+                <header>
+                    <div className="row">
+                        <div className="col col-ua">Українська</div>
+                        <div className="col col-en">Англійська</div>
+                        <div className="col col-de">Німецька</div>
+                        <div className="col col-ru">Російська</div>
+                        {getTagLevelClick() && <div className="col col-icon"></div>}
+                        <div className="col col-icon"></div>
+                        <div className="col col-icon"></div>
+                    </div>
+                </header>
+                <>
+                    {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
+                        <TagsListItem
+                            key={index}
+                            tag={tag}
+                            onLevelClick={getTagLevelClick()}
+                            onValidationFailure={showValidationError}
+                        />
+                    ))}
+                    {isSupportAdd(category, kindOfAnimal) && (
+                        <NewTagListItem
+                            onTagFormSubmit={onTagFormSubmit}
+                            category={buildCategory(category, kindOfAnimal)}
+                            kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
+                            onValidationFailure={showValidationError}
+                        />
+                    )}
+                </>
+            </section>
+        </div>
     )
 };
 

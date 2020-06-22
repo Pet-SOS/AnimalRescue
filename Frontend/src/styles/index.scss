@@ -547,10 +547,8 @@ input, textarea, ::placeholder {
   }
 }
 
-.page-content {
-  @include media('≤phone') {
-    overflow-x: auto;
-  }
+.section-table-wrapper {
+  overflow-x: auto;
 }
 
 .section-table {
