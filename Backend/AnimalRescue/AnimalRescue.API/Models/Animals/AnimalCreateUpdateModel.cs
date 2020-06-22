@@ -20,7 +20,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(common.Name)]
         [JsonProperty(common.Name)]
-        public Guid Name { get; set; }
+        public string Name { get; set; }
 
         [JsonPropertyName(animal.KindOfAnimal)]
         [JsonProperty(animal.KindOfAnimal)]
@@ -32,7 +32,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(common.Description)]
         [JsonProperty(common.Description)]
-        public Guid Description { get; set; }
+        public string Description { get; set; }
 
         [JsonPropertyName(common.Images)]
         [JsonProperty(common.Images)]
@@ -56,7 +56,7 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(animal.Character)]
         [JsonProperty(animal.Character)]
-        public Guid Character { get; set; }
+        public string Character { get; set; }
 
         [JsonPropertyName(animal.Status)]
         [JsonProperty(animal.Status)]
@@ -77,6 +77,6 @@ namespace AnimalRescue.API.Models.Animals
 
         [JsonPropertyName(animal.BannerText)]
         [JsonProperty(animal.BannerText)]
-        public Guid BannerText { get; set; }
+        public string BannerText { get; set; }
     }
 }
