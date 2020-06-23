@@ -25,6 +25,18 @@
     &:first-child {
       padding-right: 16px;
     }
+
+    &.col-phone {
+      width: 17.95%;
+    }
+
+    &.col-address {
+      width: 31.1%;
+    }
+
+    &.col-price {
+      width: 15.8%;
+    }
   }
 
   .location-new {
