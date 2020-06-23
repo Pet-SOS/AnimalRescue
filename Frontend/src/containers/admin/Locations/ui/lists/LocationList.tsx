@@ -65,7 +65,7 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
 
     render() {
         return (
-            <div>
+            <div className="section-table-wrapper">
                 <section className='section-table location-table'>
                     <header>
                         <div className={`row ${this.props.className}`}>
