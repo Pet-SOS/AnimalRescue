@@ -117,11 +117,12 @@ class LocationListCell extends React.Component<ILocationCellProps & ILocationCel
 
     render() {
         const {className} = this.props;
+        const additionalRowClass = this.props.location?.addClassName;
         return (
             <>
                 {this.state.inEdit
                     ? this.renderEditForm()
-                    : <div className={`row ${className || ''}`} onClick={this.handleCellClick}>
+                    : <div className={`row ${className || ''} ${additionalRowClass || ''}`} onClick={this.handleCellClick}>
                         {this.renderView()}
                       </div>}
             </>

@@ -36,16 +36,17 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
         const {renderItem} = this.props;
         if (renderItem) {
             return (
-                <footer className="с-footer location-new">
+                <>
                     {renderItem('new', {
                         ...DEFAULT_LOCATION,
                         typeId: String(this.props.type),
                         title: '+ нова локація',
                         phoneNumber: EMPTY_LIST_VALUE,
                         address: EMPTY_LIST_VALUE,
-                        price: EMPTY_LIST_VALUE
+                        price: EMPTY_LIST_VALUE,
+                        addClassName: 'location-new'
                     })}
-                </footer>
+                </>
             );
 
         }
@@ -56,8 +57,8 @@ export class LocationList extends React.PureComponent<ILocationListProps & ILoca
         const list = (listResponse || {}).data;
         return (
             <>
-                {this.renderNewItem()}
                 {renderItem && list && list.map((item, index) => renderItem(String(index), item))}
+                {this.renderNewItem()}
             </>
         )
     };
