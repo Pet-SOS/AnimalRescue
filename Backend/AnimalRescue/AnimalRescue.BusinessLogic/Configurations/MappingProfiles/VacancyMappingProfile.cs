@@ -6,13 +6,13 @@ using AutoMapper;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 {
-    internal class EmployeeMappingProfile : Profile
+    internal class VacancyMappingProfile : Profile
     {
-        public EmployeeMappingProfile()
+        public VacancyMappingProfile()
         {
-            CreateMap<Employee, EmployeeDto>()
+            CreateMap<Vacancy, VacancyDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()));
-            CreateMap<EmployeeDto, Employee>()
+            CreateMap<VacancyDto, Vacancy>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()));
         }
     }

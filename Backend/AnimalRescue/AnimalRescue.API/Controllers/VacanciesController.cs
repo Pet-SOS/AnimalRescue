@@ -1,5 +1,5 @@
 ﻿using AnimalRescue.API.Core.Responses;
-using AnimalRescue.API.Models.Employees;
+using AnimalRescue.API.Models.Vacancies;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
@@ -18,59 +18,60 @@ using System.Threading.Tasks;
 namespace AnimalRescue.API.Controllers
 {
     [Authorize("Bearer")]
-    public class EmployeesController : ApiControllerBase
+    public class VacanciesController : ApiControllerBase
     {
-        private readonly ILogger<EmployeesController> _logger;
-        private readonly IBlFullCrud<EmployeeDto, EmployeeDto, Guid> _employeeService;
+        private readonly ILogger<VacanciesController> _logger;
+        private readonly IBlFullCrud<VacancyDto, VacancyDto, Guid> _vacancyService;
         public readonly IMapper _mapper;
 
-        public EmployeesController(
-            ILogger<EmployeesController> logger,
+        public VacanciesController(
+            ILogger<VacanciesController> logger,
             IMapper mapper,
-            IBlFullCrud<EmployeeDto, EmployeeDto, Guid> employeeService)
+            IBlFullCrud<VacancyDto, VacancyDto, Guid> vacancyService)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(mapper, nameof(mapper));
-            Require.Objects.NotNull(employeeService, nameof(employeeService));
+            Require.Objects.NotNull(vacancyService, nameof(vacancyService));
 
             _logger = logger;
             _mapper = mapper;
-            _employeeService = employeeService;
+            _vacancyService = vacancyService;
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<EmployeeModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
+        public async Task<ActionResult<VacancyModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<EmployeeDto, EmployeeModel, Guid>(_employeeService, id, _mapper);
+            return await GetItemAsync<VacancyDto, VacancyModel, Guid>(_vacancyService, id, _mapper);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<CollectionSegmentApiResponse<EmployeeModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
+        public async Task<ActionResult<CollectionSegmentApiResponse<VacancyModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
-            return await GetCollectionAsync<EmployeeDto, EmployeeModel>(_employeeService, queryRequest, _mapper);
+            return await GetCollectionAsync<VacancyDto, VacancyModel>(_vacancyService, queryRequest, _mapper);
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<EmployeeModel>> CreateItemAsync([FromForm] EmployeeCreateUpdateModel employeeCreateUpdateModel)
+        public async Task<ActionResult<VacancyModel>> CreateItemAsync([FromForm] VacancyCreateUpdateModel vacancyCreateUpdateModel)
         {
-            return await CreatedItemAsync<EmployeeDto, EmployeeCreateUpdateModel, EmployeeModel, Guid>(_employeeService, employeeCreateUpdateModel, _mapper);
+            return await CreatedItemAsync<VacancyDto, VacancyCreateUpdateModel, VacancyModel, Guid>(_vacancyService, vacancyCreateUpdateModel, _mapper);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] EmployeeCreateUpdateModel employeeCreateUpdateModel)
+        public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] VacancyCreateUpdateModel vacancyCreateUpdateModel)
         {
-            await UpdateDataAsync(_employeeService, id, employeeCreateUpdateModel, _mapper);
+            await UpdateDataAsync(_vacancyService, id, vacancyCreateUpdateModel, _mapper);
         }
 
         [HttpDelete("{id}")]
@@ -79,7 +80,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
-            await _employeeService.DeleteAsync(id);
+            await _vacancyService.DeleteAsync(id);
         }
     }
 }

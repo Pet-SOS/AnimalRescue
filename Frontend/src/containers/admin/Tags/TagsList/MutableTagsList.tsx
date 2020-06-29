@@ -11,7 +11,7 @@ import TagsListItem from './TagsListItem';
 import './style.scss';
 import {NewTagListItem} from "./NewTagListItem";
 import {useRouteMatch} from "react-router";
-import {buildCategory, buildFilter, buildKindOfAnimal, getLastCategory, isEditSupport, isSupportAdd} from "../helpers";
+import {buildCategory, buildFilter, buildKindOfAnimal, getLastCategory, isSupportAdd, isLevelSupport} from "../helpers";
 import {actionShowSnackbar} from "../../../../store/actions/snackbar.actions";
 import i18n from "i18n-js";
 
@@ -46,44 +46,47 @@ const MutableTagsList: React.FC<IPropTypes> = ({fetchTagsList, addTag, clearTags
     const tagRedirect = (tag: ITag) => {
         history.push(`${match.url}/${tag.id}`)
     };
-    const getTagEditClick = () => isEditSupport(category, kindOfAnimal) ? undefined : tagRedirect;
+
+    const getTagLevelClick = () => isLevelSupport(category, kindOfAnimal) ? undefined : tagRedirect;
 
     const showValidationError = () => {
         showSnackBar(i18n.t('errorTagValidation', {defaultValue: 'At least one field must be filled'}));
     };
 
     return (
-        <section className='section-table tags-table'>
-            <header>
-                <div className="row">
-                    <div className="col col-ua">Українська</div>
-                    <div className="col col-en">Англійська</div>
-                    <div className="col col-de">Німецька</div>
-                    <div className="col col-ru">Російська</div>
-                    <div className="col col-num"></div>
-                    <div className="col col-edit"></div>
-                    <div className="col col-del"></div>
-                </div>
-            </header>
-            <div className="t-list">
-                {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
-                    <TagsListItem
-                        key={index}
-                        tag={tag}
-                        onEditClick={getTagEditClick()}
-                        onValidationFailure={showValidationError}
-                    />
-                ))}
-                {isSupportAdd(category, kindOfAnimal) && (
-                    <NewTagListItem
-                        onTagFormSubmit={onTagFormSubmit}
-                        category={buildCategory(category, kindOfAnimal)}
-                        kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
-                        onValidationFailure={showValidationError}
-                    />
-                )}
-            </div>
-        </section>
+        <div className="section-table-wrapper">
+            <section className='section-table tags-table'>
+                <header>
+                    <div className="row">
+                        <div className="col col-ua">Українська</div>
+                        <div className="col col-en">Англійська</div>
+                        <div className="col col-de">Німецька</div>
+                        <div className="col col-ru">Російська</div>
+                        {getTagLevelClick() && <div className="col col-icon"></div>}
+                        <div className="col col-icon"></div>
+                        <div className="col col-icon"></div>
+                    </div>
+                </header>
+                <>
+                    {!!tagsList && !!tagsList.length && tagsList.map((tag, index) => (
+                        <TagsListItem
+                            key={index}
+                            tag={tag}
+                            onLevelClick={getTagLevelClick()}
+                            onValidationFailure={showValidationError}
+                        />
+                    ))}
+                    {isSupportAdd(category, kindOfAnimal) && (
+                        <NewTagListItem
+                            onTagFormSubmit={onTagFormSubmit}
+                            category={buildCategory(category, kindOfAnimal)}
+                            kindOfAnimal={buildKindOfAnimal(category, kindOfAnimal)}
+                            onValidationFailure={showValidationError}
+                        />
+                    )}
+                </>
+            </section>
+        </div>
     )
 };
 

@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-using System;
 using System.Text.Json.Serialization;
 
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
-namespace AnimalRescue.API.Models.Employees
+namespace AnimalRescue.API.Models.Vacancies
 {
-    public class EmployeeModel : BaseAndTimeModel<Guid>
+    public class VacancyCreateUpdateModel
     {
         [JsonPropertyName(common.Name)]
         [JsonProperty(common.Name)]

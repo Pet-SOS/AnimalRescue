@@ -26,7 +26,7 @@ namespace AnimalRescue.BusinessLogic.Services
             _appSettings = appSettings.Value;
         }
 
-        public async Task<(string generatedAccessToken, string generatedRefreshToken, DateTime refreshTokenExpires)> GenerateAuthorizationToken(string userId, bool rememberMe)
+        public async Task<(string generatedAccessToken, string generatedAccessTokenId, string generatedRefreshToken, DateTime refreshTokenExpires)> GenerateAuthorizationToken(string userId, bool rememberMe)
         {
             var user = await _userManager.FindByIdAsync(userId);
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -48,10 +48,14 @@ namespace AnimalRescue.BusinessLogic.Services
             DateTime refreshTokenExpires = utcNow.AddDays(Convert.ToDouble(rememberMe ? _appSettings.JwtExpireDaysGain : _appSettings.JwtExpireDays));
             //DateTime refreshTokenExpires = utcNow.AddMinutes(2);
 
-            string generatedAccessToken = GenerateJwt(claims, authTokenExpires);
+            var accessToken = GenerateJwt(claims, authTokenExpires);
+
+            string generatedAccessTokenId = accessToken.Id;
             string generatedRefreshToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
 
-            return (generatedAccessToken, generatedRefreshToken, refreshTokenExpires);
+            var generatedAccessToken = new JwtSecurityTokenHandler().WriteToken(accessToken);
+
+            return (generatedAccessToken, generatedAccessTokenId, generatedRefreshToken, refreshTokenExpires);
         }
 
         public string GenerateSecurityTokenLockedUser(string userId)
@@ -59,10 +63,11 @@ namespace AnimalRescue.BusinessLogic.Services
             var claims = new List<Claim>();
             claims.Add(new Claim(JwtClaimTypeConstants.UserId, userId));
             var expiresIn = DateTime.UtcNow.AddMinutes(10);
-            return GenerateJwt(claims, expiresIn);
+            var token = GenerateJwt(claims, expiresIn);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private string GenerateJwt(List<Claim> claims, DateTime expiresIn)
+        private JwtSecurityToken GenerateJwt(List<Claim> claims, DateTime expiresIn)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -74,7 +79,7 @@ namespace AnimalRescue.BusinessLogic.Services
                 expires: expiresIn,
                 signingCredentials: creds);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return token;
         }
     }
 }

@@ -107,34 +107,36 @@ export const BlogList: React.FC<IBlogListPageProps> = ({blogList, fetchBlogList,
                 initial={search}
                 filterItemInBlog={filterItemInBlog}
             />
-            <div className={'section-table blog-table'}>
-                <header>
-                    <div className="row">
-                        <div className="col col-title">
-                            <TI18n keyStr="blogTitle" default={'Title'}/>
+            <div className="section-table-wrapper">
+                <div className={'section-table blog-table'}>
+                    <header>
+                        <div className="row">
+                            <div className="col col-title">
+                                <TI18n keyStr="blogTitle" default={'Title'}/>
+                            </div>
+                            <div className="col col-type">
+                                <TI18n keyStr="blogSection" default={'Section'}/>
+                            </div>
+                            <div className="col col-modified">
+                                <TI18n keyStr="blogLastModified" default={'Last modified'}/>
+                            </div>
                         </div>
-                        <div className="col col-type">
-                            <TI18n keyStr="blogSection" default={'Section'}/>
-                        </div>
-                        <div className="col col-modified">
-                            <TI18n keyStr="blogLastModified" default={'Last modified'}/>
-                        </div>
-                    </div>
-                </header>
-
-                {blogList.data && blogList.data.map((item: IBlogItem, i: number) => (
-                    <BlogListItem
-                        key={i}
-                        blogItem={item}
-                        onEditClick={handleOnItemEditCLick}
-                        onDeleteClick={handleOnItemDeleteCLick}
+                    </header>
+    
+                    {blogList.data && blogList.data.map((item: IBlogItem, i: number) => (
+                        <BlogListItem
+                            key={i}
+                            blogItem={item}
+                            onEditClick={handleOnItemEditCLick}
+                            onDeleteClick={handleOnItemDeleteCLick}
+                        />
+                    ))}
+                    <BtnPagination
+                        pageCount={blogList.pageCount}
+                        setProps={{match}}
+                        goToPagination={handleGoToPage}
                     />
-                ))}
-                <BtnPagination
-                    pageCount={blogList.pageCount}
-                    setProps={{match}}
-                    goToPagination={handleGoToPage}
-                />
+                </div>
             </div>
         </BlogContainerPage>
     );

@@ -52,7 +52,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
     }
 
     goToPagination(toPage:string| number){ 
-        const { searchStr } =  this.state;        
+        const { searchStr } =  this.state;
         this.toPage =+toPage;
         this.props.fetchAnimalsRequest({
              page: this.toPage,
@@ -127,77 +127,75 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps>{
                             </header>
                             <section className="page-content">
                                 <div className="inner">
-                                    <section className='section-table animals-table'>
-                                        <header>
-                                            <div className="row">
-                                                <div className="col col-image">Фото</div>
-                                                <div className="col col-name">Кличка</div>
-                                                <div className="col col-type">Вид</div>
-                                                <div className="col col-gender">Стать</div>
-                                                <div className="col col-age">Вiк</div>
-                                                <div className="col col-location">Локація</div>
-                                                <div className="col col-status">Статус</div>
-                                                <div className="col col-btn">Edit</div>
-                                            </div>
-                                        </header>
-                                        <div className="a-list">
+                                    <div className="section-table-wrapper">
+                                        <section className='section-table animals-table'>
+                                            <header className="phone-hidden">
+                                                <div className="row">
+                                                    <div className="col col-image">Фото</div>
+                                                    <div className="col col-name">Кличка</div>
+                                                    <div className="col col-type phone-hidden">Вид</div>
+                                                    <div className="col col-gender phone-hidden">Стать</div>
+                                                    <div className="col col-age phone-hidden">Вiк</div>
+                                                    <div className="col col-location phone-hidden">Локація</div>
+                                                    <div className="col col-status">Статус</div>
+                                                    <div className="col col-edit">&nbsp;</div>
+                                                </div>
+                                            </header>
                                             {this.props.animalsList.data.length && this.props.animalsList.data.map((animal) => (
-                                                  <div className="a-item" key={animal.id}>
-                                                      <div className="row">
-                                                          <div className="col col-image">
-                                                              {this.renderAnimalImage(animal)}
-                                                          </div>
-                                                          <div className="col col-name">
-                                                              <span className="name">{animal.name}</span><br />
-                                                              <span className="num">номер <span>{animal.number}</span></span>
-                                                              <div className="add-info">
-                                                            <span>
-                                                                {!!animal.kindOfAnimal && (
-                                                                  <span className='kindOfAnimal'><TagTranslation tagId={animal.kindOfAnimal} />, </span>
-                                                                )}
-                                                                {!!animal.gender && (
-                                                                  <span className='gender'><TagTranslation tagId={animal.gender} />, </span>
-                                                                )}
-                                                                <Age birthday={animal.birthday} />
-                                                            </span>
-                                                              </div>
-                                                          </div>
-                                                          <div className="col col-type">
-                                                              {!!animal.kindOfAnimal && (
-                                                                <TagTranslation tagId={animal.kindOfAnimal} />
-                                                              )}
-                                                          </div>
-                                                          <div className="col col-gender">
-                                                              {!!animal.gender && (
-                                                                <TagTranslation tagId={animal.gender} />
-                                                              )}
-                                                          </div>
-                                                          <div className="col col-age"><Age birthday={animal.birthday} /></div>
-                                                          <div className="col col-location">
-                                                              <div className="LocationType">
-		                                                            {!!animal.locationName && animal.locationName !=='null' &&(
-		                                                                <TagTranslation tagId={animal.locationName} />
-		                                                            )}
-                                                              </div>
-                                                              <div className="LocationTitle">
-		                                                            {!!animal.locationTypeId && (
-		                                                                this.renderLocationTitle(animal.locationTypeId)
-		                                                            )}
-                                                              </div>
-                                                          </div>
-                                                          <div className="col col-status">
-                                                              {!!animal.status && !!animal.status && (
-                                                                  <div className={`status-color-${animal.status.toLowerCase()}`}>
-                                                                      <TagTranslation tagId={animal.status} />
-                                                                  </div>
-                                                              )}
-                                                          </div>
-                                                          <div className="col col-btn"><i onClick={()=>this.updateAnimalCard(animal.id)} className="icon-edit">Edit</i></div>
-                                                      </div>
-                                                  </div>
-                                                ))}
-                                        </div>
-                                    </section>
+                                                <div className="row" key={animal.id}>
+                                                    <div className="col col-image">
+                                                        {this.renderAnimalImage(animal)}
+                                                    </div>
+                                                    <div className="col col-name">
+                                                        <span className="name">{animal.name}</span><br />
+                                                        <span className="num">номер <span>{animal.number}</span></span>
+                                                        <div className="add-info">
+                                                    <span>
+                                                        {!!animal.kindOfAnimal && (
+                                                            <span className='kindOfAnimal'><TagTranslation tagId={animal.kindOfAnimal} />, </span>
+                                                        )}
+                                                        {!!animal.gender && (
+                                                            <span className='gender'><TagTranslation tagId={animal.gender} />, </span>
+                                                        )}
+                                                        <Age birthday={animal.birthday} />
+                                                    </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col col-type phone-hidden">
+                                                        {!!animal.kindOfAnimal && (
+                                                        <TagTranslation tagId={animal.kindOfAnimal} />
+                                                        )}
+                                                    </div>
+                                                    <div className="col col-gender phone-hidden">
+                                                        {!!animal.gender && (
+                                                        <TagTranslation tagId={animal.gender} />
+                                                        )}
+                                                    </div>
+                                                    <div className="col col-age phone-hidden"><Age birthday={animal.birthday} /></div>
+                                                    <div className="col col-location phone-hidden">
+                                                        <div className="LocationType">
+                                                            {!!animal.locationName && animal.locationName !=='null' &&(
+                                                                <TagTranslation tagId={animal.locationName} />
+                                                            )}
+                                                        </div>
+                                                        <div className="LocationTitle">
+                                                            {!!animal.locationTypeId && (
+                                                                this.renderLocationTitle(animal.locationTypeId)
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div className="col col-status">
+                                                        {!!animal.status && !!animal.status && (
+                                                            <div className={`status-color-${animal.status.toLowerCase()}`}>
+                                                                <TagTranslation tagId={animal.status} />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="col col-icon"><i onClick={()=>this.updateAnimalCard(animal.id)} className="icon-edit"></i></div>
+                                                </div>
+                                            ))}
+                                        </section>
+                                    </div>
                                     <BtnPagination
                                         setProps={this.props}
                                         pageCount={this.props.animalsList.pageCount}

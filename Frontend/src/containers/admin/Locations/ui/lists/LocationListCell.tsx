@@ -97,13 +97,13 @@ class LocationListCell extends React.Component<ILocationCellProps & ILocationCel
         return (
             <>
                 {this.props.children && this.props.children}
-                <div className="col col-btn">
+                <div className="col col-icon">
                     {this.renderButton() && (
-                        <i onClick={this.onEditClick} className="icon-edit">Edit</i>)}
+                        <i onClick={this.onEditClick} className="icon-edit"></i>)}
                 </div>
-                <div className="col col-btn">
+                <div className="col col-icon">
                     {this.renderButton() && (
-                        <i onClick={this.onDeleteClick} className="icon-delete">Delete</i>)}
+                        <i onClick={this.onDeleteClick} className="icon-delete"></i>)}
                 </div>
             </>
         )
@@ -117,10 +117,15 @@ class LocationListCell extends React.Component<ILocationCellProps & ILocationCel
 
     render() {
         const {className} = this.props;
+        const additionalRowClass = this.props.location?.addClassName;
         return (
-            <div className={`location-item ${className || ''}`} onClick={this.handleCellClick}>
-                {this.state.inEdit ? this.renderEditForm() : this.renderView()}
-            </div>
+            <>
+                {this.state.inEdit
+                    ? this.renderEditForm()
+                    : <div className={`row ${className || ''} ${additionalRowClass || ''}`} onClick={this.handleCellClick}>
+                        {this.renderView()}
+                      </div>}
+            </>
         );
     }
 }

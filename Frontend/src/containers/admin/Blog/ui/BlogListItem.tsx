@@ -12,7 +12,7 @@ export interface IBlogListItem {
 export const BlogListItem: React.FC<IBlogListItem> = ({blogItem, onEditClick, onDeleteClick}) => {
 
     const types: { [key: string]: any } = {
-        blog: <TI18n keyStr='blogstory'/>,
+        story: <TI18n keyStr='blogstory'/>,
         article: <TI18n keyStr='blogarticle'/>
     };
     const handleOnEditClick = () => {

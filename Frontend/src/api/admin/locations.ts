@@ -45,6 +45,7 @@ export interface ILocation {
     price: string;
     id: string;
     typeId: string;
+    addClassName?: string;
 }
 
 export interface ILocationsResponse extends IListResponse<ILocation> {

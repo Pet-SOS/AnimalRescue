@@ -38,6 +38,27 @@ namespace AnimalRescue.API.Controllers
         }
 
         /// <summary>
+        /// Allows to refresh the authorization token in Animal Rescue system.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Authorization data.</returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(SignInAccountModel), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [Route("refreshToken")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequestViewModel model)
+        {
+            var authResponse = await _accountService.RefreshTokenAsync(model.Token, model.RefreshToken);
+
+            if (authResponse is null)
+            {
+                return BadRequest("Refreshing the token is failed");
+            }
+
+            return Ok(authResponse);
+        }
+
+        /// <summary>
         /// Makes a reset password link and sends an email.
         /// </summary>
         /// <param name="model"></param>

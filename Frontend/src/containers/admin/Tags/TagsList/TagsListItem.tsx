@@ -14,11 +14,11 @@ interface IPropTypes {
     tag: ITag;
     updateTag: (tag: ITag) => void;
     deleteTag: (tagId: string) => void;
-    onEditClick?: (tag: ITag) => void;
+    onLevelClick?: (tag: ITag) => void;
     onValidationFailure?: () => void;
 }
 
-const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onEditClick, onValidationFailure}) => {
+const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onLevelClick, onValidationFailure}) => {
     const [isEdit, setIsEdit] = useState(false);
     useEffect(() => {
         if (isEdit) {
@@ -50,10 +50,12 @@ const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onEditCl
     };
 
     const handleOnEditClick = () => {
-        if (!!onEditClick) {
-            onEditClick(tag);
-        } else {
-            setIsEdit(true)
+        setIsEdit(true);
+    };
+
+    const handleOnLevelClick = () => {
+        if (!!onLevelClick) {
+            onLevelClick(tag);
         }
     };
 
@@ -62,21 +64,28 @@ const TagsListItem: React.FC<IPropTypes> = ({tag, updateTag, deleteTag, onEditCl
     };
 
     return isEdit
-        ? <TagForm onSubmit={onEditSubmit} onCancel={onCancelEdit} tag={tag} onValidationFailure={onValidationFailure}/>
+        ? <TagForm onSubmit={onEditSubmit}
+                   onCancel={onCancelEdit}
+                   tag={tag}
+                   hasExtraCol={!!onLevelClick}
+                   onValidationFailure={onValidationFailure}/>
         : (
-            <div className="t-item">
-                <div className="row">
-                    <div className="col col-ua">{getTagName(ELocales.ua)}</div>
-                    <div className="col col-en">{getTagName(ELocales.en)}</div>
-                    <div className="col col-de">{getTagName(ELocales.de)}</div>
-                    <div className="col col-ru">{getTagName(ELocales.ru)}</div>
-                    <div className="col col-num">0</div>
-                    <div className="col col-edit"><i className="icon-edit" onClick={handleOnEditClick}>icon</i>
+            <div className="row">
+                <div className="col col-ua">{getTagName(ELocales.ua)}</div>
+                <div className="col col-en">{getTagName(ELocales.en)}</div>
+                <div className="col col-de">{getTagName(ELocales.de)}</div>
+                <div className="col col-ru">{getTagName(ELocales.ru)}</div>
+                {!!onLevelClick &&
+                    <div className="col col-icon">
+                        <i className="icon-folder"
+                        onClick={handleOnLevelClick}></i>
                     </div>
-                    <div className="col col-del"><i
-                        className={`icon-delete ${tag.isDeletable ? '' : 'disabled'}`}
-                        onClick={onTagDelete}>icon</i>
-                    </div>
+                } 
+                <div className="col col-icon"><i className="icon-edit" onClick={handleOnEditClick}></i>
+                </div>
+                <div className="col col-icon">
+                    <i className={`icon-delete ${tag.isDeletable ? '' : 'disabled'}`}
+                       onClick={onTagDelete}></i>
                 </div>
             </div>
         )
