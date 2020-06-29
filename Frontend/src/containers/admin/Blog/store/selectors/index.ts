@@ -5,3 +5,5 @@ import {IBlogItem} from "../../../../../api/blog";
 export const selectBlogItem = (state: ICustomAppState): IBlogItem => state[BLOG_ITEM_KEY].data;
 
 export const isLoadedBlogItem = (state: ICustomAppState): boolean => state[BLOG_ITEM_KEY].isLoaded;
+
+export const isLoadingBlogItem = (state: ICustomAppState): boolean => state[BLOG_ITEM_KEY].isLoading;

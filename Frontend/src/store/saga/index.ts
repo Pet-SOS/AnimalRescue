@@ -16,6 +16,7 @@ import { watchTags } from './tags.saga';
 import { watchSnackbar } from './snackbar.saga';
 import { watchOrganizationDocuments } from './organizationDocuments.saga';
 import {watchAdminLocationSaga} from "../../containers/admin/Locations/store/saga";
+import {watchBlogEditSagas} from "../../containers/admin/Blog/store/sagas";
 
 export function* appSaga() {
     try {
@@ -35,7 +36,8 @@ export function* appSaga() {
           watchLoginRequestHomePage(),
           watchTags(),
           watchSnackbar(),
-          watchAdminLocationSaga()
+          watchAdminLocationSaga(),
+          watchBlogEditSagas()
         ]);
     } catch (e) {
         logger.error(e);

@@ -6,12 +6,14 @@ import {
     actionClearBlogItemState,
     actionFetchBlogItemRequest
 } from "../../../client/Blog/store/actions/blogitem.actions";
-import {isLoadedBlogItem, selectBlogItem} from "../store/selectors";
+import {isLoadedBlogItem, isLoadingBlogItem, selectBlogItem} from "../store/selectors";
+import {actionUpdateBlogItemRequest} from "../store/actions";
 
 const mapStateToProps = (state: ICustomAppState) => {
     return {
         blog: selectBlogItem(state),
-        isLoaded: isLoadedBlogItem(state)
+        isLoaded: isLoadedBlogItem(state),
+        isLoading: isLoadingBlogItem(state)
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -19,6 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         {
             fetchBlogItem: actionFetchBlogItemRequest,
             reset: actionClearBlogItemState,
+            update : actionUpdateBlogItemRequest
         },
         dispatch
     )

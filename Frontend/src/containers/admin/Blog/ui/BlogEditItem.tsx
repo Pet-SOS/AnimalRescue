@@ -7,18 +7,20 @@ import {IBlogItem} from "../../../../api/blog";
 import {BlogEditForm} from "./BlogEditForm";
 
 export interface IBlogEditItemProps {
-    blog?: IBlogItem
-    fetchBlogItem: (id: string) => void
-    isLoaded?: boolean
+    blog?: IBlogItem;
+    fetchBlogItem: (id: string) => void;
+    isLoaded?: boolean;
+    isLoading?: boolean;
     reset: () => void;
+    update: (blog: IBlogItem) => void;
 }
 
-export const BlogEditItem: React.FC<IBlogEditItemProps> = ({isLoaded, fetchBlogItem, blog, reset}) => {
+export const BlogEditItem: React.FC<IBlogEditItemProps> = ({isLoaded, isLoading, fetchBlogItem, blog, reset, update}) => {
     const history = useHistory();
     const {blogId} = useParams();
 
     useEffect(() => {
-        if (blogId && !isLoaded) {
+        if (blogId && !isLoaded && !isLoading) {
             fetchBlogItem(blogId)
         }
     });
@@ -39,7 +41,11 @@ export const BlogEditItem: React.FC<IBlogEditItemProps> = ({isLoaded, fetchBlogI
                     onClick={history.goBack}
                 />
                 <h3><TI18n keyStr="blogPageTitle" default={'Блог'}/></h3>
-                {isLoaded && <BlogEditForm blog={blog}/>}
+                {isLoaded &&
+                (<BlogEditForm
+                    blog={blog}
+                    onUpdate={update}
+                />)}
 
             </header>
         </BlogContainerPage>

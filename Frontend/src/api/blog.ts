@@ -29,14 +29,18 @@ export interface IBlogListResponse {
 }
 
 
-const mapToBlogRequest = (data : IBlogItem) => {
-    // const formData = new FormData();
-    // formData.append('Type', data.type);
-    // formData.append('Title', data.title);
-    // formData.append('Body', data.body);
-    // formData.append('Images', data.imageIds);
-    // formData.append('Tags', data.tags);
-    // return formData;
+const mapToBlogRequest = (data: IBlogItem) => {
+    const formData = new FormData();
+    formData.append('Type', data.type);
+    formData.append('Title', data.title);
+    formData.append('Body', data.body);
+    for (let img in data.imageIds) {
+        formData.append('Images', img);
+    }
+    for (let tag in data.tags) {
+        formData.append('Tags', tag);
+    }
+    return formData;
 
 };
 
@@ -57,8 +61,11 @@ export async function deleteBlogItem(id: string): Promise<void> {
 }
 
 
-export async function updateBlogItem(id: string): Promise<void> {
-    //TODO
-    const res = await API.put(`blogs/${id}`);
-    return res.data
+export async function updateBlogItem(data: IBlogItem): Promise<void> {
+    await API.put(`blogs/${data.id}`, mapToBlogRequest(data));
+}
+
+export async function createBlogItem(data: IBlogItem): Promise<IBlogItem> {
+    let response = await API.post(`blogs/${data.id}`, mapToBlogRequest(data));
+    return response.data;
 }

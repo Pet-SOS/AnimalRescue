@@ -1,12 +1,14 @@
 import {HtmlEditor, styleCard} from "../../../../components/HtmlEditor";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ELocales} from "../../../../i18n/store/state";
-import {IBlogItem} from "../../../../api/blog";
+import {BlogTypes, IBlogItem} from "../../../../api/blog";
 import {CheckBoks} from "../../../../components/CheckBoks";
 import {isArticle, isStory} from "../utils";
+import {Button, ButtonTypes} from "../../../../components/Button";
 
 interface IBlogEditFormProps {
-    blog?: IBlogItem
+    blog?: IBlogItem,
+    onUpdate: (blog: IBlogItem) => void;
 }
 
 interface IBlogFields {
@@ -37,19 +39,17 @@ const mapBlogToFields = (blog?: IBlogItem): IBlogFields => {
     } else {
         return {...DEFAULT_BLOG_FIELDS}
     }
-
-
 };
 
-export const BlogEditForm: React.FC<IBlogEditFormProps> = ({blog}) => {
+export const BlogEditForm: React.FC<IBlogEditFormProps> = ({blog, onUpdate}) => {
 
     const [fields, setFields] = useState(mapBlogToFields(blog));
 
-    useEffect(() => {
 
-    });
-
-    const onFieldChanged = () => {
+    const onTitleChanged = (title: string) => {
+        setFields((prevState: IBlogFields) => {
+            return {...prevState, title: title}
+        });
     };
 
     const onChange = (editorState: any) => {
@@ -78,14 +78,24 @@ export const BlogEditForm: React.FC<IBlogEditFormProps> = ({blog}) => {
         })
     };
 
+    const handleSubmit = () => {
+        if (blog && blog.id)
+            onUpdate({
+                ...blog,
+                title: fields.title,
+                body: fields.text,
+                type: fields.isStory ? BlogTypes.STORY : BlogTypes.ARTICLE
+            })
+    };
+
     return (
         <div>
             <div>Заголовок</div>
             <input
                 type='text'
                 name={ELocales.ua}
-                placeholder='Українська'
-                onChange={(e) => onFieldChanged()}
+                placeholder='Заголовок'
+                onChange={(e) => onTitleChanged(e.target.value)}
                 value={fields.title}
             />
             <div>Розділ</div>
@@ -110,6 +120,11 @@ export const BlogEditForm: React.FC<IBlogEditFormProps> = ({blog}) => {
                 onChange={onChange}
                 classList={styleCard}
             />
+
+            <Button
+                onClick={handleSubmit}
+                styleType={ButtonTypes.Blue}
+            >Зберегти зміни</Button>
         </div>
     )
 };
