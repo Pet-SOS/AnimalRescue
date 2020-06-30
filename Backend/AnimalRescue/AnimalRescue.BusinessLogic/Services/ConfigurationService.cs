@@ -1,24 +1,30 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
-
+using AnimalRescue.DataAccess.Mongodb.Models.Tag;
+using AnimalRescue.DataAccess.Mongodb.Query;
 using AutoMapper;
 
 using System.Threading.Tasks;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
+using System;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class ConfigurationService : IConfigurationService
     {
         private readonly IConfigurationRepository _configurationRepository;
+        private readonly ITagLargeRepository _tagLargeRepository;
         private readonly IMapper mapper;
 
-        public ConfigurationService(IConfigurationRepository configurationRepository, IMapper mapper)
+        public ConfigurationService(IConfigurationRepository configurationRepository, ITagLargeRepository tagLargeRepository, IMapper mapper)
         {
             _configurationRepository = configurationRepository;
+            _tagLargeRepository = tagLargeRepository;
             this.mapper = mapper;
         }
 
@@ -47,6 +53,42 @@ namespace AnimalRescue.BusinessLogic.Services
             var configurationDto = mapper.Map<Configuration<TConfig>, TOut>(configurationDbo);
 
             return configurationDto;
+        }
+
+        public async Task CreateAsync(GetHomePopupDto value)
+        {
+            value.Title = await CreateTagLarge(value.Title);
+            value.Text = await CreateTagLarge(value.Text);
+            await CreateConfigurationAsync<GetHomePopupDto, GetHomePopup>(value);
+        }
+
+        public async Task<GetHomePopupDto> GetHomePopupConfigurationAsync()
+        {
+            var getHomePopupDto = await GetDonationConfigurationAsync<GetHomePopupDto, GetHomePopup>();
+            getHomePopupDto.Title = await GetTagLargeDto(new Guid(getHomePopupDto.Title.Id));
+            getHomePopupDto.Text = await GetTagLargeDto(new Guid(getHomePopupDto.Text.Id));
+            return getHomePopupDto;
+        }
+
+        public async Task CreateAsync(LanguagesConfigDto value)
+        {
+            await CreateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
+        }
+
+        private async Task<TagLargeDto> CreateTagLarge(TagLargeDto tagLargeDto)
+        {
+            var tagLargeDbo = mapper.Map<TagLargeDto, TagLarge>(tagLargeDto);
+            tagLargeDbo = await _tagLargeRepository.CreateAsync(tagLargeDbo);
+            var tagLargeDtoNew = mapper.Map<TagLarge, TagLargeDto>(tagLargeDbo);
+            return tagLargeDtoNew;
+        }
+
+        private async Task<TagLargeDto> GetTagLargeDto(Guid guid)
+        {
+            var id = guid.AsObjectIdString();
+            var tagLargeDbo = await _tagLargeRepository.GetAsync(id);
+            var tagLargeDtoNew = mapper.Map<TagLarge, TagLargeDto>(tagLargeDbo);
+            return tagLargeDtoNew;
         }
     }
 }

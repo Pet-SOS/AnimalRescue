@@ -67,8 +67,10 @@ namespace AnimalRescue.Contracts.Common.Constants
         public static class Common
         {
             public const string Title = "title";
+            public const string TitleId = "titleId";
             public const string Lang = "lang";
             public const string Language = "language";
+            public const string Languages = "languages";
             public const string Category = "category";
             public const string Code = "code";
             public const string Values = "values";
@@ -94,6 +96,9 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string TagId = "tag";
             public const string IsMessageSent = "isMessageSent";
             public const string ChatName = "chatName";
+            public const string Paragraphs = "paragraphs";
+            public const string Text = "text";
+            public const string TextId = "textId";
         }
 
         public static class BaseItem

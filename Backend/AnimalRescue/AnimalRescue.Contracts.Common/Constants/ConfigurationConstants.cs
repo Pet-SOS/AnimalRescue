@@ -4,5 +4,7 @@
     {
         public const string CmsConfigurationName = "Cms";
         public const string Donation = "Donation";
+        public const string Language = "Language";
+        public const string GetHomePopup = "GetHomePopup";
     }
 }
