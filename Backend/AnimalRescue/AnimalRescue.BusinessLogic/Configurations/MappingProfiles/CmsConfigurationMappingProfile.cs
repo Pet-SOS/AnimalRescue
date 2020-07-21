@@ -13,6 +13,9 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
     {
         public CmsConfigurationMappingProfile()
         {
+            CreateMap<Paragraph, ParagraphDto>();
+            CreateMap<ParagraphDto, Paragraph>();
+
             CreateMap<Configuration<Contacts>, CmsConfigurationDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()))
                 .ForMember(x => x.Addresses, o => o.MapFrom(cms => cms.Data.Addresses))
@@ -35,17 +38,17 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 
             //get
             CreateMap<Configuration<HomePopup>, HomePopupDto>()
-                .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()))
-                .ForPath(x => x.Title, o => o.MapFrom(cms => cms.Data.Title))
-                .ForPath(x => x.Text, o => o.MapFrom(cms => cms.Data.Text))
-                .ForPath(x => x.Email, o => o.MapFrom(cms => cms.Data.Email));
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+                .ForPath(x => x.Title, o => o.MapFrom(config => config.Data.Title))
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs))
+                .ForPath(x => x.Email, o => o.MapFrom(config => config.Data.Email));
 
             //post
             CreateMap<HomePopupDto, Configuration<HomePopup>>()
-                .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Title, o => o.MapFrom(cms => cms.Title))
-                .ForPath(x => x.Data.Text, o => o.MapFrom(cms => cms.Text))
-                .ForPath(x => x.Data.Email, o => o.MapFrom(cms => cms.Email));
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Title, o => o.MapFrom(config => config.Title))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs))
+                .ForPath(x => x.Data.Email, o => o.MapFrom(config => config.Email));
 
 
             CreateMap<Configuration<LanguagesConfig>, LanguagesConfigDto>();

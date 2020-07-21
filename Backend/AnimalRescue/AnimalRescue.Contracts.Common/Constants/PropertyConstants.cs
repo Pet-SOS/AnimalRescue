@@ -66,6 +66,7 @@ namespace AnimalRescue.Contracts.Common.Constants
 
         public static class Common
         {
+            public const string Number = "number";
             public const string Title = "title";
             public const string TitleId = "titleId";
             public const string Lang = "lang";

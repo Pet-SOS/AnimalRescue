@@ -12,6 +12,9 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
     {
         public CmsConfigurationMappingProfile()
         {
+            CreateMap<ParagraphModel, ParagraphDto>();
+            CreateMap<ParagraphDto, ParagraphModel>();
+
             CreateMap<CmsConfigurationModel, CmsConfigurationDto>();
             CreateMap<CmsConfigurationDto, CmsConfigurationModel>();
 

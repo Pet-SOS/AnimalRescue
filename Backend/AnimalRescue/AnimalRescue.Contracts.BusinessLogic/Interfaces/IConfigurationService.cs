@@ -1,6 +1,7 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces.CRUD;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Info;
 
 using System.Threading.Tasks;
 

@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
+
 using System;
 using System.Collections.Generic;
 
@@ -10,9 +11,9 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Info
     public class BaseInfoDto : BaseDto<Guid>
     {
         [CouplingPropertyDto(common.Title)]
-        public TagLargeDto Title { get; set; }
+        public List<LanguageValueDto> Title { get; set; }
 
         [CouplingPropertyDto(common.Paragraphs)]
-        public List<TagLargeDto> Paragraphs { get; set; }
+        public List<ParagraphDto> Paragraphs { get; set; }
     }
 }
