@@ -1,7 +1,10 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
+
 using AutoMapper;
+
 using System;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
