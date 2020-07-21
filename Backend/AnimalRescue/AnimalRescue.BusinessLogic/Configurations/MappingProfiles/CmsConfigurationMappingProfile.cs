@@ -60,8 +60,10 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForPath(x => x.Data.Email, o => o.MapFrom(config => config.Email));
 
 
-            CreateMap<Configuration<LanguagesConfig>, LanguagesConfigDto>();
-            CreateMap<LanguagesConfigDto, Configuration<LanguagesConfig>>();
+            CreateMap<Configuration<LanguagesConfig>, LanguagesConfigDto>()
+                .ForMember(x => x.Languages, o => o.MapFrom(config => config.Data.Languages));
+            CreateMap<LanguagesConfigDto, Configuration<LanguagesConfig>>()
+                .ForPath(x => x.Data.Languages, o => o.MapFrom(config => config.Languages));
         }
     }
 }

@@ -1,12 +1,18 @@
-﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
+﻿using Newtonsoft.Json;
+
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Configurations
 {
     public class LanguagesConfigModel
     {
-        [CouplingPropertyDto(common.Languages)]
+        [Required]
+        [JsonPropertyName(common.Languages)]
+        [JsonProperty(common.Languages)]
         public Dictionary<string, bool> Languages { get; set; }
     }
 }

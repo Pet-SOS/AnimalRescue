@@ -20,5 +20,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         Task<HomePopupDto> GetHomePopupConfigurationAsync();
         Task<HelpPopupDto> GetHelpPopupConfigurationAsync();
         Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync();
+        Task<LanguagesConfigDto> GetLanguagesConfigurationAsync();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AnimalRescue.API.Core.Responses;
-using AnimalRescue.API.Models.Configurations;
 using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
@@ -71,27 +70,6 @@ namespace AnimalRescue.API.Controllers
             var modelDto = await _configurationService.GetCmsConfigurationAsync();
 
             return Item(_mapper.Map<CmsConfigurationModel>(modelDto));
-        }
-
-        [HttpPost("languages")]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        public async Task CreateLanguagesAsync([FromBody] LanguagesConfigModel languagesConfigModel)
-        {
-            var data = _mapper.Map<LanguagesConfigModel, LanguagesConfigDto>(languagesConfigModel);
-            await _configurationService.CreateAsync(data);
-        }
-
-        [HttpGet("languages")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(ContentApiResponse<LanguagesConfigModel>), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult<LanguagesConfigModel>> GetLanguagesAsync()
-        {
-            var modelDto = await _configurationService.GetCmsConfigurationAsync();
-
-            return Item(_mapper.Map<LanguagesConfigModel>(modelDto));
         }
     }
 }
