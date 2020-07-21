@@ -2,11 +2,9 @@
 using AnimalRescue.API.Models.Configurations;
 using AnimalRescue.API.Models.Configurations.Contacts;
 using AnimalRescue.API.Models.Configurations.Donations;
-using AnimalRescue.API.Models.Configurations.Info;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
-using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Info;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
@@ -19,7 +17,7 @@ using System.Threading.Tasks;
 namespace AnimalRescue.API.Controllers
 {
     //    [Authorize(Policy = "Bearer", Roles = "Admin")]
-    public class ConfigurationsController : ApiControllerBase
+    public partial class ConfigurationsController : ApiControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IConfigurationService _configurationService;
@@ -73,69 +71,6 @@ namespace AnimalRescue.API.Controllers
             var modelDto = await _configurationService.GetCmsConfigurationAsync();
 
             return Item(_mapper.Map<CmsConfigurationModel>(modelDto));
-        }
-
-
-        [HttpPost("helpPopup")]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        public async Task CreateHelpPopupAsync([FromBody] HelpPopupModel helpPopupModel)
-        {
-            var data = _mapper.Map<HelpPopupModel, HelpPopupDto >(helpPopupModel);
-//            await _configurationService.CreateAsync(data);
-        }
-
-        [HttpGet("helpPopup")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(ContentApiResponse<HelpPopupModel>), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult<HelpPopupModel>> GetHelpPopupAsync()
-        {
-            var modelDto = await _configurationService.GetCmsConfigurationAsync();
-
-            return Item(_mapper.Map<HelpPopupModel>(modelDto));
-        }
-
-        [HttpPost("HelpAdopt")]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        public async Task CreateHelpAdoptAsync([FromBody] HelpAdoptModel helpAdoptModel)
-        {
-            var data = _mapper.Map<HelpAdoptModel, HelpAdoptDto>(helpAdoptModel);
-            //            await _configurationService.CreateAsync(data);
-        }
-
-        [HttpGet("HelpAdopt")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(ContentApiResponse<HelpAdoptModel>), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult<HelpAdoptModel>> GetHelpAdoptAsync()
-        {
-            var modelDto = await _configurationService.GetCmsConfigurationAsync();
-
-            return Item(_mapper.Map<HelpAdoptModel>(modelDto));
-        }
-
-        [HttpPost("home-popup")]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        public async Task CreateHomePopupAsync([FromBody] HomePopupModel getHomePopupModel)
-        {
-            var data = _mapper.Map<HomePopupModel, HomePopupDto>(getHomePopupModel);
-            await _configurationService.CreateAsync(data);
-        }
-
-        [HttpGet("home-popup")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(ContentApiResponse<HomePopupModel>), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult<HomePopupModel>> GetHomePopupAsync()
-        {
-            var modelDto = await _configurationService.GetHomePopupConfigurationAsync();
-            return Item(_mapper.Map<HomePopupModel>(modelDto));
         }
 
         [HttpPost("languages")]

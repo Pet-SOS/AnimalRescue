@@ -2,17 +2,13 @@
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Info;
-using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
-using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested.Info;
-using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 
 using AutoMapper;
 
-using System;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
@@ -20,13 +16,11 @@ namespace AnimalRescue.BusinessLogic.Services
     internal class ConfigurationService : IConfigurationService
     {
         private readonly IConfigurationRepository _configurationRepository;
-        private readonly ITagLargeRepository _tagLargeRepository;
         private readonly IMapper mapper;
 
-        public ConfigurationService(IConfigurationRepository configurationRepository, ITagLargeRepository tagLargeRepository, IMapper mapper)
+        public ConfigurationService(IConfigurationRepository configurationRepository, IMapper mapper)
         {
             _configurationRepository = configurationRepository;
-            _tagLargeRepository = tagLargeRepository;
             this.mapper = mapper;
         }
 
@@ -39,6 +33,12 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(HomePopupDto value) => 
             await CreateConfigurationAsync<HomePopupDto, HomePopup>(value);
 
+        public async Task CreateAsync(HelpPopupDto value) => 
+            await CreateConfigurationAsync<HelpPopupDto, HelpPopup>(value);
+
+        public async Task CreateAsync(HelpAdoptDto value) => 
+            await CreateConfigurationAsync<HelpAdoptDto, HelpAdopt>(value);
+
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
             await GetConfigurationAsync<CmsConfigurationDto, Contacts>();
 
@@ -47,6 +47,12 @@ namespace AnimalRescue.BusinessLogic.Services
        
         public async Task<HomePopupDto> GetHomePopupConfigurationAsync() => 
             await GetConfigurationAsync<HomePopupDto, HomePopup>();
+
+        public async Task<HelpPopupDto> GetHelpPopupConfigurationAsync() => 
+            await GetConfigurationAsync<HelpPopupDto, HelpPopup>();
+
+        public async Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync() => 
+            await GetConfigurationAsync<HelpAdoptDto, HelpAdopt>();
 
         private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)
         {
@@ -66,22 +72,6 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(LanguagesConfigDto value)
         {
             await CreateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
-        }
-
-        private async Task<TagLargeDto> CreateTagLarge(TagLargeDto tagLargeDto)
-        {
-            var tagLargeDbo = mapper.Map<TagLargeDto, TagLarge>(tagLargeDto);
-            tagLargeDbo = await _tagLargeRepository.CreateAsync(tagLargeDbo);
-            var tagLargeDtoNew = mapper.Map<TagLarge, TagLargeDto>(tagLargeDbo);
-            return tagLargeDtoNew;
-        }
-
-        private async Task<TagLargeDto> GetTagLargeDto(Guid guid)
-        {
-            var id = guid.AsObjectIdString();
-            var tagLargeDbo = await _tagLargeRepository.GetAsync(id);
-            var tagLargeDtoNew = mapper.Map<TagLarge, TagLargeDto>(tagLargeDbo);
-            return tagLargeDtoNew;
         }
     }
 }

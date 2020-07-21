@@ -3,7 +3,7 @@ using AnimalRescue.DataAccess.Mongodb.Attributes;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested.Info
 {
-    [ConfigName(ConfigurationConstants.CmsConfigurationName)]
+    [ConfigName(ConfigurationConstants.HelpPopup)]
     public class HelpPopup : BaseInfo
     {
     }
