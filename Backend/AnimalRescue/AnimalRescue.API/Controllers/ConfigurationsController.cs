@@ -8,7 +8,9 @@ using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Info;
 using AnimalRescue.Infrastructure.Validation;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -116,24 +118,24 @@ namespace AnimalRescue.API.Controllers
             return Item(_mapper.Map<HelpAdoptModel>(modelDto));
         }
 
-        [HttpPost("getHomePopup")]
+        [HttpPost("home-popup")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task CreateHomePopupAsync([FromBody] GetHomePopupModel getHomePopupModel)
+        public async Task CreateHomePopupAsync([FromBody] HomePopupModel getHomePopupModel)
         {
-            var data = _mapper.Map<GetHomePopupModel, GetHomePopupDto>(getHomePopupModel);
+            var data = _mapper.Map<HomePopupModel, HomePopupDto>(getHomePopupModel);
             await _configurationService.CreateAsync(data);
         }
 
-        [HttpGet("getHomePopup")]
+        [HttpGet("home-popup")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(ContentApiResponse<GetHomePopupModel>), 200)]
+        [ProducesResponseType(typeof(ContentApiResponse<HomePopupModel>), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<GetHomePopupModel>> GetHomePopupAsync()
+        public async Task<ActionResult<HomePopupModel>> GetHomePopupAsync()
         {
             var modelDto = await _configurationService.GetHomePopupConfigurationAsync();
-            return Item(_mapper.Map<GetHomePopupModel>(modelDto));
+            return Item(_mapper.Map<HomePopupModel>(modelDto));
         }
 
         [HttpPost("languages")]

@@ -9,11 +9,11 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
     public interface IConfigurationService: 
         IBlCreateAsync<CmsConfigurationDto>, 
         IBlCreateAsync<DonationConfigurationDto>,
-        IBlCreateAsync<GetHomePopupDto>,
+        IBlCreateAsync<HomePopupDto>,
         IBlCreateAsync<LanguagesConfigDto>
     {
         Task<CmsConfigurationDto> GetCmsConfigurationAsync();
         Task<DonationConfigurationDto> GetDonationConfigurationAsync();
-        Task<GetHomePopupDto> GetHomePopupConfigurationAsync();
+        Task<HomePopupDto> GetHomePopupConfigurationAsync();
     }
 }

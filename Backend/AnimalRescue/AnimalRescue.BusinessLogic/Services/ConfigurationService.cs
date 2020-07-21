@@ -2,16 +2,16 @@
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
+using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
-using AnimalRescue.DataAccess.Mongodb.Query;
+
 using AutoMapper;
 
-using System.Threading.Tasks;
-using AnimalRescue.DataAccess.Mongodb.Extensions;
 using System;
+using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -34,12 +34,18 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(DonationConfigurationDto value) => 
             await CreateConfigurationAsync<DonationConfigurationDto, Donation>(value);
 
+        public async Task CreateAsync(HomePopupDto value) => 
+            await CreateConfigurationAsync<HomePopupDto, HomePopup>(value);
+
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
-            await GetDonationConfigurationAsync<CmsConfigurationDto, Contacts>();
+            await GetConfigurationAsync<CmsConfigurationDto, Contacts>();
 
         public async Task<DonationConfigurationDto> GetDonationConfigurationAsync() => 
-            await GetDonationConfigurationAsync<DonationConfigurationDto, Donation>();
+            await GetConfigurationAsync<DonationConfigurationDto, Donation>();
        
+        public async Task<HomePopupDto> GetHomePopupConfigurationAsync() => 
+            await GetConfigurationAsync<HomePopupDto, HomePopup>();
+
         private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)
         {
             var configuration = mapper.Map<TFrom, Configuration<TConfiguration>>(value);
@@ -47,27 +53,12 @@ namespace AnimalRescue.BusinessLogic.Services
             await _configurationRepository.CreateAsync(configuration);
         }
 
-        private async Task<TOut> GetDonationConfigurationAsync<TOut, TConfig>()
+        private async Task<TOut> GetConfigurationAsync<TOut, TConfig>()
         {
             var configurationDbo = await _configurationRepository.GetConfigurationAsync<TConfig>();
             var configurationDto = mapper.Map<Configuration<TConfig>, TOut>(configurationDbo);
 
             return configurationDto;
-        }
-
-        public async Task CreateAsync(GetHomePopupDto value)
-        {
-            value.Title = await CreateTagLarge(value.Title);
-            value.Text = await CreateTagLarge(value.Text);
-            await CreateConfigurationAsync<GetHomePopupDto, HomePopup>(value);
-        }
-
-        public async Task<GetHomePopupDto> GetHomePopupConfigurationAsync()
-        {
-            var getHomePopupDto = await GetDonationConfigurationAsync<GetHomePopupDto, HomePopup>();
-            getHomePopupDto.Title = await GetTagLargeDto(new Guid(getHomePopupDto.Title.Id));
-            getHomePopupDto.Text = await GetTagLargeDto(new Guid(getHomePopupDto.Text.Id));
-            return getHomePopupDto;
         }
 
         public async Task CreateAsync(LanguagesConfigDto value)

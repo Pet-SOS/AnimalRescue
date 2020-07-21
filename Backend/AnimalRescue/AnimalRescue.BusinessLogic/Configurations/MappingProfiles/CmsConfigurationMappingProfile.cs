@@ -4,8 +4,8 @@ using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested.Info;
+
 using AutoMapper;
-using System;
 
 namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 {
@@ -34,17 +34,17 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
             CreateMap<HelpPopupDto, HelpPopup>();
 
             //get
-            CreateMap<Configuration<HomePopup>, GetHomePopupDto>()
+            CreateMap<Configuration<HomePopup>, HomePopupDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()))
-                .ForPath(x => x.Title.Id, o => o.MapFrom(cms => cms.Data.TitleId.AsGuid()))
-                .ForPath(x => x.Text.Id, o => o.MapFrom(cms => cms.Data.TextId.AsGuid()))
+                .ForPath(x => x.Title, o => o.MapFrom(cms => cms.Data.Title))
+                .ForPath(x => x.Text, o => o.MapFrom(cms => cms.Data.Text))
                 .ForPath(x => x.Email, o => o.MapFrom(cms => cms.Data.Email));
 
             //post
-            CreateMap<GetHomePopupDto, Configuration<HomePopup>>()
+            CreateMap<HomePopupDto, Configuration<HomePopup>>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.TitleId, o => o.MapFrom(cms => new Guid(cms.Title.Id).AsObjectIdString()))
-                .ForPath(x => x.Data.TextId, o => o.MapFrom(cms => new Guid(cms.Text.Id).AsObjectIdString()))
+                .ForPath(x => x.Data.Title, o => o.MapFrom(cms => cms.Title))
+                .ForPath(x => x.Data.Text, o => o.MapFrom(cms => cms.Text))
                 .ForPath(x => x.Data.Email, o => o.MapFrom(cms => cms.Email));
 
 
