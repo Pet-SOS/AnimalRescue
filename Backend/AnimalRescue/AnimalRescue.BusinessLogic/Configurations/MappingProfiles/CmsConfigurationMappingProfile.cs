@@ -34,14 +34,14 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
             CreateMap<HelpPopupDto, HelpPopup>();
 
             //get
-            CreateMap<Configuration<GetHomePopup>, GetHomePopupDto>()
+            CreateMap<Configuration<HomePopup>, GetHomePopupDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsGuid()))
                 .ForPath(x => x.Title.Id, o => o.MapFrom(cms => cms.Data.TitleId.AsGuid()))
                 .ForPath(x => x.Text.Id, o => o.MapFrom(cms => cms.Data.TextId.AsGuid()))
                 .ForPath(x => x.Email, o => o.MapFrom(cms => cms.Data.Email));
 
             //post
-            CreateMap<GetHomePopupDto, Configuration<GetHomePopup>>()
+            CreateMap<GetHomePopupDto, Configuration<HomePopup>>()
                 .ForMember(x => x.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.TitleId, o => o.MapFrom(cms => new Guid(cms.Title.Id).AsObjectIdString()))
                 .ForPath(x => x.Data.TextId, o => o.MapFrom(cms => new Guid(cms.Text.Id).AsObjectIdString()))

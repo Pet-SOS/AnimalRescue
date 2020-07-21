@@ -1,16 +1,15 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.DataAccess.Mongodb.Attributes;
+
 using MongoDB.Bson.Serialization.Attributes;
 
-using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
-using AnimalRescue.DataAccess.Mongodb.Models.Tag;
-using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
+using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 
 namespace AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested
 {
     [ConfigName(ConfigurationConstants.GetHomePopup)]
-    public class GetHomePopup
+    public class HomePopup
     {
         [CouplingPropertyName(common.TitleId)]
         [BsonElement("titleId")]

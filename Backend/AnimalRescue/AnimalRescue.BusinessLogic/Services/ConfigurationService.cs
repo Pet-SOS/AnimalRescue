@@ -59,12 +59,12 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             value.Title = await CreateTagLarge(value.Title);
             value.Text = await CreateTagLarge(value.Text);
-            await CreateConfigurationAsync<GetHomePopupDto, GetHomePopup>(value);
+            await CreateConfigurationAsync<GetHomePopupDto, HomePopup>(value);
         }
 
         public async Task<GetHomePopupDto> GetHomePopupConfigurationAsync()
         {
-            var getHomePopupDto = await GetDonationConfigurationAsync<GetHomePopupDto, GetHomePopup>();
+            var getHomePopupDto = await GetDonationConfigurationAsync<GetHomePopupDto, HomePopup>();
             getHomePopupDto.Title = await GetTagLargeDto(new Guid(getHomePopupDto.Title.Id));
             getHomePopupDto.Text = await GetTagLargeDto(new Guid(getHomePopupDto.Text.Id));
             return getHomePopupDto;
