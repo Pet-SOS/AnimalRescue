@@ -1,9 +1,11 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
+using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Info;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
+using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested.Info;
 
 using AutoMapper;
 
@@ -28,12 +30,36 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(DonationConfigurationDto value) => 
             await CreateConfigurationAsync<DonationConfigurationDto, Donation>(value);
 
+        public async Task CreateAsync(HomePopupDto value) => 
+            await CreateConfigurationAsync<HomePopupDto, HomePopup>(value);
+
+        public async Task CreateAsync(HelpPopupDto value) => 
+            await CreateConfigurationAsync<HelpPopupDto, HelpPopup>(value);
+
+        public async Task CreateAsync(HelpAdoptDto value) => 
+            await CreateConfigurationAsync<HelpAdoptDto, HelpAdopt>(value);
+
+        public async Task CreateAsync(LanguagesConfigDto value) =>
+            await CreateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
+
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
-            await GetDonationConfigurationAsync<CmsConfigurationDto, Contacts>();
+            await GetConfigurationAsync<CmsConfigurationDto, Contacts>();
 
         public async Task<DonationConfigurationDto> GetDonationConfigurationAsync() => 
-            await GetDonationConfigurationAsync<DonationConfigurationDto, Donation>();
+            await GetConfigurationAsync<DonationConfigurationDto, Donation>();
        
+        public async Task<HomePopupDto> GetHomePopupConfigurationAsync() => 
+            await GetConfigurationAsync<HomePopupDto, HomePopup>();
+
+        public async Task<HelpPopupDto> GetHelpPopupConfigurationAsync() => 
+            await GetConfigurationAsync<HelpPopupDto, HelpPopup>();
+
+        public async Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync() => 
+            await GetConfigurationAsync<HelpAdoptDto, HelpAdopt>();
+
+        public async Task<LanguagesConfigDto> GetLanguagesConfigurationAsync() => 
+            await GetConfigurationAsync<LanguagesConfigDto, LanguagesConfig>();
+
         private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)
         {
             var configuration = mapper.Map<TFrom, Configuration<TConfiguration>>(value);
@@ -41,7 +67,7 @@ namespace AnimalRescue.BusinessLogic.Services
             await _configurationRepository.CreateAsync(configuration);
         }
 
-        private async Task<TOut> GetDonationConfigurationAsync<TOut, TConfig>()
+        private async Task<TOut> GetConfigurationAsync<TOut, TConfig>()
         {
             var configurationDbo = await _configurationRepository.GetConfigurationAsync<TConfig>();
             var configurationDto = mapper.Map<Configuration<TConfig>, TOut>(configurationDbo);

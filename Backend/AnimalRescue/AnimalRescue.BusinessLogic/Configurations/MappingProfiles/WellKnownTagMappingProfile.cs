@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 
 using AutoMapper;

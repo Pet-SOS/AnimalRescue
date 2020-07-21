@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Models;
+using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 
 using MongoDB.Bson.Serialization.Attributes;
 

@@ -1,4 +1,4 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Models.Tag;
+﻿using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 
 using System.Collections.Generic;
 

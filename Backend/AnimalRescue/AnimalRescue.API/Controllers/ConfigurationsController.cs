@@ -5,7 +5,9 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations;
 using AnimalRescue.Contracts.BusinessLogic.Models.Configurations.Donations;
 using AnimalRescue.Infrastructure.Validation;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +15,8 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.API.Controllers
 {
-    [Authorize(Policy = "Bearer", Roles = "Admin")]
-    public class ConfigurationsController : ApiControllerBase
+    //    [Authorize(Policy = "Bearer", Roles = "Admin")]
+    public partial class ConfigurationsController : ApiControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IConfigurationService _configurationService;
