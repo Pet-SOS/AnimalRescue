@@ -21,6 +21,7 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForMember(x => x.Addresses, o => o.MapFrom(cms => cms.Data.Addresses))
                 .ForMember(x => x.Emails, o => o.MapFrom(cms => cms.Data.Emails))
                 .ForMember(x => x.Phones, o => o.MapFrom(cms => cms.Data.Phones))
+                .ForMember(x => x.Paragraphs, o => o.MapFrom(cms => cms.Data.Paragraphs))
                 .ForMember(x => x.SocialLinks, o => o.MapFrom(cms => cms.Data.SocialLinks));
 
             CreateMap<CmsConfigurationDto, Configuration<Contacts>>()
@@ -28,6 +29,7 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForPath(x => x.Data.Addresses, o => o.MapFrom(cms => cms.Addresses))
                 .ForPath(x => x.Data.Emails, o => o.MapFrom(cms => cms.Emails))
                 .ForPath(x => x.Data.Phones, o => o.MapFrom(cms => cms.Phones))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(cms => cms.Paragraphs))
                 .ForPath(x => x.Data.SocialLinks, o => o.MapFrom(cms => cms.SocialLinks));
 
 
