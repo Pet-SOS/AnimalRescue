@@ -32,30 +32,24 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
 
 
             CreateMap<Configuration<HelpAdopt>, HelpAdoptDto>().ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Title, o => o.MapFrom(config => config.Data.Title))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
             CreateMap<HelpAdoptDto, Configuration<HelpAdopt>>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Title, o => o.MapFrom(config => config.Title))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
             CreateMap<Configuration<HelpPopup>, HelpPopupDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Title, o => o.MapFrom(config => config.Data.Title))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
             CreateMap<HelpPopupDto, Configuration<HelpPopup>>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Title, o => o.MapFrom(config => config.Title))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
             CreateMap<Configuration<HomePopup>, HomePopupDto>() //get
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Title, o => o.MapFrom(config => config.Data.Title))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs))
                 .ForPath(x => x.Email, o => o.MapFrom(config => config.Data.Email));
             CreateMap<HomePopupDto, Configuration<HomePopup>>() //post
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Title, o => o.MapFrom(config => config.Title))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs))
                 .ForPath(x => x.Data.Email, o => o.MapFrom(config => config.Email));
 
