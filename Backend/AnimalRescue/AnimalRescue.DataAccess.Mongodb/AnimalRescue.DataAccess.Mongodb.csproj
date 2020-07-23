@@ -7,8 +7,11 @@
 
   <ItemGroup>
     <None Remove="Data\cms.json" />
+    <None Remove="Data\contacts_202007232020.json" />
     <None Remove="Data\donation.json" />
     <None Remove="Data\help_adopt.json" />
+    <None Remove="Data\help_popup.json" />
+    <None Remove="Data\languages.json" />
     <None Remove="Data\tags.json" />
     <None Remove="Data\UserRoleActions.json" />
   </ItemGroup>
@@ -17,10 +20,13 @@
     <EmbeddedResource Include="Data\cms.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Data\contacts_202007232020.json" />
     <EmbeddedResource Include="Data\donation.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Data\help_popup.json" />
     <EmbeddedResource Include="Data\help_adopt.json" />
+    <EmbeddedResource Include="Data\languages.json" />
     <EmbeddedResource Include="Data\UserRoleActions.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
