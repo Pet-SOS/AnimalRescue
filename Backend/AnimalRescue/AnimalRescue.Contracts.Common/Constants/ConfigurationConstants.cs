@@ -8,5 +8,6 @@
         public const string HomePopup = "HomePopup";
         public const string HelpPopup = "HelpPopup";
         public const string HelpAdopt = "HelpAdopt";
+        public const string AdoptTopic = "AdoptTopic";
     }
 }
