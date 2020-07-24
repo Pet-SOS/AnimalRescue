@@ -32,6 +32,9 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
 
             CreateMap<HomePopupModel, HomePopupDto>();
             CreateMap<HomePopupDto, HomePopupModel>();
+
+            CreateMap<AdoptTopicModel, AdoptTopicDto>();
+            CreateMap<AdoptTopicDto, AdoptTopicModel>();
         }
     }
 }
