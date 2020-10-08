@@ -335,4 +335,10 @@ export default {
 
   confirmTitle: 'Подтвердить',
   cancelTitle: 'Отменить',
+
+  loading: 'Загружается...',
+  thisFieldIsRequired: 'Это поле обязательно к заполнению',
+  invalidPhoneNumberFormat: 'Неверный формат номера телефона',
+  requestHasBeenSent: 'Ваш запрос успешно отправлен',
+  smthWentWrong: 'Что-то пошло не так... Пожалуйста, повторите попытку позже',
 }

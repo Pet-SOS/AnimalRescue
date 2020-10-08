@@ -27,7 +27,7 @@ export const AdoptPopup: React.FC<IPropTypes> = ({ onClose, AnimalId, AnimalName
       setErrors({ ...errors, phone: <TI18n keyStr="thisFieldIsRequired" default="Обов'язкове поле" /> })
       return;
     } else if (!/^[+()0-9]+$/.test(PhoneNumber)) {
-      setErrors({ ...errors, phone: <TI18n keyStr="invalidPhoneFormat" default="Неправильний формат номеру" /> })
+      setErrors({ ...errors, phone: <TI18n keyStr="invalidPhoneNumberFormat" default="Неправильний формат номеру" /> })
       return;
     }
     setErrors({ ...errors, phone: null });
@@ -58,7 +58,7 @@ export const AdoptPopup: React.FC<IPropTypes> = ({ onClose, AnimalId, AnimalName
       message.error({
         content: (
           <Provider store={store}>
-            <TI18n keyStr="smthWentWrongTryLater" default="Щось пішло не так... Спробуйте, будь ласка, пізніше" />
+            <TI18n keyStr="smthWentWrong" default="Щось пішло не так... Спробуйте, будь ласка, спробуйте пізніше" />
           </Provider>
         ),
         key,

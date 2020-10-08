@@ -349,4 +349,10 @@ export default {
   blogTitle: 'Назва статті',
   blogSection : 'Розділ',
   blogLastModified : 'Остані зміни',
+
+  loading: 'Завантаження...',
+  thisFieldIsRequired: 'Обов\'язкове поле',
+  invalidPhoneNumberFormat: 'Неправильний формат номеру',
+  requestHasBeenSent: 'Ваш запит успішно надісланий',
+  smthWentWrong: 'Щось пішло не так... Спробуйте, будь ласка, пізніше',
 }
