@@ -11,6 +11,7 @@
     <None Remove="Data\donation.json" />
     <None Remove="Data\help_adopt.json" />
     <None Remove="Data\help_popup.json" />
+    <None Remove="Data\home_popup.json" />
     <None Remove="Data\languages.json" />
     <None Remove="Data\tags.json" />
     <None Remove="Data\UserRoleActions.json" />
@@ -26,6 +27,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Data\help_popup.json" />
     <EmbeddedResource Include="Data\help_adopt.json" />
+    <EmbeddedResource Include="Data\home_popup.json" />
     <EmbeddedResource Include="Data\languages.json" />
     <EmbeddedResource Include="Data\UserRoleActions.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
