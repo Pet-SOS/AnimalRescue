@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IUserRepository : IBaseCollection<ApplicationUser>
+    public interface IUserRepository : IBaseRepository<ApplicationUser>
     {
     }
 }

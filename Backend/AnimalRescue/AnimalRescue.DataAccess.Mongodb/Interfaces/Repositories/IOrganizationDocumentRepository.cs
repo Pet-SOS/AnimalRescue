@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IOrganizationDocumentRepository: IBaseCollection<OrganizationDocument>
+    public interface IOrganizationDocumentRepository: IBaseRepository<OrganizationDocument>
     {
     }
 }
