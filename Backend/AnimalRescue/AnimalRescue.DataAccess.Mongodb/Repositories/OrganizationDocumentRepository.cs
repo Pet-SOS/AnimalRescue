@@ -1,6 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 
 using MongoDB.Driver;
 
@@ -8,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class OrganizationDocumentRepository : BaseCollection<OrganizationDocument>, IOrganizationDocumentRepository
+    internal class OrganizationDocumentRepository : BaseRepository<OrganizationDocument>
     {
-        public OrganizationDocumentRepository(IMongoDatabase database, IQueryBuilder<OrganizationDocument> builder)
-            : base(database, builder)
+        public OrganizationDocumentRepository(IBaseCollection<OrganizationDocument> baseCollection) : base(baseCollection)
         {
         }
 
-        public override async Task DeleteAsync(string bucketId)
+        public override Task DeleteAsync(string bucketId)
         {
-            await Collection.DeleteOneAsync(x => x.BucketId == bucketId);
+            return baseCollection.Collection.DeleteOneAsync(x => x.BucketId == bucketId);
         }
 
     }

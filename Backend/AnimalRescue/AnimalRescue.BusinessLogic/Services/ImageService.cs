@@ -23,12 +23,12 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly IImageSizeConfiguration _imageSizeConfiguration;
 
         private readonly IBucket _bucket;
-        private readonly IDocumentCollectionRepository _documentCollectionRepository;
+        private readonly IBaseRepository<DocumentCollection> _documentCollectionRepository;
 
         public ImageService(
             IImageSizeConfiguration imageSizeConfiguration,
             IBucket bucket,
-            IDocumentCollectionRepository documentCollectionRepository)
+            IBaseRepository<DocumentCollection> documentCollectionRepository)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
             Require.Objects.NotNull(documentCollectionRepository, nameof(documentCollectionRepository));

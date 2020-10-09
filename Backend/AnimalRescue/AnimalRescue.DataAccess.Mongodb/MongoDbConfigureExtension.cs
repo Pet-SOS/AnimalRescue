@@ -72,31 +72,18 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IMongoDatabase>(x => database)
                 .AddScoped<IBucket, Bucket>()
                 .AddScoped(typeof(IBaseCollection<>), typeof(BaseCollection<>))
+                .AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>))
 
-                .AddScoped<IAnimalRepository, AnimalRepository>()
-                .AddScoped<IFinancialReportRepository, FinancialReportRepository>()
+                .AddScoped<IBaseRepository<Animal>, AnimalRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
-                .AddScoped<IArticleRepository, ArticleRepository>()
                 .AddScoped<ITagRepository, TagRepository>()
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<ITagLargeRepository, TagLargeRepository>()
-                .AddScoped<IVacancyRepository, VacancyRepository>()
-                .AddScoped<IRequestRepository, RequestRepository>()
                 .AddScoped<IUserRoleActionRepository, UserRoleActionRepository>()
-                .AddScoped<ILocationRepository, LocationRepository>()
-                .AddScoped<IDocumentCollectionRepository, DocumentCollectionRepository>()
-                .AddScoped<IMigrationHistoryRepository, MigrationHistoryRepository>()
-                .AddScoped<IHistoryRepository, HistoryRepository>()
-                .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-
-            services
-                .AddScoped<ISecurityTokenRepository, SecurityTokenRepository>();
-
-            services
-                .AddScoped<IOrganizationDocumentRepository, OrganizationDocumentRepository>();
-            services
-                .AddScoped<IUserRepository, UserRepository>();
+                .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+                .AddScoped<ISecurityTokenRepository, SecurityTokenRepository>()
+                .AddScoped<IBaseRepository<OrganizationDocument>, OrganizationDocumentRepository>();
         }
 
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider) =>

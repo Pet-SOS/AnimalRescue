@@ -3,7 +3,6 @@ using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Bson;
@@ -19,35 +18,20 @@ using condition = AnimalRescue.DataAccess.Mongodb.Extensions.FilterDefinitionExt
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class TagRepository : ITagRepository
+    internal class TagRepository : BaseRepository<Tags>, ITagRepository
     {
-        private readonly IBaseCollection<Tags> _baseCollection;
-
-        public TagRepository(IBaseCollection<Tags> baseCollection)
+        public TagRepository(IBaseCollection<Tags> baseCollection) : base(baseCollection)
         {
-            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
-
-            _baseCollection = baseCollection;
         }
 
-        public async Task<List<Tags>> GetAsync(DbQuery query)
-        {
-            return await _baseCollection.GetAsync(query);
-        }
-
-        public async Task<Tags> GetAsync(string id)
-        {
-            return await _baseCollection.GetAsync(id);
-        }
-
-        public async Task<Tags> CreateAsync(Tags tags)
+        public override Task<Tags> CreateAsync(Tags tags)
         {
             Require.Objects.NotNull(tags, nameof(tags));
 
             tags.CreatedAt = DateTime.UtcNow;
             tags.Id = string.Empty;
 
-            return await _baseCollection.CreateAsync(tags);
+            return baseCollection.CreateAsync(tags);
         }
 
         public async Task<IEnumerable<Tags>> CreateAsync(IEnumerable<Tags> tags)
@@ -57,15 +41,15 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
                 return new List<Tags>();
             }
 
-            tags =  tags.Select(x=> { x.Id = null; x.CreatedAt = DateTime.UtcNow; return x; });
-            return await _baseCollection.CreateAsync(tags);
+            tags = tags.Select(x => { x.Id = null; x.CreatedAt = DateTime.UtcNow; return x; });
+            return await baseCollection.CreateAsync(tags);
         }
 
-        public async Task UpdateAsync(Tags tags)
+        public override async Task UpdateAsync(Tags tags)
         {
             Require.Objects.NotNull(tags, nameof(tags));
 
-            var oldTag = await _baseCollection.GetAsync(tags.Id);
+            var oldTag = await baseCollection.GetAsync(tags.Id);
 
             Require.Objects.NotNull<NotFoundException>(oldTag,
                 () => $"{tags.Title} with id: {tags.Id} not found");
@@ -73,41 +57,26 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             oldTag.Title = tags.Title;
             oldTag.Type = tags.Type;
 
-            await _baseCollection.UpdateAsync(oldTag);
+            await baseCollection.UpdateAsync(oldTag);
 
         }
 
-        public async Task DeleteAsync(string id)
+        public override async Task DeleteAsync(string id)
         {
             Require.Strings.NotNullOrWhiteSpace(id, nameof(id));
 
-            await _baseCollection.DeleteAsync(id);
-        }
-
-        public IAsyncEnumerable<Tags> GetAllItemsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<BsonValue> ExecuteScriptAsync(string javascript)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> GetCountAsync(DbQuery query)
-        {
-            return await _baseCollection.GetCountAsync(query);
+            await baseCollection.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<Tags>> WhereAsync(IEnumerable<Tags> tags)
         {
             List<BsonDocument> items = new List<BsonDocument>();
-            FilterDefinition<BsonDocument> filter = condition.OR( 
-                tags 
+            FilterDefinition<BsonDocument> filter = condition.OR(
+                tags
                 .Select(x => condition.AND(common.Type.EQ(x.Type), common.Title.EQ(x.Title)))
                 .ToArray());
 
-            IAsyncCursor<BsonDocument> cursor = await _baseCollection.NativeCollection.FindAsync(filter);
+            IAsyncCursor<BsonDocument> cursor = await baseCollection.NativeCollection.FindAsync(filter);
             List<Tags> result = cursor.ToList().Select(x => x.Deserialize<Tags>()).ToList();
 
             return result;

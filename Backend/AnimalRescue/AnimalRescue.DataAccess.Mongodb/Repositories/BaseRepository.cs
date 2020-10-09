@@ -1,59 +1,64 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Query;
+using AnimalRescue.Infrastructure.Validation;
 using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : IBaseAuditItem
+    internal class BaseRepository<TEntity> :
+        IBaseRepository<TEntity> where TEntity : IBaseAuditItem
     {
-        protected BaseCollection<TEntity> _baseCollection;
+        protected readonly IBaseCollection<TEntity> baseCollection;
 
-        public BaseRepository(BaseCollection<TEntity> baseCollection)
+        public BaseRepository(IBaseCollection<TEntity> baseCollection)
         {
-            _baseCollection = baseCollection;
+            Require.Objects.NotNull(baseCollection, nameof(baseCollection));
+
+            this.baseCollection = baseCollection;
         }
 
-        public Task<TEntity> CreateAsync(TEntity value)
+        public virtual Task<TEntity> CreateAsync(TEntity value)
         {
-            return _baseCollection.CreateAsync(value);
+            return baseCollection.CreateAsync(value);
         }
 
-        public Task DeleteAsync(string id)
+        public virtual Task DeleteAsync(string id)
         {
-            return _baseCollection.DeleteAsync(id);
+            return baseCollection.DeleteAsync(id);
         }
 
-        public Task<BsonValue> ExecuteScriptAsync(string javascript)
+        public virtual Task<BsonValue> ExecuteScriptAsync(string javascript)
         {
-            return _baseCollection.ExecuteScriptAsync(javascript);
+            return baseCollection.ExecuteScriptAsync(javascript);
         }
 
-        public IAsyncEnumerable<TEntity> GetAllItemsAsync()
+        public virtual IAsyncEnumerable<TEntity> GetAllItemsAsync()
         {
-            return _baseCollection.GetAllItemsAsync();
+            return baseCollection.GetAllItemsAsync();
         }
 
-        public Task<List<TEntity>> GetAsync(DbQuery query)
+        public virtual Task<List<TEntity>> GetAsync(DbQuery query)
         {
-           return _baseCollection.GetAsync(query);
+            return baseCollection.GetAsync(query);
         }
 
-        public Task<TEntity> GetAsync(string query)
+        public virtual Task<TEntity> GetAsync(string query)
         {
-            return _baseCollection.GetAsync(query);
+            return baseCollection.GetAsync(query);
         }
 
-        public Task<int> GetCountAsync(DbQuery query)
+        public virtual Task<int> GetCountAsync(DbQuery query)
         {
-            return _baseCollection.GetCountAsync(query);
+            return baseCollection.GetCountAsync(query);
         }
 
-        public Task UpdateAsync(TEntity value)
+        public virtual Task UpdateAsync(TEntity value)
         {
-            return _baseCollection.UpdateAsync(value);
+            return baseCollection.UpdateAsync(value);
         }
     }
 }

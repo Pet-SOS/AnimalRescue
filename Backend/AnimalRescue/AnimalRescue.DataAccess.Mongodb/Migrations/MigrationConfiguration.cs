@@ -20,8 +20,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider)
         {
-            var migrationHistoryRepository = serviceProvider.GetRequiredService<IMigrationHistoryRepository>();
-            var logger = serviceProvider.GetRequiredService<ILogger<MigrationHistoryRepository>>();
+            var migrationHistoryRepository = serviceProvider.GetRequiredService<IBaseRepository<MigrationHistory>>();
+            var logger = serviceProvider.GetRequiredService<ILogger<IBaseRepository<MigrationHistory>>>();
             var migrationHistory = await migrationHistoryRepository.GetAsync(new DbQuery());
 
             var migrations = GetAvailableMigrations()
@@ -45,8 +45,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
         private static async Task ApplyMigration(
             IServiceProvider serviceProvider,
             Type item,
-            IMigrationHistoryRepository migrationHistoryRepository,
-            ILogger<MigrationHistoryRepository> logger)
+            IBaseRepository<MigrationHistory> migrationHistoryRepository,
+            ILogger<IBaseRepository<MigrationHistory>> logger)
         {
             var ctor = item
                 .GetConstructors()

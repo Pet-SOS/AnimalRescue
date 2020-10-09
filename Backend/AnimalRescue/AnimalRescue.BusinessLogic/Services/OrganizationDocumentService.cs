@@ -19,11 +19,11 @@ namespace AnimalRescue.BusinessLogic.Services
     class OrganizationDocumentService : 
         IOrganizationDocumentService
     {
-        private readonly IOrganizationDocumentRepository _orgDocRepository;
+        private readonly IBaseRepository<OrganizationDocument> _orgDocRepository;
         private readonly IBucket _bucket;
 
         public OrganizationDocumentService(IBucket bucket,
-            IOrganizationDocumentRepository orgDocRepository)
+            IBaseRepository<OrganizationDocument> orgDocRepository)
         {
             Require.Objects.NotNull(bucket, nameof(bucket));
             Require.Objects.NotNull(orgDocRepository, nameof(orgDocRepository));

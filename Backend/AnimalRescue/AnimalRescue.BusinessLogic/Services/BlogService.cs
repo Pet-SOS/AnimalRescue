@@ -14,7 +14,7 @@ namespace AnimalRescue.BusinessLogic.Services
 		IBlFullCrud<BlogDto, BlogDto, Guid>
 	{
 		public BlogService(
-			IArticleRepository repository,
+			IBaseRepository<Article> repository,
 			IRecoverDataService recoverDataService,
 			IMapper mapper)
 			: base(repository, recoverDataService, mapper)

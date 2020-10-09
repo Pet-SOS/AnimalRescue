@@ -1,4 +1,5 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Migrations.Engine;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Repositories;
@@ -12,18 +13,18 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     [Migration("202006061032_DeleteNewTagsPropertyFromAnimalEntity")]
     internal class DeleteNewTagsPropertyFromAnimalEntity : IAnimalRescueMigration
     {
-        private readonly AnimalRepository _animalRepository;
+        private readonly IBaseCollection<Animal> _animalCollection;
 
-        public DeleteNewTagsPropertyFromAnimalEntity(IAnimalRepository animalRepository)
+        public DeleteNewTagsPropertyFromAnimalEntity(IBaseCollection<Animal> animalCollection)
         {
-            _animalRepository = animalRepository as AnimalRepository;
+            _animalCollection = animalCollection;
         }
 
         public async Task Execute()
         {
             var doc = new BsonDocument("newTags", "");
             var unsetDoc = new BsonDocument("$unset", doc);
-            await _animalRepository.Collection.UpdateManyAsync(MongoDB.Driver.Builders<Animal>.Filter.Empty, unsetDoc);
+            await _animalCollection.Collection.UpdateManyAsync(MongoDB.Driver.Builders<Animal>.Filter.Empty, unsetDoc);
         }
     }
 }
