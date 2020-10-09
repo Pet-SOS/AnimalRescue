@@ -2,7 +2,6 @@
 using AnimalRescue.DataAccess.Mongodb.Migrations.Engine;
 using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.DataAccess.Mongodb.Query;
-using AnimalRescue.DataAccess.Mongodb.Repositories;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
