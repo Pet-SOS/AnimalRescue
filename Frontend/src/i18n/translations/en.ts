@@ -337,4 +337,10 @@ export default {
 
   confirmTitle: 'Confirm',
   cancelTitle: 'Cancel',
+
+  loading: 'Loading...',
+  thisFieldIsRequired: 'This field is required',
+  invalidPhoneNumberFormat: 'Invalid phone number format',
+  requestHasBeenSent: 'Your request has been sent successfully',
+  smthWentWrong: 'Something went wrong... Please try again later',
 }

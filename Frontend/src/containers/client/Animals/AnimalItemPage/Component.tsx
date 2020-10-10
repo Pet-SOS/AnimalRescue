@@ -199,7 +199,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
         title={<TI18n keyStr='canHelpBlockTitle' default='Кому ты можешь помочь' />}
       />
       { isAdoptPopupActive && (
-        <AdoptPopup onClose={() => setIsAdoptPopupActive(false)}/>
+        <AdoptPopup onClose={() => setIsAdoptPopupActive(false)} AnimalName={animalItem.data.name} AnimalId={animalId} />
       )}
     </div>
    )
