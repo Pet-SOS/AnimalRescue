@@ -120,6 +120,11 @@ export const BlogList: React.FC<IBlogListPageProps> = ({blogList, fetchBlogList,
                             <div className="col col-modified">
                                 <TI18n keyStr="blogLastModified" default={'Last modified'}/>
                             </div>
+                            { /* This is to compensate two columns with buttons in the table body */ }
+                            <div className="col">
+                            </div>
+                            <div className="col">
+                            </div>
                         </div>
                     </header>
     
