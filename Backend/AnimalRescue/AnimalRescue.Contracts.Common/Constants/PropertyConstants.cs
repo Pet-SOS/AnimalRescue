@@ -143,5 +143,12 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string LastValue = "lastValue";
             public const string NewValue = "newValue";
         }
+
+        public static class RequestAdoptAnimal
+        {
+            public const string AnimalId = "animalId";
+            public const string AnimalName = "animalName";
+            public const string AdoptiveName = "adoptiveName";
+        }
     }
 }
