@@ -2,7 +2,7 @@
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-     public interface IMessagesService
+     public interface IRequestAdoptAnimalService
     {
         void SendMessage(string email, RequestAdoptAnimalDto requestAdoptAnimalDto);
     }

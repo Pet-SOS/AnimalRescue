@@ -53,8 +53,7 @@ namespace AnimalRescue.BusinessLogic
                 new VacancyMappingProfile(),
                 new ApplicationUserMappingProfile(),
                 new RequestMappingProfile(),
-                new HistoryProfile(),
-                new RequestAdoptAnimalMappingProfile()
+                new HistoryProfile()
             });
 
             services.Configure<AdminSettings>(configuration.GetSection("AdminDetail"));
@@ -75,7 +74,6 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto, Guid>, TagDecorator<BlogDto, BlogDto, Guid>>();
             services.AddScoped<IBlFullCrud<VacancyDto, VacancyDto, Guid>, VacancyService>();
-            services.AddScoped<IBlFullCrud<RequestAdoptAnimalDto, RequestAdoptAnimalDto, Guid>, RequestAdoptAnimalService>();
 
             services.AddScoped<IRequestService, RequestService>()
                 .Decorate<IRequestService, HistoryRequestDecorator>();
@@ -102,7 +100,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<ISequenceService, SequenceService>();
             services.AddScoped<IUsersManagementService, UsersManagementService>();
 
-            services.AddScoped<IMessagesService, MessagesService>();
+            services.AddScoped<IRequestAdoptAnimalService, RequestAdoptAnimalService>();
 
             BackgroundServices(services, configuration);
         }

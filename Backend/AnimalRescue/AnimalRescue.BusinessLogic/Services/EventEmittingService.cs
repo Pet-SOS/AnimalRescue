@@ -29,23 +29,7 @@ namespace AnimalRescue.BusinessLogic.Services
             Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
             _publisherSettings = publisherSettings;
 
-            _typeMessagesPublisherSettings = new Dictionary<Type, Action>
-            {
-                {
-                    typeof(EmergencyMessage), () =>
-                    {
-                        IPublisherSettings settings = publisherSettings.First(s => s.Exchange == "topic_telegram");
-                        SetNeccessaryPublisherSettings(settings);
-                    }
-                },
-                {
-                    typeof(AdoptAnimalEmailMessage), () =>
-                    {
-                        IPublisherSettings settings = publisherSettings.First(s => s.Exchange == "topic_sendEmail");
-                        SetNeccessaryPublisherSettings(settings);
-                    }
-                }
-            };
+            _typeMessagesPublisherSettings = InitializeTypeMessagesPublisherSettingsDictionary();
         }
 
         public void PublishMessage<TMessage>(TMessage message)
@@ -65,6 +49,29 @@ namespace AnimalRescue.BusinessLogic.Services
                                  routingKey: _routingKey,
                                  basicProperties: null,
                                  body: body);
+        }
+
+        private Dictionary<Type, Action> InitializeTypeMessagesPublisherSettingsDictionary()
+        {
+            Dictionary<Type, Action> settings = new Dictionary<Type, Action>
+            {
+                {
+                    typeof(EmergencyMessage), () =>
+                    {
+                        IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
+                        SetNeccessaryPublisherSettings(settings);
+                    }
+                },
+                {
+                    typeof(AdoptAnimalEmailMessage), () =>
+                    {
+                        IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
+                        SetNeccessaryPublisherSettings(settings);
+                    }
+                }
+            };
+
+            return settings;
         }
 
         private void SetNeccessaryPublisherSettings(IPublisherSettings publisherSettings)
@@ -94,6 +101,6 @@ namespace AnimalRescue.BusinessLogic.Services
             _channel.ExchangeDeclare(
                 exchange: _exchange,
                 type: publisherSettings.ExchangeType);
-        }
+        }      
     }
 }

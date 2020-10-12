@@ -14,33 +14,30 @@ namespace AnimalRescue.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IConfigurationService _configurationService;
-        private readonly IMessagesService _messagesService;
-        private readonly IBlFullCrud<RequestAdoptAnimalDto, RequestAdoptAnimalDto, Guid> _requesAdoptAnimalService;
+        private readonly IRequestAdoptAnimalService _requestAdoptAnimalService;
 
         public MessagesController(IConfigurationService configurationService, 
             IMapper mapper, 
-            IMessagesService messagesService, 
-            IBlFullCrud<RequestAdoptAnimalDto, RequestAdoptAnimalDto, Guid> requestAdoptAnimalService)
+            IRequestAdoptAnimalService requestAdoptAnimalService)
         {
             Require.Objects.NotNull(mapper, nameof(mapper));
             Require.Objects.NotNull(configurationService, nameof(configurationService));
-            Require.Objects.NotNull(messagesService, nameof(messagesService));
             Require.Objects.NotNull(requestAdoptAnimalService, nameof(requestAdoptAnimalService));
 
             _configurationService = configurationService;
             _mapper = mapper;
-            _messagesService = messagesService;
-            _requesAdoptAnimalService = requestAdoptAnimalService;
+            _requestAdoptAnimalService = requestAdoptAnimalService;
         }
 
         [HttpPost("adoptAnimal")]
         [AllowAnonymous]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task RequestAdoptAnimal([FromBody] RequestAdoptAnimalModel adoptAnimalModel)
         {
             var data = _mapper.Map<RequestAdoptAnimalModel, RequestAdoptAnimalDto>(adoptAnimalModel);
-            var homePopupDto = await _configurationService.GetHomePopupConfigurationAsync();
-            await _requesAdoptAnimalService.CreateAsync(data);
-            _messagesService.SendMessage(homePopupDto.Email, data);
+            var homePopupDto = await _configurationService.GetHomePopupConfigurationAsync();           
+            _requestAdoptAnimalService.SendMessage(homePopupDto.Email, data);
         }
     }
 }
