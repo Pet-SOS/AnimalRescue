@@ -5,8 +5,10 @@ using AnimalRescue.DataAccess.Mongodb.Query;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Decorators
@@ -154,14 +156,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
 
             foreach (var prop in properties)
             {
-                var value = prop.GetValue(obj);
-
-                if (value == null)
-                {
-                    break;
-                }
-
-                var propertyValue = JsonConvert.SerializeObject(value);
+                var propertyValue = GetPropertyValue(prop, obj);
 
                 if (!string.IsNullOrWhiteSpace(propertyValue))
                 {
@@ -170,6 +165,28 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
             }
 
             return result;
+        }
+
+        private string GetPropertyValue(PropertyInfo propertyInfo, object obj)
+        {
+            var value = propertyInfo.GetValue(obj);
+
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (value is string str)
+            {
+                return str;
+            }
+
+            if (value is IEnumerable)
+            {
+                return JsonConvert.SerializeObject(value);
+            }
+
+            return value.ToString();
         }
     }
 }
