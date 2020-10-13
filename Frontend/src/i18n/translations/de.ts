@@ -336,4 +336,10 @@ addReport: 'Bericht herunterladen',
 
   confirmTitle: 'Bestätigen',
   cancelTitle: 'Stornieren',
+
+  loading: 'Wird geladen...',
+  thisFieldIsRequired: 'Dieses Feld wird benötigt',
+  invalidPhoneNumberFormat: 'Ungültiges Telefonnummernformat',
+  requestHasBeenSent: 'Ihre Anfrage wurde erfolgreich gesendet',
+  smthWentWrong: 'Es ist ein Fehler aufgetreten... Bitte versuchen Sie es später erneut',
 }

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts.Busi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Infrastructure", "..\AnimalRescue\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj", "{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{25CF31F1-1946-4BD1-90CF-B209B47AD267}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5BFC4FD-CAA8-4E56-8DB4-A0AFEF9A33BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25CF31F1-1946-4BD1-90CF-B209B47AD267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25CF31F1-1946-4BD1-90CF-B209B47AD267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25CF31F1-1946-4BD1-90CF-B209B47AD267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25CF31F1-1946-4BD1-90CF-B209B47AD267}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

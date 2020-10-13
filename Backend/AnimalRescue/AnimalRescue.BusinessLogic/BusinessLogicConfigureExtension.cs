@@ -9,6 +9,7 @@ using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.BusinessLogic.Models.Additional;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.History;
+using AnimalRescue.Contracts.BusinessLogic.Models.Messages;
 using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.Infrastructure.Configuration;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace AnimalRescue.BusinessLogic
 {
@@ -56,8 +58,12 @@ namespace AnimalRescue.BusinessLogic
 
             services.Configure<AdminSettings>(configuration.GetSection("AdminDetail"));
 
-            IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
-            services.AddSingleton<IPublisherSettings>(p => publisherSettings);
+            services.AddSingleton<IReadOnlyCollection<IPublisherSettings>>(s => s.GetServices<IPublisherSettings>().ToImmutableArray());
+            IPublisherSettings emergencyMessagesPublisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+            services.AddSingleton<IPublisherSettings>(p => emergencyMessagesPublisherSettings);
+            IPublisherSettings adoptAnimalEmailPublisherSettings = configuration.GetTypedSection<PublisherSettings>("AdoptAnimalEmailPublisherSettings");
+            services.AddSingleton<IPublisherSettings>(p => adoptAnimalEmailPublisherSettings);
+
             services.AddSingleton<IEventEmittingService, EventEmittingService>();
 
             services.AddScoped<IRecoverDataService, RecoverDataService>();
@@ -93,6 +99,8 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ISequenceService, SequenceService>();
             services.AddScoped<IUsersManagementService, UsersManagementService>();
+
+            services.AddScoped<IRequestAdoptAnimalService, RequestAdoptAnimalService>();
 
             BackgroundServices(services, configuration);
         }

@@ -7,19 +7,74 @@ using RabbitMQ.Client;
 using System.Text;
 using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class EventEmittingService : IEventEmittingService
     {
-        readonly string _exchange;
-        readonly string _routingKey;
+        readonly IReadOnlyCollection<IPublisherSettings> _publisherSettings;
+        readonly Dictionary<Type, Action> _typeMessagesPublisherSettings;
+        string _exchange;
+        string _routingKey;
 
         ConnectionFactory _factory;
         IConnection _connection;
         IModel _channel;
 
-        public EventEmittingService(IPublisherSettings publisherSettings)
+        public EventEmittingService(IReadOnlyCollection<IPublisherSettings> publisherSettings)
+        {
+            Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
+            _publisherSettings = publisherSettings;
+
+            _typeMessagesPublisherSettings = InitializeTypeMessagesPublisherSettingsDictionary();
+        }
+
+        public void PublishMessage<TMessage>(TMessage message)
+            where TMessage : IEventMessage
+        {
+            _typeMessagesPublisherSettings[typeof(TMessage)]();
+
+            string data = JsonConvert.SerializeObject(message);
+            PublishMessage(data);
+        }
+
+        public void PublishMessage(string message)
+        {
+            var body = Encoding.UTF8.GetBytes(message);
+
+            _channel.BasicPublish(exchange: _exchange,
+                                 routingKey: _routingKey,
+                                 basicProperties: null,
+                                 body: body);
+        }
+
+        private Dictionary<Type, Action> InitializeTypeMessagesPublisherSettingsDictionary()
+        {
+            Dictionary<Type, Action> settings = new Dictionary<Type, Action>
+            {
+                {
+                    typeof(EmergencyMessage), () =>
+                    {
+                        IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
+                        SetNeccessaryPublisherSettings(settings);
+                    }
+                },
+                {
+                    typeof(AdoptAnimalEmailMessage), () =>
+                    {
+                        IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
+                        SetNeccessaryPublisherSettings(settings);
+                    }
+                }
+            };
+
+            return settings;
+        }
+
+        private void SetNeccessaryPublisherSettings(IPublisherSettings publisherSettings)
         {
             Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
@@ -29,10 +84,10 @@ namespace AnimalRescue.BusinessLogic.Services
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserPassword, nameof(publisherSettings.UserPassword));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserName, nameof(publisherSettings.UserName));
 
-            _factory = new ConnectionFactory() 
-            { 
-                HostName = publisherSettings.HostName, 
-                Port = publisherSettings.HostPort ,
+            _factory = new ConnectionFactory()
+            {
+                HostName = publisherSettings.HostName,
+                Port = publisherSettings.HostPort,
                 Password = publisherSettings.UserPassword,
                 UserName = publisherSettings.UserName
             };
@@ -46,24 +101,6 @@ namespace AnimalRescue.BusinessLogic.Services
             _channel.ExchangeDeclare(
                 exchange: _exchange,
                 type: publisherSettings.ExchangeType);
-        }
-
-        public void PublishMessage<TMessage>(TMessage message)
-            where TMessage : IEventMessage
-        {
-            string data = JsonConvert.SerializeObject(message);
-
-            PublishMessage(data);
-        }
-
-        public void PublishMessage(string message)
-        {
-            var body = Encoding.UTF8.GetBytes(message);
-
-            _channel.BasicPublish(exchange: _exchange,
-                                 routingKey: _routingKey,
-                                 basicProperties: null,
-                                 body: body);
-        }
+        }      
     }
 }

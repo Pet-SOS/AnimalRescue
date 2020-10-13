@@ -114,7 +114,16 @@
         &:last-of-type {
           margin: 0 0 24px;
         }
+        &.validation-error {
+          border: 3px solid red;
+        }
       }
+    }
+
+    .validation-message {
+      margin-top: -30px;
+      padding: 10px 20px;
+      color: red;
     }
   }
 }
