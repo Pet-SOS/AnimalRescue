@@ -21,44 +21,20 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             this.baseCollection = baseCollection;
         }
 
-        public virtual Task<TEntity> CreateAsync(TEntity value)
-        {
-            return baseCollection.CreateAsync(value);
-        }
+        public virtual Task<TEntity> CreateAsync(TEntity value) => baseCollection.CreateAsync(value);
 
-        public virtual Task DeleteAsync(string id)
-        {
-            return baseCollection.DeleteAsync(id);
-        }
+        public virtual Task DeleteAsync(string id) => baseCollection.DeleteAsync(id);
 
-        public virtual Task<BsonValue> ExecuteScriptAsync(string javascript)
-        {
-            return baseCollection.ExecuteScriptAsync(javascript);
-        }
+        public virtual Task<BsonValue> ExecuteScriptAsync(string javascript) => baseCollection.ExecuteScriptAsync(javascript);
 
-        public virtual IAsyncEnumerable<TEntity> GetAllItemsAsync()
-        {
-            return baseCollection.GetAllItemsAsync();
-        }
+        public virtual IAsyncEnumerable<TEntity> GetAllItemsAsync() => baseCollection.GetAllItemsAsync();
 
-        public virtual Task<List<TEntity>> GetAsync(DbQuery query)
-        {
-            return baseCollection.GetAsync(query);
-        }
+        public virtual Task<List<TEntity>> GetAsync(DbQuery query) => baseCollection.GetAsync(query);
 
-        public virtual Task<TEntity> GetAsync(string query)
-        {
-            return baseCollection.GetAsync(query);
-        }
+        public virtual Task<TEntity> GetAsync(string query) => baseCollection.GetAsync(query);
 
-        public virtual Task<int> GetCountAsync(DbQuery query)
-        {
-            return baseCollection.GetCountAsync(query);
-        }
+        public virtual Task<int> GetCountAsync(DbQuery query) => baseCollection.GetCountAsync(query);
 
-        public virtual Task UpdateAsync(TEntity value)
-        {
-            return baseCollection.UpdateAsync(value);
-        }
+        public virtual Task UpdateAsync(TEntity value) => baseCollection.UpdateAsync(value);
     }
 }

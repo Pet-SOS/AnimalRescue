@@ -48,10 +48,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             }
         }
 
-        public Task<IEnumerable<TagLarge>> CreateAsync(IEnumerable<TagLarge> value)
-        {
-            return baseCollection.CreateAsync(value);
-        }
+        public Task<IEnumerable<TagLarge>> CreateAsync(IEnumerable<TagLarge> value) => baseCollection.CreateAsync(value);
 
         public async Task<List<TagLarge>> WhereAsync(List<TagLarge> tags)
         {

@@ -27,10 +27,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
         {
         }
 
-        public Task<IEnumerable<UserRoleAction>> CreateAsync(IEnumerable<UserRoleAction> value)
-        {
-			return baseCollection.CreateAsync(value);
-        }
+        public Task<IEnumerable<UserRoleAction>> CreateAsync(IEnumerable<UserRoleAction> value) => baseCollection.CreateAsync(value);
 
         public async Task<List<UserRoleAction>> WhereAsync(List<UserRoleAction> userRoleActions)
 		{
