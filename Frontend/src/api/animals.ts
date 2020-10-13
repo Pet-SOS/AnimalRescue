@@ -168,7 +168,7 @@ export async function deleteAnimal(id: string): Promise<void> {
 }
 
 export async function postAnimalAdoptionRequest(params: { AnimalId: string | undefined, AnimalName: string, AdoptiveName: string, PhoneNumber: string }): Promise<any> {
-  return API.post(`Messages/adoptAnimal`, crateFormData(params));
+  return API.post(`Messages/adoptAnimal`, params);
 }
 
 export async function fetchSavedAnimalsCount(): Promise<ISavedAnimalsCountResponse> {
