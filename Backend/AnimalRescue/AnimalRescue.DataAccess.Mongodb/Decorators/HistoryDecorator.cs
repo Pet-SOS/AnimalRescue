@@ -2,6 +2,7 @@
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Models.History;
 using AnimalRescue.DataAccess.Mongodb.Query;
+using AnimalRescue.Infrastructure.Validation;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
@@ -21,6 +22,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
 
         public HistoryDecorator(IBaseRepository<TEntity> entityRepository, IBaseRepository<History> historyRepository)
         {
+            Require.Objects.NotNull(entityRepository, nameof(entityRepository));
+            Require.Objects.NotNull(historyRepository, nameof(historyRepository));
+
             _entityRepository = entityRepository;
             _historyRepository = historyRepository;
         }
@@ -95,7 +99,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
             return new History
             {
                 EntityName = typeof(TEntity).Name,
-                EntityId =id.ToString(),
+                EntityId = id.ToString(),
                 IsEntityDeleted = IsEntityDeleted,
                 CreatedAt = DateTime.UtcNow,
                 Differences = differences
@@ -181,12 +185,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
                 return str;
             }
 
-            if (value is IEnumerable)
-            {
-                return JsonConvert.SerializeObject(value);
-            }
-
-            return value.ToString();
+            return JsonConvert.SerializeObject(value);
         }
     }
 }
