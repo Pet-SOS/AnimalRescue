@@ -83,8 +83,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddScoped<ITagService, TagService>()
-                .Decorate<ITagService, HistoryTagDecorator>();
+            services.AddScoped<ITagService, TagService>();
             services.AddScoped<IWellKnownTagService, WellKnownTagService>();
             services.AddScoped<ITagLargeService, TagLargeService>();
             services.AddScoped<IJwtFactory, JwtFactory>();

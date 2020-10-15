@@ -76,7 +76,6 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>))
 
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
-                .AddScoped<ITagRepository, TagRepository>()
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<ITagLargeRepository, TagLargeRepository>()
@@ -92,6 +91,10 @@ namespace AnimalRescue.DataAccess.Mongodb
             services
                 .AddScoped<IBaseRepository<Request>, BaseRepository<Request>>()
                 .Decorate<IBaseRepository<Request>, HistoryDecorator<Request>>();
+
+            services
+                .AddScoped<ITagRepository, TagRepository>()
+                .Decorate<ITagRepository, TagHistoryDecorator>();
         }
 
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider) =>

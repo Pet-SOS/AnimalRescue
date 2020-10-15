@@ -17,31 +17,31 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
     internal class HistoryDecorator<TEntity> : IBaseRepository<TEntity>
         where TEntity : IBaseAuditItem
     {
-        private readonly IBaseRepository<TEntity> _entityRepository;
-        private readonly IBaseRepository<History> _historyRepository;
+        protected readonly IBaseRepository<TEntity> entityRepository;
+        protected readonly IBaseRepository<History> historyRepository;
 
         public HistoryDecorator(IBaseRepository<TEntity> entityRepository, IBaseRepository<History> historyRepository)
         {
             Require.Objects.NotNull(entityRepository, nameof(entityRepository));
             Require.Objects.NotNull(historyRepository, nameof(historyRepository));
 
-            _entityRepository = entityRepository;
-            _historyRepository = historyRepository;
+            this.entityRepository = entityRepository;
+            this.historyRepository = historyRepository;
         }
 
-        public Task<BsonValue> ExecuteScriptAsync(string javascript) => _entityRepository.ExecuteScriptAsync(javascript);
+        public Task<BsonValue> ExecuteScriptAsync(string javascript) => entityRepository.ExecuteScriptAsync(javascript);
 
-        public IAsyncEnumerable<TEntity> GetAllItemsAsync() => _entityRepository.GetAllItemsAsync();
+        public IAsyncEnumerable<TEntity> GetAllItemsAsync() => entityRepository.GetAllItemsAsync();
 
-        public Task<List<TEntity>> GetAsync(DbQuery query) => _entityRepository.GetAsync(query);
+        public Task<List<TEntity>> GetAsync(DbQuery query) => entityRepository.GetAsync(query);
 
-        public Task<TEntity> GetAsync(string query) => _entityRepository.GetAsync(query);
+        public Task<TEntity> GetAsync(string query) => entityRepository.GetAsync(query);
 
-        public Task<int> GetCountAsync(DbQuery query) => _entityRepository.GetCountAsync(query);
+        public Task<int> GetCountAsync(DbQuery query) => entityRepository.GetCountAsync(query);
 
         public async Task<TEntity> CreateAsync(TEntity value)
         {
-            var result = await _entityRepository.CreateAsync(value);
+            var result = await entityRepository.CreateAsync(value);
 
             if (result is IEnumerable<TEntity> enumerable)
             {
@@ -62,14 +62,14 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
         {
             var history = InitHistory(id, null, true);
 
-            await _entityRepository.DeleteAsync(id);
-            await _historyRepository.CreateAsync(history);
+            await entityRepository.DeleteAsync(id);
+            await historyRepository.CreateAsync(history);
         }
 
         public async Task UpdateAsync(TEntity value)
         {
-            var previousItem = await _entityRepository.GetAsync(value.Id);
-            await _entityRepository.UpdateAsync(value);
+            var previousItem = await entityRepository.GetAsync(value.Id);
+            await entityRepository.UpdateAsync(value);
             await CreateUpdatedHistoryAsync(value, previousItem);
         }
 
@@ -77,7 +77,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
         {
             var history = InitHistory(element.Id, GetCreatedDifferenceValueList(element));
 
-            await _historyRepository.CreateAsync(history);
+            await historyRepository.CreateAsync(history);
         }
 
         protected async Task CreateUpdatedHistoryAsync(TEntity newItem, TEntity previousItem)
@@ -91,7 +91,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
 
             var history = InitHistory(newItem.Id, differences);
 
-            await _historyRepository.CreateAsync(history);
+            await historyRepository.CreateAsync(history);
         }
 
         private History InitHistory(string id, ICollection<DifferenceValue> differences, bool IsEntityDeleted = false)
