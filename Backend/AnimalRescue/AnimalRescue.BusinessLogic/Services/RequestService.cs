@@ -32,7 +32,7 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly string _messageForbiddenFields = "Filter contains forbidden fields";
 
         public RequestService(
-            IRequestRepository repository,
+            IBaseRepository<Request> repository,
             IRecoverDataService recoverDataService,
             IEventEmittingService eventEmittingService,
             IUserRoleActionRepository userRoleActionRepository,

@@ -1,8 +1,8 @@
 ﻿using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Bson;
@@ -20,10 +20,10 @@ using condition = AnimalRescue.DataAccess.Mongodb.Extensions.FilterDefinitionExt
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
     internal class TagLargeRepository :
-        BaseCollection<TagLarge>,
+        BaseRepository<TagLarge>,
         ITagLargeRepository
     {
-        public TagLargeRepository(IMongoDatabase database, IQueryBuilder<TagLarge> builder) : base(database, builder)
+        public TagLargeRepository(IBaseCollection<TagLarge> baseCollection) : base(baseCollection)
         {
         }
 
@@ -48,6 +48,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             }
         }
 
+        public Task<IEnumerable<TagLarge>> CreateAsync(IEnumerable<TagLarge> value) => baseCollection.CreateAsync(value);
+
         public async Task<List<TagLarge>> WhereAsync(List<TagLarge> tags)
         {
             List<BsonDocument> items = new List<BsonDocument>();
@@ -56,7 +58,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
                 .Select(x => common.Title.EQ(x.Code))
                 .ToArray());
 
-            IAsyncCursor<BsonDocument> cursor = await base.NativeCollection.FindAsync(filter);
+            IAsyncCursor<BsonDocument> cursor = await baseCollection.NativeCollection.FindAsync(filter);
             List<TagLarge> result = cursor.ToList().Select(x => x.Deserialize<TagLarge>()).ToList();
 
             return result;

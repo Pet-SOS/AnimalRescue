@@ -25,12 +25,12 @@ namespace AnimalRescue.BusinessLogic.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
+        private readonly IBaseRepository<ApplicationUser> _userRepository;
         private readonly IEmailSender _emailSender;
 
         public UsersManagementService(UserManager<ApplicationUser> userManager,
             IMapper mapper,
-            IUserRepository userRepository,
+            IBaseRepository<ApplicationUser> userRepository,
             IEmailSender emailSender)
         {
             Require.Objects.NotNull(emailSender, nameof(userManager));

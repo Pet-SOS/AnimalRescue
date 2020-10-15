@@ -18,10 +18,10 @@ namespace AnimalRescue.BusinessLogic.Services
         BaseService<FinancialReportDto, FinancialReport, Guid>, 
         IFinancialReportService
     {
-        private readonly IFinancialReportRepository _financialReportRepository;
+        private readonly IBaseRepository<FinancialReport> _financialReportRepository;
 
         public FinancialReportService(
-            IFinancialReportRepository repository,
+            IBaseRepository<FinancialReport> repository,
             IRecoverDataService recoverDataService,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)

@@ -21,12 +21,12 @@ namespace AnimalRescue.BusinessLogic.Services
     public class RecoverDataService : IRecoverDataService
     {
         private readonly IWellKnownTagRepository _wellKnownTagRepository;
-        private readonly ILocationRepository _locationRepository;
+        private readonly IBaseRepository<Location> _locationRepository;
         private readonly IMapper _mapper;
 
         public RecoverDataService(
             IWellKnownTagRepository wellKnownTagRepository,
-            ILocationRepository locationRepository,
+            IBaseRepository<Location> locationRepository,
             IMapper mapper)
         {
             Require.Objects.NotNull(wellKnownTagRepository, nameof(wellKnownTagRepository));

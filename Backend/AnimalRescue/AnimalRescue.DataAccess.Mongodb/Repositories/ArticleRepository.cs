@@ -1,8 +1,7 @@
 ﻿using AnimalRescue.Contracts.Common.Constants;
 using AnimalRescue.Contracts.Common.Exceptions;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Driver;
@@ -12,11 +11,10 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class ArticleRepository : 
-        BaseCollection<Article>, 
-        IArticleRepository
+    internal class ArticleRepository :
+        BaseRepository<Article>
     {
-        public ArticleRepository(IMongoDatabase database, IQueryBuilder<Article> builder) : base(database, builder)
+        public ArticleRepository(IBaseCollection<Article> baseCollection) : base(baseCollection)
         {
         }
 

@@ -1,9 +1,8 @@
 ﻿using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
-
-using AutoMapper;
 
 using System;
 using System.Threading.Tasks;
@@ -12,9 +11,9 @@ namespace AnimalRescue.BusinessLogic.Services
 {
     internal class DocumentCollectionService : IDocumentCollectionService
     {
-        private readonly IDocumentCollectionRepository _repository;
+        private readonly IBaseRepository<DocumentCollection> _repository;
 
-        public DocumentCollectionService(IDocumentCollectionRepository repository)
+        public DocumentCollectionService(IBaseRepository<DocumentCollection> repository)
         {
             Require.Objects.NotNull(repository, nameof(repository));
 

@@ -14,7 +14,7 @@ namespace AnimalRescue.BusinessLogic.Services
         IBlFullCrud<AnimalDto, AnimalDto, Guid>
     {
         public AnimalService(
-            IAnimalRepository repository,
+            IBaseRepository<Animal> repository,
             IRecoverDataService recoverDataService,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)

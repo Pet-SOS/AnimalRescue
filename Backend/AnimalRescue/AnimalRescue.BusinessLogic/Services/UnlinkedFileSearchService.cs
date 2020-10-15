@@ -2,6 +2,7 @@
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Models;
 using AnimalRescue.Infrastructure.Validation;
 
 using Microsoft.Extensions.Logging;
@@ -18,16 +19,16 @@ namespace AnimalRescue.BusinessLogic.Services
     {
         private readonly ILogger<UnlinkedFileSearchService> _logger;
         private readonly IBucket _bucket;
-        private readonly IDocumentCollectionRepository _documentCollectionRepository;
-        private readonly IAnimalRepository _animalRepository;
-        private readonly IArticleRepository _articleRepository;
+        private readonly IBaseRepository<DocumentCollection> _documentCollectionRepository;
+        private readonly IBaseRepository<Animal> _animalRepository;
+        private readonly IBaseRepository<Article> _articleRepository;
 
         public UnlinkedFileSearchService(
             ILogger<UnlinkedFileSearchService> logger,
             IBucket bucket,
-            IDocumentCollectionRepository documentCollectionRepository,
-            IAnimalRepository animalRepository,
-            IArticleRepository articleRepository)
+            IBaseRepository<DocumentCollection> documentCollectionRepository,
+            IBaseRepository<Animal> animalRepository,
+            IBaseRepository<Article> articleRepository)
         {
             Require.Objects.NotNull(logger, nameof(logger));
             Require.Objects.NotNull(bucket, nameof(bucket));

@@ -1,8 +1,8 @@
 ﻿using AnimalRescue.Contracts.Common.Exceptions;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
-using AnimalRescue.DataAccess.Mongodb.QueryBuilders;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Bson;
@@ -20,10 +20,10 @@ using condition = AnimalRescue.DataAccess.Mongodb.Extensions.FilterDefinitionExt
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
     internal class WellKnownTagRepository :
-        BaseCollection<WellKnownTag>,
+        BaseRepository<WellKnownTag>,
         IWellKnownTagRepository
     {
-        public WellKnownTagRepository(IMongoDatabase database, IQueryBuilder<WellKnownTag> builder) : base(database, builder)
+        public WellKnownTagRepository(IBaseCollection<WellKnownTag> baseCollection) : base(baseCollection)
         {
         }
 
@@ -48,6 +48,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             }
         }
 
+        public Task<IEnumerable<WellKnownTag>> CreateAsync(IEnumerable<WellKnownTag> value) => baseCollection.CreateAsync(value);
+
         public async Task<List<WellKnownTag>> WhereAsync(List<WellKnownTag> tags)
         {
             List<BsonDocument> items = new List<BsonDocument>();
@@ -56,7 +58,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
                 .Select(x => condition.AND(common.Type.EQ(x.KindOfAnimal), common.Title.EQ(x.Code)))
                 .ToArray());
 
-            IAsyncCursor<BsonDocument> cursor = await base.NativeCollection.FindAsync(filter);
+            IAsyncCursor<BsonDocument> cursor = await baseCollection.NativeCollection.FindAsync(filter);
             List<WellKnownTag> result = cursor.ToList().Select(x => x.Deserialize<WellKnownTag>()).ToList();
 
             return result;

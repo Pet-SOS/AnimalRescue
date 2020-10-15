@@ -14,7 +14,7 @@ namespace AnimalRescue.BusinessLogic.Services
         IBlFullCrud<VacancyDto, VacancyDto, Guid>
     {
         public VacancyService(
-            IVacancyRepository repository,
+            IBaseRepository<Vacancy> repository,
             IRecoverDataService recoverDataService,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)
