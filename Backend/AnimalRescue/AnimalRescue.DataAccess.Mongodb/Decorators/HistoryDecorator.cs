@@ -6,7 +6,6 @@ using AnimalRescue.Infrastructure.Validation;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -140,16 +139,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Decorators
 
         private ICollection<DifferenceValue> GetCreatedDifferenceValueList(TEntity obj)
         {
-            var result = new List<DifferenceValue>();
-
-            var fieldDictionary = GetFieldsValueDictionary(obj);
-
-            foreach (var field in fieldDictionary)
-            {
-                result.Add(new DifferenceValue { PropertyName = field.Key, NewValue = field.Value });
-            }
-
-            return result;
+            return GetFieldsValueDictionary(obj).Select(f => new DifferenceValue { PropertyName = f.Key, NewValue = f.Value }).ToList();
         }
 
         private IDictionary<string, string> GetFieldsValueDictionary(object obj)
