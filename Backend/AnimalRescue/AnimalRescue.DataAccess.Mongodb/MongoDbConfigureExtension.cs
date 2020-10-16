@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Configurations;
+using AnimalRescue.DataAccess.Mongodb.Decorators;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Migrations;
@@ -74,9 +75,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped(typeof(IBaseCollection<>), typeof(BaseCollection<>))
                 .AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>))
 
-                .AddScoped<IBaseRepository<Animal>, AnimalRepository>()
                 .AddScoped<IConfigurationRepository, ConfigurationRepository>()
-                .AddScoped<ITagRepository, TagRepository>()
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<ITagLargeRepository, TagLargeRepository>()
@@ -84,6 +83,18 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
                 .AddScoped<ISecurityTokenRepository, SecurityTokenRepository>()
                 .AddScoped<IBaseRepository<OrganizationDocument>, OrganizationDocumentRepository>();
+
+            services
+                .AddScoped<IBaseRepository<Animal>, AnimalRepository>()
+                .Decorate<IBaseRepository<Animal>, HistoryDecorator<Animal>>();
+
+            services
+                .AddScoped<IBaseRepository<Request>, BaseRepository<Request>>()
+                .Decorate<IBaseRepository<Request>, HistoryDecorator<Request>>();
+
+            services
+                .AddScoped<ITagRepository, TagRepository>()
+                .Decorate<ITagRepository, TagHistoryDecorator>();
         }
 
         public static async Task ConfigureMigrationsAsync(IServiceProvider serviceProvider) =>

@@ -95,8 +95,10 @@ namespace AnimalRescue.DataAccess.Mongodb
                 return Enumerable.Empty<T>();
             }
 
-            await collection.InsertManyAsync(instances);
-            return instances;
+            var instanceList = instances.ToList();
+
+            await collection.InsertManyAsync(instanceList);
+            return instanceList;
         }
         public async Task CreateAsync(BsonDocument instance) => await NativeCollection.InsertOneAsync(instance);
 

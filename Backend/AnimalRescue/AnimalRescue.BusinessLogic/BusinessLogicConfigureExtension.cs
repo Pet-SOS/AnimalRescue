@@ -69,14 +69,12 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IRecoverDataService, RecoverDataService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IBlFullCrud<AnimalDto, AnimalDto, Guid>, AnimalService>()
-                .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, TagDecorator<AnimalDto, AnimalDto, Guid>>()
-                .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, HistoryDecorator<AnimalDto, AnimalDto, Guid>>();
+                .Decorate<IBlFullCrud<AnimalDto, AnimalDto, Guid>, TagDecorator<AnimalDto, AnimalDto, Guid>>();
             services.AddScoped<IBlFullCrud<BlogDto, BlogDto, Guid>, BlogService>()
                .Decorate<IBlFullCrud<BlogDto, BlogDto, Guid>, TagDecorator<BlogDto, BlogDto, Guid>>();
             services.AddScoped<IBlFullCrud<VacancyDto, VacancyDto, Guid>, VacancyService>();
 
-            services.AddScoped<IRequestService, RequestService>()
-                .Decorate<IRequestService, HistoryRequestDecorator>();
+            services.AddScoped<IRequestService, RequestService>();
 
             services.AddSingleton<IImageSizeConfiguration, ImageSizeConfiguration>();
             services.AddScoped<IImageService, ImageService>();
@@ -85,8 +83,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IFinancialReportService, FinancialReportService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddScoped<ITagService, TagService>()
-                .Decorate<ITagService, HistoryTagDecorator>();
+            services.AddScoped<ITagService, TagService>();
             services.AddScoped<IWellKnownTagService, WellKnownTagService>();
             services.AddScoped<ITagLargeService, TagLargeService>();
             services.AddScoped<IJwtFactory, JwtFactory>();
