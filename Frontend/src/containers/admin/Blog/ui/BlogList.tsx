@@ -59,6 +59,12 @@ export const BlogList: React.FC<IBlogListPageProps> = ({blogList, fetchBlogList,
         onUpdate(toPage);
     };
 
+    const handleAddNewArticleClick = () => {
+        history.push({
+            pathname: '/admin/blog/create/article',
+        });
+    }
+
     const handleOnItemEditCLick = (blogItem: IBlogItem) => {
         history.push({
             pathname: `/admin/blog/${blogItem.id}`,
@@ -103,10 +109,15 @@ export const BlogList: React.FC<IBlogListPageProps> = ({blogList, fetchBlogList,
     return (
         <BlogContainerPage>
             <header><h3><TI18n keyStr="blogPageTitle" default={'Блог'}/></h3></header>
-            <BlogFilter
-                initial={search}
-                filterItemInBlog={filterItemInBlog}
-            />
+            <div className="buttons-container">
+                <BlogFilter
+                    initial={search}
+                    filterItemInBlog={filterItemInBlog}
+                />
+                <div className="button-add-new-article" onClick={handleAddNewArticleClick}>
+                    <TI18n keyStr="addNewArticle" default={'Додати нову статтю'}/>
+                </div>
+            </div>
             <div className="section-table-wrapper">
                 <div className={'section-table blog-table'}>
                     <header>

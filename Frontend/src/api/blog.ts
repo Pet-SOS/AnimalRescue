@@ -8,6 +8,7 @@ export interface IBlogItem {
     title: string;
     body: string;
     imageIds: string[];
+    images?: File[];
     tags: AllTag[];
     createdAt?: string;
     modifiedAt?: string;
@@ -28,20 +29,34 @@ export interface IBlogListResponse {
     self: string;
 }
 
+export interface IServerResponseBlogItemCreated {
+    data: {
+        data: IBlogItem,
+    },
+    headers: {
+        [key: string]: string,
+    },
+    status: number,
+    statusText: string,
+}
+
 
 const mapToBlogRequest = (data: IBlogItem) => {
     const formData = new FormData();
     formData.append('Type', data.type);
     formData.append('Title', data.title);
     formData.append('Body', data.body);
-    for (let img in data.imageIds) {
+    // @ts-ignore
+    for (let img of data.images) {
         formData.append('Images', img);
     }
-    for (let tag in data.tags) {
+    for (let imgId of data.imageIds) {
+        formData.append('ImageIds', imgId);
+    }
+    for (let tag of data.tags) {
         formData.append('Tags', tag);
     }
     return formData;
-
 };
 
 export async function fetchBlogList(requestParams?: IRequestParams): Promise<IBlogListResponse[]> {
@@ -65,7 +80,6 @@ export async function updateBlogItem(data: IBlogItem): Promise<void> {
     await API.put(`blogs/${data.id}`, mapToBlogRequest(data));
 }
 
-export async function createBlogItem(data: IBlogItem): Promise<IBlogItem> {
-    let response = await API.post(`blogs/${data.id}`, mapToBlogRequest(data));
-    return response.data;
+export async function createBlogItem(data: IBlogItem): Promise<IServerResponseBlogItemCreated> {
+    return await API.post(`blogs/`, mapToBlogRequest(data));
 }
