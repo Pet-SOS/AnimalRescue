@@ -82,7 +82,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> UpdateBlogAsync([BindRequired, FromRoute] Guid id, [FromForm] BlogCreateModel blogUpdateModel)
+        public async Task<IActionResult> UpdateBlogAsync([BindRequired, FromRoute] Guid id, [FromForm] BlogUpdateModel blogUpdateModel)
         {
             Require.Objects.NotNull(blogUpdateModel, nameof(blogUpdateModel));
 

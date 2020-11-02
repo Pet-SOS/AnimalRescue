@@ -1,5 +1,4 @@
-﻿using AnimalRescue.API.Models.Blogs;
-using AnimalRescue.API.Models.Blogs.Blogs;
+﻿using AnimalRescue.API.Models.Blogs.Blogs;
 using AnimalRescue.Contracts.BusinessLogic.Models.Blogs;
 
 namespace AnimalRescue.API.Core.Configuration.MappingProfiles
