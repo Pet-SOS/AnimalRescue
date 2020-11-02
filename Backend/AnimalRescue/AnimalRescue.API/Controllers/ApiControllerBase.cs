@@ -149,7 +149,13 @@ namespace AnimalRescue.API.Controllers
         {
             var dto = mapper.Map<TModel, TDto>(value);
             dto.Id = id;
-            dto.ImageIds = await imageService.CreateAsync(files);
+
+            if (dto.ImageIds == null)
+            {
+                dto.ImageIds = new List<Guid>();
+            }
+
+            dto.ImageIds.AddRange(await imageService.CreateAsync(files));
 
             await service.UpdateAsync(dto);
         }
