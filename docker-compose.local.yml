@@ -36,6 +36,13 @@ services:
       - PublisherSettings__Exchange=topic_telegram
       - PublisherSettings__ExchangeType=topic
       - PublisherSettings__RoutingKey=animal.rescue
+      - AdoptAnimalEmailPublisherSettings__UserName=user
+      - AdoptAnimalEmailPublisherSettings__UserPassword=bitnami
+      - AdoptAnimalEmailPublisherSettings__HostName=rabbitmq
+      - AdoptAnimalEmailPublisherSettings__HostPort=5672
+      - AdoptAnimalEmailPublisherSettings__Exchange=topic_sendEmail
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=topic
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=animal.rescue
       - Logging__LogLevel__Default=Debug
       - Logging__LogLevel__Microsoft=Debug
       - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug

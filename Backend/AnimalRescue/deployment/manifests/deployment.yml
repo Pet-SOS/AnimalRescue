@@ -120,6 +120,41 @@ spec:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: routingkey
+            - name: AdoptAnimalEmailPublisherSettings__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: username
+            - name: AdoptAnimalEmailPublisherSettings__UserPassword
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: password
+            - name: AdoptAnimalEmailPublisherSettings__HostName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: hostname
+            - name: AdoptAnimalEmailPublisherSettings__HostPort
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: port
+            - name: AdoptAnimalEmailPublisherSettings__Exchange
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: email-exchange
+            - name: AdoptAnimalEmailPublisherSettings__ExchangeType
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchangetype
+            - name: AdoptAnimalEmailPublisherSettings__RoutingKey
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: email-routingkey
             - name: Logging__LogLevel__Default
               value: Warning
             - name: Logging__LogLevel__Microsoft

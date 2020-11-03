@@ -116,7 +116,9 @@ stages:
                                      --from-literal=port="5672" 
                                      --from-literal=exchange="$(rabbitmqExchange)" 
                                      --from-literal=exchangetype="$(rabbitmqExchangeType)" 
-                                     --from-literal=routingkey="$(rabbitmqRoutingKey)"
+                                     --from-literal=routingkey="$(rabbitmqRoutingKey)" 
+                                     --from-literal=email-exchange="$(rabbitmqEmailExchange)" 
+                                     --from-literal=email-routingkey="$(rabbitmqEmailRoutingKey)"
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3
