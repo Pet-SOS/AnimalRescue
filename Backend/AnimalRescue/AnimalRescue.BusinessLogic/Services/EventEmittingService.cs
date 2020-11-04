@@ -20,9 +20,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         ConnectionFactory _factory;
         IConnection _connection;
-
-        IModel _telegramChannel;
-        IModel _emailChannel;
+        IModel _channel;
 
         public EventEmittingService(IReadOnlyCollection<IPublisherSettings> publisherSettings)
         {
@@ -43,11 +41,12 @@ namespace AnimalRescue.BusinessLogic.Services
             };
 
             _connection = _factory.CreateConnection();
+            _channel = _connection.CreateModel();
 
-            InitializeTelegramChanel(telegramSettings);
+            DeclareTelegramExcange(telegramSettings);
 
             IPublisherSettings emailSettings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
-            InitializeEmailChanel(emailSettings);
+            DeclareEmailExcange(emailSettings);
 
             _publishMessageActionsBasedOnMessageType = InitializePublishMessageActionsBasedOnMessageType();
         }
@@ -59,11 +58,11 @@ namespace AnimalRescue.BusinessLogic.Services
             _publishMessageActionsBasedOnMessageType[typeof(TMessage)](data);
         }
 
-        public void PublishMessage(IModel channel, string message, string exchange, string routingKey)
+        public void PublishMessage(string message, string exchange, string routingKey)
         {
             var body = Encoding.UTF8.GetBytes(message);
 
-            channel.BasicPublish(exchange: exchange,
+            _channel.BasicPublish(exchange: exchange,
                                  routingKey: routingKey,
                                  basicProperties: null,
                                  body: body);
@@ -77,14 +76,14 @@ namespace AnimalRescue.BusinessLogic.Services
                     typeof(EmergencyMessage), (message) =>
                     {
                         IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
-                        PublishMessage(_telegramChannel, message, settings.Exchange, settings.RoutingKey);
+                        PublishMessage(message, settings.Exchange, settings.RoutingKey);
                     }
                 },
                 {
                     typeof(AdoptAnimalEmailMessage), (message) =>
                     {
                         IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
-                        PublishMessage(_emailChannel, message, settings.Exchange, settings.RoutingKey);
+                        PublishMessage(message, settings.Exchange, settings.RoutingKey);
                     }
                 }
             };
@@ -92,24 +91,22 @@ namespace AnimalRescue.BusinessLogic.Services
             return publishActions;
         }
 
-        private void InitializeTelegramChanel(IPublisherSettings publisherSettings)
+        private void DeclareTelegramExcange(IPublisherSettings publisherSettings)
         {
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
 
-            _telegramChannel = _connection.CreateModel();
-            _telegramChannel.ExchangeDeclare(
+            _channel.ExchangeDeclare(
                 exchange: publisherSettings.Exchange,
                 type: publisherSettings.ExchangeType);
         }
 
-        private void InitializeEmailChanel(IPublisherSettings publisherSettings)
+        private void DeclareEmailExcange(IPublisherSettings publisherSettings)
         {
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
 
-            _emailChannel = _connection.CreateModel();
-            _emailChannel.ExchangeDeclare(
+            _channel.ExchangeDeclare(
                 exchange: publisherSettings.Exchange,
                 type: publisherSettings.ExchangeType);
         }   
