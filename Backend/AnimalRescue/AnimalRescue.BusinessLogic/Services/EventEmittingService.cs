@@ -16,91 +16,102 @@ namespace AnimalRescue.BusinessLogic.Services
     internal class EventEmittingService : IEventEmittingService
     {
         readonly IReadOnlyCollection<IPublisherSettings> _publisherSettings;
-        readonly Dictionary<Type, Action> _typeMessagesPublisherSettings;
-        string _exchange;
-        string _routingKey;
+        readonly Dictionary<Type, Action<string>> _publishMessageActionsBasedOnMessageType;
 
         ConnectionFactory _factory;
         IConnection _connection;
-        IModel _channel;
+
+        IModel _telegramChannel;
+        IModel _emailChannel;
 
         public EventEmittingService(IReadOnlyCollection<IPublisherSettings> publisherSettings)
         {
             Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
             _publisherSettings = publisherSettings;
 
-            _typeMessagesPublisherSettings = InitializeTypeMessagesPublisherSettingsDictionary();
+            IPublisherSettings telegramSettings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
+            Require.Strings.NotNullOrWhiteSpace(telegramSettings.HostName, nameof(telegramSettings.HostName));
+            Require.Strings.NotNullOrWhiteSpace(telegramSettings.UserPassword, nameof(telegramSettings.UserPassword));
+            Require.Strings.NotNullOrWhiteSpace(telegramSettings.UserName, nameof(telegramSettings.UserName));
+
+            _factory = new ConnectionFactory()
+            {
+                HostName = telegramSettings.HostName,
+                Port = telegramSettings.HostPort,
+                Password = telegramSettings.UserPassword,
+                UserName = telegramSettings.UserName
+            };
+
+            _connection = _factory.CreateConnection();
+
+            InitializeTelegramChanel(telegramSettings);
+
+            IPublisherSettings emailSettings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
+            InitializeEmailChanel(emailSettings);
+
+            _publishMessageActionsBasedOnMessageType = InitializePublishMessageActionsBasedOnMessageType();
         }
 
         public void PublishMessage<TMessage>(TMessage message)
             where TMessage : IEventMessage
         {
-            _typeMessagesPublisherSettings[typeof(TMessage)]();
-
             string data = JsonConvert.SerializeObject(message);
-            PublishMessage(data);
+            _publishMessageActionsBasedOnMessageType[typeof(TMessage)](data);
         }
 
-        public void PublishMessage(string message)
+        public void PublishMessage(IModel channel, string message, string exchange, string routingKey)
         {
             var body = Encoding.UTF8.GetBytes(message);
 
-            _channel.BasicPublish(exchange: _exchange,
-                                 routingKey: _routingKey,
+            channel.BasicPublish(exchange: exchange,
+                                 routingKey: routingKey,
                                  basicProperties: null,
                                  body: body);
         }
 
-        private Dictionary<Type, Action> InitializeTypeMessagesPublisherSettingsDictionary()
+        private Dictionary<Type, Action<string>> InitializePublishMessageActionsBasedOnMessageType()
         {
-            Dictionary<Type, Action> settings = new Dictionary<Type, Action>
+            Dictionary<Type, Action<string>> publishActions = new Dictionary<Type, Action<string>>
             {
                 {
-                    typeof(EmergencyMessage), () =>
+                    typeof(EmergencyMessage), (message) =>
                     {
                         IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
-                        SetNeccessaryPublisherSettings(settings);
+                        PublishMessage(_telegramChannel, message, settings.Exchange, settings.RoutingKey);
                     }
                 },
                 {
-                    typeof(AdoptAnimalEmailMessage), () =>
+                    typeof(AdoptAnimalEmailMessage), (message) =>
                     {
                         IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
-                        SetNeccessaryPublisherSettings(settings);
+                        PublishMessage(_emailChannel, message, settings.Exchange, settings.RoutingKey);
                     }
                 }
             };
 
-            return settings;
+            return publishActions;
         }
 
-        private void SetNeccessaryPublisherSettings(IPublisherSettings publisherSettings)
+        private void InitializeTelegramChanel(IPublisherSettings publisherSettings)
         {
-            Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.HostName, nameof(publisherSettings.HostName));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.RoutingKey, nameof(publisherSettings.RoutingKey));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserPassword, nameof(publisherSettings.UserPassword));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserName, nameof(publisherSettings.UserName));
 
-            _factory = new ConnectionFactory()
-            {
-                HostName = publisherSettings.HostName,
-                Port = publisherSettings.HostPort,
-                Password = publisherSettings.UserPassword,
-                UserName = publisherSettings.UserName
-            };
-
-            _connection = _factory.CreateConnection();
-            _channel = _connection.CreateModel();
-
-            _exchange = publisherSettings.Exchange;
-            _routingKey = publisherSettings.RoutingKey;
-
-            _channel.ExchangeDeclare(
-                exchange: _exchange,
+            _telegramChannel = _connection.CreateModel();
+            _telegramChannel.ExchangeDeclare(
+                exchange: publisherSettings.Exchange,
                 type: publisherSettings.ExchangeType);
-        }      
+        }
+
+        private void InitializeEmailChanel(IPublisherSettings publisherSettings)
+        {
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
+
+            _emailChannel = _connection.CreateModel();
+            _emailChannel.ExchangeDeclare(
+                exchange: publisherSettings.Exchange,
+                type: publisherSettings.ExchangeType);
+        }   
     }
 }
