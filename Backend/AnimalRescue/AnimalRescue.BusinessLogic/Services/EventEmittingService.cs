@@ -8,45 +8,47 @@ using System.Text;
 using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
     internal class EventEmittingService : IEventEmittingService
     {
-        readonly IReadOnlyCollection<IPublisherSettings> _publisherSettings;
+        readonly IEmailPublisherSettings _emailPublisherSettings;
+        readonly ITelegramPublisherSettings _telegramPublisherSettings;
         readonly Dictionary<Type, Action<string>> _publishMessageActionsBasedOnMessageType;
 
         ConnectionFactory _factory;
         IConnection _connection;
         IModel _channel;
 
-        public EventEmittingService(IReadOnlyCollection<IPublisherSettings> publisherSettings)
+        public EventEmittingService(IPublisherSettings publisherSettings, 
+            IEmailPublisherSettings emailPublisherSettings, ITelegramPublisherSettings telegramPublisherSettings)
         {
             Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
-            _publisherSettings = publisherSettings;
+            Require.Objects.NotNull(emailPublisherSettings, nameof(emailPublisherSettings));
+            Require.Objects.NotNull(telegramPublisherSettings, nameof(telegramPublisherSettings));
 
-            IPublisherSettings telegramSettings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
-            Require.Strings.NotNullOrWhiteSpace(telegramSettings.HostName, nameof(telegramSettings.HostName));
-            Require.Strings.NotNullOrWhiteSpace(telegramSettings.UserPassword, nameof(telegramSettings.UserPassword));
-            Require.Strings.NotNullOrWhiteSpace(telegramSettings.UserName, nameof(telegramSettings.UserName));
+            _emailPublisherSettings = emailPublisherSettings;
+            _telegramPublisherSettings = telegramPublisherSettings;
+
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.HostName, nameof(publisherSettings.HostName));
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserPassword, nameof(publisherSettings.UserPassword));
+            Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserName, nameof(publisherSettings.UserName));
 
             _factory = new ConnectionFactory()
             {
-                HostName = telegramSettings.HostName,
-                Port = telegramSettings.HostPort,
-                Password = telegramSettings.UserPassword,
-                UserName = telegramSettings.UserName
+                HostName = publisherSettings.HostName,
+                Port = publisherSettings.HostPort,
+                Password = publisherSettings.UserPassword,
+                UserName = publisherSettings.UserName
             };
 
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            DeclareTelegramExcange(telegramSettings);
-
-            IPublisherSettings emailSettings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
-            DeclareEmailExcange(emailSettings);
+            DeclareTelegramExcange(telegramPublisherSettings);
+            DeclareEmailExcange(emailPublisherSettings);
 
             _publishMessageActionsBasedOnMessageType = InitializePublishMessageActionsBasedOnMessageType();
         }
@@ -75,15 +77,13 @@ namespace AnimalRescue.BusinessLogic.Services
                 {
                     typeof(EmergencyMessage), (message) =>
                     {
-                        IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_telegram");
-                        PublishMessage(message, settings.Exchange, settings.RoutingKey);
+                        PublishMessage(message, _telegramPublisherSettings.Exchange, _telegramPublisherSettings.RoutingKey);
                     }
                 },
                 {
                     typeof(AdoptAnimalEmailMessage), (message) =>
                     {
-                        IPublisherSettings settings = _publisherSettings.First(s => s.Exchange == "topic_sendEmail");
-                        PublishMessage(message, settings.Exchange, settings.RoutingKey);
+                        PublishMessage(message, _emailPublisherSettings.Exchange, _emailPublisherSettings.RoutingKey);
                     }
                 }
             };
@@ -91,24 +91,26 @@ namespace AnimalRescue.BusinessLogic.Services
             return publishActions;
         }
 
-        private void DeclareTelegramExcange(IPublisherSettings publisherSettings)
+        private void DeclareTelegramExcange(ITelegramPublisherSettings telegramPublisherSettings)
         {
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
+            Require.Strings.NotNullOrWhiteSpace(telegramPublisherSettings.Exchange, nameof(telegramPublisherSettings.Exchange));
+            Require.Strings.NotNullOrWhiteSpace(telegramPublisherSettings.ExchangeType, nameof(telegramPublisherSettings.ExchangeType));
+            Require.Strings.NotNullOrWhiteSpace(telegramPublisherSettings.RoutingKey, nameof(telegramPublisherSettings.RoutingKey));
 
             _channel.ExchangeDeclare(
-                exchange: publisherSettings.Exchange,
-                type: publisherSettings.ExchangeType);
+                exchange: telegramPublisherSettings.Exchange,
+                type: telegramPublisherSettings.ExchangeType);
         }
 
-        private void DeclareEmailExcange(IPublisherSettings publisherSettings)
+        private void DeclareEmailExcange(IEmailPublisherSettings emailPublisherSettings)
         {
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
+            Require.Strings.NotNullOrWhiteSpace(emailPublisherSettings.Exchange, nameof(emailPublisherSettings.Exchange));
+            Require.Strings.NotNullOrWhiteSpace(emailPublisherSettings.ExchangeType, nameof(emailPublisherSettings.ExchangeType));
+            Require.Strings.NotNullOrWhiteSpace(emailPublisherSettings.RoutingKey, nameof(emailPublisherSettings.RoutingKey));
 
             _channel.ExchangeDeclare(
-                exchange: publisherSettings.Exchange,
-                type: publisherSettings.ExchangeType);
+                exchange: emailPublisherSettings.Exchange,
+                type: emailPublisherSettings.ExchangeType);
         }   
     }
 }

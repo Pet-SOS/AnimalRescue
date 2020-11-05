@@ -23,13 +23,13 @@ namespace AnimalRescue.BusinessLogic.Services
         private IConnection _connection;
         private IModel _channel;
 
-        public EventReceivingService(IPublisherSettings publisherSettings)
+        public EventReceivingService(IPublisherSettings publisherSettings, ISenderPublisherSettingsBase senderSettings)
         {
             Require.Objects.NotNull(publisherSettings, nameof(publisherSettings));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.Exchange, nameof(publisherSettings.Exchange));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.ExchangeType, nameof(publisherSettings.ExchangeType));
+            Require.Strings.NotNullOrWhiteSpace(senderSettings.Exchange, nameof(senderSettings.Exchange));
+            Require.Strings.NotNullOrWhiteSpace(senderSettings.ExchangeType, nameof(senderSettings.ExchangeType));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.HostName, nameof(publisherSettings.HostName));
-            Require.Strings.NotNullOrWhiteSpace(publisherSettings.RoutingKey, nameof(publisherSettings.RoutingKey));
+            Require.Strings.NotNullOrWhiteSpace(senderSettings.RoutingKey, nameof(senderSettings.RoutingKey));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserPassword, nameof(publisherSettings.UserPassword));
             Require.Strings.NotNullOrWhiteSpace(publisherSettings.UserName, nameof(publisherSettings.UserName));
 
@@ -42,9 +42,9 @@ namespace AnimalRescue.BusinessLogic.Services
             };
 
 
-            _exchange = publisherSettings.Exchange;
-            _exchangeType = publisherSettings.ExchangeType;
-            _routingKey = publisherSettings.RoutingKey;
+            _exchange = senderSettings.Exchange;
+            _exchangeType = senderSettings.ExchangeType;
+            _routingKey = senderSettings.RoutingKey;
 
         }
 

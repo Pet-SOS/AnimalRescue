@@ -11,14 +11,14 @@ namespace TelegramMessenger.Services
 {
     public class TelegramMessenger : IMessenger
     {
-        private readonly IPublisherSettings _settings;
+        private readonly ITelegramPublisherSettings _telegramSettings;
         private static TelegramBotClient _bot;
 
         private static IChatRepository<ChatDto> _chatRepository;
 
-        public TelegramMessenger(IPublisherSettings settings)
+        public TelegramMessenger(ITelegramPublisherSettings telegramSettings)
         {
-            _settings = settings;
+            _telegramSettings = telegramSettings;
             _chatRepository = new ChatRepository();
         }
 
@@ -26,7 +26,7 @@ namespace TelegramMessenger.Services
         {
             if (_bot == null)
             {
-                _bot = TelegramBot.GetBot(_settings.TelegramKey);
+                _bot = TelegramBot.GetBot(_telegramSettings.TelegramKey);
 
                 _bot.StartReceiving();
 
