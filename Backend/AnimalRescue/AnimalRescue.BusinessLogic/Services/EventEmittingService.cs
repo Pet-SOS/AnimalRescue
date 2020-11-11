@@ -47,8 +47,8 @@ namespace AnimalRescue.BusinessLogic.Services
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            DeclareTelegramExcange(telegramPublisherSettings);
-            DeclareEmailExcange(emailPublisherSettings);
+            DeclareExcange(telegramPublisherSettings);
+            DeclareExcange(emailPublisherSettings);
 
             _publishMessageActionsBasedOnMessageType = InitializePublishMessageActionsBasedOnMessageType();
         }
@@ -57,7 +57,11 @@ namespace AnimalRescue.BusinessLogic.Services
             where TMessage : IEventMessage
         {
             string data = JsonConvert.SerializeObject(message);
-            _publishMessageActionsBasedOnMessageType[typeof(TMessage)](data);
+
+            if (_publishMessageActionsBasedOnMessageType.TryGetValue(typeof(TMessage), out Action<string> action))
+                action(data);
+            else
+                throw new NotSupportedException($"{typeof(TMessage)} message type is not supported.");
         }
 
         public void PublishMessage(string message, string exchange, string routingKey)
@@ -91,26 +95,15 @@ namespace AnimalRescue.BusinessLogic.Services
             return publishActions;
         }
 
-        private void DeclareTelegramExcange(ITelegramPublisherSettings telegramPublisherSettings)
+        private void DeclareExcange(ISenderPublisherSettingsBase senderPublisherSettings)
         {
-            Require.Strings.NotNullOrWhiteSpace(telegramPublisherSettings.Exchange, nameof(telegramPublisherSettings.Exchange));
-            Require.Strings.NotNullOrWhiteSpace(telegramPublisherSettings.ExchangeType, nameof(telegramPublisherSettings.ExchangeType));
-            Require.Strings.NotNullOrWhiteSpace(telegramPublisherSettings.RoutingKey, nameof(telegramPublisherSettings.RoutingKey));
+            Require.Strings.NotNullOrWhiteSpace(senderPublisherSettings.Exchange, nameof(senderPublisherSettings.Exchange));
+            Require.Strings.NotNullOrWhiteSpace(senderPublisherSettings.ExchangeType, nameof(senderPublisherSettings.ExchangeType));
+            Require.Strings.NotNullOrWhiteSpace(senderPublisherSettings.RoutingKey, nameof(senderPublisherSettings.RoutingKey));
 
             _channel.ExchangeDeclare(
-                exchange: telegramPublisherSettings.Exchange,
-                type: telegramPublisherSettings.ExchangeType);
+                exchange: senderPublisherSettings.Exchange,
+                type: senderPublisherSettings.ExchangeType);
         }
-
-        private void DeclareEmailExcange(IEmailPublisherSettings emailPublisherSettings)
-        {
-            Require.Strings.NotNullOrWhiteSpace(emailPublisherSettings.Exchange, nameof(emailPublisherSettings.Exchange));
-            Require.Strings.NotNullOrWhiteSpace(emailPublisherSettings.ExchangeType, nameof(emailPublisherSettings.ExchangeType));
-            Require.Strings.NotNullOrWhiteSpace(emailPublisherSettings.RoutingKey, nameof(emailPublisherSettings.RoutingKey));
-
-            _channel.ExchangeDeclare(
-                exchange: emailPublisherSettings.Exchange,
-                type: emailPublisherSettings.ExchangeType);
-        }   
     }
 }
