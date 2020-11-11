@@ -17,12 +17,15 @@ namespace EmailSender
             IPublisherSettings publisherSettings = ConfigurationUtil
                 .GetConfiguration()
                 .GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+            IEmailPublisherSettings emailPublisherSettings = ConfigurationUtil
+                .GetConfiguration()
+                .GetTypedSection<EmailPublisherSettings>("AdoptAnimalEmailPublisherSettings");
 
             SmtpOptions smtpOptions = ConfigurationUtil
                 .GetConfiguration()
                 .GetTypedSection<SmtpOptions>("Smtp");
 
-            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings);
+            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings, emailPublisherSettings);
 
             _emailSender = new EmailSenderService(smtpOptions);
             eventReceivingService.Run<AdoptAnimalEmailMessage>((message) => _emailSender.SendMail(message.Address, message.Title, message.Message));

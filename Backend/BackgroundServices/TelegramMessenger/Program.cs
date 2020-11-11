@@ -16,10 +16,13 @@ namespace TelegramMessenger
             IPublisherSettings publisherSettings = ConfigurationUtil
                 .GetConfiguration()
                 .GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+            ITelegramPublisherSettings telegramPublisherSettings = ConfigurationUtil
+                .GetConfiguration()
+                .GetTypedSection<TelegramPublisherSettings>(nameof(TelegramPublisherSettings));
 
-            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings);
+            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings, telegramPublisherSettings);
 
-            _messenger = new Services.TelegramMessenger(publisherSettings);
+            _messenger = new Services.TelegramMessenger(telegramPublisherSettings);
 
             _messenger.Init();
 

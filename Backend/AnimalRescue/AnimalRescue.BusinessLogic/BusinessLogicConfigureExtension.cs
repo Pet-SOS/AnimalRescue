@@ -58,11 +58,12 @@ namespace AnimalRescue.BusinessLogic
 
             services.Configure<AdminSettings>(configuration.GetSection("AdminDetail"));
 
-            services.AddSingleton<IReadOnlyCollection<IPublisherSettings>>(s => s.GetServices<IPublisherSettings>().ToImmutableArray());
-            IPublisherSettings emergencyMessagesPublisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
-            services.AddSingleton<IPublisherSettings>(p => emergencyMessagesPublisherSettings);
-            IPublisherSettings adoptAnimalEmailPublisherSettings = configuration.GetTypedSection<PublisherSettings>("AdoptAnimalEmailPublisherSettings");
-            services.AddSingleton<IPublisherSettings>(p => adoptAnimalEmailPublisherSettings);
+            IPublisherSettings publisherSettings = configuration.GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
+            services.AddSingleton<IPublisherSettings>(p => publisherSettings);
+            ITelegramPublisherSettings telegramMessagesPublisherSettings = configuration.GetTypedSection<TelegramPublisherSettings>(nameof(TelegramPublisherSettings));
+            services.AddSingleton<ITelegramPublisherSettings>(p => telegramMessagesPublisherSettings);
+            IEmailPublisherSettings adoptAnimalEmailPublisherSettings = configuration.GetTypedSection<EmailPublisherSettings>("AdoptAnimalEmailPublisherSettings");
+            services.AddSingleton<IEmailPublisherSettings>(p => adoptAnimalEmailPublisherSettings);
 
             services.AddSingleton<IEventEmittingService, EventEmittingService>();
 
