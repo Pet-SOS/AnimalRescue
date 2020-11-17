@@ -15,7 +15,7 @@ namespace TelegramMessenger.Services.Commands
             _repository = new ChatRepository();
         }
 
-        public string Name => "register";
+        public string Name => "/register";
 
         public async Task ExecuteAsync(Message message, TelegramBotClient client)
         {

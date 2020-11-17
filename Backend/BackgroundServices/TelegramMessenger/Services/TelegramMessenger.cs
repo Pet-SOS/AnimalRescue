@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AnimalRescue.BusinessLogic.Configurations;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using Telegram.Bot.Types.Enums;
 using TelegramMessenger.Models;
 using TelegramMessenger.Services.Interfaces;
 
@@ -28,10 +27,9 @@ namespace TelegramMessenger.Services
             {
                 _bot = TelegramBot.GetBot(_telegramSettings.TelegramKey);
 
-                _bot.StartReceiving();
-
                 _bot.OnMessage += Bot_OnMessage;
-                _bot.OnUpdate += Bot_OnUpdate;
+
+                _bot.StartReceiving();
             }
         }
 
@@ -50,23 +48,14 @@ namespace TelegramMessenger.Services
             _bot.StopReceiving();
         }
 
-        private void Bot_OnUpdate(object? sender, UpdateEventArgs e)
+        private void Bot_OnMessage(object sender, MessageEventArgs e)
         {
             foreach (var command in TelegramBot.Commands)
             {
-                if (!string.IsNullOrEmpty(e.Update.Message?.Text) && e.Update.Message.Text.Contains(command.Name))
+                if (command.Contains(e.Message?.Text))
                 {
-                    command.ExecuteAsync(e.Update.Message, _bot);
+                    command.ExecuteAsync(e.Message, _bot);
                 }
-            }
-        }
-
-        private void Bot_OnMessage(object? sender, MessageEventArgs e)
-        {
-            if (e.Message.Type == MessageType.Text)
-            {
-                //ToDo: add logic for receiving messages
-                // _bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Text);
             }
         }
     }
