@@ -13,12 +13,11 @@ namespace TelegramMessenger.Services
         private readonly ITelegramPublisherSettings _telegramSettings;
         private static TelegramBotClient _bot;
 
-        private static IChatRepository<ChatDto> _chatRepository;
+        private static IChatRepository<Chat> _chatRepository;
 
         public TelegramMessenger(ITelegramPublisherSettings telegramSettings)
         {
             _telegramSettings = telegramSettings;
-            _chatRepository = new ChatRepository();
         }
 
         public void Init()

@@ -1,8 +1,14 @@
 ﻿using System;
 using AnimalRescue.BusinessLogic.Configurations;
 using AnimalRescue.BusinessLogic.Services;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
+using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.Infrastructure.Configuration;
+using AspNetCore.Identity.MongoDbCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
+using MongoDbGenericRepository;
 using TelegramMessenger.Services.Interfaces;
 
 namespace TelegramMessenger
@@ -20,9 +26,20 @@ namespace TelegramMessenger
                 .GetConfiguration()
                 .GetTypedSection<TelegramPublisherSettings>(nameof(TelegramPublisherSettings));
 
-            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings, telegramPublisherSettings);
+            var serviceCollection = new ServiceCollection();
 
-            _messenger = new Services.TelegramMessenger(telegramPublisherSettings);
+            serviceCollection.AddConfigureMongoDb(ConfigurationUtil.GetConfiguration());
+            serviceCollection.AddScoped((p) => publisherSettings);
+            serviceCollection.AddScoped((p) => telegramPublisherSettings);
+            serviceCollection.AddScoped<ISenderPublisherSettingsBase>((p) => telegramPublisherSettings);
+            serviceCollection.AddScoped<IEventReceivingService, EventReceivingService>();
+            serviceCollection.AddScoped<IMessenger, Services.TelegramMessenger>();
+
+            using var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            IEventReceivingService eventReceivingService = serviceProvider.GetService<IEventReceivingService>();
+
+            _messenger = serviceProvider.GetService<IMessenger>();
 
             _messenger.Init();
 

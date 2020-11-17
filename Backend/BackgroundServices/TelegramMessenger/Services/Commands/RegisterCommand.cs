@@ -8,11 +8,10 @@ namespace TelegramMessenger.Services.Commands
 {
     public class RegisterCommand : ICommand
     {
-        private readonly IChatRepository<ChatDto> _repository;
+        private readonly IChatRepository<Models.Chat> _repository;
 
         public RegisterCommand()
         {
-            _repository = new ChatRepository();
         }
 
         public string Name => "/register";
@@ -25,13 +24,6 @@ namespace TelegramMessenger.Services.Commands
                 ? message.Chat.Title
                 : $"{message.Chat.FirstName} {message.Chat.LastName}";
 
-            var chat = new ChatDto
-            {
-                Id = chatId,
-                Name = name
-            };
-
-            await _repository.CreateAsync(chat);
 
             await client.SendTextMessageAsync(chatId, $"Chat registered with a name {name}");
         }
