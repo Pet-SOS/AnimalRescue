@@ -191,19 +191,9 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   }
 
   onChangeCoverImage = (coverImage: number) => {
-    console.log('coverImage change', coverImage);
     this.setState({
       coverImage
     })
-    // @ts-ignore
-    window.coverimage = coverImage;
-    // @ts-ignore
-    window.dothis = () => {
-      this.setState({
-        coverImage
-      })
-    }
-    console.log('coverImage change after', coverImage);
   }
 
   render() {

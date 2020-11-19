@@ -6,7 +6,6 @@ import {CheckBoks} from "../../../../components/CheckBoks";
 import {isArticle, isStory} from "../utils";
 import {Button, ButtonTypes} from "../../../../components/Button";
 import CloseIcon from "../../../../img/icons/close-icon.svg";
-import { uploadFile } from "../../../../api/common";
 
 interface IBlogEditFormProps {
     blog?: IBlogItem,
