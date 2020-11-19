@@ -88,8 +88,8 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
         >
           <option value="" className="default-val"></option>
           {optionList?.map((item: ITag) => {
-            // @ts-ignore
             const alternativeLabel = alternativeTitleKey
+              // @ts-ignore
               ? item[alternativeTitleKey]
               : '';
             return (

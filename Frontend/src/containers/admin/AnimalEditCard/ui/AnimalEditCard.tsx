@@ -102,8 +102,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     // @ts-ignore
     this.tagsSizeAndBreed[key] = e.target.value;
     const mainTags = Object.keys(EditableTags).filter((defaultTagKey: any) => {
-      // @ts-ignore
       return (
+        // @ts-ignore
         this.state.tags.slice().indexOf(EditableTags[defaultTagKey]) !== -1
       );
     });

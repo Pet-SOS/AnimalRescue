@@ -70,8 +70,8 @@ export class BirthdayDatePicker extends React.PureComponent<
 
   getUpdatedDate(): string {
     let now = moment();
-    // @ts-ignore
     Object.keys(this.state).forEach(
+      // @ts-ignore
       (unit: string) => (now = now.subtract(unit, this.state[unit])),
     );
     return now.toISOString();
