@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import { TI18n } from '../../../../i18n';
 import { IBlogItemState } from '../store/state/blogitem.state';
 import { store } from '../../../../store';
@@ -92,7 +93,7 @@ export const BlogItemPageComponent: React.FC<IPropTypes> = ({
         {isLoaded && !isLoading && <React.Fragment>
           <Banner title={blogItem.data.title} subTitle={getItemSubtitle()} imgLink={`${baseUrl}documents/${blogItem.data.imageIds[0]}/type/large`}/>
           <div className='blog-item-content section-margin'>
-            <div className='story-body section-margin'>{blogItem.data.body}</div>
+            <div className='story-body section-margin' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blogItem.data.body) }} />
             {blogItem.data.type === BlogTypes.ARTICLE && (
               <div className='warning'>
                 <p>
