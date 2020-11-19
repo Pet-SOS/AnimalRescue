@@ -1,18 +1,17 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
-using AnimalRescue.DataAccess.Mongodb.Query;
-using System.Linq;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using TelegramMessenger.Services.Interfaces;
+using Chat = AnimalRescue.DataAccess.Mongodb.Models.Chat;
 
 namespace TelegramMessenger.Services.Commands
 {
     public class RegisterCommand : ICommand
     {
-        private readonly IBaseRepository<Models.Chat> _chatRepository;
+        private readonly IChatRepository _chatRepository;
 
-        public RegisterCommand(IBaseRepository<Models.Chat> chatRepository)
+        public RegisterCommand(IChatRepository chatRepository)
         {
             _chatRepository = chatRepository;
         }
@@ -27,7 +26,14 @@ namespace TelegramMessenger.Services.Commands
                 ? message.Chat.Title
                 : $"{message.Chat.FirstName} {message.Chat.LastName}";
 
-            var chat = new Models.Chat
+            if (_chatRepository.Get(chatId) != null)
+            {
+                await client.SendTextMessageAsync(chatId, $"Chat with name {name} has been registered before");
+                
+                return;
+            }
+
+            var chat = new Chat
             {
                 ChatId = chatId
             };

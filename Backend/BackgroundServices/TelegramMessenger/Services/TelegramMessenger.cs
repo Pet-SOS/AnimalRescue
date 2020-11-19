@@ -1,12 +1,9 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Query;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AnimalRescue.BusinessLogic.Configurations;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using TelegramMessenger.Models;
 using TelegramMessenger.Services.Interfaces;
-using System.Collections.Generic;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 
 namespace TelegramMessenger.Services
 {
@@ -14,11 +11,11 @@ namespace TelegramMessenger.Services
     {
         private readonly ITelegramPublisherSettings _telegramSettings;
         private readonly ITelegramBot _telegramBot;
-        private readonly IBaseRepository<Chat> _chatRepository;
+        private readonly IChatRepository _chatRepository;
 
         private TelegramBotClient _bot;
 
-        public TelegramMessenger(ITelegramPublisherSettings telegramSettings, ITelegramBot telegramBot, IBaseRepository<Chat> chatRepository)
+        public TelegramMessenger(ITelegramPublisherSettings telegramSettings, ITelegramBot telegramBot, IChatRepository chatRepository)
         {
             _telegramSettings = telegramSettings;
             _telegramBot = telegramBot;
