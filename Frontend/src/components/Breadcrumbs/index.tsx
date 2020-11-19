@@ -7,11 +7,11 @@ export interface IBreadcrumbsPropTypes {
 }
 
 export const Breadcrumbs: React.FC<IBreadcrumbsPropTypes> = ({ data }) => (
-  <ul className='breadcrumbs'>
+  <ul className="breadcrumbs">
     {data.map((item, index) => (
       <li key={index}>
-        <Breadcrumb text={item.text} href={item.href}/>
+        <Breadcrumb text={item.text} href={item.href} />
       </li>
     ))}
   </ul>
-)
+);

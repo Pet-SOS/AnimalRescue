@@ -1,34 +1,31 @@
-import React from "react";
-import { AdminMenu } from "../AdminMenu";
+import React from 'react';
+import { AdminMenu } from '../AdminMenu';
 
-interface IPropTypes{
-    history:any
+interface IPropTypes {
+  history: any;
 }
 
 interface IState {
-    [key:string]:any
+  [key: string]: any;
 }
-export class AdminHomePage extends React.Component <IPropTypes, IState>{
-    constructor(props:IPropTypes){
-        super(props);
-        this.state ={}
-    }
+export class AdminHomePage extends React.Component<IPropTypes, IState> {
+  constructor(props: IPropTypes) {
+    super(props);
+    this.state = {};
+  }
 
-    componentDidMount() {}
+  componentDidMount() {}
 
-    render(){
-        return(
-            <div className='boxAdmin'>
-                <AdminMenu
-                    selectedKey={'admin'}
-                    openKeys={['sub2', 'sub1']}
-                />
-                <main>
-                    <div className="container">
-                        <h3>ADMIN HOME PAGE</h3>
-                    </div>
-                </main>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="boxAdmin">
+        <AdminMenu selectedKey={'admin'} openKeys={['sub2', 'sub1']} />
+        <main>
+          <div className="container">
+            <h3>ADMIN HOME PAGE</h3>
+          </div>
+        </main>
+      </div>
+    );
+  }
 }

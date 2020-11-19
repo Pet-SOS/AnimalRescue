@@ -6,4 +6,4 @@ export interface ISnackbarState {
 export const DEFAULT_SNACKBAR_STATE: ISnackbarState = {
   isActive: false,
   message: '',
-}
+};

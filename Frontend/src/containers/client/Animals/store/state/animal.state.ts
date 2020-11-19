@@ -1,5 +1,5 @@
 import { IAnimalResponse } from './../../../../../api/animals';
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
 
 export interface IAnimalItemState extends IAnimalResponse {
   isLoading: boolean;
@@ -30,5 +30,5 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
   self: '',
   isLoaded: false,
   isLoading: false,
-  requestState: { ...DEFAULT_REQUEST_STATE }
+  requestState: { ...DEFAULT_REQUEST_STATE },
 };

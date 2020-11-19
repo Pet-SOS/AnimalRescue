@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IPropTypes {
   description: string;
@@ -15,7 +15,7 @@ export class DescriptionTabContent extends React.PureComponent<IPropTypes> {
           <textarea
             id="description-field"
             value={this.props.description}
-            onChange={(e) => this.props.onChange(e, 'description')}
+            onChange={e => this.props.onChange(e, 'description')}
           />
         </div>
         <div className="form-row small-row">
@@ -23,7 +23,7 @@ export class DescriptionTabContent extends React.PureComponent<IPropTypes> {
           <textarea
             id="character-field"
             value={this.props.character}
-            onChange={(e) => this.props.onChange(e, 'character')}
+            onChange={e => this.props.onChange(e, 'character')}
           />
         </div>
       </>

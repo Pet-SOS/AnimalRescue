@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import i18n from 'i18n-js';
-import {ICustomAppState} from "../store/state";
-import { getDefaultLocale, ELocales } from "./store/state";
+import { ICustomAppState } from '../store/state';
+import { getDefaultLocale, ELocales } from './store/state';
 import en from './translations/en';
 import ru from './translations/ru';
 import ua from './translations/ua';
@@ -22,18 +22,18 @@ interface IPropTypes {
 const TI18nMain = (props: IPropTypes) => {
   i18n.locale = !!props.locale ? props.locale : props.currentLocale;
   const params: any = {};
-  if(props.default){
-    params.defaultValue = props.default
+  if (props.default) {
+    params.defaultValue = props.default;
   }
 
-  return (<>{i18n.t(props.keyStr, params)}</>)
+  return <>{i18n.t(props.keyStr, params)}</>;
 };
 
 const I18nMainMapStateToProps = (state: ICustomAppState) => ({
-  currentLocale: state[APP_LANGUAGE_KEY]
+  currentLocale: state[APP_LANGUAGE_KEY],
 });
 
 const TI18n = connect(I18nMainMapStateToProps)(TI18nMain);
 
 export { TI18n };
-export * from './ui/ChangeLocale'
+export * from './ui/ChangeLocale';

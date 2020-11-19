@@ -16,5 +16,5 @@ export const DEFAULT_VACANCIES_STATE: IVacanciesState = {
   self: '',
   isLoaded: false,
   isLoading: false,
-  requestState: { ...DEFAULT_REQUEST_STATE }
-}
+  requestState: { ...DEFAULT_REQUEST_STATE },
+};

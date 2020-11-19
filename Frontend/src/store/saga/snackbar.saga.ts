@@ -1,7 +1,10 @@
-import { takeEvery, put, delay } from "redux-saga/effects";
-import { getType } from "typesafe-actions";
+import { takeEvery, put, delay } from 'redux-saga/effects';
+import { getType } from 'typesafe-actions';
 
-import { actionShowSnackbar, actionHideSnackbar } from './../actions/snackbar.actions';
+import {
+  actionShowSnackbar,
+  actionHideSnackbar,
+} from './../actions/snackbar.actions';
 
 function* onShowSnackbar() {
   yield delay(3000);

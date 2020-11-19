@@ -1,5 +1,5 @@
 import { IBlogItemResponse } from './../../../../../api/blog';
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
 
 export interface IBlogItemState extends IBlogItemResponse {
   isLoading: boolean;
@@ -20,5 +20,5 @@ export const DEFAULT_BLOG_ITEM_STATE: IBlogItemState = {
   self: '',
   isLoaded: false,
   isLoading: false,
-  requestState: { ...DEFAULT_REQUEST_STATE }
+  requestState: { ...DEFAULT_REQUEST_STATE },
 };

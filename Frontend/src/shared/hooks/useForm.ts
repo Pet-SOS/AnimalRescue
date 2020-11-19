@@ -7,18 +7,21 @@ export default (callback: () => any) => {
       event.preventDefault();
     }
     callback();
-  }
+  };
   const handleFieldChange = (event: any) => {
     event.persist();
-    setFields(fields => ({ ...fields, [event.target.name]: event.target.value }));
-  }
-  const initFields = (fieldValues: {[key: string]: string}) => {
-    setFields(fieldValues)
-  }
+    setFields(fields => ({
+      ...fields,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  const initFields = (fieldValues: { [key: string]: string }) => {
+    setFields(fieldValues);
+  };
   return {
     initFields,
     handleSubmit,
     handleFieldChange,
-    fields
+    fields,
   };
-}
+};

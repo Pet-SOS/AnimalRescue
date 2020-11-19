@@ -15,4 +15,4 @@ export const DEFAULT_CONFIG_STATE: IConfigState = {
   },
   isLoaded: false,
   isLoading: false,
-}
+};

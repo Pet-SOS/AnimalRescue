@@ -6,16 +6,16 @@ import { ICustomAppState } from '../../store/state';
 import { selectSnackbarMessage } from '../../store/selectors/snackbar.selector';
 
 interface IPropTypes {
-  message: string | React.ReactNode
+  message: string | React.ReactNode;
 }
 
 const SnackBar: React.FC<IPropTypes> = ({ message }) => (
-  <div className='snackbar-holder'>
-    <div className='snackbar-wrapper'>
+  <div className="snackbar-holder">
+    <div className="snackbar-wrapper">
       <span>{message}</span>
     </div>
   </div>
-)
+);
 
 const mapStateToProps = (state: ICustomAppState) => ({
   message: selectSnackbarMessage(state),

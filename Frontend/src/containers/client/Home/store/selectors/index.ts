@@ -1,22 +1,27 @@
-import { actionFetchInfoCard, actionFetchInfoContacts } from './../actions/index';
+import {
+  actionFetchInfoCard,
+  actionFetchInfoContacts,
+} from './../actions/index';
 import { IInfoCard } from './../state/index';
-import {ICustomAppState} from "../../../../../store/state";
-import {HOME_PAGE_KEY} from "../reducer";
+import { ICustomAppState } from '../../../../../store/state';
+import { HOME_PAGE_KEY } from '../reducer';
 import { store } from '../../../../../store';
 
-export const selectSavedInfoCard = (state: ICustomAppState) => state[HOME_PAGE_KEY].infoCard;
-export const selectInfoContacts = (state: ICustomAppState) => state[HOME_PAGE_KEY].infoContacts;
+export const selectSavedInfoCard = (state: ICustomAppState) =>
+  state[HOME_PAGE_KEY].infoCard;
+export const selectInfoContacts = (state: ICustomAppState) =>
+  state[HOME_PAGE_KEY].infoContacts;
 
 export const infoCardCheckAndLoad = (): void => {
   const state: IInfoCard = selectSavedInfoCard(store.getState());
   if (!state.isLoaded && !state.isLoading) {
-    store.dispatch(actionFetchInfoCard())
+    store.dispatch(actionFetchInfoCard());
   }
-}
+};
 
 export const infoContactsCheckAndLoad = (): void => {
   const state: IInfoCard = selectInfoContacts(store.getState());
   if (!state.isLoaded && !state.isLoading) {
-    store.dispatch(actionFetchInfoContacts())
+    store.dispatch(actionFetchInfoContacts());
   }
-}
+};

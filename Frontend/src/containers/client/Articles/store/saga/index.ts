@@ -5,15 +5,15 @@ import { fetchArticleList } from '../../../../../api/article';
 import {
   actionFetchArticleListRequest,
   actionFetchArticleListSuccess,
-  actionFetchArticleListFailure
-} from "../actions";
+  actionFetchArticleListFailure,
+} from '../actions';
 
-function* getArticleList(action: { type: string, payload?: IRequestParams }) {
+function* getArticleList(action: { type: string; payload?: IRequestParams }) {
   try {
     const response = yield call(fetchArticleList, action.payload);
-    yield put(actionFetchArticleListSuccess(response))
+    yield put(actionFetchArticleListSuccess(response));
   } catch (e) {
-    yield put(actionFetchArticleListFailure(e))
+    yield put(actionFetchArticleListFailure(e));
   }
 }
 

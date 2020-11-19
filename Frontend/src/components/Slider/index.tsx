@@ -4,9 +4,19 @@ import Swiper from 'react-id-swiper';
 import 'swiper/css/swiper.min.css';
 import './index.scss';
 
-export enum SlidesPerViewValue { AUTO = 'auto' }
-export enum SlideEffects { FADE = 'fade', CUBE = 'cube', COVERFLOW = 'coverflow', FLIP = 'flip' }
-export enum ThumbSlidesAlignment { LEFT = 'left', RIGHT = 'right' }
+export enum SlidesPerViewValue {
+  AUTO = 'auto',
+}
+export enum SlideEffects {
+  FADE = 'fade',
+  CUBE = 'cube',
+  COVERFLOW = 'coverflow',
+  FLIP = 'flip',
+}
+export enum ThumbSlidesAlignment {
+  LEFT = 'left',
+  RIGHT = 'right',
+}
 
 interface IPropTypes {
   slides: React.ReactNode[];
@@ -21,9 +31,8 @@ interface IPropTypes {
   isSwipeDisable?: boolean;
   autoPlayDelayMs?: number;
   spaceBetween?: number;
-  breakpoints?: { [key: number]: IPropTypes },
+  breakpoints?: { [key: number]: IPropTypes };
 }
-
 
 export const Slider: React.FC<IPropTypes> = ({
   slides,
@@ -38,7 +47,7 @@ export const Slider: React.FC<IPropTypes> = ({
   isSwipeDisable,
   breakpoints,
   thumbSlides,
-  thumbSlidesAlignment
+  thumbSlidesAlignment,
 }) => {
   const [swiper, updateSwiper] = useState();
   const [swiperThumbs, updateSwiperThumbs] = useState();
@@ -46,12 +55,16 @@ export const Slider: React.FC<IPropTypes> = ({
     const sliderParams: any = {
       rebuildOnUpdate: !thumbSlides || !thumbSlides.length,
       shouldSwiperUpdate: !thumbSlides || !thumbSlides.length,
-      slidesPerView: !!slidesPerView ? slidesPerView === SlidesPerViewValue.AUTO ? slidesPerView : Math.abs(slidesPerView) : 1,
+      slidesPerView: !!slidesPerView
+        ? slidesPerView === SlidesPerViewValue.AUTO
+          ? slidesPerView
+          : Math.abs(slidesPerView)
+        : 1,
       loop: isLoop,
       effect: slideEffect,
       noSwiping: !!isSwipeDisable,
-      breakpoints
-    }
+      breakpoints,
+    };
     if (!!spaceBetween) {
       sliderParams.spaceBetween = spaceBetween;
     }
@@ -59,33 +72,33 @@ export const Slider: React.FC<IPropTypes> = ({
       sliderParams.pagination = {
         el: '.swiper-pagination',
         type: 'bullets',
-        clickable: true
-      }
+        clickable: true,
+      };
     }
     if (!isNavigationHidden) {
       sliderParams.navigation = {
         nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      }
+        prevEl: '.swiper-button-prev',
+      };
     }
     if (isAutoplay || !!autoPlayDelayMs) {
       sliderParams.autoplay = {
         delay: !!autoPlayDelayMs ? Math.abs(autoPlayDelayMs) : 2500,
         disableOnInteraction: false,
-      }
+      };
     }
     if (!!thumbSlides && !!thumbSlides.length) {
-      sliderParams.getSwiper = updateSwiper
+      sliderParams.getSwiper = updateSwiper;
     }
     return sliderParams;
-  }
-  
+  };
+
   const thumbsParams = {
     slideToClickedSlide: true,
     slidesPerView: 'auto',
     centeredSlides: true,
     spaceBetween: 10,
-    getSwiper: updateSwiperThumbs
+    getSwiper: updateSwiperThumbs,
   };
 
   useEffect(() => {
@@ -94,29 +107,37 @@ export const Slider: React.FC<IPropTypes> = ({
       swiperThumbs.controller.control = swiper;
     }
   }, [swiper, swiperThumbs]);
-  
+
   return (
     <React.Fragment>
-      <div className={cn('custom-slider-wrapper', {
-        'pagination-active': !isPaginationHidden,
-        'auto-slides': slidesPerView === SlidesPerViewValue.AUTO,
-        'one-slide': slides.length === 1
-        })}>
+      <div
+        className={cn('custom-slider-wrapper', {
+          'pagination-active': !isPaginationHidden,
+          'auto-slides': slidesPerView === SlidesPerViewValue.AUTO,
+          'one-slide': slides.length === 1,
+        })}
+      >
         <div className="custom-slider-inner">
-          <Swiper {...getSliderParams()} >
-            {slides.map((slide, index) => <div key={index}>{slide}</div>)}
+          <Swiper {...getSliderParams()}>
+            {slides.map((slide, index) => (
+              <div key={index}>{slide}</div>
+            ))}
           </Swiper>
         </div>
       </div>
       {!!thumbSlides && !!thumbSlides.length && (
-        <div className={cn('thumb-swiper', {
-          [`align-${thumbSlidesAlignment}`]: !!thumbSlidesAlignment
-        })}>
+        <div
+          className={cn('thumb-swiper', {
+            [`align-${thumbSlidesAlignment}`]: !!thumbSlidesAlignment,
+          })}
+        >
           <Swiper {...thumbsParams}>
-            {thumbSlides.map((slide, index) => <div key={index}>{slide}</div>)}
+            {thumbSlides.map((slide, index) => (
+              <div key={index}>{slide}</div>
+            ))}
           </Swiper>
         </div>
       )}
-    </React.Fragment>    
-  )
-}
+    </React.Fragment>
+  );
+};

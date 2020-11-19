@@ -1,18 +1,18 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
-import { fetchBlogItem } from "../../../../../api/blog";
+import { fetchBlogItem } from '../../../../../api/blog';
 import {
   actionFetchBlogItemRequest,
   actionFetchBlogItemFailure,
-  actionFetchBlogItemSuccess
+  actionFetchBlogItemSuccess,
 } from '../actions/blogitem.actions';
 
-function* getBlogItem(action: { type: string, payload: string }) {
+function* getBlogItem(action: { type: string; payload: string }) {
   try {
     const response = yield call(fetchBlogItem, action.payload);
-    yield put(actionFetchBlogItemSuccess(response))
+    yield put(actionFetchBlogItemSuccess(response));
   } catch (e) {
-    yield put(actionFetchBlogItemFailure(e))
+    yield put(actionFetchBlogItemFailure(e));
   }
 }
 
