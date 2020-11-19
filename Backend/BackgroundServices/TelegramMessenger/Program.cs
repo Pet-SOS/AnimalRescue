@@ -5,10 +5,9 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using AnimalRescue.DataAccess.Mongodb;
 using AnimalRescue.Infrastructure.Configuration;
-using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
-using MongoDbGenericRepository;
+using TelegramMessenger.Services;
+using TelegramMessenger.Services.Commands;
 using TelegramMessenger.Services.Interfaces;
 
 namespace TelegramMessenger
@@ -34,6 +33,10 @@ namespace TelegramMessenger
             serviceCollection.AddScoped<ISenderPublisherSettingsBase>((p) => telegramPublisherSettings);
             serviceCollection.AddScoped<IEventReceivingService, EventReceivingService>();
             serviceCollection.AddScoped<IMessenger, Services.TelegramMessenger>();
+            serviceCollection.AddScoped<ICommand, MessageCommand>();
+            serviceCollection.AddScoped<ICommand, RegisterCommand>();
+            serviceCollection.AddScoped<ICommand, HelloCommand>();
+            serviceCollection.AddSingleton<ITelegramBot, TelegramBot>();
 
             using var serviceProvider = serviceCollection.BuildServiceProvider();
 
@@ -43,7 +46,7 @@ namespace TelegramMessenger
 
             _messenger.Init();
 
-            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync(message.Address));
+            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync($"{message.Title} {Environment.NewLine} {message.Message} {Environment.NewLine} {message.Address}"));
 
             bool isContinue = true;
 

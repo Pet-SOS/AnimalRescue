@@ -168,8 +168,8 @@ namespace AnimalRescue.BusinessLogic.Services
             if (operatorStatuses.Contains(itemDto.Status.Id))
             {
                 EmergencyMessage emergencyMessage = new EmergencyMessage();
-                emergencyMessage.Title = "New Request (" + itemDto.Case + ")";
-                emergencyMessage.Message = "A " + itemDto.KindOfAnimal + " " + " has been found in " + itemDto.AnimalState.ToString() + " state." + Environment.NewLine;
+                emergencyMessage.Title = "New Request (" + itemDto.Case.Id + ")";
+                emergencyMessage.Message = "A " + itemDto.KindOfAnimal.Id + " " + " has been found in " + itemDto.AnimalState.Id + " state." + Environment.NewLine;
                 emergencyMessage.Message += itemDto.CaseDescription + Environment.NewLine;
                 emergencyMessage.Message += "Contact info: " + itemDto.FirstName + " " + itemDto.LastName + ", phone: " + itemDto.Phone;
                 emergencyMessage.Address = itemDto.Address;

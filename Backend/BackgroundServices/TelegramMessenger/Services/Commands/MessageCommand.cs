@@ -7,7 +7,7 @@ namespace TelegramMessenger.Services.Commands
 {
     public class MessageCommand : ICommand
     {
-        public string Name => "message";
+        public string Name => "/message";
 
         public async Task ExecuteAsync(Message message, TelegramBotClient client)
         {

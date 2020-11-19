@@ -5,26 +5,31 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using TelegramMessenger.Models;
 using TelegramMessenger.Services.Interfaces;
+using System.Collections.Generic;
+using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 
 namespace TelegramMessenger.Services
 {
     public class TelegramMessenger : IMessenger
     {
         private readonly ITelegramPublisherSettings _telegramSettings;
-        private static TelegramBotClient _bot;
+        private readonly ITelegramBot _telegramBot;
+        private readonly IBaseRepository<Chat> _chatRepository;
 
-        private static IChatRepository<Chat> _chatRepository;
+        private TelegramBotClient _bot;
 
-        public TelegramMessenger(ITelegramPublisherSettings telegramSettings)
+        public TelegramMessenger(ITelegramPublisherSettings telegramSettings, ITelegramBot telegramBot, IBaseRepository<Chat> chatRepository)
         {
             _telegramSettings = telegramSettings;
+            _telegramBot = telegramBot;
+            _chatRepository = chatRepository;
         }
 
         public void Init()
         {
             if (_bot == null)
             {
-                _bot = TelegramBot.GetBot(_telegramSettings.TelegramKey);
+                _bot = _telegramBot.GetBot(_telegramSettings.TelegramKey);
 
                 _bot.OnMessage += Bot_OnMessage;
 
@@ -34,11 +39,11 @@ namespace TelegramMessenger.Services
 
         public async Task SendTextMessageAsync(string message)
         {
-            var chats = await _chatRepository.GetAsync(new DbQuery());
+            var chats =  _chatRepository.GetAllItemsAsync();
 
-            foreach (var chat in chats)
+            await foreach (var chat in chats)
             {
-                await _bot.SendTextMessageAsync(chat.Id, message);
+                await _bot.SendTextMessageAsync(chat.ChatId, message);
             }
         }
 
@@ -49,7 +54,7 @@ namespace TelegramMessenger.Services
 
         private void Bot_OnMessage(object sender, MessageEventArgs e)
         {
-            foreach (var command in TelegramBot.Commands)
+            foreach (var command in _telegramBot.Commands)
             {
                 if (command.Contains(e.Message?.Text))
                 {
