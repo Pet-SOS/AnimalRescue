@@ -29,9 +29,7 @@ namespace TelegramMessenger.Configurations
             services.AddScoped<ISenderPublisherSettingsBase>((p) => telegramPublisherSettings);
             services.AddScoped<IEventReceivingService, EventReceivingService>();
             services.AddScoped<IMessenger, Services.TelegramMessenger>();
-            services.AddScoped<ICommand, MessageCommand>();
             services.AddScoped<ICommand, RegisterCommand>();
-            services.AddScoped<ICommand, HelloCommand>();
             services.AddSingleton<ITelegramBot, TelegramBot>();
         }
     }
