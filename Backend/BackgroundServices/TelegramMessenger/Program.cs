@@ -1,8 +1,9 @@
 ﻿using System;
-using AnimalRescue.BusinessLogic.Configurations;
-using AnimalRescue.BusinessLogic.Services;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using AnimalRescue.Infrastructure.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using TelegramMessenger.Configurations;
 using TelegramMessenger.Services.Interfaces;
 
 namespace TelegramMessenger
@@ -13,36 +14,21 @@ namespace TelegramMessenger
 
         static void Main(string[] args)
         {
-            IPublisherSettings publisherSettings = ConfigurationUtil
-                .GetConfiguration()
-                .GetTypedSection<PublisherSettings>(nameof(PublisherSettings));
-            ITelegramPublisherSettings telegramPublisherSettings = ConfigurationUtil
-                .GetConfiguration()
-                .GetTypedSection<TelegramPublisherSettings>(nameof(TelegramPublisherSettings));
+            var serviceCollection = new ServiceCollection();
 
-            using EventReceivingService eventReceivingService = new EventReceivingService(publisherSettings, telegramPublisherSettings);
+            serviceCollection.AddConfigureTelegramMessanger(ConfigurationUtil.GetConfiguration());
 
-            _messenger = new Services.TelegramMessenger(telegramPublisherSettings);
+            using var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            IEventReceivingService eventReceivingService = serviceProvider.GetService<IEventReceivingService>();
+
+            _messenger = serviceProvider.GetService<IMessenger>();
 
             _messenger.Init();
 
-            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync(message.Address));
+            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync($"{message.Title} {Environment.NewLine} {message.Message} {Environment.NewLine} {message.Address}"));
 
-            bool isContinue = true;
-
-            while (isContinue)
-            {
-               var text = Console.ReadLine();
-
-               if (text == "stop")
-               {
-                   isContinue = false;
-               }
-               else
-               {
-                   _messenger.SendTextMessageAsync(text);
-               }
-            }
+            Console.ReadLine();
         }
     }
 }

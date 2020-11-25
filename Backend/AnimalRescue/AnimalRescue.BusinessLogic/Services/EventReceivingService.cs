@@ -1,4 +1,5 @@
 ﻿using AnimalRescue.BusinessLogic.Configurations;
+using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 using AnimalRescue.Infrastructure.Validation;
 
@@ -13,7 +14,7 @@ using System.Text;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    public class EventReceivingService : IDisposable
+    public class EventReceivingService : IEventReceivingService, IDisposable
     {
         readonly string _exchange;
         readonly string _exchangeType;

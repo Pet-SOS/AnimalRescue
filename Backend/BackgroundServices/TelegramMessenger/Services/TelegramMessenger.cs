@@ -1,47 +1,46 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Query;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AnimalRescue.BusinessLogic.Configurations;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using Telegram.Bot.Types.Enums;
-using TelegramMessenger.Models;
 using TelegramMessenger.Services.Interfaces;
+using AnimalRescue.DataAccess.Mongodb.Interfaces;
 
 namespace TelegramMessenger.Services
 {
     public class TelegramMessenger : IMessenger
     {
         private readonly ITelegramPublisherSettings _telegramSettings;
-        private static TelegramBotClient _bot;
+        private readonly ITelegramBot _telegramBot;
+        private readonly IChatRepository _chatRepository;
 
-        private static IChatRepository<ChatDto> _chatRepository;
+        private TelegramBotClient _bot;
 
-        public TelegramMessenger(ITelegramPublisherSettings telegramSettings)
+        public TelegramMessenger(ITelegramPublisherSettings telegramSettings, ITelegramBot telegramBot, IChatRepository chatRepository)
         {
             _telegramSettings = telegramSettings;
-            _chatRepository = new ChatRepository();
+            _telegramBot = telegramBot;
+            _chatRepository = chatRepository;
         }
 
         public void Init()
         {
             if (_bot == null)
             {
-                _bot = TelegramBot.GetBot(_telegramSettings.TelegramKey);
-
-                _bot.StartReceiving();
+                _bot = _telegramBot.GetBot(_telegramSettings.TelegramKey);
 
                 _bot.OnMessage += Bot_OnMessage;
-                _bot.OnUpdate += Bot_OnUpdate;
+
+                _bot.StartReceiving();
             }
         }
 
         public async Task SendTextMessageAsync(string message)
         {
-            var chats = await _chatRepository.GetAsync(new DbQuery());
+            var chats =  _chatRepository.GetAllItemsAsync();
 
-            foreach (var chat in chats)
+            await foreach (var chat in chats)
             {
-                await _bot.SendTextMessageAsync(chat.Id, message);
+                await _bot.SendTextMessageAsync(chat.ChatId, message);
             }
         }
 
@@ -50,23 +49,14 @@ namespace TelegramMessenger.Services
             _bot.StopReceiving();
         }
 
-        private void Bot_OnUpdate(object? sender, UpdateEventArgs e)
+        private void Bot_OnMessage(object sender, MessageEventArgs e)
         {
-            foreach (var command in TelegramBot.Commands)
+            foreach (var command in _telegramBot.Commands)
             {
-                if (!string.IsNullOrEmpty(e.Update.Message?.Text) && e.Update.Message.Text.Contains(command.Name))
+                if (command.Contains(e.Message?.Text))
                 {
-                    command.ExecuteAsync(e.Update.Message, _bot);
+                    command.ExecuteAsync(e.Message, _bot);
                 }
-            }
-        }
-
-        private void Bot_OnMessage(object? sender, MessageEventArgs e)
-        {
-            if (e.Message.Type == MessageType.Text)
-            {
-                //ToDo: add logic for receiving messages
-                // _bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Text);
             }
         }
     }

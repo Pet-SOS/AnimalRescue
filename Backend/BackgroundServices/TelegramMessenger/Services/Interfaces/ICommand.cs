@@ -12,7 +12,7 @@ namespace TelegramMessenger.Services.Interfaces
 
         public bool Contains(string command)
         {
-            return command.Contains(Name);
+            return !string.IsNullOrEmpty(command) &&  command.Contains(Name);
         }
 
     }
