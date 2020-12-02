@@ -35,13 +35,9 @@ services:
       - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
       - PublisherSettings__HostName=${RABBITMQ_HOST}
       - PublisherSettings__HostPort=5672
-      - PublisherSettings__Exchange=${RABBITMQ_Exchange}
-      - PublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
-      - PublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
-      - AdoptAnimalEmailPublisherSettings__UserName=${RABBITMQ_USERNAME}
-      - AdoptAnimalEmailPublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
-      - AdoptAnimalEmailPublisherSettings__HostName=${RABBITMQ_HOST}
-      - AdoptAnimalEmailPublisherSettings__HostPort=5672
+      - TelegramPublisherSettings__Exchange=${RABBITMQ_Exchange}
+      - TelegramPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - TelegramPublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
       - AdoptAnimalEmailPublisherSettings__Exchange=${RABBITMQ_Email_Exchange}
       - AdoptAnimalEmailPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
       - AdoptAnimalEmailPublisherSettings__RoutingKey=${RABBITMQ_Email_RoutingKey}
@@ -83,10 +79,13 @@ services:
       - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
       - PublisherSettings__HostName=${RABBITMQ_HOST}
       - PublisherSettings__HostPort=5672
-      - PublisherSettings__Exchange=${RABBITMQ_Exchange}
-      - PublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
-      - PublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
-      - PublisherSettings__TelegramKey=${TelegramKey}
+      - TelegramPublisherSettings__Exchange=${RABBITMQ_Exchange}
+      - TelegramPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - TelegramPublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
+      - TelegramPublisherSettings__TelegramKey=${TelegramKey}
+      - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
+      - MongoDbSettings__DatabaseName=${MongoDB_database}
+      - MongoDbSettings__BucketName=file_records
     depends_on:
       - rabbitmq
     networks:
