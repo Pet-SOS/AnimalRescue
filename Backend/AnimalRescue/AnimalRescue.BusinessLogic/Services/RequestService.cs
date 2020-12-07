@@ -18,7 +18,6 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 using actions = AnimalRescue.Contracts.Common.Constants.TagsConstants.Actions;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AnimalRescue.Contracts.BusinessLogic.Models.EventMessages;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -28,14 +27,12 @@ namespace AnimalRescue.BusinessLogic.Services
     {
         private readonly IUserRoleActionRepository _userRoleActionRepository;
         private readonly IEmergencyRequestService _emergencyRequestService;
-        private readonly IEventEmittingService _eventEmittingService;
         private readonly string _messageMissingRole = "User does not have a role to view this Request";
         private readonly string _messageForbiddenFields = "Filter contains forbidden fields";
 
         public RequestService(
             IBaseRepository<Request> repository,
             IRecoverDataService recoverDataService,
-            IEventEmittingService eventEmittingService,
             IUserRoleActionRepository userRoleActionRepository,
             IEmergencyRequestService emergencyRequestService,
             IMapper mapper)
@@ -43,7 +40,6 @@ namespace AnimalRescue.BusinessLogic.Services
         {
             _userRoleActionRepository = userRoleActionRepository;
             _emergencyRequestService = emergencyRequestService;
-            _eventEmittingService = eventEmittingService;
         }
 
         public async Task<BlCollectonResponse<RequestDto>> GetAsync(ApiQueryRequest queryRequest, ICollection<Claim> roles)
@@ -140,7 +136,7 @@ namespace AnimalRescue.BusinessLogic.Services
             if (isAdmin)
             {
                 await base.UpdateAsync(itemDto);
-                SendMessage(itemDto);
+                await SendMessage(itemDto);
             }
             else
             {
@@ -151,7 +147,7 @@ namespace AnimalRescue.BusinessLogic.Services
                     if (doesStatusMatches)
                     {
                         await base.UpdateAsync(itemDto);
-                        SendMessage(itemDto);
+                        await SendMessage(itemDto);
                     }
                     else
                     {
@@ -165,12 +161,12 @@ namespace AnimalRescue.BusinessLogic.Services
             }
         }
 
-        private void SendMessage(RequestDto itemDto)
+        private async Task SendMessage(RequestDto itemDto)
         {
             var operatorStatuses = GetStatusesByRoleActionIsMessageSent(PropertyConstants.UserRole.Operator.ToUpper(), actions.Update, true);
             if (operatorStatuses.Contains(itemDto.Status.Id))
             {
-                _emergencyRequestService.Notify(itemDto);
+                await _emergencyRequestService.Notify(itemDto);
             }
         }
 

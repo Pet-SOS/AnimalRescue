@@ -26,7 +26,7 @@ namespace TelegramMessenger
 
             _messenger.Init();
 
-            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync($"{message.Title} {Environment.NewLine} {message.Message} {Environment.NewLine} {message.Address}"));
+            eventReceivingService.Run<EmergencyMessage>((message) => _messenger.SendTextMessageAsync(message.Message));
 
             Console.ReadLine();
         }

@@ -9,6 +9,7 @@
     <None Remove="Data\cms.json" />
     <None Remove="Data\contacts_202007232020.json" />
     <None Remove="Data\donation.json" />
+    <None Remove="Data\emergency_request_message.json" />
     <None Remove="Data\help_adopt.json" />
     <None Remove="Data\help_popup.json" />
     <None Remove="Data\home_popup.json" />
@@ -25,6 +26,7 @@
     <EmbeddedResource Include="Data\donation.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Data\emergency_request_message.json" />
     <EmbeddedResource Include="Data\help_popup.json" />
     <EmbeddedResource Include="Data\help_adopt.json" />
     <EmbeddedResource Include="Data\home_popup.json" />

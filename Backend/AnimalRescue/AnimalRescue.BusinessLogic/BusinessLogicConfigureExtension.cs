@@ -99,6 +99,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IUsersManagementService, UsersManagementService>();
 
             services.AddScoped<IRequestAdoptAnimalService, RequestAdoptAnimalService>();
+            services.AddScoped<IEmergencyRequestService, EmergencyRequestService>();
 
             BackgroundServices(services, configuration);
         }

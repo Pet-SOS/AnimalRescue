@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Migrations
 {
-    [Migration("202012071044_AddEmergencyRequestMessage")]
+    [Migration("202012071449_AddEmergencyRequestMessage")]
     internal class AddEmergencyRequestMessage : IAnimalRescueMigration
     {
         const string fileName = "emergency_request_message.json";
@@ -18,9 +18,9 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
             _configurationRepository = configurationRepository;
         }
 
-        public Task Execute()
+        public async Task Execute()
         {
-            return _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<EmergencyRequestMessage>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<EmergencyRequestMessage>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }
