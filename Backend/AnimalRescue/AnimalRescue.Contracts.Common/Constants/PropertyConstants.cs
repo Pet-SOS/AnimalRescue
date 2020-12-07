@@ -150,5 +150,10 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string AnimalName = "animalName";
             public const string AdoptiveName = "adoptiveName";
         }
+
+        public static class FinancialReportYearInfo
+        {
+            public const string Year = "year";
+        }
     }
 }

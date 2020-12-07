@@ -82,7 +82,8 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped<IUserRoleActionRepository, UserRoleActionRepository>()
                 .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
                 .AddScoped<ISecurityTokenRepository, SecurityTokenRepository>()
-                .AddScoped<IBaseRepository<OrganizationDocument>, OrganizationDocumentRepository>();
+                .AddScoped<IBaseRepository<OrganizationDocument>, OrganizationDocumentRepository>()
+                .AddScoped<IBaseRepository<FinancialReportYearInfo>, BaseRepository<FinancialReportYearInfo>>();
 
             services
                 .AddScoped<IBaseRepository<Animal>, AnimalRepository>()

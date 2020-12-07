@@ -45,6 +45,9 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(LanguagesConfigDto value) =>
             await CreateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
 
+        public async Task CreateAsync(FinancialReportsInfoDto value) =>
+            await CreateConfigurationAsync<FinancialReportsInfoDto, FinancialReportsInfo>(value);
+
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
             await GetConfigurationAsync<CmsConfigurationDto, Contacts>();
 
@@ -65,6 +68,8 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<LanguagesConfigDto> GetLanguagesConfigurationAsync() => 
             await GetConfigurationAsync<LanguagesConfigDto, LanguagesConfig>();
+        public async Task<FinancialReportsInfoDto> GetFinancialReportsInfoConfigurationAsync() =>        
+            await GetConfigurationAsync<FinancialReportsInfoDto, FinancialReportsInfo>();
 
         private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)
         {
@@ -79,6 +84,6 @@ namespace AnimalRescue.BusinessLogic.Services
             var configurationDto = mapper.Map<Configuration<TConfig>, TOut>(configurationDbo);
 
             return configurationDto;
-        }
+        }       
     }
 }
