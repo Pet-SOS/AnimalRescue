@@ -27,6 +27,7 @@ namespace AnimalRescue.BusinessLogic.Services
         IRequestService
     {
         private readonly IUserRoleActionRepository _userRoleActionRepository;
+        private readonly IEmergencyRequestService _emergencyRequestService;
         private readonly IEventEmittingService _eventEmittingService;
         private readonly string _messageMissingRole = "User does not have a role to view this Request";
         private readonly string _messageForbiddenFields = "Filter contains forbidden fields";
@@ -36,10 +37,12 @@ namespace AnimalRescue.BusinessLogic.Services
             IRecoverDataService recoverDataService,
             IEventEmittingService eventEmittingService,
             IUserRoleActionRepository userRoleActionRepository,
+            IEmergencyRequestService emergencyRequestService,
             IMapper mapper)
             : base(repository, recoverDataService, mapper)
         {
             _userRoleActionRepository = userRoleActionRepository;
+            _emergencyRequestService = emergencyRequestService;
             _eventEmittingService = eventEmittingService;
         }
 
@@ -167,14 +170,7 @@ namespace AnimalRescue.BusinessLogic.Services
             var operatorStatuses = GetStatusesByRoleActionIsMessageSent(PropertyConstants.UserRole.Operator.ToUpper(), actions.Update, true);
             if (operatorStatuses.Contains(itemDto.Status.Id))
             {
-                EmergencyMessage emergencyMessage = new EmergencyMessage();
-                emergencyMessage.Title = "New Request (" + itemDto.Case.Id + ")";
-                emergencyMessage.Message = "A " + itemDto.KindOfAnimal.Id + " " + " has been found in " + itemDto.AnimalState.Id + " state." + Environment.NewLine;
-                emergencyMessage.Message += itemDto.CaseDescription + Environment.NewLine;
-                emergencyMessage.Message += "Contact info: " + itemDto.FirstName + " " + itemDto.LastName + ", phone: " + itemDto.Phone;
-                emergencyMessage.Address = itemDto.Address;
-
-                _eventEmittingService.PublishMessage(emergencyMessage);
+                _emergencyRequestService.Notify(itemDto);
             }
         }
 
