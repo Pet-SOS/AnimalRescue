@@ -1,21 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using AnimalRescue.DataAccess.Mongodb.Interfaces;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using TelegramMessenger.Models;
 using TelegramMessenger.Services.Interfaces;
+using Chat = AnimalRescue.DataAccess.Mongodb.Models.Chat;
 
 namespace TelegramMessenger.Services.Commands
 {
     public class RegisterCommand : ICommand
     {
-        private readonly IChatRepository<ChatDto> _repository;
+        private readonly IChatRepository _chatRepository;
 
-        public RegisterCommand()
+        public RegisterCommand(IChatRepository chatRepository)
         {
-            _repository = new ChatRepository();
+            _chatRepository = chatRepository;
         }
 
-        public string Name => "register";
+        public string Name => "/register";
 
         public async Task ExecuteAsync(Message message, TelegramBotClient client)
         {
@@ -25,13 +26,19 @@ namespace TelegramMessenger.Services.Commands
                 ? message.Chat.Title
                 : $"{message.Chat.FirstName} {message.Chat.LastName}";
 
-            var chat = new ChatDto
+            if (_chatRepository.Get(chatId) != null)
             {
-                Id = chatId,
-                Name = name
+                await client.SendTextMessageAsync(chatId, $"Chat with name {name} has been registered before");
+                
+                return;
+            }
+
+            var chat = new Chat
+            {
+                ChatId = chatId
             };
 
-            await _repository.CreateAsync(chat);
+            await _chatRepository.CreateAsync(chat);
 
             await client.SendTextMessageAsync(chatId, $"Chat registered with a name {name}");
         }

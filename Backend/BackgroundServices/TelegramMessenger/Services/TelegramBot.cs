@@ -1,25 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Telegram.Bot;
-using TelegramMessenger.Services.Commands;
 using TelegramMessenger.Services.Interfaces;
 
 namespace TelegramMessenger.Services
 {
-    public static class TelegramBot
+    public class TelegramBot : ITelegramBot
     {
-        private static TelegramBotClient _client;
-        private static List<ICommand> _commands;
+        private TelegramBotClient _client;
 
-        public static IReadOnlyList<ICommand> Commands => _commands.AsReadOnly();
+        public TelegramBot(IEnumerable<ICommand> commands)
+        {
+            Commands = new ReadOnlyCollection<ICommand>(commands.ToList());
+        }
 
-        public static TelegramBotClient GetBot(string telegramToken)
+        public IReadOnlyCollection<ICommand> Commands { get; }
+
+        public TelegramBotClient GetBot(string telegramToken)
         {
             if (_client != null)
             {
                 return _client;
             }
-
-            _commands = new List<ICommand> { new HelloCommand(), new RegisterCommand(), new MessageCommand() };
 
             _client = new TelegramBotClient(telegramToken);
 

@@ -8,12 +8,14 @@ import {
 } from "../../../client/Blog/store/actions/blogitem.actions";
 import {isLoadedBlogItem, isLoadingBlogItem, selectBlogItem} from "../store/selectors";
 import {actionUpdateBlogItemRequest} from "../store/actions";
+import {selectApiUrl} from "../../../../store/selectors/config.selector";
 
 const mapStateToProps = (state: ICustomAppState) => {
     return {
         blog: selectBlogItem(state),
         isLoaded: isLoadedBlogItem(state),
-        isLoading: isLoadingBlogItem(state)
+        isLoading: isLoadingBlogItem(state),
+        baseUrl: selectApiUrl(state),
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {

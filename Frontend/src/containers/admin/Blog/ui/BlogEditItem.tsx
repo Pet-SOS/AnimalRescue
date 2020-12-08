@@ -13,9 +13,10 @@ export interface IBlogEditItemProps {
     isLoading?: boolean;
     reset: () => void;
     update: (blog: IBlogItem) => void;
+    baseUrl: string;
 }
 
-export const BlogEditItem: React.FC<IBlogEditItemProps> = ({isLoaded, isLoading, fetchBlogItem, blog, reset, update}) => {
+export const BlogEditItem: React.FC<IBlogEditItemProps> = ({isLoaded, isLoading, fetchBlogItem, blog, reset, update, baseUrl}) => {
     const history = useHistory();
     const {blogId} = useParams();
 
@@ -43,6 +44,7 @@ export const BlogEditItem: React.FC<IBlogEditItemProps> = ({isLoaded, isLoading,
                 <h3><TI18n keyStr="blogPageTitle" default={'Блог'}/></h3>
                 {isLoaded &&
                 (<BlogEditForm
+                    baseUrl={baseUrl}
                     blog={blog}
                     onUpdate={update}
                 />)}

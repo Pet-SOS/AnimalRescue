@@ -151,6 +151,11 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string AdoptiveName = "adoptiveName";
         }
 
+        public static class Chat
+        {
+            public const string ChatId = "chatId";
+        }
+      
         public static class FinancialReportYearInfo
         {
             public const string Year = "year";

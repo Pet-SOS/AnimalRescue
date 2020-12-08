@@ -29,14 +29,12 @@ export const BlogListItem: React.FC<IBlogListItem> = ({blogItem, onEditClick, on
         return types[blogItem.type];
     };
     return (
-        <div className="t-item ">
-            <div className="row">
-                <div className="col col-title">{blogItem.title}</div>
-                <div className="col col-type">{getTypes()}</div>
-                <div className="col col-modified">{modified}</div>
-                <div className="col col-btn"><i className="icon-edit" onClick={handleOnEditClick}/></div>
-                <div className="col col-btn"><i className="icon-delete" onClick={handleOnDeleteClick}/></div>
-            </div>
+        <div className="t-item row">
+            <div className="col col-title">{blogItem.title}</div>
+            <div className="col col-type">{getTypes()}</div>
+            <div className="col col-modified">{modified}</div>
+            <div className="col col-btn"><i className="icon-edit" onClick={handleOnEditClick}/></div>
+            <div className="col col-btn"><i className="icon-delete" onClick={handleOnDeleteClick}/></div>
         </div>
     );
 };
