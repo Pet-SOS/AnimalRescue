@@ -36,15 +36,6 @@ spec:
                 secretKeyRef:
                   name: animalrescue-admin
                   key: password
-            - name: MongoDbSettings__ConnectionString
-              valueFrom:
-                secretKeyRef:
-                  name: animalrescue-api
-                  key: db_connection_string        
-            - name: MongoDbSettings__DatabaseName
-              value: #{mongodbDatabase}#
-            - name: MongoDbSettings__BucketName
-              value: #{mongodbBucketName}#
             - name: AppSettings__JwtExpireHours
               value: "1"
             - name: AppSettings__JwtExpireDays
@@ -85,6 +76,15 @@ spec:
                 secretKeyRef:
                   name: smtp
                   key: password
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-api
+                  key: db_connection_string        
+            - name: MongoDbSettings__DatabaseName
+              value: #{mongodbDatabase}#
+            - name: MongoDbSettings__BucketName
+              value: #{mongodbBucketName}#
             - name: PublisherSettings__UserName
               valueFrom:
                 secretKeyRef:
@@ -105,41 +105,21 @@ spec:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: port
-            - name: PublisherSettings__Exchange
+            - name: TelegramPublisherSettings__Exchange
               valueFrom:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: exchange
-            - name: PublisherSettings__ExchangeType
+            - name: TelegramPublisherSettings__ExchangeType
               valueFrom:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: exchangetype
-            - name: PublisherSettings__RoutingKey
+            - name: TelegramPublisherSettings__RoutingKey
               valueFrom:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: routingkey
-            - name: AdoptAnimalEmailPublisherSettings__UserName
-              valueFrom:
-                secretKeyRef:
-                  name: animalrescue-rabbitmq
-                  key: username
-            - name: AdoptAnimalEmailPublisherSettings__UserPassword
-              valueFrom:
-                secretKeyRef:
-                  name: animalrescue-rabbitmq
-                  key: password
-            - name: AdoptAnimalEmailPublisherSettings__HostName
-              valueFrom:
-                secretKeyRef:
-                  name: animalrescue-rabbitmq
-                  key: hostname
-            - name: AdoptAnimalEmailPublisherSettings__HostPort
-              valueFrom:
-                secretKeyRef:
-                  name: animalrescue-rabbitmq
-                  key: port
             - name: AdoptAnimalEmailPublisherSettings__Exchange
               valueFrom:
                 secretKeyRef:

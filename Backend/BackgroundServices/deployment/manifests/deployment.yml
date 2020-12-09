@@ -46,25 +46,34 @@ spec:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: port
-            - name: PublisherSettings__Exchange
+            - name: TelegramPublisherSettings__Exchange
               valueFrom:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: exchange
-            - name: PublisherSettings__ExchangeType
+            - name: TelegramPublisherSettings__ExchangeType
               valueFrom:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: exchangetype
-            - name: PublisherSettings__RoutingKey
+            - name: TelegramPublisherSettings__RoutingKey
               valueFrom:
                 secretKeyRef:
                   name: animalrescue-rabbitmq
                   key: routingkey
-            - name: PublisherSettings__TelegramKey
+            - name: TelegramPublisherSettings__TelegramKey
               valueFrom:
                 secretKeyRef:
                   name: telegram
                   key: key
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: telegramMessenger-db
+                  key: db_connection_string        
+            - name: MongoDbSettings__DatabaseName
+              value: #{mongodbDatabase}#
+            - name: MongoDbSettings__BucketName
+              value: #{mongodbBucketName}#
       imagePullSecrets:
         - name: #{imagePullSecret}#

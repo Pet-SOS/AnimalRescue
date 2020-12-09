@@ -155,5 +155,10 @@ namespace AnimalRescue.Contracts.Common.Constants
         {
             public const string ChatId = "chatId";
         }
+      
+        public static class FinancialReportYearInfo
+        {
+            public const string Year = "year";
+        }
     }
 }

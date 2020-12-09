@@ -11,12 +11,14 @@ namespace AnimalRescue.API.Core.Configuration
             this IServiceCollection services,  
             List<Profile> profiles)
         {
-            profiles.AddRange(new List<Profile> { 
-                new LocationMappingProfile(), 
+            profiles.AddRange(new List<Profile> {
+                new LocationMappingProfile(),
                 new DonationConfigurationMappingProfile(),
                 new CmsConfigurationMappingProfile(),
                 new AnimalMappingProfile(),
                 new FinancialReportMappingProfile(),
+                new FinancialReportsInfoMappingProfile(),
+                new FinancialReportYearInfoMappingProfile(),
                 new TagMappingProfile(),
                 new TagLargeMappingProfile(),
                 new LanguageValueMappingProfile(),

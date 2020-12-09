@@ -98,6 +98,15 @@ stages:
                     secretArguments: --from-literal=key="$(telegramKey)" 
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
+                - task: KubernetesManifest@0
+                  displayName: Create mongodb secret
+                  inputs: 
+                    action: createSecret
+                    secretType: generic
+                    secretName: telegramMessenger-db
+                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017" 
+                    kubernetesServiceConnection: $(kubernetesServiceConnection)
+                    namespace: default
                 - task: replacetokens@3
                   displayName: Replace tokens
                   inputs:
