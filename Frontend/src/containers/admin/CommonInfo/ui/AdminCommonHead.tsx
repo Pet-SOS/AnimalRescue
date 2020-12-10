@@ -2,11 +2,11 @@ import React from "react";
 import { ISocialLinks, IEmails, IAddresses, addInfoContacts, IParagraph } from "../../../../api/contacts";
 import { addInfoCard, IDataBankCard } from "../../../../api/infoCard";
 import _ from "lodash";
-import {HtmlEditor, styleCard} from "../../../../components/HtmlEditor";
-import {Tabs} from "antd";
+import { HtmlEditor, styleCard } from "../../../../components/HtmlEditor";
+import { Collapse } from "antd";
 import { CommonAddress } from "./CommonAddress";
 
-const {TabPane} = Tabs;
+const { Panel } = Collapse;
 
 interface IPropTypes {
     socialLinks: ISocialLinks;
@@ -132,8 +132,10 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
 
     render(){
         return(
-            <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
-                <h3>Контактна інформація</h3>
+            
+                <Collapse accordion defaultActiveKey={['1']}>
+                    <Panel header="Контактна інформація" key="1">
+                    <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
                 <div className="form-row field-phone-size">
                     <label htmlFor="phone1">Телефон гарячої лінії</label>
                     <input id="phone1" onChange={(e)=>this.handleContactInfo(e,'phone1')} type="text"  value={this.state.phones.phone1||''}/>
@@ -185,7 +187,23 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
                     <input id="social-youtube" onChange={(e)=>this.handleChangeSocialNetworks(e,'youtube')}  value={this.state.socialLinks.youtube||''}/>
                 </div>
                 <button type="submit" className="btn btn-blue" onSubmit={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
-            </form>
+                </form>
+                    </Panel>
+                    <Panel header="Попап Допомоги" key="2">
+                        <p>2</p>
+                    </Panel>
+                    <Panel header="Попап «Хочу забрати додому»" key="3">
+                        <p>3</p>
+                    </Panel>
+                    <Panel header="Як усиновити тварину" key="4">
+                        <p>4</p>
+                    </Panel>
+                    <Panel header="Мова сайту" key="5">
+                        <p>5</p>
+                    </Panel>
+                </Collapse>
+                
+            
         )
     }
 }

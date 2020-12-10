@@ -694,4 +694,28 @@ input, textarea, ::placeholder {
   }
 }
 
+.ant-collapse {
+  border: 0;
+  background-color: inherit;
+
+  &-item {
+    border: 0 !important;
+    :not(:last-child) {
+    margin-bottom: 20px;
+    }
+  }
+
+  &-header {
+    height: 60px;
+    border-radius: 30px !important;
+    background-color: $bg-lite-lite;
+    font-size: 18px;
+    padding: 18px 38px !important;
+  }
+
+  &-content {
+    border: 0;
+  }
+}
+
 @import "media";
