@@ -10,10 +10,10 @@ import { actionFetchSickAnimals } from '../Animals/store/actions';
 
 const mapStateToProps = (state: ICustomAppState) => {
     return {
+        appLanguage: state.appLanguage,
         sickAnimalsList: state.animals.sickAnimalsList,
         infoCard: state.homePage.infoCard,
-        infoContacts: state.homePage.infoContacts,
-
+        infoContacts: state.homePage.infoContacts
     };
   };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {

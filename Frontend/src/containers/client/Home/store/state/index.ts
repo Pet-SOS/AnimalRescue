@@ -51,6 +51,7 @@ export const DEFAULT_CONTACTS: IInfoContacts ={
       town:'',
       street: '',
     },
+    paragraphs: [],
     phones: [],
   },
   isLoading: false,

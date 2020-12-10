@@ -1,14 +1,19 @@
 import React from "react";
-import { ISocialLinks, IEmails, IAddresses, addInfoContacts } from "../../../../api/contacts";
+import { ISocialLinks, IEmails, IAddresses, addInfoContacts, IParagraph } from "../../../../api/contacts";
 import { addInfoCard, IDataBankCard } from "../../../../api/infoCard";
 import _ from "lodash";
 import {HtmlEditor, styleCard} from "../../../../components/HtmlEditor";
+import {Tabs} from "antd";
+import { CommonAddress } from "./CommonAddress";
+
+const {TabPane} = Tabs;
 
 interface IPropTypes {
     socialLinks: ISocialLinks;
     phones: string[];
     emails: IEmails;
     addresses: IAddresses;
+    paragraphs: IParagraph[];
     infoCard: IDataBankCard;
 }
 interface IState {
@@ -18,6 +23,7 @@ interface IState {
     };
     emails: IEmails;
     addresses: IAddresses;
+    paragraphs: IParagraph[];
     infoCard:{
         body:string;
     };
@@ -46,6 +52,7 @@ constructor(props: IPropTypes){
             town: this.props.addresses.town,
             street: this.props.addresses.street
         },
+        paragraphs: this.props.paragraphs,
         infoCard:{
             body: this.props.infoCard.body,
         },
@@ -76,13 +83,19 @@ handleEmailInfo = (e:React.ChangeEvent<HTMLInputElement>) => {
         }
     })
 }
-handleAddress = (e:React.ChangeEvent<HTMLInputElement>, key:string) => {
+handleAddress = (e:React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => {
+    const paragraphs = [...this.state.paragraphs];
+    const paragraphIndex = paragraphs.findIndex(p => p.name === key);
+    const valueIndex = paragraphs[paragraphIndex].values.findIndex(v => v.lang === lang);
+    paragraphs[paragraphIndex].values[valueIndex].value = e.target.value;
+
     this.setState({
         addresses: {
             ...this.state.addresses,
             [key]: e.target.value
-        }
-    })
+        },
+        paragraphs
+    });
 }
 
 componentDidUpdate(prevProps: IPropTypes ) {
@@ -107,7 +120,8 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
         socialLinks: {...this.state.socialLinks},
         phones: [...phonesAll],
         emails:{...this.state.emails},
-        addresses: {...this.state.addresses}
+        addresses: {...this.state.addresses},
+        paragraphs : [...this.state.paragraphs],
     }
     const card = {...this.state.infoCard}
     // const htmlCard = draftToHtmlHelper();
@@ -143,25 +157,20 @@ handleSubmit = (e:React.SyntheticEvent<EventTarget>) => {
                     <label htmlFor="email-info">Електрона адреса</label>
                     <input id="email-info" onChange={(e)=>this.handleEmailInfo(e)} type="text" value={this.state.emails.animalRescue1||''}/>
                 </div>
+
                 <h4>Адреса</h4>
-                <div className="form-row">
-                    <label htmlFor="address-country">Країна</label>
-                    <input id="address-country" onChange={(e)=>this.handleAddress(e,'country')} type="text" value={`${this.state.addresses.country}` ||''}/>
-                </div>
-                <div className="form-row">
-                    <label htmlFor="address-city">Місто</label>
-                    <input id="address-city" onChange={(e)=>this.handleAddress(e,'town')} type="text" value={this.state.addresses.town||''}/>
-                </div>
-                <div className="form-row">
-                    <label htmlFor="address-street">Вулиця</label>
-                    <input id="address-street" onChange={(e)=>this.handleAddress(e,'street')} type="text" value={this.state.addresses.street||''}/>
-                </div>
+                <CommonAddress
+                    paragraphs={this.state.paragraphs}
+                    handleAddress={this.handleAddress} />
+
                 <h4>Банківські картки</h4>
-                <HtmlEditor
-                    editorState={this.state.editorCardState}
-                    onChange={this.onEditorStateChange}
-                    classList={styleCard}
-                  />
+                <div className="form-row">
+                    <HtmlEditor
+                        editorState={this.state.editorCardState}
+                        onChange={this.onEditorStateChange}
+                        classList={styleCard}
+                    />
+                </div>
                 <h4>Соц.мережі</h4>
                 <div className="form-row">
                     <label htmlFor="social-facebook">Facebook</label>

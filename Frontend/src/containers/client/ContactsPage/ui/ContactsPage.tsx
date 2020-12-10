@@ -14,7 +14,8 @@ import {ReactComponent as InstagramLogo} from "../../../../assets/header/instagr
 import {SocialLinks} from "../../../../components/SocialLinks";
 
 interface IPropTypes {
-  sickAnimalsList: IAnimalsListState,
+    appLanguage: string,
+    sickAnimalsList: IAnimalsListState,
     infoCard: IInfoCard,
     infoContacts: IInfoContacts,
     fetchSickAnimals:() => void;
@@ -30,7 +31,7 @@ export class ContactsPage extends React.Component<IPropTypes> {
             this.props.fetchInfoContacts();
         }
     }
-    render(){
+    render() {
         return (
             <div className='contacts-page'>
                 <div className="container">
@@ -47,9 +48,7 @@ export class ContactsPage extends React.Component<IPropTypes> {
                             </div>
                             <div className='item-contacts'>
                                 <address>
-                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[1]}</p>
-                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[2]}</p>
-                                    <p className='contacts-box'>{this.props.infoContacts.data.phones[3]}</p>
+                                    {[1, 2, 3].map(i => <p className='contacts-box'>{this.props.infoContacts.data.phones[i]}</p>)}
                                 </address>
                                 <span className="descriptions-contacts"><TI18n keyStr="contactsAdoptionIssues" default={defaultText.contactsAdoptionIssues} /></span>
                             </div>
@@ -63,11 +62,7 @@ export class ContactsPage extends React.Component<IPropTypes> {
                         <div className="hold-address">
                             <div className="box-address">
                                 <h4> <TI18n keyStr="contactsOffice" default={defaultText.contactsOffice}/></h4>
-                                <p>{
-                                    `${this.props.infoContacts.data.addresses.country}, 
-                                    ${this.props.infoContacts.data.addresses.town}, 
-                                    ${this.props.infoContacts.data.addresses.street}
-                                    `}</p>
+                                <p>{this.props.infoContacts.data.paragraphs.map(p => p.values.filter(v => v.lang === this.props.appLanguage).map(v => v.value)[0]).join(', ')}</p>
                                 <span className="descriptions-contacts"><TI18n keyStr="contactsWarning" default={defaultText.contactsWarning} /></span>
                             </div>
                             <div className='main-social-link'>

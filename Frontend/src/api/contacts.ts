@@ -13,11 +13,23 @@ export interface IAddresses{
   town:string;
   street:string;
 }
+
+interface IParagraphValue {
+  lang: string;
+  value: string;
+}
+
+export interface IParagraph {
+  name: string;
+  values: IParagraphValue[]
+}
+
 export interface IInfoContactsData {
     socialLinks: ISocialLinks;
     phones: string[];
     emails:IEmails;
     addresses: IAddresses;
+    paragraphs: IParagraph[];
 }
 export interface IInfoContactsResponse {
  data: IInfoContactsData;
