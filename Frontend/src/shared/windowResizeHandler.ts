@@ -6,13 +6,13 @@ export default () => {
     if (bodyElement.classList.contains(className)) {
       bodyElement.classList.remove(className);
     }
-  }
+  };
   const onResize = (): void => {
     clearTimeout(resizeId);
-    resizeId = setTimeout(onResizeFinish, 500)
+    resizeId = setTimeout(onResizeFinish, 500);
     if (!bodyElement.classList.contains(className)) {
       bodyElement.classList.add(className);
     }
-  }
-  window.addEventListener('resize', onResize);  
-}
+  };
+  window.addEventListener('resize', onResize);
+};

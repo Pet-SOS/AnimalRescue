@@ -1,1 +1,1 @@
-export const getJwt =() => localStorage.getItem('jwt-token');
+export const getJwt = () => localStorage.getItem('jwt-token');

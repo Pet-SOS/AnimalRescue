@@ -9,8 +9,8 @@ export interface IBreadcrumbProps {
 }
 
 export const Breadcrumb: React.FC<IBreadcrumbProps> = ({ text, href }) => (
-  <Link to={href} className='breadcrumb'>
+  <Link to={href} className="breadcrumb">
     <span>{text}</span>
-    <Button styleType={ButtonTypes.WhiteCircle}/>
+    <Button styleType={ButtonTypes.WhiteCircle} />
   </Link>
-)
+);

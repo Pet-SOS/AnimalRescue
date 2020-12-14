@@ -17,26 +17,29 @@ import {
   actionGetAllTagsError,
   actionUpdateTag,
   actionUpdateTagSuccess,
-  actionUpdateTagError
+  actionUpdateTagError,
 } from './../actions/tags.actions';
-import { genericRequestReducer } from "../../api";
+import { genericRequestReducer } from '../../api';
 import { DEFAULT_TAGS_STATE, ITagsState } from '../state/tags.state';
 import { ITag } from '../../api/tags';
 
 const tagsListStateReducer = genericRequestReducer(
   actionGetTagsList,
   actionGetTagsListSuccess,
-  actionGetTagsListError
-)
+  actionGetTagsListError,
+);
 
-export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyAction): ITagsState => {
+export const tagsReducer = (
+  state: ITagsState = DEFAULT_TAGS_STATE,
+  action: AnyAction,
+): ITagsState => {
   switch (action.type) {
     case getType(actionGetTagsList): {
       return {
         ...state,
         isLoading: true,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionGetTagsListSuccess):
       return {
@@ -51,17 +54,19 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         ...state,
         isLoaded: false,
         isLoading: false,
-        requestState: tagsListStateReducer(state.requestState, action)
+        requestState: tagsListStateReducer(state.requestState, action),
       };
     case getType(actionDeleteTag): {
       return {
         ...state,
         isLoading: true,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionDeleteTagSuccess): {
-      const newTagsList: ITag[] = state.data.filter(tag => tag.id !== action.payload);
+      const newTagsList: ITag[] = state.data.filter(
+        tag => tag.id !== action.payload,
+      );
       const isDeleted: boolean = newTagsList.length !== state.data.length;
       return {
         ...state,
@@ -70,22 +75,22 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         data: newTagsList,
         totalCount: isDeleted ? state.totalCount - 1 : state.totalCount,
         requestState: tagsListStateReducer(state.requestState, action),
-      }
+      };
     }
     case getType(actionDeleteTagError): {
       return {
         ...state,
         isLoaded: false,
         isLoading: false,
-        requestState: tagsListStateReducer(state.requestState, action)
+        requestState: tagsListStateReducer(state.requestState, action),
       };
     }
     case getType(actionAddTag): {
       return {
         ...state,
         isLoading: true,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionAddTagSuccess): {
       return {
@@ -93,47 +98,49 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         isLoading: false,
         isLoaded: true,
         data: [...state.data, action.payload],
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionAddTagError): {
       return {
         ...state,
         isLoading: false,
         isLoaded: false,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionUpdateTag): {
       return {
         ...state,
         isLoading: true,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionUpdateTagSuccess): {
       return {
         ...state,
         isLoaded: true,
         isLoading: false,
-        data: state.data.map(tag => tag.id === action.payload.id ? action.payload : tag),
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        data: state.data.map(tag =>
+          tag.id === action.payload.id ? action.payload : tag,
+        ),
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionUpdateTagError): {
       return {
         ...state,
         isLoading: false,
         isLoaded: false,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionGetAllTags): {
       return {
         ...state,
         isLoading: true,
-        requestState: tagsListStateReducer(state.requestState, action)
-      }
+        requestState: tagsListStateReducer(state.requestState, action),
+      };
     }
     case getType(actionGetAllTagsSuccess):
       const newTagsList: ITag[] = [...state.data, ...action.payload.data];
@@ -149,16 +156,16 @@ export const tagsReducer = (state: ITagsState = DEFAULT_TAGS_STATE, action: AnyA
         ...state,
         isLoaded: false,
         isLoading: false,
-        requestState: tagsListStateReducer(state.requestState, action)
+        requestState: tagsListStateReducer(state.requestState, action),
       };
     case getType(actionClearTagsList): {
       return {
-        ...DEFAULT_TAGS_STATE
-      }
+        ...DEFAULT_TAGS_STATE,
+      };
     }
     default:
       return state;
   }
-}
+};
 
 export const TAGS_KEY = 'tags';

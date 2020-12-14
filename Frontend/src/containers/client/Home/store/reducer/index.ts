@@ -1,7 +1,15 @@
-import {AnyAction} from "redux";
-import {DEFAULT_HOME_PAGE_STATE, IHomePageState, DEFAULT_CONTACTS, DEFAULT_INFO_CARD} from "../state";
-import {getType} from "typesafe-actions";
-import {genericRequestReducer, DEFAULT_REQUEST_STATE} from "../../../../../api";
+import { AnyAction } from 'redux';
+import {
+  DEFAULT_HOME_PAGE_STATE,
+  IHomePageState,
+  DEFAULT_CONTACTS,
+  DEFAULT_INFO_CARD,
+} from '../state';
+import { getType } from 'typesafe-actions';
+import {
+  genericRequestReducer,
+  DEFAULT_REQUEST_STATE,
+} from '../../../../../api';
 import {
   actionIsActivePopup,
   actionFetchInfoCard,
@@ -12,40 +20,49 @@ import {
   actionFetchInfoContactsFailUrl,
   actionClearInfoContacts,
   actionClearInfoCard,
-} from "../actions";
+} from '../actions';
 
 const fetchSaveInfoCardStateReducer = genericRequestReducer(
   actionFetchInfoCard,
   actionFetchInfoCardSuccess,
-  actionFetchInfoCardlFailUrl
-)
+  actionFetchInfoCardlFailUrl,
+);
 
 const fetchInfoContactsStateReducer = genericRequestReducer(
   actionFetchInfoContacts,
   actionFetchInfoContactsSuccess,
-  actionFetchInfoContactsFailUrl
-)
+  actionFetchInfoContactsFailUrl,
+);
 
-export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE, action: AnyAction): IHomePageState => {
+export const homePageReducer = (
+  state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
+  action: AnyAction,
+): IHomePageState => {
   switch (action.type) {
     case getType(actionFetchInfoCard):
       return {
         ...state,
         infoCard: {
           ...state.infoCard,
-          isLoading: true
-        },        
-        infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action)
+          isLoading: true,
+        },
+        infoCardState: fetchSaveInfoCardStateReducer(
+          state.infoCardState,
+          action,
+        ),
       };
     case getType(actionFetchInfoCardSuccess):
       return {
         ...state,
-        infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
+        infoCardState: fetchSaveInfoCardStateReducer(
+          state.infoCardState,
+          action,
+        ),
         infoCard: {
           ...action.payload.data,
           isLoaded: true,
-          isLoading: false
-        }
+          isLoading: false,
+        },
       };
     case getType(actionFetchInfoCardlFailUrl):
       return {
@@ -53,41 +70,50 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         infoCard: {
           ...state.infoCard,
           isLoading: false,
-          isLoaded: false
+          isLoaded: false,
         },
-        infoCardState: fetchSaveInfoCardStateReducer(state.infoCardState, action),
+        infoCardState: fetchSaveInfoCardStateReducer(
+          state.infoCardState,
+          action,
+        ),
       };
     case getType(actionIsActivePopup):
       return {
         ...state,
-        isActivePopup: action.payload.data
+        isActivePopup: action.payload.data,
       };
     case getType(actionClearInfoCard): {
       return {
         ...state,
-        infoCard: { ...DEFAULT_INFO_CARD},
+        infoCard: { ...DEFAULT_INFO_CARD },
         infoCardState: { ...DEFAULT_REQUEST_STATE },
-      }
+      };
     }
     case getType(actionFetchInfoContacts): {
       return {
         ...state,
         infoContacts: {
           ...state.infoContacts,
-          isLoading: true
+          isLoading: true,
         },
-        infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
-      }
+        infoContactsState: fetchInfoContactsStateReducer(
+          state.infoContactsState,
+          action,
+        ),
+      };
     }
     case getType(actionFetchInfoContactsSuccess): {
       return {
         ...state,
-        infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action),
+        infoContactsState: fetchInfoContactsStateReducer(
+          state.infoContactsState,
+          action,
+        ),
         infoContacts: {
           ...action.payload,
           isLoading: false,
-          isLoaded: true
-        }
+          isLoaded: true,
+        },
       };
     }
     case getType(actionFetchInfoContactsFailUrl): {
@@ -96,9 +122,12 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         infoContacts: {
           ...state.infoContacts,
           isLoaded: false,
-          isLoading: false
+          isLoading: false,
         },
-        infoContactsState: fetchInfoContactsStateReducer(state.infoContactsState, action)
+        infoContactsState: fetchInfoContactsStateReducer(
+          state.infoContactsState,
+          action,
+        ),
       };
     }
     case getType(actionClearInfoContacts): {
@@ -106,10 +135,10 @@ export const homePageReducer = (state: IHomePageState = DEFAULT_HOME_PAGE_STATE,
         ...state,
         infoContacts: { ...DEFAULT_CONTACTS },
         infoContactsState: { ...DEFAULT_REQUEST_STATE },
-      }
+      };
     }
     default:
-        return state;
+      return state;
   }
 };
 

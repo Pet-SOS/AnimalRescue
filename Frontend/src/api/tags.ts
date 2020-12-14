@@ -1,5 +1,5 @@
-import { API } from './index'
-import { IRequestParams, prepareRequestParams } from './requestOptions'
+import { API } from './index';
+import { IRequestParams, prepareRequestParams } from './requestOptions';
 import { ELocales } from '../i18n/store/state';
 import { AnimalKind } from './animals';
 
@@ -10,10 +10,8 @@ export enum TagCategory {
 }
 
 export enum EKindOfAnimal {
-  dog= "DOG",
+  dog = 'DOG',
 }
-
-
 
 export interface ITagValue {
   lang: ELocales;
@@ -25,12 +23,12 @@ export interface ITag {
   kindOfAnimal: AnimalKind | string;
   values: Array<ITagValue>;
   createdAt?: Date | string;
-  isDeletable ?: boolean;
+  isDeletable?: boolean;
   id?: string;
 }
 
 export interface ITagsResponse {
-  data: ITag[]
+  data: ITag[];
   pageCount: number;
   pageNumber: number;
   pageSize: number;
@@ -38,14 +36,20 @@ export interface ITagsResponse {
   totalCount: number;
 }
 
-export async function fetchTags(requestParams?: IRequestParams): Promise<ITagsResponse> {
-  const res = await API.get('/WellKnownTag', { params: prepareRequestParams(requestParams) });
-  return res.data
+export async function fetchTags(
+  requestParams?: IRequestParams,
+): Promise<ITagsResponse> {
+  const res = await API.get('/WellKnownTag', {
+    params: prepareRequestParams(requestParams),
+  });
+  return res.data;
 }
 
-export async function addTagRequest(tag: ITag): Promise<{data: ITag; self: string}> {
+export async function addTagRequest(
+  tag: ITag,
+): Promise<{ data: ITag; self: string }> {
   const res = await API.post('/WellKnownTag', tag);
-  return res.data
+  return res.data;
 }
 
 export async function updateTagRequest(tag: ITag): Promise<void> {
@@ -54,5 +58,5 @@ export async function updateTagRequest(tag: ITag): Promise<void> {
 
 export async function deleteTagRequest(tagId: string): Promise<void> {
   const res = await API.delete(`/WellKnownTag/${tagId}`);
-  return res.data
+  return res.data;
 }

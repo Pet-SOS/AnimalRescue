@@ -3,7 +3,8 @@ export interface IAdapter<M, D, P> {
   toPayload?: (model: M) => P;
 }
 
-export abstract class BaseAdapter<M, D, P = any> implements IAdapter<M, D, P | undefined> {
+export abstract class BaseAdapter<M, D, P = any>
+  implements IAdapter<M, D, P | undefined> {
   toModel(dto: D): M {
     return this.convertToModel(dto);
   }

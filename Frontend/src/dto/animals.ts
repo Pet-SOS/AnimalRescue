@@ -1,6 +1,12 @@
 import { BaseAdapter } from './base-adapter';
-import {AnimalKind, Gender, IAnimal, IAnimalResponse, IAnimalsResponse} from "../api/animals";
-import {ITag} from "../api/tags";
+import {
+  AnimalKind,
+  Gender,
+  IAnimal,
+  IAnimalResponse,
+  IAnimalsResponse,
+} from '../api/animals';
+import { ITag } from '../api/tags';
 
 export interface IAnimalDataDTO {
   number: number;
@@ -41,29 +47,40 @@ export interface IAdminAnimalsDTO {
 
 export class animalAdapter extends BaseAdapter<IAnimal, IAnimalDataDTO, any> {
   protected convertToModel(dto: IAnimalDataDTO): IAnimal {
-    const {status: {id: status}} = dto;
+    const {
+      status: { id: status },
+    } = dto;
     return {
       ...dto,
-      status: !!status ? status : ''
-    }
+      status: !!status ? status : '',
+    };
   }
 }
 
-
-export class animalItemAdapter extends BaseAdapter<IAnimalResponse, IAnimalDTO, any> {
+export class animalItemAdapter extends BaseAdapter<
+  IAnimalResponse,
+  IAnimalDTO,
+  any
+> {
   protected convertToModel(dto: IAnimalDTO): IAnimalResponse {
     return {
       ...dto,
-      data: new animalAdapter().toModel(dto.data)
-    }
+      data: new animalAdapter().toModel(dto.data),
+    };
   }
 }
 
-export class adminAnimalsAdapter extends BaseAdapter<IAnimalsResponse, IAdminAnimalsDTO, any> {
+export class adminAnimalsAdapter extends BaseAdapter<
+  IAnimalsResponse,
+  IAdminAnimalsDTO,
+  any
+> {
   protected convertToModel(dto: IAdminAnimalsDTO): IAnimalsResponse {
     return {
       ...dto,
-      data: dto.data.map((animalItemDto: IAnimalDataDTO) => new animalAdapter().toModel(animalItemDto)),
-    }
+      data: dto.data.map((animalItemDto: IAnimalDataDTO) =>
+        new animalAdapter().toModel(animalItemDto),
+      ),
+    };
   }
 }

@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from "react";
-import {EditableTags} from "../../../../api/animals";
+import React, { ChangeEvent } from 'react';
+import { EditableTags } from '../../../../api/animals';
 
 interface IPropTypes {
   donationActive: boolean;
@@ -14,35 +14,40 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
   renderTagSelection = (tag: string, title: string) => {
     return (
       <li className="chk-label-item">
-          <label htmlFor={`chk-${tag}`}>{title}</label>
-          <span className="switcher-control">
-            <input
-              id={`chk-${tag}`}
-              type="checkbox"
-              checked={this.props.tags.indexOf(tag) !== -1}
-              onChange={() => this.props.onUpdateTag(tag)}
-            />
-            <span></span>
-          </span>
+        <label htmlFor={`chk-${tag}`}>{title}</label>
+        <span className="switcher-control">
+          <input
+            id={`chk-${tag}`}
+            type="checkbox"
+            checked={this.props.tags.indexOf(tag) !== -1}
+            onChange={() => this.props.onUpdateTag(tag)}
+          />
+          <span></span>
+        </span>
       </li>
     );
-  }
+  };
 
   renderBannerBlock = () => {
-    const {donationActive, onToggleDonation, bannerText, onChange} = this.props;
+    const {
+      donationActive,
+      onToggleDonation,
+      bannerText,
+      onChange,
+    } = this.props;
     return (
       <>
         <li className="chk-label-item">
-            <label htmlFor="chk-charity">Вiдкрити Cбір коштів</label>
-            <span className="switcher-control">
-              <input
-                id="chk-charity"
-                type="checkbox"
-                checked={donationActive}
-                onChange={onToggleDonation}
-              />
-              <span></span>
-            </span>
+          <label htmlFor="chk-charity">Вiдкрити Cбір коштів</label>
+          <span className="switcher-control">
+            <input
+              id="chk-charity"
+              type="checkbox"
+              checked={donationActive}
+              onChange={onToggleDonation}
+            />
+            <span></span>
+          </span>
         </li>
         {donationActive && (
           <li>
@@ -52,14 +57,16 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
               id="banner-text-field"
               maxLength={100}
               value={bannerText}
-              onChange={(e) => onChange(e, 'bannerText')}
+              onChange={e => onChange(e, 'bannerText')}
             />
-            <span className="sub-notes">Максимальна кількість 100 символів</span>
+            <span className="sub-notes">
+              Максимальна кількість 100 символів
+            </span>
           </li>
         )}
       </>
     );
-  }
+  };
 
   render() {
     return (
@@ -67,7 +74,10 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
         {this.renderBannerBlock()}
         {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізован')}
         {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплен')}
-        {this.renderTagSelection(EditableTags.READYTOABROAD, 'Готов до виїзду за кордон')}
+        {this.renderTagSelection(
+          EditableTags.READYTOABROAD,
+          'Готов до виїзду за кордон',
+        )}
       </ul>
     );
   }

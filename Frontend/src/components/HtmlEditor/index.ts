@@ -1,2 +1,2 @@
 export * from './class-list';
-export * from './HtmlEditor'
+export * from './HtmlEditor';
