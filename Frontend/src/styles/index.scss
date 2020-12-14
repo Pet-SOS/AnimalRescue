@@ -700,8 +700,9 @@ input, textarea, ::placeholder {
 
   &-item {
     border: 0 !important;
-    :not(:last-child) {
-    margin-bottom: 20px;
+    
+    &:not(:last-child) {
+      margin-bottom: 20px;
     }
   }
 
