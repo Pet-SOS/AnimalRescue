@@ -6,7 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
-
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -106,6 +106,7 @@ namespace AnimalRescue.API.Controllers
             var imageIds = await _imageService.CreateAsync(animalCreateModel.Images);
 
             var animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalCreateModel);
+            animalModel.AdoptionContractFileId = await HandleAdoptionContractFileAsync(animalCreateModel.AdoptionContractFile);
 
             if (imageIds?.Count > 0)
             {
@@ -126,17 +127,9 @@ namespace AnimalRescue.API.Controllers
         {
             var imageIds = await _imageService.CreateAsync(animalUpdateModel.Images);
 
-            Guid documentId = default;
-
-            if (animalUpdateModel.AdoptionContractFile != null)
-            {
-                var document = await _documentService.UploadFileAsync(animalUpdateModel.AdoptionContractFile);
-                documentId = document.Id;
-            }
-
             var animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalUpdateModel);
             animalModel.Id = id;
-            animalModel.AdoptionContractFileId = documentId;
+            animalModel.AdoptionContractFileId = await HandleAdoptionContractFileAsync(animalUpdateModel.AdoptionContractFile);
 
             if (imageIds?.Count > 0)
             {
@@ -154,5 +147,21 @@ namespace AnimalRescue.API.Controllers
         {
             await _animalService.DeleteAsync(id);
         }
+
+        #region private methods
+
+        private async Task<Guid> HandleAdoptionContractFileAsync(IFormFile adoptionContractFile)
+        {
+            if (adoptionContractFile != null)
+            {
+                var document = await _documentService.UploadFileAsync(adoptionContractFile);
+                return document.Id;
+            }
+
+            return default;
+        }
+
+        #endregion
+
     }
 }

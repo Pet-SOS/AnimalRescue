@@ -80,7 +80,7 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(animal.AdoptiveName)]
         public string AdoptiveName { get; set; }
 
-        [RegularExpression(@"^[0-9\-\+]{9,15}$", ErrorMessage = "Incorrect phone format. Phone number must contains only digits.")]
+        [RegularExpression(@"^[0-9\-\+]{4,15}$", ErrorMessage = "Incorrect phone number format.")]
         [JsonPropertyName(animal.AdoptivePhone)]
         [JsonProperty(animal.AdoptivePhone)]
         public string AdoptivePhone { get; set; }
