@@ -82,5 +82,17 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [CouplingPropertyName(animal.BannerText)]
         [BsonElement("bannerText")]
         public string BannerText { get; set; }
+
+        [CouplingPropertyName(animal.AdoptiveName)]
+        [BsonElement(animal.AdoptiveName)]
+        public string AdoptiveName { get; set; }
+
+        [CouplingPropertyName(animal.AdoptivePhone)]
+        [BsonElement(animal.AdoptivePhone)]
+        public string AdoptivePhone { get; set; }
+
+        [CouplingPropertyName(animal.AdoptionContractFile)]
+        [BsonElement(animal.AdoptionContractFile)]
+        public string AdoptionContractFileId { get; set; }
     }
 }

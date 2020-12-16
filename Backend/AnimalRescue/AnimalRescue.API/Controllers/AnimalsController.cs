@@ -24,6 +24,7 @@ namespace AnimalRescue.API.Controllers
     {
         private readonly IBlFullCrud<AnimalDto, AnimalDto, Guid> _animalService;
         private readonly IImageService _imageService;
+        private readonly IDocumentService _documentService;
         private readonly ISequenceService _sequenceService;
         private readonly IMapper _mapper;
 
@@ -31,6 +32,7 @@ namespace AnimalRescue.API.Controllers
             IMapper mapper,
             IBlFullCrud<AnimalDto, AnimalDto, Guid> animalService,
             IImageService imageService,
+            IDocumentService documentService,
             ISequenceService sequenceService
             )
         {
@@ -41,6 +43,7 @@ namespace AnimalRescue.API.Controllers
             _mapper = mapper;
             this._animalService = animalService;
             _imageService = imageService;
+            _documentService = documentService;
             _sequenceService = sequenceService;
         }
 
@@ -123,8 +126,17 @@ namespace AnimalRescue.API.Controllers
         {
             var imageIds = await _imageService.CreateAsync(animalUpdateModel.Images);
 
+            Guid documentId = default;
+
+            if (animalUpdateModel.AdoptionContractFile != null)
+            {
+                var document = await _documentService.UploadFileAsync(animalUpdateModel.AdoptionContractFile);
+                documentId = document.Id;
+            }
+
             var animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalUpdateModel);
             animalModel.Id = id;
+            animalModel.AdoptionContractFileId = documentId;
 
             if (imageIds?.Count > 0)
             {
