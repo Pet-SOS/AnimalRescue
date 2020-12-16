@@ -89,6 +89,10 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(animal.AdoptionContractFile)]
         public IFormFile AdoptionContractFile { get; set; }
 
+        [JsonPropertyName(animal.AdoptionContractContractOldFileId)]
+        [JsonProperty(animal.AdoptionContractContractOldFileId)]
+        public Guid? AdoptionContractContractOldFileId { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var errors = new List<ValidationResult>();
@@ -115,6 +119,11 @@ namespace AnimalRescue.API.Models.Animals
                 if (!string.IsNullOrWhiteSpace(AdoptivePhone))
                 {
                     errors.Add(new ValidationResult($"{nameof(AdoptivePhone)} must be empty", new[] { nameof(AdoptivePhone) }));
+                }
+
+                if (AdoptionContractFile != null)
+                {
+                    errors.Add(new ValidationResult($"{nameof(AdoptionContractFile)} must be empty", new[] { nameof(AdoptionContractFile) }));
                 }
             }
 

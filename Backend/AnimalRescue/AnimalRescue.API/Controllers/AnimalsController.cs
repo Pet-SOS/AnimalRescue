@@ -106,7 +106,12 @@ namespace AnimalRescue.API.Controllers
             var imageIds = await _imageService.CreateAsync(animalCreateModel.Images);
 
             var animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalCreateModel);
-            animalModel.AdoptionContractFileId = await HandleAdoptionContractFileAsync(animalCreateModel.AdoptionContractFile);
+
+            if (animalCreateModel.AdoptionContractFile != null)
+            {
+                var document = await _documentService.UploadFileAsync(animalCreateModel.AdoptionContractFile);
+                animalModel.AdoptionContractFileId = document.Id;
+            }
 
             if (imageIds?.Count > 0)
             {
@@ -129,7 +134,16 @@ namespace AnimalRescue.API.Controllers
 
             var animalModel = _mapper.Map<AnimalCreateUpdateModel, AnimalModel>(animalUpdateModel);
             animalModel.Id = id;
-            animalModel.AdoptionContractFileId = await HandleAdoptionContractFileAsync(animalUpdateModel.AdoptionContractFile);
+
+            if (animalUpdateModel.AdoptionContractFile != null)
+            {
+                var document = await _documentService.UploadFileAsync(animalUpdateModel.AdoptionContractFile);
+                animalModel.AdoptionContractFileId = document.Id;
+            }
+            else if (animalUpdateModel.AdoptionContractContractOldFileId.HasValue)
+            {
+                animalModel.AdoptionContractFileId = animalUpdateModel.AdoptionContractContractOldFileId;
+            }
 
             if (imageIds?.Count > 0)
             {
@@ -147,21 +161,5 @@ namespace AnimalRescue.API.Controllers
         {
             await _animalService.DeleteAsync(id);
         }
-
-        #region private methods
-
-        private async Task<Guid> HandleAdoptionContractFileAsync(IFormFile adoptionContractFile)
-        {
-            if (adoptionContractFile != null)
-            {
-                var document = await _documentService.UploadFileAsync(adoptionContractFile);
-                return document.Id;
-            }
-
-            return default;
-        }
-
-        #endregion
-
     }
 }

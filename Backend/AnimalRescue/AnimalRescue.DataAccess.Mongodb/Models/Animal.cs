@@ -91,8 +91,8 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement(animal.AdoptivePhone)]
         public string AdoptivePhone { get; set; }
 
-        [CouplingPropertyName(animal.AdoptionContractFile)]
-        [BsonElement(animal.AdoptionContractFile)]
+        [CouplingPropertyName(animal.AdoptionContractFileId)]
+        [BsonElement(animal.AdoptionContractFileId)]
         public string AdoptionContractFileId { get; set; }
     }
 }

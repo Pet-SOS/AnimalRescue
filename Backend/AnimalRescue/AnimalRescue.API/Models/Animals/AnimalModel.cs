@@ -81,8 +81,8 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(animal.AdoptivePhone)]
         public string AdoptivePhone { get; set; }
 
-        [JsonPropertyName(animal.AdoptionContractFile)]
-        [JsonProperty(animal.AdoptionContractFile)]
-        public Guid AdoptionContractFileId { get; set; }
+        [JsonPropertyName(animal.AdoptionContractFileId)]
+        [JsonProperty(animal.AdoptionContractFileId)]
+        public Guid? AdoptionContractFileId { get; set; }
     }
 }
