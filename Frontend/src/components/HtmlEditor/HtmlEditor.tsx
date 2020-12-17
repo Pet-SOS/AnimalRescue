@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 interface IPropTypes {
   editorState: any;
   onChange: (editorState: any) => any;
-  classList?: {}
+  classList?: {};
 }
 
 // Doc
@@ -15,13 +15,13 @@ export class HtmlEditor extends React.PureComponent<IPropTypes> {
   static modules = {
     toolbar: [
       ['bold', 'italic', 'underline'],
-      [{'list': 'ordered'}, {'list': 'bullet'}],
+      [{ list: 'ordered' }, { list: 'bullet' }],
       ['link'],
-    ]
-  }
+    ],
+  };
 
   constructor(props: IPropTypes) {
-    super(props)
+    super(props);
   }
 
   render() {

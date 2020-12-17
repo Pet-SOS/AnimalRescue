@@ -22,10 +22,10 @@ export interface IYouTubeVideo {
       default: IYouTubeVideoThumbnail;
       medium: IYouTubeVideoThumbnail;
       high: IYouTubeVideoThumbnail;
-    }
+    };
     channelTitle: string;
     liveBroadcastContent: string;
-  }
+  };
 }
 
 export interface YouTubeVideosResponse {
@@ -35,18 +35,22 @@ export interface YouTubeVideosResponse {
   regionCode: string;
   pageInfo: {
     totalResults: number;
-    resultsPerPage: number
+    resultsPerPage: number;
   };
-  items: IYouTubeVideo[]
+  items: IYouTubeVideo[];
 }
 
-export async function fetchYouTubeVideosList(count?: number): Promise<YouTubeVideosResponse> {
-  const res = await API_YOTUBE.get('search', {params: {
-    part: 'snippet',
-    type: 'video',
-    maxResults: !!count ? count : 10,
-    order: 'date',
-    id: ''
-  }});
-  return res.data
+export async function fetchYouTubeVideosList(
+  count?: number,
+): Promise<YouTubeVideosResponse> {
+  const res = await API_YOTUBE.get('search', {
+    params: {
+      part: 'snippet',
+      type: 'video',
+      maxResults: !!count ? count : 10,
+      order: 'date',
+      id: '',
+    },
+  });
+  return res.data;
 }

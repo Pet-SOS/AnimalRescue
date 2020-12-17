@@ -1,1 +1,1 @@
-export * from './getBlogType'
+export * from './getBlogType';

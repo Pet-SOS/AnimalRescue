@@ -21,7 +21,11 @@ export interface IArticleListResponse {
   self: string;
 }
 
-export async function fetchArticleList(requestParams?: IRequestParams): Promise<IArticleListResponse[]> {
-  const res = await API.get(`blogs`, { params: prepareRequestParams(requestParams)});
-  return res.data
+export async function fetchArticleList(
+  requestParams?: IRequestParams,
+): Promise<IArticleListResponse[]> {
+  const res = await API.get(`blogs`, {
+    params: prepareRequestParams(requestParams),
+  });
+  return res.data;
 }

@@ -45,6 +45,7 @@ namespace AnimalRescue.BusinessLogic
                 new CmsConfigurationMappingProfile(),
                 new DonationConfigurationMappingProfile(),
                 new FinancialReportMappingProfile(),
+                new FinancialReportYearInfoMappingProfile(),
                 new TagMappingProfile(),
                 new WellKnownTagMappingProfile(),
                 new TagLargeMappingProfile(),
@@ -82,6 +83,7 @@ namespace AnimalRescue.BusinessLogic
 
             services.AddScoped<IDocumentCollectionService, DocumentCollectionService>();
             services.AddScoped<IFinancialReportService, FinancialReportService>();
+            services.AddScoped<IFinancialReportYearInfoService, FinancialReportYearInfoService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
             services.AddScoped<ITagService, TagService>();
@@ -99,6 +101,7 @@ namespace AnimalRescue.BusinessLogic
             services.AddScoped<IUsersManagementService, UsersManagementService>();
 
             services.AddScoped<IRequestAdoptAnimalService, RequestAdoptAnimalService>();
+            services.AddScoped<IEmergencyRequestService, EmergencyRequestService>();
 
             BackgroundServices(services, configuration);
         }

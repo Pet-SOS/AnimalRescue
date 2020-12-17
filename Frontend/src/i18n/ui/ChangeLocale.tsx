@@ -1,9 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {ILocales, locales} from "../store/state";
-import {ICustomAppState} from "../../store/state";
-import {actionSetLocale} from "../store/actions";
-import {Select, SelectExpandDirections} from "../../components/Select";
+import { connect } from 'react-redux';
+import { ILocales, locales } from '../store/state';
+import { ICustomAppState } from '../../store/state';
+import { actionSetLocale } from '../store/actions';
+import { Select, SelectExpandDirections } from '../../components/Select';
 import '../styles/index.scss';
 import { APP_LANGUAGE_KEY } from '../store/reducer';
 
@@ -13,20 +13,27 @@ interface ISelectLocale {
   expandDirection?: SelectExpandDirections;
 }
 
-const ChangeLocaleMain: React.FC<ISelectLocale> = ({ selected, setLocale, expandDirection }) => (
+const ChangeLocaleMain: React.FC<ISelectLocale> = ({
+  selected,
+  setLocale,
+  expandDirection,
+}) => (
   <Select
-      data={locales.map((locale: ILocales) => ({label: locale.value.toUpperCase(), value: locale.value}))}
-      selected={selected}
-      onChange={(value: string) => setLocale(value)}
-      expandDirection={expandDirection}
-      title={false}
+    data={locales.map((locale: ILocales) => ({
+      label: locale.value.toUpperCase(),
+      value: locale.value,
+    }))}
+    selected={selected}
+    onChange={(value: string) => setLocale(value)}
+    expandDirection={expandDirection}
+    title={false}
   />
-)
+);
 
 const selectLocaleMapStateToProps = (state: ICustomAppState) => ({
-  selected: state[APP_LANGUAGE_KEY]
+  selected: state[APP_LANGUAGE_KEY],
 });
 
 export const ChangeLocale = connect(selectLocaleMapStateToProps, {
-    setLocale: actionSetLocale
+  setLocale: actionSetLocale,
 })(ChangeLocaleMain);

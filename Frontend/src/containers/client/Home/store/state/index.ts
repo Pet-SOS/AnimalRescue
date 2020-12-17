@@ -1,6 +1,6 @@
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
 import { IInfoCardResponse } from './../../../../../api/infoCard';
-import { IInfoContactsResponse } from "../../../../../api/contacts";
+import { IInfoContactsResponse } from '../../../../../api/contacts';
 
 export interface IInfoContacts extends IInfoContactsResponse {
   isLoading: boolean;
@@ -33,35 +33,34 @@ export const DEFAULT_INFO_CARD = {
     body: '',
   },
   isLoaded: false,
-  isLoading: false
-}
+  isLoading: false,
+};
 
-export const DEFAULT_CONTACTS: IInfoContacts ={
+export const DEFAULT_CONTACTS: IInfoContacts = {
   data: {
     socialLinks: {
       instagram: '',
       facebook: '',
       youtube: '',
     },
-    emails:{
+    emails: {
       animalRescue1: '',
     },
     addresses: {
-      country:'',
-      town:'',
+      country: '',
+      town: '',
       street: '',
     },
     phones: [],
   },
   isLoading: false,
-  isLoaded: false
-}
-
+  isLoaded: false,
+};
 
 export const DEFAULT_HOME_PAGE_STATE: IHomePageState = {
-  isActivePopup:  false,
-  infoCardState: { ...DEFAULT_REQUEST_STATE},
-  infoCard:{...DEFAULT_INFO_CARD},
-  infoContacts:{...DEFAULT_CONTACTS},
-  infoContactsState: { ...DEFAULT_REQUEST_STATE},
+  isActivePopup: false,
+  infoCardState: { ...DEFAULT_REQUEST_STATE },
+  infoCard: { ...DEFAULT_INFO_CARD },
+  infoContacts: { ...DEFAULT_CONTACTS },
+  infoContactsState: { ...DEFAULT_REQUEST_STATE },
 };

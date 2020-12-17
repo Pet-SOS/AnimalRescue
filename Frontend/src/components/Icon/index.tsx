@@ -1,14 +1,12 @@
-import React from "react";
-import "./index.scss"
+import React from 'react';
+import './index.scss';
 
 const Icon: React.FC<{
-    text?: string,
-    className: string
+  text?: string;
+  className: string;
 }> = props => {
-    const { text, className = "" } = props;
-    return (
-        <i className={className}>{text}</i>
-    );
+  const { text, className = '' } = props;
+  return <i className={className}>{text}</i>;
 };
 
 export default Icon;

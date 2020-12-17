@@ -16,18 +16,18 @@ export const medicinesNeeds: { [key: string]: string } = {
   medicinesNeedsList12: 'Катетери внутрішньовенні (сині, рожеві)',
   medicinesNeedsList13: 'Шприци 2мл',
   medicinesNeedsList14: 'Одноразові рукавички (розмір S, M)',
-}
+};
 
 export const MedicinesList: React.FC = () => (
-  <ul className='dots-list'>
+  <ul className="dots-list">
     {Object.keys(medicinesNeeds).map((key, index) => {
       if (medicinesNeeds.hasOwnProperty(key)) {
         return (
           <li key={index}>
             <TI18n keyStr={key} default={medicinesNeeds[key]} />
           </li>
-        )
+        );
       }
     })}
   </ul>
-)
+);
