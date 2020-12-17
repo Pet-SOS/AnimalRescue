@@ -4,12 +4,11 @@ using AnimalRescue.Contracts.BusinessLogic.Interfaces;
 using AnimalRescue.Contracts.BusinessLogic.Models;
 using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
-
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +19,7 @@ namespace AnimalRescue.API.Controllers
     /// API management for animals
     /// </summary>
     //[ApiVersion("1")]
+    [Authorize("Bearer")]
     public class AnimalsController : ApiControllerBase
     {
         private readonly IBlFullCrud<AnimalDto, AnimalDto, Guid> _animalService;
@@ -47,19 +47,21 @@ namespace AnimalRescue.API.Controllers
             _sequenceService = sequenceService;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<AnimalModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
             return await GetItemAsync<AnimalDto, AnimalModel, Guid>(_animalService, id, _mapper);
         }
 
+        [AllowAnonymous]
         [HttpPost("bunch")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetItemsByIdsAsync([BindRequired, FromBody] AnimalBanch animalBanch)
         {
             List<AnimalModel> resultModels = new List<AnimalModel>(animalBanch.AnimalIds.Count);
@@ -75,19 +77,21 @@ namespace AnimalRescue.API.Controllers
             return Collection(resultModels, resultModels.Count, 1, resultModels.Count);
         }
 
+        [AllowAnonymous]
         [HttpGet]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CollectionSegmentApiResponse<AnimalModel>>> GetAsync([FromQuery]ApiQueryRequest queryRequest)
         {
             return await GetCollectionAsync<AnimalDto, AnimalModel>(_animalService, queryRequest, _mapper);
         }
 
+        [AllowAnonymous]
         [HttpGet("Counter")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> GetCountAsync()
         {
             return Item(await _animalService.GetCountAsync(new ApiQueryRequest()));
@@ -99,8 +103,9 @@ namespace AnimalRescue.API.Controllers
         /// <param name="animalCreateModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<AnimalModel>> CreateItemAsync([FromForm] AnimalCreateUpdateModel animalCreateModel)
         {
             var imageIds = await _imageService.CreateAsync(animalCreateModel.Images);
@@ -125,9 +130,10 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task UpdateAsync([BindRequired, FromRoute] Guid id, [FromForm] AnimalCreateUpdateModel animalUpdateModel)
         {
             var imageIds = await _imageService.CreateAsync(animalUpdateModel.Images);
@@ -154,9 +160,10 @@ namespace AnimalRescue.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task DeleteAsync([BindRequired, FromRoute] Guid id)
         {
             await _animalService.DeleteAsync(id);
