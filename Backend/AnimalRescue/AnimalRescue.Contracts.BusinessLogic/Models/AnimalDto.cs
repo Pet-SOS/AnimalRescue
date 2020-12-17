@@ -41,5 +41,14 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
 
         [CouplingPropertyDto(animal.BannerText)]
         public string BannerText { get; set; }
+
+        [CouplingPropertyDto(animal.AdoptiveName)]
+        public string AdoptiveName { get; set; }
+
+        [CouplingPropertyDto(animal.AdoptivePhone)]
+        public string AdoptivePhone { get; set; }
+
+        [CouplingPropertyDto(animal.AdoptionContractFileId)]
+        public Guid? AdoptionContractFileId { get; set; }
     }
 }

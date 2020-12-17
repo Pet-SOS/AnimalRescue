@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
-
 using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.API.Models.Animals
 {
-    public class AnimalCreateUpdateModel
+    public class AnimalCreateUpdateModel : IValidatableObject
     {
         [JsonPropertyName(animal.Number)]
         [JsonProperty(animal.Number)]
@@ -78,5 +75,59 @@ namespace AnimalRescue.API.Models.Animals
         [JsonPropertyName(animal.BannerText)]
         [JsonProperty(animal.BannerText)]
         public string BannerText { get; set; }
+
+        [JsonPropertyName(animal.AdoptiveName)]
+        [JsonProperty(animal.AdoptiveName)]
+        public string AdoptiveName { get; set; }
+
+        [RegularExpression(@"^[0-9\-\+]{4,15}$", ErrorMessage = "Incorrect phone number format.")]
+        [JsonPropertyName(animal.AdoptivePhone)]
+        [JsonProperty(animal.AdoptivePhone)]
+        public string AdoptivePhone { get; set; }
+
+        [JsonPropertyName(animal.AdoptionContractFile)]
+        [JsonProperty(animal.AdoptionContractFile)]
+        public IFormFile AdoptionContractFile { get; set; }
+
+        [JsonPropertyName(animal.AdoptionContractContractOldFileId)]
+        [JsonProperty(animal.AdoptionContractContractOldFileId)]
+        public Guid? AdoptionContractContractOldFileId { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var errors = new List<ValidationResult>();
+
+            if (string.Equals(Status, "ADOPTED", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrWhiteSpace(AdoptiveName))
+                {
+                    errors.Add(new ValidationResult($"{nameof(AdoptiveName)} is required", new[] { nameof(AdoptiveName) }));
+                }
+
+                if (string.IsNullOrWhiteSpace(AdoptivePhone))
+                {
+                    errors.Add(new ValidationResult($"{nameof(AdoptivePhone)} is required", new[] { nameof(AdoptivePhone) }));
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(AdoptiveName))
+                {
+                    errors.Add(new ValidationResult($"{nameof(AdoptiveName)} must be empty", new[] { nameof(AdoptiveName) }));
+                }
+
+                if (!string.IsNullOrWhiteSpace(AdoptivePhone))
+                {
+                    errors.Add(new ValidationResult($"{nameof(AdoptivePhone)} must be empty", new[] { nameof(AdoptivePhone) }));
+                }
+
+                if (AdoptionContractFile != null)
+                {
+                    errors.Add(new ValidationResult($"{nameof(AdoptionContractFile)} must be empty", new[] { nameof(AdoptionContractFile) }));
+                }
+            }
+
+            return errors;
+        }
     }
 }
