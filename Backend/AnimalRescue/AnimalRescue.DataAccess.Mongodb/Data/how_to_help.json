@@ -1,0 +1,279 @@
+{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "helpPageMainText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Тварин, які або народилися бездомними, або від них відмовилися їх власники, підбирають небайдужі громадяни та волонтери офісу «Порятунок тварин Харків». Ми допомагаємо пухнастиків і за допомогою волонтерів оплачуємо лікування і утримання тварини, займаємося адаптацією і пошуком сім'ї, розміщуючи оголошення на своїх майданчиках.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>Animals that were either born homeless or were abandoned by their owners are selected by caring citizens and volunteers at the Pryatunok Tvarin Kharkiv office. We help pussies and with the help of volunteers we pay for the treatment and maintenance of the animal, we are engaged in adaptation and family search, posting ads on our sites.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Tiere, die entweder obdachlos geboren wurden oder deren Besitzer abgelehnt wurden, werden von den gleichgültigen Bürgern und Freiwilligen des Büros «Poryatunok tvarin Kharkiv» ausgewählt. Wir helfen Fotzen und mit Hilfe von Freiwilligen, die wir für die Behandlung und Pflege des Tieres bezahlen, beschäftigen wir uns mit Anpassung und Familiensuche und veröffentlichen Anzeigen auf unseren Websites.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Животных, которые либо родились бездомными, либо от них отказались их владельцы, подбирают неравнодушные граждане и волонтеры офиса «Порятунок тварин Харків». Мы помогаем пушистикам и с помощью волонтеров оплачиваем лечение и содержание животного, занимаемся адаптацией и поиском семьи, размещая объявления на своих площадках.</p>"
+          }
+        ]
+      },
+      {
+        "name": "helpPageFinanceTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Фінансово"
+          },
+          {
+            "lang": "en",
+            "value": "Financially"
+          },
+          {
+            "lang": "de",
+            "value": "Finanziell"
+          },
+          {
+            "lang": "ru",
+            "value": "Финансово"
+          }
+        ]
+      },
+      {
+        "name": "helpPageFinanceText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Наша служба щодня піклується про сотні тварин. У нас є автомобіль, завдяки якому ми можемо виїжджати на термінові виклики, свій відділ лікування, адоптации і прістройства. Найлегший спосіб допомогти нам і нашим пухнастиків - пожертвувати будь-яку суму на корм, лікування та забезпечення роботи служби і притулків.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>Our service daily cares for hundreds of animals. We have a car, thanks to which we can go on urgent calls, our department of treatment, adaptation and attachment. The easiest way to help us and our pussies is to donate any amount for food, treatment and maintenance of the service and shelters.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Unser Service kümmert sich täglich um Hunderte von Tieren. Wir haben ein Auto, dank dem wir dringende Anrufe tätigen können, unsere Abteilung für Behandlung, Anpassung und Befestigung. Der einfachste Weg, uns und unseren Fotzen zu helfen, besteht darin, einen beliebigen Betrag für Essen, Behandlung und Wartung des Dienstes und der Unterstände zu spenden.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Наша служба ежедневно заботится о сотнях животных. У нас есть автомобиль, благодаря которому мы можем выезжать на срочные вызовы, свой отдел лечения, адаптации и пристройства. Самый легкий способ помочь нам и нашим пушистикам - пожертвовать любую сумму на корм, лечение и обеспечение работы службы и приютов.</p>"
+          }
+        ]
+      },
+      {
+        "name": "helpPageStuffTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Речами"
+          },
+          {
+            "lang": "en",
+            "value": "Goods"
+          },
+          {
+            "lang": "de",
+            "value": "Dinge"
+          },
+          {
+            "lang": "ru",
+            "value": "Вещами"
+          }
+        ]
+      },
+      {
+        "name": "regularNeedsTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Постійні потреби"
+          },
+          {
+            "lang": "en",
+            "value": "Regular needs"
+          },
+          {
+            "lang": "de",
+            "value": "Ständige Bedürfnisse"
+          },
+          {
+            "lang": "ru",
+            "value": "Постоянные нужды"
+          }
+        ]
+      },
+      {
+        "name": "regularNeedsList",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<ul><li>Корм вологий для котів і собак. Підійде будь-якої фірми.</li><li>Корм Royal Canin recovery</li><li>Корм сухий для собак і котів фірми Клуб 4 лапи</li><li>Сухе молоко для новонароджених цуценят і кошенят (Royal Canin, Canine)</li><li>Пелюшки одноразові</li><li>Памперси 5 розмір</li><li>Поводки 5 - 10 метрів, ошийники, шлейки</li><li>Будки для собак</li><li>Солома</li><li>Дрова</li><li>Наповнювач</li><li>Миючі засоби для підлоги (дезінфектори)</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<ul><li>Wet food for cats and dogs. Suitable for any company.</li><li>Royal Canin recovery feed</li><li>Dog and cat food Club 4 paws</li><li>Powdered milk for newborn puppies and kittens (Royal Canin, Canine)</li><li>Disposable diapers</li><li>Pampers 5 size</li><li>Leashes 5 - 10 meters, collars, harnesses</li><li>Dog booths</li><li>Straw</li><li>Firewood</li><li>Filler</li><li>Floor detergents (disinfectors)</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<ul><li>Nassfutter für Katzen und Hunde. Geeignet für jedes Unternehmen.</li><li>Корм Royal Canin recovery</li><li>Hunde- und Katzenfutter Club 4 Pfoten</li><li>Milchpulver für neugeborene Welpen und Kätzchen (Royal Canin, Canine)</li><li>Wegwerfwindeln</li><li>Verwöhnt 5 Größe</li><li>Leinen 5 - 10 Meter, Halsbänder, Gurte</li><li>Hundekabinen</li><li>Stroh</li><li>Brennholz</li><li>Füllstoff</li><li>Bodenwaschmittel (Desinfektionsmittel)</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<ul><li>Корм влажный для кошек и собак. Подойдет любой фирмы.</li><li>Корм Royal Canin recovery</li><li>Корм для собак и кошек фирмы Клуб 4 лапы</li><li>Сухое молоко для новорожденных щенков и котят (Royal Canin, Canine)</li><li>Пеленки одноразовые</li><li>Памперсы 5 размер</li><li>Поводки 5 - 10 метров, ошейники, шлейки</li><li>Будки для собак</li><li>Солома</li><li>Дрова</li><li>Наполнитель</li><li>Моющие средства для пола (дезинфекторы)</li></ul>"
+          }
+        ]
+      },
+      {
+        "name": "medicinesNeedsTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Медикаменти"
+          },
+          {
+            "lang": "en",
+            "value": "Medicines"
+          },
+          {
+            "lang": "de",
+            "value": "Medikamente"
+          },
+          {
+            "lang": "ru",
+            "value": "Медикаменты"
+          }
+        ]
+      },
+      {
+        "name": "medicinesNeedsList",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<ul><li>Розчин Рінгера</li><li>Глюкоза 5%</li><li>Натрію хлорид</li><li>Цефтріаксон 1г</li><li>Катозал</li><li>Левоміколь</li><li>Окситетрациклінова мазь</li><li>Ципрофарм</li><li>Перекись</li><li>Хлоргексидин</li><li>Бинти</li><li>Катетери внутрішньовенні (сині, рожеві)</li><li>Шприци 2мл</li><li>Одноразові рукавички (розмір S, M)</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<ul><li>Ringer's solution</li><li>Glucose 5%</li><li>Sodium chloride</li><li>Ceftriaxone 1g</li><li>Catozal</li><li>Levomekol</li><li>Oxytetracycline ointment</li><li>Ciprofarm</li><li>Peroxide</li><li>Chlorhexidine</li><li>Bandages</li><li>Intravenous catheters (blue, pink)</li><li>Syringes 2ml</li><li>Disposable mitts (size S, M)</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<ul><li>Ringer-Lösung</li><li>Glukose 5%</li><li>Natriumchlorid</li><li>Ceftriaxon 1 g</li><li>Catozal</li><li>Levomekol</li><li>Oxytetracyclin-Salbe</li><li>Ciprofarm</li><li>Peroxid</li><li>Chlorhexidin</li><li>Bandagen</li><li>Intravenöse Katheter (blau, pink)</li><li>Spritzen 2ml</li><li>Einweghandschuhe (Größe S, M)</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<ul><li>Раствор Рингера</li><li>Глюкоза 5%</li><li>Натрия хлорид</li><li>Цефтриаксон 1г</li><li>Катозал</li><li>Левомеколь</li><li>Окситетрациклиновая мазь</li><li>Ципрофарм</li><li>Перекись</li><li>Хлоргексидин</li><li>Бинты</li><li>Катетеры внутривенные (синие, розовые)</li><li>Шприцы 2мл</li><li>Одноразовые рукавички (размер S, M)</li></ul>"
+          }
+        ]
+      },
+      {
+        "name": "antiparasiticNeedsTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Протипаразитарні засоби"
+          },
+          {
+            "lang": "en",
+            "value": "Antiparasitic agents"
+          },
+          {
+            "lang": "de",
+            "value": "Antiparasitika"
+          },
+          {
+            "lang": "ru",
+            "value": "Противопаразитные средства"
+          }
+        ]
+      },
+      {
+        "name": "antiparasiticNeedsList",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Протиглисні:</p><ul><li>для цуценят - Прококс, Празицид</li><li>для кошенят - Празицид, Мільбемакс</li><li>для котів - Енвайр, Дронтал, Мільбемакс</li><li>для собак - Енвайр, Каніквантель</li></ul><p>Протиблошині:</p><ul><li>собаки і коти - Вітомакс голд, Адвантікс, Адвантейдж</li><li>кошенята, цуценята - Больфо спрей, Фіпроніл, Фіприст</li></ul><p>Комплексні (від бліх і глистів):</p><ul><li>Празицид-комплекс</li><li>Стронгхолд</li></ul><p>Від кліщів:</p><ul><li>Сімпаріка</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>Anthelmintic:</p><ul><li>for puppies - Prokoks, Prazitsid</li><li>for kittens - Prazitsid, Milbemaks</li><li>for cats - Enwire, Drontal, Milbemax</li><li>for dogs - Envir, Caniquantel</li></ul><p>Antifoam:</p><ul><li>dogs and cats - Vitamax Gold, Advantix, Advantage</li><li>kittens, puppies - Bolfo spray, Fipronil, Fiprist</li></ul><p>Complex (from fleas and worms):</p><ul><li>Prazicide complex</li><li>Stronghold</li></ul><p>From ticks:</p><ul><li>Simparika</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Anthelminthikum:</p><ul><li>für Welpen - Prokoks, Prazitsid</li><li>für Kätzchen - Prazitsid, Milbemaks</li><li>für Katzen - Enwire, Drontal, Milbemax</li><li>für Hunde - Envir, Caniquantel</li></ul><p>Antischaummittel:</p><ul><li>Hunde und Katzen - Vitamax Gold, Advantix, Advantage</li><li>Kätzchen, Welpen - Bolfo Spray, Fipronil, Fiprist</li></ul><p>Komplex (aus Flöhen und Würmern):</p><ul><li>Prazizidkomplex</li><li>Festung</li></ul><p>Von Zecken:</p><ul><li>Simparika</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Противоглистные:</p><ul><li>для щенков - Прококс, Празицид</li><li>для котят - Празицид, Мильбемакс</li><li>для кошек - Энвайр, Дронтал, Мильбемакс</li><li>для собак - Энвайр, Каниквантел</li></ul><p>Противоблошиные:</p><ul><li>собаки и коты - Витамакс голд, Адвантикс, Адвантейдж</li><li>котята, щенки - Больфо спрей, Фипронил, Фиприст</li></ul><p>Комплексные (от блох и глистов):</p><ul><li>Празицид-комплекс</li><li>Стронгхолд</li></ul><p>От клещей:</p><ul><li>Симпарика</li></ul>"
+          }
+        ]
+      },
+      {
+        "name": "helpPageVolunteeringTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Волонтерством"
+          },
+          {
+            "lang": "en",
+            "value": "Volunteering"
+          },
+          {
+            "lang": "de",
+            "value": "Freiwilligenarbeit"
+          },
+          {
+            "lang": "ru",
+            "value": "Волонтерством"
+          }
+        ]
+      },
+      {
+        "name": "helpPageVolunteeringText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Якщо ви хочете допомогти руками - у нас завжди знайдеться робота! Ви активна людина, любите тварин, у вас є вільний час і бажання робити добрі і важливі вчинки - ви можете стати частиною команди допомоги і порятунку бездомних тварин.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>If you want to help with your hands, we will always find work! You are an active person, you love animals, you have free time and a desire to do good and important things - you can become part of a team to help and save stray animals.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wenn Sie mit Ihren Händen helfen möchten, finden wir immer Arbeit! Sie sind ein aktiver Mensch, Sie lieben Tiere, Sie haben Freizeit und den Wunsch, gute und wichtige Dinge zu tun - Sie können Teil eines Teams werden, um streunenden Tieren zu helfen und sie zu retten.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Если вы хотите помочь руками - у нас всегда найдется работа! Вы активный человек, любите животных, у вас есть свободное время и желание совершать добрые и важные поступки — вы можете стать частью команды помощи и спасения бездомных животных.</p>"
+          }
+        ]
+      },
+      {
+        "name": "helpPageVolunteeringListTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Яку роботу можуть виконувати волонтери?"
+          },
+          {
+            "lang": "en",
+            "value": "What work can volunteers do?"
+          },
+          {
+            "lang": "de",
+            "value": "Welche Arbeit können Freiwillige leisten?"
+          },
+          {
+            "lang": "ru",
+            "value": "Какую работу могут выполнять волонтеры?"
+          }
+        ]
+      }
+    ]
+  }
+}

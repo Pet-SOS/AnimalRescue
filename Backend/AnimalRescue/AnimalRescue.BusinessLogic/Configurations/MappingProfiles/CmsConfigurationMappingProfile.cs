@@ -62,6 +62,13 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs))
                 .ForPath(x => x.Data.Email, o => o.MapFrom(config => config.Email));
 
+            CreateMap<Configuration<HowToHelp>, HowToHelpDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+            CreateMap<HowToHelpDto, Configuration<HowToHelp>>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
+
 
             CreateMap<Configuration<LanguagesConfig>, LanguagesConfigDto>()
                 .ForMember(x => x.Languages, o => o.MapFrom(config => config.Data.Languages));

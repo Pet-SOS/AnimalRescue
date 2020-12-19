@@ -24,23 +24,26 @@ namespace AnimalRescue.BusinessLogic.Services
             this.mapper = mapper;
         }
 
-        public async Task CreateAsync(CmsConfigurationDto value) => 
+        public async Task CreateAsync(CmsConfigurationDto value) =>
             await CreateConfigurationAsync<CmsConfigurationDto, Contacts>(value);
 
-        public async Task CreateAsync(DonationConfigurationDto value) => 
+        public async Task CreateAsync(DonationConfigurationDto value) =>
             await CreateConfigurationAsync<DonationConfigurationDto, Donation>(value);
 
-        public async Task CreateAsync(HomePopupDto value) => 
+        public async Task CreateAsync(HomePopupDto value) =>
             await CreateConfigurationAsync<HomePopupDto, HomePopup>(value);
 
-        public async Task CreateAsync(HelpPopupDto value) => 
+        public async Task CreateAsync(HelpPopupDto value) =>
             await CreateConfigurationAsync<HelpPopupDto, HelpPopup>(value);
 
         public async Task CreateAsync(AdoptTopicDto value) =>
             await CreateConfigurationAsync<AdoptTopicDto, AdoptTopic>(value);
 
-        public async Task CreateAsync(HelpAdoptDto value) => 
+        public async Task CreateAsync(HelpAdoptDto value) =>
             await CreateConfigurationAsync<HelpAdoptDto, HelpAdopt>(value);
+
+        public async Task CreateAsync(HowToHelpDto value) =>
+            await CreateConfigurationAsync<HowToHelpDto, HowToHelp>(value);
 
         public async Task CreateAsync(LanguagesConfigDto value) =>
             await CreateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
@@ -51,24 +54,27 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
             await GetConfigurationAsync<CmsConfigurationDto, Contacts>();
 
-        public async Task<DonationConfigurationDto> GetDonationConfigurationAsync() => 
+        public async Task<DonationConfigurationDto> GetDonationConfigurationAsync() =>
             await GetConfigurationAsync<DonationConfigurationDto, Donation>();
-       
-        public async Task<HomePopupDto> GetHomePopupConfigurationAsync() => 
+
+        public async Task<HomePopupDto> GetHomePopupConfigurationAsync() =>
             await GetConfigurationAsync<HomePopupDto, HomePopup>();
 
-        public async Task<HelpPopupDto> GetHelpPopupConfigurationAsync() => 
+        public async Task<HelpPopupDto> GetHelpPopupConfigurationAsync() =>
             await GetConfigurationAsync<HelpPopupDto, HelpPopup>();
 
         public async Task<AdoptTopicDto> GetAdoptTopicConfigurationAsync() =>
             await GetConfigurationAsync<AdoptTopicDto, AdoptTopic>();
 
-        public async Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync() => 
+        public async Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync() =>
             await GetConfigurationAsync<HelpAdoptDto, HelpAdopt>();
 
-        public async Task<LanguagesConfigDto> GetLanguagesConfigurationAsync() => 
+        public async Task<HowToHelpDto> GetHowToHelpConfigurationAsync() =>
+            await GetConfigurationAsync<HowToHelpDto, HowToHelp>();
+
+        public async Task<LanguagesConfigDto> GetLanguagesConfigurationAsync() =>
             await GetConfigurationAsync<LanguagesConfigDto, LanguagesConfig>();
-        public async Task<FinancialReportsInfoDto> GetFinancialReportsInfoConfigurationAsync() =>        
+        public async Task<FinancialReportsInfoDto> GetFinancialReportsInfoConfigurationAsync() =>
             await GetConfigurationAsync<FinancialReportsInfoDto, FinancialReportsInfo>();
 
         private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)
@@ -84,6 +90,6 @@ namespace AnimalRescue.BusinessLogic.Services
             var configurationDto = mapper.Map<Configuration<TConfig>, TOut>(configurationDbo);
 
             return configurationDto;
-        }       
+        }
     }
 }
