@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IConfigurationService :
+        IBlCreateAsync<AboutDto>,
         IBlCreateAsync<CmsConfigurationDto>,
         IBlCreateAsync<DonationConfigurationDto>,
         IBlCreateAsync<HomePopupDto>,
@@ -18,6 +19,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlCreateAsync<LanguagesConfigDto>,
         IBlCreateAsync<FinancialReportsInfoDto>
     {
+        Task<AboutDto> GetAboutConfigurationAsync();
         Task<CmsConfigurationDto> GetCmsConfigurationAsync();
         Task<DonationConfigurationDto> GetDonationConfigurationAsync();
         Task<HomePopupDto> GetHomePopupConfigurationAsync();

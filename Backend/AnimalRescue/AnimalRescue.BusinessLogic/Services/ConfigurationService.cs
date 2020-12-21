@@ -24,6 +24,9 @@ namespace AnimalRescue.BusinessLogic.Services
             this.mapper = mapper;
         }
 
+        public async Task CreateAsync(AboutDto value) =>
+            await CreateConfigurationAsync<AboutDto, About>(value);
+
         public async Task CreateAsync(CmsConfigurationDto value) =>
             await CreateConfigurationAsync<CmsConfigurationDto, Contacts>(value);
 
@@ -50,6 +53,9 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task CreateAsync(FinancialReportsInfoDto value) =>
             await CreateConfigurationAsync<FinancialReportsInfoDto, FinancialReportsInfo>(value);
+
+        public async Task<AboutDto> GetAboutConfigurationAsync() =>
+            await GetConfigurationAsync<AboutDto, About>();
 
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
             await GetConfigurationAsync<CmsConfigurationDto, Contacts>();

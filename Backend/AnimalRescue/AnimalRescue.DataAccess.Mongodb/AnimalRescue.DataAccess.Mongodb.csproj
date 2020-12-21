@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\about.json" />
     <None Remove="Data\cms.json" />
     <None Remove="Data\contacts_202007232020.json" />
     <None Remove="Data\donation.json" />
@@ -27,6 +28,7 @@
     <EmbeddedResource Include="Data\donation.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Data\about.json" />
     <EmbeddedResource Include="Data\emergency_request_message.json" />
     <EmbeddedResource Include="Data\help_popup.json" />
     <EmbeddedResource Include="Data\help_adopt.json" />
