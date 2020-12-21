@@ -9,6 +9,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
     public interface IConfigurationService :
         IBlCreateAsync<AboutDto>,
+        IBlCreateAsync<AboutRulesDto>,
         IBlCreateAsync<CmsConfigurationDto>,
         IBlCreateAsync<DonationConfigurationDto>,
         IBlCreateAsync<HomePopupDto>,
@@ -20,6 +21,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlCreateAsync<FinancialReportsInfoDto>
     {
         Task<AboutDto> GetAboutConfigurationAsync();
+        Task<AboutRulesDto> GetAboutRulesConfigurationAsync();
         Task<CmsConfigurationDto> GetCmsConfigurationAsync();
         Task<DonationConfigurationDto> GetDonationConfigurationAsync();
         Task<HomePopupDto> GetHomePopupConfigurationAsync();

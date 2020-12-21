@@ -3,6 +3,7 @@
     public static class ConfigurationConstants
     {
         public const string About = "About";
+        public const string AboutRules = "AboutRules";
         public const string CmsConfigurationName = "Cms";
         public const string Donation = "Donation";
         public const string HowToHelp = "HowToHelp";

@@ -1,0 +1,489 @@
+{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "rulesMainText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Ми ніколи не знаємо, коли тваринам може знадобитися термінова допомога, але знаємо, що завжди повинні бути готові надати її. Команда служби порятунку відповідає на виклики в ситуаціях, коли тварині потрібен захист."
+          },
+          {
+            "lang": "en",
+            "value": "We never know when animals may need urgent help, but we know that we must always be ready to provide it. The rescue team responds to calls in situations where animals need protection."
+          },
+          {
+            "lang": "de",
+            "value": "Wir wissen nie, wann Tiere dringend Hilfe benötigen, aber wir wissen, dass wir immer bereit sein müssen, diese bereitzustellen. Das Rettungsteam reagiert auf Anrufe in Situationen, in denen Tiere geschützt werden müssen."
+          },
+          {
+            "lang": "ru",
+            "value": "Мы никогда не знаем, когда животным может понадобиться срочная помощь, но знаем, что всегда должны быть готовы оказать ее. Команда службы спасения отвечает на вызовы в ситуациях, когда животным требуется защита."
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Що робити, якщо я бачу, що тварині потрібна допомога?"
+          },
+          {
+            "lang": "en",
+            "value": "What if I see that the animal needs help?"
+          },
+          {
+            "lang": "de",
+            "value": "Was ist, wenn ich sehe, dass das Tier Hilfe braucht?"
+          },
+          {
+            "lang": "ru",
+            "value": "Что делать, если я вижу, что животному нужна помощь?"
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Якщо ви побачили, як маленьке кошеня викинули на смітник, їжачка з переламаною лапкою, Скуляни в каналізаційному люку цуценя, кішку, забрали у вентиляційну шахту і не зуміла звідти вибратися, або будь-яке інше тварина потребує допомоги - негайно набирайте наш номер <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a></p><p>На жаль, біда може трапитися в будь-який час, тому телефони служби порятунку працюють в цілодобовому режимі - не бійтеся нам дзвонити і о 2 годині ночі, і о 5 годині ранку.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>If you saw a small kitten thrown into the trash, a hedgehog with a broken leg, whining a puppy in the sewer, a cat who climbed into the ventilation shaft and was unable to get out, or any other animal in need of help - immediately dial our number <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a></p><p>Unfortunately, trouble can happen at any time, so the rescue service phones work around the clock - do not be afraid to call us at 2 a.m. or 5 a.m.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wenn Sie gesehen haben, wie ein kleines Kätzchen in den Müll geworfen wurde, ein Igel mit einem gebrochenen Bein, der einen Welpen im Abwasserkanal jammerte, eine Katze, die in den Lüftungsschacht kletterte und nicht aussteigen konnte, oder ein anderes Tier, das Hilfe brauchte - wählen Sie sofort unsere Nummer <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a></p><p>Leider kann es jederzeit zu Problemen kommen, sodass die Telefone des Rettungsdienstes rund um die Uhr funktionieren. Haben Sie keine Angst, uns um 2 Uhr morgens oder um 5 Uhr morgens anzurufen.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Если вы увидели, как маленького котенка выбросили на помойку, ежика с переломанной лапкой, скулящего в канализационном люке щенка, кошку, забравшуюся в вентиляционную шахту и не сумевшую оттуда выбраться, или любое другое животное нуждающееся в помощи – немедленно набирайте наш номер <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a></p><p>К сожалению, беда может случиться в любое время, поэтому телефоны службы спасения работают в круглосуточном режиме – не бойтесь нам звонить и в 2 часа ночи, и в 5 часов утра.</p>"
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoListText1",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Після з'єднання з оператором опишіть йому суть проблеми, повідомте адресу або приблизні координати місця події."
+          },
+          {
+            "lang": "en",
+            "value": "After connecting with the operator, describe to him the nature of the problem, provide the address or approximate coordinates of the scene."
+          },
+          {
+            "lang": "de",
+            "value": "Beschreiben Sie ihm nach der Verbindung mit dem Bediener die Art des Problems, geben Sie die Adresse oder die ungefähren Koordinaten der Szene an."
+          },
+          {
+            "lang": "ru",
+            "value": "После соединения с оператором опишите ему суть проблемы, сообщите адрес или приблизительные координаты места происшествия."
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoListText2",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Оператор оцінить ступінь складності ситуації і/або загрози для життя тварини і прийме рішення щодо подальших дій."
+          },
+          {
+            "lang": "en",
+            "value": "The operator will assess the degree of complexity of the situation and/or threat to the life of the animal and decide on further actions."
+          },
+          {
+            "lang": "de",
+            "value": "Der Bediener bewertet den Grad der Komplexität der Situation und/oder die Bedrohung des Lebens des Tieres und entscheidet über weitere Maßnahmen."
+          },
+          {
+            "lang": "ru",
+            "value": "Оператор оценит степень сложности ситуации и/или угрозы для жизни животного и примет решение относительно дальнейших действий."
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoListText3",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Далі вам можуть запропонувати привести чотириногого підопічного до нас в офіс, де ми надаємо безкоштовну допомогу бездомним тваринам. Якщо ви не можете цього зробити, за твариною приїдуть волонтери служби порятунку."
+          },
+          {
+            "lang": "en",
+            "value": "Then they may offer you to bring the four-legged ward to our office, where we provide free assistance to homeless animals. If you cannot do this, rescue service volunteers will come for the animal."
+          },
+          {
+            "lang": "de",
+            "value": "Dann bieten sie Ihnen möglicherweise an, die vierbeinige Station in unser Büro zu bringen, wo wir obdachlosen Tieren kostenlose Hilfe leisten. Wenn Sie dies nicht tun können, werden Freiwillige des Rettungsdienstes für das Tier kommen."
+          },
+          {
+            "lang": "ru",
+            "value": "Дальше вам могут предложить привести четвероногого подопечного к нам в офис, где мы оказываем бесплатную помощь бездомным животным. Если вы не можете этого сделать, за животным приедут волонтеры службы спасения."
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoListText4",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "В екстрених випадках постраждала тварина доставляється до ветеринарної клініки."
+          },
+          {
+            "lang": "en",
+            "value": "In emergency cases, the injured animal is delivered to the veterinary clinic."
+          },
+          {
+            "lang": "de",
+            "value": "В экстренных случаях пострадавшее животное доставляется в ветеринарную клинику."
+          },
+          {
+            "lang": "ru",
+            "value": "В экстренных случаях пострадавшее животное доставляется в ветеринарную клинику."
+          }
+        ]
+      },
+      {
+        "name": "rulesWhatShouldIDoListText5",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Після того, як необхідна допомога буде надана, ми допомагаємо нашим вихованцям знайти своїх господарів або знайти новий дім."
+          },
+          {
+            "lang": "en",
+            "value": "After the necessary help is provided, we help our pets find their owners or find a new home."
+          },
+          {
+            "lang": "de",
+            "value": "Nachdem die notwendige Hilfe bereitgestellt wurde, helfen wir unseren Haustieren, ihre Besitzer zu finden oder ein neues Zuhause zu finden."
+          },
+          {
+            "lang": "ru",
+            "value": "После того, как необходимая помощь будет оказана, мы помогаем нашим питомцам найти своих хозяев или обрести новый дом."
+          }
+        ]
+      },
+      {
+        "name": "rulesWarningText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Перед тим, як привозити тварину в «Порятунок тварин Харків» обов'язково зателефонуйте на «гарячу лінію»! Ми не приймаємо тварин без попереднього узгодження в телефонному режимі."
+          },
+          {
+            "lang": "en",
+            "value": "Before you bring an animal to the \"Animal Rescue Kharkov\" be sure to call the \"hot line\"! We do not accept animals without prior approval by telephone."
+          },
+          {
+            "lang": "de",
+            "value": "Bevor Sie ein Tier zur \"Ferkelkreatur Harkiv\" bringen, rufen Sie unbedingt die \"Hotline\" an! Wir akzeptieren keine Tiere ohne vorherige telefonische Genehmigung."
+          },
+          {
+            "lang": "ru",
+            "value": "Перед тем, как привозить животное в «Порятунок тварин Харків» обязательно позвоните на «горячую линию»! Мы не принимаем животных без предварительного согласования в телефонном режиме."
+          }
+        ]
+      },
+      {
+        "name": "rulesAdoptionRulesTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Правила адопціі"
+          },
+          {
+            "lang": "en",
+            "value": "Adoption Rules"
+          },
+          {
+            "lang": "de",
+            "value": "Adoptionsregeln"
+          },
+          {
+            "lang": "ru",
+            "value": "Правила адопции"
+          }
+        ]
+      },
+      {
+        "name": "rulesAdoptionRulesText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Всі ми знаємо, що тварина - це, не тільки багато щастя, а й перш за все, відповідальність. Тому, перш ніж привести хвостика в своє життя, Ви повинні реально оцінити свої сили. Адже жива істота вимагає часу, уваги і коштів. Саме тому необхідно зважити всі «за» і «проти» і лише потім приймати остаточне рішення."
+          },
+          {
+            "lang": "en",
+            "value": "We all know that an animal is not only a lot of happiness, but above all a responsibility. Therefore, before you bring a ponytail into your life, you must really evaluate your strength. After all, a living being takes time, attention and money. That is why it is necessary to weigh all the pros and cons and only then make the final decision."
+          },
+          {
+            "lang": "de",
+            "value": "Wir alle wissen, dass ein Tier nicht nur viel Glück ist, sondern vor allem Verantwortung. Bevor Sie den Schwanz in Ihr Leben bringen, müssen Sie daher Ihre Stärke wirklich bewerten. Ein Lebewesen braucht schließlich Zeit, Aufmerksamkeit und Geld. Deshalb ist es notwendig, die Vor- und Nachteile abzuwägen und erst dann eine endgültige Entscheidung zu treffen."
+          },
+          {
+            "lang": "ru",
+            "value": "Все мы знаем, что животное - это, не только много счастья, но и прежде всего, ответственность. Поэтому, прежде чем привести хвостика в свою жизнь, Вы должны реально оценить свои силы. Ведь живое существо требует времени, внимания и средств. Именно поэтому необходимо взвесить все «за» и «против» и только потом принимать окончательное решение."
+          }
+        ]
+      },
+      {
+        "name": "rulesAdoptionListCorrectItems",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<ul><li>Тварини віддаються тільки майбутнім господарям</li><li>Всі тварини віддаються на умовах Договору</li><li>Обов’язкова стерилізація по віку</li><li>Для котів: наявність сіток на вікнах</li><li>Якщо у вас є інші тварини вдома, вони мають бути привиті та стерилізовані</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<ul><li>Animals are given only to future owners</li><li>All animals are provided under the terms of the Treaty</li><li>Mandatory sterilization by age</li><li>For cats: the presence of nets on the windows</li><li>Якщо у вас є інші тварини вдома, вони мають бути привиті та стерилізовані</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<ul><li>Tiere werden nur zukünftigen Besitzern gegeben</li><li>Alle Tiere sind gemäß den Bestimmungen der Vereinbarung angegeben</li><li>Obligatorische Sterilisation nach Alter</li><li>Für Katzen: das Vorhandensein von Netzen an den Fenstern</li><li>Wenn Sie andere Tiere zu Hause haben, müssen diese geimpft und sterilisiert werden</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<ul><li>Животные отдаются только будущим хозяевам</li><li>Все животные отдаются на условиях Договора</li><li>Обязательная стерилизация по возрасту</li><li>Для кошек: наличие сеток на окнах</li><li>Если у вас есть другие животные дома, они должны быть привиты и стерилизованы</li></ul>"
+          }
+        ]
+      },
+      {
+        "name": "rulesAdoptionListIncorrectItems",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<ul><li>Тварини не віддаються на подарунок, в якості іграшки, родичам</li><li>Тварини не віддаються на підприємства, на ланцюг, самовигул, охорону, мисливство</li><li>Тварини не віддаються особам молодшим за 21 рік</li></ul><p><br></p>"
+          },
+          {
+            "lang": "en",
+            "value": "<ul><li>If you have other animals at home, they must be vaccinated and neutered</li><li>Animals are not given to businesses, to the chain, to self-feeding, to protection, to hunting</li><li>Animals are not given to persons under 21 years of age</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<ul><li>Tiere werden nicht als Geschenke an Verwandte gegeben</li><li>Tiere werden nicht an Unternehmen, an die Kette, Samovigul, Sicherheit, Jagd gegeben</li><li>Tiere werden nicht an Personen unter 21 Jahren abgegeben</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<ul><li>Животные не отдаются на подарок, в качестве игрушки, родственникам</li><li>Животные не отдаются на предприятия, на цепь, самовигул, охрану, охоту</li><li>Животные не отдаются лицам моложе 21 года</li></ul>"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Як усиновити тварину?"
+          },
+          {
+            "lang": "en",
+            "value": "How to adopt an animal?"
+          },
+          {
+            "lang": "de",
+            "value": "Wie adoptiere ich ein Tier?"
+          },
+          {
+            "lang": "ru",
+            "value": "Как усыновить животное?"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Основне, що потрібно для усиновлення тварини - це любов."
+          },
+          {
+            "lang": "en",
+            "value": "The main thing you need to adopt an animal is love."
+          },
+          {
+            "lang": "de",
+            "value": "Die Hauptsache, die Sie brauchen, um ein Tier zu adoptieren, ist Liebe."
+          },
+          {
+            "lang": "ru",
+            "value": "Основное, что нужно для усыновления животного - это любовь."
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemTitle1",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Особиста зустріч"
+          },
+          {
+            "lang": "en",
+            "value": "A personal meeting"
+          },
+          {
+            "lang": "de",
+            "value": "Persönliches Treffen"
+          },
+          {
+            "lang": "ru",
+            "value": "Личная встреча"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemText1",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Зустрітися з твариною. Це допоможе зрозуміти, чи підходить воно вам за темпераментом. У деяких випадках рекомендується приїжджати до тварини кілька разів.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>Get to know the animal. This will help to understand whether it suits you in temperament. In some cases, it is recommended to come to the animal several times.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Lerne das Tier kennen. Dies hilft zu verstehen, ob es Ihnen im Temperament passt. In einigen Fällen wird empfohlen, mehrmals zum Tier zu kommen.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Познакомьтесь с животным. Это поможет понять, подходит ли оно вам по темпераменту. В некоторых случаях рекомендуется приезжать к животному несколько раз.</p>"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemTitle2",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Підготуйте будинок до нового мешканця"
+          },
+          {
+            "lang": "en",
+            "value": "Prepare your home for a new tenant"
+          },
+          {
+            "lang": "de",
+            "value": "Bereiten Sie Ihr Zuhause für einen neuen Mieter vor"
+          },
+          {
+            "lang": "ru",
+            "value": "Подготовьте дом к новому жильцу"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemText2",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Співробітник притулку вам розповість про індивідуальні потреби обраного вихованця. Підготуйте для тваринного все необхідне: місце для сну, корм, мисочки для їжі і води, місце для туалету і наповнювач, іграшки, сітки на вікнах і ін.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>An employee of the shelter will tell you about the individual needs of the selected pet. Prepare for the animal everything you need: a place to sleep, food, bowls for food and water, a place for the toilet and filler, toys, nets on the windows, etc.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Ein Mitarbeiter des Tierheims informiert Sie über die individuellen Bedürfnisse des ausgewählten Haustieres. Bereiten Sie für das Tier alles vor, was Sie brauchen: einen Platz zum Schlafen, Futter, Schüsseln für Futter und Wasser, einen Platz für Toilette und Füllstoff, Spielzeug, Netze an den Fenstern usw.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Сотрудник приюта вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое: место для сна, корм, мисочки для еды и воды, место для туалета и наполнитель, игрушки, сетки на окнах и пр.</p>"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemTitle3",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Підписати договір"
+          },
+          {
+            "lang": "en",
+            "value": "Sign an agreement"
+          },
+          {
+            "lang": "de",
+            "value": "Einen Vertrag unterschreiben"
+          },
+          {
+            "lang": "ru",
+            "value": "Подписать договор"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemText3",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Обов'язковим етапом є підписання договору.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>Mandatory step is the signing of the contract.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Obligatorischer Schritt ist die Unterzeichnung des Vertrages.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Обязательным этапом является подписание договора.</p>"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemTitle4",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Випробувальний термін"
+          },
+          {
+            "lang": "en",
+            "value": "Probation"
+          },
+          {
+            "lang": "de",
+            "value": "Probezeit"
+          },
+          {
+            "lang": "ru",
+            "value": "Испытательный срок"
+          }
+        ]
+      },
+      {
+        "name": "rulesHowToAdoptListItemText4",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Якщо у вас виникають труднощі з вихованцем, не соромтеся нам дзвонити! Ми допоможемо і якщо все-таки не вийде подружитися, заберемо тварину назад.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>If you have any difficulties with your pet, do not hesitate to call us! We will help and if you still can’t make friends, we will take the animal back.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wenn Sie Probleme mit Ihrem Haustier haben, rufen Sie uns an! Wir helfen und wenn Sie immer noch keine Freunde finden können, nehmen wir das Tier zurück.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно.</p>"
+          }
+        ]
+      }
+    ]
+  }
+}
