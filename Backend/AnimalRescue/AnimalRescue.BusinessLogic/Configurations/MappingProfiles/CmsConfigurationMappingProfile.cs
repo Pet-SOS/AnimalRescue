@@ -90,6 +90,13 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
+            CreateMap<Configuration<AdoptPopup>, AdoptPopupDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+            CreateMap<AdoptPopupDto, Configuration<AdoptPopup>>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
+
             CreateMap<Configuration<Home>, HomeDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));

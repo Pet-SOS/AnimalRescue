@@ -5,6 +5,7 @@
         public const string About = "About";
         public const string AboutFinancialReports = "AboutFinancialReports";
         public const string AboutRules = "AboutRules";
+        public const string AdoptPopup = "AdoptPopup";
         public const string CmsConfigurationName = "Cms";
         public const string Donation = "Donation";
         public const string HowToHelp = "HowToHelp";

@@ -33,6 +33,9 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(AboutRulesDto value) =>
             await CreateConfigurationAsync<AboutRulesDto, AboutRules>(value);
 
+        public async Task CreateAsync(AdoptPopupDto value) =>
+            await CreateConfigurationAsync<AdoptPopupDto, AdoptPopup>(value);
+
         public async Task CreateAsync(CmsConfigurationDto value) =>
             await CreateConfigurationAsync<CmsConfigurationDto, Contacts>(value);
 
@@ -71,6 +74,9 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<AboutRulesDto> GetAboutRulesConfigurationAsync() =>
             await GetConfigurationAsync<AboutRulesDto, AboutRules>();
+
+        public async Task<AdoptPopupDto> GetAdoptPopupConfigurationAsync() =>
+            await GetConfigurationAsync<AdoptPopupDto, AdoptPopup>();
 
         public async Task<CmsConfigurationDto> GetCmsConfigurationAsync() =>
             await GetConfigurationAsync<CmsConfigurationDto, Contacts>();
