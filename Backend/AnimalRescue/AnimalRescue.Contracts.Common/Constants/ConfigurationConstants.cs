@@ -9,6 +9,7 @@
         public const string Donation = "Donation";
         public const string HowToHelp = "HowToHelp";
         public const string Language = "Language";
+        public const string Home = "Home";
         public const string HomePopup = "HomePopup";
         public const string HelpPopup = "HelpPopup";
         public const string HelpAdopt = "HelpAdopt";
