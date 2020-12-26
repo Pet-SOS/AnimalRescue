@@ -48,14 +48,8 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(HomePopupDto value) =>
             await CreateConfigurationAsync<HomePopupDto, HomePopup>(value);
 
-        public async Task CreateAsync(HelpPopupDto value) =>
-            await CreateConfigurationAsync<HelpPopupDto, HelpPopup>(value);
-
         public async Task CreateAsync(AdoptTopicDto value) =>
             await CreateConfigurationAsync<AdoptTopicDto, AdoptTopic>(value);
-
-        public async Task CreateAsync(HelpAdoptDto value) =>
-            await CreateConfigurationAsync<HelpAdoptDto, HelpAdopt>(value);
 
         public async Task CreateAsync(HowToHelpDto value) =>
             await CreateConfigurationAsync<HowToHelpDto, HowToHelp>(value);
@@ -90,14 +84,8 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task<HomePopupDto> GetHomePopupConfigurationAsync() =>
             await GetConfigurationAsync<HomePopupDto, HomePopup>();
 
-        public async Task<HelpPopupDto> GetHelpPopupConfigurationAsync() =>
-            await GetConfigurationAsync<HelpPopupDto, HelpPopup>();
-
         public async Task<AdoptTopicDto> GetAdoptTopicConfigurationAsync() =>
             await GetConfigurationAsync<AdoptTopicDto, AdoptTopic>();
-
-        public async Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync() =>
-            await GetConfigurationAsync<HelpAdoptDto, HelpAdopt>();
 
         public async Task<HowToHelpDto> GetHowToHelpConfigurationAsync() =>
             await GetConfigurationAsync<HowToHelpDto, HowToHelp>();

@@ -18,12 +18,6 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
             CreateMap<CmsConfigurationModel, CmsConfigurationDto>();
             CreateMap<CmsConfigurationDto, CmsConfigurationModel>();
 
-            CreateMap<HelpAdoptModel, HelpAdoptDto>();
-            CreateMap<HelpAdoptDto, HelpAdoptModel>();
-
-            CreateMap<HelpPopupModel, HelpPopupDto>();
-            CreateMap<HelpPopupDto, HelpPopupModel>();
-
             CreateMap<HomePopupModel, HomePopupDto>();
             CreateMap<HomePopupDto, HomePopupModel>();
 

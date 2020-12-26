@@ -32,20 +32,6 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(cms => cms.Paragraphs))
                 .ForPath(x => x.Data.SocialLinks, o => o.MapFrom(cms => cms.SocialLinks));
 
-
-            CreateMap<Configuration<HelpAdopt>, HelpAdoptDto>().ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<HelpAdoptDto, Configuration<HelpAdopt>>()
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
-
-            CreateMap<Configuration<HelpPopup>, HelpPopupDto>()
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<HelpPopupDto, Configuration<HelpPopup>>()
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
-
             CreateMap<Configuration<AdoptTopic>, AdoptTopicDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
