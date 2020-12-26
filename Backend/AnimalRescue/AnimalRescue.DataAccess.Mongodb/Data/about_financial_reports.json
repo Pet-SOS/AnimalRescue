@@ -1,0 +1,27 @@
+{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "financialReportsPageText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Кожного місяця до 20 числа ми готуємо фінансовий звіт, в якому вказуємо всі суми, які прийшли від доброзичливців і як вони були розподілені."
+          },
+          {
+            "lang": "en",
+            "value": "Every month until the 20th day we prepare a financial report in which we indicate all the amounts received from well-wishers and how they were distributed."
+          },
+          {
+            "lang": "de",
+            "value": "Bis zum 20. Tag erstellen wir jeden Monat einen Finanzbericht, in dem wir alle von Gratulanten erhaltenen Beträge und deren Verteilung angeben."
+          },
+          {
+            "lang": "ru",
+            "value": "Каждый месяц до 20 числа мы готовим финансовый отчет, в котором указываем все суммы, пришедшие от доброжелателей и как они были распределены."
+          }
+        ]
+      }
+    ]
+  }
+}

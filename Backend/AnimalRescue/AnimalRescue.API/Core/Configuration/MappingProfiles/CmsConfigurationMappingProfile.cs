@@ -42,6 +42,9 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
             CreateMap<AboutModel, AboutDto>();
             CreateMap<AboutDto, AboutModel>();
 
+            CreateMap<AboutFinancialReportsModel, AboutFinancialReportsDto>();
+            CreateMap<AboutFinancialReportsDto, AboutFinancialReportsModel>();
+
             CreateMap<AboutRulesModel, AboutRulesDto>();
             CreateMap<AboutRulesDto, AboutRulesModel>();
         }
