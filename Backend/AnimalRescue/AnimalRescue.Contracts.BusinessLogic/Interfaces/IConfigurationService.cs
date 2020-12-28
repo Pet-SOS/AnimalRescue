@@ -15,7 +15,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlCreateAsync<CmsConfigurationDto>,
         IBlCreateAsync<DonationConfigurationDto>,
         IBlCreateAsync<HomeDto>,
-        IBlCreateAsync<AdoptTopicDto>,
         IBlCreateAsync<HowToHelpDto>,
         IBlCreateAsync<LanguagesConfigDto>,
         IBlCreateAsync<FinancialReportsInfoDto>
@@ -27,7 +26,6 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         Task<CmsConfigurationDto> GetCmsConfigurationAsync();
         Task<DonationConfigurationDto> GetDonationConfigurationAsync();
         Task<HomeDto> GetHomeConfigurationAsync();
-        Task<AdoptTopicDto> GetAdoptTopicConfigurationAsync();
         Task<HowToHelpDto> GetHowToHelpConfigurationAsync();
         Task<LanguagesConfigDto> GetLanguagesConfigurationAsync();
         Task<FinancialReportsInfoDto> GetFinancialReportsInfoConfigurationAsync();

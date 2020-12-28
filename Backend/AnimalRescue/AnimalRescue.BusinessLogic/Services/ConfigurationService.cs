@@ -45,9 +45,6 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(HomeDto value) =>
             await CreateConfigurationAsync<HomeDto, Home>(value);
 
-        public async Task CreateAsync(AdoptTopicDto value) =>
-            await CreateConfigurationAsync<AdoptTopicDto, AdoptTopic>(value);
-
         public async Task CreateAsync(HowToHelpDto value) =>
             await CreateConfigurationAsync<HowToHelpDto, HowToHelp>(value);
 
@@ -77,9 +74,6 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<HomeDto> GetHomeConfigurationAsync() =>
             await GetConfigurationAsync<HomeDto, Home>();
-
-        public async Task<AdoptTopicDto> GetAdoptTopicConfigurationAsync() =>
-            await GetConfigurationAsync<AdoptTopicDto, AdoptTopic>();
 
         public async Task<HowToHelpDto> GetHowToHelpConfigurationAsync() =>
             await GetConfigurationAsync<HowToHelpDto, HowToHelp>();

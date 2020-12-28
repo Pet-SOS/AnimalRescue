@@ -21,9 +21,6 @@ namespace AnimalRescue.API.Core.Configuration.MappingProfiles
             CreateMap<LanguagesConfigModel, LanguagesConfigDto>();
             CreateMap<LanguagesConfigDto, LanguagesConfigModel>();
 
-            CreateMap<AdoptTopicModel, AdoptTopicDto>();
-            CreateMap<AdoptTopicDto, AdoptTopicModel>();
-
             CreateMap<HowToHelpModel, HowToHelpDto>();
             CreateMap<HowToHelpDto, HowToHelpModel>();
 

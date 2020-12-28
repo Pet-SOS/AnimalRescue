@@ -11,7 +11,6 @@
         public const string HowToHelp = "HowToHelp";
         public const string Language = "Language";
         public const string Home = "Home";
-        public const string AdoptTopic = "AdoptTopic";
         public const string EmergencyRequestMessage = "EmergencyRequestMessage";
         public const string FinancialReportsInfo = "FinancialReportsInfo";
     }
