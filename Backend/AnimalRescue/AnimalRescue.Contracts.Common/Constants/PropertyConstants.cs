@@ -62,6 +62,11 @@ namespace AnimalRescue.Contracts.Common.Constants
             public const string IsDonationActive = "isDonationActive";
             public const string BannerText = "bannerText";
             public const string AnimalState = "animalState";
+            public const string AdoptiveName = "adoptiveName";
+            public const string AdoptivePhone = "adoptivePhone";
+            public const string AdoptionContractFile = "adoptionContractFile";
+            public const string AdoptionContractFileId = "adoptionContractFileId";
+            public const string AdoptionContractContractOldFileId = "adoptionContractContractOldFileId";
         }
 
         public static class Common
