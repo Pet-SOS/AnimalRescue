@@ -23,7 +23,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
             var logger = serviceProvider.GetRequiredService<ILogger<IBaseRepository<MigrationHistory>>>();
             var migrationHistory = await migrationHistoryRepository.GetAsync(new DbQuery());
 
-            var m = GetAvailableMigrations().ToList();
             var migrations = GetAvailableMigrations()
                 .Where(x => IsNotAppliedMigration(x, migrationHistory))
                 .ToList();
