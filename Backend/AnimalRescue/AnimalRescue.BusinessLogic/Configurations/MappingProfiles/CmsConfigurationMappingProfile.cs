@@ -39,15 +39,6 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
-            CreateMap<Configuration<HomePopup>, HomePopupDto>() //get
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs))
-                .ForPath(x => x.Email, o => o.MapFrom(config => config.Data.Email));
-            CreateMap<HomePopupDto, Configuration<HomePopup>>() //post
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs))
-                .ForPath(x => x.Data.Email, o => o.MapFrom(config => config.Email));
-
             CreateMap<Configuration<HowToHelp>, HowToHelpDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));

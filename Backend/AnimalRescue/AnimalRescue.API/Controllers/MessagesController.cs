@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AnimalRescue.API.Models.Messages;
 using AnimalRescue.Contracts.BusinessLogic.Interfaces;
@@ -16,8 +16,8 @@ namespace AnimalRescue.API.Controllers
         private readonly IConfigurationService _configurationService;
         private readonly IRequestAdoptAnimalService _requestAdoptAnimalService;
 
-        public MessagesController(IConfigurationService configurationService, 
-            IMapper mapper, 
+        public MessagesController(IConfigurationService configurationService,
+            IMapper mapper,
             IRequestAdoptAnimalService requestAdoptAnimalService)
         {
             Require.Objects.NotNull(mapper, nameof(mapper));
@@ -36,8 +36,10 @@ namespace AnimalRescue.API.Controllers
         public async Task RequestAdoptAnimal([FromBody] RequestAdoptAnimalModel adoptAnimalModel)
         {
             var data = _mapper.Map<RequestAdoptAnimalModel, RequestAdoptAnimalDto>(adoptAnimalModel);
-            var homePopupDto = await _configurationService.GetHomePopupConfigurationAsync();           
-            _requestAdoptAnimalService.SendMessage(homePopupDto.Email, data);
+            var contactsDto = await _configurationService.GetCmsConfigurationAsync();
+            var email = contactsDto.Emails.First(pair => pair.Key == "animalRescue1").Value;
+
+            _requestAdoptAnimalService.SendMessage(email, data);
         }
     }
 }
