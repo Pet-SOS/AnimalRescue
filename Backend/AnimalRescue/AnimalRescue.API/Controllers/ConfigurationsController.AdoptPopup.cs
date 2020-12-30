@@ -11,13 +11,14 @@ namespace AnimalRescue.API.Controllers
 {
     public partial class ConfigurationsController
     {
-        [HttpPost("adopt-popup")]
-        [ProducesResponseType(201)]
+        [HttpPut("adopt-popup")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateAdoptPopupAsync([FromBody] AdoptPopupModel model)
+        [ProducesResponseType(404)]
+        public async Task UpdateAdoptPopupAsync([FromBody] AdoptPopupModel model)
         {
             var data = _mapper.Map<AdoptPopupModel, AdoptPopupDto>(model);
-            await _configurationService.CreateAsync(data);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("adopt-popup")]

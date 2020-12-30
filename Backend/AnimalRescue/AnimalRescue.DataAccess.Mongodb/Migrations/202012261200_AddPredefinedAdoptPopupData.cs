@@ -12,16 +12,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         const string fileName = "adopt_popup.json";
 
-        private readonly IConfigurationRepository _configurationRepository;
+        private readonly IConfigurationRepository<AdoptPopup> _configurationRepository;
 
-        public AddPredefinedAdoptPopupData(IConfigurationRepository configurationRepository)
+        public AddPredefinedAdoptPopupData(IConfigurationRepository<AdoptPopup> configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<AdoptPopup>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<AdoptPopup>, Configuration<AdoptPopup>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }

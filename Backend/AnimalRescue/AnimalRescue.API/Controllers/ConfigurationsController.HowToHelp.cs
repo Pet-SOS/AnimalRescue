@@ -11,13 +11,14 @@ namespace AnimalRescue.API.Controllers
 {
     public partial class ConfigurationsController
     {
-        [HttpPost("how-to-help")]
-        [ProducesResponseType(201)]
+        [HttpPut("how-to-help")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateHowToHelpAsync([FromBody] HowToHelpModel howToHelpModel)
+        [ProducesResponseType(404)]
+        public async Task UpdateHowToHelpAsync([FromBody] HowToHelpModel model)
         {
-            var data = _mapper.Map<HowToHelpModel, HowToHelpDto>(howToHelpModel);
-            await _configurationService.CreateAsync(data);
+            var data = _mapper.Map<HowToHelpModel, HowToHelpDto>(model);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("how-to-help")]

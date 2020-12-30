@@ -11,13 +11,14 @@ namespace AnimalRescue.API.Controllers
 {
     public partial class ConfigurationsController
     {
-        [HttpPost("about")]
-        [ProducesResponseType(201)]
+        [HttpPut("about")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateAboutAsync([FromBody] AboutModel model)
+        [ProducesResponseType(404)]
+        public async Task UpdateAboutAsync([FromBody] AboutModel model)
         {
             var data = _mapper.Map<AboutModel, AboutDto>(model);
-            await _configurationService.CreateAsync(data);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("about")]

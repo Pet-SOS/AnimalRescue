@@ -9,16 +9,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     [Migration("202006101942_AddPredefinedDonationData")]
     internal class AddPredefinedDonationData : IAnimalRescueMigration
     {
-        private readonly IConfigurationRepository _configurationRepository;
+        private readonly IConfigurationRepository<Donation> _configurationRepository;
 
-        public AddPredefinedDonationData(IConfigurationRepository configurationRepository)
+        public AddPredefinedDonationData(IConfigurationRepository<Donation> configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<Donation>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<Donation>, Configuration<Donation>>(
                 "donation.json",
                 (repo, item) => repo.CreateAsync(item));
         }

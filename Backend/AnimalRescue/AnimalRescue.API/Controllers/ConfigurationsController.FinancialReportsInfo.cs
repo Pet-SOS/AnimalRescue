@@ -9,14 +9,14 @@ namespace AnimalRescue.API.Controllers
 {
     public partial class ConfigurationsController
     {
-        [HttpPost("financialReportInfo")]
-        [ProducesResponseType(201)]
+        [HttpPut("financialReportInfo")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        public async Task CreateFinancialReportsInfoAsync([FromBody] FinancialReportsInfoModel financialReportsInfoModel)
+        [ProducesResponseType(404)]
+        public async Task UpdateFinancialReportsInfoAsync([FromBody] FinancialReportsInfoModel model)
         {
-            var modelDto = _mapper.Map<FinancialReportsInfoModel, FinancialReportsInfoDto>(financialReportsInfoModel);
-            await _configurationService.CreateAsync(modelDto);
+            var data = _mapper.Map<FinancialReportsInfoModel, FinancialReportsInfoDto>(model);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("financialReportInfo")]

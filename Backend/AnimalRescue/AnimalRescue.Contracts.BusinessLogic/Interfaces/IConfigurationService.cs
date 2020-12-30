@@ -17,7 +17,17 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlCreateAsync<HomeDto>,
         IBlCreateAsync<HowToHelpDto>,
         IBlCreateAsync<LanguagesConfigDto>,
-        IBlCreateAsync<FinancialReportsInfoDto>
+        IBlCreateAsync<FinancialReportsInfoDto>,
+        IBlUpdateAsync<AboutDto>,
+        IBlUpdateAsync<AboutFinancialReportsDto>,
+        IBlUpdateAsync<AboutRulesDto>,
+        IBlUpdateAsync<AdoptPopupDto>,
+        IBlUpdateAsync<DonationConfigurationDto>,
+        IBlUpdateAsync<CmsConfigurationDto>,
+        IBlUpdateAsync<FinancialReportsInfoDto>,
+        IBlUpdateAsync<HomeDto>,
+        IBlUpdateAsync<HowToHelpDto>,
+        IBlUpdateAsync<LanguagesConfigDto>
     {
         Task<AboutDto> GetAboutConfigurationAsync();
         Task<AboutFinancialReportsDto> GetAboutFinancialReportsConfigurationAsync();

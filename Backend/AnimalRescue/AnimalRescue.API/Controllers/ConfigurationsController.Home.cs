@@ -11,13 +11,14 @@ namespace AnimalRescue.API.Controllers
 {
     public partial class ConfigurationsController
     {
-        [HttpPost("home")]
-        [ProducesResponseType(201)]
+        [HttpPut("home")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateHomeAsync([FromBody] HomeModel model)
+        [ProducesResponseType(404)]
+        public async Task UpdateHomeAsync([FromBody] HomeModel model)
         {
             var data = _mapper.Map<HomeModel, HomeDto>(model);
-            await _configurationService.CreateAsync(data);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("home")]

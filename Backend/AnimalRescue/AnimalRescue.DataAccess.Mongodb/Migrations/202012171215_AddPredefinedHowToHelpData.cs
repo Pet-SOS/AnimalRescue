@@ -12,16 +12,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         const string fileName = "how_to_help.json";
 
-        private readonly IConfigurationRepository _configurationRepository;
+        private readonly IConfigurationRepository<HowToHelp> _configurationRepository;
 
-        public AddPredefinedHowToHelpData(IConfigurationRepository configurationRepository)
+        public AddPredefinedHowToHelpData(IConfigurationRepository<HowToHelp> configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<HowToHelp>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<HowToHelp>, Configuration<HowToHelp>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }

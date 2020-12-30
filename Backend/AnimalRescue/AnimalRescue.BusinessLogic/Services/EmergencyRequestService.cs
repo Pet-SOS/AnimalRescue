@@ -9,10 +9,12 @@ namespace AnimalRescue.BusinessLogic.Services
 {
     internal class EmergencyRequestService : IEmergencyRequestService
     {
-        private readonly IConfigurationRepository _configurationRepository;
+        private readonly IConfigurationRepository<EmergencyRequestMessage> _configurationRepository;
         private readonly IEventEmittingService _eventEmittingService;
 
-        public EmergencyRequestService(IConfigurationRepository configurationRepository, IEventEmittingService eventEmittingService)
+        public EmergencyRequestService(
+            IConfigurationRepository<EmergencyRequestMessage> configurationRepository,
+            IEventEmittingService eventEmittingService)
         {
             _configurationRepository = configurationRepository;
             _eventEmittingService = eventEmittingService;
@@ -20,7 +22,7 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task Notify(RequestDto request)
         {
-            var messageFormatConfig = await _configurationRepository.GetConfigurationAsync<EmergencyRequestMessage>();
+            var messageFormatConfig = await _configurationRepository.GetConfigurationAsync();
 
             EmergencyMessage emergencyMessage = new EmergencyMessage();
 

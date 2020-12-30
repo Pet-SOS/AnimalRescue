@@ -12,16 +12,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         const string fileName = "about_financial_reports.json";
 
-        private readonly IConfigurationRepository _configurationRepository;
+        private readonly IConfigurationRepository<AboutFinancialReports> _configurationRepository;
 
-        public AddPredefinedAboutFinancialReportsData(IConfigurationRepository configurationRepository)
+        public AddPredefinedAboutFinancialReportsData(IConfigurationRepository<AboutFinancialReports> configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<AboutFinancialReports>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<AboutFinancialReports>, Configuration<AboutFinancialReports>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }
