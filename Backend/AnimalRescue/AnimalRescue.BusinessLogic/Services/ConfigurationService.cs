@@ -25,7 +25,6 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly IConfigurationRepository<Home> _configHomeRepository;
         private readonly IConfigurationRepository<HowToHelp> _configHowToHelpRepository;
         private readonly IConfigurationRepository<LanguagesConfig> _configLanguagesConfigRepository;
-        private readonly IConfigurationRepository<FinancialReportsInfo> _configFinancialReportsInfoRepository;
 
         public ConfigurationService(IMapper mapper,
             IConfigurationRepository<About> configAboutRepository,
@@ -36,8 +35,7 @@ namespace AnimalRescue.BusinessLogic.Services
             IConfigurationRepository<Donation> configDonationRepository,
             IConfigurationRepository<Home> configHomeRepository,
             IConfigurationRepository<HowToHelp> configHowToHelpRepository,
-            IConfigurationRepository<LanguagesConfig> configLanguagesConfigRepository,
-            IConfigurationRepository<FinancialReportsInfo> configFinancialReportsInfoRepository)
+            IConfigurationRepository<LanguagesConfig> configLanguagesConfigRepository)
         {
             _mapper = mapper;
             _configAboutRepository = configAboutRepository;
@@ -49,7 +47,6 @@ namespace AnimalRescue.BusinessLogic.Services
             _configHomeRepository = configHomeRepository;
             _configHowToHelpRepository = configHowToHelpRepository;
             _configLanguagesConfigRepository = configLanguagesConfigRepository;
-            _configFinancialReportsInfoRepository = configFinancialReportsInfoRepository;
         }
 
         public async Task CreateAsync(AboutDto value)
@@ -113,13 +110,6 @@ namespace AnimalRescue.BusinessLogic.Services
             var configuration = _mapper.Map<LanguagesConfigDto, Configuration<LanguagesConfig>>(value);
 
             await _configLanguagesConfigRepository.CreateAsync(configuration);
-        }
-
-        public async Task CreateAsync(FinancialReportsInfoDto value)
-        {
-            var configuration = _mapper.Map<FinancialReportsInfoDto, Configuration<FinancialReportsInfo>>(value);
-
-            await _configFinancialReportsInfoRepository.CreateAsync(configuration);
         }
 
 
@@ -195,14 +185,6 @@ namespace AnimalRescue.BusinessLogic.Services
             return configurationDto;
         }
 
-        public async Task<FinancialReportsInfoDto> GetFinancialReportsInfoConfigurationAsync()
-        {
-            var configurationDbo = await _configFinancialReportsInfoRepository.GetConfigurationAsync();
-            var configurationDto = _mapper.Map<Configuration<FinancialReportsInfo>, FinancialReportsInfoDto>(configurationDbo);
-
-            return configurationDto;
-        }
-
 
         public async Task UpdateAsync(AboutDto value)
         {
@@ -244,13 +226,6 @@ namespace AnimalRescue.BusinessLogic.Services
             var configuration = _mapper.Map<CmsConfigurationDto, Configuration<Contacts>>(value);
 
             await _configContactsRepository.UpdateAsync(configuration);
-        }
-
-        public async Task UpdateAsync(FinancialReportsInfoDto value)
-        {
-            var configuration = _mapper.Map<FinancialReportsInfoDto, Configuration<FinancialReportsInfo>>(value);
-
-            await _configFinancialReportsInfoRepository.UpdateAsync(configuration);
         }
 
         public async Task UpdateAsync(HomeDto value)

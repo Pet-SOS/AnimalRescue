@@ -79,13 +79,6 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForMember(x => x.Languages, o => o.MapFrom(config => config.Data.Languages));
             CreateMap<LanguagesConfigDto, Configuration<LanguagesConfig>>()
                 .ForPath(x => x.Data.Languages, o => o.MapFrom(config => config.Languages));
-
-            CreateMap<Configuration<FinancialReportsInfo>, FinancialReportsInfoDto>()
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<FinancialReportsInfoDto, Configuration<FinancialReportsInfo>>()
-                .ForMember(config => config.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
-                .ForPath(config => config.Data.Paragraphs, o => o.MapFrom(x => x.Paragraphs));
         }
     }
 }

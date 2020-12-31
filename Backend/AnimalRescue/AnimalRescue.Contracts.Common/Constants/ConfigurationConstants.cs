@@ -12,6 +12,5 @@
         public const string Language = "Language";
         public const string Home = "Home";
         public const string EmergencyRequestMessage = "EmergencyRequestMessage";
-        public const string FinancialReportsInfo = "FinancialReportsInfo";
     }
 }
