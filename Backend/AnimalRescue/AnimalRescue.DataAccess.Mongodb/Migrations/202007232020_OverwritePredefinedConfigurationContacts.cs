@@ -12,16 +12,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         const string fileName = "contacts_202007232020.json";
 
-        private readonly IConfigurationRepository<Contacts> _configurationRepository;
+        private readonly IConfigurationRepository _configurationRepository;
 
-        public OverwritePredefinedConfigurationContacts(IConfigurationRepository<Contacts> configurationRepository)
+        public OverwritePredefinedConfigurationContacts(IConfigurationRepository configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<Contacts>, Configuration<Contacts>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<Contacts>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }

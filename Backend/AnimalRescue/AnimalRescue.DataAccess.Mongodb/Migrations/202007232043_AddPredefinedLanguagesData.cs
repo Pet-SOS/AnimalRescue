@@ -12,16 +12,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         const string fileName = "languages.json";
 
-        private readonly IConfigurationRepository<LanguagesConfig> _configurationRepository;
+        private readonly IConfigurationRepository _configurationRepository;
 
-        public AddPredefinedLanguagesData(IConfigurationRepository<LanguagesConfig> configurationRepository)
+        public AddPredefinedLanguagesData(IConfigurationRepository configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<LanguagesConfig>, Configuration<LanguagesConfig>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<LanguagesConfig>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }

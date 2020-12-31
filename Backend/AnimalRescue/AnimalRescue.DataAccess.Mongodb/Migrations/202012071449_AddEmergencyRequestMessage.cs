@@ -11,16 +11,16 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
     {
         const string fileName = "emergency_request_message.json";
 
-        private readonly IConfigurationRepository<EmergencyRequestMessage> _configurationRepository;
+        private readonly IConfigurationRepository _configurationRepository;
 
-        public AddEmergencyRequestMessage(IConfigurationRepository<EmergencyRequestMessage> configurationRepository)
+        public AddEmergencyRequestMessage(IConfigurationRepository configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }
 
         public async Task Execute()
         {
-            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository<EmergencyRequestMessage>, Configuration<EmergencyRequestMessage>>(
+            await _configurationRepository.SetUpDataBaseFromJsonFileAsync<IConfigurationRepository, Configuration<EmergencyRequestMessage>>(
                 fileName,
                 (repo, item) => repo.CreateAsync(item));
         }

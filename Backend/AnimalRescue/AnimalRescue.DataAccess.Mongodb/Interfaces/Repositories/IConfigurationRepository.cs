@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
 {
-    public interface IConfigurationRepository<T>
+    public interface IConfigurationRepository
     {
-        Task<Configuration<T>> GetConfigurationAsync();
-        Task CreateAsync(Configuration<T> instance);
-        Task UpdateAsync(Configuration<T> instance);
+        Task<Configuration<T>> GetConfigurationAsync<T>();
+        Task CreateAsync<T>(Configuration<T> instance);
+        Task UpdateAsync<T>(Configuration<T> instance);
     }
 }

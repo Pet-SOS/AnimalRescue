@@ -76,7 +76,7 @@ namespace AnimalRescue.DataAccess.Mongodb
                 .AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>))
 
                 .AddScoped<IChatRepository, ChatRepository>()
-                .AddScoped(typeof(IConfigurationRepository<>), typeof(ConfigurationRepository<>))
+                .AddScoped<IConfigurationRepository, ConfigurationRepository>()
                 .AddScoped<ISequenceRepository, SequenceRepository>()
                 .AddScoped<IWellKnownTagRepository, WellKnownTagRepository>()
                 .AddScoped<ITagLargeRepository, TagLargeRepository>()

@@ -14,23 +14,22 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-using baseItem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseItem;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
-    internal class ConfigurationRepository<T> : IConfigurationRepository<T>
+    internal class ConfigurationRepository : IConfigurationRepository
     {
-        private readonly IBaseCollection<Configuration<T>> baseCollection;
+        private readonly IBaseCollection<Configuration<object>> baseCollection;
 
-        public ConfigurationRepository(IBaseCollection<Configuration<T>> baseCollection)
+        public ConfigurationRepository(IBaseCollection<Configuration<object>> baseCollection)
         {
             Require.Objects.NotNull(baseCollection, nameof(baseCollection));
 
             this.baseCollection = baseCollection;
         }
 
-        public async Task<Configuration<T>> GetConfigurationAsync()
+        public async Task<Configuration<T>> GetConfigurationAsync<T>()
         {
             var configName = TryGetConfigName<T>();
 
@@ -38,13 +37,12 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
             var data = await baseCollection.NativeCollection
                 .Find(filter)
-                .Sort(Builders<BsonDocument>.Sort.Descending(baseItem.CreatedAt))
-                .FirstOrDefaultAsync();
+                .FirstAsync();
 
             return data.Deserialize<Configuration<T>>();
         }
 
-        public async Task CreateAsync(Configuration<T> instance)
+        public async Task CreateAsync<T>(Configuration<T> instance)
         {
             string configName = TryGetConfigName<T>();
             instance.Name = configName;
@@ -53,18 +51,21 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             await baseCollection.CreateAsync(instance.ToBsonDocument());
         }
 
-        public async Task UpdateAsync(Configuration<T> configuration)
+        public async Task UpdateAsync<T>(Configuration<T> configuration)
         {
             Require.Objects.NotNull(configuration, nameof(configuration));
 
-            var oldConfiguration = await GetConfigurationAsync();
+            var oldConfiguration = await GetConfigurationAsync<T>();
 
             Require.Objects.NotNull<NotFoundException>(oldConfiguration,
                 () => $"Configuration for {oldConfiguration.Name} not found");
 
             oldConfiguration.Data = configuration.Data;
 
-            await baseCollection.UpdateAsync(oldConfiguration);
+            await baseCollection.NativeCollection
+                .ReplaceOneAsync(
+                    common.Name.EQ(oldConfiguration.Name),
+                    oldConfiguration.ToBsonDocument());
         }
 
         private static string TryGetConfigName<TConfig>()
