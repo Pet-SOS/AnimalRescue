@@ -8,7 +8,7 @@ namespace AnimalRescue.API.Core.Configuration
     public static class AutoMapperExtension
     {
         public static void AddConfigureAutoMapper(
-            this IServiceCollection services,  
+            this IServiceCollection services,
             List<Profile> profiles)
         {
             profiles.AddRange(new List<Profile> {
@@ -17,7 +17,6 @@ namespace AnimalRescue.API.Core.Configuration
                 new CmsConfigurationMappingProfile(),
                 new AnimalMappingProfile(),
                 new FinancialReportMappingProfile(),
-                new FinancialReportsInfoMappingProfile(),
                 new FinancialReportYearInfoMappingProfile(),
                 new TagMappingProfile(),
                 new TagLargeMappingProfile(),

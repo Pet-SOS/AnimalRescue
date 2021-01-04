@@ -12,7 +12,9 @@ namespace AnimalRescue.BusinessLogic.Services
         private readonly IConfigurationRepository _configurationRepository;
         private readonly IEventEmittingService _eventEmittingService;
 
-        public EmergencyRequestService(IConfigurationRepository configurationRepository, IEventEmittingService eventEmittingService)
+        public EmergencyRequestService(
+            IConfigurationRepository configurationRepository,
+            IEventEmittingService eventEmittingService)
         {
             _configurationRepository = configurationRepository;
             _eventEmittingService = eventEmittingService;

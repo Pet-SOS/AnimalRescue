@@ -11,14 +11,14 @@ namespace AnimalRescue.API.Controllers
 {
     public partial class ConfigurationsController
     {
-        [HttpPost("languages")]
-        [ProducesResponseType(201)]
+        [HttpPut("languages")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateLanguagesAsync([FromBody] LanguagesConfigModel languagesConfigModel)
+        [ProducesResponseType(404)]
+        public async Task UpdateLanguagesAsync([FromBody] LanguagesConfigModel model)
         {
-            var data = _mapper.Map<LanguagesConfigModel, LanguagesConfigDto>(languagesConfigModel);
-            
-            await _configurationService.CreateAsync(data);
+            var data = _mapper.Map<LanguagesConfigModel, LanguagesConfigDto>(model);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("languages")]

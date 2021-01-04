@@ -32,48 +32,53 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(cms => cms.Paragraphs))
                 .ForPath(x => x.Data.SocialLinks, o => o.MapFrom(cms => cms.SocialLinks));
 
-
-            CreateMap<Configuration<HelpAdopt>, HelpAdoptDto>().ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+            CreateMap<Configuration<HowToHelp>, HowToHelpDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<HelpAdoptDto, Configuration<HelpAdopt>>()
+            CreateMap<HowToHelpDto, Configuration<HowToHelp>>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
-            CreateMap<Configuration<HelpPopup>, HelpPopupDto>()
+            CreateMap<Configuration<About>, AboutDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<HelpPopupDto, Configuration<HelpPopup>>()
+            CreateMap<AboutDto, Configuration<About>>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
-            CreateMap<Configuration<AdoptTopic>, AdoptTopicDto>()
+            CreateMap<Configuration<AboutFinancialReports>, AboutFinancialReportsDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
                 .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<AdoptTopicDto, Configuration<AdoptTopic>>()
+            CreateMap<AboutFinancialReportsDto, Configuration<AboutFinancialReports>>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
-            CreateMap<Configuration<HomePopup>, HomePopupDto>() //get
+            CreateMap<Configuration<AboutRules>, AboutRulesDto>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs))
-                .ForPath(x => x.Email, o => o.MapFrom(config => config.Data.Email));
-            CreateMap<HomePopupDto, Configuration<HomePopup>>() //post
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+            CreateMap<AboutRulesDto, Configuration<AboutRules>>()
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
-                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs))
-                .ForPath(x => x.Data.Email, o => o.MapFrom(config => config.Email));
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
+
+            CreateMap<Configuration<AdoptPopup>, AdoptPopupDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+            CreateMap<AdoptPopupDto, Configuration<AdoptPopup>>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
+
+            CreateMap<Configuration<Home>, HomeDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+            CreateMap<HomeDto, Configuration<Home>>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
 
             CreateMap<Configuration<LanguagesConfig>, LanguagesConfigDto>()
                 .ForMember(x => x.Languages, o => o.MapFrom(config => config.Data.Languages));
             CreateMap<LanguagesConfigDto, Configuration<LanguagesConfig>>()
                 .ForPath(x => x.Data.Languages, o => o.MapFrom(config => config.Languages));
-
-            CreateMap<Configuration<FinancialReportsInfo>, FinancialReportsInfoDto>()
-                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
-                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
-            CreateMap<FinancialReportsInfoDto, Configuration<FinancialReportsInfo>>()
-                .ForMember(config => config.Id, o => o.MapFrom(x => x.Id.AsObjectIdString()))
-                .ForPath(config => config.Data.Paragraphs, o => o.MapFrom(x => x.Paragraphs));
         }
     }
 }

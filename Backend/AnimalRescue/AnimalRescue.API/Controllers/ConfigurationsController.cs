@@ -30,13 +30,14 @@ namespace AnimalRescue.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("donation")]
-        [ProducesResponseType(201)]
+        [HttpPut("donation")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateDonationAsync([FromBody] DonationConfigurationModel configuration)
+        [ProducesResponseType(404)]
+        public async Task UpdateDonationAsync([FromBody] DonationConfigurationModel model)
         {
-            var data = _mapper.Map<DonationConfigurationModel, DonationConfigurationDto>(configuration);
-            await _configurationService.CreateAsync(data);
+            var data = _mapper.Map<DonationConfigurationModel, DonationConfigurationDto>(model);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("donation")]
@@ -51,13 +52,14 @@ namespace AnimalRescue.API.Controllers
             return Item(_mapper.Map<DonationConfigurationModel>(modelDto));
         }
 
-        [HttpPost("cms")]
-        [ProducesResponseType(201)]
+        [HttpPut("cms")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task CreateCmsAsync([FromBody] CmsConfigurationModel cmsConfiguration)
+        [ProducesResponseType(404)]
+        public async Task UpdateCmsAsync([FromBody] CmsConfigurationModel model)
         {
-            var data = _mapper.Map<CmsConfigurationModel, CmsConfigurationDto>(cmsConfiguration);
-            await _configurationService.CreateAsync(data);
+            var data = _mapper.Map<CmsConfigurationModel, CmsConfigurationDto>(model);
+            await _configurationService.UpdateAsync(data);
         }
 
         [HttpGet("cms")]

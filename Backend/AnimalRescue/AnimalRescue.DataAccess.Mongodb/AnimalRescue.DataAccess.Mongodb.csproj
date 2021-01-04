@@ -6,13 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\about.json" />
+    <None Remove="Data\about_financial_reports.json" />
+    <None Remove="Data\about_rules.json" />
+    <None Remove="Data\adopt_popup.json" />
     <None Remove="Data\cms.json" />
     <None Remove="Data\contacts_202007232020.json" />
     <None Remove="Data\donation.json" />
     <None Remove="Data\emergency_request_message.json" />
-    <None Remove="Data\help_adopt.json" />
-    <None Remove="Data\help_popup.json" />
-    <None Remove="Data\home_popup.json" />
+    <None Remove="Data\home.json" />
+    <None Remove="Data\how_to_help.json" />
     <None Remove="Data\languages.json" />
     <None Remove="Data\tags.json" />
     <None Remove="Data\UserRoleActions.json" />
@@ -26,10 +29,13 @@
     <EmbeddedResource Include="Data\donation.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Data\about.json" />
+    <EmbeddedResource Include="Data\about_financial_reports.json" />
+    <EmbeddedResource Include="Data\about_rules.json" />
+    <EmbeddedResource Include="Data\adopt_popup.json" />
     <EmbeddedResource Include="Data\emergency_request_message.json" />
-    <EmbeddedResource Include="Data\help_popup.json" />
-    <EmbeddedResource Include="Data\help_adopt.json" />
-    <EmbeddedResource Include="Data\home_popup.json" />
+    <EmbeddedResource Include="Data\home.json" />
+    <EmbeddedResource Include="Data\how_to_help.json" />
     <EmbeddedResource Include="Data\languages.json" />
     <EmbeddedResource Include="Data\UserRoleActions.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

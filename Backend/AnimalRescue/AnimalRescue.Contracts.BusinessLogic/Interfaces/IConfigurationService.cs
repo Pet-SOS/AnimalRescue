@@ -7,23 +7,34 @@ using System.Threading.Tasks;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
 {
-    public interface IConfigurationService: 
-        IBlCreateAsync<CmsConfigurationDto>, 
+    public interface IConfigurationService :
+        IBlCreateAsync<AboutDto>,
+        IBlCreateAsync<AboutFinancialReportsDto>,
+        IBlCreateAsync<AboutRulesDto>,
+        IBlCreateAsync<AdoptPopupDto>,
+        IBlCreateAsync<CmsConfigurationDto>,
         IBlCreateAsync<DonationConfigurationDto>,
-        IBlCreateAsync<HomePopupDto>,
-        IBlCreateAsync<HelpPopupDto>,
-        IBlCreateAsync<AdoptTopicDto>,
-        IBlCreateAsync<HelpAdoptDto>,
+        IBlCreateAsync<HomeDto>,
+        IBlCreateAsync<HowToHelpDto>,
         IBlCreateAsync<LanguagesConfigDto>,
-        IBlCreateAsync<FinancialReportsInfoDto>
+        IBlUpdateAsync<AboutDto>,
+        IBlUpdateAsync<AboutFinancialReportsDto>,
+        IBlUpdateAsync<AboutRulesDto>,
+        IBlUpdateAsync<AdoptPopupDto>,
+        IBlUpdateAsync<DonationConfigurationDto>,
+        IBlUpdateAsync<CmsConfigurationDto>,
+        IBlUpdateAsync<HomeDto>,
+        IBlUpdateAsync<HowToHelpDto>,
+        IBlUpdateAsync<LanguagesConfigDto>
     {
+        Task<AboutDto> GetAboutConfigurationAsync();
+        Task<AboutFinancialReportsDto> GetAboutFinancialReportsConfigurationAsync();
+        Task<AboutRulesDto> GetAboutRulesConfigurationAsync();
+        Task<AdoptPopupDto> GetAdoptPopupConfigurationAsync();
         Task<CmsConfigurationDto> GetCmsConfigurationAsync();
         Task<DonationConfigurationDto> GetDonationConfigurationAsync();
-        Task<HomePopupDto> GetHomePopupConfigurationAsync();
-        Task<HelpPopupDto> GetHelpPopupConfigurationAsync();
-        Task<AdoptTopicDto> GetAdoptTopicConfigurationAsync();
-        Task<HelpAdoptDto> GetHelpAdoptConfigurationAsync();
+        Task<HomeDto> GetHomeConfigurationAsync();
+        Task<HowToHelpDto> GetHowToHelpConfigurationAsync();
         Task<LanguagesConfigDto> GetLanguagesConfigurationAsync();
-        Task<FinancialReportsInfoDto> GetFinancialReportsInfoConfigurationAsync();
     }
 }

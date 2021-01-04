@@ -91,7 +91,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Migrations
                     typeof(IAnimalRescueMigration).IsAssignableFrom(type)
                     && type.GetCustomAttribute<MigrationAttribute>() != null)
                 .ToArray();
-            
+
             migrationTypes.Select(
                     type =>
                     {
