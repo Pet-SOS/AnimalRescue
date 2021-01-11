@@ -12,7 +12,9 @@ services:
       - "8080:80"
     networks:
       - frontend
-      - backend
+      - backend- AdoptAnimalEmailPublisherSettings__Exchange=${RABBITMQ_Email_Exchange}
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=${RABBITMQ_Email_RoutingKey}
     environment:
       - AdminDetail__Email=${admin_email}
       - AdminDetail__Password=${admin_password}
@@ -69,7 +71,7 @@ services:
   telegram-messenger:
     build:
       context: Backend
-      dockerfile: BackgroundServices/Dockerfile
+      dockerfile: BackgroundServices/TelegramMessenger/Dockerfile
     image: ${DockerRegistryURL}/telegram-messenger:${ImageTag}
     deploy:
       replicas: 1
@@ -86,6 +88,34 @@ services:
       - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
       - MongoDbSettings__DatabaseName=${MongoDB_database}
       - MongoDbSettings__BucketName=file_records
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+    
+  email-sender:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/EmailSender/Dockerfile
+    image: ${DockerRegistryURL}/email-sender:${ImageTag}
+    deploy:
+      replicas: 1
+    restart: unless-stopped
+    environment:
+      - Smtp__Host=${smtp_host}
+      - Smtp__Port=${smtp_port}
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=${smtp_displayname}
+      - Smtp__Email=${smtp_email}
+      - Smtp__Username=${smtp_username}
+      - Smtp__Password=${smtp_password}
+      - PublisherSettings__UserName=${RABBITMQ_USERNAME}
+      - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
+      - PublisherSettings__HostName=${RABBITMQ_HOST}
+      - PublisherSettings__HostPort=5672
+      - AdoptAnimalEmailPublisherSettings__Exchange=${RABBITMQ_Email_Exchange}
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=${RABBITMQ_Email_RoutingKey}
     depends_on:
       - rabbitmq
     networks:
