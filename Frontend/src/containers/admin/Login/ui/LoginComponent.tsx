@@ -1,6 +1,5 @@
 import React from 'react';
 import { IDataSignIn, IResponceSignIn } from '../../../../api/login';
-import { getJwt } from '../../helpers/jwt';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../../../assets/header/logo.svg';
 import { TI18n } from '../../../../i18n';
@@ -35,11 +34,6 @@ export class LoginComponent extends React.Component<IPropTypes, IState> {
   handleSubmit(e: any) {
     e.preventDefault();
     this.props.fetchLoginRequest(this.state);
-    const jwt = getJwt();
-
-    if (!!jwt) {
-      this.props.history.push(`/admin`);
-    }
   }
 
   handleChangeInField(e: any, key: string) {
