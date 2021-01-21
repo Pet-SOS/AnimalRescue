@@ -6,6 +6,7 @@ import {
 import { fetchlogin, IResponceSignIn } from '../../../../../api/login';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
+import { history } from '../../../index';
 
 function* postLoginSaga(action: { type: string; payload?: IResponceSignIn }) {
   try {
@@ -16,6 +17,14 @@ function* postLoginSaga(action: { type: string; payload?: IResponceSignIn }) {
   }
 }
 
+function redirectAfterLoginSaga() {
+  history.push('/admin');
+}
+
 export function* watchLoginRequestHomePage() {
   yield takeEvery(getType(actionAdminLoginRequest), postLoginSaga);
+  yield takeEvery(
+    getType(actionAdminLoginRequestSuccess),
+    redirectAfterLoginSaga,
+  );
 }
