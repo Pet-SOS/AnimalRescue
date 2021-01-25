@@ -12,9 +12,7 @@ services:
       - "8080:80"
     networks:
       - frontend
-      - backend- AdoptAnimalEmailPublisherSettings__Exchange=${RABBITMQ_Email_Exchange}
-      - AdoptAnimalEmailPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
-      - AdoptAnimalEmailPublisherSettings__RoutingKey=${RABBITMQ_Email_RoutingKey}
+      - backend
     environment:
       - AdminDetail__Email=${admin_email}
       - AdminDetail__Password=${admin_password}
@@ -24,6 +22,7 @@ services:
       - AppSettings__JwtAudience=${api_hostname}
       - AppSettings__JwtKey=${JwtKey}
       - AppSettings__FrontEndUrl=https://${portal_hostname}/
+      - AppSettings__AnimalRescueEmail=${smtp_email}
       - Smtp__Host=${smtp_host}
       - Smtp__Port=${smtp_port}
       - Smtp__UseSsl=true
