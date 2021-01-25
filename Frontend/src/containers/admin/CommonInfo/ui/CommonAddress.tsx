@@ -52,6 +52,8 @@ export class CommonAddress extends React.Component<IPropTypes> {
         const paragraphs = [...this.props.paragraphs];
         const handleAddress = this.props.handleAddress;
 
+        if (!paragraphs.length) return <div>Address Empty</div>;
+
         return (
             <Tabs defaultActiveKey="1">
                 {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>
