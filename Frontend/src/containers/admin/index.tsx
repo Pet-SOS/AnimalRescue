@@ -6,7 +6,6 @@ import { Login } from './Login';
 import { AdminHomePage } from './AdminHomePage';
 import { GuardedRoute, GuardProvider } from 'react-router-guards';
 import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { guardLogin } from './guards/guardLogin';
 import { CommonInfo } from './CommonInfo';
 import { AnimalsList } from './AnimalsList';
@@ -14,8 +13,7 @@ import { AnimalAdminCard } from './AnimalEditCard';
 import LocationContainer from './Locations/ui/LocationsContainer';
 import { AdminTagsRouter } from './Tags/TagRouter';
 import { AdminBlogRouter } from './Blog';
-
-export const history = createBrowserHistory();
+import { history } from '../../store';
 
 interface IPropTypes extends RouteComponentProps {
   history: any;
