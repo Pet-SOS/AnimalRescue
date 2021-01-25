@@ -52,8 +52,6 @@ export class CommonAddress extends React.Component<IPropTypes> {
         const paragraphs = [...this.props.paragraphs];
         const handleAddress = this.props.handleAddress;
 
-        if (!paragraphs.length) return <div>Address Empty</div>;
-
         return (
             <Tabs defaultActiveKey="1">
                 {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>
@@ -63,7 +61,7 @@ export class CommonAddress extends React.Component<IPropTypes> {
                             id={control.key + tab.key}
                             type="text"
                             onChange={(e)=>handleAddress(e, control.key, tab.lang)}
-                            value={`${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
+                            value={`${paragraphs.length && paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
                     </div>)}
                 </TabPane>)}
             </Tabs>
