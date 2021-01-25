@@ -61,7 +61,7 @@ export class CommonAddress extends React.Component<IPropTypes> {
                             id={control.key + tab.key}
                             type="text"
                             onChange={(e)=>handleAddress(e, control.key, tab.lang)}
-                            value={`${paragraphs.length && paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
+                            value={paragraphs.length && `${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
                     </div>)}
                 </TabPane>)}
             </Tabs>
