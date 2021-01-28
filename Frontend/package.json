@@ -11,7 +11,7 @@
     "@types/lodash": "^4.14.149",
     "Base64": "^1.1.0",
     "antd": "^4.0.3",
-    "axios": "0.21.1",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "dompurify": "^2.1.1",
     "history": "^4.10.1",

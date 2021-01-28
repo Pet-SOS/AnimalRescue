@@ -15,7 +15,7 @@ import LocationContainer from './Locations/ui/LocationsContainer';
 import { AdminTagsRouter } from './Tags/TagRouter';
 import { AdminBlogRouter } from './Blog';
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 interface IPropTypes extends RouteComponentProps {
   history: any;
