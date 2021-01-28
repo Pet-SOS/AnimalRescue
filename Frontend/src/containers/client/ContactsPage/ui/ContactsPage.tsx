@@ -31,6 +31,8 @@ export class ContactsPage extends React.Component<IPropTypes> {
     }
   }
   render() {
+    console.log(this.props.appLanguage);
+    
     return (
       <div className="contacts-page">
         <div className="container">

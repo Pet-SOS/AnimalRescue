@@ -11,6 +11,8 @@ import _ from 'lodash';
 import { HtmlEditor, styleCard } from '../../../../components/HtmlEditor';
 import { Collapse } from "antd";
 import { CommonAddress } from "./CommonAddress";
+import { HelpPopup } from "./HelpPopup";
+import { DEFAULT_CONTACTS } from '../../../client/Home/store/state';
 
 const { Panel } = Collapse;
 interface IPropTypes {
@@ -34,6 +36,7 @@ interface IState {
   };
   editorCardState: string;
 }
+
 export class AdminCommonHead extends React.Component<IPropTypes, IState> {
   constructor(props: IPropTypes) {
     super(props);
@@ -57,7 +60,7 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
         town: this.props.addresses.town,
         street: this.props.addresses.street,
       },
-      paragraphs: this.props.paragraphs,
+      paragraphs: this.props.paragraphs.length ? this.props.paragraphs : DEFAULT_CONTACTS.data.paragraphs,
       infoCard: {
         body: this.props.infoCard.body,
       },
@@ -104,6 +107,22 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
       },
       paragraphs
     });
+  };
+  handleHelpPopup = (e: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => {
+    console.log('handleHelpPopup');
+    
+    // const paragraphs = [...this.state.paragraphs];
+    // const paragraphIndex = paragraphs.findIndex(p => p.name === key);
+    // const valueIndex = paragraphs[paragraphIndex].values.findIndex(v => v.lang === lang);
+    // paragraphs[paragraphIndex].values[valueIndex].value = e.target.value;
+
+    // this.setState({
+    //   addresses: {
+    //     ...this.state.addresses,
+    //     [key]: e.target.value,
+    //   },
+    //   paragraphs
+    // });
   };
 
   componentDidUpdate(prevProps: IPropTypes) {
@@ -197,7 +216,7 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
           </form>
         </Panel>
         <Panel header="Попап Допомоги" key="2">
-            <p>2</p>
+          <HelpPopup handleHelpPopup={this.handleHelpPopup} />
         </Panel>
         <Panel header="Попап «Хочу забрати додому»" key="3">
             <p>3</p>

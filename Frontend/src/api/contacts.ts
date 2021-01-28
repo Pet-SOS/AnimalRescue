@@ -43,6 +43,6 @@ export async function fetchInfoContacts(): Promise<IInfoContactsResponse> {
 export async function addInfoContacts(
   data: IInfoContactsData,
 ): Promise<IInfoContactsResponse> {
-  const res = await API.post(`Configurations/cms`, data);
+  const res = await API.put(`Configurations/cms`, data);
   return res.data;
 }

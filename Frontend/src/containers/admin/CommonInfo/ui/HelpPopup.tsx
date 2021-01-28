@@ -1,5 +1,4 @@
 import React from "react";
-import { IParagraph } from "../../../../api/contacts";
 import { Tabs } from "antd";
 
 const { TabPane } = Tabs;
@@ -26,31 +25,27 @@ const config = {
     ],
     controls: [
         {
-            label: 'Країна',
-            key: 'country'
+            label: 'Заголовок',
+            key: 'header'
         }, {
-            label: 'Місто',
-            key: 'town'
-        }, {
-            label: 'Вулиця',
-            key: 'street'
+            label: 'Текст',
+            key: 'text'
         }
     ]
 };
 
 interface IPropTypes {
-    paragraphs: IParagraph[];
-    handleAddress: (event: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => void;
+    // paragraphs: IParagraph[];
+    handleHelpPopup: (event: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => void;
 }
 
-export class CommonAddress extends React.Component<IPropTypes> {
+export class HelpPopup extends React.Component<IPropTypes> {
     constructor(props: IPropTypes){
         super(props)
     }
 
     render() {
-        const paragraphs = [...this.props.paragraphs];
-        const handleAddress = this.props.handleAddress;
+        const handleHelpPopup = this.props.handleHelpPopup;
 
         return (
             <Tabs defaultActiveKey="1">
@@ -60,8 +55,8 @@ export class CommonAddress extends React.Component<IPropTypes> {
                         <input
                             id={control.key + tab.key}
                             type="text"
-                            onChange={(e)=>handleAddress(e, control.key, tab.lang)}
-                            value={`${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
+                            onChange={(e)=>handleHelpPopup(e, control.key, tab.lang)}
+                            value=''/>
                     </div>)}
                 </TabPane>)}
             </Tabs>
