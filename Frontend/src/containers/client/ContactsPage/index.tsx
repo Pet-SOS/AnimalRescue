@@ -14,6 +14,7 @@ const mapStateToProps = (state: ICustomAppState) => {
     sickAnimalsList: state.animals.sickAnimalsList,
     infoCard: state.homePage.infoCard,
     infoContacts: state.homePage.infoContacts,
+    appLanguage: state.appLanguage
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {

@@ -14,6 +14,7 @@ import { ReactComponent as InstagramLogo } from '../../../../assets/header/insta
 import { SocialLinks } from '../../../../components/SocialLinks';
 
 interface IPropTypes {
+  appLanguage: string,
   sickAnimalsList: IAnimalsListState;
   infoCard: IInfoCard;
   infoContacts: IInfoContacts;
@@ -30,6 +31,8 @@ export class ContactsPage extends React.Component<IPropTypes> {
     }
   }
   render() {
+    console.log(this.props.appLanguage);
+    
     return (
       <div className="contacts-page">
         <div className="container">
@@ -57,15 +60,7 @@ export class ContactsPage extends React.Component<IPropTypes> {
             </div>
             <div className="item-contacts">
               <address>
-                <p className="contacts-box">
-                  {this.props.infoContacts.data.phones[1]}
-                </p>
-                <p className="contacts-box">
-                  {this.props.infoContacts.data.phones[2]}
-                </p>
-                <p className="contacts-box">
-                  {this.props.infoContacts.data.phones[3]}
-                </p>
+                {[1, 2, 3].map(i => <p className='contacts-box'>{this.props.infoContacts.data.phones[i]}</p>)}
               </address>
               <span className="descriptions-contacts">
                 <TI18n
@@ -97,10 +92,12 @@ export class ContactsPage extends React.Component<IPropTypes> {
                   default={defaultText.contactsOffice}
                 />
               </h4>
-              <p>{`${this.props.infoContacts.data.addresses.country}, 
-                                    ${this.props.infoContacts.data.addresses.town}, 
-                                    ${this.props.infoContacts.data.addresses.street}
-                                    `}</p>
+              <p>{
+                this.props.infoContacts.data.paragraphs
+                  .map(p => p.values
+                    .filter(v => v.lang === this.props.appLanguage)
+                    .map(v => v.value)[0]).join(', ')
+              }</p>
               <span className="descriptions-contacts">
                 <TI18n
                   keyStr="contactsWarning"

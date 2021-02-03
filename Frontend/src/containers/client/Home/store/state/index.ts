@@ -51,6 +51,71 @@ export const DEFAULT_CONTACTS: IInfoContacts = {
       town: '',
       street: '',
     },
+    paragraphs: [
+      {
+          name: 'country',
+          values: [
+              {
+                  lang: 'ua',
+                  value: ''
+              },
+              {
+                  lang: 'en',
+                  value: ''
+              },
+              {
+                  lang: 'de',
+                  value: ''
+              },
+              {
+                  lang: 'ru',
+                  value: ''
+              }
+          ]
+      },
+      {
+          name: 'town',
+          values: [
+              {
+                  lang: 'ua',
+                  value: ''
+              },
+              {
+                  lang: 'en',
+                  value: ''
+              },
+              {
+                  lang: 'de',
+                  value: ''
+              },
+              {
+                  lang: 'ru',
+                  value: ''
+              }
+          ]
+      },
+      {
+          name: 'street',
+          values: [
+              {
+                  lang: 'ua',
+                  value: ''
+              },
+              {
+                  lang: 'en',
+                  value: ''
+              },
+              {
+                  lang: 'de',
+                  value: ''
+              },
+              {
+                  lang: 'ru',
+                  value: ''
+              }
+          ]
+      }
+    ],
     phones: [],
   },
   isLoading: false,

@@ -13,11 +13,23 @@ export interface IAddresses {
   town: string;
   street: string;
 }
+
+interface IParagraphValue {
+  lang: string;
+  value: string;
+}
+
+export interface IParagraph {
+  name: string;
+  values: IParagraphValue[]
+}
+
 export interface IInfoContactsData {
   socialLinks: ISocialLinks;
   phones: string[];
   emails: IEmails;
   addresses: IAddresses;
+  paragraphs: IParagraph[];
 }
 export interface IInfoContactsResponse {
   data: IInfoContactsData;
@@ -31,6 +43,6 @@ export async function fetchInfoContacts(): Promise<IInfoContactsResponse> {
 export async function addInfoContacts(
   data: IInfoContactsData,
 ): Promise<IInfoContactsResponse> {
-  const res = await API.post(`Configurations/cms`, data);
+  const res = await API.put(`Configurations/cms`, data);
   return res.data;
 }

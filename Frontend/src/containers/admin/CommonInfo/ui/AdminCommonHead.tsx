@@ -4,16 +4,23 @@ import {
   IEmails,
   IAddresses,
   addInfoContacts,
+  IParagraph
 } from '../../../../api/contacts';
 import { addInfoCard, IDataBankCard } from '../../../../api/infoCard';
 import _ from 'lodash';
 import { HtmlEditor, styleCard } from '../../../../components/HtmlEditor';
+import { Collapse } from "antd";
+import { CommonAddress } from "./CommonAddress";
+import { HelpPopup } from "./HelpPopup";
+import { DEFAULT_CONTACTS } from '../../../client/Home/store/state';
 
+const { Panel } = Collapse;
 interface IPropTypes {
   socialLinks: ISocialLinks;
   phones: string[];
   emails: IEmails;
   addresses: IAddresses;
+  paragraphs: IParagraph[];
   infoCard: IDataBankCard;
 }
 interface IState {
@@ -23,11 +30,13 @@ interface IState {
   };
   emails: IEmails;
   addresses: IAddresses;
+  paragraphs: IParagraph[];
   infoCard: {
     body: string;
   };
   editorCardState: string;
 }
+
 export class AdminCommonHead extends React.Component<IPropTypes, IState> {
   constructor(props: IPropTypes) {
     super(props);
@@ -51,6 +60,7 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
         town: this.props.addresses.town,
         street: this.props.addresses.street,
       },
+      paragraphs: this.props.paragraphs.length ? this.props.paragraphs : DEFAULT_CONTACTS.data.paragraphs,
       infoCard: {
         body: this.props.infoCard.body,
       },
@@ -84,13 +94,35 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
       },
     });
   };
-  handleAddress = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
+  handleAddress = (e: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => {
+    const paragraphs = [...this.state.paragraphs];
+    const paragraphIndex = paragraphs.findIndex(p => p.name === key);
+    const valueIndex = paragraphs[paragraphIndex].values.findIndex(v => v.lang === lang);
+    paragraphs[paragraphIndex].values[valueIndex].value = e.target.value;
+
     this.setState({
       addresses: {
         ...this.state.addresses,
         [key]: e.target.value,
       },
+      paragraphs
     });
+  };
+  handleHelpPopup = (e: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => {
+    console.log('handleHelpPopup');
+    
+    // const paragraphs = [...this.state.paragraphs];
+    // const paragraphIndex = paragraphs.findIndex(p => p.name === key);
+    // const valueIndex = paragraphs[paragraphIndex].values.findIndex(v => v.lang === lang);
+    // paragraphs[paragraphIndex].values[valueIndex].value = e.target.value;
+
+    // this.setState({
+    //   addresses: {
+    //     ...this.state.addresses,
+    //     [key]: e.target.value,
+    //   },
+    //   paragraphs
+    // });
   };
 
   componentDidUpdate(prevProps: IPropTypes) {
@@ -116,6 +148,7 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
       phones: [...phonesAll],
       emails: { ...this.state.emails },
       addresses: { ...this.state.addresses },
+      paragraphs : [...this.state.paragraphs],
     };
     const card = { ...this.state.infoCard };
     // const htmlCard = draftToHtmlHelper();
@@ -126,120 +159,75 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
 
   render() {
     return (
-      <form className="editing-form" onSubmit={e => this.handleSubmit(e)}>
-        <h3>Контактна інформація</h3>
-        <div className="form-row field-phone-size">
-          <label htmlFor="phone1">Телефон гарячої лінії</label>
-          <input
-            id="phone1"
-            onChange={e => this.handleContactInfo(e, 'phone1')}
-            type="text"
-            value={this.state.phones.phone1 || ''}
-          />
-        </div>
-        <div className="form-row field-phone-size">
-          <label htmlFor="phone2">Телефон адопції</label>
-          <input
-            id="phone2"
-            onChange={e => this.handleContactInfo(e, 'phone2')}
-            type="text"
-            value={this.state.phones.phone2 || ''}
-          />
-        </div>
-        <div className="form-row field-phone-size">
-          <label htmlFor="phone3">Телефон адопції</label>
-          <input
-            id="phone3"
-            onChange={e => this.handleContactInfo(e, 'phone3')}
-            type="text"
-            value={this.state.phones.phone3 || ''}
-          />
-        </div>
-        <div className="form-row field-phone-size">
-          <label htmlFor="phone4">Телефон адопції</label>
-          <input
-            id="phone4"
-            onChange={e => this.handleContactInfo(e, 'phone4')}
-            type="text"
-            value={this.state.phones.phone4 || ''}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="email-info">Електрона адреса</label>
-          <input
-            id="email-info"
-            onChange={e => this.handleEmailInfo(e)}
-            type="text"
-            value={this.state.emails.animalRescue1 || ''}
-          />
-        </div>
-        <h4>Адреса</h4>
-        <div className="form-row">
-          <label htmlFor="address-country">Країна</label>
-          <input
-            id="address-country"
-            onChange={e => this.handleAddress(e, 'country')}
-            type="text"
-            value={`${this.state.addresses.country}` || ''}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="address-city">Місто</label>
-          <input
-            id="address-city"
-            onChange={e => this.handleAddress(e, 'town')}
-            type="text"
-            value={this.state.addresses.town || ''}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="address-street">Вулиця</label>
-          <input
-            id="address-street"
-            onChange={e => this.handleAddress(e, 'street')}
-            type="text"
-            value={this.state.addresses.street || ''}
-          />
-        </div>
-        <h4>Банківські картки</h4>
-        <HtmlEditor
-          editorState={this.state.editorCardState}
-          onChange={this.onEditorStateChange}
-          classList={styleCard}
-        />
-        <h4>Соц.мережі</h4>
-        <div className="form-row">
-          <label htmlFor="social-facebook">Facebook</label>
-          <input
-            id="social-facebook"
-            onChange={e => this.handleChangeSocialNetworks(e, 'facebook')}
-            value={this.state.socialLinks.facebook || ''}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="social-instagram">Instagram</label>
-          <input
-            id="social-instagram"
-            onChange={e => this.handleChangeSocialNetworks(e, 'instagram')}
-            value={this.state.socialLinks.instagram || ''}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="social-youtube">Youtube</label>
-          <input
-            id="social-youtube"
-            onChange={e => this.handleChangeSocialNetworks(e, 'youtube')}
-            value={this.state.socialLinks.youtube || ''}
-          />
-        </div>
-        <button
-          type="submit"
-          className="btn btn-blue"
-          onSubmit={e => this.handleSubmit(e)}
-        >
-          Зберегти зміни
-        </button>
-      </form>
+      <Collapse accordion defaultActiveKey={['1']}>
+        <Panel header="Контактна інформація" key="1">
+          <form className="editing-form" onSubmit={(e)=>this.handleSubmit(e)}>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone1">Телефон гарячої лінії</label>
+                    <input id="phone1" onChange={(e)=>this.handleContactInfo(e,'phone1')} type="text"  value={this.state.phones.phone1||''}/>
+                </div>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone2">Телефон адопції</label>
+                    <input id="phone2" onChange={(e)=>this.handleContactInfo(e,'phone2')} type="text"  value={this.state.phones.phone2||''} />
+                </div>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone3">Телефон адопції</label>
+                    <input id="phone3"
+                        onChange={(e)=>this.handleContactInfo(e,'phone3')}
+                        type="text"
+                        value={this.state.phones.phone3||''} />
+                </div>
+                <div className="form-row field-phone-size">
+                    <label htmlFor="phone4">Телефон адопції</label>
+                    <input id="phone4" onChange={(e)=>this.handleContactInfo(e,'phone4')} type="text" value={this.state.phones.phone4||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="email-info">Електрона адреса</label>
+                    <input id="email-info" onChange={(e)=>this.handleEmailInfo(e)} type="text" value={this.state.emails.animalRescue1||''}/>
+                </div>
+
+                <h4>Адреса</h4>
+                <CommonAddress
+                    paragraphs={this.state.paragraphs}
+                    handleAddress={this.handleAddress} />
+
+                <h4>Банківські картки</h4>
+                <div className="form-row">
+                    <HtmlEditor
+                        editorState={this.state.editorCardState}
+                        onChange={this.onEditorStateChange}
+                        classList={styleCard}
+                    />
+                </div>
+                <h4>Соц.мережі</h4>
+                <div className="form-row">
+                    <label htmlFor="social-facebook">Facebook</label>
+                    <input id="social-facebook" onChange={(e)=>this.handleChangeSocialNetworks(e,'facebook')}  value={this.state.socialLinks.facebook||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="social-instagram">Instagram</label>
+                    <input id="social-instagram" onChange={(e)=>this.handleChangeSocialNetworks(e,'instagram')}  value={this.state.socialLinks.instagram||''}/>
+                </div>
+                <div className="form-row">
+                    <label htmlFor="social-youtube">Youtube</label>
+                    <input id="social-youtube" onChange={(e)=>this.handleChangeSocialNetworks(e,'youtube')}  value={this.state.socialLinks.youtube||''}/>
+                </div>
+                <button type="submit" className="btn btn-blue" onSubmit={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
+          </form>
+        </Panel>
+        <Panel header="Попап Допомоги" key="2">
+          <HelpPopup handleHelpPopup={this.handleHelpPopup} />
+        </Panel>
+        <Panel header="Попап «Хочу забрати додому»" key="3">
+            <p>3</p>
+        </Panel>
+        <Panel header="Як усиновити тварину" key="4">
+            <p>4</p>
+        </Panel>
+        <Panel header="Мова сайту" key="5">
+            <p>5</p>
+        </Panel>
+    </Collapse>
     );
   }
 }
