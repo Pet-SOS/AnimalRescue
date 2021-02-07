@@ -392,4 +392,6 @@ export default {
   invalidPhoneNumberFormat: 'Неправильний формат номеру',
   requestHasBeenSent: 'Ваш запит успішно надісланий',
   smthWentWrong: 'Щось пішло не так... Спробуйте, будь ласка, пізніше',
+  areYouSureYouWantToDeleteArticle:
+    'Ви впевнені що хочете видалити дану статтю?',
 };

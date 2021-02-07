@@ -384,4 +384,6 @@ export default {
   invalidPhoneNumberFormat: 'Invalid phone number format',
   requestHasBeenSent: 'Your request has been sent successfully',
   smthWentWrong: 'Something went wrong... Please try again later',
+  areYouSureYouWantToDeleteArticle:
+    'Are you sure you want to delete this article?',
 };

@@ -77,7 +77,6 @@ export async function fetchBlogItem(id: string): Promise<IBlogItemResponse> {
 }
 
 export async function deleteBlogItem(id: string): Promise<void> {
-  //TODO
   await API.delete(`blogs/${id}`);
 }
 

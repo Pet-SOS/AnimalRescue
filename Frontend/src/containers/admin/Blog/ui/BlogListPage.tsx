@@ -6,6 +6,7 @@ import {
   actionClearBlogListState,
   actionFetchBlogListRequest,
 } from '../../../client/Blog/store/actions';
+import { actionDeleteBlogItem } from '../store/actions';
 
 const mapStateToProps = (state: ICustomAppState) => {
   return {
@@ -17,6 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     {
       fetchBlogList: actionFetchBlogListRequest,
       clearList: actionClearBlogListState,
+      deleteItem: actionDeleteBlogItem
     },
     dispatch,
   );

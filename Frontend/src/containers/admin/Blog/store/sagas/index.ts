@@ -4,8 +4,11 @@ import {
   actionUpdateBlogItemFailure,
   actionUpdateBlogItemRequest,
   actionUpdateBlogItemSuccess,
+  actionDeleteBlogItem,
+  actionDeleteBlogItemFailure,
+  actionDeleteBlogItemSuccess,
 } from '../actions';
-import { updateBlogItem } from '../../../../../api/blog';
+import { updateBlogItem, deleteBlogItem } from '../../../../../api/blog';
 import { getType } from 'typesafe-actions';
 import { actionFetchBlogItemRequest } from '../../../../client/Blog/store/actions/blogitem.actions';
 
@@ -23,6 +26,18 @@ export function* editBlogSaga(
   }
 }
 
+export function* deleteBlogItemSaga(action: any) {
+  const { id } = action.payload;
+  try {
+    yield deleteBlogItem(id);
+    yield put(actionDeleteBlogItemSuccess(id));
+    window.location.reload();
+  } catch (e) {
+    yield put(actionDeleteBlogItemFailure(e));
+  }
+}
+
 export function* watchBlogEditSagas() {
   yield takeEvery(getType(actionUpdateBlogItemRequest), editBlogSaga);
+  yield takeEvery(getType(actionDeleteBlogItem), deleteBlogItemSaga);
 }
