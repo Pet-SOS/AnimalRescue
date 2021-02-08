@@ -43,6 +43,10 @@ export class BirthdayDatePicker extends React.PureComponent<
     }
   }
 
+  isToday(date: IDateUnits): boolean {
+    return !date.years && !date.months && !date.weeks;
+  } 
+
   renderDateSelect(key: string, label: string) {
     // @ts-ignore
     const selectCollection = [...Array(this.limitOfDateUnits[key])];
@@ -52,6 +56,7 @@ export class BirthdayDatePicker extends React.PureComponent<
       <div className="form-col">
         <label htmlFor={`birthday-${key}`}>{label}</label>
         <select
+          className={this.isToday(this.state) ? "in-valid" : ""}
           onChange={e => this.updateDate(e, key)}
           value={defaultValue || ''}
           id="birthday-weeks"

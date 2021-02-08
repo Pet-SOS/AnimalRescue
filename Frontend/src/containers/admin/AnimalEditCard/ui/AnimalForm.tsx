@@ -69,8 +69,10 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
     label: string,
     key: string,
     optionsKey: string,
+    isRequired: boolean,
     alternativeTitleKey?: string,
   ) => {
+    const id = `acard-status-${key}`;
     // @ts-ignore
     const optionList: ITag[] = this.props[optionsKey];
     // @ts-ignore
@@ -78,14 +80,24 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
 
     const defaultValue =
       (optionList && this.findTag(optionList)) || selectionPropertyValue || '';
+
+    const getValidationClass = (value: string, isRequired: boolean) => isRequired && value === '' ? 'in-valid' : '';
+
+    let validationClass = getValidationClass(defaultValue, isRequired);
+
+    const onChange = (e: any) => {
+        this.props.onChange(e, key);
+        validationClass = getValidationClass(e.target.value, isRequired);
+    };
+
     return (
       <div className="form-row small-row">
-        <label htmlFor="acard-status">{label}</label>
+        <label htmlFor={id}>{label}</label>
         <select
+          className={validationClass}
           value={defaultValue}
-          id="acard-status"
-          onChange={e => this.props.onChange(e, key)}
-        >
+          id={id}
+          onChange={onChange}>
           <option value="" className="default-val"></option>
           {optionList?.map((item: ITag) => {
             const alternativeLabel = alternativeTitleKey
@@ -109,26 +121,27 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
     return (
       <>
         {this.renderField('Номер', 'number', true)}
-        {this.renderSelect('Статус', 'status', 'statusOptions')}
-        {this.renderSelect('Тип локации', 'locationName', 'locationOptions')}
+        {this.renderSelect('Статус', 'status', 'statusOptions', true)}
+        {this.renderSelect('Тип локации', 'locationName', 'locationOptions', true)}
         {this.renderSelect(
           'Назва локации',
           'locationTypeId',
           'locationTypeOptions',
+          false,
           'title',
         )}
         {this.renderField('Кличка', 'name')}
-        {this.renderSelect('Стать', 'gender', 'genderOptions')}
+        {this.renderSelect('Стать', 'gender', 'genderOptions', false)}
         <div className="form-row small-row">
           <BirthdayDatePicker
             birthday={this.props.birthday}
             onUpdateBirthday={this.props.onUpdateBirthday}
           />
         </div>
-        {this.renderSelect('Вид', 'kindOfAnimal', 'kindOfAnimalOptions')}
-        {this.renderSelect('Порода', 'tagBreed', 'breedOptions')}
+        {this.renderSelect('Вид', 'kindOfAnimal', 'kindOfAnimalOptions', true)}
+        {this.renderSelect('Порода', 'tagBreed', 'breedOptions', false)}
         {this.props.kindOfAnimal === EKindOfAnimal.dog &&
-          this.renderSelect('Розмір', 'tagSize', 'dogSizeOptions')}
+          this.renderSelect('Розмір', 'tagSize', 'dogSizeOptions', false)}
       </>
     );
   }
