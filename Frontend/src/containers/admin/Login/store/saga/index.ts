@@ -6,7 +6,7 @@ import {
 import { fetchlogin, IResponceSignIn } from '../../../../../api/login';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
-import { history } from '../../../index';
+import { history } from '../../../../../store';
 
 function* postLoginSaga(action: { type: string; payload?: IResponceSignIn }) {
   try {
