@@ -13,6 +13,7 @@ interface IAnimalCardProps {
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal; id?: string }) => void;
   fetchAnimalItem: (id: string) => any;
+  clearFetchAnimalItem: () => void;
 }
 
 export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
@@ -49,6 +50,7 @@ export class PageAnimalEditCard extends React.Component<IAnimalCardProps> {
                     postAnimal={this.props.postAnimal}
                     updateAnimal={this.props.updateAnimal}
                     fetchAnimalItem={this.props.fetchAnimalItem}
+                    clearFetchAnimalItem={this.props.clearFetchAnimalItem}
                   />
                 </section>
               </section>
