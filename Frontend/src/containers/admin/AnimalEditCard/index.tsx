@@ -7,7 +7,10 @@ import {
   actionAdminUpdateAnimalRequest,
 } from '../Home/store/actions';
 import { PageAnimalEditCard } from './ui/PageAnimalEditCard';
-import { actionFetchAnimalItemRequest } from '../../client/Animals/store/actions/animal.actions';
+import { 
+  actionFetchAnimalItemRequest,
+  actionClearAnimalItemState,
+} from '../../client/Animals/store/actions/animal.actions';
 import { selectTagsCategoryListData } from '../../../store/selectors/tags.selector';
 
 const mapStateToProps = (state: ICustomAppState) => ({
@@ -21,4 +24,5 @@ export const AnimalAdminCard = connect(mapStateToProps, {
   postAnimal: actionAdminPostAnimalRequest,
   updateAnimal: actionAdminUpdateAnimalRequest,
   fetchAnimalItem: actionFetchAnimalItemRequest,
+  clearFetchAnimalItem: actionClearAnimalItemState,
 })(PageAnimalEditCard);

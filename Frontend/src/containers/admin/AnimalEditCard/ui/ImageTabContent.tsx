@@ -31,7 +31,10 @@ export class ImageTabContent extends React.PureComponent<IPropTypes> {
       <div className="image-wrapper">
         <div className={`image-container ${isSelected ? 'selected' : ''}`}>
           {onDeleteImage && !isSelected && (
-            <div className="delete-image" onClick={() => onDeleteImage(id)}>
+            <div className="delete-image" onClick={(event: React.MouseEvent | React.TouchEvent) => {
+                event.stopPropagation();
+                onDeleteImage(id)
+              }}>
               <img src={CloseIcon} alt="delete" />
             </div>
           )}

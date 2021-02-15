@@ -30,6 +30,7 @@ interface IOwnPropTypes extends RouteComponentProps<any> {
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal; id?: string }) => void;
   fetchAnimalItem: (id: string) => any;
+  clearFetchAnimalItem: () => void;
 }
 
 interface IPropTypes extends IOwnPropTypes {
@@ -96,6 +97,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   componentWillMount() {
     this.baseUrl = selectApiUrl(store.getState());
+  }
+
+  componentWillUnmount() {
+    this.props.clearFetchAnimalItem();
   }
 
   onChangeSizeAndBreedTags = (e: any, key: any) => {
@@ -192,8 +197,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   };
 
   onDeleteUploadedImage = (id: string) => {
+    const { coverImage, imageIds } = this.state;
+    const indexOfImageInArr = imageIds.findIndex((imageId) => imageId === id);
+    const newMainImageIndex = coverImage > indexOfImageInArr ? coverImage - 1 : coverImage;
     this.setState({
-      imageIds: this.state.imageIds.filter(imageId => imageId !== id),
+      imageIds: imageIds.filter(imageId => imageId !== id),
+      coverImage: newMainImageIndex,
     });
   };
 
