@@ -115,7 +115,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
     const reversedFinanceReports = this.props.financeReports.slice().reverse();
     return (
       <div className="boxAdmin">
-        <AdminMenu selectedKey={'reports'} openKeys={['sub2', 'sub1']} />
+        <AdminMenu selectedKey={'reports'} openKeys={[]} />
         <main>
           <div className="container">
             <section className="section-reports">

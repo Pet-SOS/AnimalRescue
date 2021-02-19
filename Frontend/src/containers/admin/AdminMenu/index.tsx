@@ -24,7 +24,7 @@ export class AdminMenu extends React.Component<IPropTypes, IState> {
     this.state = {
       collapsed: false,
       selectedKey: this.props.selectedKey,
-      openKeys: [...this.props.openKeys, 'sub2'],
+      openKeys: [...this.props.openKeys],
     };
   }
 
@@ -116,7 +116,7 @@ export class AdminMenu extends React.Component<IPropTypes, IState> {
               </Menu.Item>
             </SubMenu>
             <SubMenu
-              className="etc-sub-menu"
+              // className="etc-sub-menu"
               key="sub2"
               title={
                 <span>

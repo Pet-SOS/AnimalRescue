@@ -116,7 +116,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps> {
     return (
       <>
         <div className="boxAdmin">
-          <AdminMenu selectedKey={'animals-list'} openKeys={['']} />
+          <AdminMenu selectedKey={'animals-list'} openKeys={[]} />
           <main>
             <div className="container">
               <section className="section-animals section-margin">
