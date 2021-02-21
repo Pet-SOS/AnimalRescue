@@ -3,11 +3,14 @@ import { AdminMenu } from '../../AdminMenu';
 import { AdminCommonHead } from './AdminCommonHead';
 import { IInfoContactsResponse } from '../../../../api/contacts';
 import { IInfoCard } from '../../../client/Home/store/state';
+import { IHelpPopupResponse } from '../../../../api/help-popup';
 
 interface IPropTypes {
   fetchInfoCard: () => {};
   fetchInfoContacts: () => {};
+  fetchHelpPopup: () => {};
   infoContacts: IInfoContactsResponse;
+  helpPopup: IHelpPopupResponse;
   infoCard: IInfoCard;
 }
 export class CommonInfoPage extends React.Component<IPropTypes> {
@@ -18,6 +21,7 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
   componentDidMount() {
     this.props.fetchInfoCard();
     this.props.fetchInfoContacts();
+    this.props.fetchHelpPopup();
   }
 
   callback(key: any) {
@@ -33,7 +37,10 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
             <div>
               <h2> Загальні налаштування </h2>
               <div>
-                {this.props.infoContacts.data &&
+                {
+                  this.props.helpPopup.data &&
+                  this.props.helpPopup.self &&
+                  this.props.infoContacts.data &&
                   this.props.infoContacts.self &&
                   this.props.infoCard.self && (
                     <AdminCommonHead
@@ -43,6 +50,7 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
                       addresses={this.props.infoContacts.data.addresses}
                       paragraphs={this.props.infoContacts.data.paragraphs}
                       infoCard={this.props.infoCard.data}
+                      helpPopup={this.props.helpPopup.data.paragraphs}
                     />
                   )}
               </div>

@@ -22,6 +22,7 @@ interface IPropTypes {
   addresses: IAddresses;
   paragraphs: IParagraph[];
   infoCard: IDataBankCard;
+  helpPopup: IParagraph[];
 }
 interface IState {
   socialLinks: ISocialLinks;
@@ -107,22 +108,6 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
       },
       paragraphs
     });
-  };
-  handleHelpPopup = (e: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => {
-    console.log('handleHelpPopup');
-    
-    // const paragraphs = [...this.state.paragraphs];
-    // const paragraphIndex = paragraphs.findIndex(p => p.name === key);
-    // const valueIndex = paragraphs[paragraphIndex].values.findIndex(v => v.lang === lang);
-    // paragraphs[paragraphIndex].values[valueIndex].value = e.target.value;
-
-    // this.setState({
-    //   addresses: {
-    //     ...this.state.addresses,
-    //     [key]: e.target.value,
-    //   },
-    //   paragraphs
-    // });
   };
 
   componentDidUpdate(prevProps: IPropTypes) {
@@ -216,7 +201,7 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
           </form>
         </Panel>
         <Panel header="Попап Допомоги" key="2">
-          <HelpPopup handleHelpPopup={this.handleHelpPopup} />
+          <HelpPopup paragraphs={this.props.helpPopup}/>
         </Panel>
         <Panel header="Попап «Хочу забрати додому»" key="3">
             <p>3</p>
