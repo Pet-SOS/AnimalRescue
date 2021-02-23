@@ -122,9 +122,9 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
       <>
         {this.renderField('Номер', 'number', true)}
         {this.renderSelect('Статус', 'status', 'statusOptions', true)}
-        {this.renderSelect('Тип локации', 'locationName', 'locationOptions', true)}
+        {this.renderSelect('Тип локації', 'locationName', 'locationOptions', true)}
         {this.renderSelect(
-          'Назва локации',
+          'Назва локації',
           'locationTypeId',
           'locationTypeOptions',
           true,
