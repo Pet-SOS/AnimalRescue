@@ -375,6 +375,7 @@ export default {
   newTag: '+ новый тег',
 
   errorTagValidation: 'Хоча б одне поле повинно бути заповнено',
+  formValidationError: 'Будь ласка, заповніть всі обов\'язкові поля',
 
   dogsizeTagCategory: 'Розмір собаки',
 

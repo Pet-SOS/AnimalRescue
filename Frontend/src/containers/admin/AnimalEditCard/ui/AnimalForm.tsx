@@ -127,7 +127,7 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
           'Назва локации',
           'locationTypeId',
           'locationTypeOptions',
-          false,
+          true,
           'title',
         )}
         {this.renderField('Кличка', 'name')}
