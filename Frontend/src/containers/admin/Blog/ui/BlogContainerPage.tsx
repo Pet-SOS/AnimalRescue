@@ -10,7 +10,7 @@ export const BlogContainerPage: React.FC<IBlogContainerPage> = ({
 }) => {
   return (
     <div className="boxAdmin">
-      <AdminMenu selectedKey={'blog'} openKeys={['sub1', 'sub2']} />
+      <AdminMenu selectedKey={'blog'} openKeys={[]} />
       <main>
         <div className="container">
           <section>{children}</section>
