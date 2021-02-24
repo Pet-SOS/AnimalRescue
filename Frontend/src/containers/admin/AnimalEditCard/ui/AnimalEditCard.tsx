@@ -150,19 +150,23 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({ images: [...this.state.images, ...e.target.files] });
   };
 
+  showErrorMessage = () => {
+    message.error({
+      content: (
+        <Provider store={store}>
+          <TI18n
+            keyStr="formValidationError"
+            default="Будь ласка, заповніть всі обов'язкові поля"
+          />
+        </Provider>
+      ),
+    });
+  }
+
   submit = () => {
     const animal = { ...(this.state as IAnimal) };
     if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
-      message.error({
-        content: (
-          <Provider store={store}>
-            <TI18n
-              keyStr="formValidationError"
-              default="Будь ласка, заповніть всі обов'язкові поля"
-            />
-          </Provider>
-        ),
-      })
+      this.showErrorMessage();
     } else {
       this.props.updateAnimal({ animal, id: this.state.id });
     }
@@ -175,16 +179,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   post = () => {
     const animal = { ...(this.state as IAnimal) };
     if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
-        message.error({
-          content: (
-            <Provider store={store}>
-              <TI18n
-                keyStr="formValidationError"
-                default="Будь ласка, заповніть всі обов'язкові поля"
-              />
-            </Provider>
-          ),
-        })
+        this.showErrorMessage();
       } else {
         this.props.postAnimal(animal);
         this.setState({ ...DEFAULT_ANIMAL });
