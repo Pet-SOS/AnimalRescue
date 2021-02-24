@@ -152,19 +152,29 @@ class AnimalEditCard extends React.Component<IPropTypes> {
 
   submit = () => {
     const animal = { ...(this.state as IAnimal) };
-    this.props.updateAnimal({ animal, id: this.state.id });
+    if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
+      message.error({
+        content: (
+          <Provider store={store}>
+            <TI18n
+              keyStr="formValidationError"
+              default="Будь ласка, заповніть всі обов'язкові поля"
+            />
+          </Provider>
+        ),
+      })
+    } else {
+      this.props.updateAnimal({ animal, id: this.state.id });
+    }
   };
+
   delete = () => {
     this.props.deleteAnimal(this.state.id || '');
   };
 
   post = () => {
     const animal = { ...(this.state as IAnimal) };
-    if (
-      (animal.status === '') ||
-      (animal.locationTypeId === '') ||
-      (animal.birthday === '') ||
-      (animal.kindOfAnimal === '')) {
+    if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
         message.error({
           content: (
             <Provider store={store}>
