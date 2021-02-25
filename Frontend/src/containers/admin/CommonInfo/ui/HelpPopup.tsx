@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs } from "antd";
 import { addHelpPopup, IParagraph } from "../../../../api/help-popup";
 import { DEFAULT_HELP_POPUP } from "../../../client/Home/store/state";
+// import { HtmlEditor, styleCard } from '../../../../components/HtmlEditor';
 
 const { TabPane } = Tabs;
 
@@ -28,10 +29,10 @@ const config = {
     controls: [
         {
             label: 'Заголовок',
-            key: 'header'
+            key: 'adoptPopupTitle'
         }, {
             label: 'Текст',
-            key: 'text'
+            key: 'adoptPopupText'
         }
     ]
 };
@@ -67,6 +68,8 @@ export class HelpPopup extends React.Component<IPropTypes, IState> {
     };
 
     render() {
+        const paragraphs = [...this.props.paragraphs];
+
         return (
             <Tabs defaultActiveKey="1">
                 {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>
@@ -76,7 +79,12 @@ export class HelpPopup extends React.Component<IPropTypes, IState> {
                             id={control.key + tab.key}
                             type="text"
                             onChange={(e)=>this.handleHelpPopup(e, control.key, tab.lang)}
-                            value=''/>
+                            value={`${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
+                            {/* <HtmlEditor
+                                editorState={`${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}
+                                onChange={(e)=>this.handleHelpPopup(e, control.key, tab.lang)}
+                                classList={styleCard}
+                            /> */}
                     </div>)}
 
                     <button className="btn btn-blue" onClick={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>

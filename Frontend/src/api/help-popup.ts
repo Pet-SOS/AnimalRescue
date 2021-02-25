@@ -25,13 +25,13 @@ export interface IHelpPopupResponse {
 }
 
 export async function fetchHelpPopup(): Promise<IHelpPopupResponse> {
-  const res = await API.get(`Configurations/how-to-help`);
+  const res = await API.get(`Configurations/adopt-popup`);
   return res.data;
 }
 
 export async function addHelpPopup(
   data: IHelpPopupData,
 ): Promise<IHelpPopupResponse> {
-  const res = await API.put(`Configurations/how-to-help`, data);
+  const res = await API.put(`Configurations/adopt-popup`, data);
   return res.data;
 }
