@@ -17,22 +17,17 @@ import { TagsCategoryItem } from './TagsCategoryItem';
 
 interface IPropTypes {
   fetchTagsList: (requestParams?: IRequestParams) => void;
-  clearTagsList: () => void;
   categoryList: { [key: string]: Array<ITag> };
   selectCategory: (category: string) => void;
 }
 
 const TagsCategoryList: React.FC<IPropTypes> = ({
   fetchTagsList,
-  clearTagsList,
   categoryList,
   selectCategory,
 }) => {
   useEffect(() => {
     fetchTagsList({ size: 100 });
-    return () => {
-      clearTagsList();
-    };
   }, []);
 
   const onListItemSelected = (category: string) => {
@@ -94,7 +89,6 @@ const mapStateToProps = (state: ICustomAppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchTagsList: (requestParams?: IRequestParams) =>
     dispatch(actionGetTagsList(requestParams)),
-  clearTagsList: () => dispatch(actionClearTagsList()),
   selectCategory: (category: string) =>
     dispatch(actionSelectTagsCategory(category)),
 });
