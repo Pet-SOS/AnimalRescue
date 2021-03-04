@@ -38,7 +38,7 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
     return (
       <>
         <li className="chk-label-item">
-          <label htmlFor="chk-charity">Вiдкрити Cбір коштів</label>
+          <label htmlFor="chk-charity">Вiдкрити збір коштів</label>
           <span className="switcher-control">
             <input
               id="chk-charity"
@@ -72,11 +72,11 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
     return (
       <ul className="tabs-edit-list">
         {this.renderBannerBlock()}
-        {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізован')}
-        {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплен')}
+        {this.renderTagSelection(EditableTags.STERILIZED, 'Стерилізований')}
+        {this.renderTagSelection(EditableTags.VACCINATED, 'Щеплений')}
         {this.renderTagSelection(
           EditableTags.READYTOABROAD,
-          'Готов до виїзду за кордон',
+          'Готовий до виїзду за кордон',
         )}
       </ul>
     );

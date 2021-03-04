@@ -58,7 +58,7 @@ const TagsCategoryList: React.FC<IPropTypes> = ({
 
   return (
     <div className="boxAdmin">
-      <AdminMenu selectedKey={'tags'} openKeys={['sub2', 'sub1']} />
+      <AdminMenu selectedKey={'tags'} openKeys={[]} />
       <main>
         <div className="container">
           <section className="section-categories">

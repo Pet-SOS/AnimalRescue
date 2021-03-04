@@ -143,3 +143,13 @@
     display: inline-block;
   }
 }
+
+.icon-edit,
+.icon-delete {
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 50%;
+  &:hover {
+    background-color: #DDDDDD;
+  }
+}

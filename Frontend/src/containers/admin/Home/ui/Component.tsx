@@ -17,6 +17,7 @@ interface AdminHomeProps {
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal; id?: string }) => void;
   fetchAnimalItem: (id: string) => any;
+  clearFetchAnimalItem: () => void;
 }
 
 export class AdminHomePage extends React.Component<AdminHomeProps> {
@@ -47,6 +48,7 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
             postAnimal={this.postAnimal}
             updateAnimal={this.updateAnimal}
             fetchAnimalItem={this.props.fetchAnimalItem}
+            clearFetchAnimalItem={this.props.clearFetchAnimalItem}
           />
         }
       </div>
@@ -61,7 +63,7 @@ export class AdminHomePage extends React.Component<AdminHomeProps> {
   render() {
     return (
       <div className="boxAdmin">
-        <AdminMenu selectedKey={'animals'} openKeys={['sub2', 'sub1']} />
+        <AdminMenu selectedKey={'animals'} openKeys={[]} />
         <main className="home-page">
           <div className="container">
             {this.renderAnimals(this.props.animalsList.data)}

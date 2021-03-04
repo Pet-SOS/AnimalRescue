@@ -239,9 +239,9 @@ export default {
   countAnimalsSecondPart: 'хвостика',
   lookingForAFriendPageClearFilter: 'Скинути всі фільтри',
 
-  sterilized: 'Стерилізован',
+  sterilized: 'Стерилізований',
   vaccinated: 'Щеплений',
-  readytoabroad: 'Готов до виїзду за кордон',
+  readytoabroad: 'Готовий до виїзду за кордон',
   special: 'особливий',
   theLoss: 'потеряшка',
 
@@ -375,6 +375,7 @@ export default {
   newTag: '+ новый тег',
 
   errorTagValidation: 'Хоча б одне поле повинно бути заповнено',
+  formValidationError: 'Будь ласка, заповніть всі обов\'язкові поля',
 
   dogsizeTagCategory: 'Розмір собаки',
 
@@ -392,4 +393,6 @@ export default {
   invalidPhoneNumberFormat: 'Неправильний формат номеру',
   requestHasBeenSent: 'Ваш запит успішно надісланий',
   smthWentWrong: 'Щось пішло не так... Спробуйте, будь ласка, пізніше',
+  areYouSureYouWantToDeleteArticle:
+    'Ви впевнені що хочете видалити дану статтю?',
 };

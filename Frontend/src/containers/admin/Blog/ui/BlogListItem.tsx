@@ -1,4 +1,5 @@
 import React from 'react';
+import { Popconfirm } from 'antd';
 import { IBlogItem } from '../../../../api/blog';
 import moment from 'moment';
 import { TI18n } from '../../../../i18n';
@@ -42,7 +43,19 @@ export const BlogListItem: React.FC<IBlogListItem> = ({
         <i className="icon-edit" onClick={handleOnEditClick} />
       </div>
       <div className="col col-btn">
-        <i className="icon-delete" onClick={handleOnDeleteClick} />
+        <Popconfirm
+          title={
+            <TI18n
+              keyStr="areYouSureYouWantToDeleteArticle"
+              default="Are you sure you want to delete this article?"
+            />
+          }
+          onConfirm={handleOnDeleteClick}
+          okText={<TI18n keyStr="confirmTitle" default="Confirm" />}
+          cancelText={<TI18n keyStr="cancelTitle" default="Cancel" />}
+        >
+          <i className="icon-delete" onClick={() => {}} />
+        </Popconfirm>
       </div>
     </div>
   );

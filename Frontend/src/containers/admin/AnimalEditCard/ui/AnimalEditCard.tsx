@@ -3,11 +3,12 @@ import { DEFAULT_ANIMAL, EditableTags, IAnimal } from '../../../../api/animals';
 import '../style/animalEditCard.scss';
 import { store } from '../../../../store';
 import { selectApiUrl } from '../../../../store/selectors/config.selector';
-import { Tabs } from 'antd';
+import { message, Tabs } from 'antd';
+import { TI18n } from '../../../../i18n';
 import { HealthTabContent } from './HealthTabContent';
 import { RouteComponentProps, withRouter } from 'react-router';
 import _ from 'lodash';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { ICustomAppState } from '../../../../store/state';
 import { Loader } from '../../../../components/Loader';
 import { ERequestStatus, LocationsCode } from '../../../../api';
@@ -30,6 +31,7 @@ interface IOwnPropTypes extends RouteComponentProps<any> {
   postAnimal: (animal: IAnimal) => void;
   updateAnimal: (params: { animal: IAnimal; id?: string }) => void;
   fetchAnimalItem: (id: string) => any;
+  clearFetchAnimalItem: () => void;
 }
 
 interface IPropTypes extends IOwnPropTypes {
@@ -98,6 +100,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.baseUrl = selectApiUrl(store.getState());
   }
 
+  componentWillUnmount() {
+    this.props.clearFetchAnimalItem();
+  }
+
   onChangeSizeAndBreedTags = (e: any, key: any) => {
     // @ts-ignore
     this.tagsSizeAndBreed[key] = e.target.value;
@@ -144,18 +150,41 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({ images: [...this.state.images, ...e.target.files] });
   };
 
+  showErrorMessage = () => {
+    message.error({
+      content: (
+        <Provider store={store}>
+          <TI18n
+            keyStr="formValidationError"
+            default="Будь ласка, заповніть всі обов'язкові поля"
+          />
+        </Provider>
+      ),
+    });
+  }
+
   submit = () => {
     const animal = { ...(this.state as IAnimal) };
-    this.props.updateAnimal({ animal, id: this.state.id });
+    if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
+      this.showErrorMessage();
+    } else {
+      this.props.updateAnimal({ animal, id: this.state.id });
+    }
   };
+
   delete = () => {
     this.props.deleteAnimal(this.state.id || '');
   };
 
   post = () => {
     const animal = { ...(this.state as IAnimal) };
-    this.props.postAnimal(animal);
-    this.setState({ ...DEFAULT_ANIMAL });
+    if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
+        this.showErrorMessage();
+      } else {
+        this.props.postAnimal(animal);
+        this.setState({ ...DEFAULT_ANIMAL });
+        this.props.history.goBack();
+      }
   };
 
   onSave = () => {
@@ -168,7 +197,6 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       this.submit();
     } else {
       this.post();
-      this.props.history.goBack();
     }
   };
 
@@ -192,8 +220,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   };
 
   onDeleteUploadedImage = (id: string) => {
+    const { coverImage, imageIds } = this.state;
+    const indexOfImageInArr = imageIds.findIndex((imageId) => imageId === id);
+    const newMainImageIndex = coverImage > indexOfImageInArr ? coverImage - 1 : coverImage;
     this.setState({
-      imageIds: this.state.imageIds.filter(imageId => imageId !== id),
+      imageIds: imageIds.filter(imageId => imageId !== id),
+      coverImage: newMainImageIndex,
     });
   };
 

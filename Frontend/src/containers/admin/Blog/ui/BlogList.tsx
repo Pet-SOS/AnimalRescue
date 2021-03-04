@@ -18,12 +18,14 @@ interface IBlogListPageProps {
   blogList: IBlogListResponse;
   fetchBlogList: (params?: any) => void;
   clearList: () => void;
+  deleteItem: (id: string) => void;
 }
 
 export const BlogList: React.FC<IBlogListPageProps> = ({
   blogList,
   fetchBlogList,
   clearList,
+  deleteItem,
 }) => {
   const contentSize = 10;
   const match = useRouteMatch();
@@ -77,7 +79,9 @@ export const BlogList: React.FC<IBlogListPageProps> = ({
   };
 
   const handleOnItemDeleteCLick = (blogItem: IBlogItem) => {
-    // TODO
+    if (blogItem.id) {
+      deleteItem(blogItem.id);
+    }
   };
 
   const filterItemInBlog = (filter: string) => {
