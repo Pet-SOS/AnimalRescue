@@ -47,36 +47,41 @@ export const PopupInfo: React.FC<IPropTypes> = ({
           </div>
         </div>
         <div className="second-block">
-          <p>{textFirst}</p>
-          {!!card && (
-            <div className="bank-card">
-              <div className="bank-card-info">
-                <p
-                  className="card"
-                  dangerouslySetInnerHTML={{ __html: card }}
-                ></p>
+          <div>
+            <p>{textFirst}</p>
+            {!!card && (
+              <div className="bank-card">
+                <div className="bank-card-info">
+                  <p
+                    className="card"
+                    dangerouslySetInnerHTML={{ __html: card }}
+                  ></p>
+                </div>
+                <CopyToClipboard text={card} className="copy-to-clipboard">
+                  <button>
+                    <i className="icon-copy">
+                      <span className="path1">icon</span>
+                      <span className="path2">icon</span>
+                      <span className="path3">icon</span>
+                      <span className="path4">icon</span>
+                    </i>
+                  </button>
+                </CopyToClipboard>
               </div>
-              <CopyToClipboard text={card} className="copy-to-clipboard">
-                <button>
-                  <i className="icon-copy">
-                    <span className="path1">icon</span>
-                    <span className="path2">icon</span>
-                    <span className="path3">icon</span>
-                    <span className="path4">icon</span>
-                  </i>
-                </button>
-              </CopyToClipboard>
-            </div>
-          )}
-          <p>{textSecond}</p>
-          <ul>
-            <li>
-              <span>{textThird}</span>
-            </li>
-            <li>
-              <span>{textThirdTwo}</span>
-            </li>
-          </ul>
+            )}
+          </div>
+          <hr className="horizontal-rule"/>
+          <div>
+            <p>{textSecond}</p>
+            <ul>
+              <li>
+                <span>{textThird}</span>
+              </li>
+              <li>
+                <span>{textThirdTwo}</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
