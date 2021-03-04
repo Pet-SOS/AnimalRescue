@@ -1,5 +1,6 @@
 import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 import {
+  actionFetchHelpPopup,
   actionFetchInfoCard,
   actionFetchInfoContacts,
 } from '../../client/Home/store/actions';
@@ -11,6 +12,7 @@ const mapStateToProps = (state: ICustomAppState) => {
   return {
     infoCard: state.homePage.infoCard,
     infoContacts: state.homePage.infoContacts,
+    helpPopup: state.homePage.helpPopup,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
@@ -18,6 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
     {
       fetchInfoCard: actionFetchInfoCard,
       fetchInfoContacts: actionFetchInfoContacts,
+      fetchHelpPopup: actionFetchHelpPopup,
     },
     dispatch,
   );

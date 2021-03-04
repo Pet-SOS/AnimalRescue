@@ -1,8 +1,13 @@
 import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
 import { IInfoCardResponse } from './../../../../../api/infoCard';
 import { IInfoContactsResponse } from '../../../../../api/contacts';
+import { IHelpPopupResponse } from '../../../../../api/help-popup';
 
 export interface IInfoContacts extends IInfoContactsResponse {
+  isLoading: boolean;
+  isLoaded: boolean;
+}
+export interface IHelpPopup extends IHelpPopupResponse {
   isLoading: boolean;
   isLoaded: boolean;
 }
@@ -18,6 +23,8 @@ export interface IHomePageState {
   infoCard: IInfoCard;
   infoContacts: IInfoContacts;
   infoContactsState: IRequestState;
+  helpPopup: IHelpPopup;
+  helpPopupState: IRequestState;
 }
 
 export const DEFAULT_INFO_CARD = {
@@ -122,10 +129,63 @@ export const DEFAULT_CONTACTS: IInfoContacts = {
   isLoaded: false,
 };
 
+export const DEFAULT_HELP_POPUP: IHelpPopup = {
+  data: {
+    paragraphs: [
+      {
+          name: 'title',
+          values: [
+              {
+                  lang: 'ua',
+                  value: ''
+              },
+              {
+                  lang: 'en',
+                  value: ''
+              },
+              {
+                  lang: 'de',
+                  value: ''
+              },
+              {
+                  lang: 'ru',
+                  value: ''
+              }
+          ]
+      },
+      {
+          name: 'description',
+          values: [
+              {
+                  lang: 'ua',
+                  value: ''
+              },
+              {
+                  lang: 'en',
+                  value: ''
+              },
+              {
+                  lang: 'de',
+                  value: ''
+              },
+              {
+                  lang: 'ru',
+                  value: ''
+              }
+          ]
+      }
+    ]
+  },
+  isLoading: false,
+  isLoaded: false,
+};
+
 export const DEFAULT_HOME_PAGE_STATE: IHomePageState = {
   isActivePopup: false,
   infoCardState: { ...DEFAULT_REQUEST_STATE },
   infoCard: { ...DEFAULT_INFO_CARD },
   infoContacts: { ...DEFAULT_CONTACTS },
   infoContactsState: { ...DEFAULT_REQUEST_STATE },
+  helpPopup: { ...DEFAULT_HELP_POPUP },
+  helpPopupState: { ...DEFAULT_REQUEST_STATE },
 };

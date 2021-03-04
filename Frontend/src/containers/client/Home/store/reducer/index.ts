@@ -4,6 +4,7 @@ import {
   IHomePageState,
   DEFAULT_CONTACTS,
   DEFAULT_INFO_CARD,
+  DEFAULT_HELP_POPUP,
 } from '../state';
 import { getType } from 'typesafe-actions';
 import {
@@ -19,6 +20,10 @@ import {
   actionFetchInfoContactsSuccess,
   actionFetchInfoContactsFailUrl,
   actionClearInfoContacts,
+  actionFetchHelpPopup,
+  actionFetchHelpPopupSuccess,
+  actionFetchHelpPopupFailUrl,
+  actionClearHelpPopup,
   actionClearInfoCard,
 } from '../actions';
 
@@ -32,6 +37,12 @@ const fetchInfoContactsStateReducer = genericRequestReducer(
   actionFetchInfoContacts,
   actionFetchInfoContactsSuccess,
   actionFetchInfoContactsFailUrl,
+);
+
+const fetchHelpPopupStateReducer = genericRequestReducer(
+  actionFetchHelpPopup,
+  actionFetchHelpPopupSuccess,
+  actionFetchHelpPopupFailUrl,
 );
 
 export const homePageReducer = (
@@ -135,6 +146,54 @@ export const homePageReducer = (
         ...state,
         infoContacts: { ...DEFAULT_CONTACTS },
         infoContactsState: { ...DEFAULT_REQUEST_STATE },
+      };
+    }
+    case getType(actionFetchHelpPopup): {
+      return {
+        ...state,
+        helpPopup: {
+          ...state.helpPopup,
+          isLoading: true,
+        },
+        helpPopupState: fetchHelpPopupStateReducer(
+          state.helpPopupState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchHelpPopupSuccess): {
+      return {
+        ...state,
+        helpPopupState: fetchHelpPopupStateReducer(
+          state.helpPopupState,
+          action,
+        ),
+        helpPopup: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true,
+        },
+      };
+    }
+    case getType(actionFetchHelpPopupFailUrl): {
+      return {
+        ...state,
+        helpPopup: {
+          ...state.helpPopup,
+          isLoaded: false,
+          isLoading: false,
+        },
+        helpPopupState: fetchHelpPopupStateReducer(
+          state.helpPopupState,
+          action,
+        ),
+      };
+    }
+    case getType(actionClearHelpPopup): {
+      return {
+        ...state,
+        helpPopup: { ...DEFAULT_HELP_POPUP },
+        helpPopupState: { ...DEFAULT_REQUEST_STATE },
       };
     }
     default:

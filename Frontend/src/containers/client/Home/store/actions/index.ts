@@ -5,6 +5,8 @@ export const actionIsActivePopup = createAction(
   'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
   resolve => (data: boolean) => resolve({ data }),
 );
+
+
 export const actionFetchInfoCard = createAction('HOME_FETCH_INFO_CARD');
 export const actionFetchInfoCardSuccess = createAction(
   'HOME_FETCH_INFO_CARD_SUCCESS',
@@ -15,6 +17,8 @@ export const actionFetchInfoCardlFailUrl = createAction(
   resolve => (error: Error) => resolve({ error }),
 );
 export const actionClearInfoCard = createAction('CLEAR_INFO_CARD');
+
+
 export const actionFetchInfoContacts = createAction(
   'HOME_FETCH_INFO_CONTACTS',
   resolve => () => resolve({}),
@@ -28,3 +32,20 @@ export const actionFetchInfoContactsFailUrl = createAction(
   resolve => (error: Error) => resolve({ error }),
 );
 export const actionClearInfoContacts = createAction('CLEAR_INFO_CONTACTS');
+
+
+export const actionFetchHelpPopup = createAction(
+  'HOME_FETCH_HELP_POPUP',
+  resolve => () => resolve({}),
+);
+export const actionFetchHelpPopupSuccess = createAction(
+  'HOME_FETCH_HELP_POPUP_SUCCESS',
+  resolve => (data: IInfoContactsResponse) => resolve(data),
+);
+export const actionFetchHelpPopupFailUrl = createAction(
+  'HOME_FETCH_HELP_POPUP_FAILURL',
+  resolve => (error: Error) => resolve({ error }),
+);
+export const actionClearHelpPopup = createAction(
+  'CLEAR_HELP_POPUP'
+);

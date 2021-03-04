@@ -55,7 +55,7 @@ export class CommonAddress extends React.Component<IPropTypes> {
         return (
             <Tabs defaultActiveKey="1">
                 {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>
-                    {config.controls.map(control => <div className="form-row">
+                    {config.controls.map(control => <div className="form-row" key={control.key}>
                         <label htmlFor={control.key + tab.key}>{control.label}</label>
                         <input
                             id={control.key + tab.key}

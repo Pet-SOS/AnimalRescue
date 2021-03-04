@@ -1,5 +1,8 @@
 import React from "react";
 import { Tabs } from "antd";
+import { addHelpPopup, IParagraph } from "../../../../api/help-popup";
+import { DEFAULT_HELP_POPUP } from "../../../client/Home/store/state";
+// import { HtmlEditor, styleCard } from '../../../../components/HtmlEditor';
 
 const { TabPane } = Tabs;
 
@@ -26,38 +29,65 @@ const config = {
     controls: [
         {
             label: 'Заголовок',
-            key: 'header'
+            key: 'adoptPopupTitle'
         }, {
             label: 'Текст',
-            key: 'text'
+            key: 'adoptPopupText'
         }
     ]
 };
 
 interface IPropTypes {
-    // paragraphs: IParagraph[];
-    handleHelpPopup: (event: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => void;
+    paragraphs: IParagraph[];
 }
-
-export class HelpPopup extends React.Component<IPropTypes> {
+interface IState {
+    paragraphs: IParagraph[];
+}
+export class HelpPopup extends React.Component<IPropTypes, IState> {
     constructor(props: IPropTypes){
-        super(props)
+        super(props);
+        this.state = {
+            paragraphs: this.props.paragraphs.length ? this.props.paragraphs : DEFAULT_HELP_POPUP.data.paragraphs,
+        };
     }
 
+    handleHelpPopup = (e: React.ChangeEvent<HTMLInputElement>, key: string, lang: string) => {
+        const paragraphs = [...this.state.paragraphs];
+        const paragraphIndex = paragraphs.findIndex(p => p.name === key);
+        const valueIndex = paragraphs[paragraphIndex].values.findIndex(v => v.lang === lang);
+        paragraphs[paragraphIndex].values[valueIndex].value = e.target.value;
+    
+        this.setState({ paragraphs });
+    };
+
+    handleSubmit = (e: React.SyntheticEvent<EventTarget>) => {
+        e.preventDefault();
+        addHelpPopup({
+            paragraphs : [...this.state.paragraphs]
+        }).then(resp => console.log(resp));
+    };
+
     render() {
-        const handleHelpPopup = this.props.handleHelpPopup;
+        const paragraphs = [...this.props.paragraphs];
 
         return (
             <Tabs defaultActiveKey="1">
                 {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>
-                    {config.controls.map(control => <div className="form-row">
+                    {config.controls.map(control => <div className="form-row" key={control.key}>
                         <label htmlFor={control.key + tab.key}>{control.label}</label>
                         <input
                             id={control.key + tab.key}
                             type="text"
-                            onChange={(e)=>handleHelpPopup(e, control.key, tab.lang)}
-                            value=''/>
+                            onChange={(e)=>this.handleHelpPopup(e, control.key, tab.lang)}
+                            value={`${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}/>
+                            {/* <HtmlEditor
+                                editorState={`${paragraphs.filter(p => p.name === control.key)[0].values.filter(v => v.lang === tab.lang)[0].value}` || ''}
+                                onChange={(e)=>this.handleHelpPopup(e, control.key, tab.lang)}
+                                classList={styleCard}
+                            /> */}
                     </div>)}
+
+                    <button className="btn btn-blue" onClick={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
                 </TabPane>)}
             </Tabs>
         )
