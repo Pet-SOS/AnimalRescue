@@ -14,7 +14,7 @@ import counterImage10 from '../../../../img/counter-images/counter_10.png';
 import '../styles/header.scss';
 import { ICustomAppState } from '../../../../store/state';
 import { Link } from 'react-router-dom';
-import { infoContactsCheckAndLoad } from '../../Home/store/selectors';
+import { infoContactsCheckAndLoad, helpPopupCheckAndLoad } from '../../Home/store/selectors';
 
 interface IPropTypes {}
 
@@ -23,9 +23,12 @@ export const AppHeader: React.FC<IPropTypes> = () => {
     (store: ICustomAppState) => store.homePage.isActivePopup,
   );
   const infoCard: string = store.getState().homePage.infoCard.data.body;
+  const paragraphs: any = store.getState().homePage.helpPopup.data.paragraphs;
+  const textFirst: string = paragraphs[1].values[0].value;
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   useEffect(() => {
     infoContactsCheckAndLoad();
+    helpPopupCheckAndLoad();
   }, []);
   return (
     <header className={isActiveMenu ? 'nav-active' : ''}>
@@ -88,10 +91,12 @@ export const AppHeader: React.FC<IPropTypes> = () => {
           }
           card={infoCard}
           textFirst={
+            textFirst ? textFirst : (
             <TI18n
-              keyStr="popupBlockFirstText"
+              keyStr={"popupBlockFirstText"}
               default="Если Вы хотите помочь нам и нашим подопечным, переведите любую сумму на карту Приватбанка:"
             />
+            )
           }
           textSecond={
             <TI18n keyStr="popupBlockSecondText" default="Также нам нужны:" />
