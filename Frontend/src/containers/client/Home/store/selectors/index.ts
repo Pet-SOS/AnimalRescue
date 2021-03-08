@@ -1,5 +1,6 @@
 import {
   actionFetchHelpPopup,
+  actionFetchHomePopup,
   actionFetchInfoCard,
   actionFetchInfoContacts,
 } from './../actions/index';
@@ -16,6 +17,9 @@ export const selectInfoContacts = (state: ICustomAppState) =>
   
 export const selectHelpPopup = (state: ICustomAppState) =>
   state[HOME_PAGE_KEY].helpPopup;
+
+export const selectHomePopup = (state: ICustomAppState) =>
+  state[HOME_PAGE_KEY].homePopup;
 
 export const infoCardCheckAndLoad = (): void => {
   const state: IInfoCard = selectSavedInfoCard(store.getState());
@@ -35,5 +39,12 @@ export const helpPopupCheckAndLoad = (): void => {
   const state: IInfoCard = selectHelpPopup(store.getState());
   if (!state.isLoaded && !state.isLoading) {
     store.dispatch(actionFetchHelpPopup());
+  }
+};
+
+export const homePopupCheckAndLoad = (): void => {
+  const state: IInfoCard = selectHomePopup(store.getState());
+  if (!state.isLoaded && !state.isLoading) {
+    store.dispatch(actionFetchHomePopup());
   }
 };

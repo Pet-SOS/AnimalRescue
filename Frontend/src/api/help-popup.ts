@@ -14,11 +14,6 @@ export interface IHelpPopupData {
   paragraphs: IParagraph[];
 }
 
-export interface IInfoContactsResponse {
-  data: IHelpPopupData;
-  self?: string;
-}
-
 export interface IHelpPopupResponse {
   data: IHelpPopupData;
   self?: string;

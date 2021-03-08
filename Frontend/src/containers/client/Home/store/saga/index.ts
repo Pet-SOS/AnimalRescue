@@ -10,10 +10,14 @@ import {
   actionFetchHelpPopupSuccess,
   actionFetchHelpPopupFailUrl,
   actionFetchHelpPopup,
+  actionFetchHomePopupSuccess,
+  actionFetchHomePopupFailUrl,
+  actionFetchHomePopup,
 } from '../actions';
 import { fetchInfoCard } from '../../../../../api/infoCard';
 import { fetchInfoContacts } from '../../../../../api/contacts';
 import { fetchHelpPopup } from '../../../../../api/help-popup';
+import { fetchHomePopup } from '../../../../../api/home-popup';
 
 function* fetchHomePageInfoCard() {
   try {
@@ -42,8 +46,18 @@ function* fetchHomePageHelpPopup() {
   }
 }
 
+function* fetchHomePageHomePopup() {
+  try {
+    const response = yield call(fetchHomePopup);
+    yield put(actionFetchHomePopupSuccess(response));
+  } catch (e) {
+    yield put(actionFetchHomePopupFailUrl(e));
+  }
+}
+
 export function* watchHomePage() {
   yield takeEvery(getType(actionFetchInfoCard), fetchHomePageInfoCard);
   yield takeEvery(getType(actionFetchInfoContacts), fetchHomePageInfoContacts);
   yield takeEvery(getType(actionFetchHelpPopup), fetchHomePageHelpPopup);
+  yield takeEvery(getType(actionFetchHomePopup), fetchHomePageHomePopup);
 }

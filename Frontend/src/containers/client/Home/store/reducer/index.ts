@@ -5,6 +5,7 @@ import {
   DEFAULT_CONTACTS,
   DEFAULT_INFO_CARD,
   DEFAULT_HELP_POPUP,
+  DEFAULT_HOME_POPUP,
 } from '../state';
 import { getType } from 'typesafe-actions';
 import {
@@ -20,11 +21,16 @@ import {
   actionFetchInfoContactsSuccess,
   actionFetchInfoContactsFailUrl,
   actionClearInfoContacts,
+  actionClearInfoCard,
   actionFetchHelpPopup,
   actionFetchHelpPopupSuccess,
   actionFetchHelpPopupFailUrl,
   actionClearHelpPopup,
-  actionClearInfoCard,
+
+  actionFetchHomePopup,
+  actionFetchHomePopupSuccess,
+  actionFetchHomePopupFailUrl,
+  actionClearHomePopup,
 } from '../actions';
 
 const fetchSaveInfoCardStateReducer = genericRequestReducer(
@@ -43,6 +49,12 @@ const fetchHelpPopupStateReducer = genericRequestReducer(
   actionFetchHelpPopup,
   actionFetchHelpPopupSuccess,
   actionFetchHelpPopupFailUrl,
+);
+
+const fetchHomePopupStateReducer = genericRequestReducer(
+  actionFetchHomePopup,
+  actionFetchHomePopupSuccess,
+  actionFetchHomePopupFailUrl,
 );
 
 export const homePageReducer = (
@@ -148,6 +160,8 @@ export const homePageReducer = (
         infoContactsState: { ...DEFAULT_REQUEST_STATE },
       };
     }
+
+
     case getType(actionFetchHelpPopup): {
       return {
         ...state,
@@ -196,6 +210,57 @@ export const homePageReducer = (
         helpPopupState: { ...DEFAULT_REQUEST_STATE },
       };
     }
+
+
+    case getType(actionFetchHomePopup): {
+      return {
+        ...state,
+        homePopup: {
+          ...state.homePopup,
+          isLoading: true,
+        },
+        homePopupState: fetchHomePopupStateReducer(
+          state.homePopupState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchHomePopupSuccess): {
+      return {
+        ...state,
+        homePopupState: fetchHomePopupStateReducer(
+          state.homePopupState,
+          action,
+        ),
+        homePopup: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true,
+        },
+      };
+    }
+    case getType(actionFetchHomePopupFailUrl): {
+      return {
+        ...state,
+        homePopup: {
+          ...state.homePopup,
+          isLoaded: false,
+          isLoading: false,
+        },
+        homePopupState: fetchHomePopupStateReducer(
+          state.homePopupState,
+          action,
+        ),
+      };
+    }
+    case getType(actionClearHomePopup): {
+      return {
+        ...state,
+        homePopup: { ...DEFAULT_HOME_POPUP },
+        homePopupState: { ...DEFAULT_REQUEST_STATE },
+      };
+    }
+
     default:
       return state;
   }

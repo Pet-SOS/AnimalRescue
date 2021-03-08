@@ -13,6 +13,7 @@ import { Collapse } from "antd";
 import { CommonAddress } from "./CommonAddress";
 import { HelpSettingsPopup } from "./HelpSettingsPopup";
 import { DEFAULT_CONTACTS } from '../../../client/Home/store/state';
+import { IWantToTakeHomeSettingsPopup } from './IWantToTakeHomePopup';
 
 const { Panel } = Collapse;
 interface IPropTypes {
@@ -23,6 +24,7 @@ interface IPropTypes {
   paragraphs: IParagraph[];
   infoCard: IDataBankCard;
   helpPopup: IParagraph[];
+  homePopup: IParagraph[];
 }
 interface IState {
   socialLinks: ISocialLinks;
@@ -136,7 +138,6 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
       paragraphs : [...this.state.paragraphs],
     };
     const card = { ...this.state.infoCard };
-    // const htmlCard = draftToHtmlHelper();
     card.body = this.state.editorCardState;
     addInfoContacts(contacts).then(resp => console.log(resp));
     addInfoCard(card).then(resp => console.log(resp));
@@ -204,7 +205,7 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
           <HelpSettingsPopup paragraphs={this.props.helpPopup}/>
         </Panel>
         <Panel header="Попап «Хочу забрати додому»" key="3">
-          <p>3</p>
+          <IWantToTakeHomeSettingsPopup paragraphs={this.props.homePopup}/>
         </Panel>
         <Panel header="Як усиновити тварину" key="4">
             <p>4</p>

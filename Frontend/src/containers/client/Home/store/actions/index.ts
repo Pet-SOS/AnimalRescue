@@ -1,5 +1,7 @@
 import { createAction } from 'typesafe-actions';
 import { IInfoContactsResponse } from '../../../../../api/contacts';
+import { IHelpPopupResponse } from '../../../../../api/help-popup';
+import { IHomePopupResponse } from '../../../../../api/home-popup';
 
 export const actionIsActivePopup = createAction(
   'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
@@ -40,7 +42,7 @@ export const actionFetchHelpPopup = createAction(
 );
 export const actionFetchHelpPopupSuccess = createAction(
   'HOME_FETCH_HELP_POPUP_SUCCESS',
-  resolve => (data: IInfoContactsResponse) => resolve(data),
+  resolve => (data: IHelpPopupResponse) => resolve(data),
 );
 export const actionFetchHelpPopupFailUrl = createAction(
   'HOME_FETCH_HELP_POPUP_FAILURL',
@@ -48,4 +50,21 @@ export const actionFetchHelpPopupFailUrl = createAction(
 );
 export const actionClearHelpPopup = createAction(
   'CLEAR_HELP_POPUP'
+);
+
+
+export const actionFetchHomePopup = createAction(
+  'HOME_FETCH_HOME_POPUP',
+  resolve => () => resolve({}),
+);
+export const actionFetchHomePopupSuccess = createAction(
+  'HOME_FETCH_HOME_POPUP_SUCCESS',
+  resolve => (data: IHomePopupResponse) => resolve(data),
+);
+export const actionFetchHomePopupFailUrl = createAction(
+  'HOME_FETCH_HOME_POPUP_FAILURL',
+  resolve => (error: Error) => resolve({ error }),
+);
+export const actionClearHomePopup = createAction(
+  'CLEAR_HOME_POPUP'
 );
