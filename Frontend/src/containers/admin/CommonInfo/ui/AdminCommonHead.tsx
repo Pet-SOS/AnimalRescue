@@ -11,7 +11,7 @@ import _ from 'lodash';
 import { HtmlEditor, styleCard } from '../../../../components/HtmlEditor';
 import { Collapse } from "antd";
 import { CommonAddress } from "./CommonAddress";
-import { HelpPopup } from "./HelpPopup";
+import { HelpSettingsPopup } from "./HelpSettingsPopup";
 import { DEFAULT_CONTACTS } from '../../../client/Home/store/state';
 
 const { Panel } = Collapse;
@@ -201,10 +201,10 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
           </form>
         </Panel>
         <Panel header="Попап Допомоги" key="2">
-          <HelpPopup paragraphs={this.props.helpPopup}/>
+          <HelpSettingsPopup paragraphs={this.props.helpPopup}/>
         </Panel>
         <Panel header="Попап «Хочу забрати додому»" key="3">
-            <p>3</p>
+          <p>3</p>
         </Panel>
         <Panel header="Як усиновити тварину" key="4">
             <p>4</p>
