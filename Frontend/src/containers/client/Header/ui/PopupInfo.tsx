@@ -14,8 +14,6 @@ interface IPropTypes {
   title: any;
   textFirst: any;
   textSecond: any;
-  textThird: any;
-  textThirdTwo: any;
 }
 
 export const PopupInfo: React.FC<IPropTypes> = ({
@@ -24,8 +22,6 @@ export const PopupInfo: React.FC<IPropTypes> = ({
   card,
   textFirst,
   textSecond,
-  textThird,
-  textThirdTwo,
 }) => {
   return (
     <div className="box-popup">
@@ -50,7 +46,8 @@ export const PopupInfo: React.FC<IPropTypes> = ({
         <div className="second-block">
           <div dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(textFirst),
-            }} />
+            }}
+          />
           {!!card && (
             <div className="bank-card">
               <div className="bank-card-info">
@@ -71,15 +68,10 @@ export const PopupInfo: React.FC<IPropTypes> = ({
               </CopyToClipboard>
             </div>
           )}
-          <p>{textSecond}</p>
-          <ul>
-            <li>
-              <span>{textThird}</span>
-            </li>
-            <li>
-              <span>{textThirdTwo}</span>
-            </li>
-          </ul>
+          <div dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(textSecond),
+            }}
+          />
         </div>
       </div>
     </div>

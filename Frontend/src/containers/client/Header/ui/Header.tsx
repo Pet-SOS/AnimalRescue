@@ -19,12 +19,17 @@ import { infoContactsCheckAndLoad, helpPopupCheckAndLoad } from '../../Home/stor
 interface IPropTypes {}
 
 export const AppHeader: React.FC<IPropTypes> = () => {
+  const appLanguage: string = useSelector(
+    (store: ICustomAppState) => store.appLanguage,
+  )
   const isActivePopup: boolean = useSelector(
     (store: ICustomAppState) => store.homePage.isActivePopup,
   );
   const infoCard: string = store.getState().homePage.infoCard.data.body;
   const paragraphs: any = store.getState().homePage.helpPopup.data.paragraphs;
-  const textFirst: string = paragraphs[1].values[0].value;
+  const title: string = paragraphs[0].values.find((v: any) => v.lang === appLanguage).value;
+  const firstParagraph: string = paragraphs[1].values.find((v: any) => v.lang === appLanguage).value;
+  const secondParagraph: string = paragraphs[2].values.find((v: any) => v.lang === appLanguage).value;
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   useEffect(() => {
     infoContactsCheckAndLoad();
@@ -86,33 +91,10 @@ export const AppHeader: React.FC<IPropTypes> = () => {
             counterImage6,
             counterImage10,
           ]}
-          title={
-            <TI18n keyStr="popupInfoBlockTitle" default="Помощь животным" />
-          }
+          title={title}
           card={infoCard}
-          textFirst={
-            textFirst ? textFirst : (
-            <TI18n
-              keyStr={"popupBlockFirstText"}
-              default="Если Вы хотите помочь нам и нашим подопечным, переведите любую сумму на карту Приватбанка:"
-            />
-            )
-          }
-          textSecond={
-            <TI18n keyStr="popupBlockSecondText" default="Также нам нужны:" />
-          }
-          textThird={
-            <TI18n
-              keyStr="popupBlockThirdText"
-              default="люди, у которых есть потребность и возможность передерживать у себя животное (от малыша до взрослой особи) до момента усыновления;"
-            />
-          }
-          textThirdTwo={
-            <TI18n
-              keyStr="popupBlockThirdTextTwo"
-              default="специалисты с нестандартными и интересными вариантами фото и видеосъемки наших животных для сайта."
-            />
-          }
+          textFirst={firstParagraph}
+          textSecond={secondParagraph}
         />
       ) : (
         ''
