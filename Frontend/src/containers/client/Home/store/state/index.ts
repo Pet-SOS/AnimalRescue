@@ -133,7 +133,7 @@ export const DEFAULT_HELP_POPUP: IHelpPopup = {
   data: {
     paragraphs: [
       {
-          name: 'title',
+          name: 'adoptPopupTitle',
           values: [
               {
                   lang: 'ua',
@@ -154,7 +154,7 @@ export const DEFAULT_HELP_POPUP: IHelpPopup = {
           ]
       },
       {
-          name: 'description',
+          name: 'adoptPopupText',
           values: [
               {
                   lang: 'ua',
@@ -173,7 +173,28 @@ export const DEFAULT_HELP_POPUP: IHelpPopup = {
                   value: ''
               }
           ]
-      }
+      },
+      {
+        name: 'adoptPopupText2',
+        values: [
+            {
+                lang: 'ua',
+                value: ''
+            },
+            {
+                lang: 'en',
+                value: ''
+            },
+            {
+                lang: 'de',
+                value: ''
+            },
+            {
+                lang: 'ru',
+                value: ''
+            }
+        ]
+    }
     ]
   },
   isLoading: false,
