@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import DOMPurify from 'dompurify';
+
 import { TI18n } from '../../../../../i18n';
 import noPhotoImage from './../../../../../img/nophoto.jpg';
 import { BlockLink } from '../../../../../components/BlockLink';
@@ -31,7 +33,12 @@ export const HelpedBlockItem: React.FC<IPropTypes> = ({ story }) => {
       <div className="inner-col">
         <div className="text">
           <h4>{story.title}</h4>
-          <p className="info-text">{story.body}</p>
+          <p
+            className="info-text"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(story.body),
+            }}
+          />
           <BlockLink
             title={<TI18n keyStr="readStory" default="Читать историю" />}
             href={`blog/${story.id}`}
