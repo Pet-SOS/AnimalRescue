@@ -153,3 +153,20 @@
     background-color: #DDDDDD;
   }
 }
+
+.edit-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .btn {
+    position: relative;
+    margin-right: 16px;
+  }
+
+  h3 {
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 0;
+  }
+}

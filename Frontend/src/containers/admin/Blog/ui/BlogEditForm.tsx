@@ -132,85 +132,90 @@ export const BlogEditForm: React.FC<IBlogEditFormProps> = ({
 
   return (
     <div>
-      <div>Заголовок</div>
-      <input
-        type="text"
-        name={ELocales.ua}
-        placeholder="Заголовок"
-        onChange={e => onTitleChanged(e.target.value)}
-        value={fields.title}
-      />
-      <div>Зображення</div>
-      {fields.imageIds.map(id => {
-        return (
-          <div className="image-preview-container" key={id}>
-            <img
-              className="image-preview"
-              src={getImageSrc(id)}
-              alt="Uploaded"
-            />
-            <div className="delete-image" onClick={() => removeLoadedImage(id)}>
-              <img src={CloseIcon} alt="delete" />
+      <div className="form-row">
+        <div>Заголовок</div>
+        <input
+          type="text"
+          name={ELocales.ua}
+          placeholder="Заголовок"
+          onChange={e => onTitleChanged(e.target.value)}
+          value={fields.title}
+        />
+      </div>
+      <div className="form-row">
+        <div>Зображення</div>
+        {fields.imageIds.map(id => {
+          return (
+            <div className="image-preview-container" key={id}>
+              <img
+                className="image-preview"
+                src={getImageSrc(id)}
+                alt="Uploaded"
+              />
+              <div className="delete-image" onClick={() => removeLoadedImage(id)}>
+                <img src={CloseIcon} alt="delete" />
+              </div>
             </div>
-          </div>
-        );
-      })}
-      {images.map(image => {
-        return (
-          <div className="image-preview-container" key={image.name}>
-            <img
-              className="image-preview"
-              src={URL.createObjectURL(image)}
-              alt="Uploaded"
-            />
-            <div
-              className="delete-image"
-              onClick={() => removeImage(image.name + image.lastModified)}
-            >
-              <img src={CloseIcon} alt="delete" />
+          );
+        })}
+        {images.map(image => {
+          return (
+            <div className="image-preview-container" key={image.name}>
+              <img
+                className="image-preview"
+                src={URL.createObjectURL(image)}
+                alt="Uploaded"
+              />
+              <div
+                className="delete-image"
+                onClick={() => removeImage(image.name + image.lastModified)}
+              >
+                <img src={CloseIcon} alt="delete" />
+              </div>
             </div>
+          );
+        })}
+        <div className="add-image-button-container">
+          <div
+            className="add-image-button"
+            onClick={() => fileInputRef.current.click()}
+          >
+            Завантажити зображення
+            <input
+              type="file"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={onImageChange}
+            />
           </div>
-        );
-      })}
-      <div className="add-image-button-container">
-        <div
-          className="add-image-button"
-          onClick={() => fileInputRef.current.click()}
-        >
-          Завантажити зображення
-          <input
-            type="file"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={onImageChange}
+          <div>Зображення має бути 1095х615, формат jpg</div>
+        </div>
+      </div>
+      <div className="form-row">
+        <div>Розділ</div>
+        <div>
+          <CheckBoks
+            name={'Корисні статті'}
+            setCheckboxCheck={onCheckBoxChanged}
+            state={fields.isArticle}
+            tag={'isArticle'}
+          />
+          <CheckBoks
+            name={'Історії успіху'}
+            setCheckboxCheck={onCheckBoxChanged}
+            state={fields.isStory}
+            tag={'isStory'}
           />
         </div>
-        <div>Зображення має бути 1095х615, формат jpg</div>
       </div>
-
-      <div>Розділ</div>
-      <div>
-        <CheckBoks
-          name={'Корисні статті'}
-          setCheckboxCheck={onCheckBoxChanged}
-          state={fields.isArticle}
-          tag={'isArticle'}
-        />
-        <CheckBoks
-          name={'Історії успіху'}
-          setCheckboxCheck={onCheckBoxChanged}
-          state={fields.isStory}
-          tag={'isStory'}
+      <div className="form-row">
+        <div>Текст</div>
+        <HtmlEditor
+          editorState={fields.text}
+          onChange={onChange}
+          classList={styleCard}
         />
       </div>
-
-      <div>Текст</div>
-      <HtmlEditor
-        editorState={fields.text}
-        onChange={onChange}
-        classList={styleCard}
-      />
-
       <Button onClick={handleSubmit} styleType={ButtonTypes.Blue}>
         Зберегти зміни
       </Button>
