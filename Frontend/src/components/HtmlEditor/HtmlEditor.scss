@@ -3,6 +3,8 @@
 
 .html-editor-wrapper {
   .ql-toolbar {
+    border-bottom: none;
+
     button {
       svg .ql-stroke {
         stroke: $text-lite-color;
