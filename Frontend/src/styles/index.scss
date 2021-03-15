@@ -479,13 +479,23 @@ input, textarea, ::placeholder {
     }
   }
 
-  label {
+  label,
+  legend {
     display: inline-block;
     vertical-align: top;
     padding: 0 0 4px;
     font-size: 16px;
     line-height: 24px;
+    color: $text-color;
+    &.secondary {
+      color: $text-lite-color;
+    }
+    &.image-legend {
+      padding: 0;
+      margin: 0;
+    }
   }
+  
 }
 
 .form-cols-group {

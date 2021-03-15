@@ -133,17 +133,18 @@ export const BlogEditForm: React.FC<IBlogEditFormProps> = ({
   return (
     <div>
       <div className="form-row">
-        <div>Заголовок</div>
+        <label htmlFor="title">Заголовок</label>
         <input
+          id="title"
+          className="title-input"
           type="text"
           name={ELocales.ua}
-          placeholder="Заголовок"
           onChange={e => onTitleChanged(e.target.value)}
           value={fields.title}
         />
       </div>
       <div className="form-row">
-        <div>Зображення</div>
+        <legend className="secondary image-legend">Зображення</legend>
         {fields.imageIds.map(id => {
           return (
             <div className="image-preview-container" key={id}>
@@ -188,28 +189,28 @@ export const BlogEditForm: React.FC<IBlogEditFormProps> = ({
               onChange={onImageChange}
             />
           </div>
-          <div>Зображення має бути 1095х615, формат jpg</div>
+          <div className="info">Зображення має бути 1095х615, формат jpg</div>
         </div>
       </div>
       <div className="form-row">
-        <div>Розділ</div>
-        <div>
+        <legend className="secondary">Розділ</legend>
+        <fieldset>
           <CheckBoks
-            name={'Корисні статті'}
-            setCheckboxCheck={onCheckBoxChanged}
-            state={fields.isArticle}
-            tag={'isArticle'}
-          />
-          <CheckBoks
-            name={'Історії успіху'}
-            setCheckboxCheck={onCheckBoxChanged}
-            state={fields.isStory}
-            tag={'isStory'}
-          />
-        </div>
+              name={'Корисні статті'}
+              setCheckboxCheck={onCheckBoxChanged}
+              state={fields.isArticle}
+              tag={'isArticle'}
+            />
+            <CheckBoks
+              name={'Історії успіху'}
+              setCheckboxCheck={onCheckBoxChanged}
+              state={fields.isStory}
+              tag={'isStory'}
+            />
+        </fieldset>
       </div>
       <div className="form-row">
-        <div>Текст</div>
+        <label className="secondary">Текст</label>
         <HtmlEditor
           editorState={fields.text}
           onChange={onChange}

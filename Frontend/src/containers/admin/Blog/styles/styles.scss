@@ -170,3 +170,19 @@
     margin-bottom: 0;
   }
 }
+
+.title-input {
+  font-weight: 900;
+}
+
+fieldset {
+  display: flex;
+  gap: 24px;
+}
+
+.info {
+  font-size: 16px;
+  line-height: 24px;
+  font-style: italic;
+  color: $text-lite-color;
+}

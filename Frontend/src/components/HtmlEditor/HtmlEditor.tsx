@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './HtmlEditor.scss';
 
 interface IPropTypes {
   editorState: any;
