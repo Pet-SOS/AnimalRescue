@@ -155,7 +155,7 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                     ></p>
                   </div>
                   <CopyToClipboard
-                    text={infoCard.data.body}
+                    text={infoCard.data.body.replace(/\D+/g, '')}
                     className="copy-to-clipboard"
                   >
                     <button>
