@@ -12,6 +12,7 @@ import {
 import { actionFetchAnimalsRequest } from '../store/actions';
 import { actionClearEntireBlogsState } from '../../Blog/store/actions';
 import { AnimalItemPageComponent } from './Component';
+import { actionClearInfoCard } from '../../Home/store/actions';
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalItem: selectAnimalItem(state),
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchAnimalsList: (requestParams?: IRequestParams) =>
     dispatch(actionFetchAnimalsRequest(requestParams)),
   clearAnimalsState: () => dispatch(actionClearEntireBlogsState()),
+  clearInfoCard: () => dispatch(actionClearInfoCard()),
 });
 
 export const AnimalItemPage = connect(
