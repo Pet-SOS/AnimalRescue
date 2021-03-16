@@ -56,7 +56,7 @@ export const PopupInfo: React.FC<IPropTypes> = ({
                   dangerouslySetInnerHTML={{ __html: card }}
                 ></p>
               </div>
-              <CopyToClipboard text={card} className="copy-to-clipboard">
+              <CopyToClipboard text={card.replace(/\D+/g, '')} className="copy-to-clipboard">
                 <button>
                   <i className="icon-copy">
                     <span className="path1">icon</span>
