@@ -7,6 +7,7 @@ import { ILocation } from '../../../../api/admin';
 interface IPropTypes {
   number: number;
   name: string;
+  englishName: string;
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   birthday?: string;
@@ -130,7 +131,10 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
           true,
           'title',
         )}
-        {this.renderField('Кличка', 'name')}
+        <fieldset>
+          {this.renderField('Кличка', 'name')}
+          {this.renderField('Кличка латиницею', 'englishName')}
+        </fieldset>
         {this.renderSelect('Стать', 'gender', 'genderOptions', false)}
         <div className="form-row small-row">
           <BirthdayDatePicker

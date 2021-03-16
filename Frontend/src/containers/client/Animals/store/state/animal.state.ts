@@ -11,6 +11,7 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
   data: {
     number: 0,
     name: '',
+    englishName: '',
     kindOfAnimal: '',
     gender: '',
     description: '',

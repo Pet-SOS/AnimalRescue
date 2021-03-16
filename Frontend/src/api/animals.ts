@@ -96,6 +96,7 @@ export enum Tags {
 export interface IAnimal {
   number: number;
   name: string;
+  englishName: string;
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: string;
@@ -124,6 +125,7 @@ export interface IAnimalResponse {
 export const DEFAULT_ANIMAL: IAnimal = {
   number: 0,
   name: '',
+  englishName: '',
   kindOfAnimal: '',
   gender: '',
   description: ' ',

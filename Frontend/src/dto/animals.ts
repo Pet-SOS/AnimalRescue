@@ -11,6 +11,7 @@ import { ITag } from '../api/tags';
 export interface IAnimalDataDTO {
   number: number;
   name: string;
+  englishName: string;
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: string;
