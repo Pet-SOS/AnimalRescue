@@ -1,3 +1,28 @@
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+
 .html-editor-wrapper {
-  border: solid 1px #e9e6e7;
+  .ql-toolbar {
+    border-bottom: none;
+
+    button {
+      svg .ql-stroke {
+        stroke: $text-lite-color;
+      }
+
+      &.ql-active,
+      &:hover {
+        svg .ql-stroke,
+        svg .ql-fill {
+          stroke: $text-color;
+        }
+      }
+    }
+  }
+
+  .ql-editor {
+    font-family: $base-font-family;
+    font-size: $font-size-base;
+    color: $text-color;
+  }
 }

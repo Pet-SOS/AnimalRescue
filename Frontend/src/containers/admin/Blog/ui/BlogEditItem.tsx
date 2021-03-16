@@ -42,7 +42,7 @@ export const BlogEditItem: React.FC<IBlogEditItemProps> = ({
 
   return (
     <BlogContainerPage>
-      <header>
+      <header className="edit-header">
         <Button
           className="icon-arrow-left"
           styleType={ButtonTypes.WhiteCircle}
@@ -51,10 +51,12 @@ export const BlogEditItem: React.FC<IBlogEditItemProps> = ({
         <h3>
           <TI18n keyStr="blogPageTitle" default={'Блог'} />
         </h3>
+      </header>
+      <div className="page-content">
         {isLoaded && (
           <BlogEditForm baseUrl={baseUrl} blog={blog} onUpdate={update} />
         )}
-      </header>
+      </div>
     </BlogContainerPage>
   );
 };

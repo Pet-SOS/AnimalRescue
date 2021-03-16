@@ -13,7 +13,7 @@ export const CheckBoks: React.FC<IPropTypes> = ({
   tag,
 }) => {
   return (
-    <label className="box-checkbox">
+    <label className="box-checkbox secondary">
       <input
         type="checkbox"
         onChange={() => {

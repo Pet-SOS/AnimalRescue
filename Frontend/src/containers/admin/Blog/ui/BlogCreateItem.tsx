@@ -48,14 +48,19 @@ export const BlogCreateItem: React.FC<IBlogEditItemProps> = () => {
 
   return (
     <BlogContainerPage>
-      <header>
+      <header className="edit-header">
         <Button
           className="icon-arrow-left"
           styleType={ButtonTypes.WhiteCircle}
           onClick={history.goBack}
         />
-        <BlogEditForm baseUrl={'_'} blog={blog} onUpdate={update} />
+        <h3>
+          <TI18n keyStr="blogPageTitle" default={'Блог'} />
+        </h3>
       </header>
+      <div className="page-content">
+        <BlogEditForm baseUrl={'_'} blog={blog} onUpdate={update} />
+      </div>
     </BlogContainerPage>
   );
 };

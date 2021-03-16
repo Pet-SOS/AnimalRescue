@@ -15,6 +15,11 @@
     input {
         display: none;
 
+        &:checked + span {
+            @include animate(color);
+            color: $text-color;
+        }
+
         &:checked + span:before {
             border: 2px solid $orange;
         }
