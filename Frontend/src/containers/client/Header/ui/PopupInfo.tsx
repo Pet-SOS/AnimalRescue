@@ -53,7 +53,9 @@ export const PopupInfo: React.FC<IPropTypes> = ({
               <div className="bank-card-info">
                 <p
                   className="card"
-                  dangerouslySetInnerHTML={{ __html: card }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(card),
+                  }}
                 ></p>
               </div>
               <CopyToClipboard text={card.replace(/\D+/g, '')} className="copy-to-clipboard">
