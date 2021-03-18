@@ -89,6 +89,10 @@
         @include media('≤xs-phone') {
             padding: 24px 16px 40px;
         }
+
+        ul {
+            list-style: inside;
+        }
     }
 
     .bank-card {
