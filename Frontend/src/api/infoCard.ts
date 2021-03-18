@@ -13,6 +13,6 @@ export async function fetchInfoCard(): Promise<IInfoCardResponse> {
   return res.data;
 }
 export async function addInfoCard(data: any): Promise<IInfoCardResponse> {
-  const res = await API.post(`Configurations/donation`, data);
+  const res = await API.put(`Configurations/donation`, data);
   return res.data;
 }
