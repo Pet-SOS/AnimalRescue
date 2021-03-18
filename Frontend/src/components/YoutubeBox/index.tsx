@@ -1,7 +1,9 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 import './index.scss';
 import { TI18n } from '../../i18n';
 import { BlockLink } from '../BlockLink';
+
 interface ILinksObj {
   src: string;
   title: string;
@@ -57,7 +59,11 @@ export const YouTubeBox: React.FC<IPropTypes> = ({
                     title={`video${i}`}
                   ></iframe>
                 </div>
-                <p>{link.title}</p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(link.title),
+                  }}
+                />
               </li>
             ))}
           </ul>
