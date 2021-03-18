@@ -1,5 +1,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import DOMPurify from 'dompurify';
 import { store } from '../../../../store';
 import { actionIsActivePopup } from '../../Home/store/actions';
 import { ButtonTypes, Button } from '../../../../components/Button';
@@ -53,7 +54,9 @@ export const PopupInfo: React.FC<IPropTypes> = ({
               <div className="bank-card-info">
                 <p
                   className="card"
-                  dangerouslySetInnerHTML={{ __html: card }}
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(card),
+                  }}
                 ></p>
               </div>
               <CopyToClipboard text={card.replace(/\D+/g, '')} className="copy-to-clipboard">

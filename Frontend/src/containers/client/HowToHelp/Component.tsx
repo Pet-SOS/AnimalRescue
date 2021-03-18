@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { TI18n } from '../../../i18n';
 import './index.scss';
 import { HelpBlock } from '../../../components/HelpBlock';
@@ -151,7 +152,9 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   <div className="bank-card-info">
                     <p
                       className="card"
-                      dangerouslySetInnerHTML={{ __html: infoCard.data.body }}
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(infoCard.data.body),
+                      }}
                     ></p>
                   </div>
                   <CopyToClipboard
