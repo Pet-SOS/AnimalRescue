@@ -29,6 +29,9 @@ export interface IAnimalDataDTO {
   readonly?: boolean;
   images: [];
   createdAt?: string;
+  adoptiveName: string;
+  adoptivePhone: string;
+  adoptionContractFileId: string;
 }
 
 export interface IAnimalDTO {

@@ -21,6 +21,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { ILocationsMap } from '../../Locations/store/state';
 import { selectTagsListData } from '../../../../store/selectors/tags.selector';
 import { DescriptionTabContent } from './DescriptionTabContent';
+import { AdoptiveParentTabContent } from './AdoptiveParentTabContent';
 
 const { TabPane } = Tabs;
 
@@ -151,6 +152,23 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({ images: [...this.state.images, ...e.target.files] });
   };
 
+  uploadFile = (e: any) => {
+    this.setState({ adoptionContractFile: e.target.files[0] });
+  };
+
+  saveContractId = () => {
+    this.setState({
+      adoptionContractContractOldFileId: this.state.adoptionContractFileId,
+    });
+  }
+
+  deleteContract = () => {
+    this.setState({
+      adoptionContractFileId: '',
+      adoptionContractContractOldFileId: '',
+    });
+  }
+
   showErrorMessage = () => {
     message.error({
       content: (
@@ -255,6 +273,9 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       imageIds,
       coverImage,
       kindOfAnimal,
+      adoptiveName,
+      adoptivePhone,
+      adoptionContractFileId,
     } = this.state;
     const { tagsList, locations, allTags } = this.props;
     const locationTypeOptions =
@@ -318,7 +339,18 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 onChange={this.onChangeValue}
               />
             </TabPane>
-            <TabPane tab="Історія змін" key="4">
+            <TabPane tab="Усиновлювач" key="4">
+              <AdoptiveParentTabContent
+                adoptiveName={adoptiveName}
+                adoptivePhone={adoptivePhone}
+                adoptionContractFileId={adoptionContractFileId}
+                deleteContract={this.deleteContract}
+                saveContractId={this.saveContractId}
+                uploadFile={this.uploadFile}
+                onChange={this.onChangeValue}
+              />
+            </TabPane>
+            <TabPane tab="Історія змін" key="5">
               Content of Tab Pane 3
             </TabPane>
           </Tabs>

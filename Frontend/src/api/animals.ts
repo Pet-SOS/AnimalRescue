@@ -114,6 +114,9 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
+  adoptiveName: string;
+  adoptivePhone: string;
+  adoptionContractFileId: string;
 }
 
 export interface IAnimalResponse {
@@ -140,6 +143,9 @@ export const DEFAULT_ANIMAL: IAnimal = {
   coverImage: 0,
   images: [],
   id: '',
+  adoptiveName: '',
+  adoptivePhone: '',
+  adoptionContractFileId: '',
 };
 
 export interface IAnimalsResponse {
@@ -216,4 +222,9 @@ export async function fetchFavoriteAnimals(
 ): Promise<IAnimalsResponse[]> {
   const res = await API.post(`animals/bunch`, { animalIds });
   return res.data;
+}
+
+export async function fetchAdoptionContractDocument(id: string): Promise<any> {
+  const res = await API.get(`Documents/${id}`, { responseType: 'arraybuffer' });
+  return res;
 }
