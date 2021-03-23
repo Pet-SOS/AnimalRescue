@@ -23,6 +23,10 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
         [BsonElement("name")]
         public string Name { get; set; }
 
+        [CouplingPropertyName(animal.EnglishName)]
+        [BsonElement("englishName")]
+        public string EnglishName { get; set; }
+
         [CouplingPropertyName(animal.KindOfAnimal)]
         [BsonElement("kindOfAnimal")]
         public string KindOfAnimal { get; set; }

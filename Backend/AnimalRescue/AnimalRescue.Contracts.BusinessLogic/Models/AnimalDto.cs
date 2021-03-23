@@ -13,6 +13,9 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(common.Name)]
         public string Name { get; set; }
 
+        [CouplingPropertyDto(animal.EnglishName)]
+        public string EnglishName { get; set; }
+
         [CouplingPropertyDto(animal.KindOfAnimal)]
         public string KindOfAnimal { get; set; }
 
