@@ -169,6 +169,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     });
   }
 
+  deleteNewContract = () => {
+    this.setState({
+      adoptionContractFile: {},
+    });
+  }
+
   showErrorMessage = () => {
     message.error({
       content: (
@@ -186,6 +192,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     const animal = { ...(this.state as IAnimal) };
     if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
       this.showErrorMessage();
+    } else if (animal.status === 'ADOPTED' && (!animal.adoptiveName || !animal.adoptivePhone)) {
+      this.showErrorMessage();
     } else {
       this.props.updateAnimal({ animal, id: this.state.id });
     }
@@ -198,6 +206,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   post = () => {
     const animal = { ...(this.state as IAnimal) };
     if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
+        this.showErrorMessage();
+      } else if (animal.status === 'ADOPTED' && (!animal.adoptiveName || !animal.adoptivePhone)) {
         this.showErrorMessage();
       } else {
         this.props.postAnimal(animal);
@@ -275,6 +285,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       kindOfAnimal,
       adoptiveName,
       adoptivePhone,
+      adoptionContractFile,
       adoptionContractFileId,
     } = this.state;
     const { tagsList, locations, allTags } = this.props;
@@ -343,8 +354,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
               <AdoptiveParentTabContent
                 adoptiveName={adoptiveName}
                 adoptivePhone={adoptivePhone}
+                adoptionContractFile={adoptionContractFile}
                 adoptionContractFileId={adoptionContractFileId}
                 deleteContract={this.deleteContract}
+                deleteNewContract={this.deleteNewContract}
                 saveContractId={this.saveContractId}
                 uploadFile={this.uploadFile}
                 onChange={this.onChangeValue}

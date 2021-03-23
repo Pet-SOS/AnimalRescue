@@ -31,6 +31,7 @@ export interface IAnimalDataDTO {
   createdAt?: string;
   adoptiveName: string;
   adoptivePhone: string;
+  adoptionContractFile: Object;
   adoptionContractFileId: string;
 }
 

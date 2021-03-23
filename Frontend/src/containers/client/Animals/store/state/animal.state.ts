@@ -28,6 +28,7 @@ export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
     images: [],
     adoptiveName: '',
     adoptivePhone: '',
+    adoptionContractFile: {},
     adoptionContractFileId: '',
   },
   self: '',

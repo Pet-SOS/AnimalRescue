@@ -6,11 +6,13 @@ import '../style/adoptiveParentTabContent.scss';
 interface IPropTypes {
   adoptiveName: string;
   adoptivePhone: string;
+  adoptionContractFile: Object;
   adoptionContractFileId: string;
   uploadFile: (e: any) => any;
   onChange: (e: any, key: string) => any;
   saveContractId: () => any;
   deleteContract: () => any;
+  deleteNewContract: () => any;
 }
 
 export class AdoptiveParentTabContent extends React.PureComponent<IPropTypes> {
@@ -24,7 +26,7 @@ export class AdoptiveParentTabContent extends React.PureComponent<IPropTypes> {
     }
   }
 
-  openPDF = (id: string) => {
+  openContract = (id: string) => {
     fetchAdoptionContractDocument(id)
       .then(resp => {
         const file = new Blob([resp.data], { type: 'application/pdf' });
@@ -36,6 +38,13 @@ export class AdoptiveParentTabContent extends React.PureComponent<IPropTypes> {
       .catch(error => {
         console.log(error);
       });
+  }
+
+  openNewContract = (file: Object) => {
+    const fileURL = URL.createObjectURL(file);
+        const strWindowFeatures =
+          'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
+        window.open(fileURL, 'pdf-report', strWindowFeatures);
   }
 
   render() {
@@ -60,12 +69,31 @@ export class AdoptiveParentTabContent extends React.PureComponent<IPropTypes> {
         </div>
         <div className="form-row small-row">
         <legend className="secondary image-legend">Договір про усиновлення</legend>
+          {
+            !!(this.props.adoptionContractFile instanceof File) && (
+              <div key={1} className="report">
+                <i className="icon-pdf" />
+                <div
+                  onClick={() =>
+                    this.openNewContract(this.props.adoptionContractFile)
+                  }
+                  className="title-item"
+                >
+                  New Contract
+                </div>
+                <button
+                  onClick={() => this.props.deleteNewContract()}
+                  className="delete icon-close"
+                />
+              </div>
+            )
+          }
           {!!this.props.adoptionContractFileId && (
               <div key={this.props.adoptionContractFileId} className="report">
                 <i className="icon-pdf" />
                 <div
                   onClick={() =>
-                    this.openPDF(this.props.adoptionContractFileId)
+                    this.openContract(this.props.adoptionContractFileId)
                   }
                   className="title-item"
                 >

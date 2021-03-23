@@ -116,6 +116,7 @@ export interface IAnimal {
   createdAt?: string;
   adoptiveName: string;
   adoptivePhone: string;
+  adoptionContractFile: Object;
   adoptionContractFileId: string;
 }
 
@@ -145,6 +146,7 @@ export const DEFAULT_ANIMAL: IAnimal = {
   id: '',
   adoptiveName: '',
   adoptivePhone: '',
+  adoptionContractFile: {},
   adoptionContractFileId: '',
 };
 
