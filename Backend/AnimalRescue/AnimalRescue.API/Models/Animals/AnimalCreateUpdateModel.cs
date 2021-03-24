@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AnimalRescue.API.Models.Tags;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(common.Name)]
         public string Name { get; set; }
 
-        [JsonPropertyName(animal.EnglishName)]
-        [JsonProperty(animal.EnglishName)]
-        public string EnglishName { get; set; }
+        [JsonPropertyName(animal.Names)]
+        [JsonProperty(animal.Names)]
+        public List<LanguageValueModel> Names { get; set; }
 
         [JsonPropertyName(animal.KindOfAnimal)]
         [JsonProperty(animal.KindOfAnimal)]
