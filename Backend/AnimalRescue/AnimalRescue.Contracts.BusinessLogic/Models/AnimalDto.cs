@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AnimalRescue.Contracts.BusinessLogic.Attributes;
 using AnimalRescue.Contracts.BusinessLogic.Models.Tag;
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
@@ -10,8 +11,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
     {
         public int Number { get; set; }
 
-        [CouplingPropertyDto(common.Name)]
-        public string Name { get; set; }
+        [CouplingPropertyDto(animal.Names)]
+        public List<LanguageValueDto> Names { get; set; }
 
         [CouplingPropertyDto(animal.KindOfAnimal)]
         public string KindOfAnimal { get; set; }

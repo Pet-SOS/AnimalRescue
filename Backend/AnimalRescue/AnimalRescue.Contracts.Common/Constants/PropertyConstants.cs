@@ -48,6 +48,7 @@ namespace AnimalRescue.Contracts.Common.Constants
 
         public static class Animal
         {
+            public const string Names = "names";
             public const string Number = "number";
             public const string KindOfAnimal = "kindOfAnimal";
             public const string Gender = "gender";

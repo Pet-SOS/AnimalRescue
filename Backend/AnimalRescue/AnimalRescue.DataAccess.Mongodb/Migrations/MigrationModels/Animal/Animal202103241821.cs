@@ -1,27 +1,25 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.DataAccess.Mongodb.Models.Tag;
-
 using MongoDB.Bson.Serialization.Attributes;
-
 using System;
 using System.Collections.Generic;
 
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
-namespace AnimalRescue.DataAccess.Mongodb.Models
+namespace AnimalRescue.DataAccess.Mongodb.Migrations.MigrationModels.Animal
 {
     [BsonDiscriminator("animals")]
-    public class Animal : BaseAndTimeItem, IImageIds
+    internal class Animal202103241821 : BaseAndTimeItem, IImageIds
     {
         [CouplingPropertyName(animal.Number)]
         [BsonElement("number")]
         public int Number { get; set; }
 
-        [CouplingPropertyName(animal.Names)]
-        [BsonElement("names")]
-        public List<LanguageValue> Names { get; set; }
+        [CouplingPropertyName(common.Name)]
+        [BsonElement("name")]
+        public string Name { get; set; }
 
         [CouplingPropertyName(animal.KindOfAnimal)]
         [BsonElement("kindOfAnimal")]
