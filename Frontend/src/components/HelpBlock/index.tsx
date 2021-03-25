@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { TI18n } from '../../i18n';
 import { Button, ButtonTypes } from '../Button';
 import { PhotoSlider } from '../PhotoSlider';
@@ -8,6 +9,7 @@ import { BlockLink } from '../BlockLink';
 import cn from 'classnames';
 import './index.scss';
 import { IAnimal } from '../../api/animals';
+import { ICustomAppState } from '../../store/state';
 
 export interface IPropTypes {
   animalsList: IAnimal[];
@@ -21,6 +23,20 @@ export const HelpBlock: React.FC<IPropTypes> = ({
   title,
 }) => {
   const [indexPost, setIndexPost] = useState(0);
+  const appLanguage: string = useSelector(
+    (store: ICustomAppState) => store.appLanguage,
+  );
+  let commonLang = '';
+  switch (appLanguage) {
+    case 'ua':
+    case 'ru':
+      commonLang = 'ua';
+      break;
+    case 'en':
+    case 'de':
+      commonLang = 'en';
+      break;
+  }
   return (
     <section className={cn('section-help', { dark: !isLightMode })}>
       <div className="container">
@@ -39,10 +55,14 @@ export const HelpBlock: React.FC<IPropTypes> = ({
             <div className="text">
               <h2>{title}</h2>
               <div className="description-holder">
-                {!!animalsList[indexPost] && !!animalsList[indexPost].name && (
+                {!!animalsList[indexPost] && !!animalsList[indexPost].names.length && (
                   <span className="description-title">
                     <TI18n keyStr="hiIAm" default="Привет, я" />
-                    &nbsp;{animalsList[indexPost].name}.
+                    &nbsp;{
+                      animalsList[indexPost].names.length > 1
+                        ? animalsList[indexPost].names.filter((n) => n.lang === commonLang)[0].value
+                        : animalsList[indexPost].names[0].value
+                    }
                   </span>
                 )}
                 <p>

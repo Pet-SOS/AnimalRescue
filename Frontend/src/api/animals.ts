@@ -13,6 +13,22 @@ const crateFormData = (data: Object) => {
       for (let i = 0; i < value.length; i++) {
         formData.append(key, value[i]);
       }
+    } else if (key === 'names') {
+      for (let i = 0; i < value.length; i++) {
+        let flagHasEmptyValues = false;
+        for (let innerValue of Object.values(value[i])) {
+          if (innerValue === '') {
+            flagHasEmptyValues = true;
+            break;
+          }
+        }
+        if (!flagHasEmptyValues) {
+          for (let [innerKey, innerValue] of Object.entries(value[i])) {
+            // @ts-ignore
+            formData.append(`Names[${i}].${innerKey}`, innerValue);
+          }
+        }
+      }
     } else {
       formData.append(key, value);
     }
@@ -93,10 +109,15 @@ export enum Tags {
   SAVED = 'спасен',
   THELOSS = 'потеряшка',
 }
+
+export interface IAnimalName {
+  lang: string;
+  value: string;
+}
+
 export interface IAnimal {
   number: number;
-  name: string;
-  englishName: string;
+  names: IAnimalName[];
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: string;
@@ -124,8 +145,7 @@ export interface IAnimalResponse {
 
 export const DEFAULT_ANIMAL: IAnimal = {
   number: 0,
-  name: '',
-  englishName: '',
+  names: [],
   kindOfAnimal: '',
   gender: '',
   description: ' ',
