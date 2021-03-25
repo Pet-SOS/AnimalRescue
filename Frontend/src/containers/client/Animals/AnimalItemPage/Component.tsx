@@ -15,6 +15,7 @@ import { Slider } from '../../../../components/Slider';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { AnimalsSlider } from '../AnimalsSlider';
 import { sickAnimalsCheckAndLoadDefault } from '../store/selectors';
+import { infoCardCheckAndLoad } from '../../Home/store/selectors';
 import { IAnimalsListState } from '../store/state';
 import { HelpBlock } from '../../../../components/HelpBlock';
 import { ShareLink } from '../../../../components/ShareLink';
@@ -31,6 +32,7 @@ interface IPropTypes {
   clearAnimalItemState: () => void;
   fetchAnimalsList: (requestParams?: IRequestParams) => void;
   clearAnimalsState: () => void;
+  clearInfoCard: () => void;
   animalItem: IAnimalItemState;
   animalsList: IAnimalsResponse;
   sickAnimalsList: IAnimalsListState;
@@ -49,6 +51,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
   clearAnimalItemState,
   fetchAnimalsList,
   clearAnimalsState,
+  clearInfoCard,
   animalItem,
   animalsList,
   sickAnimalsList,
@@ -68,10 +71,12 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
     if (!!animalId) {
       fetchAnimalItem(animalId);
       sickAnimalsCheckAndLoadDefault();
+      infoCardCheckAndLoad();
     }
     return () => {
       clearAnimalItemState();
       clearAnimalsState();
+      clearInfoCard();
     };
   }, [animalId]);
   useEffect(() => {

@@ -118,11 +118,12 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       this.tagsSizeAndBreed.tagSize = '';
     }
     // @ts-ignore
-    const sizeAndBreedTags = Object.keys(this.tagsSizeAndBreed).map(tagKey => {
+    const sizeAndBreedTags: string[] = [];
+    Object.keys(this.tagsSizeAndBreed).map(tagKey => {
       // @ts-ignore
       if (this.tagsSizeAndBreed[tagKey] !== '') {
         // @ts-ignore
-        return this.tagsSizeAndBreed[tagKey];
+        sizeAndBreedTags.push(this.tagsSizeAndBreed[tagKey]);
       }
     });
     console.log(mainTags, sizeAndBreedTags);
