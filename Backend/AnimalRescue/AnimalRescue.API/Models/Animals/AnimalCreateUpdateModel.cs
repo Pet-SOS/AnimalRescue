@@ -16,10 +16,6 @@ namespace AnimalRescue.API.Models.Animals
         [JsonProperty(animal.Number)]
         public int Number { get; set; }
 
-        [JsonPropertyName(common.Name)]
-        [JsonProperty(common.Name)]
-        public string Name { get; set; }
-
         [JsonPropertyName(animal.Names)]
         [JsonProperty(animal.Names)]
         public List<LanguageValueModel> Names { get; set; }
