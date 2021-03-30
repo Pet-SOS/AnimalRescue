@@ -13,6 +13,26 @@ const crateFormData = (data: Object) => {
       for (let i = 0; i < value.length; i++) {
         formData.append(key, value[i]);
       }
+    } else if (
+      key === 'description'
+      || key === 'character'
+      || key === 'bannerText'
+    ) {
+      for (let i = 0; i < value.length; i++) {
+        let flagHasEmptyValues = false;
+        for (let innerValue of Object.values(value[i])) {
+          if (innerValue === '') {
+            flagHasEmptyValues = true;
+            break;
+          }
+        }
+        if (!flagHasEmptyValues) {
+          for (let [innerKey, innerValue] of Object.entries(value[i])) {
+            // @ts-ignore
+            formData.append(`Names[${i}].${innerKey}`, innerValue);
+          }
+        }
+      }
     } else {
       formData.append(key, value);
     }
@@ -93,22 +113,28 @@ export enum Tags {
   SAVED = 'спасен',
   THELOSS = 'потеряшка',
 }
+
+export interface IAnimalMultiLangProp {
+  lang: string;
+  value: string;
+}
+
 export interface IAnimal {
   number: number;
   name: string;
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
-  description: string;
+  description: IAnimalMultiLangProp[];
   imageIds: string[];
   previousImageIds?: string[];
   tags: string[];
   coverImage: number;
   birthday?: string;
-  character: string;
+  character: IAnimalMultiLangProp[];
   status: string;
   locationTypeId: string;
   locationName: string;
-  bannerText: string;
+  bannerText: IAnimalMultiLangProp[];
   isDonationActive: boolean;
   id?: string;
   readonly?: boolean;
@@ -126,15 +152,66 @@ export const DEFAULT_ANIMAL: IAnimal = {
   name: '',
   kindOfAnimal: '',
   gender: '',
-  description: ' ',
+  description: [
+    {
+        lang: 'ua',
+        value: ''
+    },
+    {
+        lang: 'en',
+        value: ''
+    },
+    {
+        lang: 'de',
+        value: ''
+    },
+    {
+        lang: 'ru',
+        value: ''
+    }
+  ],
   imageIds: [],
   previousImageIds: [],
   tags: [],
-  character: '',
+  character: [
+    {
+        lang: 'ua',
+        value: ''
+    },
+    {
+        lang: 'en',
+        value: ''
+    },
+    {
+        lang: 'de',
+        value: ''
+    },
+    {
+        lang: 'ru',
+        value: ''
+    }
+  ],
   status: '',
   locationTypeId: '',
   locationName: '',
-  bannerText: '',
+  bannerText: [
+    {
+        lang: 'ua',
+        value: ''
+    },
+    {
+        lang: 'en',
+        value: ''
+    },
+    {
+        lang: 'de',
+        value: ''
+    },
+    {
+        lang: 'ru',
+        value: ''
+    }
+  ],
   isDonationActive: false,
   birthday: '',
   coverImage: 0,

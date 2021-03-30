@@ -3,6 +3,7 @@ import {
   AnimalKind,
   Gender,
   IAnimal,
+  IAnimalMultiLangProp,
   IAnimalResponse,
   IAnimalsResponse,
 } from '../api/animals';
@@ -13,17 +14,17 @@ export interface IAnimalDataDTO {
   name: string;
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
-  description: string;
+  description: IAnimalMultiLangProp[];
   imageIds: string[];
   previousImageIds?: string[];
   tags: string[];
   coverImage: number;
   birthday?: string;
-  character: string;
+  character: IAnimalMultiLangProp[];
   status: ITag;
   locationTypeId: string;
   locationName: string;
-  bannerText: string;
+  bannerText: IAnimalMultiLangProp[];
   isDonationActive: boolean;
   id?: string;
   readonly?: boolean;
