@@ -21,6 +21,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { ILocationsMap } from '../../Locations/store/state';
 import { selectTagsListData } from '../../../../store/selectors/tags.selector';
 import { DescriptionTabContent } from './DescriptionTabContent';
+import { AdoptiveParentTabContent } from './AdoptiveParentTabContent';
 
 const { TabPane } = Tabs;
 
@@ -134,7 +135,13 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   };
 
   onChangeValue = (e: any, key: any) => {
-    if (key !== 'tagSize' && key !== 'tagBreed') {
+    if (key === 'name') {
+      const names = this.state.names.filter((n) => n.lang !== 'ua');
+      this.setState({ names: [...names, {lang: 'ua', value: e.target.value}]});
+    } else if (key === 'enName') {
+      const names = this.state.names.filter((n) => n.lang !== 'en');
+      this.setState({ names: [...names, {lang: 'en', value: e.target.value}]});
+    } else if (key !== 'tagSize' && key !== 'tagBreed') {
       this.setState({ [key]: e.target.value });
     } else {
       this.onChangeSizeAndBreedTags(e, key);
@@ -171,6 +178,29 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     this.setState({ images: [...this.state.images, ...e.target.files] });
   };
 
+  uploadFile = (e: any) => {
+    this.setState({ adoptionContractFile: e.target.files[0] });
+  };
+
+  saveContractId = () => {
+    this.setState({
+      adoptionContractContractOldFileId: this.state.adoptionContractFileId,
+    });
+  }
+
+  deleteContract = () => {
+    this.setState({
+      adoptionContractFileId: '',
+      adoptionContractContractOldFileId: '',
+    });
+  }
+
+  deleteNewContract = () => {
+    this.setState({
+      adoptionContractFile: {},
+    });
+  }
+
   showErrorMessage = () => {
     message.error({
       content: (
@@ -188,6 +218,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     const animal = { ...(this.state as IAnimal) };
     if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
       this.showErrorMessage();
+    } else if (animal.status === 'ADOPTED' && (!animal.adoptiveName || !animal.adoptivePhone)) {
+      this.showErrorMessage();
     } else {
       this.props.updateAnimal({ animal, id: this.state.id });
     }
@@ -200,6 +232,8 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   post = () => {
     const animal = { ...(this.state as IAnimal) };
     if (!animal.status || !animal.locationTypeId || !animal.birthday || !animal.kindOfAnimal) {
+        this.showErrorMessage();
+      } else if (animal.status === 'ADOPTED' && (!animal.adoptiveName || !animal.adoptivePhone)) {
         this.showErrorMessage();
       } else {
         this.props.postAnimal(animal);
@@ -275,6 +309,10 @@ class AnimalEditCard extends React.Component<IPropTypes> {
       imageIds,
       coverImage,
       kindOfAnimal,
+      adoptiveName,
+      adoptivePhone,
+      adoptionContractFile,
+      adoptionContractFileId,
     } = this.state;
     const { tagsList, locations, allTags } = this.props;
     const locationTypeOptions =
@@ -338,7 +376,20 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 onChange={this.onChangeMultiLang}
               />
             </TabPane>
-            <TabPane tab="Історія змін" key="4">
+            <TabPane tab="Усиновлювач" key="4">
+              <AdoptiveParentTabContent
+                adoptiveName={adoptiveName}
+                adoptivePhone={adoptivePhone}
+                adoptionContractFile={adoptionContractFile}
+                adoptionContractFileId={adoptionContractFileId}
+                deleteContract={this.deleteContract}
+                deleteNewContract={this.deleteNewContract}
+                saveContractId={this.saveContractId}
+                uploadFile={this.uploadFile}
+                onChange={this.onChangeValue}
+              />
+            </TabPane>
+            <TabPane tab="Історія змін" key="5">
               Content of Tab Pane 3
             </TabPane>
           </Tabs>

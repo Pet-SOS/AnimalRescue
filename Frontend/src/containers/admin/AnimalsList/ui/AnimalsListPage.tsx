@@ -157,7 +157,14 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps> {
                                 {this.renderAnimalImage(animal)}
                               </div>
                               <div className="col col-name">
-                                <span className="name">{animal.name}</span>
+                                <span className="name">
+                                  {
+                                    !!animal.names.length
+                                    && (animal.names.filter((n) => n.lang === 'ua').length
+                                      ? animal.names.filter((n) => n.lang === 'ua')[0].value
+                                      : animal.names[0].value)
+                                  }
+                                </span>
                                 <br />
                                 <span className="num">
                                   номер <span>{animal.number}</span>

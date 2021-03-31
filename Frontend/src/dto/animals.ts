@@ -4,6 +4,7 @@ import {
   Gender,
   IAnimal,
   IAnimalMultiLangProp,
+  IAnimalName,
   IAnimalResponse,
   IAnimalsResponse,
 } from '../api/animals';
@@ -11,7 +12,7 @@ import { ITag } from '../api/tags';
 
 export interface IAnimalDataDTO {
   number: number;
-  name: string;
+  names: IAnimalName[];
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: IAnimalMultiLangProp[];
@@ -30,6 +31,10 @@ export interface IAnimalDataDTO {
   readonly?: boolean;
   images: [];
   createdAt?: string;
+  adoptiveName: string;
+  adoptivePhone: string;
+  adoptionContractFile: Object;
+  adoptionContractFileId: string;
 }
 
 export interface IAnimalDTO {

@@ -14,7 +14,8 @@ const crateFormData = (data: Object) => {
         formData.append(key, value[i]);
       }
     } else if (
-      key === 'description'
+      key === 'names'
+      || key === 'description'
       || key === 'character'
       || key === 'bannerText'
     ) {
@@ -29,7 +30,7 @@ const crateFormData = (data: Object) => {
         if (!flagHasEmptyValues) {
           for (let [innerKey, innerValue] of Object.entries(value[i])) {
             // @ts-ignore
-            formData.append(`Names[${i}].${innerKey}`, innerValue);
+            formData.append(`${key}[${i}].${innerKey}`, innerValue);
           }
         }
       }
@@ -119,9 +120,14 @@ export interface IAnimalMultiLangProp {
   value: string;
 }
 
+export interface IAnimalName {
+  lang: string;
+  value: string;
+}
+
 export interface IAnimal {
   number: number;
-  name: string;
+  names: IAnimalName[];
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: IAnimalMultiLangProp[];
@@ -140,6 +146,10 @@ export interface IAnimal {
   readonly?: boolean;
   images: [];
   createdAt?: string;
+  adoptiveName: string;
+  adoptivePhone: string;
+  adoptionContractFile: Object;
+  adoptionContractFileId: string;
 }
 
 export interface IAnimalResponse {
@@ -149,7 +159,7 @@ export interface IAnimalResponse {
 
 export const DEFAULT_ANIMAL: IAnimal = {
   number: 0,
-  name: '',
+  names: [],
   kindOfAnimal: '',
   gender: '',
   description: [
@@ -217,6 +227,10 @@ export const DEFAULT_ANIMAL: IAnimal = {
   coverImage: 0,
   images: [],
   id: '',
+  adoptiveName: '',
+  adoptivePhone: '',
+  adoptionContractFile: {},
+  adoptionContractFileId: '',
 };
 
 export interface IAnimalsResponse {
@@ -293,4 +307,9 @@ export async function fetchFavoriteAnimals(
 ): Promise<IAnimalsResponse[]> {
   const res = await API.post(`animals/bunch`, { animalIds });
   return res.data;
+}
+
+export async function fetchAdoptionContractDocument(id: string): Promise<any> {
+  const res = await API.get(`Documents/${id}`, { responseType: 'arraybuffer' });
+  return res;
 }

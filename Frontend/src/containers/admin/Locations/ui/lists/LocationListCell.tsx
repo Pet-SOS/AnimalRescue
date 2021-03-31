@@ -1,8 +1,12 @@
 import React from 'react';
+import { message } from 'antd';
 import { LocationCellForm } from './LocationForm';
+import { store } from '../../../../../store';
+import { ICustomAppState } from '../../../../../store/state';
 import { ILocation, LocationsCode } from '../../../../../api/admin';
+import { IAnimal } from '../../../../../api/animals';
 import { bindActionCreators, Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import {
   actionAdminCreateLocationRequest,
   actionAdminDeleteLocationRequest,
@@ -10,12 +14,14 @@ import {
 } from '../../store/actions';
 import customConfirm from '../../../../../components/Confirm';
 import { ELocales } from '../../../../../i18n/store/state';
+import { TI18n } from '../../../../../i18n';
 
 interface ILocationCellProps {
   className: string;
   type: LocationsCode;
   children?: any;
   location?: ILocation;
+  animalsList: IAnimal[];
 }
 
 interface ILocationCellOwnProps {
@@ -56,7 +62,23 @@ class LocationListCell extends React.Component<
       'Видалити',
       'Скасувати',
     );
+    
     if (confirm) {
+      for (let animal of this.props.animalsList) {
+        if (animal.locationTypeId === this.props.location?.id) {
+          message.error({
+            content: (
+              <Provider store={store}>
+                <TI18n
+                  keyStr="locationIsNotEmpty"
+                  default="Неможливо видалити локацію, оскільки за нею закріплені тварини"
+                />
+              </Provider>
+            ),
+          });
+          return;
+        }
+      }
       this.props.deleteLocation(this.props.location!);
     }
   };
@@ -154,8 +176,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   );
 };
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state: ICustomAppState) => {
+  return {
+    animalsList: state.AdminHomePage.animalsList.data,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationListCell);
