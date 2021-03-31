@@ -3,16 +3,19 @@ import { ICustomAppState } from '../../../../../store/state';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { actionAdminFetchLocationsRequest } from '../../store/actions';
+import { actionAdminHomeFetchAnimalsRequest } from '../../../../admin/Home/store/actions';
+import { IAnimalsResponse } from '../../../../../api/animals';
 import {
   ILocation,
   ILocationsResponse,
   LocationsCode,
 } from '../../../../../api/admin';
-import { IRequestParams } from '../../../../../api/requestOptions';
+import { IRequestParams, RequestFilterOperators } from '../../../../../api/requestOptions';
 import {
   isLoadingAdminLocations,
   selectAdminLocationsList,
 } from '../../store/selectors';
+import { selectAnimalsList } from '../../../Home/store/selectors/index';
 import { DEFAULT_LOCATION } from '../../store/state';
 
 interface ILocationListProps {
@@ -23,7 +26,9 @@ interface ILocationListProps {
 }
 
 interface ILocationListOwnProps {
+  fetchAnimalsRequest: (params?: IRequestParams) => void;
   loadLocations: (code: LocationsCode, p?: IRequestParams) => void;
+  animalsList: IAnimalsResponse;
   listResponse?: ILocationsResponse;
   isLoading: boolean;
 }
@@ -36,6 +41,16 @@ export class LocationList extends React.PureComponent<
   componentDidMount(): void {
     if (!this.props.listResponse?.data) {
       this.props.loadLocations(this.props.type);
+      this.props.fetchAnimalsRequest();
+    }
+  }
+
+  componentDidUpdate(prevProps: ILocationListOwnProps) {
+    const { animalsList } = this.props;
+    if (prevProps.animalsList.pageSize !== animalsList.pageSize) {
+      this.props.fetchAnimalsRequest({
+        size: animalsList.totalCount,
+      });
     }
   }
 
@@ -93,6 +108,7 @@ const mapStateToProps = (
 ) => {
   const type = ownProps && ownProps.type;
   return {
+    animalsList: selectAnimalsList(state),
     listResponse: selectAdminLocationsList(state, type),
     isLoading: isLoadingAdminLocations(state, type),
   };
@@ -102,6 +118,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators(
     {
       loadLocations: actionAdminFetchLocationsRequest,
+      fetchAnimalsRequest: actionAdminHomeFetchAnimalsRequest,
     },
     dispatch,
   );

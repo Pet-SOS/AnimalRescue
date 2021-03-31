@@ -395,4 +395,5 @@ export default {
   smthWentWrong: 'Щось пішло не так... Спробуйте, будь ласка, пізніше',
   areYouSureYouWantToDeleteArticle:
     'Ви впевнені що хочете видалити дану статтю?',
+  locationIsNotEmpty: 'Неможливо видалити локацію, оскільки за нею закріплені тварини'
 };
