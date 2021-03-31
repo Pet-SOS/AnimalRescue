@@ -26,6 +26,7 @@ import { Age } from '../../../../components/Age';
 import { selectApiUrl } from '../../../../store/selectors/config.selector';
 import { BlockLink } from '../../../../components/BlockLink';
 import { TagTranslation } from '../../../../components/TagTranslation';
+import { ICustomAppState } from '../../../../store/state';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -64,6 +65,9 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
   const { status } = useSelector(
     () => selectAnimalItem(store.getState()).requestState,
     shallowEqual,
+  );
+  const appLanguage: string = useSelector(
+    (store: ICustomAppState) => store.appLanguage,
   );
   const [isAdoptPopupActive, setIsAdoptPopupActive] = useState(false);
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
@@ -160,6 +164,18 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
     },
   ];
 
+  let commonLang = '';
+  switch (appLanguage) {
+    case 'ua':
+    case 'ru':
+      commonLang = 'ua';
+      break;
+    case 'en':
+    case 'de':
+      commonLang = 'en';
+      break;
+  }
+
   const getCurrentTags = (tagType?: TagTypes): string[] => {
     const arrToFilter: string[] =
       tagType === TagTypes.MEDICAL
@@ -220,7 +236,14 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                   />
                 </div>
                 <div className="text main-info">
-                  <h2>{animalItem.data.name}</h2>
+                  <h2>
+                    {
+                      !!animalItem.data.names.length
+                      && (animalItem.data.names.length > 1
+                        ? animalItem.data.names.filter((name) => name.lang === commonLang)[0].value
+                        : animalItem.data.names[0].value)
+                    }
+                  </h2>
                   <ButtonLike id={animalItem.data.id} />
                   <span className="animal-number">
                     <TI18n keyStr="number" default="Номер" />
@@ -337,7 +360,13 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       {isAdoptPopupActive && (
         <AdoptPopup
           onClose={() => setIsAdoptPopupActive(false)}
-          AnimalName={animalItem.data.name}
+          AnimalName={
+            !!animalItem.data.names.length
+              ? (animalItem.data.names.length > 1
+                ? animalItem.data.names.filter((name) => name.lang === commonLang)[0].value
+                : animalItem.data.names[0].value)
+              : ''
+          }
           AnimalId={animalId}
         />
       )}

@@ -135,7 +135,13 @@ class AnimalEditCard extends React.Component<IPropTypes> {
   };
 
   onChangeValue = (e: any, key: any) => {
-    if (key !== 'tagSize' && key !== 'tagBreed') {
+    if (key === 'name') {
+      const names = this.state.names.filter((n) => n.lang !== 'ua');
+      this.setState({ names: [...names, {lang: 'ua', value: e.target.value}]});
+    } else if (key === 'enName') {
+      const names = this.state.names.filter((n) => n.lang !== 'en');
+      this.setState({ names: [...names, {lang: 'en', value: e.target.value}]});
+    } else if (key !== 'tagSize' && key !== 'tagBreed') {
       this.setState({ [key]: e.target.value });
     } else {
       this.onChangeSizeAndBreedTags(e, key);

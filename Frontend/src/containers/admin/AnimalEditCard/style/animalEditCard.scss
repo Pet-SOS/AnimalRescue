@@ -109,6 +109,14 @@
   max-width: 383px;
   flex-basis: 383px;
   flex-shrink: 0;
+  
+  fieldset {
+    gap: 8px;
+
+    .form-row {
+      flex-basis: 50%;
+    }
+  }
 }
 
 .boxAdmin {

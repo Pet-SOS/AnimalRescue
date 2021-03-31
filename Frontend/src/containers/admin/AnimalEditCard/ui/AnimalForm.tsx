@@ -1,12 +1,12 @@
 import React from 'react';
 import { BirthdayDatePicker } from './BirthdayDatePicker';
 import { EKindOfAnimal, ITag } from '../../../../api/tags';
-import { AnimalKind, Gender } from '../../../../api/animals';
+import { AnimalKind, Gender, IAnimalName } from '../../../../api/animals';
 import { ILocation } from '../../../../api/admin';
 
 interface IPropTypes {
   number: number;
-  name: string;
+  names: IAnimalName[];
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   birthday?: string;
@@ -130,7 +130,40 @@ export class AnimalForm extends React.PureComponent<IPropTypes> {
           true,
           'title',
         )}
-        {this.renderField('Кличка', 'name')}
+        <fieldset>
+          <div className="form-row small-row">
+            <label htmlFor="acard-uaName">Кличка</label>
+            <input
+              type="text"
+              id="acard-uaName"
+              disabled={false}
+              value={
+                !!this.props.names.length
+                  ? this.props.names.filter((n) => n.lang === 'ua').length
+                    ? this.props.names.filter((n) => n.lang === 'ua')[0].value
+                    : ''
+                  : ''
+              }
+              onChange={e => this.props.onChange(e, 'name')}
+            />
+          </div>
+          <div className="form-row small-row">
+            <label htmlFor="acard-enName">Кличка латиницею</label>
+            <input
+              type="text"
+              id="acard-enName"
+              disabled={false}
+              value={
+                !!this.props.names.length
+                  ? this.props.names.filter((n) => n.lang === 'en').length
+                    ? this.props.names.filter((n) => n.lang === 'en')[0].value
+                    : ''
+                  : ''
+              }
+              onChange={e => this.props.onChange(e, 'enName')}
+            />
+          </div>
+        </fieldset>
         {this.renderSelect('Стать', 'gender', 'genderOptions', false)}
         <div className="form-row small-row">
           <BirthdayDatePicker

@@ -3,6 +3,7 @@ import {
   AnimalKind,
   Gender,
   IAnimal,
+  IAnimalName,
   IAnimalResponse,
   IAnimalsResponse,
 } from '../api/animals';
@@ -10,7 +11,7 @@ import { ITag } from '../api/tags';
 
 export interface IAnimalDataDTO {
   number: number;
-  name: string;
+  names: IAnimalName[];
   kindOfAnimal: string | AnimalKind;
   gender: string | Gender;
   description: string;

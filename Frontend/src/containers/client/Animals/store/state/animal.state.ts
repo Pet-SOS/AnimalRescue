@@ -10,7 +10,7 @@ export interface IAnimalItemState extends IAnimalResponse {
 export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
   data: {
     number: 0,
-    name: '',
+    names: [],
     kindOfAnimal: '',
     gender: '',
     description: '',
