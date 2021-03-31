@@ -1,0 +1,31 @@
+.add-file-button {
+  font-size: 18px;
+  cursor: pointer;
+  height: 48px;
+  border: 2px solid #3E5B9D;
+  border-radius: 24px;
+  margin: 16px 0;
+  padding: 10px 20px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #3E5B9D;
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+.report {
+  display: flex;
+  align-items: center;
+  margin: 16px 20px 16px 0px;
+  cursor: pointer;
+  color: #E2A811;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.title-item {
+  padding: 0 8px 0 4px;
+}
