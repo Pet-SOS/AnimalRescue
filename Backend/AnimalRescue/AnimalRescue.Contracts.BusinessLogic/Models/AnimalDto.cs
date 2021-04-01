@@ -20,13 +20,13 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         [CouplingPropertyDto(animal.Gender)]
         public string Gender { get; set; }
 
-        public string Description { get; set; }
+        public List<LanguageValueDto> Description { get; set; }
 
         public int CoverImage { get; set; }
 
         public DateTime Birthday { get; set; }
 
-        public string Character { get; set; }
+        public List<LanguageValueDto> Character { get; set; }
 
         [CouplingPropertyDto(animal.Status)]
         public WellKnownTagDto Status { get; set; }
@@ -41,7 +41,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models
         public bool IsDonationActive { get; set; }
 
         [CouplingPropertyDto(animal.BannerText)]
-        public string BannerText { get; set; }
+        public List<LanguageValueDto> BannerText { get; set; }
 
         [CouplingPropertyDto(animal.AdoptiveName)]
         public string AdoptiveName { get; set; }
