@@ -165,7 +165,7 @@
     }
 
     .field {
-        width: 43%;
+        width: 50%;
         padding: 0 8px;
         @include media('≤phone') {
             width: 100%;
@@ -173,10 +173,11 @@
 
         .ant-picker {
             height: 48px;
+            width: 100%;
         }
 
         + .field {
-            width: 57%;
+            width: 50%;
 
             @include media('≤phone') {
                 width: 100%;

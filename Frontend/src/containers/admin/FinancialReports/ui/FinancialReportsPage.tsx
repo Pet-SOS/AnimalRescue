@@ -7,6 +7,8 @@ import {
   addFinancialReporDocument,
   IInfoFile,
   fetchFinancialReporDocument,
+  fetchFinancialReportYearInfo,
+  addFinancialReportYearInfo,
 } from '../../../../api/financialReport';
 import { ReactComponent as Pdf } from '../../../../img/pdf.svg';
 import moment from 'moment';
@@ -14,6 +16,7 @@ import { TI18n } from '../../../../i18n';
 import { Button, ButtonTypes } from '../../../../components/Button';
 import { DatePicker } from 'antd';
 import { AdminMenu } from '../../AdminMenu';
+import { FinancialReportYearInfo } from './FinancialReportYearInfo';
 
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -123,114 +126,70 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
                 <h3>Фінансові звіти</h3>
               </header>
               <div className="page-content">
-                <Tabs defaultActiveKey="1">
-                  <TabPane tab="Укр" key="1">
-                    <div className="inner-top section-margin">
-                      {/*TODO: Commented due to absent the full implementation of BE*/}
-                      {/*<form action="#">*/}
-                      {/*  <p>*/}
-                      {/*    <label>Заголовок</label>*/}
-                      {/*    <input className="input-h2" type="text"/>*/}
-                      {/*  </p>*/}
-                      {/*  <p>*/}
-                      {/*    <label>Передмова</label>*/}
-                      {/*    <textarea name="page-description"/>*/}
-                      {/*  </p>*/}
-                      {/*  <p>*/}
-                      {/*    <Button*/}
-                      {/*      styleType={ButtonTypes.BlueSmall}>*/}
-                      {/*      Зберегти зміни*/}
-                      {/*    </Button>*/}
-                      {/*  </p>*/}
-                      {/*</form>*/}
+                <div className="inner-top section-margin">
+                  <FinancialReportYearInfo
+                    year={1000}
+                  />
+                </div>
+                <section className="section-new-report">
+                  <h4> Завантажити новий звiт</h4>
+                    <form onSubmit={e => this.handleSubmit(e)}>
+                    <div className="field">
+                      <label>Виберіть документ у pdf форматі</label>
+                      <br />
+                      <input
+                        id="downloadReport"
+                        className="custom-file-input"
+                        type="file"
+                        onChange={e => this.uploadFile(e)}
+                      />
+                      <label htmlFor="downloadReport">
+                        <span>{this.state.file.name}</span>
+                      </label>
                     </div>
-                    <section className="section-new-report">
-                      <h4> Завантажити новий звiт</h4>
-                      <form onSubmit={e => this.handleSubmit(e)}>
-                        <div className="field">
-                          <label>Виберіть документ у pdf форматі</label>
-                          <br />
-                          <input
-                            id="downloadReport"
-                            className="custom-file-input"
-                            type="file"
-                            onChange={e => this.uploadFile(e)}
-                          />
-                          <label htmlFor="downloadReport">
-                            <span>{this.state.file.name}</span>
-                          </label>
-                        </div>
-                        {/*<div className='field'>*/}
-                        {/*  <label>Додати ім'я:</label><br/>*/}
-                        {/*  <input className="fileInput"*/}
-                        {/*         type="text"*/}
-                        {/*         placeholder=''*/}
-                        {/*         onChange={(e) => this.handleFileInfo('title', e)} />*/}
-                        {/*</div>*/}
-                        {/*<div className='field'>*/}
-                        {/*  <label>Додати опис:</label><br/>*/}
-                        {/*  <input className="fileInput"*/}
-                        {/*         type="text"*/}
-                        {/*         placeholder=''*/}
-                        {/*         onChange={(e) => this.handleFileInfo('body', e)} />*/}
-                        {/*</div>*/}
-                        <div className="field">
-                          <label>Виберіть період звіту</label>
-                          <br />
-                          {/*TODO: Changed to datePicker due to the absent support of date range on the BE*/}
-                          {/*<RangePicker*/}
-                          {/*    placeholder={["Початок", "Кінець"]}*/}
-                          {/*    // defaultValue={moment('YYYY-MM-DD')}*/}
-                          {/*    // onChange={(e) => this.handleFileInfo('date', e)}*/}
-                          {/*/>*/}
-                          <DatePicker
-                            placeholder=""
-                            onChange={e => this.handleFileInfo('date', e)}
-                          />
-                        </div>
-                      </form>
-                      <Button
-                        onClick={e => this.handleSubmit(e)}
-                        styleType={ButtonTypes.BlueOutlineSmall}
-                      >
-                        <TI18n keyStr="addReport" />
-                      </Button>
-                    </section>
-                    <section className="section-all-reports">
-                      <h4>Звiти за всi роки</h4>
-                      {reversedFinanceReports.length > 0 && (
-                        <div className="inner-all-reports">
-                          <Tabs defaultActiveKey="1" tabPosition="top">
-                            {reversedFinanceReports.map(
-                              (report: IFinancialReport, i: number) => (
-                                <TabPane
-                                  tab={report.date}
-                                  key={report.date + 1}
-                                >
-                                  {/*TODO: Commented due to absent the full implementation of BE*/}
-                                  {/*<form action="#">*/}
-                                  {/*  <p>*/}
-                                  {/*    <label>Заголовок</label>*/}
-                                  {/*    <input className="input-h2" type="text"/>*/}
-                                  {/*  </p>*/}
-                                  {/*  <p>*/}
-                                  {/*    <label>Передмова</label>*/}
-                                  {/*    <textarea name="page-description"/>*/}
-                                  {/*  </p>*/}
-                                  {/*  <p>*/}
-                                  {/*    <Button*/}
-                                  {/*      styleType={ButtonTypes.BlueSmall}>*/}
-                                  {/*      Зберегти зміни*/}
-                                  {/*    </Button>*/}
-                                  {/*  </p>*/}
-                                  {/*</form>*/}
-                                  <span className="title-uploaded-reports">
-                                    Завантажені документи
-                                  </span>
-                                  <div className="list-reports">
-                                    {report.reports.map(infoFile => (
-                                      <div key={infoFile.id} className="report">
-                                        <i className="icon-pdf" />
+                    <div className="field">
+                      <label>Виберіть період звіту</label>
+                      <br />
+                      {/*TODO: Changed to datePicker due to the absent support of date range on the BE*/}
+                      {/*<RangePicker*/}
+                      {/*    placeholder={["Початок", "Кінець"]}*/}
+                      {/*    // defaultValue={moment('YYYY-MM-DD')}*/}
+                      {/*    // onChange={(e) => this.handleFileInfo('date', e)}*/}
+                      {/*/>*/}
+                      <DatePicker
+                        placeholder=""
+                        onChange={e => this.handleFileInfo('date', e)}
+                      />
+                    </div>
+                  </form>
+                  <Button
+                    onClick={e => this.handleSubmit(e)}
+                    styleType={ButtonTypes.BlueOutlineSmall}
+                  >
+                    <TI18n keyStr="addReport" />
+                  </Button>
+                </section>
+                <section className="section-all-reports">
+                  <h4>Звiти за всi роки</h4>
+                    {reversedFinanceReports.length > 0 && (
+                      <div className="inner-all-reports">
+                        <Tabs defaultActiveKey="1" tabPosition="top">
+                          {reversedFinanceReports.map(
+                            (report: IFinancialReport, i: number) => (
+                              <TabPane
+                                tab={report.date}
+                                key={report.date + 1}
+                              >
+                                <FinancialReportYearInfo
+                                  year={parseInt(report.date)}
+                                />
+                                <span className="title-uploaded-reports">
+                                  Завантажені документи
+                                </span>
+                                <div className="list-reports">
+                                  {report.reports.map(infoFile => (
+                                    <div key={infoFile.id} className="report">
+                                      <i className="icon-pdf" />
                                         <div
                                           onClick={() =>
                                             this.openPdfFile(infoFile)
@@ -258,24 +217,13 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
                                       </div>
                                     ))}
                                   </div>
-                                </TabPane>
-                              ),
-                            )}
-                          </Tabs>
-                        </div>
-                      )}
-                    </section>
-                  </TabPane>
-                  <TabPane tab="Eng" key="2">
-                    Content of Tab Pane 2
-                  </TabPane>
-                  <TabPane tab="Deu" key="3">
-                    Content of Tab Pane 3
-                  </TabPane>
-                  <TabPane tab="Рус" key="4">
-                    Content of Tab Pane 3
-                  </TabPane>
-                </Tabs>
+                              </TabPane>
+                            ),
+                          )}
+                        </Tabs>
+                      </div>
+                    )}
+                </section>
               </div>
             </section>
           </div>

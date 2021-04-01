@@ -376,6 +376,7 @@ export default {
 
   errorTagValidation: 'Хоча б одне поле повинно бути заповнено',
   formValidationError: 'Будь ласка, заповніть всі обов\'язкові поля',
+  noEmptyFields: 'Усі поля мають бути заповнені',
 
   dogsizeTagCategory: 'Розмір собаки',
 

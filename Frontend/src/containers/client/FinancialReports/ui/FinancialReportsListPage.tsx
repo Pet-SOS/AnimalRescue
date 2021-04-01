@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 import { TI18n } from '../../../../i18n';
 import { store } from '../../../../store';
 import { HelpBlock } from '../../../../components/HelpBlock';
@@ -9,7 +10,10 @@ import { IInfoCard, IInfoContacts } from '../../Home/store/state';
 import {
   IFinancialReport,
   IInfoFile,
+  IFinancialReportYearInfo,
   fetchFinancialReporDocument,
+  fetchFinancialReportYearInfo,
+  DEFAULT_FINANCIAL_REPORT_YEAR_INFO,
 } from '../../../../api/financialReport';
 import { ReactComponent as Pdf } from '../../../../img/pdf.svg';
 
@@ -19,6 +23,7 @@ interface IPropTypes {
   infoCard: IInfoCard;
   infoContacts: IInfoContacts;
   financeReports: IFinancialReport[];
+  appLanguage: string;
   fetchSickAnimals: () => void;
   fetchInfoCard: () => void;
   fetchInfoContacts: () => void;
@@ -30,6 +35,7 @@ interface IState {
     file: string;
     url: string;
   };
+  financialReportInfo: IFinancialReportYearInfo;
 }
 export class FinancialReportsListPage extends React.Component<
   IPropTypes,
@@ -46,6 +52,7 @@ export class FinancialReportsListPage extends React.Component<
         file: '',
         url: '',
       },
+      financialReportInfo: DEFAULT_FINANCIAL_REPORT_YEAR_INFO,
     };
   }
 
@@ -56,6 +63,9 @@ export class FinancialReportsListPage extends React.Component<
       this.props.fetchInfoContacts();
       this.props.fetchFinancialReport();
     }
+    fetchFinancialReportYearInfo(this.year)
+      .then((res) => this.setState({financialReportInfo: res.data}))
+      .catch((err) => console.log(err));
   }
 
   getFinanceReportsForYear() {
@@ -83,19 +93,23 @@ export class FinancialReportsListPage extends React.Component<
 
   render() {
     this.getFinanceReportsForYear();
+    const { financialReportInfo } = this.state;
+    const { appLanguage } = this.props;
+    const pTitle = financialReportInfo.paragraphs
+                    .find((p) => p.name === 'title')?.values.find((v) => v.lang === appLanguage)?.value || '';
+    const pBody = financialReportInfo.paragraphs
+                    .find((p) => p.name === 'body')?.values.find((v) => v.lang === appLanguage)?.value || '';
     return (
       <React.Fragment>
         <div className="financial-report-block">
           <div className="container">
-            <h2>
-              <TI18n
-                keyStr="financialReportsPageTitle"
-                default="Финансовые отчеты"
-              />
-            </h2>
+            <h2>{pTitle}</h2>
             <div className="page-description">
-              <p>
-                <TI18n keyStr="financialReportsListPageText" />
+              <p 
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(pBody),
+                }}
+              >
               </p>
             </div>
             <ul className="list-reports">

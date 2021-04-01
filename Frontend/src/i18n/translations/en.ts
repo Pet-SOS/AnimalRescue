@@ -369,6 +369,7 @@ export default {
   sizeTagCategory: 'Size',
   healthTagCategory: 'Health',
   errorTagValidation: 'At least one field must be filled',
+  noEmptyFields: 'All fields must be filled',
 
   backToAllTags: 'Back to tags',
 

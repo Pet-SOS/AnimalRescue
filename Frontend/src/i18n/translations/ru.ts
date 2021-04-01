@@ -382,4 +382,5 @@ export default {
   invalidPhoneNumberFormat: 'Неверный формат номера телефона',
   requestHasBeenSent: 'Ваш запрос успешно отправлен',
   smthWentWrong: 'Что-то пошло не так... Пожалуйста, повторите попытку позже',
+  noEmptyFields: 'Все поля должны быть заполнены',
 };
