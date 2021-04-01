@@ -33,7 +33,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(common.Description)]
         [BsonElement("description")]
-        public string Description { get; set; }
+        public List<LanguageValue> Description { get; set; }
 
         [CouplingPropertyName(animal.DateOfFound)]
         [BsonElement("dateOfFound")]
@@ -61,7 +61,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.Character)]
         [BsonElement("character")]
-        public string Character { get; set; }
+        public List<LanguageValue> Character { get; set; }
 
         [CouplingPropertyName(animal.Status)]
         [BsonElement("status")]
@@ -81,7 +81,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.BannerText)]
         [BsonElement("bannerText")]
-        public string BannerText { get; set; }
+        public List<LanguageValue> BannerText { get; set; }
 
         [CouplingPropertyName(animal.AdoptiveName)]
         [BsonElement(animal.AdoptiveName)]
