@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using animal = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Animal;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
-namespace AnimalRescue.DataAccess.Mongodb.Models
+namespace AnimalRescue.DataAccess.Mongodb.Migrations.MigrationModels.Animal
 {
     [BsonDiscriminator("animals")]
-    public class Animal : BaseAndTimeItem, IImageIds
+    public class Animal202104012020 : BaseAndTimeItem, IImageIds
     {
         [CouplingPropertyName(animal.Number)]
         [BsonElement("number")]
@@ -33,7 +33,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(common.Description)]
         [BsonElement("description")]
-        public List<LanguageValue> Description { get; set; }
+        public string Description { get; set; }
 
         [CouplingPropertyName(animal.DateOfFound)]
         [BsonElement("dateOfFound")]
@@ -61,7 +61,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.Character)]
         [BsonElement("character")]
-        public List<LanguageValue> Character { get; set; }
+        public string Character { get; set; }
 
         [CouplingPropertyName(animal.Status)]
         [BsonElement("status")]
@@ -81,7 +81,7 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.BannerText)]
         [BsonElement("bannerText")]
-        public List<LanguageValue> BannerText { get; set; }
+        public string BannerText { get; set; }
 
         [CouplingPropertyName(animal.AdoptiveName)]
         [BsonElement(animal.AdoptiveName)]
