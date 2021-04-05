@@ -45,7 +45,10 @@ export class DescriptionTabContent extends React.PureComponent<IPropTypes> {
                 <textarea
                   id={tab.key}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>this.props.onChange(e.target.value, 'description', tab.lang)}
-                  value={`${description.filter(v => v.lang === tab.lang)[0].value}` || ''}
+                  value={description.filter(v => v.lang === tab.lang)[0]
+                    && (description.filter(v => v.lang === tab.lang)[0].value
+                      ? `${description.filter(v => v.lang === tab.lang)[0].value}`
+                      : '')}
                 />
               }
           </div>
@@ -59,7 +62,10 @@ export class DescriptionTabContent extends React.PureComponent<IPropTypes> {
                 <textarea
                   id={tab.key}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>this.props.onChange(e.target.value, 'character', tab.lang)}
-                  value={`${character.filter(v => v.lang === tab.lang)[0].value}` || ''}
+                  value={character.filter(v => v.lang === tab.lang)[0]
+                    && (character.filter(v => v.lang === tab.lang)[0].value
+                      ? `${character.filter(v => v.lang === tab.lang)[0].value}`
+                      : '')}
                 />
               }
           </div>

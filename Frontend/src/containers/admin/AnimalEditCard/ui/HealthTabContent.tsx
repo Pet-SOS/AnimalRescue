@@ -85,7 +85,10 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
                       <textarea
                         id={tab.key}
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>this.props.onChange(e.target.value, 'bannerText', tab.lang)}
-                        value={`${bannerText.filter(v => v.lang === tab.lang)[0].value}` || ''}
+                        value={bannerText.filter(v => v.lang === tab.lang)[0]
+                          && (bannerText.filter(v => v.lang === tab.lang)[0].value
+                            ? `${bannerText.filter(v => v.lang === tab.lang)[0].value}`
+                            : '')}
                       />
                     }
                 </div>

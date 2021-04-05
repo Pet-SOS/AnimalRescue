@@ -66,10 +66,11 @@ export const HelpBlock: React.FC<IPropTypes> = ({
                   </span>
                 )}
                 <p>
-                  {!!animalsList[indexPost] &&
-                  !!animalsList[indexPost].bannerText
-                    ? animalsList[indexPost].bannerText
-                    : 'need some text for this animal'}
+                  {
+                  !!animalsList[indexPost]
+                  && (animalsList[indexPost].bannerText.filter((n) => n.lang === appLanguage)[0]
+                    ? animalsList[indexPost].bannerText.filter((n) => n.lang === appLanguage)[0].value
+                    : '')}
                 </p>
                 <div className="wrap-btn">
                   <Button

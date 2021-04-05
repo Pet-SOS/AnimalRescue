@@ -164,7 +164,11 @@ class AnimalEditCard extends React.Component<IPropTypes> {
         return;
     }
     const elementIndex = elements.findIndex(el => el.lang === lang);
-    elements[elementIndex].value = value;
+    if (elementIndex >= 0) {
+      elements[elementIndex].value = value;
+    } else {
+      elements = [...elements, {lang: lang, value: value}];
+    }
     this.setState({ [key]: elements });
   }
 
