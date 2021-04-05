@@ -10,16 +10,19 @@ import {
   fetchFinancialReportYearInfo,
   addFinancialReportYearInfo,
   updateFinancialReportYearInfo,
+  fetchAboutFinancialReports,
+  updateAboutFinancialReports,
   DEFAULT_FINANCIAL_REPORT_YEAR_INFO,
+  DEFAULT_FINANCIAL_REPORTS_PAGE_TEXT,
 } from '../../../../api/financialReport';
 
 const { TabPane } = Tabs;
 
 interface IPropTypes {
-  year: number;
+  year?: number;
 }
 
-const config = {
+const configWithYear = {
   tabs: [
       {
           label: 'Укр',
@@ -52,21 +55,67 @@ const config = {
   ],
 }
 
+const configWithoutYear = {
+  tabs: [
+    {
+      label: 'Укр',
+      key: '1',
+      lang: 'ua'
+    }, {
+        label: 'Eng',
+        key: '2',
+        lang: 'en'
+    }, {
+        label: 'Deu',
+        key: '3',
+        lang: 'de'
+    }, {
+        label: 'Рус',
+        key: '4',
+        lang: 'ru'
+    }
+  ],
+  controls: [
+    {
+      label: 'Заголовок',
+        tag: 'input',
+        key: 'title',
+    }, {
+      label: 'Передмова',
+        tag: 'HtmlEditor',
+        key: 'financialReportsPageText',
+    }
+  ],
+}
+
 export class FinancialReportYearInfo extends React.Component<IPropTypes, IFinancialReportYearInfo> {
   constructor(props: IPropTypes){
     super(props);
 
-    const paragraphs = [...DEFAULT_FINANCIAL_REPORT_YEAR_INFO.paragraphs];
+    const paragraphs = this.props.year
+      ? [...DEFAULT_FINANCIAL_REPORT_YEAR_INFO.paragraphs]
+      : [...DEFAULT_FINANCIAL_REPORTS_PAGE_TEXT.paragraphs];
 
-    this.state = { paragraphs, year: this.props.year };
+    this.props.year
+    ? this.state = { paragraphs, year: this.props.year }
+    : this.state = { paragraphs } 
+    
 }
 
   componentDidMount() {
-    fetchFinancialReportYearInfo(this.props.year)
-      .then((res) => {
-        this.setState({ ...res.data });
-      })
-      .catch((err) => console.log(err));
+    if (this.props.year) {
+      fetchFinancialReportYearInfo(this.props.year)
+        .then((res) => {
+          this.setState({ ...res.data });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      fetchAboutFinancialReports()
+        .then((res) => {
+          this.setState({ ...res.data });
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   componentWillUnmount() {
@@ -103,11 +152,19 @@ post = () => {
       return;
     }
   }
-  addFinancialReportYearInfo({...this.state});
+  if (this.state.year) {
+    addFinancialReportYearInfo({...this.state});
+  } else {
+    updateAboutFinancialReports({...this.state});
+  }
 }
 
 put = () => {
-  updateFinancialReportYearInfo({id: this.state.id, yearInfo: {...this.state}})
+  if (this.state.year) {
+    updateFinancialReportYearInfo({id: this.state.id, yearInfo: {...this.state}})
+  } else {
+    updateAboutFinancialReports({...this.state});
+  }
 }
 
 handleSubmit = (e: React.SyntheticEvent<EventTarget>) => {
@@ -121,6 +178,10 @@ handleSubmit = (e: React.SyntheticEvent<EventTarget>) => {
 
   render () {
     const { paragraphs } = this.state;
+    let config = configWithoutYear;
+    if (this.state.year) {
+      config = configWithYear;
+    }
     return (
       <Tabs defaultActiveKey="1">
         {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>

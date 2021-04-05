@@ -127,9 +127,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
               </header>
               <div className="page-content">
                 <div className="inner-top section-margin">
-                  <FinancialReportYearInfo
-                    year={1000}
-                  />
+                  <FinancialReportYearInfo />
                 </div>
                 <section className="section-new-report">
                   <h4> Завантажити новий звiт</h4>

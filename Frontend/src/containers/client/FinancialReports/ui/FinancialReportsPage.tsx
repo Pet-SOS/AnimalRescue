@@ -9,7 +9,7 @@ import { IInfoCard, IInfoContacts } from '../../Home/store/state';
 import { 
   IFinancialReport,
   IFinancialReportYearInfo,
-  fetchFinancialReportYearInfo,
+  fetchAboutFinancialReports,
   DEFAULT_FINANCIAL_REPORT_YEAR_INFO,
 } from '../../../../api/financialReport';
 import { NavLink } from 'react-router-dom';
@@ -68,7 +68,7 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
       this.props.fetchInfoCard();
       this.props.fetchInfoContacts();
     }
-    fetchFinancialReportYearInfo(1000)
+    fetchAboutFinancialReports()
       .then((res) => this.setState({financialReportInfo: res.data}))
       .catch((err) => console.log(err));
   }
@@ -78,12 +78,13 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
     const pTitle = financialReportInfo.paragraphs
                     .find((p) => p.name === 'title')?.values.find((v) => v.lang === appLanguage)?.value || '';
     const pBody = financialReportInfo.paragraphs
-                    .find((p) => p.name === 'body')?.values.find((v) => v.lang === appLanguage)?.value || '';
+                    .find((p) => p.name === 'financialReportsPageText')?.values
+                    .find((v) => v.lang === appLanguage)?.value || '';
     return (
       <React.Fragment>
         <div className="financial-report-block section-margin">
           <div className="container">
-          <h2>{pTitle}</h2>
+            <h2>{pTitle}</h2>
             <div className="page-description">
               <p 
                 dangerouslySetInnerHTML={{

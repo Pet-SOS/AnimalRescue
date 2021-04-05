@@ -21,8 +21,58 @@ export interface IFinancialReport {
 
 export interface IFinancialReportYearInfo {
   id?: string;
-  year: number;
+  year?: number;
   paragraphs: IParagraph[];
+}
+
+export interface IAboutFinancialReports {
+  paragraphs: IParagraph[];
+}
+
+export const DEFAULT_FINANCIAL_REPORTS_PAGE_TEXT = {
+  paragraphs: [
+    {
+      name: 'title',
+      values: [
+          {
+              lang: 'ua',
+              value: ''
+          },
+          {
+              lang: 'en',
+              value: ''
+          },
+          {
+              lang: 'de',
+              value: ''
+          },
+          {
+              lang: 'ru',
+              value: ''
+          }
+      ]
+    }, {
+      name: "financialReportsPageText",
+      values: [
+        {
+            lang: 'ua',
+            value: ''
+        },
+        {
+            lang: 'en',
+            value: ''
+        },
+        {
+            lang: 'de',
+            value: ''
+        },
+        {
+            lang: 'ru',
+            value: ''
+        },
+      ],
+    },
+  ],
 }
 
 export const DEFAULT_FINANCIAL_REPORT_YEAR_INFO = {
@@ -108,5 +158,16 @@ export async function updateFinancialReportYearInfo(params: {
 }): Promise<any> {
   const { yearInfo, id } = params;
   const res = await API.put(`FinancialReportYearInfo/${id}`, yearInfo);
+  return res.data;
+}
+
+export async function fetchAboutFinancialReports(): Promise<any> {
+  const res = await API.get('Configurations/about-financial-reports');
+  return res.data;
+}
+
+export async function updateAboutFinancialReports(financialInfo: IAboutFinancialReports): Promise<any> {
+  const res = await API.put('Configurations/about-financial-reports', financialInfo);
+  console.log(res);
   return res.data;
 }
