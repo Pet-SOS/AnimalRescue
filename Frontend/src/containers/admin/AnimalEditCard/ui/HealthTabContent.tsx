@@ -1,14 +1,40 @@
 import React, { ChangeEvent } from 'react';
-import { EditableTags } from '../../../../api/animals';
+import { Tabs } from "antd";
+
+import { EditableTags, IAnimalMultiLangProp } from '../../../../api/animals';
+
+const { TabPane } = Tabs;
 
 interface IPropTypes {
   donationActive: boolean;
   tags: string[];
-  bannerText: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>, key: string) => any;
+  bannerText: IAnimalMultiLangProp[];
+  onChange: (value: string, key: string, lang: string) => any;
   onUpdateTag: (tagName: string) => any;
   onToggleDonation: () => any;
 }
+
+const config = {
+  tabs: [
+      {
+          label: 'Укр',
+          key: '1',
+          lang: 'ua'
+      }, {
+          label: 'Eng',
+          key: '2',
+          lang: 'en'
+      }, {
+          label: 'Deu',
+          key: '3',
+          lang: 'de'
+      }, {
+          label: 'Рус',
+          key: '4',
+          lang: 'ru'
+      }
+  ],
+};
 
 export class HealthTabContent extends React.PureComponent<IPropTypes> {
   renderTagSelection = (tag: string, title: string) => {
@@ -51,14 +77,23 @@ export class HealthTabContent extends React.PureComponent<IPropTypes> {
         </li>
         {donationActive && (
           <li>
-            <label htmlFor="banner-text-field">Текст на банері</label>
-            <textarea
-              className="alt"
-              id="banner-text-field"
-              maxLength={100}
-              value={bannerText}
-              onChange={e => onChange(e, 'bannerText')}
-            />
+            <Tabs defaultActiveKey="1">
+              {config.tabs.map(tab => <TabPane tab={tab.label} key={tab.key}>
+                <div className="form-row" key={tab.key}>
+                  <label htmlFor={tab.key}>Текст на банері</label>
+                    {
+                      <textarea
+                        id={tab.key}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>this.props.onChange(e.target.value, 'bannerText', tab.lang)}
+                        value={bannerText.filter(v => v.lang === tab.lang)[0]
+                          && (bannerText.filter(v => v.lang === tab.lang)[0].value
+                            ? `${bannerText.filter(v => v.lang === tab.lang)[0].value}`
+                            : '')}
+                      />
+                    }
+                </div>
+              </TabPane>)}
+            </Tabs>
             <span className="sub-notes">
               Максимальна кількість 100 символів
             </span>

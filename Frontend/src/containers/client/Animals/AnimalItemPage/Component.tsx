@@ -280,11 +280,19 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
                   <h4>
                     <TI18n keyStr="someHistory" default="Немного истории" />
                   </h4>
-                  <p>{animalItem.data.description}</p>
+                  <p>{
+                    animalItem.data.description.filter((description) => description.lang === appLanguage)[0]
+                      ? animalItem.data.description.filter((description) => description.lang === appLanguage)[0].value
+                      : ''  
+                  }</p>
                   <h4>
                     <TI18n keyStr="character" default="Характер" />
                   </h4>
-                  <p>{animalItem.data.character}</p>
+                  <p>{
+                    animalItem.data.character.filter((character) => character.lang === appLanguage)[0]
+                    ? animalItem.data.character.filter((character) => character.lang === appLanguage)[0].value
+                    : ''
+                    }</p>
                   <Button
                     styleType={ButtonTypes.Blue}
                     onClick={() => setIsAdoptPopupActive(true)}

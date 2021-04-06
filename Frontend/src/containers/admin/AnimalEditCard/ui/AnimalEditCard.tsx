@@ -148,6 +148,30 @@ class AnimalEditCard extends React.Component<IPropTypes> {
     }
   };
 
+  onChangeMultiLang = (value: string, key: string, lang: string) => {
+    let elements = [];
+    switch (key) {
+      case 'description':
+        elements = [...this.state.description];
+        break;
+      case 'character':
+        elements = [...this.state.character];
+        break;
+      case 'bannerText':
+        elements = [...this.state.bannerText];
+        break;
+      default:
+        return;
+    }
+    const elementIndex = elements.findIndex(el => el.lang === lang);
+    if (elementIndex >= 0) {
+      elements[elementIndex].value = value;
+    } else {
+      elements = [...elements, {lang: lang, value: value}];
+    }
+    this.setState({ [key]: elements });
+  }
+
   onUpdateBirthday = (value: string) => {
     this.setState({
       birthday: value,
@@ -344,7 +368,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
                 donationActive={isDonationActive}
                 tags={tags}
                 bannerText={bannerText}
-                onChange={this.onChangeValue}
+                onChange={this.onChangeMultiLang}
                 onUpdateTag={this.onUpdateTag}
                 onToggleDonation={this.onToggleDonation}
               />
@@ -353,7 +377,7 @@ class AnimalEditCard extends React.Component<IPropTypes> {
               <DescriptionTabContent
                 description={description}
                 character={character}
-                onChange={this.onChangeValue}
+                onChange={this.onChangeMultiLang}
               />
             </TabPane>
             <TabPane tab="Усиновлювач" key="4">
