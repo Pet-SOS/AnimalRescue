@@ -6,6 +6,13 @@
 .about-page-holder {
   background: $bg-lite-box;
 
+  .innerHtml {
+    ul {
+      padding-left: 40px;
+      list-style-type: disc;
+    }
+  }
+
   p {
     margin: 0 0 1rem;
 

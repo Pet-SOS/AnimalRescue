@@ -13,11 +13,16 @@ import {
   actionClearVacanciesState,
 } from '../../../store/actions/vacancies.actions';
 import { selectVacancies } from '../../../store/selectors/vacancies.selector';
+import { actionClearContentPageState, actionFetchContentPageRequest } from '../../../store/actions/contentPages.actions';
+import { selectContentPage } from '../../../store/selectors/contentPages.selector';
+import { selectAppLanguage } from '../../../i18n/store/selectors';
 
 const mapStateToProps = (state: ICustomAppState) => ({
   sickAnimalsList: selectSickAnimals(state),
   infoCard: selectSavedInfoCard(state),
   vacancies: selectVacancies(state),
+  contentPage: selectContentPage(state),
+  appLanguage: selectAppLanguage(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchVacancies: (requestParams?: IRequestParams) =>
@@ -25,6 +30,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   clearVacancies: () => dispatch(actionClearVacanciesState()),
   clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
   clearInfoCard: () => dispatch(actionClearInfoCard()),
+  fetchContentPage: (pageName: string) => dispatch(actionFetchContentPageRequest(pageName)),
+  clearContentPage: () => dispatch(actionClearContentPageState()),
 });
 
 export const HowToHelpPage = connect(

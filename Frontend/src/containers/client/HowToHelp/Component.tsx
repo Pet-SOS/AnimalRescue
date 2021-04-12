@@ -19,6 +19,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Breadcrumbs } from '../../../components/Breadcrumbs';
 import { IBreadcrumbProps } from '../../../components/Breadcrumbs/item';
 import Banner from '../../../img/bg-banner-03.jpg';
+import { IContentPageState } from '../../../store/state/contentPages.state';
 
 export enum HelpTypes {
   FINANCE = 'finance',
@@ -32,21 +33,29 @@ interface IPropTypes {
   clearInfoCard: () => void;
   fetchVacancies: () => void;
   clearVacancies: () => void;
+  fetchContentPage: (pageName: string) => void;
+  clearContentPage: () => void;
   sickAnimalsList: IAnimalsListState;
   infoCard: IInfoCard;
   vacancies: IVacanciesState;
   location: Location;
+  contentPage: IContentPageState;
+  appLanguage: string;
 }
 
 export const HowToHelp: React.FC<IPropTypes> = ({
   fetchVacancies,
   clearVacancies,
   clearAnimalsState,
-  sickAnimalsList,
   clearInfoCard,
+  fetchContentPage,
+  clearContentPage,
+  sickAnimalsList,
   infoCard,
   vacancies,
   location,
+  contentPage,
+  appLanguage,
 }) => {
   const scrollToBlock = () => {
     const helpType = queryString.parse(location.search)[HOW_TO_HELP_QUERY_NAME];
@@ -64,10 +73,12 @@ export const HowToHelp: React.FC<IPropTypes> = ({
     sickAnimalsCheckAndLoadDefault();
     infoCardCheckAndLoad();
     fetchVacancies();
+    fetchContentPage('how-to-help');
     return () => {
       clearInfoCard();
       clearAnimalsState();
       clearVacancies();
+      clearContentPage();
     };
   }, []);
   useEffect(() => {
@@ -129,24 +140,33 @@ export const HowToHelp: React.FC<IPropTypes> = ({
             style={{ backgroundImage: `URL(${Banner})` }}
           />
           <div className="help-page-content">
-            <div className="page-description section-margin">
-              <p>
-                <TI18n
-                  keyStr="helpPageMainText"
-                  default="Животных, которые либо родились бездомными, либо от них отказались их владельцы, подбирают неравнодушные граждане и волонтеры офиса «Порятунок тварин Харків». Мы помогаем пушистикам и с помощью волонтеров оплачиваем лечение и содержание животного, занимаемся адаптацией и поиском семьи, размещая объявления на своих площадках."
-                />
-              </p>
-            </div>
+          <div
+              className="page-description section-margin"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'foreword')[0]
+                ? contentPage.data.paragraphs.filter((p) => p.name === 'foreword')[0].values
+                  .filter((v) => v.lang === appLanguage)[0]
+                    ? contentPage.data.paragraphs.filter((p) => p.name === 'foreword')[0].values
+                      .filter((v) => v.lang === appLanguage)[0].value
+                    : ''
+                : '' )
+              }}
+            ></div>
             <div id={HelpTypes.FINANCE} className="block-holder">
               <h3>
                 <TI18n keyStr="helpPageFinanceTitle" default="Финансово" />
               </h3>
-              <p>
-                <TI18n
-                  keyStr="helpPageFinanceText"
-                  default="Наша служба ежедневно заботится о сотнях животных. У нас есть автомобиль, благодаря которому мы можем выезжать на срочные вызовы, свой отдел лечения, адоптации и пристройства. Самый легкий способ помочь нам и нашим пушистикам - пожертвовать любую сумму на корм, лечение и обеспечение работы службы и приютов."
-                />
-              </p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0]
+                  ? contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0].values
+                    .filter((v) => v.lang === appLanguage)[0]
+                      ? contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0].values
+                        .filter((v) => v.lang === appLanguage)[0].value
+                      : ''
+                  : '' )
+                }}
+              ></div>
               {!!infoCard?.data && (
                 <div className="bank-card">
                   <div className="bank-card-info">
@@ -177,7 +197,17 @@ export const HowToHelp: React.FC<IPropTypes> = ({
               <h3>
                 <TI18n keyStr="helpPageStuffTitle" default="Вещами" />
               </h3>
-              <ExpandedList data={stuffListData} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'body2')[0]
+                  ? contentPage.data.paragraphs.filter((p) => p.name === 'body2')[0].values
+                    .filter((v) => v.lang === appLanguage)[0]
+                      ? contentPage.data.paragraphs.filter((p) => p.name === 'body2')[0].values
+                        .filter((v) => v.lang === appLanguage)[0].value
+                      : ''
+                  : '' )
+                }}
+              ></div>
             </div>
             <div id={HelpTypes.VOLUNTEERING} className="block-holder">
               <h3>
@@ -186,12 +216,18 @@ export const HowToHelp: React.FC<IPropTypes> = ({
                   default="Волонтерством"
                 />
               </h3>
-              <p>
-                <TI18n
-                  keyStr="helpPageVolunteeringText"
-                  default="Если вы хотите помочь руками - у нас всегда найдется работа! Вы активный человек, любите животных, у вас есть свободное время и желание совершать добрые и важные поступки — вы можете стать частью команды помощи и спасения бездомных животных."
-                />
-              </p>
+              <div
+                className="innerHtml"
+                 dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'body3')[0]
+                  ? contentPage.data.paragraphs.filter((p) => p.name === 'body3')[0].values
+                    .filter((v) => v.lang === appLanguage)[0]
+                      ? contentPage.data.paragraphs.filter((p) => p.name === 'body3')[0].values
+                        .filter((v) => v.lang === appLanguage)[0].value
+                      : ''
+                  : '' )
+                }}
+              ></div>
               {!!vacancies && !!vacancies.data && !!vacancies.data.length && (
                 <React.Fragment>
                   <h4>

@@ -105,8 +105,8 @@ export class AdminMenu extends React.Component<IPropTypes, IState> {
               <Menu.Item key="common">
                 <NavLink to={`/admin/common`}>Загальні налаштування</NavLink>
               </Menu.Item>
-              <Menu.Item>
-                <NavLink to={`/admin`}>Контентні сторінки</NavLink>
+              <Menu.Item key="contentPages">
+                <NavLink to={`/admin/contentPages`}>Контентні сторінки</NavLink>
               </Menu.Item>
               <Menu.Item key="reports">
                 <NavLink to={`/admin/reports`}>Фінансові звіти</NavLink>
