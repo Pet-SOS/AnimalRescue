@@ -1,0 +1,31 @@
+@import '~antd/dist/antd.css';
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+@import '../../../../styles/base/helpers';
+
+.title-input {
+  color: $text-color;
+}
+
+[type="file"] {
+  display: none;
+
+  + label {
+      display: block;
+      height: 48px;
+      background-color: $white;
+      border-radius: 4px;
+      border: 1px solid $btn-border;
+      cursor: pointer;
+  }
+}
+
+.item-docs {
+  display: flex;
+  align-items: flex-start;
+  .delete {
+    margin-left: 16px;
+  }
+}

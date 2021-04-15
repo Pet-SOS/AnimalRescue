@@ -24,6 +24,10 @@ import {
   BLOG_ITEM_KEY,
   blogItemReducer,
 } from '../../containers/client/Blog/store/reducer/blogitem.reducer';
+import {
+  CONTENT_PAGE_KEY,
+  contentPageReducer,
+} from './contentPages.reducer';
 import { VACANCIES_KEY, vacanciesReducer } from './vacancies.reducer';
 import {
   ANIMAL_ITEM_KEY,
@@ -64,6 +68,7 @@ export const createReducers = () => {
     [ARTICLES_KEY]: articlesReducer,
     [BLOGS_KEY]: blogsReducer,
     [BLOG_ITEM_KEY]: blogItemReducer,
+    [CONTENT_PAGE_KEY]: contentPageReducer,
     [CONFIG_KEY]: configReducer,
     [VACANCIES_KEY]: vacanciesReducer,
     [REPORT_KEY]: financialReportReducer,

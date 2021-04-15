@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import DOMPurify from 'dompurify';
+
 import { TI18n } from '../../../i18n';
 import { IAnimalsResponse } from '../../../api/animals';
 import { HelpBlock } from '../../../components/HelpBlock';
@@ -11,27 +13,38 @@ import {
   IDocument,
   fetchDocumentById,
 } from '../../../api/organizationDocuments';
+import { IContentPageState } from '../../../store/state/contentPages.state';
 
 interface IPropTypes {
   fetchSickAnimals: () => void;
   clearAnimalsState: () => void;
   fetchOrganizationDocuments: () => void;
+  fetchContentPage: (pageName: string) => void;
+  clearContentPage: () => void;
   sickAnimalsList: IAnimalsResponse;
   organizationDocumentsList: IOrganizationDocumentsResponse;
+  contentPage: IContentPageState;
+  appLanguage: string;
 }
 
 export const AboutServices: React.FC<IPropTypes> = ({
   fetchSickAnimals,
   clearAnimalsState,
   fetchOrganizationDocuments,
+  fetchContentPage,
+  clearContentPage,
   sickAnimalsList,
   organizationDocumentsList,
+  contentPage,
+  appLanguage,
 }) => {
   useEffect(() => {
     fetchSickAnimals();
     fetchOrganizationDocuments();
+    fetchContentPage('about');
     return () => {
       clearAnimalsState();
+      clearContentPage();
     };
   }, []);
 
@@ -76,31 +89,49 @@ export const AboutServices: React.FC<IPropTypes> = ({
       <div className="about-page-holder">
         <div className="container">
           <h2 className="title">
-            <TI18n keyStr="aboutPageTitle" default="Про службу порятунку" />
+          {
+            contentPage.data.paragraphs.filter((p) => p.name === 'title')[0]
+            ?
+            contentPage.data.paragraphs.filter((p) => p.name === 'title')[0].values
+              .filter((v) => v.lang === appLanguage)[0]
+              ? contentPage.data.paragraphs.filter((p) => p.name === 'title')[0].values
+                .filter((v) => v.lang === appLanguage)[0].value
+              : '' 
+            : ''
+            }
           </h2>
           <div
             className="banner"
             style={{ backgroundImage: `URL(${Banner})` }}
           ></div>
           <div className="about-content">
-            <div className="page-description section-margin">
-              <p>
-                <TI18n
-                  keyStr="aboutMainText"
-                  default="Хочемо щоб кожен з Вас повірив, що нема нічого неможливого! Хід історії змінити може кожен. Вплинути на суспільні процеси також. Для цього потрібні прості маленькі кроки. Ми прагнемо рятувати безнадійних, рятувати тих, про кого нема кому подбати."
-                />
-              </p>
-            </div>
+            <div
+              className="page-description section-margin"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'foreword')[0]
+                ? contentPage.data.paragraphs.filter((p) => p.name === 'foreword')[0].values
+                  .filter((v) => v.lang === appLanguage)[0]
+                    ? contentPage.data.paragraphs.filter((p) => p.name === 'foreword')[0].values
+                      .filter((v) => v.lang === appLanguage)[0].value
+                    : ''
+                : '' )
+              }}
+            ></div>
             <div className="block-holder">
               <h3>
                 <TI18n keyStr="aboutOurGoalTitle" default="Хто ми" />
               </h3>
-              <p>
-                <TI18n
-                  keyStr="aboutOurGoalText"
-                  default="Порятунок тварин Харків це громадська організація, яка працює за принципом МНС або швидкої допомоги для тварин. Виникла у 2015 році. За цей час спільними зусиллями надана допомога більше 4000 тваринам з яких знайдено домівки 2748 тваринам. Наш напрямок – це порятунок тварин у надзвичайних ситуаціях, де є пряма загроза життю. Наша мета – звернути увагу людей до проблеми безпритульних тварин та обєднати для знаходження ефективних рішень."
-                />
-              </p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0]
+                  ? contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0].values
+                    .filter((v) => v.lang === appLanguage)[0]
+                      ? contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0].values
+                        .filter((v) => v.lang === appLanguage)[0].value
+                      : ''
+                  : '' )
+                }}
+              ></div>
               <ul className="list-docs">
                 {organizationDocumentsList.data.map((item, i: number) => (
                   <li
@@ -123,32 +154,18 @@ export const AboutServices: React.FC<IPropTypes> = ({
                   default="Яким тваринам ми допомогаємо"
                 />
               </h3>
-              <ul className="dots-list">
-                <li>
-                  <TI18n keyStr="aboutReason1" default="збитим" />
-                </li>
-                <li>
-                  <TI18n keyStr="aboutReason2" default="травмованим" />
-                </li>
-                <li>
-                  <TI18n keyStr="aboutReason3" default="хворим" />
-                </li>
-                <li>
-                  <TI18n
-                    keyStr="aboutReason4"
-                    default="застряглим у труднодоступному місці"
-                  />
-                </li>
-                <li>
-                  <TI18n keyStr="aboutReason5" default="отруєним" />
-                </li>
-                <li>
-                  <TI18n
-                    keyStr="aboutReason6"
-                    default="тваринам, які зазнали жорстокого поводження від людини"
-                  />
-                </li>
-              </ul>
+              <div
+                className="innerHtml"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'body2')[0]
+                  ? contentPage.data.paragraphs.filter((p) => p.name === 'body2')[0].values
+                    .filter((v) => v.lang === appLanguage)[0]
+                      ? contentPage.data.paragraphs.filter((p) => p.name === 'body2')[0].values
+                        .filter((v) => v.lang === appLanguage)[0].value
+                      : ''
+                  : '' )
+                }}
+              ></div>
             </div>
             <div className="block-holder">
               <h3>
@@ -157,12 +174,17 @@ export const AboutServices: React.FC<IPropTypes> = ({
                   default="Як ми працюємо"
                 />
               </h3>
-              <p>
-                <TI18n
-                  keyStr="aboutServiceHowWeWorkText"
-                  default="Цілодобово. Всі виклики приймаються виключно через гарячу лінію +38 095 478 88 78"
-                />
-              </p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(contentPage.data.paragraphs.filter((p) => p.name === 'body3')[0]
+                  ? contentPage.data.paragraphs.filter((p) => p.name === 'body3')[0].values
+                    .filter((v) => v.lang === appLanguage)[0]
+                      ? contentPage.data.paragraphs.filter((p) => p.name === 'body3')[0].values
+                        .filter((v) => v.lang === appLanguage)[0].value
+                      : ''
+                  : '' )
+                }}
+              ></div>
             </div>
             <div className="block-holder">
               <Breadcrumbs data={breadCrumbs} />

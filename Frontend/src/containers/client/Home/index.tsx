@@ -32,6 +32,9 @@ import {
   clearYouTubeVideos,
 } from '../../../store/actions/youtube-videos.actions';
 import { selectVideosList } from '../../../store/selectors/youtube-videos.selectors';
+import { actionClearContentPageState, actionFetchContentPageRequest } from '../../../store/actions/contentPages.actions';
+import { selectContentPage } from '../../../store/selectors/contentPages.selector';
+import { selectAppLanguage } from '../../../i18n/store/selectors';
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalsList: selectAnimalsList(state),
@@ -42,6 +45,8 @@ const mapStateToProps = (state: ICustomAppState) => ({
   savedAnimalsCount: selectSavedAnimalsCount(state),
   articleList: selectArticleList(state),
   videosList: selectVideosList(state),
+  contentPage: selectContentPage(state),
+  appLanguage: selectAppLanguage(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
@@ -76,6 +81,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   clearInfoCard: () => dispatch(actionClearInfoCard()),
   fetchYouTubeVideos: (count?: number) => dispatch(loadYouTubeVideos(count)),
   clearYouTubeVideos: () => dispatch(clearYouTubeVideos()),
+  fetchContentPage: (pageName: string) => dispatch(actionFetchContentPageRequest(pageName)),
+  clearContentPage: () => dispatch(actionClearContentPageState()),
 });
 
 export const HomePage = connect(

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import DOMPurify from 'dompurify';
 
 import { TI18n } from '../../../../i18n';
 import {
@@ -34,6 +35,7 @@ import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
 import { IYouTubeVideo } from '../../../../api/youtube';
 import { selectInfoContacts } from '../store/selectors';
 import { store } from '../../../../store';
+import { IContentPageState } from '../../../../store/state/contentPages.state';
 
 interface IPropTypes {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
@@ -45,6 +47,8 @@ interface IPropTypes {
   clearAnimalsState: () => void;
   clearInfoCard: () => void;
   clearYouTubeVideos: () => void;
+  fetchContentPage: (pageName: string) => void;
+  clearContentPage: () => void;
   animalsList: IAnimalsListState;
   blogListSaved: IBlogListResponse;
   catsList: IAnimalsListState;
@@ -53,6 +57,8 @@ interface IPropTypes {
   savedAnimalsCount: ISavedAnimalsCountResponse;
   articleList: IArticleListResponse;
   videosList: IYouTubeVideo[];
+  contentPage: IContentPageState;
+  appLanguage: string;
 }
 
 export const HomePageMain: React.FC<IPropTypes> = ({
@@ -62,6 +68,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchBlogList,
   fetchArticlesList,
   fetchYouTubeVideos,
+  fetchContentPage,
+  clearContentPage,
   animalsList,
   blogListSaved,
   articleList,
@@ -70,6 +78,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   videosList,
   sickAnimalsList,
   savedAnimalsCount,
+  contentPage,
+  appLanguage,
   clearAnimalsState,
   clearInfoCard,
   clearYouTubeVideos,
@@ -90,7 +100,9 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         value: 'article',
       },
     });
+    fetchContentPage('home');
     return () => {
+      clearContentPage();
       clearAnimalsState();
       clearInfoCard();
       clearYouTubeVideos();
@@ -108,6 +120,7 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   const youTubeChannelLink: string = useSelector(
     () => selectInfoContacts(store.getState()).data.socialLinks.youtube,
   );
+  const body1 = contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0].values;
   return (
     <React.Fragment>
       <HelpBlock
@@ -124,10 +137,14 @@ export const HomePageMain: React.FC<IPropTypes> = ({
         <OurGoalBlock
           title={<TI18n keyStr="ourGoalBlockTitle" default="Хто ми" />}
           text1={
-            <TI18n
-              keyStr="ourGoalBlockText1"
-              default="Ми громадська організація, яка працює за принципом МНС або швидкої допомоги. Наш напрямок - це порятунок тварин у надзвичайних ситуаціях. Ми рятуємо кошенят, цуциків, дорослих котів та собак, птахів, диких тварин. Допомогу ми надаємо цілодобово. Телефонуйте нам на гарячу лінію хоч о 2 годині ночі, хоч о 5 годині ранку."
-            />
+            <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(body1.filter((v) => v.lang === appLanguage)[0]
+                  ? body1.filter((v) => v.lang === appLanguage)[0].value
+                  : '' )
+                }}
+              >
+              </div>
           }
           link={{
             title: (

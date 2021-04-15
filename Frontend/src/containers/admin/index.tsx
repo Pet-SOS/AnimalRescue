@@ -13,6 +13,7 @@ import { AnimalAdminCard } from './AnimalEditCard';
 import LocationContainer from './Locations/ui/LocationsContainer';
 import { AdminTagsRouter } from './Tags/TagRouter';
 import { AdminBlogRouter } from './Blog';
+import { AdminContentPagesRouter } from './ContentPages';
 import { history } from '../../store';
 
 interface IPropTypes extends RouteComponentProps {
@@ -52,6 +53,9 @@ const Admin: React.FC<IPropTypes> = (props: IPropTypes) => {
           </GuardedRoute>
           <GuardedRoute path={`${props.match.path}/blog`}>
             <AdminBlogRouter />
+          </GuardedRoute>
+          <GuardedRoute path={`${props.match.path}/contentPages`}>
+            <AdminContentPagesRouter />
           </GuardedRoute>
           <GuardedRoute
             path={`${props.match.path}/animals-list/page/:page`}
