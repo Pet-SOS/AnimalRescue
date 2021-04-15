@@ -149,10 +149,8 @@ export class ContentPagesEditItem extends React.Component<IPropTypes, IState> {
 };
 
   render() {
-    // const { paragraphs } = this.state;
     const { config, withDocs, organizationDocumentsList } = this.props;
     return (
-      // <div>1</div>
       <ContentPagesContainerPage>
         <header className="edit-header">
           <Button
@@ -236,7 +234,7 @@ export class ContentPagesEditItem extends React.Component<IPropTypes, IState> {
                   </>
                   )}
 
-                  <button className="btn btn-blue" onClick={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
+                  <button className="btn btn-blue btn-content-page" onClick={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>
               </TabPane>)}
           </Tabs>
           )}
