@@ -17,6 +17,7 @@ const mapStateToProps = (state: ICustomAppState) => {
     infoCard: state.homePage.infoCard,
     infoContacts: state.homePage.infoContacts,
     financeReports: state.financialReport.financeReports,
+    appLanguage: state.appLanguage,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
