@@ -17,6 +17,8 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlCreateAsync<HomeDto>,
         IBlCreateAsync<HowToHelpDto>,
         IBlCreateAsync<LanguagesConfigDto>,
+        IBlCreateAsync<HelpPopupDto>,
+        IBlCreateAsync<HowToAdoptDto>,
         IBlUpdateAsync<AboutDto>,
         IBlUpdateAsync<AboutFinancialReportsDto>,
         IBlUpdateAsync<AboutRulesDto>,
@@ -25,7 +27,9 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         IBlUpdateAsync<CmsConfigurationDto>,
         IBlUpdateAsync<HomeDto>,
         IBlUpdateAsync<HowToHelpDto>,
-        IBlUpdateAsync<LanguagesConfigDto>
+        IBlUpdateAsync<LanguagesConfigDto>,
+        IBlUpdateAsync<HelpPopupDto>,
+        IBlUpdateAsync<HowToAdoptDto>
     {
         Task<AboutDto> GetAboutConfigurationAsync();
         Task<AboutFinancialReportsDto> GetAboutFinancialReportsConfigurationAsync();
@@ -36,5 +40,7 @@ namespace AnimalRescue.Contracts.BusinessLogic.Interfaces
         Task<HomeDto> GetHomeConfigurationAsync();
         Task<HowToHelpDto> GetHowToHelpConfigurationAsync();
         Task<LanguagesConfigDto> GetLanguagesConfigurationAsync();
+        Task<HelpPopupDto> GetHelpPopupConfigurationAsync();
+        Task<HowToAdoptDto> GetHowToAdoptConfigurationAsync();
     }
 }
