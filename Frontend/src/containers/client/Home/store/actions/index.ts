@@ -1,8 +1,16 @@
 import { createAction } from 'typesafe-actions';
 import { IInfoContactsResponse } from '../../../../../api/contacts';
+import { ITakeHomePopupResponse } from '../../../../../api/takeHomePopup';
+import { IHowToAdoptResponse } from '../../../../../api/howToAdopt';
+import { IAvailableLanguagesResponse } from '../../../../../api/languages';
 
 export const actionIsActivePopup = createAction(
   'HOME_FETCH_ANIMALS_IS_ACTIVE_POPUP',
+  resolve => (data: boolean) => resolve({ data }),
+);
+
+export const actionIsActiveTakeHomePopup = createAction(
+  'HOME_FETCH_TAKE_HOME_IS_ACTIVE_POPUP',
   resolve => (data: boolean) => resolve({ data }),
 );
 
@@ -49,3 +57,54 @@ export const actionFetchHelpPopupFailUrl = createAction(
 export const actionClearHelpPopup = createAction(
   'CLEAR_HELP_POPUP'
 );
+
+export const actionFetchTakeHomePopupRequest = createAction(
+  'HOME_FETCH_TAKE_HOME_POPUP_REQUEST',
+  resolve => () => resolve(),
+);
+
+export const actionFetchTakeHomePopupSuccess = createAction(
+  'HOME_FETCH_TAKE_HOME_POPUP_SUCCESS',
+  resolve => (data: ITakeHomePopupResponse) => resolve(data),
+);
+
+export const actionFetchTakeHomePopupFailure = createAction(
+  'HOME_FETCH_TAKE_HOME_POPUP_FAILURE',
+  resolve => (error: Error) => resolve({ error }),
+);
+
+export const actionClearTakeHomePopupState = createAction('CLEAR_TAKE_HOME_POPUP');
+
+export const actionFetchHowToAdoptRequest = createAction(
+  'HOME_FETCH_HOW_TO_ADOPT_REQUEST',
+  resolve => () => resolve(),
+);
+
+export const actionFetchHowToAdoptSuccess = createAction(
+  'HOME_FETCH_HOW_TO_ADOPT_SUCCESS',
+  resolve => (data: IHowToAdoptResponse) => resolve(data),
+);
+
+export const actionFetchHowToAdoptFailure = createAction(
+  'HOME_FETCH_HOW_TO_ADOPT_FAILURE',
+  resolve => (error: Error) => resolve({ error }),
+);
+
+export const actionClearHowToAdoptState = createAction('CLEAR_HOW_TO_ADOPT');
+
+export const actionFetchLanguagesRequest = createAction(
+  'HOME_FETCH_LANGUAGES_REQUEST',
+  resolve => () => resolve(),
+);
+
+export const actionFetchLanguagesSuccess = createAction(
+  'HOME_FETCH_LANGUAGES_SUCCESS',
+  resolve => (data: IAvailableLanguagesResponse) => resolve(data),
+);
+
+export const actionFetchLanguagesFailure = createAction(
+  'HOME_FETCH_LANGUAGES_FAILURE',
+  resolve => (error: Error) => resolve({ error }),
+);
+
+export const actionClearLanguagesState = createAction('CLEAR_LANGUAGES');

@@ -27,6 +27,10 @@ import { selectApiUrl } from '../../../../store/selectors/config.selector';
 import { BlockLink } from '../../../../components/BlockLink';
 import { TagTranslation } from '../../../../components/TagTranslation';
 import { ICustomAppState } from '../../../../store/state';
+import { IParagraph } from '../../../../api/takeHomePopup';
+import { IHowToAdoptState, ITakeHomePopupState } from '../../Home/store/state';
+import { IParagraphValue } from '../../../../api/howToAdopt';
+import DOMPurify from 'dompurify';
 
 interface IPropTypes {
   fetchAnimalItem: (id: string) => void;
@@ -34,9 +38,15 @@ interface IPropTypes {
   fetchAnimalsList: (requestParams?: IRequestParams) => void;
   clearAnimalsState: () => void;
   clearInfoCard: () => void;
+  fetchTakeHomePopup: () => void;
+  clearTakeHomePopup: () => void;
+  fetchHowToAdopt: () => void;
+  clearHowToAdopt: () => void;
   animalItem: IAnimalItemState;
   animalsList: IAnimalsResponse;
   sickAnimalsList: IAnimalsListState;
+  takeHomePopup: ITakeHomePopupState;
+  howToAdopt: IHowToAdoptState;
 }
 
 enum TagTypes {
@@ -53,9 +63,15 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
   fetchAnimalsList,
   clearAnimalsState,
   clearInfoCard,
+  fetchTakeHomePopup,
+  clearTakeHomePopup,
+  fetchHowToAdopt,
+  clearHowToAdopt,
   animalItem,
   animalsList,
   sickAnimalsList,
+  takeHomePopup,
+  howToAdopt,
 }) => {
   const { animalId } = useParams();
   const { isLoading, isLoaded } = useSelector(
@@ -76,11 +92,15 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       fetchAnimalItem(animalId);
       sickAnimalsCheckAndLoadDefault();
       infoCardCheckAndLoad();
+      fetchTakeHomePopup();
+      fetchHowToAdopt();
     }
     return () => {
       clearAnimalItemState();
       clearAnimalsState();
       clearInfoCard();
+      clearTakeHomePopup();
+      clearHowToAdopt();
     };
   }, [animalId]);
   useEffect(() => {
@@ -107,59 +127,75 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
     text: React.ReactNode;
   }[] = [
     {
-      title: (
-        <TI18n
-          keyStr="rulesHowToAdoptListItemTitle1"
-          default="Личная встреча"
-        />
-      ),
+      title: howToAdopt.data.paragraphs
+          .find((p) => p.name === "rulesHowToAdoptListItemTitle1")?.values
+            .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+        || 'Особиста зустріч',
       text: (
-        <TI18n
-          keyStr="instructionsListItemText1"
-          default="Познакомьтесь с животным. Это поможет понять, подходит ли оно вам по темпераметру."
-        />
+        <div
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(
+            howToAdopt.data.paragraphs
+              .find((p) => p.name === "rulesHowToAdoptListItemText1")?.values
+                .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+            || 'Зустрітися з твариною. Це допоможе зрозуміти, чи підходить воно вам за темпераментом. У деяких випадках рекомендується приїжджати до тварини кілька разів.'
+          )}}
+        >
+        </div>
+      )
+    },
+    {
+      title: howToAdopt.data.paragraphs
+          .find((p) => p.name === "rulesHowToAdoptListItemTitle2")?.values
+            .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+        || 'Підготуйте будинок до нового мешканця',
+      text: (
+        <p
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(
+            howToAdopt.data.paragraphs
+              .find((p) => p.name === "rulesHowToAdoptListItemText2")?.values
+                .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+            || 'Співробітник притулку вам розповість про індивідуальні потреби обраного вихованця. Підготуйте для тваринного все необхідне: місце для сну, корм, мисочки для їжі і води, місце для туалету і наповнювач, іграшки, сітки на вікнах і ін.'
+          )}}
+        >
+        </p>
       ),
     },
     {
-      title: (
-        <TI18n
-          keyStr="rulesHowToAdoptListItemTitle2"
-          default="Подготовьте дом к новому жильцу"
-        />
-      ),
+      title: howToAdopt.data.paragraphs
+          .find((p) => p.name === "rulesHowToAdoptListItemTitle3")?.values
+            .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+        || 'Підписати договір',
       text: (
-        <TI18n
-          keyStr="instructionsListItemText2"
-          default="Куратор вам расскажет об индивидуальных потребностях выбранного питомца. Подготовьте для животного все необходимое."
-        />
+        <p
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(
+            howToAdopt.data.paragraphs
+              .find((p) => p.name === "rulesHowToAdoptListItemText3")?.values
+                .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+            || `Обов'язковим етапом є підписання договору.`
+          )}}
+        >
+        </p>
       ),
     },
     {
-      title: (
-        <TI18n
-          keyStr="rulesHowToAdoptListItemTitle3"
-          default="Подписать договор"
-        />
-      ),
+      title: howToAdopt.data.paragraphs
+          .find((p) => p.name === "rulesHowToAdoptListItemTitle4")?.values
+            .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+        || 'Випробувальний термін',
       text: (
-        <TI18n
-          keyStr="rulesHowToAdoptListItemText3"
-          default="Обязательным этапом является подписание договора."
-        />
-      ),
-    },
-    {
-      title: (
-        <TI18n
-          keyStr="rulesHowToAdoptListItemTitle4"
-          default="Испытательный срок"
-        />
-      ),
-      text: (
-        <TI18n
-          keyStr="rulesHowToAdoptListItemText4"
-          default="Если у вас возникают сложности с питомцем, не стесняйтесь нам звонить! Мы поможем и если все же не получится подружиться, заберем животное обратно."
-        />
+        <p
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(
+            howToAdopt.data.paragraphs
+              .find((p) => p.name === "rulesHowToAdoptListItemText4")?.values
+                .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+            || `Якщо у вас виникають труднощі з вихованцем, не соромтеся нам дзвонити! Ми допоможемо і якщо все-таки не вийде подружитися, заберемо тварину назад.`
+          )}}
+        >
+        </p>
       ),
     },
   ];
@@ -317,7 +353,12 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
       <section className="instructions section-padding">
         <div className="container">
           <h2>
-            <TI18n keyStr="howToTake" default="Как взять?" />
+            {
+              howToAdopt.data.paragraphs
+                .find((p) => p.name === "rulesHowToAdoptTitle")?.values
+                  .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+              || ''
+            }
           </h2>
           <ul
             className="numbered-list"
@@ -330,7 +371,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
             {instructionsList.map((item, index) => (
               <li key={index}>
                 <h4>{item.title}</h4>
-                <p>{item.text}</p>
+                {item.text}
               </li>
             ))}
           </ul>
@@ -376,6 +417,7 @@ export const AnimalItemPageComponent: React.FC<IPropTypes> = ({
               : ''
           }
           AnimalId={animalId}
+          takeHomePopup={takeHomePopup}
         />
       )}
     </div>

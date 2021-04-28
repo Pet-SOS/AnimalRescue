@@ -4,14 +4,24 @@ import { AdminCommonHead } from './AdminCommonHead';
 import { IInfoContactsResponse } from '../../../../api/contacts';
 import { IInfoCard } from '../../../client/Home/store/state';
 import { IHelpPopupResponse } from '../../../../api/help-popup';
+import { IHowToAdoptResponse } from '../../../../api/howToAdopt';
+import { ITakeHomePopupResponse } from '../../../../api/takeHomePopup';
+import { IAvailableLanguagesResponse } from '../../../../api/languages';
+import '../style/CommonInfoPage.scss';
 
 interface IPropTypes {
   fetchInfoCard: () => {};
   fetchInfoContacts: () => {};
   fetchHelpPopup: () => {};
+  fetchTakeHomePopup: () => {};
+  fetchHowToAdopt: () => {};
+  fetchAvailableLanguages: () => {};
   infoContacts: IInfoContactsResponse;
   helpPopup: IHelpPopupResponse;
   infoCard: IInfoCard;
+  takeHomePopup: ITakeHomePopupResponse;
+  howToAdopt: IHowToAdoptResponse;
+  availableLanguages: IAvailableLanguagesResponse;
 }
 export class CommonInfoPage extends React.Component<IPropTypes> {
   state = {
@@ -22,6 +32,9 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
     this.props.fetchInfoCard();
     this.props.fetchInfoContacts();
     this.props.fetchHelpPopup();
+    this.props.fetchTakeHomePopup();
+    this.props.fetchHowToAdopt();
+    this.props.fetchAvailableLanguages();
   }
 
   callback(key: any) {
@@ -51,6 +64,9 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
                       paragraphs={this.props.infoContacts.data.paragraphs}
                       infoCard={this.props.infoCard.data}
                       helpPopup={this.props.helpPopup.data.paragraphs}
+                      takeHomePopup={this.props.takeHomePopup.data.paragraphs}
+                      howToAdopt={this.props.howToAdopt.data.paragraphs}
+                      availableLanguages={this.props.availableLanguages.data.languages}
                     />
                   )}
               </div>

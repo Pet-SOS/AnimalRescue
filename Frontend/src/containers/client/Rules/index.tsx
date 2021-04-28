@@ -10,11 +10,14 @@ import {
 import { ServiceWorkRules } from './Component';
 import { selectContentPage } from '../../../store/selectors/contentPages.selector';
 import { selectAppLanguage } from '../../../i18n/store/selectors';
+import { selectHowToAdopt } from '../Home/store/selectors';
+import { actionClearHowToAdoptState, actionFetchHowToAdoptRequest } from '../Home/store/actions';
 
 const mapStateToProps = (state: ICustomAppState) => ({
   sickAnimalsList: selectSickAnimals(state),
   contentPage: selectContentPage(state),
   appLanguage: selectAppLanguage(state),
+  howToAdopt: selectHowToAdopt(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
   return bindActionCreators(
@@ -22,6 +25,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
       fetchContentPage: actionFetchContentPageRequest,
       clearContentPage: actionClearContentPageState,
       clearAnimalsState: () => dispatch(actionClearEntireAnimalsState()),
+      fetchHowToAdopt: actionFetchHowToAdoptRequest,
+      clearHowToAdopt: actionClearHowToAdoptState,
     },
     dispatch,
   );

@@ -3,6 +3,9 @@ import {
   actionFetchHelpPopup,
   actionFetchInfoCard,
   actionFetchInfoContacts,
+  actionFetchTakeHomePopupRequest,
+  actionFetchHowToAdoptRequest,
+  actionFetchLanguagesRequest,
 } from '../../client/Home/store/actions';
 import { connect } from 'react-redux';
 import { CommonInfoPage } from './ui/CommonInfoPage';
@@ -13,6 +16,9 @@ const mapStateToProps = (state: ICustomAppState) => {
     infoCard: state.homePage.infoCard,
     infoContacts: state.homePage.infoContacts,
     helpPopup: state.homePage.helpPopup,
+    takeHomePopup: state.homePage.takeHomePopup,
+    howToAdopt: state.homePage.howToAdopt,
+    availableLanguages: state.homePage.availableLanguages,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
@@ -21,6 +27,9 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
       fetchInfoCard: actionFetchInfoCard,
       fetchInfoContacts: actionFetchInfoContacts,
       fetchHelpPopup: actionFetchHelpPopup,
+      fetchTakeHomePopup: actionFetchTakeHomePopupRequest,
+      fetchHowToAdopt: actionFetchHowToAdoptRequest,
+      fetchAvailableLanguages: actionFetchLanguagesRequest,
     },
     dispatch,
   );
