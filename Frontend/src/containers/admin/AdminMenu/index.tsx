@@ -14,6 +14,7 @@ interface IState {
   collapsed: boolean;
   selectedKey: string;
   openKeys: string[];
+  width: number;
 }
 const { SubMenu } = Menu;
 
@@ -24,8 +25,17 @@ export class AdminMenu extends React.Component<IPropTypes, IState> {
     this.state = {
       collapsed: false,
       selectedKey: this.props.selectedKey,
-      openKeys: [...this.props.openKeys],
+      openKeys: window.innerWidth < 769 ? [] : [...this.props.openKeys],
+      width: window.innerWidth,
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWidth);
   }
 
   toggleCollapsed = () => {
@@ -34,25 +44,36 @@ export class AdminMenu extends React.Component<IPropTypes, IState> {
     });
   };
 
+  updateWidth = () => {
+    this.setState({width: window.innerWidth});
+  }
+
   handleClick = (e: Event) => {
     console.log(e);
   };
 
   onOpenChange = (openKeys: any) => {
+    const { width } = this.state;
     const latestOpenKey = openKeys.find(
       (key: string) => this.state.openKeys.indexOf(key) === -1,
     );
-    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      this.setState({ openKeys });
+    if (width < 769) {
+      if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        this.setState({ openKeys });
+      } else {
+        this.setState({
+          openKeys: latestOpenKey ? [latestOpenKey] : [],
+        });
+      }
     } else {
       this.setState({
-        openKeys: latestOpenKey ? [latestOpenKey] : [],
+        openKeys: [...openKeys],
       });
     }
   };
 
   render() {
-    let { selectedKey, openKeys } = this.state;
+    let { selectedKey, openKeys, width } = this.state;
 
     return (
       <aside>
