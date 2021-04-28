@@ -52,6 +52,12 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task CreateAsync(LanguagesConfigDto value) =>
             await CreateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
 
+        public async Task CreateAsync(HelpPopupDto value) =>
+            await CreateConfigurationAsync<HelpPopupDto, HelpPopup>(value);
+
+        public async Task CreateAsync(HowToAdoptDto value) =>
+            await CreateConfigurationAsync<HowToAdoptDto, HowToAdopt>(value);
+
 
         public async Task UpdateAsync(AboutDto value) =>
             await UpdateConfigurationAsync<AboutDto, About>(value);
@@ -80,6 +86,12 @@ namespace AnimalRescue.BusinessLogic.Services
         public async Task UpdateAsync(LanguagesConfigDto value) =>
             await UpdateConfigurationAsync<LanguagesConfigDto, LanguagesConfig>(value);
 
+        public async Task UpdateAsync(HelpPopupDto value) =>
+            await UpdateConfigurationAsync<HelpPopupDto, HelpPopup>(value);
+
+        public async Task UpdateAsync(HowToAdoptDto value) =>
+            await UpdateConfigurationAsync<HowToAdoptDto, HowToAdopt>(value);
+
 
         public async Task<AboutDto> GetAboutConfigurationAsync() =>
             await GetConfigurationAsync<AboutDto, About>();
@@ -107,6 +119,12 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public async Task<LanguagesConfigDto> GetLanguagesConfigurationAsync() =>
             await GetConfigurationAsync<LanguagesConfigDto, LanguagesConfig>();
+
+        public async Task<HelpPopupDto> GetHelpPopupConfigurationAsync() =>
+            await GetConfigurationAsync<HelpPopupDto, HelpPopup>();
+
+        public async Task<HowToAdoptDto> GetHowToAdoptConfigurationAsync() =>
+            await GetConfigurationAsync<HowToAdoptDto, HowToAdopt>();
 
 
         private async Task CreateConfigurationAsync<TFrom, TConfiguration>(TFrom value)

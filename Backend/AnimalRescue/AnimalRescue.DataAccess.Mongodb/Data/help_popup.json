@@ -1,0 +1,69 @@
+﻿{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "popupInfoBlockTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Допомога тваринам"
+          },
+          {
+            "lang": "en",
+            "value": "Help animals"
+          },
+          {
+            "lang": "de",
+            "value": "Helfen Sie Tieren"
+          },
+          {
+            "lang": "ru",
+            "value": "Помощь животным"
+          }
+        ]
+      },
+      {
+        "name": "popupBlockFirstText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Ми дуже вдячні за ваше бажання допомогти! Ви можете перевести будь-яку суму на карту Приватбанка:</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>We are very grateful for your desire to help! You can transfer any amount to a Privatbank card:</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wir sind sehr dankbar für Ihren Wunsch zu helfen! Sie können einen beliebigen Betrag auf eine Privatbankkarte überweisen:</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Мы очень благодарны за ваше желание помочь! Вы можете перевести любую сумму на карту Приватбанка:</p>"
+          }
+        ]
+      },
+      {
+        "name": "popupBlockSecondText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Якщо є змога допомогти інакше, нам завжди потрібні:</p><ul><li>люди, у яких є потреба і можливість перетримувати у себе тварину (від малюка до дорослої особини) до моменту усиновлення</li><li>фахівці з цікавими варіантами фото і відеозйомки наших тварин для сайту</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>If you can help otherwise, we always need it:</p><ul><li>people who have the need and ability to overexpose the animal (from the baby to the adult) until adoption</li><li>specialists with interesting options for photo and video filming of our animals for the site</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wenn Sie anders helfen können, brauchen wir es immer:</p><ul><li>Menschen, die das Bedürfnis und die Fähigkeit haben, ein Tier (vom Baby bis zum Erwachsenen) vor der Adoption zu überbelichten</li><li>Spezialisten mit interessanten Optionen für Foto- und Videofilme unserer Tiere für die Website</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Если есть возможность помочь иначе, нам всегда нужны:</p><ul><li>люди, у которых есть потребность и возможность передерживать у себя животное (от малыша до взрослой особи) до момента усыновления</li><li>специалисты с интересными вариантами фото и видеосъемки наших животных для сайта</li></ul>"
+          }
+        ]
+      }
+    ]
+  }
+}

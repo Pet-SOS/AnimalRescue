@@ -74,6 +74,21 @@ namespace AnimalRescue.BusinessLogic.Configurations.MappingProfiles
                 .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
                 .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
+            CreateMap<Configuration<HelpPopup>, HelpPopupDto>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+                .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+
+            CreateMap<HelpPopupDto, Configuration<HelpPopup>>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
+
+            CreateMap<Configuration<HowToAdopt>, HowToAdoptDto>()
+               .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsGuid()))
+               .ForPath(x => x.Paragraphs, o => o.MapFrom(config => config.Data.Paragraphs));
+
+            CreateMap<HowToAdoptDto, Configuration<HowToAdopt>>()
+                .ForMember(x => x.Id, o => o.MapFrom(config => config.Id.AsObjectIdString()))
+                .ForPath(x => x.Data.Paragraphs, o => o.MapFrom(config => config.Paragraphs));
 
             CreateMap<Configuration<LanguagesConfig>, LanguagesConfigDto>()
                 .ForMember(x => x.Languages, o => o.MapFrom(config => config.Data.Languages));

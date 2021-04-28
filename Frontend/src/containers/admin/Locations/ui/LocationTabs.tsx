@@ -13,7 +13,7 @@ interface ILocationTabsProps {}
 export class LocationTabs extends React.Component<ILocationTabsProps> {
   render() {
     return (
-      <AdminMenuWrapper selectedKey="locations" openKeys={[]}>
+      <AdminMenuWrapper selectedKey="locations" openKeys={['sub2']}>
         <header>
           <h3> Локація </h3>
         </header>

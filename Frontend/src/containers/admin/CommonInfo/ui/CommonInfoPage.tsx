@@ -44,7 +44,7 @@ export class CommonInfoPage extends React.Component<IPropTypes> {
   render() {
     return (
       <div className="boxAdmin">
-        <AdminMenu selectedKey={'common'} openKeys={[]} />
+        <AdminMenu selectedKey={'common'} openKeys={['sub1']} />
         <main>
           <div className="container">
             <div>
