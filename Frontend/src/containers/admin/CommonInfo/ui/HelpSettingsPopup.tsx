@@ -30,15 +30,15 @@ const config = {
         {
             label: 'Заголовок',
             tag: 'input',
-            key: 'adoptPopupTitle'
+            key: 'popupInfoBlockTitle'
         }, {
             label: 'Текст 1',
             tag: 'HtmlEditor',
-            key: 'adoptPopupText'
+            key: 'popupBlockFirstText'
         }, {
             label: 'Текст 2',
             tag: 'HtmlEditor',
-            key: 'adoptPopupText2'
+            key: 'popupBlockSecondText'
         }
     ]
 };
@@ -103,7 +103,7 @@ export class HelpSettingsPopup extends React.Component<IPropTypes, IState> {
                                 onChange={(value: string)=>this.handleHelpPopup(value, control.key, tab.lang)}
                                 classList={styleCard}
                             />
-                        }                            
+                        }
                     </div>)}
 
                     <button className="btn btn-blue" onClick={(e)=>this.handleSubmit(e)}>Зберегти зміни</button>

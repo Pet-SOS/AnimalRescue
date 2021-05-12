@@ -6,13 +6,17 @@ import {
   addInfoContacts,
   IParagraph
 } from '../../../../api/contacts';
+import { ILanguagesState } from '../../../../api/languages';
 import { addInfoCard, IDataBankCard } from '../../../../api/infoCard';
 import _ from 'lodash';
 import { HtmlEditor, styleCard } from '../../../../components/HtmlEditor';
 import { Collapse } from "antd";
 import { CommonAddress } from "./CommonAddress";
 import { HelpSettingsPopup } from "./HelpSettingsPopup";
+import { WantToAdoptPopup } from './WantToAdoptPopup';
+import { HowToAdopt } from './HowToAdopt';
 import { DEFAULT_CONTACTS } from '../../../client/Home/store/state';
+import { AvailableLanguages } from './AvailableLanguages';
 
 const { Panel } = Collapse;
 interface IPropTypes {
@@ -23,6 +27,9 @@ interface IPropTypes {
   paragraphs: IParagraph[];
   infoCard: IDataBankCard;
   helpPopup: IParagraph[];
+  takeHomePopup: IParagraph[];
+  howToAdopt: IParagraph[];
+  availableLanguages: ILanguagesState;
 }
 interface IState {
   socialLinks: ISocialLinks;
@@ -204,13 +211,13 @@ export class AdminCommonHead extends React.Component<IPropTypes, IState> {
           <HelpSettingsPopup paragraphs={this.props.helpPopup}/>
         </Panel>
         <Panel header="Попап «Хочу забрати додому»" key="3">
-          <p>3</p>
+          <WantToAdoptPopup paragraphs={this.props.takeHomePopup} />
         </Panel>
         <Panel header="Як усиновити тварину" key="4">
-            <p>4</p>
+          <HowToAdopt paragraphs={this.props.howToAdopt} />
         </Panel>
         <Panel header="Мова сайту" key="5">
-            <p>5</p>
+          <AvailableLanguages languages={this.props.availableLanguages} />
         </Panel>
     </Collapse>
     );

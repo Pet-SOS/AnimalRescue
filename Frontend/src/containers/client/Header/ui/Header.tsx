@@ -14,7 +14,7 @@ import counterImage10 from '../../../../img/counter-images/counter_10.png';
 import '../styles/header.scss';
 import { ICustomAppState } from '../../../../store/state';
 import { Link } from 'react-router-dom';
-import { infoContactsCheckAndLoad, helpPopupCheckAndLoad } from '../../Home/store/selectors';
+import { infoContactsCheckAndLoad, helpPopupCheckAndLoad, availableLanguagesCheckAndLoad } from '../../Home/store/selectors';
 
 interface IPropTypes {}
 
@@ -34,6 +34,7 @@ export const AppHeader: React.FC<IPropTypes> = () => {
   useEffect(() => {
     infoContactsCheckAndLoad();
     helpPopupCheckAndLoad();
+    availableLanguagesCheckAndLoad();
   }, []);
   return (
     <header className={isActiveMenu ? 'nav-active' : ''}>

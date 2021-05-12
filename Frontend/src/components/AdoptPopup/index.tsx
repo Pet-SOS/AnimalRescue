@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify';
 import { useSelector, shallowEqual, Provider } from 'react-redux';
 import { message } from 'antd';
 import { selectInfoContacts } from '../../containers/client/Home/store/selectors';
@@ -8,21 +9,29 @@ import heartImage from '../../img/heart.png';
 import './index.scss';
 import { Button, ButtonTypes } from '../Button';
 import { postAnimalAdoptionRequest } from '../../api/animals';
+import { IParagraph, IParagraphValue } from '../../api/takeHomePopup';
+import { ICustomAppState } from '../../store/state';
+import { ITakeHomePopupState } from '../../containers/client/Home/store/state';
 
 interface IPropTypes {
   onClose: () => void;
   AnimalName: string;
   AnimalId: string | undefined;
+  takeHomePopup: ITakeHomePopupState;
 }
 
 export const AdoptPopup: React.FC<IPropTypes> = ({
   onClose,
   AnimalId,
   AnimalName,
+  takeHomePopup,
 }) => {
   const { phones } = useSelector(
     () => selectInfoContacts(store.getState()).data,
     shallowEqual,
+  );
+  const appLanguage: string = useSelector(
+    (store: ICustomAppState) => store.appLanguage,
   );
   const [AdoptiveName, setAdoptiveName] = useState('');
   const [PhoneNumber, setPhoneNumber] = useState('');
@@ -104,44 +113,31 @@ export const AdoptPopup: React.FC<IPropTypes> = ({
     <div className="adopt-popup-wrapper">
       <div className="adopt-popup-holder">
         <div className="popup-head">
-          <h2>
-            <TI18n
-              keyStr="adoptPopupTitle"
-              default="Хочу забрати тварину додому"
-            />
+          <h2 
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                  takeHomePopup.data.paragraphs
+                    .find((p) => p.name === "adoptPopupTitle")?.values
+                      .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+                  || ''
+                ),
+            }}
+          >
           </h2>
           <img src={heartImage} alt="heart" />
           <Button styleType={ButtonTypes.Close} onClick={onClose} />
         </div>
         <div className="popup-content">
-          <p>
-            <TI18n
-              keyStr="adoptPopupText1"
-              default="Мы рады, что вам приглянулся наш пушистик!"
-            />
-          </p>
-          <p>
-            <TI18n
-              keyStr="adoptPopupText2"
-              default="Чтобы забрать его к себе, "
-            />
-            {!!phones && !!phones[0] && (
-              <React.Fragment>
-                <TI18n
-                  keyStr="adoptPopupText3"
-                  default="позвоните нам по номеру "
-                />
-                <a className="phone" href={`tel:${phones[0]}}`}>
-                  {phones[0]}
-                </a>
-                <TI18n keyStr="adoptPopupText4" default=" или " />
-              </React.Fragment>
-            )}
-            <TI18n
-              keyStr="adoptPopupText5"
-              default="оставьте нам свои контакты и мы сами вам перезвоним."
-            />
-          </p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                  takeHomePopup.data.paragraphs
+                    .find((p) => p.name === "adoptPopupText")?.values
+                      .find((v: IParagraphValue) => v.lang === appLanguage)?.value
+                  || ''
+              ),
+            }}
+          ></p>
           <form>
             <input
               type="text"

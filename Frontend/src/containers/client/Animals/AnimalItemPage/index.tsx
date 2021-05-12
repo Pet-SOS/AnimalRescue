@@ -12,12 +12,21 @@ import {
 import { actionFetchAnimalsRequest } from '../store/actions';
 import { actionClearEntireBlogsState } from '../../Blog/store/actions';
 import { AnimalItemPageComponent } from './Component';
-import { actionClearInfoCard } from '../../Home/store/actions';
+import {
+  actionClearInfoCard,
+  actionFetchTakeHomePopupRequest,
+  actionClearTakeHomePopupState,
+  actionFetchHowToAdoptRequest,
+  actionClearHowToAdoptState,
+} from '../../Home/store/actions';
+import { selectHowToAdopt, selectTakeHomePopup } from '../../Home/store/selectors';
 
 const mapStateToProps = (state: ICustomAppState) => ({
   animalItem: selectAnimalItem(state),
   animalsList: selectAnimalsList(state),
   sickAnimalsList: selectSickAnimals(state),
+  takeHomePopup: selectTakeHomePopup(state),
+  howToAdopt: selectHowToAdopt(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   fetchAnimalItem: (id: string) => dispatch(actionFetchAnimalItemRequest(id)),
@@ -26,6 +35,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
     dispatch(actionFetchAnimalsRequest(requestParams)),
   clearAnimalsState: () => dispatch(actionClearEntireBlogsState()),
   clearInfoCard: () => dispatch(actionClearInfoCard()),
+  fetchTakeHomePopup: () => dispatch(actionFetchTakeHomePopupRequest()),
+  clearTakeHomePopup: () => dispatch(actionClearTakeHomePopupState()),
+  fetchHowToAdopt: () => dispatch(actionFetchHowToAdoptRequest()),
+  clearHowToAdopt: () => dispatch(actionClearHowToAdoptState()),
 });
 
 export const AnimalItemPage = connect(

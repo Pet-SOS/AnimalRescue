@@ -5,6 +5,9 @@ import {
   DEFAULT_CONTACTS,
   DEFAULT_INFO_CARD,
   DEFAULT_HELP_POPUP,
+  DEFAULT_TAKE_HOME_POPUP_STATE,
+  DEFAULT_HOW_TO_ADOPT_STATE,
+  DEFAULT_AVAILABLE_LANGUAGES_STATE,
 } from '../state';
 import { getType } from 'typesafe-actions';
 import {
@@ -13,6 +16,7 @@ import {
 } from '../../../../../api';
 import {
   actionIsActivePopup,
+  actionIsActiveTakeHomePopup,
   actionFetchInfoCard,
   actionFetchInfoCardSuccess,
   actionFetchInfoCardlFailUrl,
@@ -25,6 +29,18 @@ import {
   actionFetchHelpPopupFailUrl,
   actionClearHelpPopup,
   actionClearInfoCard,
+  actionFetchTakeHomePopupRequest,
+  actionFetchTakeHomePopupSuccess,
+  actionFetchTakeHomePopupFailure,
+  actionClearTakeHomePopupState,
+  actionFetchHowToAdoptRequest,
+  actionFetchHowToAdoptSuccess,
+  actionFetchHowToAdoptFailure,
+  actionClearHowToAdoptState,
+  actionFetchLanguagesRequest,
+  actionFetchLanguagesSuccess,
+  actionFetchLanguagesFailure,
+  actionClearLanguagesState,
 } from '../actions';
 
 const fetchSaveInfoCardStateReducer = genericRequestReducer(
@@ -43,6 +59,24 @@ const fetchHelpPopupStateReducer = genericRequestReducer(
   actionFetchHelpPopup,
   actionFetchHelpPopupSuccess,
   actionFetchHelpPopupFailUrl,
+);
+
+const fetchTakeHomePopupStateReducer = genericRequestReducer(
+  actionFetchTakeHomePopupRequest,
+  actionFetchTakeHomePopupSuccess,
+  actionFetchTakeHomePopupFailure,
+);
+
+const fetchHowToAdoptStateReducer = genericRequestReducer(
+  actionFetchHowToAdoptRequest,
+  actionFetchHowToAdoptSuccess,
+  actionFetchHowToAdoptFailure,
+);
+
+const fetchAvailableLanguagesStateReducer = genericRequestReducer(
+  actionFetchLanguagesRequest,
+  actionFetchLanguagesSuccess,
+  actionFetchLanguagesFailure,
 );
 
 export const homePageReducer = (
@@ -89,6 +123,11 @@ export const homePageReducer = (
         ),
       };
     case getType(actionIsActivePopup):
+      return {
+        ...state,
+        isActivePopup: action.payload.data,
+      };
+    case getType(actionIsActiveTakeHomePopup):
       return {
         ...state,
         isActivePopup: action.payload.data,
@@ -194,6 +233,150 @@ export const homePageReducer = (
         ...state,
         helpPopup: { ...DEFAULT_HELP_POPUP },
         helpPopupState: { ...DEFAULT_REQUEST_STATE },
+      };
+    }
+    case getType(actionFetchTakeHomePopupRequest): {
+      return {
+        ...state,
+        takeHomePopup: {
+          ...state.takeHomePopup,
+          isLoading: true,
+        },
+        takeHomePopupRequestState: fetchTakeHomePopupStateReducer(
+          state.takeHomePopupRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchTakeHomePopupSuccess): {
+      return {
+        ...state,
+        takeHomePopup: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true,
+        },
+        takeHomePopupRequestState: fetchTakeHomePopupStateReducer(
+          state.takeHomePopupRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchTakeHomePopupFailure): {
+      return {
+        ...state,
+        takeHomePopup: {
+          ...state.takeHomePopup,
+          isLoaded: false,
+          isLoading: false,
+        },
+        takeHomePopupRequestState: fetchTakeHomePopupStateReducer(
+          state.takeHomePopupRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionClearTakeHomePopupState): {
+      return {
+        ...state,
+        takeHomePopup: { ...DEFAULT_TAKE_HOME_POPUP_STATE },
+        takeHomePopupRequestState: { ...DEFAULT_REQUEST_STATE },
+      };
+    }
+    case getType(actionFetchHowToAdoptRequest): {
+      return {
+        ...state,
+        howToAdopt: {
+          ...state.howToAdopt,
+          isLoading: true,
+        },
+        howToAdoptRequestState: fetchHowToAdoptStateReducer(
+          state.howToAdoptRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchHowToAdoptSuccess): {
+      return {
+        ...state,
+        howToAdopt: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true,
+        },
+        takeHomePopupRequestState: fetchHowToAdoptStateReducer(
+          state.howToAdoptRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchHowToAdoptFailure): {
+      return {
+        ...state,
+        howToAdopt: {
+          ...state.howToAdopt,
+          isLoaded: false,
+          isLoading: false,
+        },
+        howToAdoptRequestState: fetchHowToAdoptStateReducer(
+          state.howToAdoptRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionClearHowToAdoptState): {
+      return {
+        ...state,
+        howToAdopt: { ...DEFAULT_HOW_TO_ADOPT_STATE },
+        howToAdoptRequestState: { ...DEFAULT_REQUEST_STATE },
+      };
+    }
+    case getType(actionFetchLanguagesRequest): {
+      return {
+        ...state,
+        availableLanguages: {
+          ...state.availableLanguages,
+          isLoading: true,
+        },
+        availableLanguagesRequestState: fetchAvailableLanguagesStateReducer(
+          state.availableLanguagesRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchLanguagesSuccess): {
+      return {
+        ...state,
+        availableLanguages: {
+          ...action.payload,
+          isLoading: false,
+          isLoaded: true,
+        },
+        availableLanguagesRequestState: fetchAvailableLanguagesStateReducer(
+          state.availableLanguagesRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionFetchLanguagesFailure): {
+      return {
+        ...state,
+        availableLanguages: {
+          ...state.availableLanguages,
+          isLoaded: false,
+          isLoading: false,
+        },
+        availableLanguagesRequestState: fetchAvailableLanguagesStateReducer(
+          state.availableLanguagesRequestState,
+          action,
+        ),
+      };
+    }
+    case getType(actionClearLanguagesState): {
+      return {
+        ...state,
+        availableLanguages: { ...DEFAULT_AVAILABLE_LANGUAGES_STATE },
+        availableLanguagesRequestState: { ...DEFAULT_REQUEST_STATE },
       };
     }
     default:

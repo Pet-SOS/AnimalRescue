@@ -1,0 +1,8 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+fieldset.fieldset-vertical {
+  flex-direction: column;
+}
