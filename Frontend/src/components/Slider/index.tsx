@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import Swiper from 'react-id-swiper';
-import 'swiper/css/swiper.min.css';
+import SwiperCore,
+  { 
+    Navigation,
+    Pagination,
+    Thumbs,
+    Autoplay,
+    EffectCube,
+    EffectFade,
+    EffectCoverflow,
+    EffectFlip,
+  } from 'swiper/core';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+import "swiper/components/effect-fade/effect-fade.min.css"
+import "swiper/components/navigation/navigation.min.css"
+import "swiper/components/pagination/pagination.min.css"
 import './index.scss';
 
 export enum SlidesPerViewValue {
@@ -34,6 +48,17 @@ interface IPropTypes {
   breakpoints?: { [key: number]: IPropTypes };
 }
 
+SwiperCore.use([
+  Navigation,
+  Pagination,
+  Thumbs,
+  Autoplay,
+  EffectCube,
+  EffectFade,
+  EffectCoverflow,
+  EffectFlip,
+]);
+
 export const Slider: React.FC<IPropTypes> = ({
   slides,
   isPaginationHidden,
@@ -49,8 +74,9 @@ export const Slider: React.FC<IPropTypes> = ({
   thumbSlides,
   thumbSlidesAlignment,
 }) => {
-  const [swiper, updateSwiper] = useState();
-  const [swiperThumbs, updateSwiperThumbs] = useState();
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  // const [swiper, updateSwiper] = useState();
+  // const [swiperThumbs, updateSwiperThumbs] = useState();
   const getSliderParams = () => {
     const sliderParams: any = {
       rebuildOnUpdate: !thumbSlides || !thumbSlides.length,
@@ -76,10 +102,7 @@ export const Slider: React.FC<IPropTypes> = ({
       };
     }
     if (!isNavigationHidden) {
-      sliderParams.navigation = {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      };
+      sliderParams.navigation = true;
     }
     if (isAutoplay || !!autoPlayDelayMs) {
       sliderParams.autoplay = {
@@ -88,26 +111,27 @@ export const Slider: React.FC<IPropTypes> = ({
       };
     }
     if (!!thumbSlides && !!thumbSlides.length) {
-      sliderParams.getSwiper = updateSwiper;
+      sliderParams.thumbs={ swiper: thumbsSwiper }
+      
     }
     return sliderParams;
   };
 
-  const thumbsParams = {
-    slideToClickedSlide: true,
-    slidesPerView: 'auto',
-    centeredSlides: true,
-    spaceBetween: 10,
-    getSwiper: updateSwiperThumbs,
-  };
+  // const thumbsParams = {
+  //   slideToClickedSlide: true,
+  //   slidesPerView: SlidesPerViewValue.AUTO,
+  //   centeredSlides: true,
+  //   spaceBetween: 10,
+  //   getSwiper: updateSwiperThumbs,
+  // };
 
-  useEffect(() => {
-    if (!!swiper && !!swiperThumbs) {
-      swiper.controller.control = swiperThumbs;
-      swiperThumbs.controller.control = swiper;
-    }
-  }, [swiper, swiperThumbs]);
-
+  // useEffect(() => {
+  //   if (!!swiper && !!swiperThumbs) {
+  //     swiper.controller.control = swiperThumbs;
+  //     swiperThumbs.controller.control = swiper;
+  //   }
+  // }, [swiper, swiperThumbs]);
+  
   return (
     <React.Fragment>
       <div
@@ -118,24 +142,32 @@ export const Slider: React.FC<IPropTypes> = ({
         })}
       >
         <div className="custom-slider-inner">
-          <Swiper {...getSliderParams()}>
+          <Swiper {...getSliderParams()} >
             {slides.map((slide, index) => (
-              <div key={index}>{slide}</div>
+              <SwiperSlide key={index}>{slide}</SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
       {!!thumbSlides && !!thumbSlides.length && (
-        <div
-          className={cn('thumb-swiper', {
+        <div className={cn('thumb-swiper', {
             [`align-${thumbSlidesAlignment}`]: !!thumbSlidesAlignment,
           })}
         >
-          <Swiper {...thumbsParams}>
+          <Swiper
+          //@ts-ignore
+            onSwiper={setThumbsSwiper}
+            watchSlidesVisibility
+            watchSlidesProgress
+            slideToClickedSlide={true}
+            slidesPerView={SlidesPerViewValue.AUTO}
+            centeredSlides={true}
+            spaceBetween={10}
+          >
             {thumbSlides.map((slide, index) => (
               <div key={index}>{slide}</div>
             ))}
-          </Swiper>
+            </Swiper>
         </div>
       )}
     </React.Fragment>
