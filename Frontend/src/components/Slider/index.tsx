@@ -13,9 +13,10 @@ import SwiperCore,
   } from 'swiper/core';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
-import "swiper/components/effect-fade/effect-fade.min.css"
-import "swiper/components/navigation/navigation.min.css"
-import "swiper/components/pagination/pagination.min.css"
+import "swiper/components/effect-fade/effect-fade.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/pagination/pagination.min.css";
+import "swiper/components/thumbs/thumbs.min.css";
 import './index.scss';
 
 export enum SlidesPerViewValue {
@@ -75,12 +76,8 @@ export const Slider: React.FC<IPropTypes> = ({
   thumbSlidesAlignment,
 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  // const [swiper, updateSwiper] = useState();
-  // const [swiperThumbs, updateSwiperThumbs] = useState();
   const getSliderParams = () => {
     const sliderParams: any = {
-      rebuildOnUpdate: !thumbSlides || !thumbSlides.length,
-      shouldSwiperUpdate: !thumbSlides || !thumbSlides.length,
       slidesPerView: !!slidesPerView
         ? slidesPerView === SlidesPerViewValue.AUTO
           ? slidesPerView
@@ -111,26 +108,11 @@ export const Slider: React.FC<IPropTypes> = ({
       };
     }
     if (!!thumbSlides && !!thumbSlides.length) {
-      sliderParams.thumbs={ swiper: thumbsSwiper }
+      sliderParams.thumbs = { swiper: thumbsSwiper }
       
     }
     return sliderParams;
   };
-
-  // const thumbsParams = {
-  //   slideToClickedSlide: true,
-  //   slidesPerView: SlidesPerViewValue.AUTO,
-  //   centeredSlides: true,
-  //   spaceBetween: 10,
-  //   getSwiper: updateSwiperThumbs,
-  // };
-
-  // useEffect(() => {
-  //   if (!!swiper && !!swiperThumbs) {
-  //     swiper.controller.control = swiperThumbs;
-  //     swiperThumbs.controller.control = swiper;
-  //   }
-  // }, [swiper, swiperThumbs]);
   
   return (
     <React.Fragment>
@@ -142,7 +124,7 @@ export const Slider: React.FC<IPropTypes> = ({
         })}
       >
         <div className="custom-slider-inner">
-          <Swiper {...getSliderParams()} >
+          <Swiper {...getSliderParams()}>
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>{slide}</SwiperSlide>
             ))}
@@ -159,13 +141,13 @@ export const Slider: React.FC<IPropTypes> = ({
             onSwiper={setThumbsSwiper}
             watchSlidesVisibility
             watchSlidesProgress
-            slideToClickedSlide={true}
+            slideToClickedSlide
+            centeredSlides
             slidesPerView={SlidesPerViewValue.AUTO}
-            centeredSlides={true}
             spaceBetween={10}
           >
             {thumbSlides.map((slide, index) => (
-              <div key={index}>{slide}</div>
+              <SwiperSlide key={index}>{slide}</SwiperSlide>
             ))}
             </Swiper>
         </div>

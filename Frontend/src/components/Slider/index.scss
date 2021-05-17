@@ -85,7 +85,7 @@
     transition: $defaultHoverTransition;
     border: 2px solid transparent;
     cursor: pointer;
-    &.swiper-slide-active {
+    &.swiper-slide-thumb-active {
       opacity: 1;
       border-color: $text-color-active;
     }
