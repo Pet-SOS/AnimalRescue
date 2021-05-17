@@ -113,10 +113,6 @@ export const configAboutRules = {
       label: 'Текст 2',
       tag: 'HtmlEditor',
       key: 'body2'
-    }, {
-      label: 'Текст 3',
-      tag: 'HtmlEditor',
-      key: 'body3'
     },
   ],
 };
