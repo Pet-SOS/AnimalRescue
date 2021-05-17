@@ -291,10 +291,10 @@ export default {
 
   dateText0: 'Січень',
   dateText1: 'Лютий',
-  dateText2: 'Март',
-  dateText3: 'Апрель',
+  dateText2: 'Березень',
+  dateText3: 'Квітень',
   dateText4: 'Травень',
-  dateText5: 'Червня',
+  dateText5: 'Червень',
   dateText6: 'Липень',
   dateText7: 'Серпень',
   dateText8: 'Вересень',
