@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from 'antd';
+import { message, Tabs } from 'antd';
 import '../style/FinancialReportsPage.scss';
 import {
   IFinancialReport,
@@ -17,6 +17,8 @@ import { Button, ButtonTypes } from '../../../../components/Button';
 import { DatePicker } from 'antd';
 import { AdminMenu } from '../../AdminMenu';
 import { FinancialReportYearInfo } from './FinancialReportYearInfo';
+import { Provider } from 'react-redux';
+import { store } from '../../../../store/index';
 
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -48,7 +50,8 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
   handleSubmit(e: any) {
     e.preventDefault();
     const { file, title, body, date } = this.state;
-    if (!file) {
+    if (!file || !date) {
+      this.showErrorMessage();
       return;
     }
 
@@ -67,6 +70,16 @@ export class FinancialReportsPage extends React.Component<IPropTypes, IState> {
           file: '',
         }),
       );
+  }
+
+  showErrorMessage = () => {
+    message.error({
+      content: (
+        <Provider store={store}>
+          Для збереження звіту необхідно додати файл та вказати період звіту
+        </Provider>
+      ),
+    });
   }
 
   openPdfFile(item: IInfoFile) {
