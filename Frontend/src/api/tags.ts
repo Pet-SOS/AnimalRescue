@@ -7,6 +7,7 @@ export enum TagCategory {
   dogSize = 'dogsize',
   health = 'health',
   kindOfAnimal = 'kindOfAnimal',
+  location = 'location',
 }
 
 export enum EKindOfAnimal {

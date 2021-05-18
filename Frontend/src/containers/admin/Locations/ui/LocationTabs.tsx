@@ -21,7 +21,7 @@ export class LocationTabs extends React.Component<ILocationTabsProps> {
           <TabPane tab="Перетримка" key="1">
             <OverdueList />
           </TabPane>
-          <TabPane tab="Приют" key="2">
+          <TabPane tab="Притулок" key="2">
             <ShelterList />
           </TabPane>
           <TabPane tab="Клініка" key="3">
