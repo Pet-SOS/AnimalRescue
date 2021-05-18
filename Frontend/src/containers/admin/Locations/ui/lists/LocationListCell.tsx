@@ -4,7 +4,7 @@ import { LocationCellForm } from './LocationForm';
 import { store } from '../../../../../store';
 import { ICustomAppState } from '../../../../../store/state';
 import { ILocation, LocationsCode } from '../../../../../api/admin';
-import { IAnimal } from '../../../../../api/animals';
+import { fetchAdminAnimals, IAnimal } from '../../../../../api/animals';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -64,22 +64,25 @@ class LocationListCell extends React.Component<
     );
     
     if (confirm) {
-      for (let animal of this.props.animalsList) {
-        if (animal.locationTypeId === this.props.location?.id) {
-          message.error({
-            content: (
-              <Provider store={store}>
-                <TI18n
-                  keyStr="locationIsNotEmpty"
-                  default="Неможливо видалити локацію, оскільки за нею закріплені тварини"
-                />
-              </Provider>
-            ),
-          });
-          return;
-        }
-      }
-      this.props.deleteLocation(this.props.location!);
+      fetchAdminAnimals()
+        .then((data) => {
+          for (let animal of data.data) {
+            if (animal.locationTypeId === this.props.location?.id) {
+              message.error({
+                content: (
+                  <Provider store={store}>
+                    <TI18n
+                      keyStr="locationIsNotEmpty"
+                      default="Неможливо видалити локацію, оскільки за нею закріплені тварини"
+                    />
+                  </Provider>
+                ),
+              });
+              return;
+            }
+          }
+          this.props.deleteLocation(this.props.location!);
+        })
     }
   };
 
