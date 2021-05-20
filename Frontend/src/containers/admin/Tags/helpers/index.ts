@@ -64,6 +64,7 @@ export const buildFilter = (
 const ignoreAdd = [
   TagCategory.dogSize.toLocaleLowerCase(),
   TagCategory.kindOfAnimal.toLocaleLowerCase(),
+  TagCategory.location.toLocaleLowerCase(),
 ];
 
 export const isSupportAdd = (tagCategory: string, kindOfAnimal?: string) =>
