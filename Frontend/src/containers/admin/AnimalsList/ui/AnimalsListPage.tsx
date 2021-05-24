@@ -104,11 +104,7 @@ export class AnimalsListPage extends React.Component<AnimalsListPageProps> {
     this.props.fetchAnimalsRequest({
       page: this.toPage,
       size: this.sizeAnimalToPage,
-      filter: {
-        fieldName: 'name',
-        operator: RequestFilterOperators.CONTAINS,
-        value: searchStr,
-      },
+      filter: `names~elementmatch~(value~contains~'${searchStr}')`,
     });
   };
 
