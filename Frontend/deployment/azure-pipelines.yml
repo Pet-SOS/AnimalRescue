@@ -18,7 +18,7 @@ variables:
   - name: imageRepository
     value: 'pet-sos/animalrescue/portal'
   - name: containerRegistry
-    value: 'docker.pkg.github.com'
+    value: 'ghcr.io'
   - name: vmImageName
     value: 'ubuntu-latest'
   - name: dockerRegistryServiceConnection
