@@ -7,7 +7,7 @@ trigger:
     - master
   paths:
     include:
-    - Backend/BackgroundServices/*
+    - Backend/BackgroundServices/TelegramMessenger/*
     exclude:
     - Frontend/*
 
@@ -44,12 +44,12 @@ stages:
             inputs:
               command: buildAndPush
               repository: $(imageRepository)
-              dockerfile: 'Backend/BackgroundServices/Dockerfile'
+              dockerfile: 'Backend/BackgroundServices/TelegramMessenger/Dockerfile'
               containerRegistry: $(dockerRegistryServiceConnection)
               buildContext: '$(Build.Repository.LocalPath)/Backend'
               tags: |
                 $(Build.BuildNumber)
-          - upload: Backend/BackgroundServices/deployment/manifests
+          - upload: Backend/BackgroundServices/TelegramMessenger/deployment/manifests
             artifact: manifests
 
   - stage: PROD
