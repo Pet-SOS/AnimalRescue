@@ -103,7 +103,7 @@ stages:
                   inputs: 
                     action: createSecret
                     secretType: generic
-                    secretName: telegramMessenger-db
+                    secretName: telegram-messenger-db
                     secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017" 
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
