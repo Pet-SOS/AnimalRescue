@@ -34,11 +34,6 @@
       opacity: 1;
     }
   }
-
-  .button.blue {
-    padding: 15px 40px;
-    height: 100%;
-  }
 }
 
 .nav-list {
@@ -46,6 +41,16 @@
   display: flex;
   flex-grow: 1;
   //flex-shrink: 0;
+
+  li {
+    &:hover > a,
+    &:active > a,
+    &:focus > a,
+    .is-active {
+      color: $text-color-active;
+      outline: none;
+    }
+  }
 
   @include media('≤tablet') {
     display: block;
@@ -56,8 +61,6 @@
     box-shadow: 0 6px 12px rgba($bg-lite-lite, 0.8);
   }
 }
-
-
 
 .nav-item {
   position: relative;
@@ -72,46 +75,131 @@
     }
   }
 
-  &.drop > a {
-    pointer-events: none;
+  &.drop {
+    @include media('>tablet') {
+      &:hover {
+        &:after {
+          transform: translateY(-50%) scale(1, -1);
+        }
 
-    @include media('≤tablet') {
-      position: relative;
-      padding-right: 40px;
+        .dropdown {
+          transform: scale(1, 1);
+          pointer-events: auto;
+        }
+      }
     }
 
-    i {
-      display: none;
-      @include size(32px);
-      background-color: $white;
-      box-shadow: 0px 4px 6px $bg-lite-lite;
-      border-radius: 100%;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-
-      @include media('≤tablet') {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      &:before {
-        width: .5rem;
-        height: .5rem;
-        border-top: .125rem solid #62738d;
-        border-right: .125rem solid #62738d;
-        transform: rotate(135deg) skew(7deg,7deg);
-        transition: all .2s ease-in-out;
-
+    &.active {
+      .dropdown {
         @include media('≤tablet') {
-          content: "";
+          display: block;
+        }
+      }
+  
+      i:before {
+        transform: rotate(-45deg);
+      }
+    }
+
+    &:after {
+      @include media('>tablet') {
+        position: absolute;
+        content: '';
+        right: 2px;
+        top: 50%;
+        width: 12px;
+        height: 6px;
+        background: url('../../../../assets/select/arrow_down.svg') no-repeat center;
+        cursor: pointer;
+        transform: translateY(-50%);
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    > a {
+      //pointer-events: none;
+  
+      @include media('≤tablet') {
+        position: relative;
+        padding-right: 40px;
+      }
+  
+      i {
+        display: none;
+        @include size(32px);
+        background-color: $white;
+        box-shadow: 0px 4px 6px $bg-lite-lite;
+        border-radius: 100%;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+  
+        @include media('≤tablet') {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+  
+        &:before {
+          width: .5rem;
+          height: .5rem;
+          border-top: .125rem solid #62738d;
+          border-right: .125rem solid #62738d;
+          transform: rotate(135deg) skew(7deg,7deg);
+          transition: all .2s ease-in-out;
+  
+          @include media('≤tablet') {
+            content: "";
+          }
         }
       }
     }
   }
 
+  .dropdown {
+    position: absolute;
+    width: auto;
+    top: 100%;
+    left: 0;
+    background: $main-bg-color;
+    padding: 1.75rem 2.1875rem 2.125rem 1.5rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+    box-shadow: 0px 6px 12px rgba(233, 230, 231, 0.8);
+    box-sizing: border-box;
+    z-index: 7;
+    pointer-events: none;
+
+    @include media('>tablet') {
+      transition: all 0.2s ease-in-out;
+      transform-origin: 50% 0;
+      transform: scale(1, 0);
+    }
+
+    @include media('≤tablet') {
+      display: none;
+      position: static;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    a {
+      font-size: 1.125rem;
+      line-height: 1.5625rem;
+      text-decoration: none;
+      color: $text-lite-color;
+      font-weight: normal;
+      font-style: normal;
+      display: flex;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      padding-bottom: 1rem;
+
+      @include media('≤tablet') {
+        padding: 8px 0;
+      }
+    }
+  }
 
   > a {
     display: inline-block;
@@ -124,15 +212,6 @@
       display: block;
       padding-left: 0;
     }
-  }
-
-  &:hover a, &:active a,&:focus a {
-    color:$text-color-active;
-    outline: none;
-  }
-  .is-active {
-    color: $text-color-active;
-    outline: none;
   }
 
   .heart {
@@ -191,72 +270,6 @@
       }
     }
   }
-
-  .dropdown {
-    display: none;
-    position: absolute;
-    width: auto;
-    top: 100%;
-    left: 0;
-    background: $main-bg-color;
-    padding: 1.75rem 2.1875rem 2.125rem 1.5rem;
-    border-radius: 0 0 1.5rem 1.5rem;
-    box-shadow: 0px 6px 12px rgba(233, 230, 231, 0.8);
-    box-sizing: border-box;
-    z-index: 7;
-
-    @include media('≤tablet') {
-      position: static;
-      box-shadow: none;
-      padding: 0;
-    }
-
-    li {
-
-      &:hover a, &:active a,&:focus a, .is-active{
-        color:$text-color-active;
-        outline: none;
-      }
-    }
-
-    a {
-      font-size: 1.125rem;
-      line-height: 1.5625rem;
-      text-decoration: none;
-      color: $text-lite-color;
-      font-weight: normal;
-      font-style: normal;
-      display: flex;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-      padding-bottom: 1rem;
-
-      @include media('≤tablet') {
-        padding: 8px 0;
-      }
-    }
-  }
-  &:hover, &:active,&:focus {
-    color:$text-color-active;
-    outline: none;
-    .dropdown{
-      display: block;
-
-      @include media('≤tablet') {
-        display: none;
-      }
-    }
-  }
-
-  &.drop.active {
-    .dropdown {
-      display: block;
-    }
-
-    i:before {
-      transform: rotate(-45deg);
-    }
-  }
 }
 
 .add-content {
@@ -268,6 +281,14 @@
     background-color: $bg-lite-box;
     padding: 24px 24px 0;
     box-shadow: 0 6px 12px rgba($bg-lite-lite, 0.8);
+  }
+
+  header & {
+    .btn {
+      @include media('>tablet') {
+        box-shadow: none;
+      }
+    }
   }
 
   &:after {
@@ -285,7 +306,9 @@
     }
   }
 
-  .button {
+  .btn {
+    padding: 13px 40px;
+
     @include media('≤tablet') {
       margin-bottom: 24px;
     }

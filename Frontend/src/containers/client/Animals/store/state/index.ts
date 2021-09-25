@@ -1,5 +1,8 @@
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
-import { IAnimalsResponse, ISavedAnimalsCountResponse } from "../../../../../api/animals";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
+import {
+  IAnimalsResponse,
+  ISavedAnimalsCountResponse,
+} from '../../../../../api/animals';
 
 export const DEFAULT_SAVED_ANIMALS_COUNT: number = 3000;
 
@@ -31,13 +34,15 @@ export const DEFAULT_ANIMALS: IAnimalsListState = {
   self: '',
   totalCount: 0,
   isLoading: false,
-  isLoaded: false
+  isLoaded: false,
 };
 
 const getDefaultFavoriteAnimalsIds = (): string[] => {
   const localStorageList = localStorage.getItem('favoriteAnimalsIds');
-  return !!localStorageList && Array.isArray(JSON.parse(localStorageList)) ? JSON.parse(localStorageList) : [];
-}
+  return !!localStorageList && Array.isArray(JSON.parse(localStorageList))
+    ? JSON.parse(localStorageList)
+    : [];
+};
 
 export const DEFAULT_ANIMALS_STATE: IAnimalsState = {
   animalsList: { ...DEFAULT_ANIMALS },

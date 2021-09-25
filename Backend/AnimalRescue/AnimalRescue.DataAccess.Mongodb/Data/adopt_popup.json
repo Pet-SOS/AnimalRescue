@@ -1,0 +1,48 @@
+{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "adoptPopupTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Хочу забрати тварину додому"
+          },
+          {
+            "lang": "en",
+            "value": "I want to take the animal home"
+          },
+          {
+            "lang": "de",
+            "value": "Ich möchte das Tier mit nach Hause nehmen"
+          },
+          {
+            "lang": "ru",
+            "value": "Хочу забрать животное домой"
+          }
+        ]
+      },
+      {
+        "name": "adoptPopupText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Ми раді, що вам сподобався наш пухнастик!</p><p>Щоб забрати його до себе, зателефонуйте нам за номером <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a> або залиште нам свої контакти і ми самі вам передзвонимо.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>We are glad that you liked our puffy!</p><p>To pick up this animal call us by number <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a> or leave us your contacts and we will call you back.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wir freuen uns, dass Sie unseren Pelzmantel haben!</p><p>Um ihn abzuholen rufen Sie uns unter Nummer an <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a> oder hinterlassen Sie uns Ihre Kontakte und wir rufen Sie zurück.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Мы рады, что вам приглянулся наш пушистик!</p><p>Чтобы забрать его к себе, позвоните нам по номеру <a href=\"tel:+38 095 497 81 92\">+38 095 497 81 92</a> или оставьте нам свои контакты и мы сами вам перезвоним.</p>"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+@import '../../../../styles/base/helpers';
+
+.cancel,
+.btn-checked {
+  @include animate(color);
+  font-size: 0;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  color: $text-lite-color;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $yellow;
+  }
+
+  &:before {
+    @extend %icomoon;
+    content: "\e925";
+    font-size: 24px;
+    color: inherit;
+  }
+}
+
+.cancel:before {
+  content: "\e91a";
+}

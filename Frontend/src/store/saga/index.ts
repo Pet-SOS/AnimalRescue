@@ -1,8 +1,10 @@
-import {all} from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 import logger from '../logger';
-import {watchHomePage} from "../../containers/client/Home/store/saga";
-import {watchAdminHomePage} from "../../containers/admin/Home/store/saga";
+import { watchHomePage } from '../../containers/client/Home/store/saga';
+import { watchAdminHomePage } from '../../containers/admin/Home/store/saga';
 import { watchAnimals } from '../../containers/client/Animals/store/saga';
+import { watchContentPage } from './contentPages.saga';
+import { watchUpdateContentPageSaga } from '../../containers/admin/ContentPages/store/saga';
 import { watchBlogs } from '../../containers/client/Blog/store/saga';
 import { watchArticles } from '../../containers/client/Articles/store/saga';
 import { watchBlogItem } from '../../containers/client/Blog/store/saga/blogitem.saga';
@@ -12,24 +14,38 @@ import { watchFinancialReport } from '../../containers/client/FinancialReports/s
 import { watchYouTubeVideosActions } from './youtube-videos.saga';
 import { watchLoginRequestHomePage } from '../../containers/admin/Login/store/saga';
 import { watchConfig } from './config.saga';
+import { refreshToken } from './login.saga';
+import { watchTags } from './tags.saga';
+import { watchSnackbar } from './snackbar.saga';
+import { watchOrganizationDocuments } from './organizationDocuments.saga';
+import { watchAdminLocationSaga } from '../../containers/admin/Locations/store/saga';
+import { watchBlogEditSagas } from '../../containers/admin/Blog/store/sagas';
 
 export function* appSaga() {
-    try {
-        yield all([
-          watchConfig(),
-          watchAdminHomePage(),
-          watchHomePage(),
-          watchAnimals(),
-          watchBlogs(),
-          watchBlogItem(),
-          watchArticles(),
-          watchVacancies(),
-          watchAnimalItem(),
-          watchFinancialReport(),
-          watchYouTubeVideosActions(),
-          watchLoginRequestHomePage()
-        ]);
-    } catch (e) {
-        logger.error(e);
-    }
+  try {
+    yield all([
+      watchConfig(),
+      watchAdminHomePage(),
+      watchHomePage(),
+      watchAnimals(),
+      watchBlogs(),
+      watchBlogItem(),
+      watchArticles(),
+      watchContentPage(),
+      watchUpdateContentPageSaga(),
+      watchVacancies(),
+      watchAnimalItem(),
+      watchFinancialReport(),
+      watchOrganizationDocuments(),
+      watchYouTubeVideosActions(),
+      watchLoginRequestHomePage(),
+      watchTags(),
+      watchSnackbar(),
+      watchAdminLocationSaga(),
+      watchBlogEditSagas(),
+      refreshToken(),
+    ]);
+  } catch (e) {
+    logger.error(e);
+  }
 }

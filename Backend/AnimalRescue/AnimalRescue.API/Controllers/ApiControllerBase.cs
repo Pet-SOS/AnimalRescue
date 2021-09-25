@@ -15,6 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using System.Security.Claims;
+using System.Linq;
+
 namespace AnimalRescue.API.Controllers
 {
     [ApiController]
@@ -24,7 +27,7 @@ namespace AnimalRescue.API.Controllers
         private const string GetItemByIdMethodName = "Get";
 
         protected async Task<ActionResult<CollectionSegmentApiResponse<TResponse>>> GetCollectionAsync<TCollectin, TResponse>(
-            IBlCollectinQueryAsyncy<TCollectin> service,
+            IBlCollectinQueryAsync<TCollectin> service,
             ApiQueryRequest queryRequest,
             IMapper mapper)
             where TResponse : class
@@ -48,7 +51,7 @@ namespace AnimalRescue.API.Controllers
                 return BadRequest("Page criteria oversizes the total quantity of items in the list.");
             }
 
-            int pageCount = totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
+            int pageCount = pageSize == 0 ? 0 : totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
 
             return new CollectionSegmentApiResponse<T>
             {
@@ -61,36 +64,36 @@ namespace AnimalRescue.API.Controllers
             };
         }
 
-        protected async Task<ActionResult<TModel>> CreatedItemAsync<TDtoIn, TModel>(
+        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDtoIn, TOutModel, TId>(
             IBlCreateAsync<TDtoIn, TDtoIn> service,
-            TModel value,
-            IMapper mapper) where TModel : BaseModel
+            TOutModel value,
+            IMapper mapper) where TOutModel : BaseModel<TId>
         {
-            TDtoIn itemDto = mapper.Map<TModel, TDtoIn>(value);
+            TDtoIn itemDto = mapper.Map<TOutModel, TDtoIn>(value);
             itemDto = await service.CreateAsync(itemDto);
-            var itemModel = mapper.Map<TDtoIn, TModel>(itemDto);
+            var itemModel = mapper.Map<TDtoIn, TOutModel>(itemDto);
 
-            return CreatedItem(itemModel);
+            return CreatedItem<TOutModel, TId>(itemModel);
         }
-        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDtoIn, TInModel, TOutModel>(
+        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDtoIn, TInModel, TOutModel, TId>(
             IBlCreateAsync<TDtoIn, TDtoIn> service,
             TInModel value,
-            IMapper mapper) where TOutModel : BaseModel
+            IMapper mapper) where TOutModel : BaseModel<TId>
         {
             TDtoIn itemDto = mapper.Map<TInModel, TDtoIn>(value);
             itemDto = await service.CreateAsync(itemDto);
             var itemModel = mapper.Map<TDtoIn, TOutModel>(itemDto);
 
-            return CreatedItem(itemModel);
+            return CreatedItem<TOutModel, TId>(itemModel);
         }
 
-        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDto, TInModel, TOutModel>(
+        protected async Task<ActionResult<TOutModel>> CreatedItemAsync<TDto, TInModel, TOutModel, TId>(
             IBlCreateAsync<TDto, TDto> service,
             IImageService imageService,
             TInModel value,
             List<IFormFile> files,
             IMapper mapper)
-            where TOutModel : BaseModel
+            where TOutModel : BaseModel<TId>
             where TDto : BaseCommonDto
         {
             TDto itemDto = mapper.Map<TInModel, TDto>(value);
@@ -98,14 +101,14 @@ namespace AnimalRescue.API.Controllers
             itemDto = await service.CreateAsync(itemDto);
             var itemModel = mapper.Map<TDto, TOutModel>(itemDto);
 
-            return CreatedItem(itemModel);
+            return CreatedItem<TOutModel, TId>(itemModel);
         }
-        protected ActionResult<T> CreatedItem<T>(T item) where T : BaseModel
+        protected ActionResult<T> CreatedItem<T, TId>(T item) where T : BaseModel<TId>
         {
             return CreatedAtAction(
                 GetItemByIdMethodName,
                 new { id = item.Id },
-                BuildContentApiResponse(item));
+                BuildContentApiResponse(item)); 
         }
         protected ActionResult<T> CreatedItem<T>(string actionName, string controllerName, object routeValues, T item)
             where T : class, new()
@@ -117,13 +120,18 @@ namespace AnimalRescue.API.Controllers
                 BuildContentApiResponse(item));
         }
 
-        protected async Task UpdateDataAsync<TDto, TModel>(
+        protected ActionResult<T> CreatedItem<T>(string uri, T item)
+            where T : class, new()
+        {
+            return Created(uri, BuildContentApiResponse(item));
+        }
+
+        protected async Task UpdateDataAsync<TDto, TModel, TId>(
             IBlUpdateAsync<TDto> service,
-            //string id,
-            Guid id,
+            TId id,
             TModel value,
             IMapper mapper)
-            where TDto : BaseDto
+            where TDto : BaseDto<TId>
         {
             var dto = mapper.Map<TModel, TDto>(value);
             dto.Id = id;
@@ -141,13 +149,19 @@ namespace AnimalRescue.API.Controllers
         {
             var dto = mapper.Map<TModel, TDto>(value);
             dto.Id = id;
-            dto.ImageIds = await imageService.CreateAsync(files);
+
+            if (dto.ImageIds == null)
+            {
+                dto.ImageIds = new List<Guid>();
+            }
+
+            dto.ImageIds.AddRange(await imageService.CreateAsync(files));
 
             await service.UpdateAsync(dto);
         }
-        protected async Task<ActionResult<TModel>> GetItemAsync<TDto, TModel>(
-            IBlOneItemQueryAsyncy<TDto> service,
-            Guid id,
+        protected async Task<ActionResult<TModel>> GetItemAsync<TDto, TModel, TId>(
+            IBlOneItemQueryAsync<TDto, TId> service,
+            TId id,
             IMapper mapper)
         {
             if (service is null)
@@ -207,6 +221,12 @@ namespace AnimalRescue.API.Controllers
         private string BuildSelf()
         {
             return Request.GetUri().ToString();
+        }
+
+        protected ICollection<Claim> GetUserRoles()
+        {
+            ICollection<Claim> claims = HttpContext.User.FindAll(ClaimTypes.Role).ToArray();
+            return claims;
         }
     }
 }

@@ -1,4 +1,4 @@
-import { API } from './index'
+import { API } from './index';
 import { IRequestParams, prepareRequestParams } from './requestOptions/index';
 
 export interface IVacancy {
@@ -17,7 +17,11 @@ export interface IVacanciesResponse {
   self: string;
 }
 
-export async function fetchVacancies(requestParams?: IRequestParams): Promise<IVacanciesResponse> {
-  const res = await API.get('employees', { params: prepareRequestParams(requestParams) });
-  return res.data
+export async function fetchVacancies(
+  requestParams?: IRequestParams,
+): Promise<IVacanciesResponse> {
+  const res = await API.get('vacancies', {
+    params: prepareRequestParams(requestParams),
+  });
+  return res.data;
 }

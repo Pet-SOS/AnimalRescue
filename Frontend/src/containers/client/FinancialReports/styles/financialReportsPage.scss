@@ -1,70 +1,152 @@
-@import '../../../../styles/variables.scss';
-.financial-report-block{
-    padding: 0 0 5rem;
-    background: $bg-lite-gray;
-    @media all and (max-width:500px){
-        padding: 1rem 0 2rem 0; 
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.financial-report-block {
+
+
+
+}
+
+.box-reports {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+    font-size: 24px;
+    line-height: 1;
+
+    @include media('≤xs-phone') {
+        margin: 0 -8px;
     }
-    .text-report{
-        margin-bottom: 2.3125rem;
-        max-width: 54.375rem;
-        width: 100%;
-    }
-    .box-reports{
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1.5rem;
-      margin: 0 0 5rem;
-      @media all and (max-width:680px) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    .reports{
-        color: $text-color-active;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 1.5rem;
-        @media all and (max-width:680px) {
-          grid-template-columns: repeat(2, 1fr);
+
+    li {
+        padding: 0 12px;
+        width: 33.33%;
+
+        @include media('≤phone') {
+            width: 50%;
+        }
+
+        @include media('≤xs-phone') {
+            width: 50%;
+            padding: 0 8px;
+        }
+
+        &:nth-last-child(n + 4) {
+            padding-bottom: 24px;
+
+            @include media('≤xs-phone') {
+                padding-bottom: 16px;
+            }
+        }
+
+        &:nth-last-child(3) {
+            @include media('≤phone') {
+                padding-bottom: 24px;
+            }
+
+            @include media('≤xs-phone') {
+                padding-bottom: 16px;
+            }
         }
     }
-    .report{
-        background: $bg-orange;
-        border-radius: 1.5rem;
-        color:$main-bg-color;
-        font-size: 1.5rem;
-        line-height: 1.5rem;
-        padding: 2rem 1.5rem;
+
+    a {
         display: flex;
-        width: 100%;
-        height: 12.4375rem;
         flex-direction: column;
         justify-content:space-between;
-        align-self: flex-start;
+        width: 100%;
+        height: 200px;
+        padding: 32px 24px;
+        background: $bg-orange;
+        border-radius: 24px;
+        color: $white;
 
-        @media all and (max-width:500px){
-            height:8rem;
-            font-size: 1.1rem;
-            line-height: 1.1rem;
-            padding: 1rem;
-        }
-        @media all and (max-width:364px){
-            font-size: 0.8rem;
-            height:6rem;
-        }
-        .title-report{
-            max-width: 10rem;
-        }
-        .date-report{
-            display: flex;
-            justify-content: flex-end;
-            font-weight: 900;
-            font-size: 3rem;
-            line-height: 1.5rem;
+        @include media('≤xs-phone') {
+            display: block;
+            height: auto;
+            padding: 24px 16px;
         }
     }
-    .pdf-icon{
-        margin-right: 1rem;
+}
+
+.title-report {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+
+    @include media('≤xs-phone') {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+}
+
+.date-report {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 1;
+
+    @include media('≤xs-phone') {
+        font-size: 32px;
+    }
+}
+
+.list-reports {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-auto-flow: column;
+    padding: 52px 92px 48px 0;
+    color: $text-color-active;
+    min-height: 400px;
+    font-size: 24px;
+    line-height: 1.5;
+
+    @include media('≤tablet') {
+        padding-right: 50px;
     }
 
+    @include media('≤phone') {
+        grid-template-rows: repeat(6, 1fr);
+        padding-right: 0;
+        padding-bottom: 36px;
+        min-height: 0;
+    }
+
+    @include media('≤xs-phone') {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    li {
+        @include animate(color);
+        display: inline-flex;
+        align-items: center;
+        padding-right: 16px;
+        margin-bottom: 32px;
+        cursor: pointer;
+
+        @include media('≤phone') {
+            margin-bottom: 24px;
+        }
+
+        &:hover {
+            color: $btn-blue;
+        }
+    }
+
+    i {
+        font-size: 0;
+        margin-right: 12px;
+
+        &:before {
+            font-size: 32px;
+        }
+    }
+
+    .year-report {
+        margin-left: 4px;
+    }
 }

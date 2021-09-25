@@ -10,7 +10,7 @@ namespace AnimalRescue.BusinessLogic.Extensions
             var message = new StringBuilder();
             foreach (var error in result.Errors)
             {
-                message.Append($"{error.Description} ");
+                message.AppendLine($"{error.Description} ");
             }
             return message.ToString();
         }

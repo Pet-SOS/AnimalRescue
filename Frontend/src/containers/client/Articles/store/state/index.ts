@@ -1,5 +1,5 @@
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
-import { IArticleListResponse } from "../../../../../api/article";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
+import { IArticleListResponse } from '../../../../../api/article';
 
 export interface IArticlesState {
   articleList: IArticleListResponse;
@@ -12,7 +12,7 @@ export const DEFAULT_ARTICLES: IArticleListResponse = {
   pageNumber: 0,
   pageSize: 0,
   self: '',
-  totalCount: 0
+  totalCount: 0,
 };
 
 export const DEFAULT_ARTICLES_STATE: IArticlesState = {

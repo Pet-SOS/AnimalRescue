@@ -6,15 +6,11 @@ using AnimalRescue.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IO;
@@ -55,37 +51,32 @@ namespace AnimalRescue.API
                 );
             });
 
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = true,
+                ValidIssuer = appSettings["JwtIssuer"],
+                ValidAudience = appSettings["JwtAudience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings["JwtKey"])),
+                ClockSkew = TimeSpan.Zero // remove delay of token when expire
+            };
+
+            services.AddSingleton(tokenValidationParameters);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(cfg =>
+            }).AddJwtBearer(cfg =>
                 {
                     cfg.RequireHttpsMetadata = false;
                     cfg.SaveToken = true;
-                    cfg.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidateLifetime = true,
-                        ValidIssuer = appSettings["JwtIssuer"],
-                        ValidAudience = appSettings["JwtAudience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings["JwtKey"])),
-                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
-                    };
-
-                    //cfg.Events = new JwtBearerEvents
-                    //{
-                    //    OnMessageReceived = context =>
-                    //    {
-                    //        return Task.CompletedTask;
-                    //    }
-                    //};
+                    cfg.TokenValidationParameters = tokenValidationParameters;
                 });
 
             services.AddAuthorization(auth =>
             {
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
             });
 
@@ -148,7 +139,6 @@ namespace AnimalRescue.API
             app.UseCors("policy");
 
             app.UseMiddleware<UnhandledExceptionMiddleware>();
-            app.UseHttpsRedirection();
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()
                        .AllowAnyHeader()

@@ -1,0 +1,157 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.section-edit {
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      .btn {
+        position: relative;
+        margin-right: 16px;
+
+        &:after {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(180deg);
+        }
+      }
+
+      h3 {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 0;
+      }
+    }
+
+  .page-content {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0 -20px;
+
+    @include media('≤phone') {
+      display: block;
+    }
+
+    > div {
+      width: 100%;
+    }
+  }
+
+  .tabs-edit,
+  .data-edit {
+    padding: 0 20px;
+  }
+
+
+  label {
+    font-size: 16px;
+  }
+}
+
+
+.animalCard {
+  padding: 5rem;
+}
+
+.add-button {
+  margin: 1rem;
+
+  &.hidden {
+    display: none;
+  }
+
+  &.btn {
+    padding: 0.3rem;
+    border: 1px solid #0D2B4B;
+  }
+}
+
+.tabs-edit {
+  flex-grow: 1;
+  overflow: hidden;
+
+  textarea {
+    vertical-align: top;
+    height: 200px;
+    min-height: 48px;
+    max-height: 450px;
+
+    &.alt {
+      height: 110px;
+    }
+  }
+}
+
+.tabs-edit-list {
+  li {
+    padding-bottom:24px;
+  }
+
+  .chk-label-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width: 343px;
+
+    label {
+      font-size:18px;
+      line-height:24px;
+    }
+  }
+}
+
+.data-edit {
+  max-width: 383px;
+  flex-basis: 383px;
+  flex-shrink: 0;
+  
+  fieldset {
+    gap: 8px;
+
+    .form-row {
+      flex-basis: 50%;
+    }
+  }
+}
+
+.boxAdmin {
+  .ant-tabs-nav-container {
+    font-size: 18px;
+  }
+
+  .ant-tabs-nav {
+    .ant-tabs-tab {
+      margin-right: 40px;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
+
+    .ant-tabs-tab-active {
+      color: $yellow;
+    }
+
+  }
+
+  .ant-tabs {
+    overflow: visible;
+
+    [role="presentation"] {
+      overflow: visible !important;
+    }
+  }
+
+  .ant-tabs-bar {
+    border-bottom: 1px solid $bg-lite-lite;
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: $yellow;
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "data": {
+    "phones": [
+      "+38 095 497 81 92",
+      "+38 095 497 81 95",
+      "+38 095 836 82 29",
+      "+38 099 041 67 03"
+    ],
+    "socialLinks": {
+      "instagram": "https://www.instagram.com/animal.rescue.kharkiv/",
+      "facebook": "https://www.facebook.com/spt.kh",
+      "youtube": "https://www.youtube.com/channel/UCBSJrFxTYAbu1sAGdeRg8cA"
+    },
+    "emails": {
+      "animalRescue1": "animal.rescue.kh@gmail.com"
+    },
+    "addresses": {
+      "country": "Україна",
+      "town": "м. Харків",
+      "street": "вул. Серпова 4 (м. Наукова)."
+    },
+    "paragraphs": [
+		{
+		  "name": "country",
+		  "values": [
+			{
+			  "lang": "ua",
+			  "value": "Україна"
+			},
+			{
+			  "lang": "en",
+			  "value": "Ukraine"
+			},
+			{
+			  "lang": "de",
+			  "value": "Ukraine"
+			},
+			{
+			  "lang": "ru",
+			  "value": "Украина"
+			}
+			]
+		},
+		{
+		  "name": "town",
+		  "values": [
+			{
+			  "lang": "ua",
+			  "value": "м. Харків"
+			},
+			{
+			  "lang": "en",
+			  "value": "Kharkiv city"
+			},
+			{
+			  "lang": "de",
+			  "value": "Stadt Charkiw"
+			},
+			{
+			  "lang": "ru",
+			  "value": "г. Харьков"
+			}
+			]
+		},
+		{
+		  "name": "street",
+		  "values": [
+			{
+			  "lang": "ua",
+			  "value": "вул. Серпова 4 (м. Наукова)."
+			},
+			{
+			  "lang": "en",
+			  "value": "Serpova street 4 (metro Naukova)."
+			},
+			{
+			  "lang": "de",
+			  "value": "Serpova straße 4 (Naukova)."
+			},
+			{
+			  "lang": "ru",
+			  "value": "ул. Серповая 4 (ст. м. Наукова)."
+			}
+			]
+		}
+	]
+  }
+}

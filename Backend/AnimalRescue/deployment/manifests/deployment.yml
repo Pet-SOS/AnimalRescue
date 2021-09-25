@@ -36,15 +36,6 @@ spec:
                 secretKeyRef:
                   name: animalrescue-admin
                   key: password
-            - name: MongoDbSettings__ConnectionString
-              valueFrom:
-                secretKeyRef:
-                  name: animalrescue-api
-                  key: db_connection_string        
-            - name: MongoDbSettings__DatabaseName
-              value: #{mongodbDatabase}#
-            - name: MongoDbSettings__BucketName
-              value: #{mongodbBucketName}#
             - name: AppSettings__JwtExpireHours
               value: "1"
             - name: AppSettings__JwtExpireDays
@@ -85,11 +76,70 @@ spec:
                 secretKeyRef:
                   name: smtp
                   key: password
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-api
+                  key: db_connection_string        
+            - name: MongoDbSettings__DatabaseName
+              value: #{mongodbDatabase}#
+            - name: MongoDbSettings__BucketName
+              value: #{mongodbBucketName}#
+            - name: PublisherSettings__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: username
+            - name: PublisherSettings__UserPassword
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: password
+            - name: PublisherSettings__HostName
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: hostname
+            - name: PublisherSettings__HostPort
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: port
+            - name: TelegramPublisherSettings__Exchange
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchange
+            - name: TelegramPublisherSettings__ExchangeType
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchangetype
+            - name: TelegramPublisherSettings__RoutingKey
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: routingkey
+            - name: AdoptAnimalEmailPublisherSettings__Exchange
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: email-exchange
+            - name: AdoptAnimalEmailPublisherSettings__ExchangeType
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: exchangetype
+            - name: AdoptAnimalEmailPublisherSettings__RoutingKey
+              valueFrom:
+                secretKeyRef:
+                  name: animalrescue-rabbitmq
+                  key: email-routingkey
             - name: Logging__LogLevel__Default
-              value: Information
+              value: Warning
             - name: Logging__LogLevel__Microsoft
-              value: Information
+              value: Warning
             - name: Logging__LogLevel__Microsoft.Hosting.Lifetime
-              value: Information
+              value: Warning
       imagePullSecrets:
         - name: #{imagePullSecret}#

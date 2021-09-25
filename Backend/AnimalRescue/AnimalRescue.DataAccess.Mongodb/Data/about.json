@@ -1,0 +1,153 @@
+{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "aboutMainText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Хочемо щоб кожен з Вас повірив, що нема нічого неможливого! Хід історії змінити може кожен. Вплинути на суспільні процеси також. Для цього потрібні прості маленькі кроки. Ми прагнемо рятувати безнадійних, рятувати тих, про кого нема кому подбати."
+          },
+          {
+            "lang": "en",
+            "value": "We want each of you to believe that there is nothing impossible! Anyone can change the course of history. Impact on social processes as well. This requires simple little steps. We strive to save the hopeless, to save those who have no one to care for."
+          },
+          {
+            "lang": "de",
+            "value": "Wir möchten, dass jeder von Ihnen glaubt, dass nichts unmöglich ist! Jeder kann den Lauf der Geschichte ändern. Beeinflussen auch soziale Prozesse. Hierfür sind einfache Schritte erforderlich. Wir bemühen uns, die Hoffnungslosen zu retten, um diejenigen zu retten, um die sich niemand kümmern kann."
+          },
+          {
+            "lang": "ru",
+            "value": "Хотим чтобы каждый из Вас поверил, что нет ничего невозможного! Ход истории изменить может каждый. Повлиять на общественные процессы тоже. Для этого нужны простые маленькие шаги. Мы стремимся спасать безнадежных, спасать тех, о ком некому позаботиться."
+          }
+        ]
+      },
+      {
+        "name": "aboutOurGoalTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Хто ми"
+          },
+          {
+            "lang": "en",
+            "value": "Who we are"
+          },
+          {
+            "lang": "de",
+            "value": "Wer wir sind"
+          },
+          {
+            "lang": "ru",
+            "value": "Kто мы"
+          }
+        ]
+      },
+      {
+        "name": "aboutOurGoalText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Порятунок тварин Харків це громадська організація, яка працює за принципом МНС або швидкої допомоги для тварин. Виникла у 2015 році. За цей час спільними зусиллями надана допомога більше 4000 тваринам з яких знайдено домівки 2748 тваринам. Наш напрямок – це порятунок тварин у надзвичайних ситуаціях, де є пряма загроза життю. Наша мета – звернути увагу людей до проблеми безпритульних тварин та об’єднати для знаходження ефективних рішень."
+          },
+          {
+            "lang": "en",
+            "value": "Animal Rescue Kharkov is a non-governmental organization working on the principle of MOE or Ambulance for Animals. It was launched in 2015. During this time, more than 4,000 animals have been assisted jointly, of which 2,748 homes have been found. Our focus is the rescue of animals in emergencies where there is a direct threat to life. Our goal is to draw people’s attention to the problem of stray animals and to come together to find effective solutions."
+          },
+          {
+            "lang": "de",
+            "value": "Rettungsdienst Kharkiv ist eine Nichtregierungsorganisation, die nach dem Prinzip des Notfalls oder der Nutztiere arbeitet. Es wurde im Jahr 2015 ins Leben gerufen. In dieser Zeit wurden mehr als 4.000 Tiere gemeinsam unterstützt, von denen 2.748 Häuser gefunden wurden. Unser Fokus liegt auf der Rettung von Tieren in Notfällen, in denen eine direkte Lebensgefahr besteht. Unser Ziel ist es, die Aufmerksamkeit der Menschen auf das Problem streunender Tiere zu lenken und gemeinsam wirksame Lösungen zu finden."
+          },
+          {
+            "lang": "ru",
+            "value": "Спасение животных Харьков это общественная организация, которая работает по принципу МЧС или скорой помощи для животных. Возникла в 2015 году. За это время совместными усилиями оказана помощь более 4000 животных из которых найдено дома 2748 животных. Наше направление - это спасение животных в чрезвычайных ситуациях, где есть прямая угроза жизни. Наша цель - обратить внимание людей к проблеме бездомных животных и объединить для нахождения эффективных решений."
+          }
+        ]
+      },
+      {
+        "name": "aboutServiceHistoryTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Яким тваринам ми допомогаємо"
+          },
+          {
+            "lang": "en",
+            "value": "What animals we help"
+          },
+          {
+            "lang": "de",
+            "value": "Welchen Tieren helfen wir"
+          },
+          {
+            "lang": "ru",
+            "value": "Каким животным мы помогаем"
+          }
+        ]
+      },
+      {
+        "name": "aboutReason",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<ul><li>збитим</li><li>травмованим</li><li>хворим</li><li>застряглим у труднодоступному місці</li><li>отруєним</li><li>тваринам, які зазнали жорстокого поводження від людини</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<ul><li>beaten</li><li>injured</li><li>sick</li><li>stuck in a hard to reach place</li><li>poisoned</li><li>animals that have been abused by humans</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<ul><li>die geschlagen werden</li><li>die verletzt werden</li><li>die krank werden</li><li>die an einem schwer erreichbaren Ort festsitzen</li><li>die vergiftet werden</li><li>Tiere, die von Menschen missbraucht wurden</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<ul><li>сбитым</li><li>травмированным</li><li>больным</li><li>застрявшим в труднодоступном месте</li><li>отравленным</li><li>животным, которые подверглись жестокому обращению от человека</li></ul>"
+          }
+        ]
+      },
+      {
+        "name": "aboutServiceHowWeWorkTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Як ми працюємо"
+          },
+          {
+            "lang": "en",
+            "value": "How we work"
+          },
+          {
+            "lang": "de",
+            "value": "Wie wir arbeiten"
+          },
+          {
+            "lang": "ru",
+            "value": "Как мы работаем"
+          }
+        ]
+      },
+      {
+        "name": "aboutServiceHowWeWorkText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Цілодобово. Всі виклики приймаються виключно через гарячу лінію +38 095 478 88 78"
+          },
+          {
+            "lang": "en",
+            "value": "Round the clock. All calls are made exclusively through the hotline +38 095 478 88 78"
+          },
+          {
+            "lang": "de",
+            "value": "Rund um die Uhr. Alle Anrufe werden ausschließlich über die Hotline +38 095 478 88 78 entgegengenommen"
+          },
+          {
+            "lang": "ru",
+            "value": "Круглосуточно. Все вызовы принимаются исключительно через горячую линию +38 095 478 88 78"
+          }
+        ]
+      }
+    ]
+  }
+}

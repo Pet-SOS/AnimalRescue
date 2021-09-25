@@ -1,88 +1,203 @@
 @import '~antd/dist/antd.css';
-@import'../../../../styles/variables.scss';
-.main-report{
-    padding: 1rem 1.5rem;
-    button{
-        margin-bottom: 2.5rem;
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+@import '../../../../styles/base/helpers';
+
+.section-reports {
+    max-width: 647px;
+
+    h4 {
+        font-weight: 700;
+        line-height: 1.333333333;
+        margin-bottom: 24px;
     }
-    .delete{
-        position: relative;
+
+    label {
         display: inline-block;
-        &:after{
-            position: absolute;
-            content:'х';
-            width: 1rem;
-            height: 1.5rem;
-            color: $text-lite-color;
-            font-size:0.9rem;
-            top:-1.5rem;
-        }
+        vertical-align: top;
+        margin-bottom: 4px;
     }
-    .report{
-        color: $text-lite-color;
+
+    .ant-tabs {
+        font-size: 16px;
+        line-height: 1.5;
+        color: inherit;
     }
-    .title{
-        margin-bottom: 0.8rem;
-        font-size:2rem;
-    }
-    form{
-        display:flex;
-        justify-content: space-between;
-        .ant-picker{
-            padding: 0 1rem;
-            box-sizing: border-box;
-            input{
-                margin: 0;
-            }
-        }
-        .field{
-            max-width: 24%;
-            input{
-                width:100%;
-                background: $main-bg-color;
-                margin-bottom: 0.8rem;
-            
-            }
-            .fileInput{
-                padding: 5px 8px;
-                box-sizing:border-box;
-                border-radius: 3px;
-                &::placeholder{
-                    font-size:0.7rem!important;
-                }
-            }
-            label{
-                font-weight:400;
-                margin-bottom: 0.4rem;
-                font-size:0.7rem;
-                display:inline-block;
-            }
-        }
-        .custom-file-input::-webkit-file-upload-button {
-            visibility: hidden;
-            display:none!important;
-        }
-        .custom-file-input::before {
-            content: 'Вибрати новий звiт';
-            display: inline-block;
-            background: linear-gradient(top, #f9f9f9, #e3e3e3);
-            border: 1px solid #999;
-            border-radius: 3px;
-            padding: 5px 8px;
-            outline: none;
-            white-space: nowrap;
-            -webkit-user-select: none;
+
+    [type="file"] {
+        display: none;
+
+        + label {
+            display: block;
+            height: 48px;
+            background-color: $white;
+            border-radius: 4px;
+            border: 1px solid $btn-border;
             cursor: pointer;
-            text-shadow: 1px 1px #fff;
-            font-weight: 700;
-            font-size: 0.7rem;
-            width:100%;
-        }
-        .custom-file-input:hover::before {
-            border-color: black;
-        }
-        .custom-file-input:active::before {
-            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
         }
     }
+
+    .ant-picker {
+        border: 1px solid $btn-border;
+        border-radius: 4px;
+
+        .ant-picker-active-bar {
+            display: none;
+        }
+    }
+
+    .ant-picker-range {
+        width: 100%;
+        padding: 11px 16px;
+
+        .ant-picker-clear {
+            top: 11px;
+            right: 2px;
+        }
+    }
+
+    .ant-picker-focused {
+        border-color: lighten($brand-color-primary, 10%);
+        box-shadow: 0 0 0 1px lighten($brand-color-primary, 10%);
+    }
+
+    .ant-picker-range-separator {
+        padding: 0 27px;
+    }
+
+    .ant-picker-separator {
+        font-size: 0;
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+
+        &:before {
+            @extend %icomoon;
+            content: "\e90c";
+            font-size: 14px;
+            color: $text-lite-color;
+
+        }
+    }
+
+    .ant-picker-suffix {
+        font-size: 0;
+
+        &:before {
+            @extend %icomoon;
+            content: "\e916";
+            font-size: 24px;
+            color: $text-lite-color;
+
+        }
+    }
+
+    .ant-picker-input {
+        input {
+            font-size: 18px;
+            line-height: 24px;
+
+            &:focus {
+                border: 0;
+                box-shadow: none;
+            }
+
+            @include placeholder {
+                font-size: inherit;
+                color: #95A3B8;
+            }
+
+            border: 0;
+            padding: 0;
+
+
+        }
+    }
+
+    .title-uploaded-reports {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 8px;
+        color: $text-lite-color;
+        margin-bottom: 16px;
+    }
+
+    .list-reports {
+        grid-template-rows: repeat(6, 1fr);
+        //padding: 52px 0 48px;
+        padding: 0;
+        margin-bottom: 16px;
+
+        @include media('≤xs-phone') {
+            display: block;
+        }
+
+        .report {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .title-item {
+            padding: 0 8px 0 4px;
+        }
+    }
+}
+
+.section-new-report {
+    background-color: $gray-light;
+    border-radius: 8px;
+    padding: 24px 16px;
+    margin-bottom: 60px;
+
+    form {
+        display: flex;
+        margin: 0 -8px;
+        margin-bottom: 24px;
+
+        @include media('≤phone') {
+            display: block;
+        }
+    }
+
+    .field {
+        width: 50%;
+        padding: 0 8px;
+        @include media('≤phone') {
+            width: 100%;
+        }
+
+        .ant-picker {
+            height: 48px;
+            width: 100%;
+        }
+
+        + .field {
+            width: 50%;
+
+            @include media('≤phone') {
+                width: 100%;
+            }
+        }
+
+        label:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.inner-all-reports {
+    padding-top: 8px;
+}
+
+.sub-notes {
+  display: block;
+  padding-top: 4px;
+  font-size: 14px;
+  line-height: 18px;
+  color: #62738d;
 }

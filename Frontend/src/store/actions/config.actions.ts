@@ -3,19 +3,17 @@ import { IAPIConfig } from '../../api/config';
 
 export const actionGetApiConfig = createAction(
   'GET_API_CONFIG_REQUEST',
-  (resolve) => () => resolve()
+  resolve => () => resolve(),
 );
 
 export const actionGetApiConfigSuccess = createAction(
   'GET_API_CONFIG_SUCCESS',
-  (resolve) => (config: IAPIConfig) => resolve(config)
+  resolve => (config: IAPIConfig) => resolve(config),
 );
 
 export const actionGetApiConfigError = createAction(
   'GET_API_CONFIG_ERROR',
-  (resolve) => (error: Error) => resolve({ error })
+  resolve => (error: Error) => resolve({ error }),
 );
 
-export const actionClearApiConfig = createAction(
-  'CLEAR_API_CONFIG'
-);
+export const actionClearApiConfig = createAction('CLEAR_API_CONFIG');

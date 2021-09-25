@@ -81,6 +81,14 @@ $title-palette: (
       'h4': 24,
       'h5': 18,
       'h6': 16
+    ),
+    xs-phone: (
+      'h1': 32,
+      'h2': 32,
+      'h3': 28,
+      'h4': 20,
+      'h5': 18,
+      'h6': 16
     )
 );
 $headings-font-family:              $base-font-family;
@@ -90,6 +98,7 @@ $headings-color:                    inherit !default;
 $btn-color:                         $white !default;
 $btn-background:                    $gray !default;
 $btn-border:                        1px solid $black;
+$btn-border-color:                  #dbdadb;
 $btn-padding:                       4px 10px !default;
 $btn-font-size:                     $font-size-base - 2 !default;
 $btn-line-height:                   $font-size-base + 2;

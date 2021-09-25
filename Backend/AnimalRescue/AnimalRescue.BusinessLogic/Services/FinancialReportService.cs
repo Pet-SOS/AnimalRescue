@@ -7,22 +7,26 @@ using AnimalRescue.DataAccess.Mongodb.Models;
 
 using AutoMapper;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
-    internal class FinancialReportService : BaseService<FinancialReportDto, FinancialReport>, IFinancialReportService
+    internal class FinancialReportService : 
+        BaseService<FinancialReportDto, FinancialReport, Guid>, 
+        IFinancialReportService
     {
-        private readonly IFinancialReportRepository _financialReportRepository;
-        private readonly IMapper _mapper;
+        private readonly IBaseRepository<FinancialReport> _financialReportRepository;
 
-        public FinancialReportService(IFinancialReportRepository repository, IMapper mapper)
-            : base(repository, mapper)
+        public FinancialReportService(
+            IBaseRepository<FinancialReport> repository,
+            IRecoverDataService recoverDataService,
+            IMapper mapper)
+            : base(repository, recoverDataService, mapper)
         {
             _financialReportRepository = repository;
-            _mapper = mapper;
         }
 
         public async Task<List<FinancialReportByYearDto>> GetReportsByYearsAsync()

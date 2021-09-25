@@ -1,4 +1,7 @@
-@import './../../../styles/variables.scss';
+@import './../../../styles/include-media';
+@import './../../../styles/base/variables';
+@import './../../../styles/variables';
+@import './../../../styles/base/mixins';
 
 .rules-page-holder {
   background: $bg-lite-box;
@@ -17,22 +20,7 @@
     color: $text-color;
     cursor: default;
   }
-  .banner {
-    background: $bg-orange;
-    padding: 0 0 22.4375rem;
-    &:after {
-      content: '';
-      position: absolute;
-      max-width: 26rem;
-      width: 38%;
-      height: 100%;
-      max-height: 22.4375rem;
-      background: url('./../../../img/rules-page.png') center bottom / contain no-repeat;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
+
   .rules-content {
     max-width: 54.375rem;
     margin: 0 auto;
@@ -48,6 +36,14 @@
       }
     }
   }
+
+  .adoption-rules {
+    ul {
+      list-style: disc;
+      padding-left: 40px;
+    }
+  }
+
   .list-item-title {
     font-weight: 900;
     font-size: 1.5rem;
@@ -64,22 +60,10 @@
     }
   }
 }
-@media (max-width: 700px) {
-  .rules-page-holder .banner {
-    padding: 0 0 15rem;
-    &:after {
-      max-height: 15rem;
-    }
-  }
-}
+
 @media (max-width: 600px) {
   .rules-page-holder {
-    .banner {
-      padding: 0 0 10rem;
-      &:after {
-        max-height: 10rem;
-      }
-    }
+
     .row-holder {
       display: block;
       & > ul, & > ul:last-child {

@@ -1,43 +1,74 @@
-@import './../../../../styles/variables.scss';
+@import './../../../../styles/include-media';
+@import './../../../../styles/base/variables';
+@import './../../../../styles/variables';
+@import './../../../../styles/base/mixins';
+
 .animal-item-page {
-  h4 {
-    font-size: 1.5rem;
-    line-height: 1.5rem;
-    margin: 0 0 1rem;
-  }
   .back-link {
-    margin: 0 0 1.5rem;
+    margin-bottom: 24px;
   }
+
+  h4 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 32px;
+  }
+
   .animal-info {
-    padding: 0 0 5rem;
-    .content {
+    .inner-content {
       display: flex;
-      justify-content: space-between;
-      .column {
-        &:first-child {
-          width: 61.61%;
-          padding: 0 2.6875rem 0 0;
-        }
-        &:last-child {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          width: 38.39%;
-        }
+
+      @include media('≤phone') {
+        display: block;
       }
     }
+
+    .visual {
+      width: 61.28%;
+      padding: 0 40px 0 0;
+
+      @include media('≤tablet') {
+        width: 50%;
+      }
+
+      @include media('≤phone') {
+        width: 100%;
+        padding: 0 45px 40px;
+      }
+
+      @include media('≤xs-phone') {
+        padding: 0;
+      }
+    }
+
+    .text {
+      width: 38.72%;
+
+      @include media('≤tablet') {
+        width: 50%;
+      }
+
+      @include media('≤phone') {
+        width: 100%;
+      }
+    }
+
     .custom-slider-inner {
       border-radius: 1.5rem;
       background-color: $bg-lite-lite;
     }
+
     .swiper-slide {
-      height: 29.625rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 1.5rem;
-      overflow: hidden;
+      padding-top: 75%;
+      position: relative;
+
       .img-holder {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         background-size: contain;
@@ -45,142 +76,139 @@
         background-repeat: no-repeat;
       }
     }
+
     .thumb-swiper .swiper-slide {
-      border-radius: .5rem;
+      border-radius: 8px;
+      padding-top: 0;
+
       img {
         max-height: 100%;
       }
     }
   }
+
   .main-info {
-    .head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 0 0.5rem;
-      .title {
-        margin: 0;
-        color: #000000
-      }
+    position: relative;
+
+    h2 {
+      padding-right: 45px;
+      margin-bottom: 0;
     }
+
+    .like {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
     .animal-number {
-      display: block;
-      margin: 0 0 0.5rem;
-      font-size: 1.125rem;
-      line-height: 1.5rem;
+      display: inline-block;
+      vertical-align: top;
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.5;
       color: $text-lite-color;
     }
+
     .gender-age {
-      margin: 0 0 1.625rem;
-      .gender:after {
-        content: "\2022";
-        display: inline-block;
-        vertical-align: baseline;
-        margin: 0 0.5rem;
-      }
+      margin-bottom: 16px;
+      font-size: 24px;
+      line-height: 1.5;
     }
-    .tags-list {
-      font: 0;
-      line-height: 0;
-      margin: 0 0 1.25rem;
-      li {
-        padding: 0.25rem 1rem;
-        font-size: 1rem;
-        line-height: 1.5rem;
-        min-height: 1.25rem;
+
+    .gender:after {
+      @include size(8px)
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      border-radius: 100%;
+      background-color: $text-color;
+      margin: -2px 0.5rem 0;
+    }
+  }
+
+  .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin: 0 -8px;
+    padding-bottom: 24px;
+    color: $text-lite-color;
+
+    li {
+      padding: 0 8px;
+      margin-bottom: 8px;
+
+      &.medical > span {
+        background: $bg-lite-green;
+      }
+
+      &.additional > span {
+        background: $btn-story;
+      }
+
+      i {
+        font-size: 0;
+
+        &:before {
+          display: inline-block;
+          vertical-align: top;
+          font-size: 24px;
+          line-height: 1;
+          margin-right: 4px;
+        }
+      }
+
+      > span {
         display: inline-block;
-        color: $text-lite-color;
+        vertical-align: top;
+        padding: 4px 16px;
         background: $bg-lite-lite;
         border-radius: 1rem;
-        margin: 0 1rem 1rem 0;
-        &.medical  {
-          background: $bg-lite-green;
-        }
-        &.additional {
-          background: $btn-story;
-          span {
-            display: inline-block;
-            padding: 0 0 0 1.5rem;
-            position: relative;
-            &:before {
-              content: '';
-              width: 1.25rem;
-              height: 1.25rem;
-              position: absolute;
-              top: 50%;
-              transform: translateY(-50%);
-              left: 0;
-              background: url('./../../../../img/icons/paw.png') center / cover no-repeat;
-            }
-          }
-        }
       }
     }
   }
-  .block-holder {
-    margin: 0 0 2.25rem;
-  }
-  .btn-holder .button {
-    margin: 0 0 1.5rem;
-  }
-  .instructions {
-    background: #ffffff;
-    padding: 5rem 0 2.6875rem;
-    .title {
-      margin: 0 0 1.5rem;
+
+  .facebook-share {
+    padding-top: 32px;
+    max-width: 425px;
+
+    @include media('≤xs-phone') {
+      max-width: none;
     }
+  }
+
+  .instructions {
+    background-color: $white;
+
     .numbered-list {
       display: grid;
       grid-template-columns: repeat(2, 50%);
       grid-template-rows: repeat(2, auto);
       grid-auto-flow: column;
       margin: 0;
+
+      @include media('≤phone') {
+        display: block;
+      }
+
       li {
-        margin: 0 0 2.3125rem;
-        strong {
-          font-size: 1.5rem;
-          line-height: 1.5rem;
-          display: block;
-          margin: 0 0 1.5rem;
-          font-weight: 900;
+        margin-bottom: 0;
+
+        &:nth-child(2n-1) {
+          margin-bottom: 24px;
         }
+      }
+
+      p {
+        margin-bottom: 0;
       }
     }
   }
   .animal-slider-holder {
-    padding: 5rem 0;
     .animal-kind {
       text-transform: lowercase;
     }
   }
-}
-@media (max-width: $normal-device-width) {
-  .animal-item-page {
-    padding: 1.25rem 0 0;
-    .animal-info .swiper-slide { height: 20rem; }
-  }
-}
-@media (max-width: $medium-device-width) {
-  .animal-item-page {
-    .animal-info {
-      .content {
-        display: block;
-        .column {
-          &:first-child { margin: 0 0 1rem; }
-          &:first-child, &:last-child  {
-            width: 100%;
-            padding: 0;
-          }
-        }
-      }
-      .swiper-slide { height: 25rem; }    
-    }
-    .instructions .numbered-list { display: block; }
-  }
-}
-@media (max-width: $small-device-width) {
-  .animal-item-page {
-    padding: 0;
-  }
-  .numbered-list .list-body { margin-left: -4rem; }
 }

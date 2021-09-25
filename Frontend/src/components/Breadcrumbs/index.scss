@@ -1,44 +1,68 @@
-@import '../../styles/variables.scss';
+@import '../../styles/include-media';
+@import '../../styles/base/variables';
+@import '../../styles/variables';
+@import '../../styles/base/mixins';
+@import '../../styles/base/helpers';
+
 .breadcrumbs {
   display: flex;
-  li {
-    display: flex;
-    flex-basis: 100%;
-    max-width: 21.4365rem;
-    margin: 0 1.5rem 1.5rem 0;
-    min-height: 2.5rem;
-  }
-}
-.breadcrumb {
-  background: #ffffff;
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
+  margin: 0 -12px;
   font-size: 1.25rem;
   line-height: 1.5rem;
   font-weight: bold;
-  color: $text-color-active;
-  &:hover {
-    color: $btn-hover;
-    .button {
-      background-color: $btn-blue; 
+
+  @include media('≤phone') {
+      flex-wrap: wrap;
+  }
+
+  li {
+    display: flex;
+    width: 367px;
+    //margin-bottom: 24px;
+    padding: 0 12px;
+
+    @include media('≤tablet') {
+      width: 50%;
     }
-  }
-  span {
-    margin: 0 1rem 0 0;
-  }
-  .button {
-    flex-shrink: 0;
+
+    @include media('≤phone') {
+      width: 100%;
+      //max-width: 367px;
+      margin-bottom: 24px;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
   }
 }
 
-@media (max-width: $small-device-width) {
-  .breadcrumbs {
-    flex-direction: column;
-    align-items: center;
-    li {
-      margin: 0 0 1.5rem;
+.breadcrumb {
+  width: 100%;
+  background-color: $white;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    .btn {
+      background-color: $btn-blue;
+    }
+  }
+
+  span {
+    padding-right: 28px;
+  }
+
+  .btn {
+    flex-shrink: 0;
+    margin-left: auto;
+
+    &:before {
+      @extend %icomoon;
+      content: "\e90c";
+      font-size: 14px;
     }
   }
 }

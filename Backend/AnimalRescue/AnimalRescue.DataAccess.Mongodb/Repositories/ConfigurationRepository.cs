@@ -1,9 +1,9 @@
-﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
+﻿using AnimalRescue.Contracts.Common.Exceptions;
+using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Extensions;
 using AnimalRescue.DataAccess.Mongodb.Interfaces;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using AnimalRescue.DataAccess.Mongodb.Models.Configurations;
-using AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested;
 using AnimalRescue.Infrastructure.Validation;
 
 using MongoDB.Bson;
@@ -11,20 +11,18 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-using baseItem = AnimalRescue.Contracts.Common.Constants.PropertyConstants.BaseItem;
 using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 
 namespace AnimalRescue.DataAccess.Mongodb.Repositories
 {
     internal class ConfigurationRepository : IConfigurationRepository
     {
-        private readonly IBaseCollection<Configuration<Contacts>> baseCollection;
+        private readonly IBaseCollection<Configuration<object>> baseCollection;
 
-        public ConfigurationRepository(IBaseCollection<Configuration<Contacts>> baseCollection)
+        public ConfigurationRepository(IBaseCollection<Configuration<object>> baseCollection)
         {
             Require.Objects.NotNull(baseCollection, nameof(baseCollection));
 
@@ -39,12 +37,12 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
 
             var data = await baseCollection.NativeCollection
                 .Find(filter)
-                .Sort(Builders<BsonDocument>.Sort.Descending(baseItem.CreatedAt))
-                .FirstOrDefaultAsync();
+                .FirstAsync();
 
             return data.Deserialize<Configuration<T>>();
         }
-        public async Task CreateAsync<T>(Configuration<T> instance) 
+
+        public async Task CreateAsync<T>(Configuration<T> instance)
         {
             string configName = TryGetConfigName<T>();
             instance.Name = configName;
@@ -53,9 +51,26 @@ namespace AnimalRescue.DataAccess.Mongodb.Repositories
             await baseCollection.CreateAsync(instance.ToBsonDocument());
         }
 
-        private static string TryGetConfigName<T>()
+        public async Task UpdateAsync<T>(Configuration<T> configuration)
         {
-            var configName = typeof(T)
+            Require.Objects.NotNull(configuration, nameof(configuration));
+
+            var oldConfiguration = await GetConfigurationAsync<T>();
+
+            Require.Objects.NotNull<NotFoundException>(oldConfiguration,
+                () => $"Configuration for {oldConfiguration.Name} not found");
+
+            oldConfiguration.Data = configuration.Data;
+
+            await baseCollection.NativeCollection
+                .ReplaceOneAsync(
+                    common.Name.EQ(oldConfiguration.Name),
+                    oldConfiguration.ToBsonDocument());
+        }
+
+        private static string TryGetConfigName<TConfig>()
+        {
+            var configName = typeof(TConfig)
                 .GetCustomAttribute<ConfigNameAttribute>()?.Name;
 
             Require.Strings.NotNullOrWhiteSpace(configName, nameof(configName));

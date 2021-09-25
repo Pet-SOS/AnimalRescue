@@ -14,13 +14,40 @@ services:
       - frontend
       - backend
     environment:
+      - AdminDetail__Email=${admin_email}
+      - AdminDetail__Password=${admin_password}
+      - AppSettings__JwtExpireHours=1
+      - AppSettings__JwtExpireDays=30
+      - AppSettings__JwtIssuer=https://${api_hostname}/
+      - AppSettings__JwtAudience=${api_hostname}
+      - AppSettings__JwtKey=${JwtKey}
+      - AppSettings__FrontEndUrl=https://${portal_hostname}/
+      - AppSettings__AnimalRescueEmail=${smtp_email}
+      - Smtp__Host=${smtp_host}
+      - Smtp__Port=${smtp_port}
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=${smtp_displayname}
+      - Smtp__Email=${smtp_email}
+      - Smtp__Username=${smtp_username}
+      - Smtp__Password=${smtp_password}
       - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
       - MongoDbSettings__DatabaseName=${MongoDB_database}
-      - Logging__LogLevel__Default=Debug
-      - Logging__LogLevel__Microsoft=Debug
-      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
+      - PublisherSettings__UserName=${RABBITMQ_USERNAME}
+      - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
+      - PublisherSettings__HostName=${RABBITMQ_HOST}
+      - PublisherSettings__HostPort=5672
+      - TelegramPublisherSettings__Exchange=${RABBITMQ_Exchange}
+      - TelegramPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - TelegramPublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
+      - AdoptAnimalEmailPublisherSettings__Exchange=${RABBITMQ_Email_Exchange}
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=${RABBITMQ_Email_RoutingKey}
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft=Information
+      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
     depends_on:
       - mongodb
+      - rabbitmq
 
   portal:
     build:
@@ -40,6 +67,59 @@ services:
     networks:
       - frontend
 
+  telegram-messenger:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/TelegramMessenger/Dockerfile
+    image: ${DockerRegistryURL}/telegram-messenger:${ImageTag}
+    deploy:
+      replicas: 1
+    restart: unless-stopped
+    environment:
+      - PublisherSettings__UserName=${RABBITMQ_USERNAME}
+      - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
+      - PublisherSettings__HostName=${RABBITMQ_HOST}
+      - PublisherSettings__HostPort=5672
+      - TelegramPublisherSettings__Exchange=${RABBITMQ_Exchange}
+      - TelegramPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - TelegramPublisherSettings__RoutingKey=${RABBITMQ_RoutingKey}
+      - TelegramPublisherSettings__TelegramKey=${TelegramKey}
+      - MongoDbSettings__ConnectionString=mongodb://${MongoDB_User}:${MongoDB_Pass}@${MongoDB_Server}:27017
+      - MongoDbSettings__DatabaseName=${MongoDB_database}
+      - MongoDbSettings__BucketName=file_records
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+    
+  email-sender:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/EmailSender/Dockerfile
+    image: ${DockerRegistryURL}/email-sender:${ImageTag}
+    deploy:
+      replicas: 1
+    restart: unless-stopped
+    environment:
+      - Smtp__Host=${smtp_host}
+      - Smtp__Port=${smtp_port}
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=${smtp_displayname}
+      - Smtp__Email=${smtp_email}
+      - Smtp__Username=${smtp_username}
+      - Smtp__Password=${smtp_password}
+      - PublisherSettings__UserName=${RABBITMQ_USERNAME}
+      - PublisherSettings__UserPassword=${RABBITMQ_PASSWORD}
+      - PublisherSettings__HostName=${RABBITMQ_HOST}
+      - PublisherSettings__HostPort=5672
+      - AdoptAnimalEmailPublisherSettings__Exchange=${RABBITMQ_Email_Exchange}
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=${RABBITMQ_ExchangeType}
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=${RABBITMQ_Email_RoutingKey}
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+
   mongodb:
     image: mongo:4.2
     command: mongod --auth
@@ -54,9 +134,19 @@ services:
     ports:
       - 27017:27017
     networks:
-      backend:
-        aliases:
-          - mongdb.synapse.com
+      - backend
+
+  rabbitmq:
+    image: 'bitnami/rabbitmq:3.8.3'
+    environment:
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_NODE_PORT_NUMBER=5672
+      - RABBITMQ_DISK_FREE_LIMIT=2000000000
+    ports:
+      - 5672:5672
+    networks:
+      - backend
 
 volumes:
   mongodbdata:

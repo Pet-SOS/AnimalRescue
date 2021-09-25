@@ -7,34 +7,15 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
     internal class QueryFilterBuilder : IQueryFilterBuilder
     {
         private readonly IAliasStore aliasStore;
-        private string defaultFilter = "{}";
 
         public QueryFilterBuilder(IAliasStore aliasStore)
         {
             this.aliasStore = aliasStore;
         }
-        public string BuildStringFilterParams<T>(string rowFilterParams)
-        {
-            var filterArrey = rowFilterParams?
-                .Split(";")
-                .Select(data => new Term(aliasStore, data))
-                .Select(term => term.GetDbTerm<T>());
-            var result = filterArrey != null  
-                ? "{" + string.Join(",", filterArrey) + "}"  
-                : defaultFilter;
 
-            return result;
-        }
         public FilterDefinition<T> BuildFilterParams<T>(string rowFilterParams)
         {
-            var filterArrey = rowFilterParams?
-                .Split(";")
-                .Select(data => new StrictTerm<T>(aliasStore, data))
-                .Select(term => term.GetDbTermFilterDefinition());
-
-            var result = filterArrey != null  
-                ? Builders<T>.Filter.And(filterArrey)
-                : Builders<T>.Filter.Empty;
+            var result = QueryAnalyzer.BuildFilterParams<T>(rowFilterParams, aliasStore);
 
             return result;
         }

@@ -1,57 +1,72 @@
-@import './../../../styles/variables.scss';
+@import './../../../styles/include-media';
+@import './../../../styles/base/variables';
+@import './../../../styles/variables';
+@import './../../../styles/base/mixins';
 
-.about-page-holder{
+.about-page-holder {
   background: $bg-lite-box;
-  p {
-    margin: 0 0 1rem;
-    &.description {
-      font-size: 1.5rem;
-      line-height: 2.125rem;
+
+  .innerHtml {
+    ul {
+      padding-left: 40px;
+      list-style-type: disc;
     }
   }
-  .title {
-    margin: 0 0 1.5rem;
+
+  p {
+    margin: 0 0 1rem;
+
+    &.description {
+      font-size: 24px;
+      line-height: 1.5;
+
+      @include media('≤phone') {
+        font-size: 20px;
+        line-height: 1.4;
+      }
+    }
   }
-  .banner {
-    height: 23.75rem;
-    background: url('./../../../img/about-service-banner.png') center center / cover no-repeat $bg-orange;
-    border-radius: 1.5rem;
-    position: relative;
-    margin: 0 0 2.5625rem;
-    padding: 0 0 22.4375rem;
-  }
+
   .about-content {
-    max-width: 54.375rem;
+    max-width: 870px;
     margin: 0 auto;
   }
-  .block-holder {
-    margin: 0 0 5rem;
+}
+
+.list-docs {
+  font-size: 24px;
+  line-height: 1.5;
+  color: $text-color-active;
+
+  @include media('≤phone') {
+    font-size: 20px;
+    line-height: 1.4;
   }
-}
-@media (max-width: $medium-device-width) {
-    .about-page-holder .banner{
-        height: 20rem;
-        padding: 0 0 17rem;
-        &:after {
-          max-height: 17rem;
-        }
-    } 
-}
-@media (max-width: $small-device-width) {
-  .about-page-holder .banner {
-      height: 14rem;
-      padding: 0 0 12rem;
-      &:after {
-        max-height: 12rem;
-      }      
+
+  li {
+    @include animate(color);
+    position: relative;
+    margin-bottom: 16px;
+    padding-left: 44px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      color: $base-link-hover-color;
+    }
   }
-}
-@media (max-width: $min-device-width) {  
-  .about-page-holder .banner {
-      height: 12rem;
-      padding: 0 0 10rem;
-      &:after {
-          max-height: 10rem;
-      }      
+
+  i {
+    font-size: 0;
+    position: absolute;
+    top: 2px;
+    left: 0;
+
+    &:before {
+      font-size: 32px;
+    }
   }
 }

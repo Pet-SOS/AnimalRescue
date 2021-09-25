@@ -11,15 +11,40 @@ services:
     ports:
       - "9595:80"
     environment:
+      - AdminDetail__Email=admin@animalrescue.com
+      - AdminDetail__Password=TestPassword123#
+      - AppSettings__JwtExpireHours=1
+      - AppSettings__JwtExpireDays=30
+      - AppSettings__JwtIssuer=http://localhost:9595/
+      - AppSettings__JwtAudience=localhost
+      - AppSettings__JwtKey=SOME_RANDOM_KEY_DO_NOT_SHARE
+      - AppSettings__FrontEndUrl=http://localhost:9090/
+      - Smtp__Host=smtp.gmail.com
+      - Smtp__Port=587
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=Animal Rescue
+      - Smtp__Email=anuitexmail@gmail.com
+      - Smtp__Username=anuitexmail@gmail.com
+      - Smtp__Password=Qwe123!2020
       - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
-      - MongoDbSettings__DatabaseName=AnimalRescue
+      - MongoDbSettings__DatabaseName=animal_rescue
+      - MongoDbSettings__BucketName=file_records
+      - PublisherSettings__UserName=user
+      - PublisherSettings__UserPassword=bitnami
+      - PublisherSettings__HostName=rabbitmq
+      - PublisherSettings__HostPort=5672
+      - TelegramPublisherSettings__Exchange=topic_telegram
+      - TelegramPublisherSettings__ExchangeType=topic
+      - TelegramPublisherSettings__RoutingKey=animal.rescue
+      - AdoptAnimalEmailPublisherSettings__Exchange=topic_sendEmail
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=topic
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=animal.rescue
       - Logging__LogLevel__Default=Debug
       - Logging__LogLevel__Microsoft=Debug
       - Logging__LogLevel__Microsoft.Hosting.Lifetime=Debug
-    links:
-      - mongodb
     depends_on:
       - mongodb
+      - rabbitmq
     networks:
       - frontend
       - backend
@@ -40,6 +65,60 @@ services:
       - YOUTUBE_CHANNEL_ID=youtubechannelidhere
     networks:
       - frontend
+  
+  telegram-messenger:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/TelegramMessenger/Dockerfile
+    container_name: animalrescue.telegram-messenger
+    image: animalrescue.telegram-messenger
+    restart: unless-stopped
+    ports:
+      - "9696:80"
+    environment:
+      - PublisherSettings__UserName=user
+      - PublisherSettings__UserPassword=bitnami
+      - PublisherSettings__HostName=rabbitmq
+      - PublisherSettings__HostPort=5672
+      - TelegramPublisherSettings__Exchange=topic_telegram
+      - TelegramPublisherSettings__ExchangeType=topic
+      - TelegramPublisherSettings__RoutingKey=animal.rescue
+      - TelegramPublisherSettings__TelegramKey=1240836823:AAHIuV03-Kod7ZejejDbp_ziBEy1Jzm9dCQ
+      - MongoDbSettings__ConnectionString=mongodb://mongodbuser:mongodbpass@mongodb:27017
+      - MongoDbSettings__DatabaseName=animal_rescue
+      - MongoDbSettings__BucketName=file_records
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+
+  email-sender:
+    build:
+      context: Backend
+      dockerfile: BackgroundServices/EmailSender/Dockerfile
+    image: animalrescue.email-sender
+    ports:
+      - "9797:80"
+    restart: unless-stopped
+    environment:
+      - Smtp__Host=smtp.gmail.com
+      - Smtp__Port=587
+      - Smtp__UseSsl=true
+      - Smtp__DisplayName=Animal Rescue
+      - Smtp__Email=anuitexmail@gmail.com
+      - Smtp__Username=anuitexmail@gmail.com
+      - Smtp__Password=Qwe123!2020
+      - PublisherSettings__UserName=user
+      - PublisherSettings__UserPassword=bitnami
+      - PublisherSettings__HostName=rabbitmq
+      - PublisherSettings__HostPort=5672
+      - AdoptAnimalEmailPublisherSettings__Exchange=topic_sendEmail
+      - AdoptAnimalEmailPublisherSettings__ExchangeType=topic
+      - AdoptAnimalEmailPublisherSettings__RoutingKey=animal.rescue
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
 
   mongodb:
     container_name: "mongodb"
@@ -56,6 +135,18 @@ services:
       - mongodbdata:/data/db
     ports:
       - 27017:27017
+    networks:
+      - backend
+
+  rabbitmq:
+    image: 'bitnami/rabbitmq:3.8.3'
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=bitnami
+      - RABBITMQ_NODE_PORT_NUMBER=5672
+      - RABBITMQ_DISK_FREE_LIMIT=2000000000
+    ports:
+      - 5672:5672
     networks:
       - backend
 

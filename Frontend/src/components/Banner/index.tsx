@@ -7,14 +7,18 @@ export interface IBannerPropTypes {
   imgLink?: string;
 }
 
-export const Banner: React.FC<IBannerPropTypes> = ({ title, subTitle, imgLink }) => {
+export const Banner: React.FC<IBannerPropTypes> = ({
+  title,
+  subTitle,
+  imgLink,
+}) => {
   const bgStyle = !!imgLink ? { backgroundImage: `url(${imgLink}` } : {};
   return (
-    <div style={bgStyle} className='banner custom-banner'>
-      <div className='banner-content'>
-        {!!title && <div className='banner-title'>{title}</div>}
-        {!!subTitle && <div className='banner-subtitle'>{subTitle}</div>}
+    <div style={bgStyle} className="banner custom-banner">
+      <div className="banner-content">
+        {!!title && <div className="banner-title">{title}</div>}
+        {!!subTitle && <div className="banner-subtitle">{subTitle}</div>}
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,5 +1,5 @@
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
-import { IBlogListResponse } from "../../../../../api/blog";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
+import { IBlogListResponse } from '../../../../../api/blog';
 
 export interface IBlogsState {
   blogList: IBlogListResponse;
@@ -14,7 +14,7 @@ export const DEFAULT_BLOGS: IBlogListResponse = {
   pageNumber: 0,
   pageSize: 0,
   self: '',
-  totalCount: 0
+  totalCount: 0,
 };
 
 export const DEFAULT_BLOGS_STATE: IBlogsState = {

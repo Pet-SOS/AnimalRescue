@@ -8,24 +8,35 @@ import { selectApiUrl } from '../../../../store/selectors/config.selector';
 import { store } from '../../../../store';
 
 export interface IPropTypes {
-    image: string;
-    title: string;
-    id: string;
-    text: string | React.ReactNode; 
+  image: string;
+  title: string;
+  id: string;
+  text: string | React.ReactNode;
 }
 
 export const BlogCard: React.FC<IPropTypes> = ({ image, title, id, text }) => {
   const baseUrl: string = useSelector(() => selectApiUrl(store.getState()));
- const convertToTitle =(type: React.ReactNode)=>{
-    return <TI18n keyStr={`blog${type}`}/>
-  }
-  
+  const convertToTitle = (type: React.ReactNode) => {
+    return <TI18n keyStr={`blog${type}`} />;
+  };
+
   return (
     <div className="blog-card-holder">
-        <Link to={`/blog/${id}`} className="blog-card-link" />
-      <div className="blog-card-image" style={{ backgroundImage: `url(${image ? `${baseUrl}documents/${image}/type/medium` : `${noPhotoImage}`})` }}/>
-        <div className="blog-grey-text">{convertToTitle(text)}</div>
-        <div className="blog-card-title">{title}</div>
+      <Link to={`/blog/${id}`} className="blog-card-link" />
+      <div
+        className="blog-card-image"
+        style={{
+          backgroundImage: `url(${
+            image
+              ? `${baseUrl}documents/${image}/type/medium`
+              : `${noPhotoImage}`
+          })`,
+        }}
+      />
+      <span className="blog-grey-text">{convertToTitle(text)}</span>
+      <div className="blog-card-title">
+        <p>{title}</p>
+      </div>
     </div>
-  )
-}
+  );
+};

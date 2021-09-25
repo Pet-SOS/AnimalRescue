@@ -1,57 +1,118 @@
-@import './../../../../../styles/variables.scss';
-.helped-holder {
-  padding: 5rem 0;
-  background: #ffffff;
-  .bottomButton{
+@import './../../../../../styles/include-media';
+@import './../../../../../styles/base/variables';
+@import './../../../../../styles/variables';
+@import './../../../../../styles/base/mixins';
+
+.section-helped {
+  background: $white;
+
+  .custom-slider-wrapper {
+    @include media('≤phone') {
+      max-width: 534px;
+      margin: 0 auto;
+    }
+  }
+
+  .btn-wrap {
     display: flex;
     position: relative;
     justify-content: center;
-    margin-top: 1.5rem;
+    padding-top: 24px;
   }
+
   .slider-holder {
+    
+    @include media('≤phone') {
+      padding: 0 24px;
+    }
+
+    @include media('≤xs-phone') {
+      padding: 0;
+    }
+
+
+    h4 {
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 24px;
+    }
+
     .custom-slider-inner {
-      border-radius: 1.5rem;
+      border-radius: 24px;
+      
+      @include media('≤phone') {
+
+      }
     }
     .swiper-container, .slide-item {
       background: $bg-lite-box;
     }
   }
   .swiper-slide {
-    border-radius: 1.5rem;
-    height: 25rem;
+    border-radius: 24px;
+    //height: 25rem;
     display: flex;
     overflow: hidden;
-    & > div {
-      width: 50%;
+
+    @include media('≤phone') {
+      display: block;
     }
-    .img-holder {
+
+    .inner-col {
+      width: 50%;
+      display: flex;
+      flex: 0 1 50%;
+
+      @include media('≤tablet') {
+        min-height: 300px;
+      }
+
+      @include media('≤phone') {
+        min-height: 0;
+        flex-basis: auto;
+        width: 100%;
+      }
+    }
+
+    .visual {
+      width: 100%;
       background-size: cover;
       background-position: center;
+      padding-top: 75%;
+      margin-right: 12px;
+
+      @include media('≤tablet') {
+        padding-top: 0;
+        height: 100%;
+      }
+
+      @include media('≤phone') {
+        padding-top: 75%;
+        height: auto;
+        margin-right: 0;
+      }
+
+      @include media('≤xs-phone') {
+        height: 257px;
+        padding-top: 0;
+      }
     }
-    .info-holder {
-      padding: 3rem 2.5rem 3rem 1.125rem;
+
+    .text {
+      padding: 40px 60px 24px 12px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+
+      @include media('≤phone') {
+        padding: 40px 24px 24px;
+      }
     }
-    .info-content {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      margin: 0 0 1.5rem;
-    }
-    .info-title {
-      font-size: 1.5rem;
-      line-height: 1.5rem;
-      font-weight: 900;
-      color: $text-color;
-      margin: 0 0 1.5rem;
-    }
+
     .info-text {
-      flex-grow: 1;
+      //flex-grow: 1;
       overflow: hidden;
       width: 100%;
       overflow-wrap: break-word;
@@ -59,51 +120,40 @@
       -webkit-box-orient: vertical;
       display: -webkit-box;
       -webkit-line-clamp: 8;
+      
+      @include media('≤tablet') {
+        -webkit-line-clamp: 4;
+      }
+      
+      @include media('≤phone') {
+        -webkit-line-clamp: 8;
+      }
     }
-  }
-}
 
-@media (max-width: $medium-device-width) {
-  .helped-holder {
-    .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
-      top: 25rem;
-      margin-top: -1.5rem;
-    }
-    .slider-holder {
-      max-width: 33.375rem;
-      width: 100%;
-      margin: 0 auto;
-    }
-    .swiper-slide {
-      height: auto;
-      flex-direction: column;
-      & > div {
-        width: 100%;
-      }
-      .img-holder {
-        height: 25rem;
-      }
-      .info-holder {
-        flex: 1 1 auto;
-        max-height: 25rem;
-        padding: 3rem 1.5rem 3rem 1.125rem;
-      }
+
+
+  }
+
+  .custom-slider-wrapper.pagination-active .swiper-button-next,
+  .custom-slider-wrapper.pagination-active .swiper-button-prev {
+    @include media('≤xs-phone') {
+      top: 257px;
+      margin-top: 0;
+      transform: translateY(-50%);
+      right: 0;
     }
   }
-}
-@media (max-width: $small-device-width) {
-  .helped-holder {
-    padding: 3.75rem 0;
-    .pagination-active .swiper-button-next, .pagination-active .swiper-button-prev {
-      top: 16.5rem;
+
+  .custom-slider-wrapper .swiper-button-prev {
+    @include media('≤xs-phone') {
+      right: auto;
+      left: 0;
     }
-    .swiper-slide {
-      .img-holder {
-        height: 16.5rem;
-      }
-      .info-holder {
-        max-height: 19.125rem;
-      }
+  }
+
+  .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+    @include media('≤xs-phone') {
+      margin: 0 8px;
     }
   }
 }

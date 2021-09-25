@@ -1,5 +1,5 @@
 import { IAnimalResponse } from './../../../../../api/animals';
-import { IRequestState, DEFAULT_REQUEST_STATE } from "../../../../../api";
+import { IRequestState, DEFAULT_REQUEST_STATE } from '../../../../../api';
 
 export interface IAnimalItemState extends IAnimalResponse {
   isLoading: boolean;
@@ -10,21 +10,29 @@ export interface IAnimalItemState extends IAnimalResponse {
 export const DEFAULT_ANIMAL_ITEM_STATE: IAnimalItemState = {
   data: {
     number: 0,
-    name: '',
+    names: [],
     kindOfAnimal: '',
     gender: '',
-    description: '',
-    age: 0,
+    description: [],
     imageIds: [],
     tags: [],
-    character: '',
+    character: [],
+    status: '',
+    locationTypeId: '',
+    locationName: '',
+    bannerText: [],
+    isDonationActive: false,
     birthday: '',
     coverImage: 0,
     createdAt: '',
-    images: []
+    images: [],
+    adoptiveName: '',
+    adoptivePhone: '',
+    adoptionContractFile: {},
+    adoptionContractFileId: '',
   },
   self: '',
   isLoaded: false,
   isLoading: false,
-  requestState: { ...DEFAULT_REQUEST_STATE }
+  requestState: { ...DEFAULT_REQUEST_STATE },
 };

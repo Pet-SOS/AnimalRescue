@@ -16,5 +16,7 @@ namespace AnimalRescue.Infrastructure.Configurations
         public int JwtExpireDays { get; set; }
 
         public string FrontEndUrl { get; set; }
+
+        public string AnimalRescueEmail { get; set; }
     }
 }

@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using AnimalRescue.Contracts.BusinessLogic.Attributes;
+﻿using AnimalRescue.Contracts.BusinessLogic.Attributes;
+
+using System.Collections.Generic;
+
 using cms = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Cms;
 using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 
 namespace AnimalRescue.Contracts.BusinessLogic.Models.Configurations
 {
-    public class CmsConfigurationDto : BaseDto
+    public class CmsConfigurationDto : Info.BaseInfoDto
     {
         [CouplingPropertyDto(cms.Phones)]
         public List<string> Phones { get; set; }
@@ -18,6 +20,5 @@ namespace AnimalRescue.Contracts.BusinessLogic.Models.Configurations
 
         [CouplingPropertyDto(person.Addresses)]
         public Dictionary<string, string> Addresses { get; set; }
-
     }
 }

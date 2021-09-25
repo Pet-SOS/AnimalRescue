@@ -1,37 +1,45 @@
-import { AnyAction } from "redux";
-import { getType } from "typesafe-actions";
+import { AnyAction } from 'redux';
+import { getType } from 'typesafe-actions';
 
-import { loadYouTubeVideos, loadYouTubeVideosSuccess, loadYouTubeVideosFailUrl, clearYouTubeVideos } from '../actions/youtube-videos.actions';
-import { IYouTubeVideosState } from "../state/youtube-videos.state";
+import {
+  loadYouTubeVideos,
+  loadYouTubeVideosSuccess,
+  loadYouTubeVideosFailUrl,
+  clearYouTubeVideos,
+} from '../actions/youtube-videos.actions';
+import { IYouTubeVideosState } from '../state/youtube-videos.state';
 import { DEFAULT_YOUTUBE_VIDEO_STATE } from '../state/youtube-videos.state';
 
-export const youtubeVideosReducer = (state: IYouTubeVideosState = DEFAULT_YOUTUBE_VIDEO_STATE, action: AnyAction): IYouTubeVideosState => {
+export const youtubeVideosReducer = (
+  state: IYouTubeVideosState = DEFAULT_YOUTUBE_VIDEO_STATE,
+  action: AnyAction,
+): IYouTubeVideosState => {
   switch (action.type) {
     case getType(loadYouTubeVideos):
       return {
         ...state,
-        isLoading: true
-      }
+        isLoading: true,
+      };
     case getType(loadYouTubeVideosSuccess):
       return {
         ...state,
         isLoading: false,
         isLoaded: true,
-        data: [ ...action.payload ]
-      }
+        data: [...action.payload],
+      };
     case getType(loadYouTubeVideosFailUrl):
       return {
         ...state,
         isLoaded: false,
-        isLoading: false
-      }
+        isLoading: false,
+      };
     case getType(clearYouTubeVideos):
       return {
-        ...DEFAULT_YOUTUBE_VIDEO_STATE
-      }
+        ...DEFAULT_YOUTUBE_VIDEO_STATE,
+      };
     default:
       return state;
-  };
-}
+  }
+};
 
 export const YOUTUBE_VIDEOS_KEY = 'youtube-videos';

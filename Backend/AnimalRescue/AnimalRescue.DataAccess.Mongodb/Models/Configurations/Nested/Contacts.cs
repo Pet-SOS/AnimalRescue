@@ -11,7 +11,7 @@ using person = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Person;
 namespace AnimalRescue.DataAccess.Mongodb.Models.Configurations.Nested
 {
     [ConfigName(ConfigurationConstants.CmsConfigurationName)]
-    public class Contacts
+    public class Contacts : Info.BaseInfo
     {
         [CouplingPropertyName(cms.Phones)]
         [BsonElement("phones")]

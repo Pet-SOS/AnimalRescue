@@ -28,13 +28,34 @@ namespace AnimalRescue.API.Controllers
         [Route("signIn")]
         public async Task<IActionResult> SignIn([FromBody] SignInAccountAuthorizationViewModel model)
         {
-            var authData = await _accountService.SignIn(model);
+            var authData = await _accountService.SignInAsync(model);
             if (authData is null)
             {
                 return BadRequest("Authorization failed");
             }
 
             return Ok(authData);
+        }
+
+        /// <summary>
+        /// Allows to refresh the authorization token in Animal Rescue system.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Authorization data.</returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(SignInAccountModel), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [Route("refreshToken")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequestViewModel model)
+        {
+            var authResponse = await _accountService.RefreshTokenAsync(model.Token, model.RefreshToken);
+
+            if (authResponse is null)
+            {
+                return BadRequest("Refreshing the token is failed");
+            }
+
+            return Ok(authResponse);
         }
 
         /// <summary>

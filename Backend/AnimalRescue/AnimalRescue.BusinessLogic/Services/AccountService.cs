@@ -11,11 +11,15 @@ using System.Text;
 using System.Threading.Tasks;
 using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Web;
 using AnimalRescue.BusinessLogic.Extensions;
 using AnimalRescue.Contracts.BusinessLogic.Services;
 using AnimalRescue.Infrastructure.Configurations;
 using Microsoft.Extensions.Options;
+using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using SecurityToken = AnimalRescue.DataAccess.Mongodb.Models.SecurityToken;
 
 namespace AnimalRescue.BusinessLogic.Services
 {
@@ -24,18 +28,23 @@ namespace AnimalRescue.BusinessLogic.Services
 
         public readonly UserManager<ApplicationUser> _userManager;
         public readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly TokenValidationParameters _tokenValidationParameters;
         private readonly ISecurityTokenRepository _securityTokensRepository;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IJwtFactory _jwtFactory;
         private readonly AppSettings _appSettings;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
 
         public AccountService(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            TokenValidationParameters tokenValidationParameters,
             ISecurityTokenRepository securityTokenRepository,
+            IRefreshTokenRepository refreshTokenRepository,
             IJwtFactory jwtFactory,
             IOptions<AppSettings> appSettingsOptions,
-            IEmailSender emailSender
-            )
+            IEmailSender emailSender,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,11 +52,15 @@ namespace AnimalRescue.BusinessLogic.Services
             _jwtFactory = jwtFactory;
             _appSettings = appSettingsOptions.Value;
             _emailSender = emailSender;
+            _mapper = mapper;
+            _refreshTokenRepository = refreshTokenRepository;
+            _tokenValidationParameters = tokenValidationParameters;
         }
-        public async Task<SignInAccountModel> SignIn(SignInAccountAuthorizationViewModel model)
+
+        public async Task<SignInAccountModel> SignInAsync(SignInAccountAuthorizationViewModel model)
         {
             ApplicationUser identityUser = _userManager.Users
-                .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper());
+                .SingleOrDefault(x => x.NormalizedEmail == model.Email.ToUpper() && !x.IsDeleted);
 
             Require.Objects.NotNull<NotFoundException>(identityUser, $"User not found");
 
@@ -71,30 +84,8 @@ namespace AnimalRescue.BusinessLogic.Services
                 throw new BadRequestException(@"Invalid login attempt.
                                 Your account has been blocked for 10 minutes.");
             }
-            var (accessToken, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(identityUser.Id, model.RememberMe);
 
-            //TODO: CreateRefreshTokenIfNotExist
-
-            var userRoles = await _userManager.GetRolesAsync(identityUser);
-
-            var userData = new UserAccountModelItem
-            {
-                Email = identityUser.Email,
-                UserId = identityUser.Id,
-                UserName = $@"{identityUser.FirstName ?? string.Empty} {identityUser.LastName ?? string.Empty}",
-                ProfilePhoto = identityUser.ProfilePhoto ?? string.Empty,
-                UserRole = string.Join(",", userRoles)
-            };
-
-            var authData = new SignInAccountModel
-            {
-                Token = accessToken,
-                //RefreshToken = refreshToken,
-                ExpireDate = refreshTokenExpires,
-                User = userData
-            };
-
-            return authData;
+            return await GenerateSignInAccountModelAsync(identityUser, model.RememberMe);
         }
 
         public async Task ForgotPassword(ForgotPasswordAccountViewModel model)
@@ -137,6 +128,44 @@ namespace AnimalRescue.BusinessLogic.Services
             return $"{_appSettings.FrontEndUrl}account/signIn";
         }
 
+        public async Task<SignInAccountModel> RefreshTokenAsync(string requestToken, string refreshToken)
+        {
+            var validatedToken = GetPrincipalFromToken(requestToken);
+
+            if (validatedToken == null)
+            {
+                throw new BadRequestException("Invalid Token");
+            }
+
+            var expiryDateUnix = long.Parse(validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
+            var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(expiryDateUnix);
+
+            if (expiryDateTimeUtc > DateTime.UtcNow)
+            {
+                throw new BadRequestException("This token hasn't expired yet");
+            }
+
+            var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
+
+            var storedRefreshToken = await _refreshTokenRepository.GetByToken(refreshToken);
+
+            if (storedRefreshToken == null || DateTime.UtcNow > storedRefreshToken.ExpiredAt)
+            {
+                throw new BadRequestException("This refresh token doesn't exist or has expired");
+            }
+
+            if (storedRefreshToken.JwtId != jti)
+            {
+                throw new BadRequestException("This refresh token does not match this access token");
+            }
+
+            var user = await _userManager.FindByIdAsync(validatedToken.Claims.Single(x => x.Type == "UserId").Value);
+
+            await DeleteExpiredRefreshTokensByUserId(user.Id);
+
+            return await GenerateSignInAccountModelAsync(user, storedRefreshToken.IsRememberTokenLongerTime);
+        }
+
         public async Task<string> UnlockUser(string token)
         {
             var securityToken = await _securityTokensRepository.GetByToken(token);
@@ -162,6 +191,26 @@ namespace AnimalRescue.BusinessLogic.Services
 
         #region Private
 
+        private async Task<SignInAccountModel> GenerateSignInAccountModelAsync(ApplicationUser user, bool isRememberUserLonger)
+        {
+            var (accessToken, accessTokenId, refreshToken, refreshTokenExpires) = await _jwtFactory.GenerateAuthorizationToken(user.Id, isRememberUserLonger);
+
+            await SaveRefreshTokenAsync(accessTokenId, refreshToken, user.Id, refreshTokenExpires, isRememberUserLonger);
+
+            var userData = _mapper.Map<UserAccountModelItem>(user);
+            userData.UserRoles.AddRange(await _userManager.GetRolesAsync(user));
+
+            var authData = new SignInAccountModel
+            {
+                Token = accessToken,
+                RefreshToken = refreshToken,
+                ExpireDate = refreshTokenExpires,
+                User = userData
+            };
+
+            return authData;
+        }
+
         private async Task<string> CreateSecurityTokenForUnlockUser(string userId)
         {
             var token = _jwtFactory.GenerateSecurityTokenLockedUser(userId);
@@ -185,6 +234,57 @@ namespace AnimalRescue.BusinessLogic.Services
                 .Append($"To unlock your account click on verification <a href='{link}'>link</a>")
                 .ToString();
             _emailSender.SendMail(user.Email, "Account Lock", body);
+
+            await Task.CompletedTask;
+        }
+
+        private ClaimsPrincipal GetPrincipalFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var tokenValidationParameters = _tokenValidationParameters.Clone();
+                tokenValidationParameters.ValidateLifetime = false;
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
+                if (!IsJwtWithValidSecurityAlgorithm(validatedToken))
+                {
+                    return null;
+                }
+
+                return principal;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private bool IsJwtWithValidSecurityAlgorithm(Microsoft.IdentityModel.Tokens.SecurityToken validatedToken)
+        {
+            return (validatedToken is JwtSecurityToken jwtSecurityToken) &&
+                   jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+                       StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private async Task SaveRefreshTokenAsync(string accessTokenId, string refreshToken, string userId, DateTime refreshTokenExpires, bool isRememberUserLonger)
+        {
+            var newRefreshToken = new RefreshToken
+            {
+                JwtId = accessTokenId,
+                Token = refreshToken,
+                UserId = userId,
+                CreatedAt = DateTime.UtcNow,
+                ExpiredAt = refreshTokenExpires,
+                IsRememberTokenLongerTime = isRememberUserLonger
+            };
+
+            await _refreshTokenRepository.CreateAsync(newRefreshToken);
+        }
+
+        private async Task DeleteExpiredRefreshTokensByUserId(string userId)
+        {
+            await _refreshTokenRepository.DeleteExpiredByUserId(userId);
         }
 
         #endregion

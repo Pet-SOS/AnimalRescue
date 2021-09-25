@@ -3,16 +3,16 @@ import { getType } from 'typesafe-actions';
 import {
   actionFetchAnimalItemRequest,
   actionFetchAnimalItemSuccess,
-  actionFetchAnimalItemFailure
+  actionFetchAnimalItemFailure,
 } from '../actions/animal.actions';
 import { fetchAnimalItem } from '../../../../../api/animals';
 
-function* getAnimalItem(action: { type: string, payload: string }) {
+function* getAnimalItem(action: { type: string; payload: string }) {
   try {
     const response = yield call(fetchAnimalItem, action.payload);
-    yield put(actionFetchAnimalItemSuccess(response))
+    yield put(actionFetchAnimalItemSuccess(response));
   } catch (e) {
-    yield put(actionFetchAnimalItemFailure(e))
+    yield put(actionFetchAnimalItemFailure(e));
   }
 }
 

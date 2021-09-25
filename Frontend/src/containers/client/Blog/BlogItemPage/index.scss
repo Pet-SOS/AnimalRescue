@@ -1,41 +1,58 @@
-@import './../../../../styles/variables.scss';
+@import './../../../../styles/include-media';
+@import './../../../../styles/base/variables';
+@import './../../../../styles/variables';
+@import './../../../../styles/base/mixins';
+
 .blog-item-page-holder {
+
+  .story-body {
+    text-align: justify;
+    text-indent: 50px;
+  }
+
   .back-link-holder {
     margin: 0 0 1.5rem;
   }
+
   .blog-item-content {
-    max-width: 54.375rem;
+    max-width: 870px;
     width: 100%;
-    margin: 0 auto 5rem;
-    .story-body {
-      margin: 0 0 2.5rem;
-    }
-    .warning strong, .warning strong a {
-      margin: 0;
-      display: inline;
-      color: $text-color;
-    }
+    margin-left: auto;
+    margin-right: auto;
+
+    //.warning strong,
+    //.warning strong a {
+    //  margin: 0;
+    //  display: inline;
+    //  color: $text-color;
+    //}
   }
+
   .item-date:after {
     content: "\2022";
     display: inline-block;
     vertical-align: baseline;
     margin: 0 0.5rem;
   }
+
   .blog-block-container {
-    padding: 0;
+    //padding: 0;
     background: none;
+
     .content {
       padding: 0;
+
       .left-block {
         width: auto;
-      } 
+      }
     }
   }
+
   .swiper-slide {
     height: 22.9rem;
     display: flex;
     align-items: center;
+
     img {
       max-height: 100%;
       max-width: 100%;

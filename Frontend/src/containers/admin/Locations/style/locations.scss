@@ -1,0 +1,48 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.location-table {
+  font-size: 18px;
+  line-height: 24px;
+  color: $text-color;
+
+  header {
+    .col {
+      height: auto;
+    }
+  }
+
+  .col {
+    height: 24px;
+    padding: 10px;
+
+    &:first-child {
+      padding-left: 16px;
+    }
+
+    &:first-child {
+      padding-right: 16px;
+    }
+
+    &.col-phone {
+      width: 17.95%;
+    }
+
+    &.col-address {
+      width: 31.1%;
+    }
+
+    &.col-price {
+      width: 15.8%;
+    }
+  }
+
+  .location-new {
+    .col-title,
+    .col-contact {
+      color: $orange;
+    }
+  }
+}

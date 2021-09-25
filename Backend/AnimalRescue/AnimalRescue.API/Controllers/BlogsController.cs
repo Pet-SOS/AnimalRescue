@@ -6,6 +6,7 @@ using AnimalRescue.Contracts.Common.Query;
 using AnimalRescue.Infrastructure.Validation;
 
 using AutoMapper;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -18,11 +19,11 @@ namespace AnimalRescue.API.Controllers
     [Authorize("Bearer")]
     public class BlogsController : ApiControllerBase
     {
-        private readonly IBlFullCrud<BlogDto, BlogDto> _blogService;
+        private readonly IBlFullCrud<BlogDto, BlogDto, Guid> _blogService;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
 
-        public BlogsController(IBlFullCrud<BlogDto, BlogDto> blogService,
+        public BlogsController(IBlFullCrud<BlogDto, BlogDto, Guid> blogService,
             IImageService imageService,
             IMapper mapper)
         {
@@ -42,7 +43,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<BlogInfoModel>> GetItemByIdAsync([BindRequired, FromRoute] Guid id)
         {
-            return await GetItemAsync<BlogDto, BlogInfoModel>(_blogService, id, _mapper);
+            return await GetItemAsync<BlogDto, BlogInfoModel, Guid>(_blogService, id, _mapper);
         }
 
 
@@ -63,7 +64,7 @@ namespace AnimalRescue.API.Controllers
         {
             Require.Objects.NotNull(blogCreateModel, nameof(blogCreateModel));
 
-            return await CreatedItemAsync<BlogDto, BlogCreateModel, BlogInfoModel>(_blogService, _imageService, blogCreateModel, blogCreateModel.Images, _mapper);
+            return await CreatedItemAsync<BlogDto, BlogCreateModel, BlogInfoModel, Guid>(_blogService, _imageService, blogCreateModel, blogCreateModel.Images, _mapper);
         }
 
         [HttpDelete("{id}")]
@@ -81,7 +82,7 @@ namespace AnimalRescue.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> UpdateBlogAsync([BindRequired, FromRoute] Guid id, [FromForm] BlogCreateModel blogUpdateModel)
+        public async Task<IActionResult> UpdateBlogAsync([BindRequired, FromRoute] Guid id, [FromForm] BlogUpdateModel blogUpdateModel)
         {
             Require.Objects.NotNull(blogUpdateModel, nameof(blogUpdateModel));
 

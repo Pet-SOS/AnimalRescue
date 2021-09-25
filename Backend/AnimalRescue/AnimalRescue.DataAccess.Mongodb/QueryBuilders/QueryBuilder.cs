@@ -21,7 +21,6 @@ namespace AnimalRescue.DataAccess.Mongodb.QueryBuilders
 
         public string SortAsString(string rowSortParams) => querySortBuilder.BuildStringSortParams<T>(rowSortParams);
 
-        public string FilterAsString(string rowFilterParams) => queryFilterBuilder.BuildStringFilterParams<T>(rowFilterParams);
         public FilterDefinition<T> FilterAsFilterDefinition(string rowFilterParams) => queryFilterBuilder.BuildFilterParams<T>(rowFilterParams);
 
 

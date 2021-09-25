@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import DOMPurify from 'dompurify';
 
-import {TI18n} from '../../../../i18n';
-import { AnimalKind, ISavedAnimalsCountResponse } from "../../../../api/animals";
+import { TI18n } from '../../../../i18n';
+import {
+  AnimalKind,
+  ISavedAnimalsCountResponse,
+} from '../../../../api/animals';
 import { AnimalsSlider } from '../../Animals/AnimalsSlider';
 import { HelpBlock } from '../../../../components/HelpBlock';
 import { OurGoalBlock } from './OurGoalBlock/OurGoal';
@@ -19,7 +23,11 @@ import counterImage7 from '../../../../img/counter-images/counter_7.png';
 import counterImage8 from '../../../../img/counter-images/counter_8.png';
 import { YouTubeBox } from '../../../../components/YoutubeBox';
 import { IBlogListResponse } from '../../../../api/blog';
-import { IRequestParams, AllTag, RequestFilterOperators } from '../../../../api/requestOptions';
+import {
+  IRequestParams,
+  AllTag,
+  RequestFilterOperators,
+} from '../../../../api/requestOptions';
 import { IArticleListResponse } from '../../../../api/article';
 import '../styles/home.scss';
 import { IAnimalsListState } from '../../Animals/store/state';
@@ -27,17 +35,20 @@ import { sickAnimalsCheckAndLoadDefault } from '../../Animals/store/selectors';
 import { IYouTubeVideo } from '../../../../api/youtube';
 import { selectInfoContacts } from '../store/selectors';
 import { store } from '../../../../store';
+import { IContentPageState } from '../../../../store/state/contentPages.state';
 
 interface IPropTypes {
   fetchAnimalsRequest: (kind?: AnimalKind, pageParams?: IRequestParams) => void;
   fetchSavedAnimalsCount: () => void;
-  fetchInfoCard: ()=> void;
+  fetchInfoCard: () => void;
   fetchBlogList: (tag?: AllTag, pageParams?: IRequestParams) => void;
   fetchArticlesList: (pageParams?: IRequestParams) => any;
   fetchYouTubeVideos: (count?: number) => void;
   clearAnimalsState: () => void;
   clearInfoCard: () => void;
   clearYouTubeVideos: () => void;
+  fetchContentPage: (pageName: string) => void;
+  clearContentPage: () => void;
   animalsList: IAnimalsListState;
   blogListSaved: IBlogListResponse;
   catsList: IAnimalsListState;
@@ -45,7 +56,9 @@ interface IPropTypes {
   sickAnimalsList: IAnimalsListState;
   savedAnimalsCount: ISavedAnimalsCountResponse;
   articleList: IArticleListResponse;
-  videosList: IYouTubeVideo[]
+  videosList: IYouTubeVideo[];
+  contentPage: IContentPageState;
+  appLanguage: string;
 }
 
 export const HomePageMain: React.FC<IPropTypes> = ({
@@ -55,6 +68,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   fetchBlogList,
   fetchArticlesList,
   fetchYouTubeVideos,
+  fetchContentPage,
+  clearContentPage,
   animalsList,
   blogListSaved,
   articleList,
@@ -63,6 +78,8 @@ export const HomePageMain: React.FC<IPropTypes> = ({
   videosList,
   sickAnimalsList,
   savedAnimalsCount,
+  contentPage,
+  appLanguage,
   clearAnimalsState,
   clearInfoCard,
   clearYouTubeVideos,
@@ -76,100 +93,179 @@ export const HomePageMain: React.FC<IPropTypes> = ({
     fetchSavedAnimalsCount();
     fetchInfoCard();
     fetchYouTubeVideos(2);
-    fetchArticlesList({filter:{
-      fieldName: 'type',
-      opeartor: RequestFilterOperators.EQ,
-      value: 'article'
-    }});
+    fetchArticlesList({
+      filter: {
+        fieldName: 'type',
+        operator: RequestFilterOperators.EQ,
+        value: 'article',
+      },
+    });
+    fetchContentPage('home');
     return () => {
+      clearContentPage();
       clearAnimalsState();
       clearInfoCard();
       clearYouTubeVideos();
-    }
-  }, [])
+    };
+  }, []);
   const getCounterDateString = (): string => {
     const currentDate: Date = new Date();
     const yearString: string = `${currentDate.getFullYear()}`;
-    return `${currentDate.getDate()}.${currentDate.getMonth() < 9 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1}.${yearString.substr(yearString.length - 2, 2)}`;
-  }
-  const youTubeChannelLink: string = useSelector(() => (selectInfoContacts(store.getState()).data.socialLinks.youtube));
+    return `${currentDate.getDate()}.${
+      currentDate.getMonth() < 9
+        ? `0${currentDate.getMonth() + 1}`
+        : currentDate.getMonth() + 1
+    }.${yearString.substr(yearString.length - 2, 2)}`;
+  };
+  const youTubeChannelLink: string = useSelector(
+    () => selectInfoContacts(store.getState()).data.socialLinks.youtube,
+  );
+  const body1 = contentPage.data.paragraphs.filter((p) => p.name === 'body1')[0].values;
   return (
     <React.Fragment>
       <HelpBlock
-        animalsList={animalsList.data}
-        title={<TI18n keyStr="headerBottomTitle" default="Ты можешь помочь животному в беде" />}
+        animalsList={sickAnimalsList.data}
+        title={
+          <TI18n
+            keyStr="headerBottomTitle"
+            default="Ты можешь помочь животному в беде"
+          />
+        }
         isLightMode
       />
       <div className="home-page-client">
         <OurGoalBlock
           title={<TI18n keyStr="ourGoalBlockTitle" default="Хто ми" />}
           text1={
-            <TI18n
-              keyStr="ourGoalBlockText1"
-              default="Ми громадська організація, яка працює за принципом МНС або швидкої допомоги. Наш напрямок - це порятунок тварин у надзвичайних ситуаціях. Ми рятуємо кошенят, цуциків, дорослих котів та собак, птахів, диких тварин. Допомогу ми надаємо цілодобово. Телефонуйте нам на гарячу лінію хоч о 2 годині ночі, хоч о 5 годині ранку."
-            />
+            <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(body1.filter((v) => v.lang === appLanguage)[0]
+                  ? body1.filter((v) => v.lang === appLanguage)[0].value
+                  : '' )
+                }}
+              >
+              </div>
           }
           link={{
-            title: <TI18n keyStr="ourGoalBlockLinkText" default="Докладніше про службу" />,
-            href: '/about'
+            title: (
+              <TI18n
+                keyStr="ourGoalBlockLinkText"
+                default="Докладніше про службу"
+              />
+            ),
+            href: '/about',
           }}
         />
         <CounterBlock
-          backgroundColor='#ECBB3B'
+          backgroundColor="#ECBB3B"
           count={savedAnimalsCount.data}
-          title={<TI18n keyStr="counterBlockTitle" default="Спасенных нами животных" />}
-          text={<React.Fragment><TI18n keyStr="counterBlockText" default="по данным на" /> {getCounterDateString()}</React.Fragment>}
-          images={[counterImage1, counterImage2, counterImage3, counterImage4, counterImage5, counterImage6, counterImage7, counterImage8]}
+          title={
+            <TI18n
+              keyStr="counterBlockTitle"
+              default="Спасенных нами животных"
+            />
+          }
+          text={
+            <React.Fragment>
+              <TI18n keyStr="counterBlockText" default="по данным на" />{' '}
+              {getCounterDateString()}
+            </React.Fragment>
+          }
+          images={[
+            counterImage1,
+            counterImage2,
+            counterImage3,
+            counterImage4,
+            counterImage5,
+            counterImage6,
+            counterImage7,
+            counterImage8,
+          ]}
         />
-        {!!blogListSaved && !!blogListSaved.data && !!blogListSaved.data.length && <HelpedBlock
-          data={blogListSaved.data}
-          title={<TI18n keyStr="alreadyHelpedBlockTitle" default="Кому мы помогли" />}
-        />}
+        {!!blogListSaved &&
+          !!blogListSaved.data &&
+          !!blogListSaved.data.length && (
+            <HelpedBlock
+              data={blogListSaved.data}
+              title={
+                <TI18n
+                  keyStr="alreadyHelpedBlockTitle"
+                  default="Кому мы помогли"
+                />
+              }
+            />
+          )}
         <HelpBlock
           animalsList={sickAnimalsList.data}
-          title={<TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />}
+          title={
+            <TI18n keyStr="canHelpBlockTitle" default="Кому ты можешь помочь" />
+          }
         />
         {!!videosList && !!videosList.length && (
           <YouTubeBox
             title={<TI18n keyStr="titleYouTubeBox" default="Видео-истории" />}
-            backgroundColor='#ffffff'
-            subTitle={<TI18n keyStr="subTitleYouTubeBox" default="Истории о спасенных животных" />}
+            backgroundColor="#ffffff"
+            subTitle={
+              <TI18n
+                keyStr="subTitleYouTubeBox"
+                default="Истории о спасенных животных"
+              />
+            }
             videoLinks={videosList.slice(0, 2).map(video => ({
               src: `https://www.youtube.com/embed/${video.id.videoId}`,
-              title: video.snippet.title
+              title: video.snippet.title,
             }))}
             channelLink={youTubeChannelLink}
           />
         )}
-        <div className="animals-slider-wrapper">
-          {!!dogsList.data && !!dogsList.data.length && <AnimalsSlider
-            data={dogsList.data}
-            title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
-            link={{
-              title: <TI18n keyStr="wantToChooseDog" default="Хочу выбрать друга" />,
-              href: '/animals/page/1?kindOfAnimal=DOG/'
-            }}
-          />}
-          {catsList.data.length > 0 && <AnimalsSlider
-            data={catsList.data}
-            title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
-            link={{
-              title: <TI18n keyStr="wantToChooseCat" default="Хочу выбрать друга" />,
-              href: '/animals/page/1?kindOfAnimal=CAT/'
-            }}
-          />}
-        </div>
+        <section className="animals-slider-wrapper section-padding">
+          {!!dogsList.data && !!dogsList.data.length && (
+            <AnimalsSlider
+              data={dogsList.data}
+              title={<TI18n keyStr="dogsListTitle" default="Наши собачки" />}
+              link={{
+                title: (
+                  <TI18n
+                    keyStr="wantToChooseDog"
+                    default="Хочу выбрать друга"
+                  />
+                ),
+                href: '/animals/page/1?kindOfAnimal=DOG/',
+              }}
+            />
+          )}
+          {catsList.data.length > 0 && (
+            <AnimalsSlider
+              data={catsList.data}
+              title={<TI18n keyStr="catsListTitle" default="Наши котики" />}
+              link={{
+                title: (
+                  <TI18n
+                    keyStr="wantToChooseCat"
+                    default="Хочу выбрать друга"
+                  />
+                ),
+                href: '/animals/page/1?kindOfAnimal=CAT/',
+              }}
+            />
+          )}
+        </section>
         {!!articleList.data && !!articleList.data.length && (
           <BlogBlock
             title={<TI18n keyStr="blogBlockTitle" default="Блог" />}
             data={articleList.data.slice(0, 3)}
             link={{
-              title: <TI18n keyStr="blogBlockLinkText" default="Перейти ко всем статьям" />,
-              href: '/blog/page/1'
+              title: (
+                <TI18n
+                  keyStr="blogBlockLinkText"
+                  default="Перейти ко всем статьям"
+                />
+              ),
+              href: '/blog/page/1',
             }}
           />
         )}
       </div>
     </React.Fragment>
-  )
-}
+  );
+};

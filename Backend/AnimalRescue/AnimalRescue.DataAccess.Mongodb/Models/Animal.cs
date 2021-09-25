@@ -1,5 +1,6 @@
 ﻿using AnimalRescue.DataAccess.Mongodb.Attributes;
 using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
+using AnimalRescue.DataAccess.Mongodb.Models.Tag;
 
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -12,48 +13,43 @@ using common = AnimalRescue.Contracts.Common.Constants.PropertyConstants.Common;
 namespace AnimalRescue.DataAccess.Mongodb.Models
 {
     [BsonDiscriminator("animals")]
-    public class Animal : BaseAndTimeItem
+    public class Animal : BaseAndTimeItem, IImageIds
     {
         [CouplingPropertyName(animal.Number)]
-        [BsonElement("number")] 
-        public int Number { get; set; } 
-        
-        [CouplingPropertyName(common.Name)]
-        [BsonElement("name")]     
-        public string Name { get; set; }
+        [BsonElement("number")]
+        public int Number { get; set; }
+
+        [CouplingPropertyName(animal.Names)]
+        [BsonElement("names")]
+        public List<LanguageValue> Names { get; set; }
 
         [CouplingPropertyName(animal.KindOfAnimal)]
-        [BsonElement("kindOfAnimal")] 
+        [BsonElement("kindOfAnimal")]
         public string KindOfAnimal { get; set; }
 
         [CouplingPropertyName(animal.Gender)]
-        [BsonElement("gender")] 
+        [BsonElement("gender")]
         public string Gender { get; set; }
 
         [CouplingPropertyName(common.Description)]
-        [BsonElement("description")] 
-        public string Description { get; set; }
-
-        [CouplingPropertyName(animal.Age)]
-        [BsonElement("age")] 
-        public int Age { get; set; }
+        [BsonElement("description")]
+        public List<LanguageValue> Description { get; set; }
 
         [CouplingPropertyName(animal.DateOfFound)]
-        [BsonElement("dateOfFound")] 
+        [BsonElement("dateOfFound")]
         public DateTime DateOfFound { get; set; }
 
         [CouplingPropertyName(animal.DateOfAdopted)]
-        [BsonElement("dateOfAdopted")] 
-        public DateTime? DateOfAdopted { get; set; } 
+        [BsonElement("dateOfAdopted")]
+        public DateTime? DateOfAdopted { get; set; }
 
         [CouplingPropertyName(common.ImageIds)]
-        [BsonElement("imageLinks")] 
+        [BsonElement("imageLinks")]
         public List<string> ImageIds { get; set; }
 
         [CouplingPropertyName(common.Tags)]
-        [BsonElement("tags")] 
+        [BsonElement("tags")]
         public List<string> Tags { get; set; }
-
 
         [CouplingPropertyName(animal.CoverImage)]
         [BsonElement("coverImage")]
@@ -65,6 +61,38 @@ namespace AnimalRescue.DataAccess.Mongodb.Models
 
         [CouplingPropertyName(animal.Character)]
         [BsonElement("character")]
-        public string Character { get; set; }
+        public List<LanguageValue> Character { get; set; }
+
+        [CouplingPropertyName(animal.Status)]
+        [BsonElement("status")]
+        public WellKnownTag Status { get; set; }
+
+        [CouplingPropertyName(animal.LocationTypeId)]
+        [BsonElement("locationTypeId")]
+        public string LocationTypeId { get; set; }
+
+        [CouplingPropertyName(animal.LocationName)]
+        [BsonElement("locationName")]
+        public string LocationName { get; set; }
+
+        [CouplingPropertyName(animal.IsDonationActive)]
+        [BsonElement("isDonationActive")]
+        public bool IsDonationActive { get; set; }
+
+        [CouplingPropertyName(animal.BannerText)]
+        [BsonElement("bannerText")]
+        public List<LanguageValue> BannerText { get; set; }
+
+        [CouplingPropertyName(animal.AdoptiveName)]
+        [BsonElement(animal.AdoptiveName)]
+        public string AdoptiveName { get; set; }
+
+        [CouplingPropertyName(animal.AdoptivePhone)]
+        [BsonElement(animal.AdoptivePhone)]
+        public string AdoptivePhone { get; set; }
+
+        [CouplingPropertyName(animal.AdoptionContractFileId)]
+        [BsonElement(animal.AdoptionContractFileId)]
+        public string AdoptionContractFileId { get; set; }
     }
 }

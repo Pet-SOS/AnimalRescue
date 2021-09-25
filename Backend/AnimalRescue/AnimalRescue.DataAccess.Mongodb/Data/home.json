@@ -1,0 +1,153 @@
+{
+  "data": {
+    "paragraphs": [
+      {
+        "name": "headerBottomTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Ти можеш допомогти тварині в біді"
+          },
+          {
+            "lang": "en",
+            "value": "You can help the animal in trouble"
+          },
+          {
+            "lang": "de",
+            "value": "Sie können dem Tier in Schwierigkeiten helfen"
+          },
+          {
+            "lang": "ru",
+            "value": "Ты можешь помочь животному в беде"
+          }
+        ]
+      },
+      {
+        "name": "ourGoalBlockTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Хто ми"
+          },
+          {
+            "lang": "en",
+            "value": "Who we are"
+          },
+          {
+            "lang": "de",
+            "value": "Wer wir sind"
+          },
+          {
+            "lang": "ru",
+            "value": "Kто мы"
+          }
+        ]
+      },
+      {
+        "name": "ourGoalBlockText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Ми громадська організація, яка працює за принципом МНС або швидкої допомоги. Наш напрямок - це порятунок тварин у надзвичайних ситуаціях. Ми рятуємо кошенят, цуциків, дорослих котів та собак, птахів, диких тварин. Допомогу ми надаємо цілодобово. Телефонуйте нам на гарячу лінію хоч о 2 годині ночі, хоч о 5 годині ранку.</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>We are a non-governmental organization operating under the principle of Emergency or Emergency. Our focus is to rescue animals in emergencies. We rescue kittens, zucchini, adult cats and dogs, birds, wild animals. We provide assistance around the clock. Give us a call at 2am at 5am.</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wir sind eine Nichtregierungsorganisation, die nach dem Prinzip von Notfall oder Notfall arbeitet. Unser Fokus liegt auf der Rettung von Tieren in Notfällen. Wir retten Kätzchen, Zucchini, erwachsene Katzen und Hunde, Vögel und wilde Tiere. Wir helfen Ihnen rund um die Uhr. Rufen Sie uns um 2 Uhr morgens um 5 Uhr morgens an.</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Мы общественная организация, которая работает по принципу МЧС или скорой помощи. Наше направление - это спасение животных в чрезвычайных ситуациях. Мы спасаем котят, щенков, взрослых котов и собак, птиц, диких животных. Помощь мы предоставляем круглосуточно. Звоните нам на горячую линию хоть в 2 ночи, хоть в 5 утра.</p>"
+          }
+        ]
+      },
+      {
+        "name": "canHelpBlockTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Кому ти можеш допомогти"
+          },
+          {
+            "lang": "en",
+            "value": "Who can you help"
+          },
+          {
+            "lang": "de",
+            "value": "Wem kannst du helfen?"
+          },
+          {
+            "lang": "ru",
+            "value": "Кому ты можешь помочь"
+          }
+        ]
+      },
+      {
+        "name": "popupInfoBlockTitle",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "Допомога тваринам"
+          },
+          {
+            "lang": "en",
+            "value": "Help animals"
+          },
+          {
+            "lang": "de",
+            "value": "Helfen Sie Tieren"
+          },
+          {
+            "lang": "ru",
+            "value": "Помощь животным"
+          }
+        ]
+      },
+      {
+        "name": "popupBlockFirstText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Ми дуже вдячні за ваше бажання допомогти! Ви можете перевести будь-яку суму на карту Приватбанка:</p>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>We are very grateful for your desire to help! You can transfer any amount to a Privatbank card:</p>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wir sind sehr dankbar für Ihren Wunsch zu helfen! Sie können einen beliebigen Betrag auf eine Privatbankkarte überweisen:</p>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Мы очень благодарны за ваше желание помочь! Вы можете перевести любую сумму на карту Приватбанка:</p>"
+          }
+        ]
+      },
+      {
+        "name": "popupBlockSecondText",
+        "values": [
+          {
+            "lang": "ua",
+            "value": "<p>Якщо є змога допомогти інакше, нам завжди потрібні:</p><ul><li>люди, у яких є потреба і можливість перетримувати у себе тварину (від малюка до дорослої особини) до моменту усиновлення</li><li>фахівці з цікавими варіантами фото і відеозйомки наших тварин для сайту</li></ul>"
+          },
+          {
+            "lang": "en",
+            "value": "<p>If you can help otherwise, we always need it:</p><ul><li>people who have the need and ability to overexpose the animal (from the baby to the adult) until adoption</li><li>specialists with interesting options for photo and video filming of our animals for the site</li></ul>"
+          },
+          {
+            "lang": "de",
+            "value": "<p>Wenn Sie anders helfen können, brauchen wir es immer:</p><ul><li>Menschen, die das Bedürfnis und die Fähigkeit haben, ein Tier (vom Baby bis zum Erwachsenen) vor der Adoption zu überbelichten</li><li>Spezialisten mit interessanten Optionen für Foto- und Videofilme unserer Tiere für die Website</li></ul>"
+          },
+          {
+            "lang": "ru",
+            "value": "<p>Если есть возможность помочь иначе, нам всегда нужны:</p><ul><li>люди, у которых есть потребность и возможность передерживать у себя животное (от малыша до взрослой особи) до момента усыновления</li><li>специалисты с интересными вариантами фото и видеосъемки наших животных для сайта</li></ul>"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,22 +1,18 @@
 import { API } from './index';
 
-export interface IBankCard{
-    cardNumber: string;
-    edrpou: string;
-    bankName: string;
-    firstName: string;
-    lastName: string;
+export interface IDataBankCard {
+  body: string;
 }
 export interface IInfoCardResponse {
- data: {
-    bankCard: IBankCard;
-    title: string;
-    body: string;
-  };
+  data: IDataBankCard;
   self?: string;
 }
 
 export async function fetchInfoCard(): Promise<IInfoCardResponse> {
-    const res = await API.get(`Configurations/donation`);
-    return res.data
+  const res = await API.get(`Configurations/donation`);
+  return res.data;
+}
+export async function addInfoCard(data: any): Promise<IInfoCardResponse> {
+  const res = await API.put(`Configurations/donation`, data);
+  return res.data;
 }

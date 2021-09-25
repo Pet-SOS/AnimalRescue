@@ -1,49 +1,22 @@
-@import './../../../../../styles/variables.scss';
+@import './../../../../../styles/include-media';
+@import './../../../../../styles/base/variables';
+@import './../../../../../styles/variables';
+@import './../../../../../styles/base/mixins';
 
 .our-goal-container {
-    padding: 5rem 0 5rem;
-    width: 100%;
     background: $main-bg-color;
+
     .title {
-        position: relative;
-        display: inline-block;
-        font-size: 3rem;
-        line-height: 1.5rem;
         margin-bottom: 1.5rem;
     }
-    .text{
+
+    .text {
         font-size: 2rem;
-        line-height: 3rem;
-        margin-bottom: 1.5rem;  
-    }
-} 
+        line-height: 1.5;
+        margin-bottom: 24px;
 
-@media all and (max-width: 545px) {
-    .our-goal-container{
-        .title {
-            line-height: 3rem;
-        }
-    }
-}
-
-@media all and (max-width: 665px) {
-    .our-goal-container{
-        .content {
-            padding: 0 1rem !important;
-        }
-    } 
-}
-
-@media all and (max-width: $min-device-width) {
-    .our-goal-container {
-        padding: 3rem 0 3rem;
-        .title {
-            font-size: 2rem;
-            line-height: 2rem;
-            margin-bottom: 1.5rem;
-        }
-        .text{
-            font-size: 1.5rem;
+        @include media('≤phone') {
+            font-size: 24px;
         }
     }
 }

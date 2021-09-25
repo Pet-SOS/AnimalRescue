@@ -1,0 +1,158 @@
+@import '../../../../styles/include-media';
+@import '../../../../styles/base/variables';
+@import '../../../../styles/variables';
+@import '../../../../styles/base/mixins';
+
+.section-animals {
+    > header {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .search-animals {
+        max-width: 340px;
+        position: relative;
+        padding: 16px 0;
+
+        @include media('≤phone') {
+            padding: 8px 0 16px;
+        }
+
+        @include media('≤xs-phone') {
+            max-width: none;
+        }
+
+        input {
+            width: 100%;
+            padding-right: 48px;
+        }
+
+        button {
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            font-size: 0;
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            &:before {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        @include media('≤phone') {
+            position: static;
+            margin-bottom: 16px;
+        }
+    }
+
+    .box-pagination {
+        justify-content: flex-end;
+    }
+}
+
+.section-table.animals-table {
+    line-height: 1.33;
+
+    &,
+    .row,
+    .c-list,
+    .col {
+        @include media('≤phone') {
+            display: block;
+        }
+    }
+
+    .row {
+        @include media('≤phone') {
+            overflow: hidden;
+            border-radius: 4px;
+            border: solid $btn-border-color;
+            border-width: 0 1px 1px;
+        }
+    }
+
+    header + .row {
+        border-width: 1px;
+    }
+
+    .col {
+        padding-top: 9px !important;
+        padding-bottom: 9px !important;
+
+        @include media('≤phone') {
+            float: left;
+            border: 0 !important;
+        }
+    }
+
+    .col-status {
+        @include media('≤phone') {
+            clear: left;
+            padding-top: 0 !important;
+        }
+
+        div {
+            display: inline-block;
+            vertical-align: top;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .status-color-socialization {
+            background-color: #dfecfe;
+            color: #3e5b9d;
+        }
+
+        .status-color-treatment {
+            background-color: #fedfdf;
+            color: #f67670;
+        }
+
+        .status-color-readyforadoption {
+            background-color: #e4f8e6;
+            color: #2d7a5f;
+        }
+
+        .status-color-adopted {
+            background-color: #409275;
+            color: #f9f6f7;
+        }
+
+        .status-color-died {
+            background-color: #62738d;
+            color: #f9f6f7;
+        }
+    }
+
+    .col-icon {
+        @include media('≤phone') {
+            float: right;
+            padding-top: 0 !important;
+        }
+    }
+
+    .visual {
+        padding-top: 75%;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+
+    .add-info {
+        display: none;
+
+        @include media('≤phone') {
+            display: block;
+            color: $text-lite-color;
+        }
+    }
+}

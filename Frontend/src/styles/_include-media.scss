@@ -33,8 +33,9 @@
 ///
 // devices viewport width starts at:
 $breakpoints: (
-        xs-phone: 320px,
+        xs-phone: 575px,
         phone: 768px,
+        tablet-small: 960px,
         tablet: 1143px,
         desktop: 1366px,
         widescreen: 1920px

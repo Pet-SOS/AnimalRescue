@@ -8,5 +8,6 @@ namespace AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories
     {
         Task<Configuration<T>> GetConfigurationAsync<T>();
         Task CreateAsync<T>(Configuration<T> instance);
+        Task UpdateAsync<T>(Configuration<T> instance);
     }
 }
