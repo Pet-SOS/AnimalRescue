@@ -1,0 +1,82 @@
+parameters:
+  environment: ''
+
+jobs:
+  - deployment: Infrastructure
+    displayName: "Deploy ${{ parameters.environment }}"
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: HelmInstaller@1
+              displayName: 'Install Helm '
+              inputs:
+                helmVersionToInstall: v3.2.4
+            
+            - bash: |
+                  helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+                  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+                  helm repo add jetstack https://charts.jetstack.io
+                  helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+              displayName: 'Add helm repo'
+
+            - task: HelmDeploy@0
+              displayName: 'Helm install nginx-ingress'
+              inputs:
+                azureSubscription: $(azureSubscription)
+                azureResourceGroup: $(azureResourceGroup)
+                kubernetesCluster: $(kubernetesServiceConnection)
+                namespace: 'kube-system'
+                command: upgrade
+                chartName: 'ingress-nginx/ingress-nginx'
+                chartVersion: '3.35.0'
+                releaseName: 'nginx-ingress'
+                overrideValues: 'controller.replicaCount=2'
+                waitForExecution: false
+                arguments: '--wait'
+            
+            - task: Kubernetes@1
+              displayName: CustomResourceDefinition
+              inputs:
+                kubernetesServiceEndpoint: $(kubernetesServiceConnection)
+                command: apply
+                arguments: '--validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml'
+
+            - task: HelmDeploy@0
+              displayName: 'Helm install Cert-Manager'
+              inputs:
+                azureSubscription: $(azureSubscription)
+                azureResourceGroup: $(azureResourceGroup)
+                kubernetesCluster: $(kubernetesServiceConnection)
+                namespace: 'cert-manager'
+                command: upgrade
+                chartName: 'jetstack/cert-manager'
+                chartVersion: 'v1.6.1'
+                releaseName: 'cert-manager'
+                waitForExecution: false
+                arguments: '--wait --create-namespace'
+                failOnStderr: true
+
+            - task: Kubernetes@1
+              displayName: ClusterIssuer
+              inputs:
+                kubernetesServiceEndpoint: $(kubernetesServiceConnection)
+                command: apply
+                useConfigurationFile: true
+                configurationType: inline
+                inline: |           
+                    apiVersion: cert-manager.io/v1
+                    kind: ClusterIssuer
+                    metadata:
+                      name: letsencrypt
+                    spec:
+                      acme:
+                        email: somemailaddress@gmail.com
+                        server: https://acme-v02.api.letsencrypt.org/directory
+                        privateKeySecretRef:
+                          name: letsencrypt
+                        solvers:
+                        - http01:
+                            ingress:
+                              class: nginx

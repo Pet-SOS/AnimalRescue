@@ -1,0 +1,41 @@
+pr: none
+trigger:
+  paths:
+    include:
+    - infra/*
+
+pool:
+  vmImage: ubuntu-20.04
+
+variables:
+  azureSubscription: 'AnimalRescue-Azure'
+  azureResourceGroup: 'AnimalRescue-Kharkiv'
+  kubernetesServiceConnection: 'animalrescue-aks'
+
+stages: 
+  - stage: Common
+    displayName: Common
+    jobs:
+      - template: deploy-common.yml
+        parameters:
+          environment: "Common"
+
+  - stage: DEV
+    displayName: DEV
+    dependsOn: Common
+    variables:
+      - group: 'animalrescue-dev'
+    jobs:
+      - template: deploy-environment.yml
+        parameters:
+          environment: "DEV"
+
+  - stage: PROD
+    displayName: PROD
+    dependsOn: DEV
+    variables:
+      - group: 'animalrescue-prod'
+    jobs:
+      - template: deploy-environment.yml
+        parameters:
+          environment: "PROD"

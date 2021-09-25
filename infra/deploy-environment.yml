@@ -1,0 +1,69 @@
+parameters:
+  environment: ''
+
+jobs:
+  - deployment: Infrastructure
+    displayName: "Deploy to ${{ parameters.environment }}"
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: HelmInstaller@1
+              displayName: 'Install Helm '
+              inputs:
+                helmVersionToInstall: v3.2.4
+
+            - bash: |
+                  helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+                  helm repo add bitnami https://charts.bitnami.com/bitnami
+                  helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+              displayName: 'Add helm repo'
+
+            - task: HelmDeploy@0
+              displayName: 'Helm install mongodb'
+              inputs:
+                azureSubscription: $(azureSubscription)
+                azureResourceGroup: $(azureResourceGroup)
+                kubernetesCluster: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+                command: upgrade
+                chartName: bitnami/mongodb
+                chartVersion: '8.3.2'
+                releaseName: mongodb
+                overrideValues: |
+                    auth.rootPassword=$(mongodbRootPassword)
+                    auth.username=$(mongodbUsername)
+                    auth.password=$(mongodbPassword)
+                    auth.database=$(mongodbDatabase)
+                    persistence.storageClass=managed-standard-ssd
+                    persistence.size=$(mongodbStorageSize)
+                    architecture=standalone
+                    arbiter.enabled=false
+                    useStatefulSet=true
+                    image.tag=4.2
+                    auth.replicaSetKey=$(mongodbReplicaSetKey)
+                waitForExecution: false
+                arguments: '--wait --create-namespace'
+                failOnStderr: true
+            
+            - task: HelmDeploy@0
+              displayName: 'Helm install RabbitMQ'
+              inputs:
+                azureSubscription: $(azureSubscription)
+                azureResourceGroup: $(azureResourceGroup)
+                kubernetesCluster: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+                command: upgrade
+                chartName: 'azure-marketplace/rabbitmq'
+                releaseName: rabbitmq
+                overrideValues: |
+                    image.tag=3.9.11
+                    auth.username=$(rabbitmqUsername)
+                    auth.password=$(rabbitmqPassword)
+                    auth.erlangCookie=$(rabbitmqErlangCookie)
+                    persistence.storageClass=managed-standard-ssd
+                    persistence.size=5Gi
+                waitForExecution: false
+                arguments: '--wait'
+                failOnStderr: true

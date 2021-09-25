@@ -1,0 +1,52 @@
+parameters:
+  environment: ''
+
+jobs:
+  - deployment: Portal
+    displayName: "Deploy to ${{ parameters.environment }}"
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: KubernetesManifest@0
+              displayName: Create imagePullSecret
+              inputs:
+                action: createSecret
+                secretName: $(imagePullSecret)
+                dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: KubernetesManifest@0
+              displayName: Create mongodb secret
+              inputs: 
+                action: createSecret
+                secretType: generic
+                secretName: animalrescue-portal
+                secretArguments: --from-literal=api_url="https://$(api.hostname)/api/" 
+                                 --from-literal=youtube_url=$(youtube_url) 
+                                 --from-literal=youtube_api_key=$(youtube_api_key) 
+                                 --from-literal=youtube_channel_id=$(youtube_channel_id) 
+                kubernetesServiceConnection: $(kubernetesServiceConnection) 
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: replacetokens@3
+              displayName: Replace tokens
+              inputs:
+                targetFiles: '$(Pipeline.Workspace)/manifests/*.yml'
+                encoding: 'auto'
+                writeBOM: true
+                actionOnMissing: 'fail'
+                keepToken: false
+                tokenPrefix: '#{'
+                tokenSuffix: '}#'
+
+            - task: KubernetesManifest@0
+              displayName: Deploy to Kubernetes cluster
+              inputs:
+                action: deploy
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+                manifests: |
+                  $(Pipeline.Workspace)/manifests/*.yml

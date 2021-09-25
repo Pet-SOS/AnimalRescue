@@ -2,9 +2,11 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
 # copy the contents of agent working directory on host to workdir in container
-WORKDIR /src
-ADD . .
-WORKDIR /src/BackgroundServices
+ADD BackgroundServices/TelegramMessenger /src/BackgroundServices/TelegramMessenger
+ADD AnimalRescue /src/AnimalRescue
+
+WORKDIR /src/BackgroundServices/TelegramMessenger
+
 # dotnet commands to build and publish
 RUN dotnet restore --no-cache
 RUN dotnet publish -c Release -o /src/out
