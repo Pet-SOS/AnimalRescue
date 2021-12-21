@@ -25,11 +25,9 @@ namespace Migration.Runner.Providers
 
             response.EnsureSuccessStatusCode();
 
-            var str = await response.Content.ReadAsStringAsync(); 
-
             var animals = await JsonSerializer.DeserializeAsync<BaseResponse<AnimalV0>>(await response.Content.ReadAsStreamAsync());
 
-            return animals.List.Where(a => includeDeleted || a.Active);
+            return animals.List.Where(a => includeInactive || a.Active);
         }
     }
 }

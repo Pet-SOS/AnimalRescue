@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Migration.Runner.Models
@@ -27,7 +28,7 @@ namespace Migration.Runner.Models
         public string Sex { get; set; }
 
         [JsonPropertyName("birthday")]
-        public string Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         [JsonPropertyName("breed")]
         public string Breed { get; set; }
