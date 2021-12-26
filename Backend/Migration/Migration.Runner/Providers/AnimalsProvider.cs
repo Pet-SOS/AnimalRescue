@@ -3,31 +3,33 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Migration.Runner.Configurations;
 using Migration.Runner.Models;
 
 namespace Migration.Runner.Providers
 {
     public class AnimalsProvider : IAnimalsProvider
     {
-        private const string Url = "https://adopt.spt.kh.ua/export.html";
         private readonly HttpClient _httpClient;
+        private readonly ImportConfiguration _importConfig;
 
-        public AnimalsProvider(HttpClient httpClient)
+        public AnimalsProvider(HttpClient httpClient, ImportConfiguration importConfig)
         {
             _httpClient = httpClient;
+            _importConfig = importConfig;
         }
 
-        public async Task<IEnumerable<AnimalV0>> GetAnimals(int limit = 10, bool includeDeleted = false, bool includeInactive = false)
+        public async Task<IEnumerable<AnimalV0>> GetAnimals()
         {
-            var url = $"{Url}?include-deleted={includeDeleted}&limit={limit}";
+            var exportUrl = $"{_importConfig.Url}/export.html?include-deleted={_importConfig.IncludeDeleted}&limit={_importConfig.Limit}";
 
-            using var response = await _httpClient.GetAsync(url);
+            using var response = await _httpClient.GetAsync(exportUrl);
 
             response.EnsureSuccessStatusCode();
 
             var animals = await JsonSerializer.DeserializeAsync<BaseResponse<AnimalV0>>(await response.Content.ReadAsStreamAsync());
 
-            return animals.List.Where(a => includeInactive || a.Active);
+            return animals.List.Where(a => _importConfig.IncludeInactive || a.Active);
         }
     }
 }
