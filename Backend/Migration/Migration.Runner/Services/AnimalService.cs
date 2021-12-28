@@ -4,6 +4,7 @@ using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using Migration.Runner.Configurations;
 using Migration.Runner.Models;
 using Migration.Runner.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -42,7 +43,9 @@ namespace Migration.Runner.Services
                 seq.Number += 1;
 
                 var images = await DownloadAndSaveImages(animal).ConfigureAwait(false);
-                await _animalRepository.CreateAsync(Map(animal, seq.Number, images)).ConfigureAwait(false);
+                var createdAnimal = await _animalRepository.CreateAsync(Map(animal, seq.Number, images)).ConfigureAwait(false);
+
+                Console.WriteLine($"Created animal {createdAnimal.Id}, original animal {animal.Id}");
             }
 
             await _sequenceRepository.UpdateAsync(seq).ConfigureAwait(false);

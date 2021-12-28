@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
 using AnimalRescue.DataAccess.Mongodb;
-using AnimalRescue.DataAccess.Mongodb.Interfaces.Repositories;
-using AnimalRescue.DataAccess.Mongodb.Models;
-using AnimalRescue.DataAccess.Mongodb.Models.BaseItems;
 using AnimalRescue.Infrastructure.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Migration.Runner.Configurations;
-using Migration.Runner.Models;
 using Migration.Runner.Providers;
 using Migration.Runner.Services;
 
@@ -27,7 +19,9 @@ namespace Migration.Runner
             var animalSerivce = serviceProvider.GetService<IAnimalSerivce>();
 
             var animalsToMigrate = animalsProvider.GetAnimals().Result;
+            Console.WriteLine("Animal's list downloaded");
             animalSerivce.Create(animalsToMigrate).Wait();
+            Console.WriteLine("Animal's list migrated");
         }
 
         private static ServiceProvider GetServiceProvider()

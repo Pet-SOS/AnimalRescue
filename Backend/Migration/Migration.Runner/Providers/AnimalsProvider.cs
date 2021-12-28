@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -24,11 +25,13 @@ namespace Migration.Runner.Providers
         {
             var exportUrl = $"{_importConfig.Url}/export.html?include-deleted={_importConfig.IncludeDeleted.ToString().ToLower()}&limit={_importConfig.Limit}";
 
-            using var response = await _httpClient.GetAsync(exportUrl);
+            Console.WriteLine($"Animal GET request url {exportUrl}");
+
+            using var response = await _httpClient.GetAsync(exportUrl).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
 
-            var animals = await JsonSerializer.DeserializeAsync<BaseResponse<AnimalV0>>(await response.Content.ReadAsStreamAsync());
+            var animals = await JsonSerializer.DeserializeAsync<BaseResponse<AnimalV0>>(await response.Content.ReadAsStreamAsync().ConfigureAwait(false)).ConfigureAwait(false);
 
             return animals.List.Where(a => _importConfig.IncludeInactive || a.Active);
         }
@@ -37,12 +40,16 @@ namespace Migration.Runner.Providers
         {
             var imageUrl = $"{_importConfig.Url}/{path}";
 
-            var imageResponse = await _httpClient.GetAsync(imageUrl);
+            Console.WriteLine($"Animal image GET request url {imageUrl}");
+
+            var imageResponse = await _httpClient.GetAsync(imageUrl).ConfigureAwait(false);
+
+            imageResponse.EnsureSuccessStatusCode();
 
             var imageName = path.Split("/").LastOrDefault();
             var contentType = imageResponse.Content.Headers.GetValues("Content-Type").FirstOrDefault();
 
-            return (await imageResponse.Content.ReadAsStreamAsync(), imageName, contentType);
+            return (await imageResponse.Content.ReadAsStreamAsync().ConfigureAwait(false), imageName, contentType);
         }
     }
 }
