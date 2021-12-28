@@ -52,7 +52,7 @@ namespace Migration.Runner.Services
                         var addedImageId = (await _bucket.UploadFileBytesAsync(
                             imageStream.ToArray(),
                             fileName,
-                            contentType));
+                            contentType).ConfigureAwait(false));
 
                         return new KeyValuePair<string, string>(
                             imageSize.Name,
@@ -69,7 +69,7 @@ namespace Migration.Runner.Services
                     TypeNameToDocumentId = uploadImageTasks
                         .Select(x => x.Result)
                         .ToDictionary(k => k.Key.ToLower(), v => v.Value)
-                });
+                }).ConfigureAwait(false);
 
             return resultId.Id;
         }

@@ -19,9 +19,18 @@ namespace Migration.Runner
 {
     class Program
     {
-        private static HttpClient _httpClient;
-
         static void Main(string[] args)
+        {
+            using var serviceProvider = GetServiceProvider();
+
+            var animalsProvider = serviceProvider.GetService<IAnimalsProvider>();
+            var animalSerivce = serviceProvider.GetService<IAnimalSerivce>();
+
+            var animalsToMigrate = animalsProvider.GetAnimals().Result;
+            animalSerivce.Create(animalsToMigrate).Wait();
+        }
+
+        private static ServiceProvider GetServiceProvider()
         {
             var config = ConfigurationUtil.GetConfiguration();
             var importConfig = config.GetTypedSection<ImportConfiguration>(nameof(ImportConfiguration));
@@ -31,99 +40,13 @@ namespace Migration.Runner
 
             serviceCollection.AddConfigureMongoDb(config);
             serviceCollection.AddSingleton(imageSizes);
+            serviceCollection.AddSingleton(importConfig);
             serviceCollection.AddTransient<IImageService, ImageService>();
+            serviceCollection.AddSingleton(new HttpClient());
+            serviceCollection.AddTransient<IAnimalsProvider, AnimalsProvider>();
+            serviceCollection.AddTransient<IAnimalSerivce, AnimalService>();
 
-            using var serviceProvider = serviceCollection.BuildServiceProvider();
-
-            var animalRepository = serviceProvider.GetService<IBaseRepository<Animal>>();
-            var sequenceRepository = serviceProvider.GetService<ISequenceRepository>();
-            var imageService = serviceProvider.GetService<IImageService>();
-
-            _httpClient = new HttpClient();
-
-            var animalsProvider = new AnimalsProvider(_httpClient, importConfig);
-
-            var animalsToMigrate = animalsProvider.GetAnimals().Result;
-            var seq = GetOrCreateSeq(sequenceRepository);
-
-            foreach (var animal in animalsToMigrate)
-            {
-                seq.Number += 1;
-
-                var images = DownloadAndSaveImages(animal, importConfig.Url, imageService).Result;
-                animalRepository.CreateAsync(Map(animal, seq.Number, images)).Wait();
-            }
-
-            sequenceRepository.UpdateAsync(seq).Wait();
-
-            _httpClient.Dispose();
-        }
-
-        private static Sequence GetOrCreateSeq(ISequenceRepository rep)
-        {
-            var seq = rep.GetAsync().Result;
-
-            if (seq == null)
-            {
-                seq = new Sequence
-                {
-                    Number = 1
-                };
-
-                rep.CreateAsync(seq).Wait();
-            }
-
-            return seq;
-        }
-
-        private static Animal Map(AnimalV0 animal, int number, IEnumerable<string> images)
-        {
-            return new Animal
-            {
-                Number = number,
-                LocationName = animal.Location,
-                Names = new List<LanguageValue>
-                {
-                    new LanguageValue
-                    {
-                        Lang = "ru",
-                        Value = animal.Name
-                    }
-                },
-                KindOfAnimal = animal.Type + "\n" + animal.Breed + "\n" + animal.Color,
-                Gender = animal.Sex,
-                Birthday = animal.Birthday.Date,
-                AdoptivePhone = animal.Phone,
-                Description = new List<LanguageValue>
-                {
-                    new LanguageValue
-                    {
-                        Lang = "ru",
-                        Value = animal.Description
-                    }
-                },
-                IsDeleted = animal.Deleted,
-                IsDeletable = true,
-                ImageIds = images.ToList()
-            };
-        }
-
-        private static async Task<IEnumerable<string>> DownloadAndSaveImages(AnimalV0 animal, string baseUrl, IImageService imageService)
-        {
-            var list = new List<string>();
-
-            var imageUrl = $"{baseUrl}/{animal.Preview}";
-
-            using var imageResponse = await _httpClient.GetAsync(imageUrl);
-
-            var imageName = animal.Preview.Split("/").LastOrDefault();
-            var contentType = imageResponse.Content.Headers.GetValues("Content-Type").FirstOrDefault();
-
-            var id = await imageService.Create(await imageResponse.Content.ReadAsStreamAsync(), imageName, contentType);
-
-            list.Add(id);
-
-            return list;
+            return serviceCollection.BuildServiceProvider();
         }
     }
 }
