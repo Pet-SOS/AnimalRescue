@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Runner", "Migration.Runner\Migration.Runner.csproj", "{4DE0A58E-F054-4E59-B7CE-807D82D0B046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migration.Runner", "Migration.Runner\Migration.Runner.csproj", "{4DE0A58E-F054-4E59-B7CE-807D82D0B046}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRescue.DataAccess.Mongodb", "..\AnimalRescue\AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj", "{07D4F44F-5E34-479A-9E58-494313C3B1F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.DataAccess.Mongodb", "..\AnimalRescue\AnimalRescue.DataAccess.Mongodb\AnimalRescue.DataAccess.Mongodb.csproj", "{07D4F44F-5E34-479A-9E58-494313C3B1F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRescue.Infrastructure", "..\AnimalRescue\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj", "{D1CE224C-86F1-462F-80AE-3635A86F9E2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Infrastructure", "..\AnimalRescue\AnimalRescue.Infrastructure\AnimalRescue.Infrastructure.csproj", "{D1CE224C-86F1-462F-80AE-3635A86F9E2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalRescue.Contracts.Common", "..\AnimalRescue\AnimalRescue.Contracts.Common\AnimalRescue.Contracts.Common.csproj", "{6F807F21-B925-45A9-AC10-E8BE4EC5DF1F}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{301C1B04-AC10-4572-9B58-3788F3341898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalRescue.Contracts.Common", "..\AnimalRescue\AnimalRescue.Contracts.Common\AnimalRescue.Contracts.Common.csproj", "{6F807F21-B925-45A9-AC10-E8BE4EC5DF1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{6F807F21-B925-45A9-AC10-E8BE4EC5DF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F807F21-B925-45A9-AC10-E8BE4EC5DF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F807F21-B925-45A9-AC10-E8BE4EC5DF1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{301C1B04-AC10-4572-9B58-3788F3341898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{301C1B04-AC10-4572-9B58-3788F3341898}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{301C1B04-AC10-4572-9B58-3788F3341898}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{301C1B04-AC10-4572-9B58-3788F3341898}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
