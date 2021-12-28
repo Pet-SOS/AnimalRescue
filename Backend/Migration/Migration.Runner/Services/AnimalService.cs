@@ -41,7 +41,7 @@ namespace Migration.Runner.Services
             {
                 seq.Number += 1;
 
-                var images = await DownloadAndSaveImages(animal);
+                var images = await DownloadAndSaveImages(animal).ConfigureAwait(false);
                 await _animalRepository.CreateAsync(Map(animal, seq.Number, images)).ConfigureAwait(false);
             }
 
@@ -126,7 +126,7 @@ namespace Migration.Runner.Services
                 }
             }).ToList();
 
-            await Task.WhenAll(imageDownloadTasks);
+            await Task.WhenAll(imageDownloadTasks).ConfigureAwait(false);
 
             return imageDownloadTasks.Select(t => t.Result);
         }
