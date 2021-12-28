@@ -54,7 +54,7 @@ namespace Migration.Runner
                 animalRepository.CreateAsync(Map(animal, seq.Number, images)).Wait();
             }
 
-            sequenceRepository.UpdateAsync(seq);
+            sequenceRepository.UpdateAsync(seq).Wait();
 
             _httpClient.Dispose();
         }

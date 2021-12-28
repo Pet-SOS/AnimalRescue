@@ -21,7 +21,7 @@ namespace Migration.Runner.Providers
 
         public async Task<IEnumerable<AnimalV0>> GetAnimals()
         {
-            var exportUrl = $"{_importConfig.Url}/export.html?include-deleted={_importConfig.IncludeDeleted}&limit={_importConfig.Limit}";
+            var exportUrl = $"{_importConfig.Url}/export.html?include-deleted={_importConfig.IncludeDeleted.ToString().ToLower()}&limit={_importConfig.Limit}";
 
             using var response = await _httpClient.GetAsync(exportUrl);
 
