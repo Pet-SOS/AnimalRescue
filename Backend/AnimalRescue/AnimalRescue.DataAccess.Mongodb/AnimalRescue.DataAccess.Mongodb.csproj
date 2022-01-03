@@ -25,11 +25,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Data\cms.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\contacts_202007232020.json" />
     <EmbeddedResource Include="Data\donation.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\about.json" />
     <EmbeddedResource Include="Data\about_financial_reports.json" />
@@ -42,10 +40,8 @@
     <EmbeddedResource Include="Data\how_to_help.json" />
     <EmbeddedResource Include="Data\languages.json" />
     <EmbeddedResource Include="Data\UserRoleActions.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\tags.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
