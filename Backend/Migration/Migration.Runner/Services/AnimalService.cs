@@ -42,10 +42,18 @@ namespace Migration.Runner.Services
             {
                 seq.Number += 1;
 
-                var images = await DownloadAndSaveImages(animal).ConfigureAwait(false);
-                var createdAnimal = await _animalRepository.CreateAsync(Map(animal, seq.Number, images)).ConfigureAwait(false);
+                try
+                {
+                    var images = await DownloadAndSaveImages(animal).ConfigureAwait(false);
+                    var createdAnimal = await _animalRepository.CreateAsync(Map(animal, seq.Number, images)).ConfigureAwait(false);
 
-                Console.WriteLine($"Created animal {createdAnimal.Id}, original animal {animal.Id}");
+                    Console.WriteLine($"Created animal {createdAnimal.Id}, original animal {animal.Id}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Animal {animal.Id} failed to migrate");
+                    Console.WriteLine($"With exception {e}");
+                }
             }
 
             await _sequenceRepository.UpdateAsync(seq).ConfigureAwait(false);
@@ -123,6 +131,13 @@ namespace Migration.Runner.Services
 
                     return id;
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Image load failed for {url}");
+                    Console.WriteLine($"With exception {e}");
+
+                    return null;
+                }
                 finally
                 {
                     semaphore.Release();
@@ -131,7 +146,7 @@ namespace Migration.Runner.Services
 
             await Task.WhenAll(imageDownloadTasks).ConfigureAwait(false);
 
-            return imageDownloadTasks.Select(t => t.Result);
+            return imageDownloadTasks.Where(t => !string.IsNullOrEmpty(t.Result)).Select(t => t.Result);
         }
     }
 }
