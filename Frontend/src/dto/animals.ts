@@ -53,9 +53,7 @@ export interface IAdminAnimalsDTO {
 
 export class animalAdapter extends BaseAdapter<IAnimal, IAnimalDataDTO, any> {
   protected convertToModel(dto: IAnimalDataDTO): IAnimal {
-    const {
-      status: { id: status },
-    } = dto;
+    const status = dto.status?.id;
     return {
       ...dto,
       status: !!status ? status : '',
