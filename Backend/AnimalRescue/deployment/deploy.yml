@@ -1,0 +1,91 @@
+parameters:
+  environment: ''
+
+jobs:
+  - deployment: API
+    displayName: "Deploy to ${{ parameters.environment }}"
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: KubernetesManifest@0
+              displayName: Create imagePullSecret
+              inputs:
+                action: createSecret
+                secretName: $(imagePullSecret)
+                dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: KubernetesManifest@0
+              displayName: Create mongodb secret
+              inputs: 
+                action: createSecret
+                secretType: generic
+                secretName: animalrescue-api
+                secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb.${{ lower(parameters.environment) }}.svc.cluster.local:27017" 
+                                 --from-literal=jwt_key="$(JwtKey)"
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: KubernetesManifest@0
+              displayName: Create smtp secret
+              inputs: 
+                action: createSecret
+                secretType: generic
+                secretName: smtp
+                secretArguments: --from-literal=host="$(smtp_host)" 
+                                 --from-literal=username="$(smtp_username)" 
+                                 --from-literal=password="$(smtp_password)"
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: KubernetesManifest@0
+              displayName: Create admin secret
+              inputs: 
+                action: createSecret
+                secretType: generic
+                secretName: animalrescue-admin
+                secretArguments: --from-literal=email="$(admin_email)" 
+                                 --from-literal=password="$(admin_password)" 
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: KubernetesManifest@0
+              displayName: Create rabbitmq secret
+              inputs: 
+                action: createSecret
+                secretType: generic
+                secretName: animalrescue-rabbitmq
+                secretArguments: --from-literal=username="$(rabbitmqUsername)" 
+                                 --from-literal=password="$(rabbitmqPassword)" 
+                                 --from-literal=hostname="rabbitmq" 
+                                 --from-literal=port="5672" 
+                                 --from-literal=exchange="$(rabbitmqExchange)" 
+                                 --from-literal=exchangetype="$(rabbitmqExchangeType)" 
+                                 --from-literal=routingkey="$(rabbitmqRoutingKey)" 
+                                 --from-literal=email-exchange="$(rabbitmqEmailExchange)" 
+                                 --from-literal=email-routingkey="$(rabbitmqEmailRoutingKey)"
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+
+            - task: replacetokens@3
+              displayName: Replace tokens
+              inputs:
+                targetFiles: '$(Pipeline.Workspace)/manifests/*.yml'
+                encoding: 'auto'
+                writeBOM: true
+                actionOnMissing: 'fail'
+                keepToken: false
+                tokenPrefix: '#{'
+                tokenSuffix: '}#'
+                
+            - task: KubernetesManifest@0
+              displayName: Deploy to Kubernetes cluster
+              inputs:
+                action: deploy
+                kubernetesServiceConnection: $(kubernetesServiceConnection)
+                namespace: ${{ lower(parameters.environment) }}
+                manifests: |
+                  $(Pipeline.Workspace)/manifests/*.yml

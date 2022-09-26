@@ -7,7 +7,7 @@ trigger:
     - master
   paths:
     include:
-    - Backend/BackgroundServices/*
+    - Backend/BackgroundServices/TelegramMessenger/*
     exclude:
     - Frontend/*
 
@@ -18,7 +18,7 @@ variables:
   - name: imageRepository
     value: 'pet-sos/animalrescue/telegram-messenger'
   - name: containerRegistry
-    value: 'docker.pkg.github.com'
+    value: 'ghcr.io'
   - name: vmImageName
     value: 'ubuntu-latest'
   - name: dockerRegistryServiceConnection
@@ -44,12 +44,12 @@ stages:
             inputs:
               command: buildAndPush
               repository: $(imageRepository)
-              dockerfile: 'Backend/BackgroundServices/Dockerfile'
+              dockerfile: 'Backend/BackgroundServices/TelegramMessenger/Dockerfile'
               containerRegistry: $(dockerRegistryServiceConnection)
               buildContext: '$(Build.Repository.LocalPath)/Backend'
               tags: |
                 $(Build.BuildNumber)
-          - upload: Backend/BackgroundServices/deployment/manifests
+          - upload: Backend/BackgroundServices/TelegramMessenger/deployment/manifests
             artifact: manifests
 
   - stage: PROD
@@ -103,8 +103,8 @@ stages:
                   inputs: 
                     action: createSecret
                     secretType: generic
-                    secretName: telegramMessenger-db
-                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb:27017" 
+                    secretName: telegram-messenger-db
+                    secretArguments: --from-literal=db_connection_string="mongodb://root:$(mongodbRootPassword)@mongodb.default.svc.cluster.local:27017" 
                     kubernetesServiceConnection: $(kubernetesServiceConnection)
                     namespace: default
                 - task: replacetokens@3

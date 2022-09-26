@@ -69,7 +69,7 @@ spec:
             - name: MongoDbSettings__ConnectionString
               valueFrom:
                 secretKeyRef:
-                  name: telegramMessenger-db
+                  name: telegram-messenger-db
                   key: db_connection_string        
             - name: MongoDbSettings__DatabaseName
               value: #{mongodbDatabase}#
