@@ -113,7 +113,7 @@ aside {
       min-width: 225px;
 
       @include media('≤tablet') {
-        @include size(48px)
+        @include size(48px);
         display: flex;
         align-items: center;
         justify-content: center;
