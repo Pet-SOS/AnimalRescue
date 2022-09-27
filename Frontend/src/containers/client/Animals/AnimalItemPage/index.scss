@@ -117,8 +117,8 @@
     }
 
     .gender:after {
-      @include size(8px)
-      content: "";
+      @include size(8px);
+      content: '';
       display: inline-block;
       vertical-align: middle;
       border-radius: 100%;
