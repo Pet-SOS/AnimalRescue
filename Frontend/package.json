@@ -30,7 +30,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-guards": "^1.0.1",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
