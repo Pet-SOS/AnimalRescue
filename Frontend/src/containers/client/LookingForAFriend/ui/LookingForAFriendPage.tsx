@@ -214,8 +214,13 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
     return strParams;
   }
 
-  getAgePeriod(from: string, to: string) {
-    return `birthday~gte~${from};birthday~lt~${to}`;
+  getAgePeriod(from: string | null, to: string) {
+    if (from != null){
+      return `birthday~gte~${from};birthday~lt~${to}`;  
+    }
+    else{
+      return `birthday~lt~${to}`;
+    }
   }
 
   getAgeFilterRequestString(query: string) {
@@ -244,7 +249,7 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
       }
       case AnimalAge.FROMFIVE.toLowerCase(): {
         return this.getAgePeriod(
-          getSubtractDate(15, ESubtractPeriod.Years),
+          null,
           getSubtractDate(5, ESubtractPeriod.Years),
         );
       }
