@@ -65,6 +65,9 @@
   opacity: 0;
   visibility: hidden;
 }
+.swiper-wrapper {
+  transform: none!important;
+}
 .thumb-swiper {
   padding: 1.5rem 0 0;
   &.align-left, &.align-right {
