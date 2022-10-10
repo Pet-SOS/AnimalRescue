@@ -249,6 +249,7 @@ export default {
   lookingForAFriendPageSelectSize: 'Größe',
   countAnimalsFirstPart: 'Der Besitzer wartet',
   countAnimalsSecondPart: 'Pferdeschwanz ',
+  lookingForAFriendPageClearFilter: 'Alle Filter löschen',
 
   sterilized: 'Sterilisiert',
   vaccinated: 'Geimpft',
