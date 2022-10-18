@@ -74,6 +74,7 @@ export enum AnimalBreed {
 
 export enum AnimalAge {
   ANY = 'any',
+  TOONEHALF = 'toOneHalf',
   TOONE = 'toOne',
   TOTHREE = 'toThree',
   TOFIVE = 'toFive',
