@@ -99,7 +99,7 @@ export const AppFooter: React.FC = () => (
       </div>
       <div className="footer-bottom">
         <ul className="list">
-          <li className="copyright">&copy; 2019 - 2020</li>
+          <li className="copyright">&copy; 2019 - 2022</li>
           <li>
             <TI18n
               keyStr="footerOrganization"
