@@ -271,6 +271,7 @@ export default {
   AnimalBreedstafford: 'Стаффорд',
   AnimalBreeddachshund: 'Такса',
   AnimalAgeany: 'Любой',
+  AnimalAgetoOneHalf: 'от 1 до 6 мес',
   AnimalAgetoOne: 'от 6 до 12 мес',
   AnimalAgetoThree: 'от 1 до 3 лет',
   AnimalAgetoFive: 'от 3 до 5 лет',

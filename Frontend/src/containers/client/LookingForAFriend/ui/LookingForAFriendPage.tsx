@@ -229,6 +229,12 @@ export class LookingForAFriendPage extends React.Component<IPropTypes> {
       case AnimalAge.ANY.toLowerCase(): {
         return '';
       }
+      case AnimalAge.TOONEHALF.toLowerCase(): {
+        return this.getAgePeriod(
+          getSubtractDate(6, ESubtractPeriod.Month),
+          getSubtractDate(1, ESubtractPeriod.Month),
+        );
+      }
       case AnimalAge.TOONE.toLowerCase(): {
         return this.getAgePeriod(
           getSubtractDate(1, ESubtractPeriod.Years),

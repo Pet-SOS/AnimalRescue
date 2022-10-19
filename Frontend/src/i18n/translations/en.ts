@@ -269,6 +269,7 @@ export default {
   AnimalBreedstafford: 'Stafford',
   AnimalBreeddachshund: 'Dachshund',
   AnimalAgeany: 'Any',
+  AnimalAgetoOneHalf: 'from 1 to 6 months',
   AnimalAgetoOne: 'from 6 to 12 months',
   AnimalAgetoThree: '1 to 3 years old',
   AnimalAgetoFive: '3 to 5 years old',
