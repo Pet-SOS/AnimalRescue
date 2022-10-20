@@ -244,7 +244,7 @@ export default {
   lookingForAFriendPageTitle: 'Auf der Suche nach einem anderen',
   lookingForAFriendPageSelectKind: 'Typ',
   lookingForAFriendPageSelectBreed: 'Rasse',
-  lookingForAFriendPageSelectGender: 'Paul',
+  lookingForAFriendPageSelectGender: 'Geschlecht',
   lookingForAFriendPageSelectAge: 'Alter',
   lookingForAFriendPageSelectSize: 'Größe',
   countAnimalsFirstPart: 'Der Besitzer wartet',
