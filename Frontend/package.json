@@ -38,7 +38,7 @@
     "reset-css": "^5.0.1",
     "sass": "^1.55.0",
     "save": "^2.4.0",
-    "swiper": "^6.5.1",
+    "swiper": "^6.8.4",
     "typesafe-actions": "3.1.0",
     "typescript": "3.7.2"
   },
