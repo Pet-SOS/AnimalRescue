@@ -13,7 +13,7 @@
     "axios": "^0.21.2",
     "Base64": "^1.1.0",
     "classnames": "^2.2.6",
-    "dompurify": "^2.1.1",
+    "dompurify": "^2.5.4",
     "history": "^4.10.1",
     "i18n-js": "^3.5.0",
     "js-logger": "^1.6.0",
